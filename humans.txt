@@ -2,7 +2,7 @@ Achievements Team
 
 /* TEAM */
 Name: Paul Gibbs
-Title: Founding/Ead Developer
+Title: Founding/Lead Developer
 Twitter: pgibbs
 Favourite Food: Pizza
 

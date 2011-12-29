@@ -14,7 +14,7 @@
  */
 function dpa_setup_updater() {
 	// Are we running an old version of Achievements?
-	if ( dpa_is_update() ) {
+	if ( dpa_do_update() ) {
 
 		// Bump the version
 		dpa_version_bump();

@@ -57,7 +57,7 @@ define( 'ACHIEVEMENTS_VERSION', '3.0' );
  *
  * Achievements uses its own internal actions to help aid in additional plugin
  * development, and to limit the amount of potential future code changes when
- * updates to WordPress occur.
+ * updates to WordPress and BuddyPress occur.
  *
  * NOTE: All actions are hooked to priority 15; BuddyPress' equivalents,
  * as of v1.6, are hooked to 10. This lets us find out if BuddyPress is loaded
@@ -91,10 +91,8 @@ add_action( 'dpa_init', 'dpa_register_post_types', 10 );
 add_action( 'dpa_init', 'dpa_register_taxonomies', 14 );
 add_action( 'dpa_init', 'dpa_ready', 999 );
 
-if ( is_admin() ) {
-	add_action( 'admin_init', 'dpa_admin_init', 999 );
-	// @todo Or network_admin_init(). Nick BP's code.
-}
+if ( is_admin() )
+	add_action( is_multisite() ? 'network_admin_init' : 'admin_init', 'dpa_admin_init', 999 );
 
 /**
  * dpa_ready - Attached to 'wp' above
@@ -102,6 +100,7 @@ if ( is_admin() ) {
  * Attach various initialisation actions to the dpa_ready action.
  * The load order helps to execute code at the correct time.
  */
+// @todo This bit.
 
 
 /**
@@ -150,7 +149,6 @@ function dpa_ready() {
  * @since 2.0
  */
 function dpa_include() {
-	require( dirname( __FILE__ ) . '/helpers.php' );
 	require( dirname( __FILE__ ) . '/core.php' );
 	require( dirname( __FILE__ ) . '/filters.php' );
 
@@ -158,10 +156,50 @@ function dpa_include() {
 		require( dirname( __FILE__ ) . '/admin.php' );
 
 		// Install/upgrader
-		if ( dpa_is_update() )
+		if ( dpa_do_update() )
 			require( dirname( __FILE__ ) . '/upgrade.php' );
 	}
+
+	do_action( 'dpa_include' );
 }
+
+/**
+ * Compare the Achievements version to the DB version to determine if we're updating
+ *
+ * @return bool True if update
+ * @since 3.0
+ */
+function dpa_do_update() {
+	// Current DB version of this site
+	$current_db   = get_site_option( 'achievements-db-version' );
+	$current_live = dpa_get_db_version();
+
+	// Compare versions
+	$is_update = (bool) ( (int) $current_db < (int) $current_live );
+	return $is_update;
+}
+
+/**
+ * Output the Achievements database version
+ *
+ * @since 3.0
+ * @uses dpa_get_db_version()
+ */
+function dpa_db_version() {
+	echo dpa_get_db_version();
+}
+	/**
+	 * Return the Achievements database version
+	 *
+	 * @since 3.0
+	 * @global DPA_Achievements $achievements
+	 * @return string The Achievements database version
+	 */
+	function dpa_get_db_version() {
+		return ACHIEVEMENTS_DB_VERSION;
+		// global $achievements;
+		// @todo return $achievements->db_version;
+	}
 
 /**
  * Below this point exist hookable functions for advanced customisation

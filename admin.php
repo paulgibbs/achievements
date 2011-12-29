@@ -21,7 +21,7 @@ function dpa_admin_init() {
 	 * As suggested by bbPress, run the updater late on 'dpa_admin_init' to
 	 * ensure that all alterations to the permalink structure have taken place.
 	 */
-	if ( dpa_is_update() )
+	if ( dpa_do_update() )
 		add_action( 'dpa_admin_init', 'dpa_setup_updater', 999 );
 
 	do_action( 'dpa_admin_init' );
