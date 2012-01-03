@@ -155,7 +155,7 @@ function dpa_include() {
 
 	// Quick admin check and load if needed
 	if ( is_admin() ) {
-		require( dirname( __FILE__ ) . '/admin//admin.php' );
+		require( dirname( __FILE__ ) . '/admin/admin.php' );
 
 		// Only load install/upgrader if needed
 		if ( dpa_do_update() )
