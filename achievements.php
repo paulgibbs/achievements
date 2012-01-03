@@ -149,15 +149,17 @@ function dpa_ready() {
  * @since 2.0
  */
 function dpa_include() {
-	require( dirname( __FILE__ ) . '/core.php' );
-	require( dirname( __FILE__ ) . '/filters.php' );
+	require( dirname( __FILE__ ) . '/includes/caps.php' );     // Roles and capabilities
+	require( dirname( __FILE__ ) . '/includes/filters.php' );  // Filters and actions
+	require( dirname( __FILE__ ) . '/includes/core.php' );     // Core functionality
 
+	// Quick admin check and load if needed
 	if ( is_admin() ) {
-		require( dirname( __FILE__ ) . '/admin.php' );
+		require( dirname( __FILE__ ) . '/admin//admin.php' );
 
-		// Install/upgrader
+		// Only load install/upgrader if needed
 		if ( dpa_do_update() )
-			require( dirname( __FILE__ ) . '/upgrade.php' );
+			require( dirname( __FILE__ ) . '/admin/upgrade.php' );
 	}
 
 	do_action( 'dpa_include' );

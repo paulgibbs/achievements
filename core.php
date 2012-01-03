@@ -1,7 +1,5 @@
 <?php
 /**
- * This file implements the core functionality of the plugin.
- *
  * "The door to your right leads to the Source and the salvation of Zion".
  *
  * @author Paul Gibbs <paul@byotos.com>
@@ -49,14 +47,18 @@ function dpa_register_post_types() {
 
 	// Achievements
 	$achievements  = apply_filters( 'dpa_register_post_type_achievements', array(
+		'can_export'           => true,
+		'capability_type'      => array( 'achievement', 'achievements' ),
+		'description'          => _x( 'Achievements types (e.g. new post, new site, new user, etc)', 'Achievement post type description', 'dpa' ),
 		'exclude_from_search'  => true,
-		'hierarchical'         => true,  // @todo Achievement post type to be hierarchical??
+		'has_archive'          => false,
+		'hierarchical'         => false,
 		'labels'               => $achievements_labels,
 		'public'               => true,
-		'publicly_queryable'   => true,
-//		'register_meta_box_cb' => 'dpa_admin_achievements_cb',
+		'query_var'            => true,
 		'rewrite'              => false,
 		'show_in_menu'         => true,
+		'show_in_nav_menus'    => true,
 		'show_ui'              => true,
 		'supports'             => array( 'editor', 'revisions', 'title', 'thumbnail' ),
 	) );
@@ -92,7 +94,7 @@ function dpa_register_taxonomies() {
 		'query_var'             => false,
 		'rewrite'               => false,
 		'show_tagcloud'         => false,
-		'show_ui'               => true,
+		'show_ui'               => false,
 		'update_count_callback' => '_update_post_term_count'
 	) );
 	register_taxonomy( 'dpa_action', 'dpa_achievements', $action );

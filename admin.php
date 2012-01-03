@@ -24,6 +24,9 @@ function dpa_admin_init() {
 	if ( dpa_do_update() )
 		add_action( 'dpa_admin_init', 'dpa_setup_updater', 999 );
 
+	add_submenu_page( 'edit.php?post_type=dpa_achievements', 'somethign', 'Supported Plugins', 'manage_options', 'myslug' );
+
+	// Run an action to allow plugins to hook in
 	do_action( 'dpa_admin_init' );
 }
 ?>
