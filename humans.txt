@@ -1,0 +1,11 @@
+/* TEAM */
+Name: Paul Gibbs
+Title: Founding Developer
+Twitter: pgibbs
+
+/* THANKS */
+BuddyPress, bbPress
+
+/* META */
+Updated: 2012/01/14
+See: http://humanstxt.org/
