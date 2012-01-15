@@ -71,7 +71,6 @@ add_action( 'dpa_deactivation', 'flush_rewrite_rules' );
 
 if ( is_admin() ) {
 	add_action( 'dpa_init',       'dpa_admin'           );
-	add_action( 'dpa_admin_init', 'dpa_admin_forums', 9 );
 
 	/**
 	 * Take bbPress' advice and run the updater later on 'dpa_admin_init'.

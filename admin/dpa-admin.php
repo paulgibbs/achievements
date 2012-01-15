@@ -111,13 +111,6 @@ class DPA_Admin {
 	 * @since 3.0
 	 */
 	public function register_admin_settings() {
-		// Add the main section
-		add_settings_section( 'dpa_main',                __( 'Main Settings',           'bbpress' ), 'dpa_admin_setting_callback_main_section',  'bbpress'             );
-
-		// Allow subscriptions setting
-		add_settings_field( '_dpa_enable_subscriptions', __( 'Allow Subscriptions',     'bbpress' ), 'dpa_admin_setting_callback_subscriptions', 'bbpress', 'dpa_main' );
-	 	register_setting  ( 'bbpress',                   '_dpa_enable_subscriptions',                'intval'                                                          );
-
 		// Fire an action for Achievements plugins to register their custom settings
 		do_action( 'dpa_register_admin_settings' );
 	}
