@@ -69,26 +69,59 @@
 	margin-top: -8px;
 }
 .plugin-description p.achievements-button a {
-	background-color: #fff;
-	background-image: -webkit-gradient(linear, left top, left bottom, from(rgb(255, 255, 255)), to(rgb(240, 240, 240)));
-	background-image: -webkit-linear-gradient(top, rgb(255, 255, 255), rgb(240, 240, 240));
-	background-image: -moz-linear-gradient(top, rgb(255, 255, 255), rgb(240, 240, 240));
-	background-image: -o-linear-gradient(top, rgb(255, 255, 255), rgb(240, 240, 240));
-	background-image: -ms-linear-gradient(top, rgb(255, 255, 255), rgb(240, 240, 240));
-	background-image: linear-gradient(top, rgb(255, 255, 255), rgb(240, 240, 240));
-	border-bottom:2px solid #bbb;
-	border-left:1px solid #ddd;
-	border-right:2px solid #bbb;
-	border-top:1px solid #ddd;
-	color: #77bb55;
 	float: right;
 	font-size: 14px;
 	line-height: 20px;
 	padding: 5px 8px;
 	text-decoration: none;
-	text-shadow: 1px 1px 0px #fff;
+	font-weight: bold;
+}
 
-	-moz-border-radius: 1px;
-	-webkit-border-radius: 1px;
-	border-radius: 1px;
+.plugin-description p.achievements-button.alt a {
+	background: #fff;
+}
+.plugin-description p.achievements-button a {
+  background: #e3e3e3;
+  border: 1px solid #bbb;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-border-radius: 3px;
+  border-radius: 3px;
+  -webkit-box-shadow: inset 0 0 1px 1px #f6f6f6;
+  -moz-box-shadow: inset 0 0 1px 1px #f6f6f6;
+  -ms-box-shadow: inset 0 0 1px 1px #f6f6f6;
+  -o-box-shadow: inset 0 0 1px 1px #f6f6f6;
+  box-shadow: inset 0 0 1px 1px #f6f6f6;
+  color: #5f9e3f;
+  line-height: 1;
+  padding: 8px 0 9px;
+  text-align: center;
+  text-shadow: 0 1px 0 #fff;
+  width: 150px;
+}
+.plugin-description p.achievements-button.alt a:hover {
+	background: #f2f2f2;
+}
+.plugin-description p.achievements-button a:hover {
+    background: #d9d9d9;
+    -webkit-box-shadow: inset 0 0 1px 1px #eaeaea;
+    -moz-box-shadow: inset 0 0 1px 1px #eaeaea;
+    -ms-box-shadow: inset 0 0 1px 1px #eaeaea;
+    -o-box-shadow: inset 0 0 1px 1px #eaeaea;
+    box-shadow: inset 0 0 1px 1px #eaeaea;
+    color: #335522;
+    cursor: pointer;
+}
+.plugin-description p.achievements-button.alt a:active {
+	background: #e5e5e5;
+}
+  .plugin-description p.achievements-button a:active {
+    background: #d0d0d0;
+    -webkit-box-shadow: inset 0 0 1px 1px #e3e3e3;
+    -moz-box-shadow: inset 0 0 1px 1px #e3e3e3;
+    -ms-box-shadow: inset 0 0 1px 1px #e3e3e3;
+    -o-box-shadow: inset 0 0 1px 1px #e3e3e3;
+    box-shadow: inset 0 0 1px 1px #e3e3e3;
+    color: #28431b;
 }

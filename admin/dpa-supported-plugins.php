@@ -35,6 +35,7 @@ function dpa_supported_plugins() {
 						<div class="plugin-description">
 							<p class="shortdesc"><?php echo $plugin[2]; ?></p>
 							<p class="achievements-button"><a href="#">Install Now</a></p>
+							<p class="achievements-button alt"><a href="#">Install Now</a></p>
 						</div>
 					<?php endforeach; ?>
 
