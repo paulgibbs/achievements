@@ -76,6 +76,7 @@ class DPA_Admin {
 	 */
 	private function includes() {
 		require( $this->admin_dir . 'dpa-functions.php' );
+		require( $this->admin_dir . 'dpa-supported-plugins.php' );  // Supported plugins screen
 	}
 
 	/**
@@ -103,6 +104,24 @@ class DPA_Admin {
 	 * @since 3.0
 	 */
 	public function admin_menus() {
+		// "Supported Plugins" menu
+		$hook = add_submenu_page( 'edit.php?post_type=dpa_achievements', 'somethign', 'Supported Plugins', 'manage_options', 'achievements-plugins', 'dpa_supported_plugins' );
+
+		// Hook into early actions to load custom CSS
+		add_action( "admin_print_styles-$hook", array( $this, 'enqueue_styles' ) );
+	}
+
+	/**
+	 * Enqueue CSS/JS for our custom admin screens
+	 *
+	 * @since 3.0
+	 */
+	public function enqueue_styles() {
+		// Only load up styles and scripts if we're on an Achievements admin screen
+		if ( ! DPA_Admin::is_admin_screen() )
+			return;
+
+		wp_enqueue_style( 'dpa_admin_css', $this->admin_url . 'css/admin.css', array(), '20120121' );
 	}
 
 	/**
@@ -111,6 +130,10 @@ class DPA_Admin {
 	 * @since 3.0
 	 */
 	public function register_admin_settings() {
+		// Only do stuff if we're on an Achievements admin screen
+		if ( ! DPA_Admin::is_admin_screen() )
+			return;
+
 		// Fire an action for Achievements plugins to register their custom settings
 		do_action( 'dpa_register_admin_settings' );
 	}
@@ -172,6 +195,21 @@ class DPA_Admin {
 	 */
 	public function admin_init() {
 		do_action( 'dpa_admin_init' );
+	}
+
+	/**
+	 * Is the current screen part of Achievements? e.g. a post type screen.
+	 *
+	 * @return bool True if this is an Achievements admin screen
+	 * @since 3.0
+	 */
+	public static function is_admin_screen() {
+		$result = false;
+
+		if ( ! empty( $_GET['post_type'] ) && 'dpa_achievements' == $_GET['post_type'] )
+			$result = true;
+
+		return true;
 	}
 }
 
