@@ -51,7 +51,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  *
  * @since 3.0
  */
-class achievements {
+class Achievements {
 	// Versions
 
 	/**
@@ -385,5 +385,5 @@ class achievements {
 	}
 }
 
-$GLOBALS['achievements'] = new achievements();
+$GLOBALS['achievements'] = new Achievements();
 ?>

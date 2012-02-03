@@ -1,6 +1,6 @@
 <?php
 /**
- * "Supported plugins" admin screen
+ * "Supported plugins" admin screens
  *
  * @package Achievements
  * @subpackage Administration
@@ -25,20 +25,6 @@ function dpa_supported_plugins() {
 		<div id="poststuff">
 			<div id="post-body">
 				<div id="post-body-content">
-
-					<?php foreach ( $plugins as $plugin ) : ?>
-						<div class="plugin-title">
-							<div class="vignette"></div>
-							<img alt="<?php echo esc_attr( $plugin[0] ); ?>" src="<?php echo esc_attr( $plugin[1] ); ?>" />
-							<h2><?php echo $plugin[0]; ?></h2>
-						</div>
-						<div class="plugin-description">
-							<p class="shortdesc"><?php echo $plugin[2]; ?></p>
-							<p class="achievements-button"><a href="#">Install Now</a></p>
-							<p class="achievements-button alt"><a href="#">Install Now</a></p>
-						</div>
-					<?php endforeach; ?>
-
 				</div><!-- #post-body-content -->
 			</div><!-- #post-body -->
 
