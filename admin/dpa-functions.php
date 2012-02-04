@@ -36,16 +36,14 @@ function dpa_filter_sample_permalink( $post_link, $post, $leavename, $sample ) {
  * @since 1.0
  */
 function dpa_supported_plugins_header() {
-	if ( ! $GLOBALS['is_gecko'] ) : ?>
-	<?php endif; ?>
-
+	?>
 	<form name="dpa_toolbar" method="post" enctype="multipart/form-data">
 
 		<input type="search" results="5" name="dpa_toolbar_search" />
 		<select class="<?php if ( ! $GLOBALS['is_gecko'] ) echo 'dpa-ff-hack'; ?>" name="dpa_toolbar_search">
-			<option value="x">VolvoVolvo</option>
-			<option value="x">VolvoVolvo</option>
-			<option value="x">VolvoVolvo</option>
+			<option value="x">Item</option>
+			<option value="x">Item</option>
+			<option value="x">Item</option>
 		</select>
 
 	</form>

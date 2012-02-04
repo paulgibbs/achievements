@@ -107,6 +107,11 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see http://www.gnu.org/licenses/.
 
+---
+
+/admin/images/select_arrow.gif, and some inspiration for CSS styling, taken from "Formalize CSS"
+http://formalize.me/, under the MIT License (http://www.opensource.org/licenses/mit-license.php).
+
 == Screenshots ==
 1. Achievement detail page
 2. A few of the many Achievement action types 
