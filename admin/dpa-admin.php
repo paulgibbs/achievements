@@ -121,7 +121,14 @@ class DPA_Admin {
 		if ( ! DPA_Admin::is_admin_screen() )
 			return;
 
+		// Load global admin styles
 		wp_enqueue_style( 'dpa_admin_css', $this->admin_url . 'css/admin.css', array(), '20120121' );
+
+		// Load things just for the "Support Plugins" screen
+		if ( 'achievements-plugins' == $_GET['page'] ) {
+			// Toolbar form styles
+			wp_enqueue_style(  'dpa_supportedplugins_css', $this->admin_url . 'css/supportedplugins.css', array(), '20120121' );
+		}
 	}
 
 	/**

@@ -9,6 +9,11 @@
 // Exit if accessed directly
 if ( ! defined( 'ABSPATH' ) ) exit;
 
+/**
+ * Supported Plugins admin screen, main function
+ *
+ * @since 1.0
+ */
 function dpa_supported_plugins() {
 	// Third-party plugins supported in core
 	$plugins = array(
@@ -25,11 +30,13 @@ function dpa_supported_plugins() {
 		<div id="poststuff">
 			<div id="post-body">
 				<div id="post-body-content">
+					<?php dpa_supported_plugins_header(); ?>
 				</div><!-- #post-body-content -->
 			</div><!-- #post-body -->
 
 		</div><!-- #poststuff -->
 	</div><!-- .wrap -->
 
-<?php }
+<?php
+}
 ?>
