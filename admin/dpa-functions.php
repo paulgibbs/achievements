@@ -41,7 +41,7 @@ function dpa_supported_plugins_header() {
 
 	<form name="dpa_toolbar" method="post" enctype="multipart/form-data">
 
-		<input type="search" results="5" name="dpa_toolbar_search" value="VolvoVolvo" />
+		<input type="search" results="5" name="dpa_toolbar_search" />
 		<select class="<?php if ( ! $GLOBALS['is_gecko'] ) echo 'dpa-ff-hack'; ?>" name="dpa_toolbar_search">
 			<option value="x">VolvoVolvo</option>
 			<option value="x">VolvoVolvo</option>
