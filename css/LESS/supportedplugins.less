@@ -1,0 +1,105 @@
+/**
+ * supportedplugins.less
+ * The stylesheet for Achievements' "Supported Plugins" admin screen
+ */
+
+// Mixins
+@import "utility.less";
+
+// Variables
+@import "admin-variables.less";
+
+// Form reset
+@import "admin-forms.less";
+
+
+/**
+ * General page styles to fit in with the WordPress Admin UI
+ */
+
+#poststuff {
+	margin-top: 18px;
+}
+
+
+/**
+ * Everything to do with the search/filter Toolbar
+ */
+
+#dpa-toolbar-search {
+	.box-sizing(border-box);
+	width: @toolbarLeftColumn;
+}
+
+#dpa-toolbar-filter {
+	.box-sizing(border-box);
+	width: @toolbarMidColumn;
+
+	&:hover {
+		cursor: pointer;
+	}
+}
+
+#dpa-toolbar-views {
+	.box-sizing(border-box);
+	.ie7-inline-block();
+	.toolbar();
+
+	display: inline-block;
+	margin: 0 0;
+	padding-right: 2px;
+	width: @toolbarRightColumn;
+
+	li {
+		float: right;  // @todo RTL
+		height: 100%;
+		margin: 0;
+		padding: 0;
+
+		a {
+			display: block;
+			height: 18px;
+			margin: 2px 0 4px;
+		}
+	}
+
+	p.label {
+		border-left: 1px solid @toolbarBorderColour;
+		display: block;
+		margin: 0 18px 0 0;
+		padding: 6px 0 4px 9px;
+	}
+
+	.detail, .list, .grid {
+		.square(18px);
+		background: url( '../images/admin_sprites.png' ) 0px 0px no-repeat;
+		margin-left: 2px;
+
+		&:hover { background: url( '../images/admin_sprites.png' ) 0px -20px no-repeat; }
+	}
+}
+
+// Set corners individual because sometimes a single button can be in a .btn-group and we need :first-child and :last-child to both match
+#dpa-toolbar-wrapper {
+	font-size: 0;  // Collapse space hack
+
+	> :first-child {
+		border-right: 0;
+		   -webkit-border-top-left-radius: 3px;
+		       -moz-border-radius-topleft: 3px;
+		           border-top-left-radius: 3px;
+		-webkit-border-bottom-left-radius: 3px;
+		    -moz-border-radius-bottomleft: 3px;
+		        border-bottom-left-radius: 3px;
+	}
+
+	> :last-child {
+		border-left: 0;
+		   -webkit-border-top-right-radius: 3px;
+		       -moz-border-radius-topright: 3px;
+		           border-top-right-radius: 3px;
+		-webkit-border-bottom-right-radius: 3px;
+		    -moz-border-radius-bottomright: 3px;
+		        border-bottom-right-radius: 3px;
+	}
+}

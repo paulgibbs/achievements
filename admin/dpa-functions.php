@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Achievements' Admin Functions
  *
@@ -33,18 +32,30 @@ function dpa_filter_sample_permalink( $post_link, $post, $leavename, $sample ) {
 /**
  * Common toolbar header for supported plugins header screen
  *
+ * @global achievements $achievements Main Achievements object
  * @since 1.0
  */
 function dpa_supported_plugins_header() {
-	?>
-	<form name="dpa_toolbar" method="post" enctype="multipart/form-data">
+	global $achievements;
 
-		<input type="search" results="5" name="dpa_toolbar_search" />
-		<select class="<?php if ( ! $GLOBALS['is_gecko'] ) echo 'dpa-ff-hack'; ?>" name="dpa_toolbar_search">
-			<option value="x">Item</option>
-			<option value="x">Item</option>
-			<option value="x">Item</option>
-		</select>
+	?>
+	<form name="dpa-toolbar" method="post" enctype="multipart/form-data">
+
+		<div id="dpa-toolbar-wrapper">
+			<input type="search" results="5" name="dpa-toolbar-search" id="dpa-toolbar-search" />
+			<select class="<?php if ( ! $GLOBALS['is_gecko'] ) echo 'dpa-ff-hack'; ?>" name="dpa-toolbar-filter" id="dpa-toolbar-filter">
+				<option value="all"><?php esc_html_e( 'All Plugins', 'dpa' ); ?></option>
+				<option value="available"><?php esc_html_e( 'Available Plugins', 'dpa' ); ?></option>
+				<option value="installed"><?php esc_html_e( 'Installed Plugins', 'dpa' ); ?></option>
+			</select>
+
+			<ul id="dpa-toolbar-views">
+				<li><a class="grid" href="#"></a></li>
+				<li><a class="list" href="#"></a></li>
+				<li><a class="detail" href="#"></a></li>
+				<li><p class="label"><?php _e( 'View', 'dpa' ); ?></p></li>
+			</ul>
+		</div>
 
 	</form>
 	<?php

@@ -1,0 +1,46 @@
+// admin-forms.less
+// Form appearance stuff.
+//
+// Taken from Formalize CSS http://formalize.me/, under the MIT License
+// http://www.opensource.org/licenses/mit-license.php.
+// ------------------------------------------------------------------
+
+.wp-admin input,
+.wp-admin select {
+	.background-clip(padding-box);
+	.border-radius(0);
+	.box-sizing(border-box);
+	.toolbar();
+	.ie7-inline-block();
+	box-shadow: none;
+	display: inline-block;
+	font-family: sans-serif;
+	margin: 0;
+	outline: 0;
+	padding: 2px 3px;
+	vertical-align: top;
+}
+
+// Inputs within a label
+.wp-admin label select {
+	display: block;
+}
+.wp-admin select {
+	-webkit-appearance: textfield;
+	width: 220px;  // default input width + 10px of padding that doesn't get applied
+}
+.wp-admin select:focus {
+	box-shadow: none;
+}
+.wp-admin input[type="search"] {
+	-webkit-appearance: none;
+	width: 210px;
+}
+
+// See [.wp-admin select] and https://bugzilla.mozilla.org/show_bug.cgi?id=649849
+select.dpa-ff-hack {
+	background-image: url( '../admin/images/select_arrow.gif' );
+	background-position: right center;
+	background-repeat: no-repeat;
+	padding-right: 20px;
+}
