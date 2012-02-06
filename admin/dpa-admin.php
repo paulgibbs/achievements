@@ -88,7 +88,7 @@ class DPA_Admin {
 	private function setup_globals() {
 		global $achievements;
 
-		// Admin url
+		// Admin dir
 		$this->admin_dir  = trailingslashit( $achievements->plugin_dir . 'admin' );
 
 		// Admin url
@@ -114,21 +114,19 @@ class DPA_Admin {
 	/**
 	 * Enqueue CSS/JS for our custom admin screens
 	 *
+	 * @global achievements $achievements Main Achievements object
 	 * @since 3.0
 	 */
 	public function enqueue_styles() {
+		global $achievements;
+
 		// Only load up styles and scripts if we're on an Achievements admin screen
 		if ( ! DPA_Admin::is_admin_screen() )
 			return;
 
-		// Load global admin styles
-		wp_enqueue_style( 'dpa_admin_css', $this->admin_url . 'css/admin.css', array(), '20120121' );
-
-		// Load things just for the "Support Plugins" screen
-		if ( 'achievements-plugins' == $_GET['page'] ) {
-			// Toolbar form styles
-			wp_enqueue_style(  'dpa_supportedplugins_css', $this->admin_url . 'css/supportedplugins.css', array(), '20120121' );
-		}
+		// Load CSS for the "Support Plugins" screen
+		if ( 'achievements-plugins' == $_GET['page'] )
+			wp_enqueue_style( 'dpa_admin_css', trailingslashit( $achievements->plugin_url ) . 'css/supportedplugins.css', array(), '20120121' );
 	}
 
 	/**
