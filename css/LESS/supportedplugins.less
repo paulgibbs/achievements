@@ -26,6 +26,15 @@
  * Everything to do with the search/filter Toolbar
  */
 
+.detail,
+.list,
+.grid {
+	display: none;
+}
+#post-body-content .current {
+	display: block;
+}
+
 #dpa-toolbar-search {
 	.box-sizing(border-box);
 	width: @toolbarLeftColumn;
@@ -64,8 +73,14 @@
 	}
 
 	li.dpa-toolbar-slider {
-		input { margin: 0 @toolbarSpacingSeparator 0 0; }
-		label { display: inline-block; padding: @toolbarSpacingTop @toolbarSpacingSeparator @toolbarSpacingBottom 9px; }
+		input {
+			margin: 0 @toolbarSpacingSeparator 0 0;
+		}
+
+		label {
+			display: inline-block;
+			padding: @toolbarSpacingTop @toolbarSpacingSeparator @toolbarSpacingBottom 9px;
+		}
 	}
 
 	p.label {
@@ -80,7 +95,13 @@
 		background: url( '../images/admin_sprites.png' ) 0px 0px no-repeat;
 		margin-left: 2px;
 
-		&:hover { background: url( '../images/admin_sprites.png' ) 0px -20px no-repeat; }
+		&:hover {
+			background: url( '../images/admin_sprites.png' ) 0px -20px no-repeat;
+		}
+	}
+
+	.current {
+		background: url( '../images/admin_sprites.png' ) 0px -20px no-repeat;
 	}
 }
 

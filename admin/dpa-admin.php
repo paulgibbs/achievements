@@ -107,12 +107,13 @@ class DPA_Admin {
 		// "Supported Plugins" menu
 		$hook = add_submenu_page( 'edit.php?post_type=dpa_achievements', 'somethign', 'Supported Plugins', 'manage_options', 'achievements-plugins', 'dpa_supported_plugins' );
 
-		// Hook into early actions to load custom CSS
-		add_action( "admin_print_styles-$hook", array( $this, 'enqueue_styles' ) );
+		// Hook into early actions to load custom CSS and JS
+		add_action( "admin_print_styles-$hook",  array( $this, 'enqueue_styles'  ) );
+		add_action( "admin_print_scripts-$hook", array( $this, 'enqueue_scripts' ) );
 	}
 
 	/**
-	 * Enqueue CSS/JS for our custom admin screens
+	 * Enqueue CSS for our custom admin screens
 	 *
 	 * @global achievements $achievements Main Achievements object
 	 * @since 3.0
@@ -120,13 +121,31 @@ class DPA_Admin {
 	public function enqueue_styles() {
 		global $achievements;
 
-		// Only load up styles and scripts if we're on an Achievements admin screen
+		// Only load up styles if we're on an Achievements admin screen
 		if ( ! DPA_Admin::is_admin_screen() )
 			return;
 
-		// Load CSS for the "Support Plugins" screen
+		// "Supported Plugins" screen
 		if ( 'achievements-plugins' == $_GET['page'] )
-			wp_enqueue_style( 'dpa_admin_css', trailingslashit( $achievements->plugin_url ) . 'css/supportedplugins.css', array(), '20120121' );
+			wp_enqueue_style( 'dpa_admin_css', trailingslashit( $achievements->plugin_url ) . 'css/supportedplugins.css', array(), '20120207' );
+	}
+
+	/**
+	 * Enqueue JS for our custom admin screens
+	 *
+	 * @global achievements $achievements Main Achievements object
+	 * @since 3.0
+	 */
+	public function enqueue_scripts() {
+		global $achievements;
+
+		// Only load up scripts if we're on an Achievements admin screen
+		if ( ! DPA_Admin::is_admin_screen() )
+			return;
+
+		// "Supported Plugins" screen
+		if ( 'achievements-plugins' == $_GET['page'] )
+			wp_enqueue_script( 'dpa_admin_js', trailingslashit( $achievements->plugin_url ) . 'js/supportedplugins-min.js', array( 'jquery' ), '20120207' );
 	}
 
 	/**

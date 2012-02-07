@@ -52,6 +52,11 @@ function dpa_supported_plugins() {
 function dpa_supported_plugins_header() {
 	global $achievements;
 
+	// See if a cookie has been set to remember which view the user was on last. Defaults to 'grid'.
+	if ( ! empty( $_COOKIE['dpa_sp_view'] ) && in_array( $_COOKIE['dpa_sp_view'], array( 'detail', 'list', 'grid', ) ) )
+	 	$view = $_COOKIE['dpa_sp_view'];
+	else
+		$view = 'grid';
 	?>
 	<form name="dpa-toolbar" method="post" enctype="multipart/form-data">
 
@@ -64,9 +69,9 @@ function dpa_supported_plugins_header() {
 			</select>
 
 			<ul id="dpa-toolbar-views">
-				<li><a class="grid" href="#"></a></li>
-				<li><a class="list" href="#"></a></li>
-				<li><a class="detail" href="#"></a></li>
+				<li><a class="grid <?php if ( 'grid' == $view ) echo 'current'; ?>" title="<?php esc_attr_e( 'Grid view', 'dpa' ); ?>" href="#"></a></li>
+				<li><a class="list <?php if ( 'list' == $view ) echo 'current'; ?>" title="<?php esc_attr_e( 'List view', 'dpa' ); ?>" href="#"></a></li>
+				<li><a class="detail <?php if ( 'detail' == $view ) echo 'current'; ?>" title="<?php esc_attr_e( 'Detail view', 'dpa' ); ?>" href="#"></a></li>
 				<li><p class="label"><?php _e( 'View', 'dpa' ); ?></p></li>
 				<li class="dpa-toolbar-slider"><label for="dpa-toolbar-slider"><?php _e( 'Zoom', 'dpa' ); ?></label><input type="range" value="5" max="10" min="1" name="dpa-toolbar-slider" /></li>
 			</ul>
@@ -77,9 +82,12 @@ function dpa_supported_plugins_header() {
 }
 
 function dpa_supported_plugins_detail() {
+	echo 'Detail view';
 }
 function dpa_supported_plugins_list() {
+	echo 'List view';
 }
 function dpa_supported_plugins_grid() {
+	echo 'Grid view';
 }
 ?>

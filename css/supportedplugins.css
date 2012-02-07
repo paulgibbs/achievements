@@ -100,6 +100,14 @@ select.dpa-ff-hack {
 /**
  * Everything to do with the search/filter Toolbar
  */
+.detail,
+.list,
+.grid {
+  display: none;
+}
+#post-body-content .current {
+  display: block;
+}
 #dpa-toolbar-search {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -167,6 +175,9 @@ select.dpa-ff-hack {
 #dpa-toolbar-views .detail:hover,
 #dpa-toolbar-views .list:hover,
 #dpa-toolbar-views .grid:hover {
+  background: url('../images/admin_sprites.png') 0px -20px no-repeat;
+}
+#dpa-toolbar-views .current {
   background: url('../images/admin_sprites.png') 0px -20px no-repeat;
 }
 #dpa-toolbar-wrapper {
