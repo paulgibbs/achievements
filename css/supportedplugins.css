@@ -143,11 +143,18 @@ select.dpa-ff-hack {
   height: 18px;
   margin: 2px 0 4px;
 }
+#dpa-toolbar-views li.dpa-toolbar-slider input {
+  margin: 0 10px 0 0;
+}
+#dpa-toolbar-views li.dpa-toolbar-slider label {
+  display: inline-block;
+  padding: 6px 10px 4px 9px;
+}
 #dpa-toolbar-views p.label {
   border-left: 1px solid #cccccc;
   display: block;
-  margin: 0 18px 0 0;
-  padding: 6px 0 4px 9px;
+  margin: 0 10px 0 0;
+  padding: 6px 0 4px 10px;
 }
 #dpa-toolbar-views .detail,
 #dpa-toolbar-views .list,

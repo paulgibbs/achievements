@@ -10,17 +10,16 @@
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 /**
- * Supported Plugins admin screen, main function
+ * Supported Plugins admin screen
  *
  * @since 1.0
  */
 function dpa_supported_plugins() {
-	// Third-party plugins supported in core
-	$plugins = array(
-		array( __( 'BuddyPress', 'dpa' ), plugins_url( 'achievements/images/buddypress.png' ), __( 'Social networking in a box. Build a social network for your company, school, sports team or niche community.', 'dpa' ) ),
-		array( __( 'bbPress', 'dpa' ), plugins_url( 'achievements/images/bbpress.png' ), __( 'bbPress is forum software with a twist from the creators of WordPress.', 'dpa' ) ),
-		array( __( 'WP e-Commerce', 'dpa' ), plugins_url( 'achievements/images/wpecommerce.jpg' ), __( 'WP e-Commerce is a free WordPress Shopping Cart Plugin that lets customers buy your products, services and digital downloads online.', 'dpa' ) ),
-	);
+	// See if a cookie has been set to remember which view the user was on last. Defaults to 'grid'.
+	if ( ! empty( $_COOKIE['dpa_sp_view'] ) && in_array( $_COOKIE['dpa_sp_view'], array( 'detail', 'list', 'grid', ) ) )
+	 	$view = $_COOKIE['dpa_sp_view'];
+	else
+		$view = 'grid';
 ?>
 
 	<div class="wrap">
@@ -31,12 +30,56 @@ function dpa_supported_plugins() {
 			<div id="post-body">
 				<div id="post-body-content">
 					<?php dpa_supported_plugins_header(); ?>
-				</div><!-- #post-body-content -->
+
+					<div class="detail <?php if ( 'detail' == $view ) echo 'current'; ?>"><?php dpa_supported_plugins_detail(); ?></div>
+					<div class="list <?php if ( 'list' == $view ) echo 'current'; ?>"><?php dpa_supported_plugins_list(); ?></div>
+					<div class="grid <?php if ( 'grid' == $view ) echo 'current'; ?>"><?php dpa_supported_plugins_grid(); ?></div>
+				</div>
 			</div><!-- #post-body -->
 
 		</div><!-- #poststuff -->
 	</div><!-- .wrap -->
 
 <?php
+}
+
+/**
+ * Common toolbar header for supported plugins header screen
+ *
+ * @global achievements $achievements Main Achievements object
+ * @since 1.0
+ */
+function dpa_supported_plugins_header() {
+	global $achievements;
+
+	?>
+	<form name="dpa-toolbar" method="post" enctype="multipart/form-data">
+
+		<div id="dpa-toolbar-wrapper">
+			<input type="search" results="5" name="dpa-toolbar-search" id="dpa-toolbar-search" />
+			<select class="<?php if ( ! $GLOBALS['is_gecko'] ) echo 'dpa-ff-hack'; ?>" name="dpa-toolbar-filter" id="dpa-toolbar-filter">
+				<option value="all"><?php esc_html_e( 'All Plugins', 'dpa' ); ?></option>
+				<option value="available"><?php esc_html_e( 'Available Plugins', 'dpa' ); ?></option>
+				<option value="installed"><?php esc_html_e( 'Installed Plugins', 'dpa' ); ?></option>
+			</select>
+
+			<ul id="dpa-toolbar-views">
+				<li><a class="grid" href="#"></a></li>
+				<li><a class="list" href="#"></a></li>
+				<li><a class="detail" href="#"></a></li>
+				<li><p class="label"><?php _e( 'View', 'dpa' ); ?></p></li>
+				<li class="dpa-toolbar-slider"><label for="dpa-toolbar-slider"><?php _e( 'Zoom', 'dpa' ); ?></label><input type="range" value="5" max="10" min="1" name="dpa-toolbar-slider" /></li>
+			</ul>
+		</div>
+
+	</form>
+	<?php
+}
+
+function dpa_supported_plugins_detail() {
+}
+function dpa_supported_plugins_list() {
+}
+function dpa_supported_plugins_grid() {
 }
 ?>

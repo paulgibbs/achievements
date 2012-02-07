@@ -63,11 +63,16 @@
 		}
 	}
 
+	li.dpa-toolbar-slider {
+		input { margin: 0 @toolbarSpacingSeparator 0 0; }
+		label { display: inline-block; padding: @toolbarSpacingTop @toolbarSpacingSeparator @toolbarSpacingBottom 9px; }
+	}
+
 	p.label {
 		border-left: 1px solid @toolbarBorderColour;
 		display: block;
-		margin: 0 18px 0 0;
-		padding: 6px 0 4px 9px;
+		margin: 0 10px 0 0;
+		padding: @toolbarSpacingTop 0 @toolbarSpacingBottom @toolbarSpacingSeparator;
 	}
 
 	.detail, .list, .grid {
