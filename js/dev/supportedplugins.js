@@ -11,6 +11,13 @@ $(document).ready(function() {
 			return;
 		}
 
+		// Update zoom slider
+		if ('grid' === new_view) {
+			$('.dpa-toolbar-slider').addClass('current');
+		} else {
+			$('.dpa-toolbar-slider').removeClass('current');
+		}
+
 		// Update toolbar buttons
 		btn.parent().parent().find('a').removeClass('current');
 		btn.addClass('current');
