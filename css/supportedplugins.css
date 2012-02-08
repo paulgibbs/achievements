@@ -206,3 +206,21 @@ select.dpa-ff-hack {
   -moz-border-radius-bottomright: 3px;
   border-bottom-right-radius: 3px;
 }
+.grid {
+  *zoom: 1;
+  margin: 0 auto;
+}
+.grid:before,
+.grid:after {
+  display: table;
+  content: "";
+}
+.grid:after {
+  clear: both;
+}
+.grid .plugin {
+  float: left;
+  height: 125px;
+  width: 386px;
+  margin: 0 10px 10px 0;
+}

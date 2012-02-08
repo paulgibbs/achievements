@@ -110,7 +110,6 @@
 	}
 }
 
-// Set corners individual because sometimes a single button can be in a .btn-group and we need :first-child and :last-child to both match
 #dpa-toolbar-wrapper {
 	font-size: 0;  // Collapse space hack
 
@@ -132,5 +131,18 @@
 		-webkit-border-bottom-right-radius: 3px;
 		    -moz-border-radius-bottomright: 3px;
 		        border-bottom-right-radius: 3px;
+	}
+}
+
+.grid {
+	.clearfix();
+	margin: 0 auto;
+
+	.plugin {
+		float: left;  // @todo: RTL
+		height: 125px;
+		width: 386px;  // wporg images are 772x250px
+
+		margin: 0 10px 10px 0;
 	}
 }

@@ -29,4 +29,43 @@ function dpa_filter_sample_permalink( $post_link, $post, $leavename, $sample ) {
 	// Return post link
 	return $post_link;
 }
+
+/**
+ * Placeholder function to return a list of 3rd party plugins that are
+ * supported by Achievements. Likely to change as plugin structure is
+ * developed.
+ *
+ * Returned array consists of nested arrays and objects, one for each
+ * supported plugin. Structure is:
+ *
+ * ['plugin_ID']->name         *        Plugin name
+ * ['plugin_ID']->description  *        Plugin description
+ * ['plugin_ID']->wporg_url             wporg/extends URL page for this plugin
+ * ['plugin_ID']->image->large          URL to plugin image (large size).
+ *
+ * Properties marked with an asterisk are auto-updated periodically from wporg.
+ *
+ * @return array See function description for structure of returned array
+ * @since 1.0
+ * @todo Figure out how to handle 3rd party plugins adding their own support for Achievements.
+ */
+function dpa_get_supported_plugins() {
+	$plugins = array();
+
+	// This is just for ease of development
+	for ( $i = 0; $i < 20; $i++ ) {
+		$plugin               = new stdClass;
+		$plugin->name         = 'Plugin ' . $i;
+		$plugin->description  = 'This is a description of plugin number ' . $i . '. It might be pretty awesome.';
+		$plugin->wporg_url    = 'http://wordpress.org/extend/plugins/buddypress/';
+		$plugin->image->large = 'http://placehold.it/772x250';
+
+		$plugins[] = $plugin;
+		unset( $plugin );
+	}
+
+	// @todo Implement wporg auto-update. Cache as transient (72hrs?).
+
+	return apply_filters( 'dpa_get_supported_plugins', $plugins );
+}
 ?>
