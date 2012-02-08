@@ -3,16 +3,12 @@
 $(document).ready(function() {
 	// Zoom slider
 	$('#dpa-toolbar-slider').on('change.achievements', function(event) {
-		var multiplier = this.value * 10;
+		// wporg images are 772x250px
+		var scaled_width = 7.72 * (this.value * 10);
 
-		// Rescale each div to match the slider (10% increments)
+		// Rescale each div to match the slider (20% increments)
 		$('.grid .plugin').each(function(index, element) {
-
-			// wporg images are 772x250px
-			var scaled_height = 2.5  * multiplier,
-			scaled_width      = 7.72 * multiplier;
-
-			$(element).css('height', scaled_height + 'px' ).css('width', scaled_width + 'px' );
+			$(element).css('width', scaled_width + 'px');
 		});
 
 		// @todo: Save multiplier to a cookie called "dpa_sp_zoom"

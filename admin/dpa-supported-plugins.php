@@ -61,11 +61,15 @@ function dpa_supported_plugins_header() {
 	// See if a cookie has been set to remember the zoom level.
 	if ( ! empty( $_COOKIE['dpa_sp_zoom'] ) ) {
 		$zoom = (int) $_COOKIE['dpa_sp_zoom'];
-		$zoom = max( 1,  $view );  // Min value is 1
+		$zoom = max( 4,  $view );  // Min value is 4
 		$zoom = min( 10, $view );  // Max value is 10
 
+		// If the cookie has a null value, set zoom to the default
+		if ( ! $zoom )
+			$zoom = 6;
+
 	} else {
-		$zoom = 5;
+		$zoom = 6;
 	}
 	?>
 	<form name="dpa-toolbar" method="post" enctype="multipart/form-data">
@@ -83,7 +87,7 @@ function dpa_supported_plugins_header() {
 				<li><a class="list <?php if ( 'list' == $view ) echo 'current'; ?>" title="<?php esc_attr_e( 'List view', 'dpa' ); ?>" href="#"></a></li>
 				<li><a class="detail <?php if ( 'detail' == $view ) echo 'current'; ?>" title="<?php esc_attr_e( 'Detail view', 'dpa' ); ?>" href="#"></a></li>
 				<li><p class="label"><?php _e( 'View', 'dpa' ); ?></p></li>
-				<li class="dpa-toolbar-slider <?php if ( 'grid' == $view ) echo 'current'; ?>"><label for="dpa-toolbar-slider"><?php _e( 'Zoom', 'dpa' ); ?></label><input type="range" value="<?php echo esc_attr( $zoom ); ?>" max="10" min="1" name="dpa-toolbar-slider" id="dpa-toolbar-slider" /></li>
+				<li class="dpa-toolbar-slider <?php if ( 'grid' == $view ) echo 'current'; ?>"><label for="dpa-toolbar-slider"><?php _e( 'Zoom', 'dpa' ); ?></label><input type="range" value="<?php echo esc_attr( $zoom ); ?>" max="10" min="4" step="2" name="dpa-toolbar-slider" id="dpa-toolbar-slider" /></li>
 			</ul>
 		</div>
 
@@ -111,7 +115,7 @@ function dpa_supported_plugins_grid() {
 	$plugins = dpa_get_supported_plugins();
 
 	foreach ( $plugins as $plugin ) {
-		echo '<div class="plugin" style="background-image: url(' . esc_attr( $plugin->image->large ) . ')"></div>';
+		printf( '<img class="plugin" src="%1$s" alt="%2$s" />', esc_attr( $plugin->image->large ), esc_attr( $plugin->name ) );
 	}
 }
 ?>

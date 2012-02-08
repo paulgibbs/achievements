@@ -208,7 +208,7 @@ select.dpa-ff-hack {
 }
 .grid {
   *zoom: 1;
-  margin: 0 auto;
+  text-align: center;
 }
 .grid:before,
 .grid:after {
@@ -219,8 +219,7 @@ select.dpa-ff-hack {
   clear: both;
 }
 .grid .plugin {
-  float: left;
-  height: 125px;
-  width: 386px;
-  margin: 0 10px 10px 0;
+  display: inline-block;
+  margin: 0 10px 0px 0;
+  width: 463.2px;
 }
