@@ -94,6 +94,8 @@ function dpa_get_supported_plugins() {
 				$plugin->description = $wporg->short_description;
 			}
 
+			$data = $plugin;
+
 			// Cache data for 72 hours
 			set_transient( 'dpa_plugin_' . $slug, $plugin, 60 * 60 * 24 * 3 );
 		}
