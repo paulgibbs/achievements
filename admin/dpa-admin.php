@@ -127,7 +127,7 @@ class DPA_Admin {
 
 		// "Supported Plugins" screen
 		if ( 'achievements-plugins' == $_GET['page'] )
-			wp_enqueue_style( 'dpa_admin_css', trailingslashit( $achievements->plugin_url ) . 'css/supportedplugins.css', array(), '20120207' );
+			wp_enqueue_style( 'dpa_admin_css', trailingslashit( $achievements->plugin_url ) . 'css/supportedplugins.css', array(), '20120209' );
 	}
 
 	/**
@@ -145,7 +145,7 @@ class DPA_Admin {
 
 		// "Supported Plugins" screen
 		if ( 'achievements-plugins' == $_GET['page'] )
-			wp_enqueue_script( 'dpa_admin_js', trailingslashit( $achievements->plugin_url ) . 'js/supportedplugins-min.js', array( 'jquery' ), '20120207' );
+			wp_enqueue_script( 'dpa_admin_js', trailingslashit( $achievements->plugin_url ) . 'js/supportedplugins-min.js', array( 'jquery' ), '20120209' );
 	}
 
 	/**

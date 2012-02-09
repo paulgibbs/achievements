@@ -58,7 +58,6 @@
 	.box-sizing(border-box);
 	.ie7-inline-block();
 	.toolbar();
-
 	display: inline-block;
 	margin: 0 0;
 	padding-right: 2px;
@@ -75,6 +74,13 @@
 			height: 18px;
 			margin: 2px 0 4px;
 		}
+
+		p.label {
+			border-left: 1px solid @toolbarBorderColour;
+			display: block;
+			margin: 0 10px 0 0;
+			padding: @toolbarSpacingTop 0 @toolbarSpacingBottom @toolbarSpacingSeparator;
+		}
 	}
 
 	li.dpa-toolbar-slider {
@@ -88,25 +94,35 @@
 		}
 	}
 
-	p.label {
-		border-left: 1px solid @toolbarBorderColour;
-		display: block;
-		margin: 0 10px 0 0;
-		padding: @toolbarSpacingTop 0 @toolbarSpacingBottom @toolbarSpacingSeparator;
+	.detail,
+	.list,
+	.grid {
+		.square(18px);
+		margin-left: 2px;
 	}
 
-	.detail, .list, .grid {
-		.square(18px);
+	.detail {
 		background: url( '../images/admin_sprites.png' ) 0px 0px no-repeat;
-		margin-left: 2px;
 
-		&:hover {
-			background: url( '../images/admin_sprites.png' ) 0px -20px no-repeat;
+		&.current, &:hover {
+			background: url( '../images/admin_sprites.png' ) 0px -22px no-repeat;
 		}
 	}
 
-	.current {
-		background: url( '../images/admin_sprites.png' ) 0px -20px no-repeat;
+	.list {
+		background: url( '../images/admin_sprites.png' ) -20px 0px no-repeat;
+
+		&.current, &:hover {
+			background: url( '../images/admin_sprites.png' ) -20px -22px no-repeat;
+		}
+	}
+
+	.grid {
+		background: url( '../images/admin_sprites.png' ) -40px 0px no-repeat;
+
+		&.current, &:hover {
+			background: url( '../images/admin_sprites.png' ) -40px -22px no-repeat;
+		}
 	}
 }
 

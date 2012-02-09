@@ -156,6 +156,12 @@ select.dpa-ff-hack {
   height: 18px;
   margin: 2px 0 4px;
 }
+#dpa-toolbar-views li p.label {
+  border-left: 1px solid #cccccc;
+  display: block;
+  margin: 0 10px 0 0;
+  padding: 6px 0 4px 10px;
+}
 #dpa-toolbar-views li.dpa-toolbar-slider input {
   margin: 0 10px 0 0;
 }
@@ -163,27 +169,33 @@ select.dpa-ff-hack {
   display: inline-block;
   padding: 6px 10px 4px 9px;
 }
-#dpa-toolbar-views p.label {
-  border-left: 1px solid #cccccc;
-  display: block;
-  margin: 0 10px 0 0;
-  padding: 6px 0 4px 10px;
-}
 #dpa-toolbar-views .detail,
 #dpa-toolbar-views .list,
 #dpa-toolbar-views .grid {
   height: 18px;
   width: 18px;
-  background: url('../images/admin_sprites.png') 0px 0px no-repeat;
   margin-left: 2px;
 }
-#dpa-toolbar-views .detail:hover,
-#dpa-toolbar-views .list:hover,
-#dpa-toolbar-views .grid:hover {
-  background: url('../images/admin_sprites.png') 0px -20px no-repeat;
+#dpa-toolbar-views .detail {
+  background: url('../images/admin_sprites.png') 0px 0px no-repeat;
 }
-#dpa-toolbar-views .current {
-  background: url('../images/admin_sprites.png') 0px -20px no-repeat;
+#dpa-toolbar-views .detail.current,
+#dpa-toolbar-views .detail:hover {
+  background: url('../images/admin_sprites.png') 0px -22px no-repeat;
+}
+#dpa-toolbar-views .list {
+  background: url('../images/admin_sprites.png') -20px 0px no-repeat;
+}
+#dpa-toolbar-views .list.current,
+#dpa-toolbar-views .list:hover {
+  background: url('../images/admin_sprites.png') -20px -22px no-repeat;
+}
+#dpa-toolbar-views .grid {
+  background: url('../images/admin_sprites.png') -40px 0px no-repeat;
+}
+#dpa-toolbar-views .grid.current,
+#dpa-toolbar-views .grid:hover {
+  background: url('../images/admin_sprites.png') -40px -22px no-repeat;
 }
 #dpa-toolbar-wrapper {
   font-size: 0;
