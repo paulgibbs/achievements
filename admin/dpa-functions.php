@@ -79,7 +79,7 @@ function dpa_get_supported_plugins() {
 			$plugin               = new stdClass;
 			$plugin->name         = $plugin_data['name'];
 			$plugin->description  = $plugin_data['description'];
-			$plugin->image->large = 'http://placehold.it/772x250';  // $achievements->plugin_dir . 'images/' . urldecode( $slug ) . '.png';
+			$plugin->image->large = esc_url( $achievements->plugin_url . 'images/' . $slug . '.png' );
 			$plugin->wporg_url    = esc_url( 'http://wordpress.org/extend/plugins/' . $slug );
 
 			// Query wporg
