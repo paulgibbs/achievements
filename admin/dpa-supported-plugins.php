@@ -16,8 +16,8 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  */
 function dpa_supported_plugins() {
 	// See if a cookie has been set to remember which view the user was on last. Defaults to 'grid'.
-	if ( ! empty( $_COOKIE['dpa_sp_view'] ) && in_array( $_COOKIE['dpa_sp_view'], array( 'detail', 'list', 'grid', ) ) )
-	 	$view = $_COOKIE['dpa_sp_view'];
+	if ( ! empty( $_COOKIE['dpa_sp_view'] ) && in_array( trim( $_COOKIE['dpa_sp_view'] ), array( 'detail', 'list', 'grid', ) ) )
+	 	$view = trim( $_COOKIE['dpa_sp_view'] );
 	else
 		$view = 'grid';
 ?>
@@ -53,16 +53,16 @@ function dpa_supported_plugins_header() {
 	global $achievements;
 
 	// See if a cookie has been set to remember which view the user was on last. Defaults to 'grid'.
-	if ( ! empty( $_COOKIE['dpa_sp_view'] ) && in_array( $_COOKIE['dpa_sp_view'], array( 'detail', 'list', 'grid', ) ) )
-	 	$view = $_COOKIE['dpa_sp_view'];
+	if ( ! empty( $_COOKIE['dpa_sp_view'] ) && in_array( trim( $_COOKIE['dpa_sp_view'] ), array( 'detail', 'list', 'grid', ) ) )
+	 	$view = trim( $_COOKIE['dpa_sp_view'] );
 	else
 		$view = 'grid';
 
 	// See if a cookie has been set to remember the zoom level.
 	if ( ! empty( $_COOKIE['dpa_sp_zoom'] ) ) {
 		$zoom = (int) $_COOKIE['dpa_sp_zoom'];
-		$zoom = max( 4,  $view );  // Min value is 4
-		$zoom = min( 10, $view );  // Max value is 10
+		$zoom = max( 4,  $zoom );  // Min value is 4
+		$zoom = min( 10, $zoom );  // Max value is 10
 
 		// If the cookie has a null value, set zoom to the default
 		if ( ! $zoom )
@@ -151,10 +151,26 @@ function dpa_supported_plugins_list() {
  * @since 1.0
  */
 function dpa_supported_plugins_grid() {
+	// See if a cookie has been set to remember the zoom level.
+	if ( ! empty( $_COOKIE['dpa_sp_zoom'] ) ) {
+		$zoom = (int) $_COOKIE['dpa_sp_zoom'];
+		$zoom = max( 4,  $zoom );  // Min value is 4
+		$zoom = min( 10, $zoom );  // Max value is 10
+
+		// If the cookie has a null value, set zoom to the default
+		if ( ! $zoom )
+			$zoom = 6;
+
+	} else {
+		$zoom = 6;
+	}
+
+	// Calculate the initial width of the image based on zoom value.
 	$plugins = dpa_get_supported_plugins();
+	$style   = ( ( $zoom / 10 ) * 772 ) . 'px';
 
 	foreach ( $plugins as $plugin ) {
-		printf( '<a href="#"><img class="plugin" src="%1$s" alt="%2$s" /></a>', esc_attr( $plugin->image->large ), esc_attr( $plugin->name ) );
+		printf( '<a href="#"><img class="plugin" src="%1$s" alt="%2$s" style="width: %3$s" /></a>', esc_attr( $plugin->image->large ), esc_attr( $plugin->name ), esc_attr( $style ) );
 	}
 }
 ?>

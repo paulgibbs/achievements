@@ -20,7 +20,8 @@ $(document).ready(function() {
 			$(element).css('width', scaled_width + 'px');
 		});
 
-		// @todo: Save multiplier to a cookie called "dpa_sp_zoom"
+		// Save multiplier to a cookie
+		$.cookie( 'dpa_sp_zoom', this.value, {path: '/'} );
 	});
 
 	// Switch state of toolbar views, and update main display
@@ -48,7 +49,8 @@ $(document).ready(function() {
 		$('#post-body-content > div').removeClass('current');
 		$('#post-body-content > div.' + new_view).addClass('current');
 
-		// @todo: Save new_view to a cookie called "dpa_sp_view"
+		// Save the new_view to a cookie
+		$.cookie( 'dpa_sp_view', new_view, {path: '/'} );
 	});
 });
 
