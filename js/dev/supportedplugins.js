@@ -1,6 +1,15 @@
 (function($) {
 
 $(document).ready(function() {
+
+	// Grid view - switch to Detail view when a plugin is clicked
+	$('#post-body-content > .grid a').on('click.achievements', function(event) {
+		event.preventDefault();
+
+		$('#post-body-content > .current').removeClass('current');
+		$('#post-body-content > .detail').addClass('current');
+	});
+
 	// Zoom slider
 	$('#dpa-toolbar-slider').on('change.achievements', function(event) {
 		// wporg images are 772x250px

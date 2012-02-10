@@ -115,7 +115,7 @@ function dpa_supported_plugins_grid() {
 	$plugins = dpa_get_supported_plugins();
 
 	foreach ( $plugins as $plugin ) {
-		printf( '<img class="plugin" src="%1$s" alt="%2$s" />', esc_attr( $plugin->image->large ), esc_attr( $plugin->name ) );
+		printf( '<a href="#"><img class="plugin" src="%1$s" alt="%2$s" /></a>', esc_attr( $plugin->image->large ), esc_attr( $plugin->name ) );
 	}
 }
 ?>
