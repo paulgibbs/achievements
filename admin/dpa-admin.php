@@ -133,6 +133,8 @@ class DPA_Admin {
 	/**
 	 * Enqueue JS for our custom admin screens
 	 *
+	 * jQuery Cookie plugin taken from BuddyPress. Original source unknown.
+	 *
 	 * @global achievements $achievements Main Achievements object
 	 * @since 3.0
 	 */
@@ -144,8 +146,10 @@ class DPA_Admin {
 			return;
 
 		// "Supported Plugins" screen
-		if ( 'achievements-plugins' == $_GET['page'] )
-			wp_enqueue_script( 'dpa_admin_js', trailingslashit( $achievements->plugin_url ) . 'js/supportedplugins-min.js', array( 'jquery' ), '20120209' );
+		if ( 'achievements-plugins' == $_GET['page'] ) {
+			wp_enqueue_script( 'dpa_cookie_js', trailingslashit( $achievements->plugin_url ) . 'js/jquery-cookie-min.js',    array( 'jquery' ),                  '20120210' );
+			wp_enqueue_script( 'dpa_admin_js',  trailingslashit( $achievements->plugin_url ) . 'js/supportedplugins-min.js', array( 'jquery', 'dpa_cookie_js' ), '20120209' );
+		}
 	}
 
 	/**

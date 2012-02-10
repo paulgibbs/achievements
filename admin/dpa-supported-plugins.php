@@ -98,16 +98,55 @@ function dpa_supported_plugins_header() {
 function dpa_supported_plugins_detail() {
 	echo 'Detail view';
 }
+
+/**
+ * Supported Plugins list view
+ *
+ * Lists view consists of a table, with one row to a plugin.
+ *
+ * @since 1.0
+ */
 function dpa_supported_plugins_list() {
-	echo 'List view';
+?>
+
+	<table class="widefat">
+		<caption>Here we assign header information to cells by setting the scope attribute.</caption>
+		<thead>
+			<tr>
+				<th scope="col">Name</th>
+				<th scope="col">Side</th>
+				<th scope="col">Role</th>
+			</tr>
+		</thead>
+		<tfoot>
+			<tr>
+				<td>Darth Vader</td>
+				<td>Dark</td>
+				<td>Sith</td>
+			</tr>
+		</tfoot>
+
+		<tbody>
+			<tr>
+				<td>Obi Wan Kenobi</td>
+				<td>Light</td>
+				<td>Jedi</td>
+			</tr>
+			<tr>
+				<td>Greedo</td>
+				<td>South</td>
+				<td>Scumbag</td>
+			</tr>
+		</tbody>
+	</table>
+
+<?php
 }
 
 /**
  * Supported Plugins grid view
  *
  * Grid view consists of rows and columns of large logos of plugins.
- * Hovering over the image will reveal a button which takes you to
- * that plugin's detail view.
  *
  * @since 1.0
  */
