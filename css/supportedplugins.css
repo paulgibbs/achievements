@@ -45,7 +45,8 @@
  * Universal toolbar element styles
  */
 .wp-admin input,
-.wp-admin select {
+.wp-admin select,
+.dpa-fakeselect {
   -webkit-background-clip: padding-box;
   -moz-background-clip: padding-box;
   background-clip: padding-box;
@@ -268,4 +269,27 @@ select.dpa-ff-hack {
 }
 .list .plugin img:hover {
   cursor: pointer;
+}
+.detail {
+  *zoom: 1;
+}
+.detail:before,
+.detail:after {
+  display: table;
+  content: "";
+}
+.detail:after {
+  clear: both;
+}
+#dpa-detail-list {
+  float: left;
+  height: 100%;
+  width: 25%;
+}
+#dpa-detail-list li:hover {
+  background-color: #cccccc;
+  cursor: pointer;
+}
+#dpa-detail-contents {
+  float: left;
 }

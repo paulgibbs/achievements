@@ -46,12 +46,9 @@ function dpa_supported_plugins() {
 /**
  * Common toolbar header for supported plugins header screen
  *
- * @global achievements $achievements Main Achievements object
  * @since 1.0
  */
 function dpa_supported_plugins_header() {
-	global $achievements;
-
 	// See if a cookie has been set to remember which view the user was on last. Defaults to 'grid'.
 	if ( ! empty( $_COOKIE['dpa_sp_view'] ) && in_array( trim( $_COOKIE['dpa_sp_view'] ), array( 'detail', 'list', 'grid', ) ) )
 	 	$view = trim( $_COOKIE['dpa_sp_view'] );
@@ -95,8 +92,39 @@ function dpa_supported_plugins_header() {
 	<?php
 }
 
+/**
+ * Supported Plugins detail view
+ *
+ * Detail view consists of a large display of a specific plugin's details,
+ * and an RSS feed from the author's site. There is a list box on the side
+ * of the screen to choose between different plugins.
+ *
+ * @since 1.0
+ */
 function dpa_supported_plugins_detail() {
-	echo 'Detail view';
+	$last_plugin = '';
+
+	// See if a cookie has been set to remember the last viewed plugin
+	if ( ! empty( $_COOKIE['dpa_sp_lastplugin'] ) )
+		$last_plugin = $_COOKIE['dpa_sp_lastplugin'];  // @todo This, properly.
+
+	// Get supported plugins
+	$plugins = dpa_get_supported_plugins();
+?>
+
+	<ul id="dpa-detail-list" class="dpa-fakeselect">
+		<?php foreach ( $plugins as $plugin ) : ?>
+			<li class="<?php echo esc_attr( $plugin->slug ); ?>"><?php echo convert_chars( wptexturize( wp_kses_data( $plugin->name ) ) ); ?></li>
+		<?php endforeach; ?>
+	</ul>
+
+	<div id="dpa-detail-contents">
+		<?php if ( empty( $last_plugin ) ) : ?>
+			<p><?php _e( "To learn about plugins which Achievements supports, pick one from the nearby list.", 'dpa' ); ?></p>
+		<?php endif; ?>
+	</div>
+
+<?php
 }
 
 /**
@@ -144,7 +172,7 @@ function dpa_supported_plugins_list() {
 						?>
 					</td>
 
-					<td class="name"><?php echo convert_chars( wptexturize( wp_kses_data( $plugin->name ) ) ); ?></td>
+					<td class="name"><?php echo $plugin_name; ?></td>
 					<td class="rating"><?php echo convert_chars( wptexturize( wp_kses_data( $plugin->rating ) ) ); ?></td>
 					<td>
 						<?php
