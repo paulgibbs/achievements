@@ -78,13 +78,15 @@ function dpa_get_supported_plugins() {
 		// Not cached, so get data
 		if ( ! $data ) {
 			// Build fallback before querying wporg
-			$plugin               = new stdClass;
-			$plugin->contributors = array();
-			$plugin->name         = $plugin_data['name'];
-			$plugin->description  = $plugin_data['description'];
-			$plugin->image->large = esc_url( $achievements->plugin_url . 'images/' . $slug . '.png' );
-			$plugin->rating       = 0.0;
-			$plugin->wporg_url    = esc_url( 'http://wordpress.org/extend/plugins/' . $slug );
+			$plugin                 = new stdClass;
+			$plugin->contributors   = array();
+			$plugin->description    = $plugin_data['description'];
+			$plugin->image->large   = esc_url( $achievements->plugin_url . 'images/' . $slug . '.png' );
+			$plugin->install_status = false;
+			$plugin->install_url    = esc_url( self_admin_url( 'plugin-install.php?tab=plugin-information&amp;plugin=' . $slug . '&amp;TB_iframe=true&amp;width=600&amp;height=550' ) );
+			$plugin->name           = $plugin_data['name'];
+			$plugin->rating         = 0.0;
+			$plugin->wporg_url      = esc_url( 'http://wordpress.org/extend/plugins/' . $slug );
 
 			// Query wporg
 			$wporg = plugins_api( 'plugin_information', array( 'slug' => $slug, 'fields' => array( 'short_description' => true ), ) );
@@ -94,10 +96,11 @@ function dpa_get_supported_plugins() {
 
 			// Overwrite the fallback data with new values from wporg
 			if ( ! is_wp_error( $wporg ) ) {
-				$plugin->contributors = (array) $wporg->contributors;
-				$plugin->name         = $wporg->name;
-				$plugin->description  = $wporg->short_description;
-				$plugin->rating       = floatval( 0.05 * $wporg->rating );
+				$plugin->contributors   = (array) $wporg->contributors;
+				$plugin->description    = $wporg->short_description;
+				$plugin->install_status = install_plugin_install_status( $wporg );
+				$plugin->name           = $wporg->name;
+				$plugin->rating         = floatval( 0.05 * $wporg->rating );
 			}
 
 			// Convert wporg contributors data into profiles.wporg URL and Gravatar.

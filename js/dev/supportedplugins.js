@@ -6,8 +6,8 @@ $(document).ready(function() {
 	$('#post-body-content > .grid a').on('click.achievements', function(event) {
 		event.preventDefault();
 
-		$('#post-body-content > .current').removeClass('current');
-		$('#post-body-content > .detail').addClass('current');
+		$('#post-body-content > .current, #dpa-toolbar-views a.current').removeClass('current');
+		$('#post-body-content > .detail, #dpa-toolbar-views li a.detail').addClass('current');
 	});
 
 	// Zoom slider

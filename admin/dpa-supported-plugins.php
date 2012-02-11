@@ -75,7 +75,7 @@ function dpa_supported_plugins_header() {
 	<form name="dpa-toolbar" method="post" enctype="multipart/form-data">
 
 		<div id="dpa-toolbar-wrapper">
-			<input type="search" results="5" name="dpa-toolbar-search" id="dpa-toolbar-search" />
+			<input type="search" results="5" name="dpa-toolbar-search" id="dpa-toolbar-search" autofocus />
 			<select class="<?php if ( ! $GLOBALS['is_gecko'] ) echo 'dpa-ff-hack'; ?>" name="dpa-toolbar-filter" id="dpa-toolbar-filter">
 				<option value="all"><?php esc_html_e( 'All Plugins', 'dpa' ); ?></option>
 				<option value="available"><?php esc_html_e( 'Available Plugins', 'dpa' ); ?></option>
@@ -107,36 +107,76 @@ function dpa_supported_plugins_detail() {
  * @since 1.0
  */
 function dpa_supported_plugins_list() {
+	$plugins = dpa_get_supported_plugins();	
+	uasort( $plugins, create_function( '$a, $b', 'return strnatcasecmp($a->name, $b->name);' ) );
 ?>
 
 	<table class="widefat">
-		<caption>Here we assign header information to cells by setting the scope attribute.</caption>
+		<caption class="screen-reader-text"><?php _e( 'This table lists all of the plugins that Achievements has built-in support for. For each plugin, it shows a banner, its WordPress.org plugin rating, who contributed to its development, and whether your site has the plugin installed or not.', 'dpa' ); ?></caption>
 		<thead>
 			<tr>
-				<th scope="col">Name</th>
-				<th scope="col">Side</th>
-				<th scope="col">Role</th>
+				<th scope="col"></th>
+				<th scope="col"><?php _e( 'Plugin', 'dpa' ); ?></th>
+				<th scope="col"><?php _e( 'Rating', 'dpa' ); ?></th>
+				<th scope="col"><?php _e( 'Status', 'dpa' ); ?></th>
+				<th scope="col"><?php _e( 'Contributors', 'dpa' ); ?></th>
 			</tr>
 		</thead>
 		<tfoot>
 			<tr>
-				<td>Darth Vader</td>
-				<td>Dark</td>
-				<td>Sith</td>
+				<th></th>
+				<th><?php _e( 'Plugin', 'dpa' ); ?></th>
+				<th><?php _e( 'Rating', 'dpa' ); ?></th>
+				<th><?php _e( 'Status', 'dpa' ); ?></th>
+				<th><?php _e( 'Contributors', 'dpa' ); ?></th>
 			</tr>
 		</tfoot>
 
 		<tbody>
-			<tr>
-				<td>Obi Wan Kenobi</td>
-				<td>Light</td>
-				<td>Jedi</td>
-			</tr>
-			<tr>
-				<td>Greedo</td>
-				<td>South</td>
-				<td>Scumbag</td>
-			</tr>
+
+			<?php foreach ( $plugins as $plugin ) : ?>
+				<tr>
+					<td class="plugin">
+						<?php
+						$image_url   = esc_url( $plugin->image->large );
+						$plugin_name = convert_chars( wptexturize( wp_kses_data( $plugin->name ) ) );
+ 						printf( '<img src="%1$s" alt="%2$s" title="%3$s" />', esc_attr( $image_url ), esc_attr( $plugin_name ), esc_attr( $plugin_name ) );
+						?>
+					</td>
+
+					<td class="name"><?php echo convert_chars( wptexturize( wp_kses_data( $plugin->name ) ) ); ?></td>
+					<td class="rating"><?php echo convert_chars( wptexturize( wp_kses_data( $plugin->rating ) ) ); ?></td>
+					<td>
+						<?php
+						// Is plugin installed?
+						if ( in_array( $plugin->install_status['status'], array( 'latest_installed', 'newer_installed', 'update_available', ) ) ) {
+							_e( '<span class="installed">Ready</span', 'dpa' );
+
+						} else {
+							// If current user can install plugins, link directly to the install screen
+							if ( current_user_can( 'install_plugins' ) || current_user_can( 'update_plugins' ) )
+								printf( __( '<a class="thickbox" href="%1$s">Not installed</a>', 'dpa' ), esc_attr( $plugin->install_url ) );
+							else
+								_e( 'Not installed', 'dpa' );
+						}
+						?>
+					</td>
+
+					<td class="contributors">
+						<?php
+						foreach ( $plugin->contributors as $name => $gravatar_url ) {
+							// Sanitise plugin info as it may have been fetched from wporg
+							$gravatar_url = esc_url( $gravatar_url );
+							$profile_url  = esc_url( 'http://profiles.wordpress.org/users/' . $name . '/profile/public/' );
+							$name         = convert_chars( wptexturize( wp_kses_data( $name ) ) );
+
+							printf( '<a href="%1$s"><img src="%2$s" alt="%3$s" title="%4$s" /></a>', esc_attr( $profile_url ), esc_attr( $gravatar_url ), esc_attr( $name ), esc_attr( $name ) );
+						}
+						?>
+					</td>
+				</tr>
+			<?php endforeach; ?>
+
 		</tbody>
 	</table>
 

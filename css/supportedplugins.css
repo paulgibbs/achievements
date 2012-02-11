@@ -243,3 +243,26 @@ select.dpa-ff-hack {
   -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
 }
+.list {
+  *zoom: 1;
+}
+.list:before,
+.list:after {
+  display: table;
+  content: "";
+}
+.list:after {
+  clear: both;
+}
+.list .installed {
+  font-weight: bold;
+}
+.list .contributors img {
+  margin: 0 10px 0 0;
+}
+.list .plugin {
+  width: 25%;
+}
+.list .plugin img {
+  width: 100%;
+}
