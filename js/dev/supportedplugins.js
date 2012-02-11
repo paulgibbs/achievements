@@ -1,13 +1,35 @@
 (function($) {
 
+/**
+ * Switch current view to $new_view.
+ *
+ * Updates visible content and view tab state. Hides zoom slider if appropriate.
+ *
+ * @param string new_view
+ * @since 3.0
+ */
+function dpa_switch_view(new_view) {
+	// Hide old view, show new view.
+	$('#post-body-content > .current, #dpa-toolbar-views a.current').removeClass('current');
+	$('#post-body-content > .' + new_view + ', #dpa-toolbar-views li a.' + new_view).addClass('current');
+
+	// Update zoom slider
+	if ('grid' === new_view) {
+		$('.dpa-toolbar-slider').addClass('current');
+	} else {
+		$('.dpa-toolbar-slider').removeClass('current');
+	}
+
+	// Save the new_view to a cookie
+	$.cookie( 'dpa_sp_view', new_view, {path: '/'} );
+}
+
 $(document).ready(function() {
 
 	// Grid view - switch to Detail view when a plugin is clicked
 	$('#post-body-content > .grid a').on('click.achievements', function(event) {
 		event.preventDefault();
-
-		$('#post-body-content > .current, #dpa-toolbar-views a.current').removeClass('current');
-		$('#post-body-content > .detail, #dpa-toolbar-views li a.detail').addClass('current');
+		dpa_switch_view('detail');
 	});
 
 	// Zoom slider
@@ -34,24 +56,10 @@ $(document).ready(function() {
 			return;
 		}
 
-		// Update zoom slider
-		if ('grid' === new_view) {
-			$('.dpa-toolbar-slider').addClass('current');
-		} else {
-			$('.dpa-toolbar-slider').removeClass('current');
-		}
-
-		// Update toolbar buttons
-		btn.parent().parent().find('a').removeClass('current');
-		btn.addClass('current');
-
-		// Update main display
-		$('#post-body-content > div').removeClass('current');
-		$('#post-body-content > div.' + new_view).addClass('current');
-
-		// Save the new_view to a cookie
-		$.cookie( 'dpa_sp_view', new_view, {path: '/'} );
+		// Switch the view
+		dpa_switch_view(new_view);
 	});
+
 });
 
 })(jQuery);
