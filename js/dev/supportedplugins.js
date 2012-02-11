@@ -66,6 +66,55 @@ $(document).ready(function() {
 		dpa_switch_view(new_view);
 	});
 
+	// Search box
+	$('#dpa-toolbar-search').on('keyup.achievements', function(event) {
+		event.preventDefault();
+
+		// Get query
+		var query = $(this).val(), filter = '';
+
+		// We filter on different content depending on which view we're in
+		var current_view = $('#post-body-content > .current').prop('class');
+		if (current_view.indexOf('grid') >= 0) {
+			current_view = 'grid';
+			filter       = '#post-body-content > .grid img';
+
+		} else if (current_view.indexOf('list') >= 0) {
+			current_view = 'list';
+			filter       = '#post-body-content > .list table .name';
+
+		} else if (current_view.indexOf('detail') >= 0) {
+			current_view = 'detail';
+			filter       = '@todo This.';
+		}
+
+		// Do the actual filter
+		$(filter).each(function() {
+			var item = $(this);
+
+			// Grid view - searches on 'alt' tags
+			if ('grid' === current_view) {
+				if (item.prop('alt').search(new RegExp(query, 'i')) < 0) {  // No match
+					item.fadeOut();
+				} else {
+					item.show();
+				}
+
+			// List view - searches on plugin name column
+			} else if ('list' === current_view) {
+				if (item.text().search(new RegExp(query, 'i')) < 0) {  // No match
+					item.parent().fadeOut();
+				} else {
+					item.parent().show();
+				}
+
+			// Detail view - @todo This.
+			} else if ('detail' === current_view) {
+			}
+
+		});
+
+	});
 });
 
 })(jQuery);
