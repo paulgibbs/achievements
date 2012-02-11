@@ -26,6 +26,12 @@ function dpa_switch_view(new_view) {
 
 $(document).ready(function() {
 
+	// List view - switch to Detail view when a plugin's logo is clicked
+	$('#post-body-content > .list .plugin img').on('click.achievements', function(event) {
+		event.preventDefault();
+		dpa_switch_view('detail');
+	});
+
 	// Grid view - switch to Detail view when a plugin is clicked
 	$('#post-body-content > .grid a').on('click.achievements', function(event) {
 		event.preventDefault();

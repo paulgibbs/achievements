@@ -266,3 +266,6 @@ select.dpa-ff-hack {
 .list .plugin img {
   width: 100%;
 }
+.list .plugin img:hover {
+  cursor: pointer;
+}
