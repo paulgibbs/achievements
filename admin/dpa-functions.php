@@ -38,11 +38,13 @@ function dpa_filter_sample_permalink( $post_link, $post, $leavename, $sample ) {
  * Returned array consists of nested arrays and objects, one for each
  * supported plugin. Structure is:
  *
- * ['plugin_ID']->contributors *        Array of key/value pairs for each contributor (User name gravatar URL)
- * ['plugin_ID']->name         *        Plugin name
- * ['plugin_ID']->description  *        Plugin description
+ * ['plugin_ID']->contributors   *      Array of key/value pairs for each contributor (User name gravatar URL)
+ * ['plugin_ID']->description    *      Plugin description
  * ['plugin_ID']->image->large          URL to plugin image (large size)
- * ['plugin_ID']->rating       *        1.0-5.0 plugin rating from wporg
+ * ['plugin_ID']->install_status *      Result from install_plugin_install_status(); is the plugin installed on the current site?
+ * ['plugin_ID']->name           *      Plugin name
+ * ['plugin_ID']->rating         *      1.0-5.0 plugin rating from wporg
+ * ['plugin_ID']->slug                  Plugin slug
  * ['plugin_ID']->wporg_url             wporg/extends URL page for this plugin
  *
  * Properties marked with an asterisk are auto-updated periodically from wporg.
@@ -86,6 +88,7 @@ function dpa_get_supported_plugins() {
 			$plugin->install_url    = esc_url( self_admin_url( 'plugin-install.php?tab=plugin-information&amp;plugin=' . $slug . '&amp;TB_iframe=true&amp;width=600&amp;height=550' ) );
 			$plugin->name           = $plugin_data['name'];
 			$plugin->rating         = 0.0;
+			$plugin->slug           = $slug;
 			$plugin->wporg_url      = esc_url( 'http://wordpress.org/extend/plugins/' . $slug );
 
 			// Query wporg
