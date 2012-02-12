@@ -41,9 +41,6 @@
 /**
  * Mixin for generating button backgrounds
  */
-/**
- * Universal toolbar element styles
- */
 .wp-admin input,
 .wp-admin select,
 .detail > ul {
@@ -56,10 +53,9 @@
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
-  border: 1px solid #cccccc;
-  font-size: 12px;
-  height: 24px;
-  line-height: 12px;
+  border: 1px solid #dfdfdf;
+  font-size: 13px;
+  height: 28px;
   *display: inline;
   /* IE7 inline-block hack */
 
@@ -69,7 +65,7 @@
   font-family: sans-serif;
   margin: 0;
   outline: 0;
-  padding: 2px 3px;
+  padding: 0 0;
   vertical-align: top;
 }
 .wp-admin label select {
@@ -99,6 +95,9 @@ select.dpa-ff-hack {
   margin-top: 18px;
 }
 /**
+ * Universal toolbar element styles
+ */
+/**
  * Everything to do with the search/filter Toolbar
  */
 .detail,
@@ -121,10 +120,14 @@ select.dpa-ff-hack {
   box-sizing: border-box;
   width: 25%;
 }
+#dpa-toolbar-search:focus {
+  border-color: #dfdfdf;
+}
 #dpa-toolbar-filter {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
+  height: 28px;
   width: 15%;
 }
 #dpa-toolbar-filter:hover {
@@ -138,10 +141,9 @@ select.dpa-ff-hack {
   /* IE7 inline-block hack */
 
   *zoom: 1;
-  border: 1px solid #cccccc;
-  font-size: 12px;
-  height: 24px;
-  line-height: 12px;
+  border: 1px solid #dfdfdf;
+  font-size: 13px;
+  height: 28px;
   display: inline-block;
   margin: 0 0;
   padding-right: 2px;
@@ -159,17 +161,17 @@ select.dpa-ff-hack {
   margin: 2px 0 4px;
 }
 #dpa-toolbar-views li p.label {
-  border-left: 1px solid #cccccc;
+  border-left: 1px solid #dfdfdf;
   display: block;
+  height: 100%;
   margin: 0 10px 0 0;
-  padding: 6px 0 4px 10px;
 }
 #dpa-toolbar-views li.dpa-toolbar-slider input {
   margin: 0 10px 0 0;
 }
 #dpa-toolbar-views li.dpa-toolbar-slider label {
   display: inline-block;
-  padding: 6px 10px 4px 9px;
+  height: 100%;
 }
 #dpa-toolbar-views .detail,
 #dpa-toolbar-views .list,
@@ -201,6 +203,7 @@ select.dpa-ff-hack {
 }
 #dpa-toolbar-wrapper {
   font-size: 0;
+  height: 26px;
 }
 #dpa-toolbar-wrapper > :first-child {
   border-right: 0;
@@ -291,7 +294,7 @@ select.dpa-ff-hack {
 }
 .detail > ul li.current,
 .detail > ul li:hover {
-  background-color: #cccccc;
+  background-color: #dfdfdf;
   cursor: pointer;
 }
 #dpa-detail-contents {

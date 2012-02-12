@@ -23,6 +23,16 @@
 
 
 /**
+ * Universal toolbar element styles
+ */
+.toolbar() {
+	border: 1px solid @toolbarBorderColour;
+	font-size: 13px;
+	height: 28px;
+}
+
+
+/**
  * Everything to do with the search/filter Toolbar
  */
 
@@ -44,10 +54,15 @@
 #dpa-toolbar-search {
 	.box-sizing(border-box);
 	width: @toolbarLeftColumn;
+
+	&:focus {
+		border-color: @toolbarBorderColour;
+	}
 }
 
 #dpa-toolbar-filter {
 	.box-sizing(border-box);
+	height: 28px;
 	width: @toolbarMidColumn;
 
 	&:hover {
@@ -79,8 +94,8 @@
 		p.label {
 			border-left: 1px solid @toolbarBorderColour;
 			display: block;
+			height: 100%;
 			margin: 0 10px 0 0;
-			padding: @toolbarSpacingTop 0 @toolbarSpacingBottom @toolbarSpacingSeparator;
 		}
 	}
 
@@ -91,7 +106,7 @@
 
 		label {
 			display: inline-block;
-			padding: @toolbarSpacingTop @toolbarSpacingSeparator @toolbarSpacingBottom 9px;
+			height: 100%;
 		}
 	}
 
@@ -129,6 +144,7 @@
 
 #dpa-toolbar-wrapper {
 	font-size: 0;  // Collapse space hack
+	height: 26px;
 
 	> :first-child {
 		border-right: 0;
