@@ -68,7 +68,6 @@ add_action( 'dpa_deactivation', 'flush_rewrite_rules' );
 
 
 // wp-admin stuff
-
 if ( is_admin() ) {
 	add_action( 'dpa_init',       'dpa_admin'           );
 
@@ -79,6 +78,9 @@ if ( is_admin() ) {
 	 * being flushed properly when an update occured.
 	 */
 	add_action( 'dpa_admin_init', 'dpa_setup_updater', 999 );
+
+	// Pre-cache plugin data from wporg
+	add_action( 'dpa_admin_init', 'dpa_get_supported_plugins' );
 }
 
 
