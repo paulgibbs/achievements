@@ -24,18 +24,52 @@ function dpa_switch_view(new_view) {
 	$.cookie( 'dpa_sp_view', new_view, {path: '/'} );
 }
 
+/**
+ * Select a plugin in the detail view
+ *
+ * Updates visible content and plugin list selected item.
+ *
+ * @param jQuery new_plugin jQuery DOM object (<li> item from selection list)
+ * @since 3.0
+ */
+function dpa_show_plugin(new_plugin) {
+	var slug = new_plugin.prop('class');
+
+	// Mark new LI as selected
+	$('#post-body-content > .detail > ul li').removeClass('current');
+	new_plugin.addClass('current');
+
+	// Show detail panel for the selected plugin
+	$('#dpa-detail-contents > div').removeClass('current');
+	$('#dpa-detail-contents .' + slug).addClass('current');
+
+	// Save plugin slug to a cookie
+	$.cookie( 'dpa_sp_lastplugin', slug, {path: '/'} );
+}
+
+
 $(document).ready(function() {
+
+	// Detail view - update content when new plugin is clicked
+	$('#post-body-content > .detail > ul li').on('click.achievements', function(event) {
+		event.preventDefault();
+		dpa_show_plugin($(this));
+	});
 
 	// List view - switch to Detail view when a plugin's logo is clicked
 	$('#post-body-content > .list .plugin img').on('click.achievements', function(event) {
 		event.preventDefault();
+
 		dpa_switch_view('detail');
+		dpa_show_plugin($('#post-body-content > .detail > ul li.' + $(this).prop('class')));
 	});
 
 	// Grid view - switch to Detail view when a plugin is clicked
 	$('#post-body-content > .grid a').on('click.achievements', function(event) {
 		event.preventDefault();
+
 		dpa_switch_view('detail');
+		dpa_show_plugin($('#post-body-content > .detail > ul li.' + $(this).children('img').prop('class')));
 	});
 
 	// Zoom slider
@@ -44,7 +78,7 @@ $(document).ready(function() {
 		var scaled_width = 7.72 * (this.value * 10);
 
 		// Rescale each div to match the slider (20% increments)
-		$('.grid .plugin').each(function(index, element) {
+		$('.grid img').each(function(index, element) {
 			$(element).css('width', scaled_width + 'px');
 		});
 
@@ -66,7 +100,7 @@ $(document).ready(function() {
 		dpa_switch_view(new_view);
 	});
 
-	// Search box
+	// "Live" search box
 	$('#dpa-toolbar-search').on('keyup.achievements', function(event) {
 		event.preventDefault();
 
@@ -85,7 +119,7 @@ $(document).ready(function() {
 
 		} else if (current_view.indexOf('detail') >= 0) {
 			current_view = 'detail';
-			filter       = '@todo This.';
+			filter       = '#post-body-content > .detail > ul li';
 		}
 
 		// Do the actual filter
@@ -108,8 +142,13 @@ $(document).ready(function() {
 					item.parent().show();
 				}
 
-			// Detail view - @todo This.
+			// Detail view - search on the LI classes.
 			} else if ('detail' === current_view) {
+				if (item.prop('class').search(new RegExp(query, 'i')) < 0) {  // No match
+					item.fadeOut();
+				} else {
+					item.show();
+				}
 			}
 
 		});

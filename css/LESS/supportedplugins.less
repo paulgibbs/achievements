@@ -192,19 +192,33 @@
 
 .detail {
 	.clearfix();
-}
 
-#dpa-detail-list {
-	float: left;
-	height: 100%;
-	width: @toolbarLeftColumn;
+	> ul {
+		.box-sizing(border-box);
+		float: left;
+		height: 100%;
+		width: @toolbarLeftColumn;
 
-	li:hover {
-		background-color: @toolbarBorderColour;
-		cursor: pointer;
+		li.current,
+		li:hover {
+			background-color: @toolbarBorderColour;
+			cursor: pointer;
+		}
 	}
+
 }
 
 #dpa-detail-contents {
+	.box-sizing(border-box);
 	float: left;
+	width: @toolbarMidColumn + @toolbarRightColumn;
+
+	> div {
+		display: none;
+	}
+
+	.current h3,
+	.current > div {
+		margin: 10px 10px;
+	}
 }

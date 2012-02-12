@@ -106,22 +106,41 @@ function dpa_supported_plugins_detail() {
 
 	// See if a cookie has been set to remember the last viewed plugin
 	if ( ! empty( $_COOKIE['dpa_sp_lastplugin'] ) )
-		$last_plugin = $_COOKIE['dpa_sp_lastplugin'];  // @todo This, properly.
+		$last_plugin = trim( $_COOKIE['dpa_sp_lastplugin'] );
 
 	// Get supported plugins
 	$plugins = dpa_get_supported_plugins();
 ?>
 
-	<ul id="dpa-detail-list" class="dpa-fakeselect">
+	<ul>
 		<?php foreach ( $plugins as $plugin ) : ?>
-			<li class="<?php echo esc_attr( $plugin->slug ); ?>"><?php echo convert_chars( wptexturize( wp_kses_data( $plugin->name ) ) ); ?></li>
+			<li class="<?php echo esc_attr( $plugin->slug ); if ( $last_plugin == $plugin->slug ) echo ' current'; ?>"><?php echo convert_chars( wptexturize( wp_kses_data( $plugin->name ) ) ); ?></li>
 		<?php endforeach; ?>
 	</ul>
 
 	<div id="dpa-detail-contents">
-		<?php if ( empty( $last_plugin ) ) : ?>
-			<p><?php _e( "To learn about plugins which Achievements supports, pick one from the nearby list.", 'dpa' ); ?></p>
-		<?php endif; ?>
+		<?php foreach ( $plugins as $plugin ) : ?>
+
+			<div class="<?php echo esc_attr( $plugin->slug ); if ( $last_plugin == $plugin->slug ) echo ' current'; ?>">
+				<h3><?php echo convert_chars( wptexturize( wp_kses_data( $plugin->name ) ) ); ?></h3>
+
+				<div class="description">
+					<h4><?php _e( 'Plugin Info', 'dpa' ); ?></h4>
+					<p><?php echo convert_chars( wptexturize( wp_kses_data( $plugin->description ) ) ); ?></p>
+				</div>
+
+				<div class="supported-events">
+					<h4><?php _e( 'Supported Events', 'dpa' ); ?></h4>
+					<p></p>
+				</div>
+
+				<div class="author">
+					<h4><?php _e( 'News From The Author', 'dpa' ); ?></h4>
+					<p></p>
+				</div>
+			</div>
+
+		<?php endforeach; ?>
 	</div>
 
 <?php
@@ -168,7 +187,7 @@ function dpa_supported_plugins_list() {
 						<?php
 						$image_url   = esc_url( $plugin->image->large );
 						$plugin_name = convert_chars( wptexturize( wp_kses_data( $plugin->name ) ) );
- 						printf( '<img src="%1$s" alt="%2$s" title="%3$s" />', esc_attr( $image_url ), esc_attr( $plugin_name ), esc_attr( $plugin_name ) );
+ 						printf( '<img src="%1$s" alt="%2$s" title="%3$s" class="%4$s" />', esc_attr( $image_url ), esc_attr( $plugin_name ), esc_attr( $plugin_name ), esc_attr( $plugin->slug ) );
 						?>
 					</td>
 
@@ -238,7 +257,7 @@ function dpa_supported_plugins_grid() {
 	$style   = ( ( $zoom / 10 ) * 772 ) . 'px';
 
 	foreach ( $plugins as $plugin ) {
-		printf( '<a href="#"><img class="plugin" src="%1$s" alt="%2$s" style="width: %3$s" /></a>', esc_attr( $plugin->image->large ), esc_attr( $plugin->name ), esc_attr( $style ) );
+		printf( '<a href="#"><img class="%1$s" src="%2$s" alt="%3$s" style="width: %4$s" /></a>', esc_attr( $plugin->slug ), esc_attr( $plugin->image->large ), esc_attr( $plugin->name ), esc_attr( $style ) );
 	}
 }
 ?>
