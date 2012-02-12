@@ -9,6 +9,9 @@
  * @since 3.0
  */
 function dpa_switch_view(new_view) {
+	// Truncate whitespace
+	new_view = $.trim( new_view );
+
 	// Hide old view, show new view.
 	$('#post-body-content > .current, #dpa-toolbar-views a.current').removeClass('current');
 	$('#post-body-content > .' + new_view + ', #dpa-toolbar-views li a.' + new_view).addClass('current');
