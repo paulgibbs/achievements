@@ -44,6 +44,7 @@ function dpa_filter_sample_permalink( $post_link, $post, $leavename, $sample ) {
  * ['plugin_ID']->install_status *      Result from install_plugin_install_status(); is the plugin installed on the current site?
  * ['plugin_ID']->name           *      Plugin name
  * ['plugin_ID']->rating         *      1.0-5.0 plugin rating from wporg
+ * ['plugin_ID']->rss_url               RSS news feed URL
  * ['plugin_ID']->slug                  Plugin slug
  * ['plugin_ID']->wporg_url             wporg/extends URL page for this plugin
  *
@@ -59,14 +60,14 @@ function dpa_get_supported_plugins() {
 
 	// If we can't communicate with wporg, fall back to this set of data for the plugins
 	$plugins_fallback = array(
-		'bbpress'               => array( 'name' => __( 'bbPress', 'dpa' ), 'description' => __( "bbPress is forum software with a twist from the creators of WordPress", 'dpa' ) ),
-		'bp-gtm-system'         => array( 'name' => __( 'BP GTM System', 'dpa' ), 'description' => __( "BP GTM System will turn your site into a developer center, where tasks, projects, discussions, categories and tags will help you maintain products.", 'dpa' ) ),
-		'buddypress'            => array( 'name' => __( 'BuddyPress', 'dpa' ), 'description' => __( "Social networking in a box. Build a social network for your company, school, sports team or niche community.", 'dpa' ) ),
-		'buddypress-courseware' => array( 'name' => __( 'BuddyPress ScholarPress Courseware', 'dpa' ), 'description' => __( "A Learning Management System for BuddyPress", 'dpa' ) ),
-		'buddypress-docs'       => array( 'name' => __( 'BuddyPress Docs', 'dpa' ), 'description' => __( "Adds collaborative Docs to BuddyPress.", 'dpa' ) ),
-		'buddystream'           => array( 'name' => __( 'BuddyStream', 'dpa' ), 'description' => __( "BuddyStream is a BuddyPress plugin that will synchronize all of your favorite Social Networks to the BuddyPress activity stream.", 'dpa' ) ),
-		'invite-anyone'         => array( 'name' => __( 'Invite Anyone', 'dpa' ), 'description' => __( "Makes BuddyPress's invitation features more powerful.", 'dpa' ) ),
-		'wp-e-commerce'         => array( 'name' => __( 'WP e-Commerce', 'dpa' ), 'description' => __( "WP e-Commerce is a free WordPress Shopping Cart Plugin that lets customers buy your products, services and digital downloads online.", 'dpa' ) ),
+		'bbpress'               => array( 'name' => __( 'bbPress', 'dpa' ), 'description' => __( "bbPress is forum software with a twist from the creators of WordPress", 'dpa' ), 'rss' => 'http://bbpress.org/blog/feed/', ),
+		'bp-gtm-system'         => array( 'name' => __( 'BP GTM System', 'dpa' ), 'description' => __( "BP GTM System will turn your site into a developer center, where tasks, projects, discussions, categories and tags will help you maintain products.", 'dpa' ), 'rss' => 'http://feeds2.feedburner.com/Cosydalecom', ),
+		'buddypress'            => array( 'name' => __( 'BuddyPress', 'dpa' ), 'description' => __( "Social networking in a box. Build a social network for your company, school, sports team or niche community.", 'dpa' ), 'rss' => 'http://buddypress.org/feed/', ),
+		'buddypress-courseware' => array( 'name' => __( 'BuddyPress ScholarPress Courseware', 'dpa' ), 'description' => __( "A Learning Management System for BuddyPress", 'dpa' ), 'rss' => 'http://sushkov.wordpress.com/feed/,' ),
+		'buddypress-docs'       => array( 'name' => __( 'BuddyPress Docs', 'dpa' ), 'description' => __( "Adds collaborative Docs to BuddyPress.", 'dpa' ), 'rss' => 'http://teleogistic.net/feed/', ),
+		'buddystream'           => array( 'name' => __( 'BuddyStream', 'dpa' ), 'description' => __( "BuddyStream is a BuddyPress plugin that will synchronize all of your favorite Social Networks to the BuddyPress activity stream.", 'dpa' ), 'rss' => 'http://buddystream.net/feed', ),
+		'invite-anyone'         => array( 'name' => __( 'Invite Anyone', 'dpa' ), 'description' => __( "Makes BuddyPress's invitation features more powerful.", 'dpa' ), 'rss' => 'http://teleogistic.net/feed/', ),
+		'wp-e-commerce'         => array( 'name' => __( 'WP e-Commerce', 'dpa' ), 'description' => __( "WP e-Commerce is a free WordPress Shopping Cart Plugin that lets customers buy your products, services and digital downloads online.", 'dpa' ), 'rss' => 'http://getshopped.org/blog/feed', ),
 	);
 
 	$plugins = array();
@@ -88,6 +89,7 @@ function dpa_get_supported_plugins() {
 			$plugin->install_url    = esc_url( self_admin_url( 'plugin-install.php?tab=plugin-information&amp;plugin=' . $slug . '&amp;TB_iframe=true&amp;width=600&amp;height=550' ) );
 			$plugin->name           = $plugin_data['name'];
 			$plugin->rating         = 0.0;
+			$plugin->rss_url        = $plugin_data['rss'];
 			$plugin->slug           = $slug;
 			$plugin->wporg_url      = esc_url( 'http://wordpress.org/extend/plugins/' . $slug );
 
