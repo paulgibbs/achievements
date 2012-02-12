@@ -71,7 +71,6 @@ function dpa_get_supported_plugins() {
 	);
 
 	$plugins = array();
-	require_once( ABSPATH . 'wp-admin/includes/plugin-install.php' );
 
 	// Fetch information for each plugin
 	foreach ( $plugins_fallback as $slug => $plugin_data ) {

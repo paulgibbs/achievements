@@ -127,16 +127,71 @@ function dpa_supported_plugins_detail() {
 				<div class="description">
 					<h4><?php _e( 'Plugin Info', 'dpa' ); ?></h4>
 					<p><?php echo convert_chars( wptexturize( wp_kses_data( $plugin->description ) ) ); ?></p>
+
+					<?php
+					// Is plugin installed?
+					if ( in_array( $plugin->install_status['status'], array( 'latest_installed', 'newer_installed', 'update_available', ) ) ) {
+						_e( '<p class="installed">Status: Ready</span>', 'dpa' );
+
+					} else {
+						// If current user can install plugins, link directly to the install screen
+						if ( current_user_can( 'install_plugins' ) || current_user_can( 'update_plugins' ) )
+							printf( __( '<p>Status: <a class="thickbox" href="%1$s">Install Plugin</a></p>', 'dpa' ), esc_attr( $plugin->install_url ) );
+						else
+							_e( '<p>Status: Not installed</p>', 'dpa' );
+					}
+					?>
 				</div>
 
 				<div class="supported-events">
 					<h4><?php _e( 'Supported Events', 'dpa' ); ?></h4>
-					<p></p>
+					<p>@TODO Display supported events.</p>
 				</div>
 
 				<div class="author">
 					<h4><?php _e( 'News From The Author', 'dpa' ); ?></h4>
-					<p></p>
+
+					<?php
+					// Fetch each plugin's RSS feed, and parse the updates.
+					$rss = fetch_feed( esc_url( $plugin->rss_url ) );
+					if ( ! is_wp_error( $rss ) ) {
+						$content = '<ul>';
+						$items   = $rss->get_items( 0, $rss->get_item_quantity( 5 ) );
+
+						foreach ( $items as $item ) {
+							// Prepare excerpt
+							$excerpt = wp_html_excerpt( $item->get_content(), 200 );
+							
+							// Skip posts with no words
+							if ( empty( $excerpt ) )
+								continue;
+							else
+								$excerpt .= _x( '&#8230;', 'ellipsis character at end of post excerpt to show text has been truncated', 'dpa' );
+
+							// Prepare date
+							$date  = esc_html( strip_tags( $item->get_date() ) );
+							$date  = gmdate( get_option( 'date_format' ), strtotime( $date ) );
+
+							// Prepare title and URL back to the post's site
+							$title = convert_chars( wptexturize( wp_kses_data( stripslashes( $item->get_title() ) ) ) );
+							$url   = $item->get_permalink();
+
+							// Build the output
+							$content .= '<li>';
+
+							// Translators: Links to blog post. Text is "name of blog post - date".
+							$content .= sprintf( __( '<h5><a href="%1$s">%2$s - %3$s</a></h5>', 'dpa' ), esc_url( $url ), esc_html( $title ), esc_html( $date ) );
+							$content .= '<p>' . convert_chars( wptexturize( wp_kses_data( $excerpt ) ) ) . '</p>';
+							$content .= sprintf( __( '<p><a href="%1$s">Read More</a></p>', 'dpa' ), esc_url( $url ) );
+
+							$content .= '</li>';
+						}
+						echo $content . '</ul>';
+
+					} else {
+						echo '<p>' . __( 'No news found.', 'dpa' ) . '</p>';
+					}
+					?>
 				</div>
 			</div>
 
@@ -197,7 +252,7 @@ function dpa_supported_plugins_list() {
 						<?php
 						// Is plugin installed?
 						if ( in_array( $plugin->install_status['status'], array( 'latest_installed', 'newer_installed', 'update_available', ) ) ) {
-							_e( '<span class="installed">Ready</span', 'dpa' );
+							_e( '<span class="installed">Ready</span>', 'dpa' );
 
 						} else {
 							// If current user can install plugins, link directly to the install screen
