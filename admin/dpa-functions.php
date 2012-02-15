@@ -58,6 +58,9 @@ function dpa_filter_sample_permalink( $post_link, $post, $leavename, $sample ) {
 function dpa_get_supported_plugins() {
 	global $achievements;
 
+	// Load required library
+	require_once( ABSPATH . 'wp-admin/includes/plugin-install.php' );
+
 	// If we can't communicate with wporg, fall back to this set of data for the plugins
 	$plugins_fallback = array(
 		'bbpress'               => array( 'name' => __( 'bbPress', 'dpa' ), 'description' => __( "bbPress is forum software with a twist from the creators of WordPress", 'dpa' ), 'rss' => 'http://bbpress.org/blog/feed/', ),

@@ -78,9 +78,6 @@ if ( is_admin() ) {
 	 * being flushed properly when an update occured.
 	 */
 	add_action( 'dpa_admin_init', 'dpa_setup_updater', 999 );
-
-	// Pre-cache plugin data from wporg
-	add_action( 'dpa_admin_init', 'dpa_get_supported_plugins' );
 }
 
 
