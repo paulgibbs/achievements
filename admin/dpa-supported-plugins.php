@@ -84,7 +84,9 @@ function dpa_supported_plugins_header() {
 				<li><a class="list <?php if ( 'list' == $view ) echo 'current'; ?>" title="<?php esc_attr_e( 'List view', 'dpa' ); ?>" href="#"></a></li>
 				<li><a class="detail <?php if ( 'detail' == $view ) echo 'current'; ?>" title="<?php esc_attr_e( 'Detail view', 'dpa' ); ?>" href="#"></a></li>
 				<li><p class="label"><?php _e( 'View', 'dpa' ); ?></p></li>
-				<li class="dpa-toolbar-slider <?php if ( 'grid' == $view ) echo 'current'; ?>"><label for="dpa-toolbar-slider"><?php _e( 'Zoom', 'dpa' ); ?></label><input type="range" value="<?php echo esc_attr( $zoom ); ?>" max="10" min="4" step="2" name="dpa-toolbar-slider" id="dpa-toolbar-slider" /></li>
+				<li class="dpa-toolbar-slider <?php if ( 'grid' == $view ) echo 'current'; ?>"><label for="dpa-toolbar-slider"><?php _e( 'Zoom', 'dpa' ); ?></label>
+					<div data-startvalue="<?php echo esc_attr( $zoom ); ?>" id="dpa-toolbar-slider"></div>
+				</li>
 			</ul>
 		</div>
 

@@ -95,9 +95,6 @@ select.dpa-ff-hack {
   margin-top: 18px;
 }
 /**
- * Universal toolbar element styles
- */
-/**
  * Everything to do with the search/filter Toolbar
  */
 .detail,
@@ -113,6 +110,32 @@ select.dpa-ff-hack {
 #post-body-content .dpa-toolbar-slider.current {
   background: none;
   display: list-item;
+}
+body #dpa-toolbar-slider {
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  border: 1px solid #dfdfdf;
+  cursor: pointer;
+  float: left;
+  height: .8em;
+  margin: 0 20px 0 10px;
+  position: relative;
+  width: 130px;
+}
+body #dpa-toolbar-slider a {
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  border: 1px solid #000;
+  background-color: #FFF;
+  cursor: move;
+  height: 1.2em;
+  margin: 0 0 0 -0.6em;
+  position: absolute;
+  top: -0.3em;
+  width: 1.2em;
+  z-index: 2;
 }
 #dpa-toolbar-search {
   -webkit-box-sizing: border-box;
@@ -166,10 +189,8 @@ select.dpa-ff-hack {
   height: 100%;
   margin: 0 10px 0 0;
 }
-#dpa-toolbar-views li.dpa-toolbar-slider input {
-  margin: 0 10px 0 0;
-}
 #dpa-toolbar-views li.dpa-toolbar-slider label {
+  float: left;
   display: inline-block;
   height: 100%;
 }

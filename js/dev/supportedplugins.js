@@ -52,6 +52,27 @@ function dpa_show_plugin(new_plugin) {
 
 
 $(document).ready(function() {
+	// Zoom slider
+	$('#dpa-toolbar-slider').slider({
+		min: 4,
+		max: 10,
+		step: 2,
+		value: $('#dpa-toolbar-slider').data('startvalue')
+	});
+
+	$('#dpa-toolbar-slider').on('slidechange.achievements', function(event, ui) {
+		// wporg images are 772x250px
+		var scaled_width = 7.72 * (ui.value * 10);
+
+		// Rescale each div to match the slider (20% increments)
+		$('.grid img').each(function(index, element) {
+			$(element).css('width', scaled_width + 'px');
+		});
+
+		// Save multiplier to a cookie
+		$.cookie( 'dpa_sp_zoom', ui.value, {path: '/'} );
+	});
+
 
 	// Detail view - update content when new plugin is clicked
 	$('#post-body-content > .detail > ul li').on('click.achievements', function(event) {
@@ -75,22 +96,8 @@ $(document).ready(function() {
 		dpa_show_plugin($('#post-body-content > .detail > ul li.' + $(this).children('img').prop('class')));
 	});
 
-	// Zoom slider
-	$('#dpa-toolbar-slider').on('change.achievements', function(event) {
-		// wporg images are 772x250px
-		var scaled_width = 7.72 * (this.value * 10);
-
-		// Rescale each div to match the slider (20% increments)
-		$('.grid img').each(function(index, element) {
-			$(element).css('width', scaled_width + 'px');
-		});
-
-		// Save multiplier to a cookie
-		$.cookie( 'dpa_sp_zoom', this.value, {path: '/'} );
-	});
-
 	// Switch state of toolbar views, and update main display
-	$('#dpa-toolbar-wrapper a').on('click.achievements', function(event) {
+	$('#dpa-toolbar-wrapper li:not(.dpa-toolbar-slider) a').on('click.achievements', function(event) {
 		event.preventDefault();
 
 		// Don't change if this view already selected

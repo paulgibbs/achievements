@@ -23,18 +23,14 @@
 
 
 /**
- * Universal toolbar element styles
+ * Everything to do with the search/filter Toolbar
  */
+
 .toolbar() {
 	border: 1px solid @toolbarBorderColour;
 	font-size: 13px;
 	height: 28px;
 }
-
-
-/**
- * Everything to do with the search/filter Toolbar
- */
 
 .detail,
 .list,
@@ -49,6 +45,30 @@
 #post-body-content .dpa-toolbar-slider.current {
 	background: none;
 	display: list-item;
+}
+
+body #dpa-toolbar-slider {
+	.border-radius(4px);
+	border: 1px solid @toolbarBorderColour;
+	cursor: pointer;
+	float: left;
+	height: .8em;
+	margin: 0 20px 0 10px;
+	position: relative;
+	width: 130px;
+
+	a {
+		.border-radius();
+		border: 1px solid #000;
+		background-color: #FFF;
+		cursor: move;
+		height: 1.2em;
+		margin: 0 0 0 -.6em;
+		position: absolute;
+		top: -.3em;
+		width: 1.2em;
+		z-index: 2;
+	}
 }
 
 #dpa-toolbar-search {
@@ -100,11 +120,8 @@
 	}
 
 	li.dpa-toolbar-slider {
-		input {
-			margin: 0 @toolbarSpacingSeparator 0 0;
-		}
-
 		label {
+			float: left;
 			display: inline-block;
 			height: 100%;
 		}
