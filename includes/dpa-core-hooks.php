@@ -60,6 +60,7 @@ add_action( 'dpa_activation',   'dpa_add_caps',      1     );
 add_action( 'dpa_deactivation', 'dpa_remove_caps',   1     );
 
 // Options & Settings
+add_Action( 'dpa_activation', 'dpa_get_supported_plugins' );
 add_action( 'dpa_activation', 'dpa_add_options', 1 );
 
 // Flush rewrite rules
