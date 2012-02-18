@@ -53,7 +53,7 @@
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
-  border: 1px solid #dfdfdf;
+  border: 1px solid #464646;
   font-size: 13px;
   height: 28px;
   *display: inline;
@@ -115,11 +115,11 @@ body #dpa-toolbar-slider {
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
   border-radius: 4px;
-  border: 1px solid #dfdfdf;
+  border: 1px solid #464646;
   cursor: pointer;
   float: left;
   height: .8em;
-  margin: 0 20px 0 10px;
+  margin: 6px 20px 4px 10px;
   position: relative;
   width: 130px;
 }
@@ -142,15 +142,17 @@ body #dpa-toolbar-slider a {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   width: 25%;
+  color: #D54E21;
 }
 #dpa-toolbar-search:focus {
-  border-color: #dfdfdf;
+  border-color: #464646;
 }
 #dpa-toolbar-filter {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   height: 28px;
+  padding-left: 10px;
   width: 15%;
 }
 #dpa-toolbar-filter:hover {
@@ -164,7 +166,7 @@ body #dpa-toolbar-slider a {
   /* IE7 inline-block hack */
 
   *zoom: 1;
-  border: 1px solid #dfdfdf;
+  border: 1px solid #464646;
   font-size: 13px;
   height: 28px;
   display: inline-block;
@@ -183,16 +185,19 @@ body #dpa-toolbar-slider a {
   height: 18px;
   margin: 2px 0 4px;
 }
-#dpa-toolbar-views li p.label {
-  border-left: 1px solid #dfdfdf;
-  display: block;
+#dpa-toolbar-views li.label {
+  border-left: 1px solid #464646;
   height: 100%;
-  margin: 0 10px 0 0;
+  margin: 0 10px 0 10px;
+}
+#dpa-toolbar-views li.label p {
+  margin: 6px 0 4px 10px;
 }
 #dpa-toolbar-views li.dpa-toolbar-slider label {
-  float: left;
   display: inline-block;
+  float: left;
   height: 100%;
+  margin: 6px 0 4px 10px;
 }
 #dpa-toolbar-views .detail,
 #dpa-toolbar-views .list,
@@ -315,7 +320,7 @@ body #dpa-toolbar-slider a {
 }
 .detail > ul li.current,
 .detail > ul li:hover {
-  background-color: #dfdfdf;
+  background-color: #464646;
   cursor: pointer;
 }
 #dpa-detail-contents {

@@ -53,7 +53,7 @@ body #dpa-toolbar-slider {
 	cursor: pointer;
 	float: left;
 	height: .8em;
-	margin: 0 20px 0 10px;
+	margin: @toolbarSpacingTop @toolbarSpacingSeparator*2 @toolbarSpacingBottom @toolbarSpacingSeparator;
 	position: relative;
 	width: 130px;
 
@@ -74,6 +74,7 @@ body #dpa-toolbar-slider {
 #dpa-toolbar-search {
 	.box-sizing(border-box);
 	width: @toolbarLeftColumn;
+	color: #D54E21;
 
 	&:focus {
 		border-color: @toolbarBorderColour;
@@ -83,6 +84,7 @@ body #dpa-toolbar-slider {
 #dpa-toolbar-filter {
 	.box-sizing(border-box);
 	height: 28px;
+	padding-left: @toolbarSpacingSeparator;
 	width: @toolbarMidColumn;
 
 	&:hover {
@@ -110,20 +112,24 @@ body #dpa-toolbar-slider {
 			height: 18px;
 			margin: 2px 0 4px;
 		}
+	}
 
-		p.label {
-			border-left: 1px solid @toolbarBorderColour;
-			display: block;
-			height: 100%;
-			margin: 0 10px 0 0;
+	li.label {
+		border-left: 1px solid @toolbarBorderColour;
+		height: 100%;
+		margin: 0 @toolbarSpacingSeparator 0 @toolbarSpacingSeparator;
+
+		p {
+			margin: @toolbarSpacingTop 0 @toolbarSpacingBottom @toolbarSpacingSeparator;
 		}
 	}
 
 	li.dpa-toolbar-slider {
 		label {
-			float: left;
 			display: inline-block;
+			float: left;
 			height: 100%;
+			margin: @toolbarSpacingTop 0 @toolbarSpacingBottom @toolbarSpacingSeparator;
 		}
 	}
 
