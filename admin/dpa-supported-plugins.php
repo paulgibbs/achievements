@@ -223,7 +223,7 @@ function dpa_supported_plugins_list() {
 				<th scope="col"><?php _e( 'Plugin', 'dpa' ); ?></th>
 				<th scope="col"><?php _e( 'Rating', 'dpa' ); ?></th>
 				<th scope="col"><?php _e( 'Status', 'dpa' ); ?></th>
-				<th scope="col"><?php _e( 'Contributors', 'dpa' ); ?></th>
+				<th scope="col"><?php _e( 'Credits', 'dpa' ); ?></th>
 			</tr>
 		</thead>
 		<tfoot>
@@ -232,7 +232,7 @@ function dpa_supported_plugins_list() {
 				<th><?php _e( 'Plugin', 'dpa' ); ?></th>
 				<th><?php _e( 'Rating', 'dpa' ); ?></th>
 				<th><?php _e( 'Status', 'dpa' ); ?></th>
-				<th><?php _e( 'Contributors', 'dpa' ); ?></th>
+				<th><?php _e( 'Credits', 'dpa' ); ?></th>
 			</tr>
 		</tfoot>
 

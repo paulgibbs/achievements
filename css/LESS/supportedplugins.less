@@ -17,8 +17,17 @@
  * General page styles to fit in with the WordPress Admin UI
  */
 
-#poststuff {
-	margin-top: 18px;
+#post-body-content {
+	margin: 18px 0;
+
+	#post-body-content .dpa-toolbar-slider.current {
+		background: none;
+		display: list-item;
+	}
+
+	.current {
+		display: block;
+	}
 }
 
 
@@ -39,16 +48,10 @@
 	display: none;
 	margin-top: @toolbarSpacingSeparator;
 }
-#post-body-content .current {
-	display: block;
-}
-#post-body-content .dpa-toolbar-slider.current {
-	background: none;
-	display: list-item;
-}
 
 body #dpa-toolbar-slider {
 	.border-radius(4px);
+	background-color: #FFF;
 	border: 1px solid @toolbarBorderColour;
 	cursor: pointer;
 	float: left;

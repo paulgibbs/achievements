@@ -91,8 +91,15 @@ select.dpa-ff-hack {
 /**
  * General page styles to fit in with the WordPress Admin UI
  */
-#poststuff {
-  margin-top: 18px;
+#post-body-content {
+  margin: 18px 0;
+}
+#post-body-content #post-body-content .dpa-toolbar-slider.current {
+  background: none;
+  display: list-item;
+}
+#post-body-content .current {
+  display: block;
 }
 /**
  * Everything to do with the search/filter Toolbar
@@ -104,17 +111,11 @@ select.dpa-ff-hack {
   display: none;
   margin-top: 10px;
 }
-#post-body-content .current {
-  display: block;
-}
-#post-body-content .dpa-toolbar-slider.current {
-  background: none;
-  display: list-item;
-}
 body #dpa-toolbar-slider {
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
   border-radius: 4px;
+  background-color: #FFF;
   border: 1px solid #464646;
   cursor: pointer;
   float: left;
