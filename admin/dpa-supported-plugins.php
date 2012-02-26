@@ -55,6 +55,12 @@ function dpa_supported_plugins_header() {
 	else
 		$view = 'grid';
 
+	// See if a cookie has been set to remember which filter the user was on last. Defaults to 'all'.
+	if ( ! empty( $_COOKIE['dpa_sp_filter'] ) && in_array( trim( $_COOKIE['dpa_sp_filter'] ), array( 'all', '0', '1', ) ) )
+	 	$filter = trim( $_COOKIE['dpa_sp_filter'] );
+	else
+		$filter = 'all';
+
 	// See if a cookie has been set to remember the zoom level.
 	if ( ! empty( $_COOKIE['dpa_sp_zoom'] ) ) {
 		$zoom = (int) $_COOKIE['dpa_sp_zoom'];
@@ -72,11 +78,12 @@ function dpa_supported_plugins_header() {
 	<form name="dpa-toolbar" method="post" enctype="multipart/form-data">
 
 		<div id="dpa-toolbar-wrapper">
-			<input type="search" results="5" name="dpa-toolbar-search" id="dpa-toolbar-search" autofocus />
+			<input type="search" results="5" name="dpa-toolbar-search" id="dpa-toolbar-search" placeholder="<?php esc_attr_e( 'Search for a plugin...', 'dpa' ); ?>" />
+
 			<select class="<?php if ( ! $GLOBALS['is_gecko'] ) echo 'dpa-ff-hack'; ?>" name="dpa-toolbar-filter" id="dpa-toolbar-filter">
-				<option value="all"><?php esc_html_e( 'All Plugins', 'dpa' ); ?></option>
-				<option value="available"><?php esc_html_e( 'Available Plugins', 'dpa' ); ?></option>
-				<option value="installed"><?php esc_html_e( 'Installed Plugins', 'dpa' ); ?></option>
+				<option value="all" <?php selected( $filter, 'all' ); ?>><?php esc_html_e( 'All Plugins', 'dpa' ); ?></option>
+				<option value="0"   <?php selected( $filter, '0'   ); ?>><?php esc_html_e( 'Available Plugins', 'dpa' ); ?></option>
+				<option value="1"   <?php selected( $filter, '1'   ); ?>><?php esc_html_e( 'Installed Plugins', 'dpa' ); ?></option>
 			</select>
 
 			<ul id="dpa-toolbar-views">
@@ -115,15 +122,31 @@ function dpa_supported_plugins_detail() {
 ?>
 
 	<ul>
-		<?php foreach ( $plugins as $plugin ) : ?>
-			<li class="<?php echo esc_attr( $plugin->slug ); if ( $last_plugin == $plugin->slug ) echo ' current'; ?>"><?php echo convert_chars( wptexturize( wp_kses_data( $plugin->name ) ) ); ?></li>
+		<?php foreach ( $plugins as $plugin ) :
+			$class = $plugin->slug;
+
+			// Record if this plugin is installed by setting the class
+			if ( in_array( $plugin->install_status['status'], array( 'latest_installed', 'newer_installed', 'update_available', ) ) )
+				$class .= ' installed';
+			else
+				$class .= ' notinstalled';
+		?>
+			<li class="<?php echo esc_attr( $class ); if ( $last_plugin == $plugin->slug ) echo ' current'; ?>"><?php echo convert_chars( wptexturize( wp_kses_data( $plugin->name ) ) ); ?></li>
 		<?php endforeach; ?>
 	</ul>
 
 	<div id="dpa-detail-contents">
-		<?php foreach ( $plugins as $plugin ) : ?>
+		<?php foreach ( $plugins as $plugin ) :
+			$class = $plugin->slug;
 
-			<div class="<?php echo esc_attr( $plugin->slug ); if ( $last_plugin == $plugin->slug ) echo ' current'; ?>">
+			// Record if this plugin is installed by setting the class
+			if ( in_array( $plugin->install_status['status'], array( 'latest_installed', 'newer_installed', 'update_available', ) ) )
+				$class .= ' installed';
+			else
+				$class .= ' notinstalled';
+		?>
+
+			<div class="<?php echo esc_attr( $class ); if ( $last_plugin == $plugin->slug ) echo ' current'; ?>">
 				<h3><?php echo convert_chars( wptexturize( wp_kses_data( $plugin->name ) ) ); ?></h3>
 
 				<div class="description">
@@ -135,6 +158,7 @@ function dpa_supported_plugins_detail() {
 					if ( in_array( $plugin->install_status['status'], array( 'latest_installed', 'newer_installed', 'update_available', ) ) ) {
 						_e( '<p class="installed">Status: Ready</span>', 'dpa' );
 
+					// It's not installed
 					} else {
 						// If current user can install plugins, link directly to the install screen
 						if ( current_user_can( 'install_plugins' ) || current_user_can( 'update_plugins' ) )
@@ -238,8 +262,14 @@ function dpa_supported_plugins_list() {
 
 		<tbody>
 
-			<?php foreach ( $plugins as $plugin ) : ?>
-				<tr>
+			<?php foreach ( $plugins as $plugin ) :
+				// Record if this plugin is installed by setting the class
+				if ( in_array( $plugin->install_status['status'], array( 'latest_installed', 'newer_installed', 'update_available', ) ) )
+					$class = 'installed';
+				else
+					$class = 'notinstalled';
+			?>
+				<tr class="<?php echo esc_attr( $class ); ?>">
 					<td class="plugin">
 						<?php
 						$image_url   = esc_url( $plugin->image->large );
@@ -254,14 +284,19 @@ function dpa_supported_plugins_list() {
 						<?php
 						// Is plugin installed?
 						if ( in_array( $plugin->install_status['status'], array( 'latest_installed', 'newer_installed', 'update_available', ) ) ) {
-							_e( '<span class="installed">Ready</span>', 'dpa' );
+							_e( '<td class="installed"><span class="installed">Ready</span></td>', 'dpa' );
 
+						// It's not installed
 						} else {
+							echo '<td class="notinstalled">';
+
 							// If current user can install plugins, link directly to the install screen
 							if ( current_user_can( 'install_plugins' ) || current_user_can( 'update_plugins' ) )
 								printf( __( '<a class="thickbox" href="%1$s">Not installed</a>', 'dpa' ), esc_attr( $plugin->install_url ) );
 							else
 								_e( 'Not installed', 'dpa' );
+
+							echo '</td>';
 						}
 						?>
 					</td>
@@ -314,7 +349,13 @@ function dpa_supported_plugins_grid() {
 	$style   = ( ( $zoom / 10 ) * 772 ) . 'px';
 
 	foreach ( $plugins as $plugin ) {
-		printf( '<a href="#"><img class="%1$s" src="%2$s" alt="%3$s" style="width: %4$s" /></a>', esc_attr( $plugin->slug ), esc_attr( $plugin->image->large ), esc_attr( $plugin->name ), esc_attr( $style ) );
+		// Record if this plugin is installed by setting the class
+		if ( in_array( $plugin->install_status['status'], array( 'latest_installed', 'newer_installed', 'update_available', ) ) )
+			$class = ' installed';
+		else
+			$class = ' notinstalled';
+
+		printf( '<a href="#" class="%1$s"><img class="%2$s" src="%3$s" alt="%4$s" style="width: %5$s" /></a>', esc_attr( $class ), esc_attr( $plugin->slug ), esc_attr( $plugin->image->large ), esc_attr( $plugin->name ), esc_attr( $style ) );
 	}
 }
 ?>

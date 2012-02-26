@@ -35,10 +35,29 @@
  * Everything to do with the search/filter Toolbar
  */
 
+.toolbar_colours() {
+	-moz-box-shadow: 0 1px 0 rgb(236,236,236), inset 0 1px 0 #FFF;
+	-webkit-box-shadow: 0 1px 0 rgb(236,236,236), inset 0 1px 0 #FFF;
+	box-shadow: 0 1px 0 rgb(236,236,236), inset 0 1px 0 #FFF;
+
+	background: @toolbarGradientTop; /* Old browsers */
+	background: -moz-linear-gradient(bottom, @toolbarGradientTop 1%, @toolbarGradientBottom 70%); /* FF3.6+ */
+	background: -webkit-linear-gradient(bottom, @toolbarGradientTop 1%, @toolbarGradientBottom 70%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(bottom, @toolbarGradientTop 1%, @toolbarGradientBottom 70%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(bottom, @toolbarGradientTop 1%, @toolbarGradientBottom 70%); /* IE10+ */
+	background: linear-gradient(bottom, @toolbarGradientTop 1%, @toolbarGradientBottom 70%); /* W3C */
+	border: 1px solid @toolbarMainBorderColour;
+	border-bottom: 1px solid @toolbarRaisedBorderColour;
+	color: @toolbarFontColour;
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='@toolbarGradientTop', endColorstr='@toolbarGradientBottom',GradientType=0 ); /* IE6-9 */
+}
+
 .toolbar() {
-	border: 1px solid @toolbarBorderColour;
-	font-size: 13px;
-	height: 28px;
+	.toolbar_colours();
+	font-family: "Lucida Sans", "Lucida Grande", sans-serif;
+	font-size: @toolbarFontSize;
+	height: @toolbarHeight;
+	text-shadow: -1px -1px 0px #FFF;
 }
 
 .detail,
@@ -46,7 +65,7 @@
 .grid,
 .dpa-toolbar-slider {
 	display: none;
-	margin-top: @toolbarSpacingSeparator;
+	margin-top: @toolbarMargin;
 }
 
 body #dpa-toolbar-slider {
@@ -56,7 +75,7 @@ body #dpa-toolbar-slider {
 	cursor: pointer;
 	float: left;
 	height: .8em;
-	margin: @toolbarSpacingTop @toolbarSpacingSeparator*2 @toolbarSpacingBottom @toolbarSpacingSeparator;
+	margin: @toolbarSpacingTop @toolbarMargin*2 @toolbarSpacingBottom @toolbarMargin;
 	position: relative;
 	width: 130px;
 
@@ -74,34 +93,19 @@ body #dpa-toolbar-slider {
 	}
 }
 
-#dpa-toolbar-search {
-	.box-sizing(border-box);
-	width: @toolbarLeftColumn;
-	color: #D54E21;
-
-	&:focus {
-		border-color: @toolbarBorderColour;
-	}
-}
-
-#dpa-toolbar-filter {
-	.box-sizing(border-box);
-	height: 28px;
-	padding-left: @toolbarSpacingSeparator;
-	width: @toolbarMidColumn;
-
-	&:hover {
-		cursor: pointer;
-	}
-}
-
 #dpa-toolbar-views {
 	.box-sizing(border-box);
 	.ie7-inline-block();
 	.toolbar();
+
+	// Must be after toolbar()
+	-moz-box-shadow: 0 0 0 rgb(0,0,0), inset 0 0 0 rgb(0,0,0);
+	-webkit-box-shadow: 0 0 0 rgb(0,0,0), inset 0 0 0 rgb(0,0,0);
+	box-shadow: 0 0 0 rgb(0,0,0), inset 0 0 0 rgb(0,0,0);
+
+	border: 0;
 	display: inline-block;
 	margin: 0 0;
-	padding-right: 2px;
 	width: @toolbarRightColumn;
 
 	li {
@@ -118,12 +122,12 @@ body #dpa-toolbar-slider {
 	}
 
 	li.label {
-		border-left: 1px solid @toolbarBorderColour;
+		border-left: 0px solid @toolbarBorderColour;
 		height: 100%;
-		margin: 0 @toolbarSpacingSeparator 0 @toolbarSpacingSeparator;
+		margin: 0 @toolbarMargin 0 @toolbarMargin;
 
 		p {
-			margin: @toolbarSpacingTop 0 @toolbarSpacingBottom @toolbarSpacingSeparator;
+			margin: @toolbarSpacingTop 0 @toolbarSpacingBottom @toolbarMargin;
 		}
 	}
 
@@ -132,7 +136,7 @@ body #dpa-toolbar-slider {
 			display: inline-block;
 			float: left;
 			height: 100%;
-			margin: @toolbarSpacingTop 0 @toolbarSpacingBottom @toolbarSpacingSeparator;
+			margin: @toolbarSpacingTop 0 @toolbarSpacingBottom @toolbarMargin;
 		}
 	}
 
@@ -169,8 +173,10 @@ body #dpa-toolbar-slider {
 }
 
 #dpa-toolbar-wrapper {
+	.border-radius(2px);
+	.box-shadow(1px 1px 1px @toolbarMainBorderColour);
+	.toolbar();
 	font-size: 0;  // Collapse space hack
-	height: 26px;
 
 	> :first-child {
 		border-right: 0;
@@ -190,6 +196,62 @@ body #dpa-toolbar-slider {
 		-webkit-border-bottom-right-radius: 3px;
 		    -moz-border-radius-bottomright: 3px;
 		        border-bottom-right-radius: 3px;
+	}
+
+	#dpa-toolbar-search {
+		.border-radius(2px);
+		.box-shadow(0 1px 0 #FFF);
+		.box-sizing(border-box);
+
+		background-color: #FFF;
+		border-top: 1px solid @toolbarSunkenBorderColour;
+		border-right: 1px solid @toolbarSunkenBorderColour;
+		border-bottom: 1px solid @toolbarSunkenBorderColourBottom;
+		border-left: 1px solid @toolbarSunkenBorderColour;
+		color: @toolbarFontColour;
+		font-size: @toolbarFontSize;
+		height: @toolbarHeight - @toolbarMargin - @toolbarMargin - 1;
+		margin: @toolbarMargin+1 @toolbarMargin @toolbarMargin;
+		text-shadow: -1px -1px 0px #FFF;
+		width: @toolbarLeftColumn - @toolbarMargin;
+
+		&:focus {
+			border-color: @toolbarSunkenBorderColour;
+		}
+	}
+
+	#dpa-toolbar-filter {
+		.border-radius(2px);
+		.box-sizing(border-box);
+		.toolbar_colours();
+
+		border: 1px solid @toolbarMainBorderColour;
+		border-bottom: 1px solid @toolbarRaisedBorderColour;
+		color: @toolbarFontColour;
+		font-size: @toolbarFontSize;
+		height: @toolbarHeight - @toolbarMargin - @toolbarMargin - 1;
+		margin: @toolbarMargin+1 0 @toolbarMargin;
+		padding-left: @toolbarMargin;
+		text-shadow: -1px -1px 0px #FFF;
+		width: @toolbarMidColumn;
+
+		&:hover {
+			cursor: pointer;
+		}
+
+		// See [.wp-admin select] and https://bugzilla.mozilla.org/show_bug.cgi?id=649849
+		&.dpa-ff-hack {
+			background: @toolbarGradientTop; /* Old browsers */
+			background: url( '../admin/images/select_arrow.gif' ), -moz-linear-gradient(bottom, @toolbarGradientTop 1%, @toolbarGradientBottom 70%); /* FF3.6+ */
+			background: url( '../admin/images/select_arrow.gif' ), -webkit-linear-gradient(bottom, @toolbarGradientTop 1%, @toolbarGradientBottom 70%); /* Chrome10+,Safari5.1+ */
+			background: url( '../admin/images/select_arrow.gif' ), -o-linear-gradient(bottom, @toolbarGradientTop 1%, @toolbarGradientBottom 70%); /* Opera 11.10+ */
+			background: url( '../admin/images/select_arrow.gif' ), -ms-linear-gradient(bottom, @toolbarGradientTop 1%, @toolbarGradientBottom 70%); /* IE10+ */
+			background: url( '../admin/images/select_arrow.gif' ), linear-gradient(bottom, @toolbarGradientTop 1%, @toolbarGradientBottom 70%); /* W3C */
+			background-position: right center;
+			background-repeat: no-repeat;
+			filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='@toolbarGradientTop', endColorstr='@toolbarGradientBottom',GradientType=0 ); /* IE6-9 */
+			padding-right: 20px;
+		}
 	}
 }
 
@@ -220,7 +282,7 @@ body #dpa-toolbar-slider {
 	}
 
 	.plugin {
-		width: @toolbarLeftColumn;
+		width: 25%;
 
 		img {
 			width: 100%;
