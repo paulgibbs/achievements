@@ -54,7 +54,6 @@
 
 .toolbar() {
 	.toolbar_colours();
-	font-family: "Lucida Sans", "Lucida Grande", sans-serif;
 	font-size: @toolbarFontSize;
 	height: @toolbarHeight;
 	text-shadow: -1px -1px 0px #FFF;
@@ -68,27 +67,34 @@
 	margin-top: @toolbarMargin;
 }
 
+
 body #dpa-toolbar-slider {
 	.border-radius(4px);
-	background-color: #FFF;
-	border: 1px solid @toolbarBorderColour;
+	.box-shadow(0 1px 0 #FFF);
+	background-color: @toolbarSunkenBorderColourBottom;
+	border-bottom: 1px solid @toolbarSunkenBorderColourBottom;
+	border-left: 1px solid @toolbarSunkenBorderColour;
+	border-right: 1px solid @toolbarSunkenBorderColour;
+	border-top: 1px solid @toolbarSunkenBorderColour;
+
 	cursor: pointer;
 	float: left;
-	height: .8em;
-	margin: @toolbarSpacingTop @toolbarMargin*2 @toolbarSpacingBottom @toolbarMargin;
+	height: 8px;
+	margin: @toolbarMargin+1+8 0 @toolbarMargin;
 	position: relative;
 	width: 130px;
 
 	a {
-		.border-radius();
-		border: 1px solid #000;
-		background-color: #FFF;
+		.border-radius(4px);
+//		.box-shadow(0 1px 0 rgb(224,224,224));
+		background-color: white;
+		border: 1px solid @toolbarSunkenBorderColour;
 		cursor: move;
-		height: 1.2em;
-		margin: 0 0 0 -.6em;
+		height: 16px !important;
+		margin: 0 0 !important;
 		position: absolute;
-		top: -.3em;
-		width: 1.2em;
+		top: -5px;
+		width: 16px;
 		z-index: 2;
 	}
 }
@@ -136,7 +142,8 @@ body #dpa-toolbar-slider {
 			display: inline-block;
 			float: left;
 			height: 100%;
-			margin: @toolbarSpacingTop 0 @toolbarSpacingBottom @toolbarMargin;
+			margin: @toolbarMargin+1+5 @toolbarMargin @toolbarMargin 0;
+			padding-left: @toolbarMargin;
 		}
 	}
 
