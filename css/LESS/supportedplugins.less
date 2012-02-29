@@ -71,12 +71,8 @@
 body #dpa-toolbar-slider {
 	.border-radius(4px);
 	.box-shadow(0 1px 0 #FFF);
-	background-color: @toolbarSunkenBorderColourBottom;
+	border: 1px solid @toolbarSunkenBorderColour;
 	border-bottom: 1px solid @toolbarSunkenBorderColourBottom;
-	border-left: 1px solid @toolbarSunkenBorderColour;
-	border-right: 1px solid @toolbarSunkenBorderColour;
-	border-top: 1px solid @toolbarSunkenBorderColour;
-
 	cursor: pointer;
 	float: left;
 	height: 8px;
@@ -85,9 +81,15 @@ body #dpa-toolbar-slider {
 	width: 130px;
 
 	a {
-		.border-radius(4px);
-//		.box-shadow(0 1px 0 rgb(224,224,224));
-		background-color: white;
+		.border-radius(6px);
+
+		background: #e7e7e7; /* Old browsers */
+		background: -moz-linear-gradient(bottom, #E7E7E7 1%, @toolbarGradientBottom 6%); /* FF3.6+ */
+		background: -webkit-linear-gradient(bottom, #E7E7E7 1%, @toolbarGradientBottom 65%); /* Chrome10+,Safari5.1+ */
+		background: -o-linear-gradient(bottom, #E7E7E7 1%, @toolbarGradientBottom 65%); /* Opera 11.10+ */
+		background: -ms-linear-gradient(bottom, #E7E7E7 1%, @toolbarGradientBottom 65%); /* IE10+ */
+		background: linear-gradient(bottom, #E7E7E7 1%, @toolbarGradientBottom 65%); /* W3C */
+
 		border: 1px solid @toolbarSunkenBorderColour;
 		cursor: move;
 		height: 16px !important;
