@@ -76,7 +76,7 @@ body #dpa-toolbar-slider {
 	cursor: pointer;
 	float: left;
 	height: 8px;
-	margin: @toolbarMargin+1+8 0 @toolbarMargin;
+	margin: @toolbarMargin+1+8 @toolbarMargin @toolbarMargin 0;
 	position: relative;
 	width: 130px;
 
@@ -110,73 +110,52 @@ body #dpa-toolbar-slider {
 	-moz-box-shadow: 0 0 0 rgb(0,0,0), inset 0 0 0 rgb(0,0,0);
 	-webkit-box-shadow: 0 0 0 rgb(0,0,0), inset 0 0 0 rgb(0,0,0);
 	box-shadow: 0 0 0 rgb(0,0,0), inset 0 0 0 rgb(0,0,0);
-
 	border: 0;
 	display: inline-block;
+	float: right;
 	margin: 0 0;
-	width: @toolbarRightColumn;
 
 	li {
 		float: right;  // @todo RTL
-		height: 100%;
 		margin: 0;
 		padding: 0;
 
 		a {
 			display: block;
 			height: 18px;
-			margin: 2px 0 4px;
+			width: 18px;
+		}
+
+		.tab {
+			height: 25px;
+			margin: 0;
+			width: 27px;
+		}
+
+		.detail {
+			background: url( '../images/admin_sprites.png' ) 0px 0px no-repeat;
+			//&.current, &:hover {background: url( '../images/admin_sprites.png' ) 0px -22px no-repeat;}
+		}
+
+		.list {
+			background: url( '../images/admin_sprites.png' ) -20px 0px no-repeat;
+			//&.current, &:hover {background: url( '../images/admin_sprites.png' ) -20px -22px no-repeat;}
+		}
+
+		.grid {
+			background: url( '../images/admin_sprites.png' ) -40px 0px no-repeat;
+			//&.current, &:hover {background: url( '../images/admin_sprites.png' ) -40px -22px no-repeat;}
 		}
 	}
 
-	li.label {
-		border-left: 0px solid @toolbarBorderColour;
-		height: 100%;
-		margin: 0 @toolbarMargin 0 @toolbarMargin;
+	.dpa-toolbar-slider {
 
-		p {
-			margin: @toolbarSpacingTop 0 @toolbarSpacingBottom @toolbarMargin;
-		}
-	}
-
-	li.dpa-toolbar-slider {
 		label {
 			display: inline-block;
 			float: left;
 			height: 100%;
 			margin: @toolbarMargin+1+5 @toolbarMargin @toolbarMargin 0;
 			padding-left: @toolbarMargin;
-		}
-	}
-
-	.detail,
-	.list,
-	.grid {
-		.square(18px);
-		margin-left: 2px;
-	}
-
-	.detail {
-		background: url( '../images/admin_sprites.png' ) 0px 0px no-repeat;
-
-		&.current, &:hover {
-			background: url( '../images/admin_sprites.png' ) 0px -22px no-repeat;
-		}
-	}
-
-	.list {
-		background: url( '../images/admin_sprites.png' ) -20px 0px no-repeat;
-
-		&.current, &:hover {
-			background: url( '../images/admin_sprites.png' ) -20px -22px no-repeat;
-		}
-	}
-
-	.grid {
-		background: url( '../images/admin_sprites.png' ) -40px 0px no-repeat;
-
-		&.current, &:hover {
-			background: url( '../images/admin_sprites.png' ) -40px -22px no-repeat;
 		}
 	}
 }
@@ -242,7 +221,6 @@ body #dpa-toolbar-slider {
 		margin: @toolbarMargin+1 0 @toolbarMargin;
 		padding-left: @toolbarMargin;
 		text-shadow: -1px -1px 0px #FFF;
-		width: @toolbarMidColumn;
 
 		&:hover {
 			cursor: pointer;

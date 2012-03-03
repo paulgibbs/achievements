@@ -87,13 +87,14 @@ function dpa_supported_plugins_header() {
 			</select>
 
 			<ul id="dpa-toolbar-views">
-				<li><a class="grid <?php if ( 'grid' == $view ) echo 'current'; ?>" title="<?php esc_attr_e( 'Grid view', 'dpa' ); ?>" href="#"></a></li>
-				<li><a class="list <?php if ( 'list' == $view ) echo 'current'; ?>" title="<?php esc_attr_e( 'List view', 'dpa' ); ?>" href="#"></a></li>
-				<li><a class="detail <?php if ( 'detail' == $view ) echo 'current'; ?>" title="<?php esc_attr_e( 'Detail view', 'dpa' ); ?>" href="#"></a></li>
-				<li class="label"><p><?php _e( 'View', 'dpa' ); ?></p></li>
-				<li class="dpa-toolbar-slider <?php if ( 'grid' == $view ) echo 'current'; ?>"><label for="dpa-toolbar-slider"><?php _e( 'Zoom', 'dpa' ); ?></label>
+				<li class="dpa-toolbar-slider <?php if ( 'grid' == $view ) echo 'current'; ?>">
+					<label for="dpa-toolbar-slider" class="screen-reader-text"><?php _e( 'Zoom', 'dpa' ); ?></label>
 					<div data-startvalue="<?php echo esc_attr( $zoom ); ?>" id="dpa-toolbar-slider"></div>
 				</li>
+
+				<li class="tab"><a class="grid <?php if ( 'grid' == $view ) echo 'current'; ?>" title="<?php esc_attr_e( 'Grid view', 'dpa' ); ?>" href="#"></a></li>
+				<li class="tab"><a class="list <?php if ( 'list' == $view ) echo 'current'; ?>" title="<?php esc_attr_e( 'List view', 'dpa' ); ?>" href="#"></a></li>
+				<li class="tab"><a class="detail <?php if ( 'detail' == $view ) echo 'current'; ?>" title="<?php esc_attr_e( 'Detail view', 'dpa' ); ?>" href="#"></a></li>
 			</ul>
 		</div>
 
