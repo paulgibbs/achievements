@@ -98,7 +98,7 @@ function dpa_update_filters(event) {
 /**
  * Switch current view to $new_view.
  *
- * Updates visible content and view tab state. Hides zoom slider if appropriate.
+ * Updates visible content and view tab state.
  *
  * @param string new_view
  * @param object event
@@ -111,13 +111,6 @@ function dpa_switch_view(new_view, event) {
 	// Hide old view, show new view.
 	$('#post-body-content > .current, #dpa-toolbar-views a.current').removeClass('current');
 	$('#post-body-content > .' + new_view + ', #dpa-toolbar-views li a.' + new_view).addClass('current');
-
-	// Update zoom slider
-	if ('grid' === new_view) {
-		$('.dpa-toolbar-slider').addClass('current');
-	} else {
-		$('.dpa-toolbar-slider').removeClass('current');
-	}
 
 	// Update the visible plugins for the search results and the installed/not installed/all plugins filters.
 	dpa_update_filters(event);
@@ -151,29 +144,6 @@ function dpa_show_plugin(new_plugin) {
 
 
 $(document).ready(function() {
-	// Zoom slider initalisation
-	$('#dpa-toolbar-slider').slider({
-		min: 4,
-		max: 10,
-		step: 2,
-		value: $('#dpa-toolbar-slider').data('startvalue')
-	});
-
-	// Zoom slider - rescale images when clicked
-	$('#dpa-toolbar-slider').on('slidechange.achievements', function(event, ui) {
-		// wporg images are 772x250px
-		var scaled_width = 7.72 * (ui.value * 10);
-
-		// Rescale each div to match the slider (20% increments)
-		$('.grid img').each(function(index, element) {
-			$(element).css('width', scaled_width + 'px');
-		});
-
-		// Save multiplier to a cookie
-		$.cookie( 'dpa_sp_zoom', ui.value, {path: '/'} );
-	});
-
-
 	// Detail view - update content when new plugin is clicked
 	$('#post-body-content > .detail > ul li').on('click.achievements', function(event) {
 		event.preventDefault();
@@ -197,7 +167,7 @@ $(document).ready(function() {
 	});
 
 	// Switch state of toolbar views, and update main display
-	$('#dpa-toolbar-wrapper li:not(.dpa-toolbar-slider) a').on('click.achievements', function(event) {
+	$('#dpa-toolbar-wrapper li a').on('click.achievements', function(event) {
 		event.preventDefault();
 
 		// Switch the view

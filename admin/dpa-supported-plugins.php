@@ -60,20 +60,6 @@ function dpa_supported_plugins_header() {
 	 	$filter = trim( $_COOKIE['dpa_sp_filter'] );
 	else
 		$filter = 'all';
-
-	// See if a cookie has been set to remember the zoom level.
-	if ( ! empty( $_COOKIE['dpa_sp_zoom'] ) ) {
-		$zoom = (int) $_COOKIE['dpa_sp_zoom'];
-		$zoom = max( 4,  $zoom );  // Min value is 4
-		$zoom = min( 10, $zoom );  // Max value is 10
-
-		// If the cookie has a null value, set zoom to the default
-		if ( ! $zoom )
-			$zoom = 6;
-
-	} else {
-		$zoom = 6;
-	}
 	?>
 	<form name="dpa-toolbar" method="post" enctype="multipart/form-data">
 
@@ -87,11 +73,6 @@ function dpa_supported_plugins_header() {
 			</select>
 
 			<ul id="dpa-toolbar-views">
-				<li class="dpa-toolbar-slider <?php if ( 'grid' == $view ) echo 'current'; ?>">
-					<label for="dpa-toolbar-slider" class="screen-reader-text"><?php _e( 'Zoom', 'dpa' ); ?></label>
-					<div data-startvalue="<?php echo esc_attr( $zoom ); ?>" id="dpa-toolbar-slider"></div>
-				</li>
-
 				<li class="tab"><a class="grid <?php if ( 'grid' == $view ) echo 'current'; ?>" title="<?php esc_attr_e( 'Grid view', 'dpa' ); ?>" href="#"></a></li>
 				<li class="tab"><a class="list <?php if ( 'list' == $view ) echo 'current'; ?>" title="<?php esc_attr_e( 'List view', 'dpa' ); ?>" href="#"></a></li>
 				<li class="tab"><a class="detail <?php if ( 'detail' == $view ) echo 'current'; ?>" title="<?php esc_attr_e( 'Detail view', 'dpa' ); ?>" href="#"></a></li>
@@ -331,23 +312,9 @@ function dpa_supported_plugins_list() {
  * @since 1.0
  */
 function dpa_supported_plugins_grid() {
-	// See if a cookie has been set to remember the zoom level.
-	if ( ! empty( $_COOKIE['dpa_sp_zoom'] ) ) {
-		$zoom = (int) $_COOKIE['dpa_sp_zoom'];
-		$zoom = max( 4,  $zoom );  // Min value is 4
-		$zoom = min( 10, $zoom );  // Max value is 10
-
-		// If the cookie has a null value, set zoom to the default
-		if ( ! $zoom )
-			$zoom = 6;
-
-	} else {
-		$zoom = 6;
-	}
-
-	// Calculate the initial width of the image based on zoom value.
+	// todo: Use media wueries to calculate width of images
 	$plugins = dpa_get_supported_plugins();
-	$style   = ( ( $zoom / 10 ) * 772 ) . 'px';
+	$style   = ( ( 6 / 10 ) * 772 ) . 'px';
 
 	foreach ( $plugins as $plugin ) {
 		// Record if this plugin is installed by setting the class

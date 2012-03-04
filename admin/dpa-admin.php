@@ -147,9 +147,8 @@ class DPA_Admin {
 
 		// "Supported Plugins" screen
 		if ( 'achievements-plugins' == $_GET['page'] ) {
-			wp_enqueue_script( 'jquery-ui-slider' );
-			wp_enqueue_script( 'dpa_cookie_js', trailingslashit( $achievements->plugin_url ) . 'js/jquery-cookie-min.js',    array( 'jquery' ),                                      '20120218' );
-			wp_enqueue_script( 'dpa_admin_js',  trailingslashit( $achievements->plugin_url ) . 'js/supportedplugins-min.js', array( 'jquery', 'jquery-ui-slider', 'dpa_cookie_js' ), '20120218' );
+			wp_enqueue_script( 'dpa_cookie_js', trailingslashit( $achievements->plugin_url ) . 'js/jquery-cookie-min.js',    array( 'jquery' ),                  '20120218' );
+			wp_enqueue_script( 'dpa_admin_js',  trailingslashit( $achievements->plugin_url ) . 'js/supportedplugins-min.js', array( 'jquery', 'dpa_cookie_js' ), '20120218' );
 
 			// Add thickbox for the 'not installed' links on the List view
 			add_thickbox();
