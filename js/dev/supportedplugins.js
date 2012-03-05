@@ -109,8 +109,9 @@ function dpa_switch_view(new_view, event) {
 	new_view = $.trim( new_view );
 
 	// Hide old view, show new view.
-	$('#post-body-content > .current, #dpa-toolbar-views a.current').removeClass('current');
-	$('#post-body-content > .' + new_view + ', #dpa-toolbar-views li a.' + new_view).addClass('current');
+	$('#post-body-content > .current, #dpa-toolbar-views li.current').removeClass('current');
+	$('#post-body-content > .' + new_view).addClass('current');
+	$('#dpa-toolbar-views li a.' + new_view).parent().addClass('current');
 
 	// Update the visible plugins for the search results and the installed/not installed/all plugins filters.
 	dpa_update_filters(event);

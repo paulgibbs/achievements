@@ -67,8 +67,11 @@
 	margin: 0 0;
 
 	li {
+		background-color: #FFF;
+		border: 1px solid @toolbarMainBorderColour;
+		border-bottom: 1px solid @toolbarRaisedBorderColour;
 		float: right;  // @todo RTL
-		margin: 0;
+		margin: @toolbarMargin+1 @toolbarMargin @toolbarMargin;
 		padding: 0;
 
 		a {
@@ -77,26 +80,10 @@
 			width: 18px;
 		}
 
-		.tab {
-			height: 25px;
-			margin: 0;
-			width: 27px;
-		}
-
-		.detail {
-			background: url( '../images/admin_sprites.png' ) 0px 0px no-repeat;
-			//&.current, &:hover {background: url( '../images/admin_sprites.png' ) 0px -22px no-repeat;}
-		}
-
-		.list {
-			background: url( '../images/admin_sprites.png' ) -20px 0px no-repeat;
-			//&.current, &:hover {background: url( '../images/admin_sprites.png' ) -20px -22px no-repeat;}
-		}
-
-		.grid {
-			background: url( '../images/admin_sprites.png' ) -40px 0px no-repeat;
-			//&.current, &:hover {background: url( '../images/admin_sprites.png' ) -40px -22px no-repeat;}
-		}
+		&.current { border-color: @toolbarFontColour; }
+		.detail { background: url( '../images/admin_sprites.png' ) 0px 0px no-repeat; }
+		.list { background: url( '../images/admin_sprites.png' ) -20px 0px no-repeat; }
+		.grid { background: url( '../images/admin_sprites.png' ) -40px 0px no-repeat; }
 	}
 }
 
@@ -178,7 +165,7 @@
 	}
 }
 
-.grid {
+div.grid {
 	.clearfix();
 	display: none;
 	margin-top: @toolbarMargin;
@@ -199,7 +186,7 @@
 	}
 }
 
-.list {
+div.list {
 	.clearfix();
 	display: none;
 	margin-top: @toolbarMargin;
@@ -218,7 +205,7 @@
 	}
 }
 
-.detail {
+div.detail {
 	.clearfix();
 	display: none;
 	margin-top: @toolbarMargin;
