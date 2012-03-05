@@ -312,18 +312,16 @@ function dpa_supported_plugins_list() {
  * @since 1.0
  */
 function dpa_supported_plugins_grid() {
-	// todo: Use media wueries to calculate width of images
 	$plugins = dpa_get_supported_plugins();
-	$style   = ( ( 6 / 10 ) * 772 ) . 'px';
 
 	foreach ( $plugins as $plugin ) {
 		// Record if this plugin is installed by setting the class
 		if ( in_array( $plugin->install_status['status'], array( 'latest_installed', 'newer_installed', 'update_available', ) ) )
-			$class = ' installed';
+			$class = 'installed';
 		else
-			$class = ' notinstalled';
+			$class = 'notinstalled';
 
-		printf( '<a href="#" class="%1$s"><img class="%2$s" src="%3$s" alt="%4$s" style="width: %5$s" /></a>', esc_attr( $class ), esc_attr( $plugin->slug ), esc_attr( $plugin->image->large ), esc_attr( $plugin->name ), esc_attr( $style ) );
+		printf( '<a href="#" class="%1$s"><img class="%2$s" src="%3$s" alt="%4$s" /></a>', esc_attr( $class ), esc_attr( $plugin->slug ), esc_attr( $plugin->image->large ), esc_attr( $plugin->name ) );
 	}
 }
 ?>

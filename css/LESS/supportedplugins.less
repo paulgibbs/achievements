@@ -20,9 +20,7 @@
 #post-body-content {
 	margin: 18px 0;
 
-	.current {
-		display: block;
-	}
+	.current { display: block; }
 }
 
 
@@ -34,7 +32,6 @@
 	-moz-box-shadow: 0 1px 0 rgb(236,236,236), inset 0 1px 0 #FFF;
 	-webkit-box-shadow: 0 1px 0 rgb(236,236,236), inset 0 1px 0 #FFF;
 	box-shadow: 0 1px 0 rgb(236,236,236), inset 0 1px 0 #FFF;
-
 	background: @toolbarGradientTop; /* Old browsers */
 	background: -moz-linear-gradient(bottom, @toolbarGradientTop 1%, @toolbarGradientBottom 70%); /* FF3.6+ */
 	background: -webkit-linear-gradient(bottom, @toolbarGradientTop 1%, @toolbarGradientBottom 70%); /* Chrome10+,Safari5.1+ */
@@ -49,16 +46,10 @@
 
 .toolbar() {
 	.toolbar_colours();
+
 	font-size: @toolbarFontSize;
 	height: @toolbarHeight;
 	text-shadow: -1px -1px 0px #FFF;
-}
-
-.detail,
-.list,
-.grid {
-	display: none;
-	margin-top: @toolbarMargin;
 }
 
 #dpa-toolbar-views {
@@ -134,70 +125,72 @@
 		    -moz-border-radius-bottomright: 3px;
 		        border-bottom-right-radius: 3px;
 	}
+}
 
-	#dpa-toolbar-search {
-		.border-radius(2px);
-		.box-shadow(0 1px 0 #FFF);
-		.box-sizing(border-box);
+#dpa-toolbar-search {
+	.border-radius(2px);
+	.box-shadow(0 1px 0 #FFF);
+	.box-sizing(border-box);
 
-		background-color: #FFF;
-		border-top: 1px solid @toolbarSunkenBorderColour;
-		border-right: 1px solid @toolbarSunkenBorderColour;
-		border-bottom: 1px solid @toolbarSunkenBorderColourBottom;
-		border-left: 1px solid @toolbarSunkenBorderColour;
-		color: @toolbarFontColour;
-		font-size: @toolbarFontSize;
-		height: @toolbarHeight - @toolbarMargin - @toolbarMargin - 1;
-		margin: @toolbarMargin+1 @toolbarMargin @toolbarMargin;
-		text-shadow: -1px -1px 0px #FFF;
-		width: @toolbarLeftColumn - @toolbarMargin;
+	background-color: #FFF;
+	border-top: 1px solid @toolbarSunkenBorderColour;
+	border-right: 1px solid @toolbarSunkenBorderColour;
+	border-bottom: 1px solid @toolbarSunkenBorderColourBottom;
+	border-left: 1px solid @toolbarSunkenBorderColour;
+	color: @toolbarFontColour;
+	font-size: @toolbarFontSize;
+	height: @toolbarHeight - @toolbarMargin - @toolbarMargin - 1;
+	margin: @toolbarMargin+1 @toolbarMargin @toolbarMargin;
+	text-shadow: -1px -1px 0px #FFF;
+	width: @toolbarLeftColumn - @toolbarMargin;
 
-		&:focus {
-			border-color: @toolbarSunkenBorderColour;
-		}
-	}
+	&:focus { border-color: @toolbarSunkenBorderColour; }
+}
 
-	#dpa-toolbar-filter {
-		.border-radius(2px);
-		.box-sizing(border-box);
-		.toolbar_colours();
+#dpa-toolbar-filter {
+	.border-radius(2px);
+	.box-sizing(border-box);
+	.toolbar_colours();
 
-		border: 1px solid @toolbarMainBorderColour;
-		border-bottom: 1px solid @toolbarRaisedBorderColour;
-		color: @toolbarFontColour;
-		font-size: @toolbarFontSize;
-		height: @toolbarHeight - @toolbarMargin - @toolbarMargin - 1;
-		margin: @toolbarMargin+1 0 @toolbarMargin;
-		padding-left: @toolbarMargin;
-		text-shadow: -1px -1px 0px #FFF;
+	border: 1px solid @toolbarMainBorderColour;
+	border-bottom: 1px solid @toolbarRaisedBorderColour;
+	color: @toolbarFontColour;
+	font-size: @toolbarFontSize;
+	height: @toolbarHeight - @toolbarMargin - @toolbarMargin - 1;
+	margin: @toolbarMargin+1 0 @toolbarMargin;
+	padding-left: @toolbarMargin;
+	text-shadow: -1px -1px 0px #FFF;
 
-		&:hover {
-			cursor: pointer;
-		}
+	&:hover { cursor: pointer; }
 
-		// See [.wp-admin select] and https://bugzilla.mozilla.org/show_bug.cgi?id=649849
-		&.dpa-ff-hack {
-			background: @toolbarGradientTop; /* Old browsers */
-			background: url( '../admin/images/select_arrow.gif' ), -moz-linear-gradient(bottom, @toolbarGradientTop 1%, @toolbarGradientBottom 70%); /* FF3.6+ */
-			background: url( '../admin/images/select_arrow.gif' ), -webkit-linear-gradient(bottom, @toolbarGradientTop 1%, @toolbarGradientBottom 70%); /* Chrome10+,Safari5.1+ */
-			background: url( '../admin/images/select_arrow.gif' ), -o-linear-gradient(bottom, @toolbarGradientTop 1%, @toolbarGradientBottom 70%); /* Opera 11.10+ */
-			background: url( '../admin/images/select_arrow.gif' ), -ms-linear-gradient(bottom, @toolbarGradientTop 1%, @toolbarGradientBottom 70%); /* IE10+ */
-			background: url( '../admin/images/select_arrow.gif' ), linear-gradient(bottom, @toolbarGradientTop 1%, @toolbarGradientBottom 70%); /* W3C */
-			background-position: right center;
-			background-repeat: no-repeat;
-			filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='@toolbarGradientTop', endColorstr='@toolbarGradientBottom',GradientType=0 ); /* IE6-9 */
-			padding-right: 20px;
-		}
+	// See [.wp-admin select] and https://bugzilla.mozilla.org/show_bug.cgi?id=649849
+	&.dpa-ff-hack {
+		background: @toolbarGradientTop; /* Old browsers */
+		background: url( '../admin/images/select_arrow.gif' ), -moz-linear-gradient(bottom, @toolbarGradientTop 1%, @toolbarGradientBottom 70%); /* FF3.6+ */
+		background: url( '../admin/images/select_arrow.gif' ), -webkit-linear-gradient(bottom, @toolbarGradientTop 1%, @toolbarGradientBottom 70%); /* Chrome10+,Safari5.1+ */
+		background: url( '../admin/images/select_arrow.gif' ), -o-linear-gradient(bottom, @toolbarGradientTop 1%, @toolbarGradientBottom 70%); /* Opera 11.10+ */
+		background: url( '../admin/images/select_arrow.gif' ), -ms-linear-gradient(bottom, @toolbarGradientTop 1%, @toolbarGradientBottom 70%); /* IE10+ */
+		background: url( '../admin/images/select_arrow.gif' ), linear-gradient(bottom, @toolbarGradientTop 1%, @toolbarGradientBottom 70%); /* W3C */
+		background-position: right center;
+		background-repeat: no-repeat;
+		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='@toolbarGradientTop', endColorstr='@toolbarGradientBottom',GradientType=0 ); /* IE6-9 */
+		padding-right: 20px;
 	}
 }
 
 .grid {
 	.clearfix();
+	display: none;
+	margin-top: @toolbarMargin;
 	text-align: center;
 
 	a {
 		display: inline-block;
 		margin: 0 10px 6px 0;
+
+		img {
+			width: 386px;
+		}
 	}
 
 	.plugin {
@@ -208,14 +201,11 @@
 
 .list {
 	.clearfix();
+	display: none;
+	margin-top: @toolbarMargin;
 
-	.installed {
-		font-weight: bold;
-	}
-
-	.contributors img {
-		margin: 0 10px 0 0;
-	}
+	.installed { font-weight: bold; }
+	.contributors img { margin: 0 10px 0 0; }
 
 	.plugin {
 		width: 25%;
@@ -223,15 +213,15 @@
 		img {
 			width: 100%;
 
-			&:hover {
-				cursor: pointer;
-			}
+			&:hover { cursor: pointer; }
 		}
 	}
 }
 
 .detail {
 	.clearfix();
+	display: none;
+	margin-top: @toolbarMargin;
 
 	> ul {
 		.box-sizing(border-box);
@@ -246,24 +236,17 @@
 		}
 	}
 
-}
+	#dpa-detail-contents {
+		.box-sizing(border-box);
+		float: left;
+		width: @toolbarMidColumn + @toolbarRightColumn;
 
-#dpa-detail-contents {
-	.box-sizing(border-box);
-	float: left;
-	width: @toolbarMidColumn + @toolbarRightColumn;
+		> div { display: none; }
 
-	> div {
-		display: none;
-	}
+		.current {
+			h3 { margin: 0 0 10px; }
 
-	.current {
-		h3 {
-			margin: 0 0 10px;
-		}
-
-		> div {
-			margin: 10px 10px;
+			> div { margin: 10px 10px; }
 		}
 	}
 }
