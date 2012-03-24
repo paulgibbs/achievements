@@ -130,6 +130,7 @@ function dpa_switch_view(new_view, event) {
  */
 function dpa_show_plugin(new_plugin) {
 	var slug = new_plugin.prop('class');
+	slug     = slug.substr(0, slug.indexOf(' '));
 
 	// Mark new LI as selected
 	$('#post-body-content > .detail > ul li').removeClass('current');

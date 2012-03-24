@@ -20,7 +20,7 @@
 #post-body-content {
 	margin: 18px 0;
 
-	.current { display: block; }
+	.current { display: block !important; }
 }
 
 
@@ -214,11 +214,12 @@ div.detail {
 		.box-sizing(border-box);
 		float: left;
 		height: 100%;
-		width: @toolbarLeftColumn;
+		width: 200px;
 
 		li.current,
 		li:hover {
 			background-color: @toolbarBorderColour;
+			color: white;
 			cursor: pointer;
 		}
 	}
@@ -226,7 +227,7 @@ div.detail {
 	#dpa-detail-contents {
 		.box-sizing(border-box);
 		float: left;
-		width: @toolbarMidColumn + @toolbarRightColumn;
+		width: 600px; // @toolbarMidColumn + @toolbarRightColumn;  // @todo Figure out sizing
 
 		> div { display: none; }
 

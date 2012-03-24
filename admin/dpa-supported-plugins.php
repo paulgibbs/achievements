@@ -262,26 +262,25 @@ function dpa_supported_plugins_list() {
 
 					<td class="name"><?php echo $plugin_name; ?></td>
 					<td class="rating"><?php echo convert_chars( wptexturize( wp_kses_data( $plugin->rating ) ) ); ?></td>
-					<td>
-						<?php
-						// Is plugin installed?
-						if ( in_array( $plugin->install_status['status'], array( 'latest_installed', 'newer_installed', 'update_available', ) ) ) {
-							_e( '<td class="installed"><span class="installed">Ready</span></td>', 'dpa' );
 
-						// It's not installed
-						} else {
-							echo '<td class="notinstalled">';
+					<?php
+					// Is plugin installed?
+					if ( in_array( $plugin->install_status['status'], array( 'latest_installed', 'newer_installed', 'update_available', ) ) ) {
+						_e( '<td class="installed"><span class="installed">Ready</span></td>', 'dpa' );
 
-							// If current user can install plugins, link directly to the install screen
-							if ( current_user_can( 'install_plugins' ) || current_user_can( 'update_plugins' ) )
-								printf( __( '<a class="thickbox" href="%1$s">Not installed</a>', 'dpa' ), esc_attr( $plugin->install_url ) );
-							else
-								_e( 'Not installed', 'dpa' );
+					// It's not installed
+					} else {
+						echo '<td class="notinstalled">';
 
-							echo '</td>';
-						}
-						?>
-					</td>
+						// If current user can install plugins, link directly to the install screen
+						if ( current_user_can( 'install_plugins' ) || current_user_can( 'update_plugins' ) )
+							printf( __( '<a class="thickbox" href="%1$s">Not installed</a>', 'dpa' ), esc_attr( $plugin->install_url ) );
+						else
+							_e( 'Not installed', 'dpa' );
+
+						echo '</td>';
+					}
+					?>
 
 					<td class="contributors">
 						<?php
