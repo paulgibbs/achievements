@@ -105,7 +105,7 @@ class DPA_Admin {
 	 */
 	public function admin_menus() {
 		// "Supported Plugins" menu
-		$hook = add_submenu_page( 'edit.php?post_type=dpa_achievements', 'somethign', 'Supported Plugins', 'manage_options', 'achievements-plugins', 'dpa_supported_plugins' );
+		$hook = add_submenu_page( 'edit.php?post_type=dpa_achievements', __( '@todo somethign', 'dpa' ), __( 'Supported Plugins', 'dpa' ), 'manage_options', 'achievements-plugins', 'dpa_supported_plugins' );
 
 		// Hook into early actions to load custom CSS and JS
 		add_action( "admin_print_styles-$hook",  array( $this, 'enqueue_styles'  ) );
@@ -212,7 +212,7 @@ class DPA_Admin {
 		global $achievements;
 
 		if ( plugin_basename( $achievements->file ) == $file ) {
-			$settings_link = '<a href="' . add_query_arg( array( 'page' => 'achievements' ), admin_url( 'options-general.php' ) ) . '">' . __( 'Settings', 'dpa' ) . '</a>';
+			$settings_link = '<a href="' . esc_attr( admin_url( 'options-general.php?page=achievements' ) ) . '">' . __( 'Settings', 'dpa' ) . '</a>';
 			array_unshift( $links, $settings_link );
 		}
 

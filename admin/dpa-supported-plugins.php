@@ -138,15 +138,15 @@ function dpa_supported_plugins_detail() {
 					<?php
 					// Is plugin installed?
 					if ( in_array( $plugin->install_status['status'], array( 'latest_installed', 'newer_installed', 'update_available', ) ) ) {
-						_e( '<p class="installed">Status: Ready</span>', 'dpa' );
+						echo '<p class="installed">' . __( 'Status: Ready', 'dpa' ) . '</span>';
 
 					// It's not installed
 					} else {
 						// If current user can install plugins, link directly to the install screen
 						if ( current_user_can( 'install_plugins' ) || current_user_can( 'update_plugins' ) )
-							printf( __( '<p>Status: <a class="thickbox" href="%1$s">Install Plugin</a></p>', 'dpa' ), esc_attr( $plugin->install_url ) );
+							printf( '<p>%1$s <a class="thickbox" href="%2$s">%3$s</a></p>', __( 'Status:', 'dpa' ), esc_attr( esc_url( $plugin->install_url ) ), __( 'Install Plugin', 'dpa' ) );
 						else
-							_e( '<p>Status: Not installed</p>', 'dpa' );
+							echo '<p>' . __( 'Status: Not installed', 'dpa' ) . '</p>';
 					}
 					?>
 				</div>
@@ -187,10 +187,10 @@ function dpa_supported_plugins_detail() {
 							// Build the output
 							$content .= '<li>';
 
-							// Translators: Links to blog post. Text is "name of blog post - date".
-							$content .= sprintf( __( '<h5><a href="%1$s">%2$s - %3$s</a></h5>', 'dpa' ), esc_url( $url ), esc_html( $title ), esc_html( $date ) );
+							// Translators: shows the excerpt from the RSS feed item. Text is "name of blog post - date".
+							$content .= sprintf( '<h5><a href="%1$s">' . __( '%2$s - %3$s', 'dpa' ) . '</a></h5>', esc_attr( esc_url( $url ) ), esc_html( $title ), esc_html( $date ) );
 							$content .= '<p>' . convert_chars( wptexturize( wp_kses_data( $excerpt ) ) ) . '</p>';
-							$content .= sprintf( __( '<p><a href="%1$s">Read More</a></p>', 'dpa' ), esc_url( $url ) );
+							$content .= sprintf( '<p><a href="%1$s">%2$s</a></p>', esc_attr( esc_url( $url ) ), __( 'Read More', 'dpa' ) );
 
 							$content .= '</li>';
 						}
@@ -214,10 +214,12 @@ function dpa_supported_plugins_detail() {
  *
  * Lists view consists of a table, with one row to a plugin.
  *
- * @since 1.0
+ * @since 3.0
  */
 function dpa_supported_plugins_list() {
-	$plugins = dpa_get_supported_plugins();	
+	$plugins = dpa_get_supported_plugins();
+
+	// Sort alphabetically
 	uasort( $plugins, create_function( '$a, $b', 'return strnatcasecmp($a->name, $b->name);' ) );
 ?>
 
@@ -256,7 +258,7 @@ function dpa_supported_plugins_list() {
 						<?php
 						$image_url   = esc_url( $plugin->image->large );
 						$plugin_name = convert_chars( wptexturize( wp_kses_data( $plugin->name ) ) );
- 						printf( '<img src="%1$s" alt="%2$s" title="%3$s" class="%4$s" />', esc_attr( $image_url ), esc_attr( $plugin_name ), esc_attr( $plugin_name ), esc_attr( $plugin->slug ) );
+ 						printf( '<img src="%1$s" alt="%2$s" title="%3$s" class="%4$s" />', esc_attr( esc_url( $image_url ) ), esc_attr( $plugin_name ), esc_attr( $plugin_name ), esc_attr( $plugin->slug ) );
 						?>
 					</td>
 
@@ -266,15 +268,15 @@ function dpa_supported_plugins_list() {
 					<?php
 					// Is plugin installed?
 					if ( in_array( $plugin->install_status['status'], array( 'latest_installed', 'newer_installed', 'update_available', ) ) ) {
-						_e( '<td class="installed"><span class="installed">Ready</span></td>', 'dpa' );
+						echo '<td class="installed"><span class="installed">' . __( 'Ready', 'dpa' ) . '</span></td>';
 
 					// It's not installed
 					} else {
 						echo '<td class="notinstalled">';
 
-						// If current user can install plugins, link directly to the install screen
+						// If current user can install plugins, link directly to the plugn install screen
 						if ( current_user_can( 'install_plugins' ) || current_user_can( 'update_plugins' ) )
-							printf( __( '<a class="thickbox" href="%1$s">Not installed</a>', 'dpa' ), esc_attr( $plugin->install_url ) );
+							printf( '<a class="thickbox" href="%1$s">' . __( 'Not installed', 'dpa' ) . '</a>', esc_attr( esc_url( $plugin->install_url ) ) );
 						else
 							_e( 'Not installed', 'dpa' );
 

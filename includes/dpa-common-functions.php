@@ -320,7 +320,7 @@ function dpa_get_supported_plugins() {
 			$plugin->description    = $plugin_data['description'];
 			$plugin->image->large   = esc_url( $achievements->plugin_url . 'images/' . $slug . '.png' );
 			$plugin->install_status = false;
-			$plugin->install_url    = esc_url( self_admin_url( 'plugin-install.php?tab=plugin-information&amp;plugin=' . $slug . '&amp;TB_iframe=true&amp;width=600&amp;height=550' ) );
+			$plugin->install_url    = esc_url( admin_url( 'plugin-install.php?tab=plugin-information&amp;plugin=' . $slug . '&amp;TB_iframe=true&amp;width=600&amp;height=550' ) );
 			$plugin->name           = $plugin_data['name'];
 			$plugin->rating         = 0.0;
 			$plugin->rss_url        = $plugin_data['rss'];
