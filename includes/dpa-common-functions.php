@@ -244,6 +244,24 @@ function dpa_achievement_post_type() {
 	}
 
 /**
+ * Pre-cache the supported plugins details when the plugin is activated for a
+ * better first-time user experience.
+ *
+ * @since 3.0
+ */
+function dpa_precache_supported_plugins() {
+	if ( ! is_admin() )
+		return;
+
+	/**
+	 * Make a non-blocking GET request to the 'Supported Plugins' admin page,
+	 * which will pre-cache the supported plugins list, ensuring a quick load
+	 * for the first time the user really visits the page.
+	 */
+	wp_remote_get( admin_url( 'edit.php?post_type=dpa_achievements&page=achievements-plugins' ), array( 'blocking' => false, 'sslverify' => false ) );
+}
+
+/**
  * Placeholder function to return a list of 3rd party plugins that are
  * supported by Achievements. Likely to change as plugin structure is
  * developed.
