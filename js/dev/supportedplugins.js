@@ -190,6 +190,9 @@ $(document).ready(function() {
 			4: { sorter: false }
 		}
 	});
+	$("#post-body-content .list table th a").on('click.achievements', function(event) {
+		event.preventDefault();
+	});
 });
 
 })(jQuery);

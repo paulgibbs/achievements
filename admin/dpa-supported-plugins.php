@@ -219,8 +219,20 @@ function dpa_supported_plugins_detail() {
 function dpa_supported_plugins_list() {
 	$plugins = dpa_get_supported_plugins();
 
+	// Sort list of plugins by rating
+	if ( ! empty( $_GET['order'] ) && 'rating' == $_GET['order'] )
+		uasort( $plugins, create_function( '$a, $b', 'return strnatcasecmp($a->rating, $b->rating);' ) );
+
+	// Sort by plugin status (installed, not installed)
+	elseif ( ! empty( $_GET['order'] ) && 'status' == $_GET['order'] )
+		uasort( $plugins, create_function( '$a, $b', 'return strnatcasecmp($a->install_status["status"], $b->install_status["status"]);' ) );
+
 	// Sort alphabetically
-	uasort( $plugins, create_function( '$a, $b', 'return strnatcasecmp($a->name, $b->name);' ) );
+	else
+		uasort( $plugins, create_function( '$a, $b', 'return strnatcasecmp($a->name, $b->name);' ) );
+
+	// Build URL for non-javascript table sorting
+	$redirect_to = remove_query_arg( array(), self_admin_url( 'edit.php?post_type=dpa_achievements&page=achievements-plugins' ) );
 ?>
 
 	<table class="widefat">
@@ -229,8 +241,8 @@ function dpa_supported_plugins_list() {
 			<tr>
 				<th scope="col"></th>
 				<th scope="col"><?php _e( 'Plugin', 'dpa' ); ?></th>
-				<th scope="col"><?php _e( 'Rating', 'dpa' ); ?></th>
-				<th scope="col"><?php _e( 'Status', 'dpa' ); ?></th>
+				<th scope="col"><a href="<?php echo esc_attr( add_query_arg( 'order', 'rating', $redirect_to ) ); ?>"><?php _e( 'Rating', 'dpa' ); ?></a></th>
+				<th scope="col"><a href="<?php echo esc_attr( add_query_arg( 'order', 'status', $redirect_to ) ); ?>"><?php _e( 'Status', 'dpa' ); ?></a></th>
 				<th scope="col"><?php _e( 'Credits', 'dpa' ); ?></th>
 			</tr>
 		</thead>
@@ -238,8 +250,8 @@ function dpa_supported_plugins_list() {
 			<tr>
 				<th></th>
 				<th><?php _e( 'Plugin', 'dpa' ); ?></th>
-				<th><?php _e( 'Rating', 'dpa' ); ?></th>
-				<th><?php _e( 'Status', 'dpa' ); ?></th>
+				<th><a href="#a"><?php _e( 'Rating', 'dpa' ); ?></a></th>
+				<th><a href="#"><?php _e( 'Status', 'dpa' ); ?></a></th>
 				<th><?php _e( 'Credits', 'dpa' ); ?></th>
 			</tr>
 		</tfoot>
