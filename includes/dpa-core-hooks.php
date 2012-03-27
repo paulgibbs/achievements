@@ -60,8 +60,7 @@ add_action( 'dpa_activation',   'dpa_add_caps',      1     );
 add_action( 'dpa_deactivation', 'dpa_remove_caps',   1     );
 
 // Options & Settings
-add_action( 'dpa_activation', 'dpa_add_options',                1  );
-add_action( 'dpa_activation', 'dpa_precache_supported_plugins', 20 );
+add_action( 'dpa_activation', 'dpa_add_options', 1 );
 
 // Flush rewrite rules
 add_action( 'dpa_activation',   'flush_rewrite_rules' );
@@ -70,7 +69,7 @@ add_action( 'dpa_deactivation', 'flush_rewrite_rules' );
 
 // wp-admin stuff
 if ( is_admin() ) {
-	add_action( 'dpa_init',       'dpa_admin'           );
+	add_action( 'dpa_init', 'dpa_admin' );
 
 	/**
 	 * Take bbPress' advice and run the updater later on 'dpa_admin_init'.
