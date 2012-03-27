@@ -181,6 +181,15 @@ $(document).ready(function() {
 	// "All Plugins" dropdown and live search box
 	$('#dpa-toolbar-filter').on('change.achievements', dpa_update_filters);
 	$('#dpa-toolbar-search').on('keyup.achievements',  dpa_update_filters);
+
+	// Tablesorter
+	$("#post-body-content .list table").tablesorter({
+		headers: {
+			0: { sorter: false },
+			1: { sorter: false },
+			4: { sorter: false }
+		}
+	});
 });
 
 })(jQuery);
