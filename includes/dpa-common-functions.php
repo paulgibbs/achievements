@@ -251,12 +251,13 @@ function dpa_achievement_post_type() {
  * Returned array consists of nested arrays and objects, one for each
  * supported plugin. Structure is:
  *
- * ['plugin_ID']->contributors   *      Array of key/value pairs for each contributor (User name gravatar URL)
- * ['plugin_ID']->description    *      Plugin description
+ * ['plugin_ID']->contributors     *    Array of key/value pairs for each contributor (User name, gravatar URL)
+ * ['plugin_ID']->contributors_raw *    Array of key/value pairs for each contributor (User name, profile URL)
+ * ['plugin_ID']->description      *    Plugin description
  * ['plugin_ID']->image->large          URL to plugin image (large size)
- * ['plugin_ID']->install_status *      Result from install_plugin_install_status(); is the plugin installed on the current site?
- * ['plugin_ID']->name           *      Plugin name
- * ['plugin_ID']->rating         *      1.0-5.0 plugin rating from wporg
+ * ['plugin_ID']->install_status   *    Result from install_plugin_install_status(); is the plugin installed on the current site?
+ * ['plugin_ID']->name             *    Plugin name
+ * ['plugin_ID']->rating           *    1.0-5.0 plugin rating from wporg
  * ['plugin_ID']->rss_url               RSS news feed URL
  * ['plugin_ID']->slug                  Plugin slug
  * ['plugin_ID']->wporg_url             wporg/extends URL page for this plugin
@@ -325,7 +326,8 @@ function dpa_get_supported_plugins() {
 			}
 
 			// Convert wporg contributors data into profiles.wporg URL and Gravatar.
-			$plugin->contributors = dpa_supported_plugins_get_contributor_data( $plugin->contributors );
+			$plugin->contributors_raw = $plugin->contributors;
+			$plugin->contributors     = dpa_supported_plugins_get_contributor_data( $plugin->contributors );
 
 			// Cache data for 72 hours
 			set_transient( 'dpa_plugin_' . $slug, $plugin, 60 * 60 * 24 * 3 );
