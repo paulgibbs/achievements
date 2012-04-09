@@ -303,7 +303,7 @@ function dpa_get_supported_plugins() {
 			$plugin->description    = $plugin_data['description'];
 			$plugin->image->large   = esc_url( $achievements->plugin_url . 'images/' . $slug . '.png' );
 			$plugin->install_status = false;
-			$plugin->install_url    = esc_url( admin_url( 'plugin-install.php?tab=plugin-information&amp;plugin=' . $slug . '&amp;TB_iframe=true&amp;width=600&amp;height=550' ) );
+			$plugin->install_url    = admin_url( 'plugin-install.php?tab=plugin-information&amp;plugin=' . $slug . '&amp;TB_iframe=true&amp;width=600&amp;height=550' );
 			$plugin->name           = $plugin_data['name'];
 			$plugin->rating         = 0.0;
 			$plugin->rss_url        = $plugin_data['rss'];
@@ -322,7 +322,7 @@ function dpa_get_supported_plugins() {
 				$plugin->description    = $wporg->short_description;
 				$plugin->install_status = install_plugin_install_status( $wporg );
 				$plugin->name           = $wporg->name;
-				$plugin->rating         = floatval( 0.05 * $wporg->rating );
+				$plugin->rating         = max( 0.0, (float) $wporg->rating );
 			}
 
 			// Convert wporg contributors data into profiles.wporg URL and Gravatar.
