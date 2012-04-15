@@ -10,9 +10,40 @@
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 /**
+ * Set up the Supported Plugins admin page before any output is sent. Register contextual help and screen options for this page.
+ *
+ * @since 3.0
+ */
+function dpa_supported_plugins_load() {
+	// Help panel - overview text
+	get_current_screen()->add_help_tab( array(
+		'id'      => 'dpa-supported-plugins-overview',
+		'title'   => __( 'Overview', 'dpa' ),
+		'content' =>
+			'<p>' . __( 'Learn about and discover the plugins that are supported by Achievements. This screen allows you to customise your view in three main ways; Detail view, List view, and Grid view. A powerful search box and filter gives you even more controls to see exactly what you want to.', 'dpa' ) . '</p>'
+	) );
+
+	// Help panel - views text
+	get_current_screen()->add_help_tab( array(
+		'id'      => 'dpa-supported-plugins-views',
+		'title'   => __( 'Views', 'dpa' ),
+		'content' =>
+			'<p>' . __( "<strong>Grid view</strong> displays high-quality artwork of each plugin, showing you at a glance the plugins supported by Achievements.", 'dpa' ) . '</p>' .
+			'<p>' . __( "<strong>List view</strong> drills down into each plugin, showing you its WordPress.org community rating, its authors, and whether you already have the plugin installed.", 'dpa' ) . '</p>' .
+			'<p>' . __( "<strong>Detail view</strong> goes even further, showing you exactly which features of the plugin are supported, and the latest news from the authors.", 'dpa' ) . '</p>'
+	) );
+
+	// Help panel - sidebar links
+	get_current_screen()->set_help_sidebar(
+		'<p><strong>' . __( 'For more information:', 'dpa' ) . '</strong></p>' .
+		'<p>' . __( '<a href="http://buddypress.org/community/groups/achievements/forum/">Support Forums</a>', 'dpa' ) . '</p>'
+	);
+}
+
+/**
  * Supported Plugins admin screen
  *
- * @since 1.0
+ * @since 3.0
  */
 function dpa_supported_plugins() {
 	// See if a cookie has been set to remember which view the user was on last. Defaults to 'grid'.

@@ -107,9 +107,27 @@ class DPA_Admin {
 		// "Supported Plugins" menu
 		$hook = add_submenu_page( 'edit.php?post_type=dpa_achievements', __( 'Achievements &mdash; Supported Plugins', 'dpa' ), __( 'Supported Plugins', 'dpa' ), 'manage_options', 'achievements-plugins', 'dpa_supported_plugins' );
 
-		// Hook into early actions to load custom CSS and JS
+		// Hook into early actions to register custom CSS and JS
 		add_action( "admin_print_styles-$hook",  array( $this, 'enqueue_styles'  ) );
 		add_action( "admin_print_scripts-$hook", array( $this, 'enqueue_scripts' ) );
+
+		// Hook into early actions to register contextual help and screen options
+		add_action( "load-$hook",                array( $this, 'screen_options'  ) );
+	}
+
+	/**
+	 * Hook into early actions to register contextual help and screen options
+	 *
+	 * @since 3.0
+	 */
+	public function screen_options() {
+		// Only load up styles if we're on an Achievements admin screen
+		if ( ! DPA_Admin::is_admin_screen() )
+			return;
+
+		// "Supported Plugins" screen
+		if ( 'achievements-plugins' == $_GET['page'] )
+			dpa_supported_plugins_load();
 	}
 
 	/**
