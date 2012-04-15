@@ -1,3 +1,4 @@
+/*global Socialite*/
 (function($) {
 
 /**
@@ -142,6 +143,9 @@ function dpa_show_plugin(new_plugin) {
 
 	// Save plugin slug to a cookie
 	$.cookie( 'dpa_sp_lastplugin', slug, {path: '/'} );
+
+	// Load the share tools
+//	Socialite.load($('#dpa-detail-contents .current'));
 }
 
 
@@ -188,11 +192,17 @@ $(document).ready(function() {
 			0: { sorter: false },
 			1: { sorter: false },
 			4: { sorter: false }
+		},
+		textExtraction: function(node) {
+			return node.innerHTML;
 		}
 	});
 	$("#post-body-content .list table th a").on('click.achievements', function(event) {
 		event.preventDefault();
 	});
+
+	// Load the share tools
+	Socialite.load($('#dpa-detail-contents h3'));
 });
 
 })(jQuery);

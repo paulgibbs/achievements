@@ -260,13 +260,14 @@ function dpa_achievement_post_type() {
  * ['plugin_ID']->rating           *    1.0-5.0 plugin rating from wporg
  * ['plugin_ID']->rss_url               RSS news feed URL
  * ['plugin_ID']->slug                  Plugin slug
+ * ['plugin_ID']->supported_events      Description of this plugin's supported events for Achievements
  * ['plugin_ID']->wporg_url             wporg/extends URL page for this plugin
  *
  * Properties marked with an asterisk are auto-updated periodically from wporg.
  *
  * @global achievements $achievements Main Achievements object
  * @return array See function description for structure of returned array
- * @since 1.0
+ * @since 3.0
  * @todo Figure out how to handle 3rd party plugins adding their own support for Achievements.
  */
 function dpa_get_supported_plugins() {
@@ -277,15 +278,68 @@ function dpa_get_supported_plugins() {
 
 	// If we can't communicate with wporg, fall back to this set of data for the plugins
 	$plugins_fallback = array(
-		'bbpress'               => array( 'name' => __( 'bbPress', 'dpa' ), 'description' => __( "bbPress is forum software with a twist from the creators of WordPress", 'dpa' ), 'rss' => 'http://bbpress.org/blog/feed/', ),
-		'bp-gtm-system'         => array( 'name' => __( 'BP GTM System', 'dpa' ), 'description' => __( "BP GTM System will turn your site into a developer center, where tasks, projects, discussions, categories and tags will help you maintain products.", 'dpa' ), 'rss' => 'http://feeds2.feedburner.com/Cosydalecom', ),
-		'buddypress'            => array( 'name' => __( 'BuddyPress', 'dpa' ), 'description' => __( "Social networking in a box. Build a social network for your company, school, sports team or niche community.", 'dpa' ), 'rss' => 'http://buddypress.org/feed/', ),
-		'buddypress-courseware' => array( 'name' => __( 'BuddyPress ScholarPress Courseware', 'dpa' ), 'description' => __( "A Learning Management System for BuddyPress", 'dpa' ), 'rss' => 'http://sushkov.wordpress.com/feed/,' ),
-		'buddypress-docs'       => array( 'name' => __( 'BuddyPress Docs', 'dpa' ), 'description' => __( "Adds collaborative Docs to BuddyPress.", 'dpa' ), 'rss' => 'http://teleogistic.net/feed/', ),
-		'buddypress-links'      => array( 'name' => __( 'BuddyPress Links', 'dpa' ), 'description' => __( "BuddyPress Links is a drop in link and rich media sharing component for BuddyPress 1.2.x.", 'dpa' ), 'rss' => 'http://community.presscrew.com/feed/', ),
-		'buddystream'           => array( 'name' => __( 'BuddyStream', 'dpa' ), 'description' => __( "BuddyStream is a BuddyPress plugin that will synchronize all of your favorite Social Networks to the BuddyPress activity stream.", 'dpa' ), 'rss' => 'http://buddystream.net/feed', ),
-		'invite-anyone'         => array( 'name' => __( 'Invite Anyone', 'dpa' ), 'description' => __( "Makes BuddyPress's invitation features more powerful.", 'dpa' ), 'rss' => 'http://teleogistic.net/feed/', ),
-		'wp-e-commerce'         => array( 'name' => __( 'WP e-Commerce', 'dpa' ), 'description' => __( "WP e-Commerce is a free WordPress Shopping Cart Plugin that lets customers buy your products, services and digital downloads online.", 'dpa' ), 'rss' => 'http://getshopped.org/blog/feed', ),
+		'bbpress'               => array(
+			'description' => __( "bbPress is forum software with a twist from the creators of WordPress", 'dpa' ),
+			'events'      => __( 'This will, one day, be one or two paragraphs that list the events in this plugin that Achievements supports. This may be an unordered list, or a two/three column grid.', 'dpa' ),
+			'name'        => __( 'bbPress', 'dpa' ),
+			'rss'         => 'http://bbpress.org/blog/feed/'
+		),
+
+		'bp-gtm-system'         => array(
+			'description' => __( "BP GTM System will turn your site into a developer center, where tasks, projects, discussions, categories and tags will help you maintain products.", 'dpa' ),
+			'events'      => __( 'This will, one day, be one or two paragraphs that list the events in this plugin that Achievements supports. This may be an unordered list, or a two/three column grid.', 'dpa' ),
+			'name'        => __( 'BP GTM System', 'dpa' ),
+			'rss'         => 'http://feeds2.feedburner.com/Cosydalecom',
+		),
+
+		'buddypress'            => array(
+			'description' => __( "Social networking in a box. Build a social network for your company, school, sports team or niche community.", 'dpa' ),
+			'events'      => __( 'This will, one day, be one or two paragraphs that list the events in this plugin that Achievements supports. This may be an unordered list, or a two/three column grid.', 'dpa' ),
+			'name'        => __( 'BuddyPress', 'dpa' ),
+			'rss'         => 'http://buddypress.org/feed/',
+		),
+
+		'buddypress-courseware' => array(
+			'description' => __( "A Learning Management System for BuddyPress", 'dpa' ),
+			'events'      => __( 'This will, one day, be one or two paragraphs that list the events in this plugin that Achievements supports. This may be an unordered list, or a two/three column grid.', 'dpa' ),
+			'name'        => __( 'BuddyPress ScholarPress Courseware', 'dpa' ),
+			'rss'         => 'http://sushkov.wordpress.com/feed/,'
+		),
+
+		'buddypress-docs'       => array(
+			'description' => __( "Adds collaborative Docs to BuddyPress.", 'dpa' ),
+			'events'      => __( 'This will, one day, be one or two paragraphs that list the events in this plugin that Achievements supports. This may be an unordered list, or a two/three column grid.', 'dpa' ),
+			'name'        => __( 'BuddyPress Docs', 'dpa' ),
+			'rss'         => 'http://teleogistic.net/feed/',
+		),
+
+		'buddypress-links'      => array(
+			'description' => __( "BuddyPress Links is a drop in link and rich media sharing component for BuddyPress 1.2.x.", 'dpa' ),
+			'events'      => __( 'This will, one day, be one or two paragraphs that list the events in this plugin that Achievements supports. This may be an unordered list, or a two/three column grid.', 'dpa' ),
+			'name'        => __( 'BuddyPress Links', 'dpa' ),
+			'rss'         => 'http://community.presscrew.com/feed/',
+		),
+
+		'buddystream'           => array(
+			'description' => __( "BuddyStream is a BuddyPress plugin that will synchronize all of your favorite Social Networks to the BuddyPress activity stream.", 'dpa' ),
+			'events'      => __( 'This will, one day, be one or two paragraphs that list the events in this plugin that Achievements supports. This may be an unordered list, or a two/three column grid.', 'dpa' ),
+			'name'        => __( 'BuddyStream', 'dpa' ),
+			'rss'         => 'http://buddystream.net/feed',
+		),
+
+		'invite-anyone'         => array(
+			'description' => __( "Makes BuddyPress's invitation features more powerful.", 'dpa' ),
+			'events'      => __( 'This will, one day, be one or two paragraphs that list the events in this plugin that Achievements supports. This may be an unordered list, or a two/three column grid.', 'dpa' ),
+			'name'        => __( 'Invite Anyone', 'dpa' ),
+			'rss'         => 'http://teleogistic.net/feed/',
+		),
+
+		'wp-e-commerce'         => array(
+			'description' => __( "WP e-Commerce is a free WordPress Shopping Cart Plugin that lets customers buy your products, services and digital downloads online.", 'dpa' ),
+			'events'      => __( 'This will, one day, be one or two paragraphs that list the events in this plugin that Achievements supports. This may be an unordered list, or a two/three column grid.', 'dpa' ),
+			'name'        => __( 'WP e-Commerce', 'dpa' ),
+			'rss'         => 'http://getshopped.org/blog/feed',
+		),
 	);
 
 	$plugins = array();
@@ -298,17 +352,18 @@ function dpa_get_supported_plugins() {
 		// Not cached, so get data
 		if ( ! $data ) {
 			// Build fallback before querying wporg
-			$plugin                 = new stdClass;
-			$plugin->contributors   = array();
-			$plugin->description    = $plugin_data['description'];
-			$plugin->image->large   = esc_url( $achievements->plugin_url . 'images/' . $slug . '.png' );
-			$plugin->install_status = false;
-			$plugin->install_url    = admin_url( 'plugin-install.php?tab=plugin-information&amp;plugin=' . $slug . '&amp;TB_iframe=true&amp;width=600&amp;height=550' );
-			$plugin->name           = $plugin_data['name'];
-			$plugin->rating         = 0.0;
-			$plugin->rss_url        = $plugin_data['rss'];
-			$plugin->slug           = $slug;
-			$plugin->wporg_url      = esc_url( 'http://wordpress.org/extend/plugins/' . $slug );
+			$plugin                   = new stdClass;
+			$plugin->contributors     = array();
+			$plugin->description      = strip_tags( $plugin_data['description'] );
+			$plugin->image->large     = esc_url( $achievements->plugin_url . 'images/' . $slug . '.png' );
+			$plugin->install_status   = false;
+			$plugin->install_url      = admin_url( 'plugin-install.php?tab=plugin-information&amp;plugin=' . $slug . '&amp;TB_iframe=true&amp;width=600&amp;height=550' );
+			$plugin->name             = strip_tags( $plugin_data['name'] );
+			$plugin->rating           = 0.0;
+			$plugin->rss_url          = $plugin_data['rss'];
+			$plugin->slug             = $slug;
+			$plugin->supported_events = $plugin_data['events'];
+			$plugin->wporg_url        = esc_url( trailingslashit( 'http://wordpress.org/extend/plugins/' . $slug ) );
 
 			// Query wporg
 			$wporg = plugins_api( 'plugin_information', array( 'slug' => $slug, 'fields' => array( 'short_description' => true ), ) );
@@ -319,9 +374,9 @@ function dpa_get_supported_plugins() {
 			// Overwrite the fallback data with new values from wporg
 			if ( ! is_wp_error( $wporg ) ) {
 				$plugin->contributors   = (array) $wporg->contributors;
-				$plugin->description    = $wporg->short_description;
+				$plugin->description    = strip_tags( $wporg->short_description );
 				$plugin->install_status = install_plugin_install_status( $wporg );
-				$plugin->name           = $wporg->name;
+				$plugin->name           = strip_tags( $wporg->name );
 				$plugin->rating         = max( 0.0, (float) $wporg->rating );
 			}
 

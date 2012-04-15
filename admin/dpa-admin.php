@@ -147,9 +147,10 @@ class DPA_Admin {
 
 		// "Supported Plugins" screen
 		if ( 'achievements-plugins' == $_GET['page'] ) {
-			wp_enqueue_script( 'dpa_cookie_js',   trailingslashit( $achievements->plugin_url ) . 'js/jquery-cookie-min.js',      array( 'jquery' ),                  '20120218' );
-			wp_enqueue_script( 'tablesorter_js',  trailingslashit( $achievements->plugin_url ) . 'js/jquery-tablesorter-min.js', array( 'jquery' ),                  '20120327' );
-			wp_enqueue_script( 'dpa_admin_js',    trailingslashit( $achievements->plugin_url ) . 'js/supportedplugins-min.js',   array( 'jquery', 'dpa_cookie_js' ), '20120218' );
+			wp_enqueue_script( 'dpa_socialite',   trailingslashit( $achievements->plugin_url ) . 'js/socialite-min.js',          array(),                                             '20120413', true );
+			wp_enqueue_script( 'dpa_cookie_js',   trailingslashit( $achievements->plugin_url ) . 'js/jquery-cookie-min.js',      array( 'jquery' ),                                   '20120413', true );
+			wp_enqueue_script( 'tablesorter_js',  trailingslashit( $achievements->plugin_url ) . 'js/jquery-tablesorter-min.js', array( 'jquery' ),                                   '20120413', true );
+			wp_enqueue_script( 'dpa_sp_admin_js', trailingslashit( $achievements->plugin_url ) . 'js/supportedplugins-min.js',   array( 'jquery', 'dpa_cookie_js', 'dpa_socialite' ), '20120413', true );
 
 			// Add thickbox for the 'not installed' links on the List view
 			add_thickbox();

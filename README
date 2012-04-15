@@ -123,5 +123,10 @@ under the Apache License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.
 jquery-tablesorter-min.js from "tablesorter" http://tablesorter.com/
 under the MIT License (http://www.opensource.org/licenses/mit-license.php).
 
+--
+
+socialite-min.js from "Socialite" https://github.com/dbushell/Socialite/
+under the MIT License (http://www.opensource.org/licenses/mit-license.php).
+
 == Screenshots ==
 1. @todo Add pretty screenshots

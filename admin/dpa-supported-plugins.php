@@ -103,7 +103,7 @@ function dpa_supported_plugins_detail() {
 	$plugins = dpa_get_supported_plugins();
 ?>
 
-	<ul>
+	<ul id="dpa-details-plugins">
 		<?php foreach ( $plugins as $plugin ) :
 			$class = $plugin->slug;
 
@@ -113,7 +113,7 @@ function dpa_supported_plugins_detail() {
 			else
 				$class .= ' notinstalled';
 		?>
-			<li class="<?php echo esc_attr( $class ); if ( $last_plugin == $plugin->slug ) echo ' current'; ?>"><?php echo convert_chars( wptexturize( wp_kses_data( $plugin->name ) ) ); ?></li>
+			<li class="<?php echo esc_attr( $class ); if ( $last_plugin == $plugin->slug ) echo ' current'; ?>"><?php echo convert_chars( wptexturize( $plugin->name ) ); ?></li>
 		<?php endforeach; ?>
 	</ul>
 
@@ -129,35 +129,58 @@ function dpa_supported_plugins_detail() {
 		?>
 
 			<div class="<?php echo esc_attr( $class ); if ( $last_plugin == $plugin->slug ) echo ' current'; ?>">
-				<h3><?php echo convert_chars( wptexturize( wp_kses_data( $plugin->name ) ) ); ?></h3>
+				<div class="plugin-title">
+					<h3><?php echo convert_chars( wptexturize( $plugin->name ) ); ?></h3>
+					<a class="socialite twitter" href="http://twitter.com/share" data-text="<?php echo esc_attr( convert_chars( wptexturize( $plugin->name ) ) ); ?>" data-related="pgibbs" data-url="<?php echo esc_attr( $plugin->wporg_url ); ?>" target="_blank"><?php _e( 'Share on Twitter', 'dpa' ); ?></a>
+					<a class="socialite googleplus" href="<?php echo esc_attr( esc_url( 'https://plus.google.com/share?url=' . urlencode( $plugin->wporg_url ) ) ); ?>" data-size="medium" data-href="<?php echo esc_attr( $plugin->wporg_url ); ?>" target="_blank"><?php _e( 'Share on Google', 'dpa' ); ?></a>
+				</div><!-- .plugin-title -->
 
-				<div class="description">
+				<div class="plugin-infobox">
 					<h4><?php _e( 'Plugin Info', 'dpa' ); ?></h4>
-					<p><?php echo convert_chars( wptexturize( wp_kses_data( $plugin->description ) ) ); ?></p>
+					<p><?php echo convert_chars( wptexturize( $plugin->description ) ); ?></p>
 
-					<?php
-					// Is plugin installed?
-					if ( in_array( $plugin->install_status['status'], array( 'latest_installed', 'newer_installed', 'update_available', ) ) ) {
-						echo '<p class="installed">' . __( 'Status: Ready', 'dpa' ) . '</span>';
+					<ul>
+						<li class="status <?php echo esc_attr( $class ); ?>">
+							<?php
+							// Is plugin installed?
+							if ( in_array( $plugin->install_status['status'], array( 'latest_installed', 'newer_installed', 'update_available', ) ) ) {
+								_e( 'Status: Ready', 'dpa' );
 
-					// It's not installed
-					} else {
-						// If current user can install plugins, link directly to the install screen
-						if ( current_user_can( 'install_plugins' ) || current_user_can( 'update_plugins' ) )
-							printf( '<p>%1$s <a class="thickbox" href="%2$s">%3$s</a></p>', __( 'Status:', 'dpa' ), esc_attr( esc_url( $plugin->install_url ) ), __( 'Install Plugin', 'dpa' ) );
-						else
-							echo '<p>' . __( 'Status: Not installed', 'dpa' ) . '</p>';
-					}
-					?>
-				</div>
+							// It's not installed
+							} else {
+								// If current user can install plugins, link directly to the install screen
+								if ( current_user_can( 'install_plugins' ) || current_user_can( 'update_plugins' ) )
+									printf( '%1$s <a class="thickbox" href="%2$s">%3$s</a>', __( 'Status:', 'dpa' ), esc_url( $plugin->install_url ), __( 'Not installed', 'dpa' ) );
+								else
+									_e( 'Status: Not installed', 'dpa' );
+							}
+							?>
+						</li>
 
-				<div class="supported-events">
-					<h4><?php _e( 'Supported Events', 'dpa' ); ?></h4>
-					<p>@TODO Display supported events.</p>
-				</div>
+						<li class="links"><?php printf( '<a href="%1$s" target="_new">%2$s</a>', esc_url( $plugin->wporg_url ), __( 'More info', 'dpa' ) ); ?></li>
 
-				<div class="author">
-					<h4><?php _e( 'News From The Author', 'dpa' ); ?></h4>
+						<li class="authors">
+							<?php
+							foreach ( $plugin->contributors as $name => $gravatar_url ) {
+								// Sanitise plugin info as it may have been fetched from wporg
+								$gravatar_url = esc_url( $gravatar_url );
+								$profile_url  = esc_url( 'http://profiles.wordpress.org/users/' . urlencode( $name ) );
+								$name         = convert_chars( wptexturize( wp_kses_data( $name ) ) );
+
+								printf( '<a href="%1$s"><img src="%2$s" alt="%3$s" title="%4$s" /></a>', esc_attr( $profile_url ), esc_attr( $gravatar_url ), esc_attr( $name ), esc_attr( $name ) );
+							}
+							?>
+						</li>
+					</ul>
+				</div><!-- .plugin-infobox -->
+
+				<div class="plugin-achievements">
+					<h3 class="screen-reader-text"><?php _e( 'Supported Events', 'dpa' ); ?></h3>
+					<p><?php echo $plugin->supported_events; ?></p>
+				</div><!-- .plugin-achievements -->
+
+				<div class="plugin-rss">
+					<h3><?php _e( 'Latest News', 'dpa' ); ?></h3>
 
 					<?php
 					// Fetch each plugin's RSS feed, and parse the updates.
@@ -167,31 +190,36 @@ function dpa_supported_plugins_detail() {
 						$items   = $rss->get_items( 0, $rss->get_item_quantity( 5 ) );
 
 						foreach ( $items as $item ) {
-							// Prepare excerpt
-							$excerpt = wp_html_excerpt( $item->get_content(), 200 );
-							
+							// Prepare excerpt.
+							$excerpt = strip_tags( html_entity_decode( $item->get_content(), ENT_QUOTES, get_option( 'blog_charset' ) ) );
+
+							// Use BuddyPress' excerpt function if it exists.
+							if ( function_exists( 'bp_create_excerpt' ) )
+								$excerpt = bp_create_excerpt( $excerpt, 250, array( 'ending' => _x( '&hellip;', 'ellipsis character at end of post excerpt to show text has been truncated', 'dpa' ) ) );
+							else
+								$excerpt = wp_html_excerpt( $excerpt, 250 ) . _x( '&hellip;', 'ellipsis character at end of post excerpt to show text has been truncated', 'dpa' );
+
 							// Skip posts with no words
 							if ( empty( $excerpt ) )
 								continue;
-							else
-								$excerpt .= _x( '&#8230;', 'ellipsis character at end of post excerpt to show text has been truncated', 'dpa' );
 
-							// Prepare date
-							$date  = esc_html( strip_tags( $item->get_date() ) );
-							$date  = gmdate( get_option( 'date_format' ), strtotime( $date ) );
+							// Prepare date, author, excerpt, title, url.
+							$date    = strtotime( strip_tags( $item->get_date() ) );
+							$date    = gmdate( get_option( 'date_format' ), $date );
 
-							// Prepare title and URL back to the post's site
-							$title = convert_chars( wptexturize( wp_kses_data( stripslashes( $item->get_title() ) ) ) );
-							$url   = $item->get_permalink();
+							$author  = convert_chars( wptexturize( strip_tags( $item->get_author()->get_name() ) ) );
+							$excerpt = convert_chars( wptexturize( wp_kses_data( $excerpt ) ) );
+							$title   = convert_chars( wptexturize( strip_tags( $item->get_title() ) ) );
+							$url     = strip_tags( $item->get_permalink() );
 
 							// Build the output
 							$content .= '<li>';
+							$content .= sprintf( '<h4><a href="%1$s">%2$s</a></h4>', esc_attr( esc_url( $url ) ), esc_html( $title ) );
 
-							// Translators: shows the excerpt from the RSS feed item. Text is "name of blog post - date".
-							$content .= sprintf( '<h5><a href="%1$s">' . __( '%2$s - %3$s', 'dpa' ) . '</a></h5>', esc_attr( esc_url( $url ) ), esc_html( $title ), esc_html( $date ) );
-							$content .= '<p>' . convert_chars( wptexturize( wp_kses_data( $excerpt ) ) ) . '</p>';
-							$content .= sprintf( '<p><a href="%1$s">%2$s</a></p>', esc_attr( esc_url( $url ) ), __( 'Read More', 'dpa' ) );
+							// translators: "By AUTHOR, DATE".
+							$content .= sprintf( __( '<p>By %1$s, %2$s</p>' ), $author, $date );
 
+							$content .= sprintf( '<p>%1$s</p>', $excerpt );
 							$content .= '</li>';
 						}
 						echo $content . '</ul>';
@@ -200,7 +228,7 @@ function dpa_supported_plugins_detail() {
 						echo '<p>' . __( 'No news found.', 'dpa' ) . '</p>';
 					}
 					?>
-				</div>
+				</div><!-- .plugin-rss -->
 			</div>
 
 		<?php endforeach; ?>
@@ -243,16 +271,17 @@ function dpa_supported_plugins_list() {
 				<th scope="col"><?php _e( 'Plugin', 'dpa' ); ?></th>
 				<th scope="col"><a href="<?php echo esc_attr( add_query_arg( 'order', 'rating', $redirect_to ) ); ?>"><?php _e( 'Rating', 'dpa' ); ?></a></th>
 				<th scope="col"><a href="<?php echo esc_attr( add_query_arg( 'order', 'status', $redirect_to ) ); ?>"><?php _e( 'Status', 'dpa' ); ?></a></th>
-				<th scope="col"><?php _e( 'Credits', 'dpa' ); ?></th>
+				<th scope="col"><?php _e( 'Authors', 'dpa' ); ?></th>
 			</tr>
 		</thead>
+
 		<tfoot>
 			<tr>
 				<th></th>
 				<th><?php _e( 'Plugin', 'dpa' ); ?></th>
 				<th><a href="#a"><?php _e( 'Rating', 'dpa' ); ?></a></th>
 				<th><a href="#"><?php _e( 'Status', 'dpa' ); ?></a></th>
-				<th><?php _e( 'Credits', 'dpa' ); ?></th>
+				<th><?php _e( 'Authors', 'dpa' ); ?></th>
 			</tr>
 		</tfoot>
 
@@ -269,13 +298,23 @@ function dpa_supported_plugins_list() {
 					<td class="plugin">
 						<?php
 						$image_url   = esc_url( $plugin->image->large );
-						$plugin_name = convert_chars( wptexturize( wp_kses_data( $plugin->name ) ) );
- 						printf( '<img src="%1$s" alt="%2$s" title="%3$s" class="%4$s" />', esc_attr( esc_url( $image_url ) ), esc_attr( $plugin_name ), esc_attr( $plugin_name ), esc_attr( $plugin->slug ) );
+						$plugin_name = convert_chars( wptexturize( $plugin->name ) );
+ 						printf( '<img src="%1$s" alt="%2$s" title="%3$s" class="%4$s" />', esc_url( $image_url ), esc_attr( $plugin_name ), esc_attr( $plugin_name ), esc_attr( $plugin->slug ) );
 						?>
 					</td>
 
 					<td class="name"><?php echo $plugin_name; ?></td>
-					<td class="rating"><?php echo convert_chars( wptexturize( wp_kses_data( $plugin->rating ) ) ); ?></td>
+
+					<td class="rating">
+						<div class="star-holder" title="<?php printf( __( 'Rated %1$s out of 100 by the WordPress.org community', 'dpa' ), number_format_i18n( $plugin->rating ) ); ?>">
+							<div class="star star-rating" style="width: <?php echo esc_attr( $plugin->rating ); ?>px"></div>
+							<div class="star star5"><img src="<?php echo admin_url( 'images/star.png?v=20120409' ); ?>" alt="<?php esc_attr_e( '5 stars', 'dpa' ); ?>" /></div>
+							<div class="star star4"><img src="<?php echo admin_url( 'images/star.png?v=20120409' ); ?>" alt="<?php esc_attr_e( '4 stars', 'dpa' ); ?>" /></div>
+							<div class="star star3"><img src="<?php echo admin_url( 'images/star.png?v=20120409' ); ?>" alt="<?php esc_attr_e( '3 stars', 'dpa' ); ?>" /></div>
+							<div class="star star2"><img src="<?php echo admin_url( 'images/star.png?v=20120409' ); ?>" alt="<?php esc_attr_e( '2 stars', 'dpa' ); ?>" /></div>
+							<div class="star star1"><img src="<?php echo admin_url( 'images/star.png?v=20120409' ); ?>" alt="<?php esc_attr_e( '1 star',  'dpa' ); ?>" /></div>
+						</div>
+					</td>
 
 					<?php
 					// Is plugin installed?
@@ -288,7 +327,7 @@ function dpa_supported_plugins_list() {
 
 						// If current user can install plugins, link directly to the plugn install screen
 						if ( current_user_can( 'install_plugins' ) || current_user_can( 'update_plugins' ) )
-							printf( '<a class="thickbox" href="%1$s">' . __( 'Not installed', 'dpa' ) . '</a>', esc_attr( esc_url( $plugin->install_url ) ) );
+							printf( '<a class="thickbox" href="%1$s">' . __( 'Not installed', 'dpa' ) . '</a>', esc_url( $plugin->install_url ) );
 						else
 							_e( 'Not installed', 'dpa' );
 
@@ -301,7 +340,7 @@ function dpa_supported_plugins_list() {
 						foreach ( $plugin->contributors as $name => $gravatar_url ) {
 							// Sanitise plugin info as it may have been fetched from wporg
 							$gravatar_url = esc_url( $gravatar_url );
-							$profile_url  = esc_url( 'http://profiles.wordpress.org/users/' . $name . '/profile/public/' );
+							$profile_url  = esc_url( 'http://profiles.wordpress.org/users/' . urlencode( $name ) );
 							$name         = convert_chars( wptexturize( wp_kses_data( $name ) ) );
 
 							printf( '<a href="%1$s"><img src="%2$s" alt="%3$s" title="%4$s" /></a>', esc_attr( $profile_url ), esc_attr( $gravatar_url ), esc_attr( $name ), esc_attr( $name ) );
@@ -322,7 +361,7 @@ function dpa_supported_plugins_list() {
  *
  * Grid view consists of rows and columns of large logos of plugins.
  *
- * @since 1.0
+ * @since 3.0
  */
 function dpa_supported_plugins_grid() {
 	$plugins = dpa_get_supported_plugins();
@@ -334,7 +373,7 @@ function dpa_supported_plugins_grid() {
 		else
 			$class = 'notinstalled';
 
-		printf( '<a href="#" class="%1$s"><img class="%2$s" src="%3$s" alt="%4$s" /></a>', esc_attr( $class ), esc_attr( $plugin->slug ), esc_attr( $plugin->image->large ), esc_attr( $plugin->name ) );
+		printf( '<a href="#" class="%1$s"><img class="%2$s" src="%3$s" alt="%4$s" title="%4$s" /></a>', esc_attr( $class ), esc_attr( $plugin->slug ), esc_attr( $plugin->image->large ), esc_attr( $plugin->name ) );
 	}
 }
 ?>
