@@ -105,7 +105,7 @@ class DPA_Admin {
 	 */
 	public function admin_menus() {
 		// "Supported Plugins" menu
-		$hook = add_submenu_page( 'edit.php?post_type=dpa_achievements', __( '@todo somethign', 'dpa' ), __( 'Supported Plugins', 'dpa' ), 'manage_options', 'achievements-plugins', 'dpa_supported_plugins' );
+		$hook = add_submenu_page( 'edit.php?post_type=dpa_achievements', __( 'Achievements &mdash; Supported Plugins', 'dpa' ), __( 'Supported Plugins', 'dpa' ), 'manage_options', 'achievements-plugins', 'dpa_supported_plugins' );
 
 		// Hook into early actions to load custom CSS and JS
 		add_action( "admin_print_styles-$hook",  array( $this, 'enqueue_styles'  ) );
