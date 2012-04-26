@@ -6,11 +6,15 @@
  * view, taking into account the type filter (installed, not installed, all plugins),
  * and hide/show content as appropriate.
  *
+ * If [return] is hit when only one result is shown, jump to it and clear the search
+ * critera.
+ *
  * @param object event
  * @since 3.0
  */
-function dpa_update_filters(event) {
+function dpa_update_filters(event, sss, ddd) {
 	event.preventDefault();
+	event.stopImmediatePropagation();
 
 	// Get current filter and search query
 	var current_filter   = $('#dpa-toolbar-filter').val(),
@@ -18,7 +22,7 @@ function dpa_update_filters(event) {
 	item                 = null,
 	object               = '',
 
-	// Find out what view we're. This controls what we need to search for in the DOM.
+	// Find out what view we're in. This controls what we need to search for in the DOM.
 	current_view = $('#post-body-content > .current').prop('class');
 	if (current_view.indexOf('grid') >= 0) {
 		current_view = 'grid';
@@ -107,7 +111,7 @@ function dpa_update_filters(event) {
  */
 function dpa_switch_view(new_view, event) {
 	// Truncate whitespace
-	new_view = $.trim( new_view );
+	new_view = $.trim(new_view);
 
 	// Hide old view, show new view.
 	$('#post-body-content > .current, #dpa-toolbar-views li.current').removeClass('current');
@@ -122,15 +126,18 @@ function dpa_switch_view(new_view, event) {
 }
 
 /**
- * Select a plugin in the detail view
+ * Select a plugin in the detail view. Updates visible content and plugin list selected item.
  *
- * Updates visible content and plugin list selected item.
+ * Hi! You might be wondering why I suffix an empty space onto the end of the
+ * plugin slug/class name. Sometimes, new_plugin's class is a single word and
+ * doesn't have any spaces. So this is to avoid weird jQuery errors.
+ 
  *
  * @param jQuery new_plugin jQuery DOM object (<li> item from selection list)
  * @since 3.0
  */
 function dpa_show_plugin(new_plugin) {
-	var slug = new_plugin.prop('class');
+	var slug = new_plugin.prop('class') + ' ';
 	slug     = slug.substr(0, slug.indexOf(' '));
 
 	// Mark new LI as selected
@@ -143,11 +150,7 @@ function dpa_show_plugin(new_plugin) {
 
 	// Save plugin slug to a cookie
 	$.cookie( 'dpa_sp_lastplugin', slug, {path: '/'} );
-
-	// Load the share tools
-//	Socialite.load($('#dpa-detail-contents .current'));
 }
-
 
 $(document).ready(function() {
 	// Detail view - update content when new plugin is clicked
@@ -174,11 +177,24 @@ $(document).ready(function() {
 
 	// Switch state of toolbar views, and update main display
 	$('#dpa-toolbar-wrapper li a').on('click.achievements', function(event) {
-		event.preventDefault();
-
 		// Switch the view
 		if ( !$(this).hasClass('current') ) {
 			dpa_switch_view($(this).prop('class'), event);
+		}
+	});
+
+	// Never submit the search field
+	$('#dpa-toolbar').submit(function(event) {
+		event.stopPropagation();
+		event.preventDefault();
+
+		// If only one plugin is visible in search results, jump to the detail view and select it.
+		if (1 === $('div.current a:visible').size() && 'detail' !== $('#post-body-content > .current').prop('class').trim() && 'list' !== $('#post-body-content > .current').prop('class').trim()) {
+			var new_plugin = $('#post-body-content > .grid a:visible img');
+
+			$('#dpa-toolbar-search').val('');
+			dpa_switch_view('detail', event);
+			dpa_show_plugin(new_plugin);
 		}
 	});
 

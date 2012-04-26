@@ -92,7 +92,7 @@ function dpa_supported_plugins_header() {
 	else
 		$filter = 'all';
 	?>
-	<form name="dpa-toolbar" method="post" enctype="multipart/form-data">
+	<form name="dpa-toolbar" id="dpa-toolbar" method="post" enctype="multipart/form-data">
 
 		<div id="dpa-toolbar-wrapper">
 			<input type="search" results="5" name="dpa-toolbar-search" id="dpa-toolbar-search" placeholder="<?php esc_attr_e( 'Search for a plugin...', 'dpa' ); ?>" />
