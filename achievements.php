@@ -172,7 +172,7 @@ class Achievements {
 	private function setup_globals() {
 		// Achievements root directory
 		$this->file       = __FILE__;
-		$this->basename   = plugin_basename( $this->file );
+		$this->basename   = 'achievements/achievements.php';  //plugin_basename( $this->file );  @todo Doesn't work in environments with symlink folder
 		$this->plugin_dir = plugin_dir_path( $this->file );
 		$this->plugin_url = plugin_dir_url ( $this->file );
 
