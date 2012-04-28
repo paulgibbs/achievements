@@ -66,6 +66,9 @@ add_action( 'dpa_activation', 'dpa_add_options', 1 );
 add_action( 'dpa_activation',   'flush_rewrite_rules' );
 add_action( 'dpa_deactivation', 'flush_rewrite_rules' );
 
+// Cache supported plugins on activation for a good first impression
+add_action( 'dpa_activation', 'dpa_get_supported_plugins' );
+
 
 // wp-admin stuff
 if ( is_admin() ) {

@@ -384,8 +384,8 @@ function dpa_get_supported_plugins() {
 			$plugin->contributors_raw = $plugin->contributors;
 			$plugin->contributors     = dpa_supported_plugins_get_contributor_data( $plugin->contributors );
 
-			// Cache data for 72 hours
-			set_transient( 'dpa_plugin_' . $slug, $plugin, 60 * 60 * 24 * 3 );
+			// Cache data for 1 week
+			set_transient( 'dpa_plugin_' . $slug, $plugin, 60 * 60 * 24 * 7 );
 
 			$data = $plugin;
 		}
