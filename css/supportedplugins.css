@@ -33,8 +33,8 @@
  *
  * For selecting text on the page
  */
-.wp-admin input,
-.wp-admin select {
+.dpa-toolbar input,
+.dpa-toolbar select {
   -webkit-background-clip: padding-box;
   -moz-background-clip: padding-box;
   background-clip: padding-box;
@@ -50,16 +50,16 @@
   padding: 0;
   vertical-align: top;
 }
-.wp-admin label select {
+.dpa-toolbar label select {
   display: block;
 }
-.wp-admin select {
+.dpa-toolbar select {
   -webkit-appearance: textfield;
 }
-.wp-admin select:focus {
+.dpa-toolbar select:focus {
   box-shadow: none;
 }
-.wp-admin input[type="search"] {
+.dpa-toolbar input[type="search"] {
   -webkit-appearance: none;
 }
 /**
@@ -378,23 +378,20 @@ div.list .plugin img:hover {
 div.detail {
   display: none;
   margin-top: 10px;
-  *zoom: 1;
 }
-div.detail:before,
-div.detail:after {
-  display: table;
-  content: "";
-}
-div.detail:after {
-  clear: both;
+div.detail #dpa-info-column {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  float: left;
+  width: 280px;
 }
 div.detail #dpa-detail-contents {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   *zoom: 1;
-  float: left;
-  width: 75%;
+  margin-left: 290px;
 }
 div.detail #dpa-detail-contents:before,
 div.detail #dpa-detail-contents:after {
@@ -405,22 +402,7 @@ div.detail #dpa-detail-contents:after {
   clear: both;
 }
 div.detail #dpa-details-plugins {
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-  float: left;
-  list-style-type: square;
-  margin: 10px 0 0;
-  padding-left: 20px;
-  width: 25%;
-}
-div.detail #dpa-details-plugins li {
-  margin-bottom: 0;
-}
-div.detail #dpa-details-plugins li.current,
-div.detail #dpa-details-plugins li:hover {
-  color: #D54E21;
-  cursor: pointer;
+  width: 100%;
 }
 #dpa-detail-contents {
   font-size: 15px;
@@ -466,48 +448,6 @@ div.detail #dpa-details-plugins li:hover {
   float: left;
   margin-top: 2px;
 }
-#dpa-detail-contents .plugin-infobox {
-  border: 1px solid #d0d0d0;
-  float: right;
-  font-size: 12px;
-  margin: 0 0 10px 10px;
-  padding: 10px;
-  text-align: center;
-  width: 25%;
-}
-#dpa-detail-contents .plugin-infobox .authors a {
-  margin-left: 10px;
-}
-#dpa-detail-contents .plugin-infobox .authors a:first-child {
-  margin-left: 0;
-}
-#dpa-detail-contents .plugin-infobox .authors img {
-  padding: 2px;
-  -webkit-box-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
-  -moz-box-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
-  box-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
-  -webkit-box-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
-  -moz-box-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
-  box-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
-}
-#dpa-detail-contents .plugin-infobox .installed {
-  font-weight: bold;
-}
-#dpa-detail-contents .plugin-infobox h4 {
-  margin: 0 0 0.6em 0;
-}
-#dpa-detail-contents .plugin-infobox li:last-child {
-  margin: 0;
-}
-#dpa-detail-contents .plugin-infobox ul {
-  margin: 0;
-}
-#dpa-detail-contents .plugin-achievements {
-  float: left;
-  /* RTL? */
-
-  width: 71%;
-}
 #dpa-detail-contents .plugin-rss {
   *zoom: 1;
   float: left;
@@ -540,6 +480,7 @@ div.detail #dpa-details-plugins li:hover {
   margin: 0;
 }
 #dpa-detail-contents .plugin-rss ul li {
+  clear: left;
   float: left;
   /* RTL? */
 

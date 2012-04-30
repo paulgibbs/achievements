@@ -129,20 +129,19 @@ function dpa_switch_view(new_view, event) {
  * Select a plugin in the detail view. Updates visible content and plugin list selected item.
  *
  * Hi! You might be wondering why I suffix an empty space onto the end of the
- * plugin slug/class name. Sometimes, new_plugin's class is a single word and
- * doesn't have any spaces. So this is to avoid weird jQuery errors.
- 
+ * plugin slug. Sometimes, the slug is a single word and doesn't have any spaces.
+ * So this helps avoid weird jQuery errors.
  *
- * @param jQuery new_plugin jQuery DOM object (<li> item from selection list)
+ * @param string slug
  * @since 3.0
  */
-function dpa_show_plugin(new_plugin) {
-	var slug = new_plugin.prop('class') + ' ';
-	slug     = slug.substr(0, slug.indexOf(' '));
+function dpa_show_plugin(slug) {
+	slug = slug + ' ';
+	slug = slug.substr(0, slug.indexOf(' '));
 
-	// Mark new LI as selected
-	$('#post-body-content > .detail > ul li').removeClass('current');
-	new_plugin.addClass('current');
+	// Select plugin in the dropdown box
+	$('#dpa-details-plugins option:selected').prop("selected", false);
+	$('#dpa-details-plugins .' + slug).prop("selected", true);
 
 	// Show detail panel for the selected plugin
 	$('#dpa-detail-contents > div').removeClass('current');
@@ -154,9 +153,9 @@ function dpa_show_plugin(new_plugin) {
 
 $(document).ready(function() {
 	// Detail view - update content when new plugin is clicked
-	$('#post-body-content > .detail > ul li').on('click.achievements', function(event) {
+	$('#dpa-details-plugins').on('click.achievements', function(event) {
 		event.preventDefault();
-		dpa_show_plugin($(this));
+		dpa_show_plugin($(this).children(':selected').prop('class'));
 	});
 
 	// List view - switch to Detail view when a plugin's logo is clicked
@@ -164,7 +163,7 @@ $(document).ready(function() {
 		event.preventDefault();
 
 		dpa_switch_view('detail', event);
-		dpa_show_plugin($('#post-body-content > .detail > ul li.' + $(this).prop('class')));
+		dpa_show_plugin($(this).prop('class'));
 	});
 
 	// Grid view - switch to Detail view when a plugin is clicked
@@ -172,7 +171,7 @@ $(document).ready(function() {
 		event.preventDefault();
 
 		dpa_switch_view('detail', event);
-		dpa_show_plugin($('#post-body-content > .detail > ul li.' + $(this).children('img').prop('class')));
+		dpa_show_plugin($(this).children('img').prop('class'));
 	});
 
 	// Switch state of toolbar views, and update main display
@@ -194,7 +193,7 @@ $(document).ready(function() {
 
 			$('#dpa-toolbar-search').val('');
 			dpa_switch_view('detail', event);
-			dpa_show_plugin(new_plugin);
+			dpa_show_plugin(new_plugin.prop('class'));
 		}
 	});
 

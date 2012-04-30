@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  *
  * @since 3.0
  */
-function dpa_supported_plugins_load() {
+function dpa_supported_plugins_on_load() {
 	// Help panel - overview text
 	get_current_screen()->add_help_tab( array(
 		'id'      => 'dpa-supported-plugins-overview',
@@ -38,6 +38,9 @@ function dpa_supported_plugins_load() {
 		'<p><strong>' . __( 'For more information:', 'dpa' ) . '</strong></p>' .
 		'<p>' . __( '<a href="http://buddypress.org/community/groups/achievements/forum/">Support Forums</a>', 'dpa' ) . '</p>'
 	);
+
+	// Detail view - metaboxes
+	add_meta_box( 'dpa-supported-plugins-switcher', __( 'View Plugin', 'dpa' ), 'dpa_supported_plugins_mb_switcher', 'dpa_achievements_page_achievements-plugins', 'side', 'core' );
 }
 
 /**
@@ -92,7 +95,11 @@ function dpa_supported_plugins_header() {
 	else
 		$filter = 'all';
 	?>
-	<form name="dpa-toolbar" id="dpa-toolbar" method="post" enctype="multipart/form-data">
+	<form class="dpa-toolbar" enctype="multipart/form-data" id="dpa-toolbar" method="post"  name="dpa-toolbar">
+
+		<?php // Required to remember the state of the metaboxes on the Detail view ?>
+		<?php wp_nonce_field( 'closedpostboxes', 'closedpostboxesnonce', false ); ?>
+		<?php wp_nonce_field( 'meta-box-order', 'meta-box-order-nonce', false ); ?>
 
 		<div id="dpa-toolbar-wrapper">
 			<input type="search" results="5" name="dpa-toolbar-search" id="dpa-toolbar-search" placeholder="<?php esc_attr_e( 'Search for a plugin...', 'dpa' ); ?>" />
@@ -134,19 +141,9 @@ function dpa_supported_plugins_detail() {
 	$plugins = dpa_get_supported_plugins();
 ?>
 
-	<ul id="dpa-details-plugins">
-		<?php foreach ( $plugins as $plugin ) :
-			$class = $plugin->slug;
-
-			// Record if this plugin is installed by setting the class
-			if ( in_array( $plugin->install_status['status'], array( 'latest_installed', 'newer_installed', 'update_available', ) ) )
-				$class .= ' installed';
-			else
-				$class .= ' notinstalled';
-		?>
-			<li class="<?php echo esc_attr( $class ); if ( $last_plugin == $plugin->slug ) echo ' current'; ?>"><?php echo convert_chars( wptexturize( $plugin->name ) ); ?></li>
-		<?php endforeach; ?>
-	</ul>
+	<div id="dpa-info-column" class="metabox-holder">
+			<?php do_meta_boxes( 'dpa_achievements_page_achievements-plugins', 'side', null ); ?>
+	</div>
 
 	<div id="dpa-detail-contents">
 		<?php foreach ( $plugins as $plugin ) :
@@ -165,50 +162,6 @@ function dpa_supported_plugins_detail() {
 					<a class="socialite twitter" href="http://twitter.com/share" data-text="<?php echo esc_attr( convert_chars( wptexturize( $plugin->name ) ) ); ?>" data-related="pgibbs" data-url="<?php echo esc_attr( $plugin->wporg_url ); ?>" target="_blank"><?php _e( 'Share on Twitter', 'dpa' ); ?></a>
 					<a class="socialite googleplus" href="<?php echo esc_attr( esc_url( 'https://plus.google.com/share?url=' . urlencode( $plugin->wporg_url ) ) ); ?>" data-size="medium" data-href="<?php echo esc_attr( $plugin->wporg_url ); ?>" target="_blank"><?php _e( 'Share on Google', 'dpa' ); ?></a>
 				</div><!-- .plugin-title -->
-
-				<div class="plugin-infobox">
-					<h4><?php _e( 'Plugin Info', 'dpa' ); ?></h4>
-					<p><?php echo convert_chars( wptexturize( $plugin->description ) ); ?></p>
-
-					<ul>
-						<li class="status <?php echo esc_attr( $class ); ?>">
-							<?php
-							// Is plugin installed?
-							if ( in_array( $plugin->install_status['status'], array( 'latest_installed', 'newer_installed', 'update_available', ) ) ) {
-								_e( 'Status: Ready', 'dpa' );
-
-							// It's not installed
-							} else {
-								// If current user can install plugins, link directly to the install screen
-								if ( current_user_can( 'install_plugins' ) || current_user_can( 'update_plugins' ) )
-									printf( '%1$s <a class="thickbox" href="%2$s">%3$s</a>', __( 'Status:', 'dpa' ), esc_url( $plugin->install_url ), __( 'Not installed', 'dpa' ) );
-								else
-									_e( 'Status: Not installed', 'dpa' );
-							}
-							?>
-						</li>
-
-						<li class="links"><?php printf( '<a href="%1$s" target="_new">%2$s</a>', esc_url( $plugin->wporg_url ), __( 'More info', 'dpa' ) ); ?></li>
-
-						<li class="authors">
-							<?php
-							foreach ( $plugin->contributors as $name => $gravatar_url ) {
-								// Sanitise plugin info as it may have been fetched from wporg
-								$gravatar_url = esc_url( $gravatar_url );
-								$profile_url  = esc_url( 'http://profiles.wordpress.org/users/' . urlencode( $name ) );
-								$name         = convert_chars( wptexturize( wp_kses_data( $name ) ) );
-
-								printf( '<a href="%1$s"><img src="%2$s" alt="%3$s" title="%4$s" /></a>', esc_attr( $profile_url ), esc_attr( $gravatar_url ), esc_attr( $name ), esc_attr( $name ) );
-							}
-							?>
-						</li>
-					</ul>
-				</div><!-- .plugin-infobox -->
-
-				<div class="plugin-achievements">
-					<h3 class="screen-reader-text"><?php _e( 'Supported Events', 'dpa' ); ?></h3>
-					<p><?php echo $plugin->supported_events; ?></p>
-				</div><!-- .plugin-achievements -->
 
 				<div class="plugin-rss">
 					<h3><?php _e( 'Latest News', 'dpa' ); ?></h3>
@@ -406,5 +359,39 @@ function dpa_supported_plugins_grid() {
 
 		printf( '<a href="#" class="%1$s"><img class="%2$s" src="%3$s" alt="%4$s" title="%4$s" /></a>', esc_attr( $class ), esc_attr( $plugin->slug ), esc_attr( $plugin->image->large ), esc_attr( $plugin->name ) );
 	}
+}
+
+/**
+ * The metabox for the "select a plugin" dropdown box on the Supported Plugins grid view.
+ *
+ * @since 3.0
+ */
+function dpa_supported_plugins_mb_switcher() {
+	$last_plugin = '';
+
+	// See if a cookie has been set to remember the last viewed plugin
+	if ( ! empty( $_COOKIE['dpa_sp_lastplugin'] ) )
+		$last_plugin = trim( $_COOKIE['dpa_sp_lastplugin'] );
+
+	// Get supported plugins
+	$plugins = dpa_get_supported_plugins();
+
+	// Build dropdown box
+	echo '<select id="dpa-details-plugins">';
+
+	foreach ( $plugins as $plugin ) {
+		$class = $plugin->slug;
+
+		// Record if this plugin is installed by setting the class
+		if ( in_array( $plugin->install_status['status'], array( 'latest_installed', 'newer_installed', 'update_available', ) ) )
+			$class .= ' installed';
+		else
+			$class .= ' notinstalled';
+
+		// Build option for the plugin
+		echo '<option class="' . esc_attr( $class ) . '"' . selected( $last_plugin, $plugin->slug ) . '>' . convert_chars( wptexturize( $plugin->name ) ) . '</li>';
+	}
+
+	echo '</select>';
 }
 ?>

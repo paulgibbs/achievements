@@ -209,32 +209,21 @@ div.list {
 div.detail {
 	display: none;
 	margin-top: @toolbarMargin;
-	.clearfix();
+
+	#dpa-info-column {
+		.box-sizing(border-box);
+		float: left;
+		width: @metaboxWidth;
+	}
 
 	#dpa-detail-contents {
 		.box-sizing(border-box);
 		.clearfix();
-		float: left;
-		width: 75%;
+		margin-left: @metaboxWidth + @toolbarMargin;
 	}
 
 	#dpa-details-plugins {
-		.box-sizing(border-box);
-		float: left;
-		list-style-type: square;
-		margin: @toolbarMargin 0 0;
-		padding-left: 20px;
-		width: 25%;
-
-		li {
-			margin-bottom: 0;
-
-			&.current,
-			&:hover {
-				color: #D54E21;
-				cursor: pointer;
-			}
-		}
+		width: 100%;
 	}
 }
 
@@ -282,41 +271,6 @@ div.detail {
 		}
 	}
 
-	.plugin-infobox {
-		border: 1px solid @toolbarMainBorderColour;
-		float: right;  // @todo RTL
-		font-size: @smallFont;
-		margin: 0 0 @toolbarMargin @toolbarMargin;  // @todo RTL
-		padding: @toolbarMargin;
-		text-align: center;
-		width: 25%;
-
-		.authors {
-			a {
-				margin-left: 10px;
-
-				&:first-child {
-					margin-left: 0;
-				}
-			}
-
-			img {
-				padding: 2px;
-				.box-shadow( 0 0 4px rgba( 0, 0, 0, 0.4 ) );
-			}
-		}
-		.installed { font-weight: bold; }
-
-		h4 { margin: 0 0 0.6em 0; }
-		li:last-child{ margin: 0; }
-		ul { margin: 0; }
-	}
-
-	.plugin-achievements {
-		float: left;  /* RTL? */
-		width: 71%;
-	}
-
 	.plugin-rss {
 		.clearfix();
 		float: left;  /* RTL? */
@@ -336,6 +290,7 @@ div.detail {
 			margin: 0;
 
 			li {
+				clear: left;
 				float: left;  /* RTL? */
 				margin-bottom: @toolbarMargin;
 

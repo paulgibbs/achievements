@@ -1,12 +1,12 @@
 // admin-forms.less
-// Form appearance stuff.
+// Form appearance/normalisation stuff.
 //
 // Taken from Formalize CSS http://formalize.me/, under the MIT License
 // http://www.opensource.org/licenses/mit-license.php.
 // ------------------------------------------------------------------
 
-.wp-admin input,
-.wp-admin select {
+.dpa-toolbar input,
+.dpa-toolbar select {
 	.background-clip(padding-box);
 	.ie7-inline-block();
 	box-shadow: none;
@@ -19,15 +19,15 @@
 }
 
 // Inputs within a label
-.wp-admin label select {
+.dpa-toolbar label select {
 	display: block;
 }
-.wp-admin select {
+.dpa-toolbar select {
 	-webkit-appearance: textfield;
 }
-.wp-admin select:focus {
+.dpa-toolbar select:focus {
 	box-shadow: none;
 }
-.wp-admin input[type="search"] {
+.dpa-toolbar input[type="search"] {
 	-webkit-appearance: none;
 }
