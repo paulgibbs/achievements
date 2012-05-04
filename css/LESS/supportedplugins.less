@@ -12,6 +12,27 @@
 // Form reset
 @import "admin-forms.less";
 
+// Common styles to remove WordPress' postbox styling.
+.reset_postbox() {
+	-webkit-border-top-left-radius: 0;
+	-webkit-border-top-right-radius: 0;
+	background-color: white;
+	background-image: none;
+	border: 0;
+	.border-radius(0);
+	.box-shadow(none);
+	text-shadow: none;
+}
+
+// Hide visually but not from screen readers. Copied from wpcore.
+.show_for_screen_readers() {
+	position: absolute;
+	left: -1000em;
+	height: 1px;
+	width: 1px;
+	overflow: hidden;
+}
+
 
 /**
  * General page styles to fit in with the WordPress Admin UI
@@ -213,7 +234,61 @@ div.detail {
 	#dpa-info-column {
 		.box-sizing(border-box);
 		float: left;
+		margin-top: @toolbarMargin;
 		width: @metaboxWidth;
+
+		// Override wp-admin metabox styles
+		.postbox {
+			.reset_postbox();
+
+			.handlediv {
+				.show_for_screen_readers();  // @todo RTL
+			}
+
+			.hndle {
+				.reset_postbox();
+				border-bottom: 1px solid @toolbarMainBorderColour;
+
+				span {
+					color: @wpHeadingColour;
+					font-family: sans-serif;
+					font-size: @mediumFont;
+					font-weight: bold;
+					text-shadow: 1px 1px 1px white;
+				}
+
+				&:hover {
+					color: @wpHeadingColour;  // Overrides a wp-admin style
+				}
+			}
+
+			.inside {
+				margin-top: 0;
+			}
+		}
+	}
+
+
+	#dpa-supported-plugins-info {
+		text-align: center;
+
+		.authors {
+			a {
+				margin-left: 10px;
+				&:first-child {
+					margin-left: 0;
+				}
+			}
+
+			img {
+				padding: 2px;
+				.box-shadow( 0 0 4px rgba( 0, 0, 0, 0.4 ) );
+			}
+		}
+		.installed { font-weight: bold; }
+		h4 { margin: 0 0 0.6em 0; }
+		li:last-child{ margin: 0; }
+		ul { margin: 0; }
 	}
 
 	#dpa-detail-contents {
@@ -228,7 +303,7 @@ div.detail {
 }
 
 #dpa-detail-contents {
-	font-size: @mediumFont;
+	font-size: @largeFont;
 
 	> div {
 		display: none;
@@ -237,7 +312,7 @@ div.detail {
 	}
 	a { text-decoration: none; }
 	h3 {
-		color: #333;
+		color: @wpHeadingColour;
 		font-family: sans-serif;
 		font-size: 24px;
 		font-weight: bold;

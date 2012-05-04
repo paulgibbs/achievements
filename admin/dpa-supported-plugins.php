@@ -40,7 +40,8 @@ function dpa_supported_plugins_on_load() {
 	);
 
 	// Detail view - metaboxes
-	add_meta_box( 'dpa-supported-plugins-switcher', __( 'View Plugin', 'dpa' ), 'dpa_supported_plugins_mb_switcher', 'dpa_achievements_page_achievements-plugins', 'side', 'core' );
+	$plugins = dpa_get_supported_plugins();
+	add_meta_box( 'dpa-supported-plugins-info', __( 'Plugin Information', 'dpa' ), 'dpa_supported_plugins_mb_info', 'dpa_achievements_page_achievements-plugins', 'side', 'core', array( $plugins ) );
 }
 
 /**
@@ -141,8 +142,12 @@ function dpa_supported_plugins_detail() {
 	$plugins = dpa_get_supported_plugins();
 ?>
 
-	<div id="dpa-info-column" class="metabox-holder">
-			<?php do_meta_boxes( 'dpa_achievements_page_achievements-plugins', 'side', null ); ?>
+	<div id="dpa-info-column">
+		<?php dpa_supported_plugins_mb_switcher(); ?>
+
+		<div class="metabox-holder">
+				<?php do_meta_boxes( 'dpa_achievements_page_achievements-plugins', 'side', null ); ?>
+		</div>
 	</div>
 
 	<div id="dpa-detail-contents">
@@ -393,5 +398,53 @@ function dpa_supported_plugins_mb_switcher() {
 	}
 
 	echo '</select>';
+}
+
+/**
+ * The metabox for the "plugin info" dropdown box on the Supported Plugins grid view.
+ *
+ * @since 3.0
+ */
+function dpa_supported_plugins_mb_info( $null, $plugins ) {
+	$plugin = $plugins['args'][0][0];
+	$class  = 'temp';
+?>
+
+	<p><?php echo convert_chars( wptexturize( $plugin->description ) ); ?></p>
+	<ul>
+		<li class="status <?php echo esc_attr( $class ); ?>">
+			<?php
+				// Is plugin installed?
+				if ( in_array( $plugin->install_status['status'], array( 'latest_installed', 'newer_installed', 'update_available', ) ) ) {
+					_e( 'Status: Ready', 'dpa' );
+
+				// It's not installed
+				} else {
+
+					// If current user can install plugins, link directly to the install screen
+					if ( current_user_can( 'install_plugins' ) || current_user_can( 'update_plugins' ) )
+						printf( '%1$s <a class="thickbox" href="%2$s">%3$s</a>', __( 'Status:', 'dpa' ), esc_url( $plugin->install_url ), __( 'Not installed', 'dpa' ) );
+					else
+					_e( 'Status: Not installed', 'dpa' );
+				}
+			?>
+		</li>
+
+		<li class="links"><?php printf( '<a href="%1$s" target="_new">%2$s</a>', esc_url( $plugin->wporg_url ), __( 'More info', 'dpa' ) ); ?></li>
+
+		<li class="authors">
+			<?php
+				foreach ( $plugin->contributors as $name => $gravatar_url ) {
+					// Sanitise plugin info as it may have been fetched from wporg
+					$gravatar_url = esc_url( $gravatar_url );
+					$profile_url  = esc_url( 'http://profiles.wordpress.org/users/' . urlencode( $name ) );
+					$name         = convert_chars( wptexturize( wp_kses_data( $name ) ) );
+					printf( '<a href="%1$s"><img src="%2$s" alt="%3$s" title="%4$s" /></a>', esc_attr( $profile_url ), esc_attr( $gravatar_url ), esc_attr( $name ), esc_attr( $name ) );
+				}
+			?>
+		</li>
+	</ul>
+
+<?php
 }
 ?>
