@@ -20,7 +20,8 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  */
 function dpa_get_default_options() {
 	$options = array(
-		'_dpa_db_version' => '0',  // Initial DB version
+		'_dpa_db_version' => '0',            // Initial DB version
+		'_dpa_root_slug'  => 'achievements', // Root slug for URLs
 	);
 
 	return apply_filters( 'dpa_get_default_options', $options );
@@ -66,7 +67,7 @@ function dpa_delete_options() {
 
 /**
  * Add filters to each Achievements option and allow them to be overloaded
- * from inside the $achievements->options array.
+ * from inside the achievements()->options array.
  * 
  * @since 3.0
  */
@@ -83,22 +84,19 @@ function dpa_setup_option_filters() {
 
 /**
  * Filter default options and allow them to be overloaded from inside the
- * $achievements->options array.
+ * achievements()->options array.
  *
- * @global achievements $achievements Main Achievements object
  * @param bool $value
  * @return mixed
  * @since 3.0
  */
 function dpa_pre_get_option( $value = false ) {
-	global $achievements;
-
 	// Get the name of the current filter so we can manipulate it, and remove the filter prefix
 	$option = str_replace( 'pre_option_', '', current_filter() );
 
 	// Check the options global for preset value
-	if ( ! empty( $achievements->options[$option] ) )
-		$value = $achievements->options[$option];
+	if ( ! empty( achievements()->options[$option] ) )
+		$value = achievements()->options[$option];
 
 	return $value;
 }

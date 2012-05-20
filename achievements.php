@@ -42,6 +42,7 @@ along with this program.  If not, see http://www.gnu.org/licenses/.
 // Exit if accessed directly
 if ( ! defined( 'ABSPATH' ) ) exit;
 
+if ( ! class_exists( 'Achievements' ) ) :
 /**
  * Main Achievements class
  *
@@ -138,6 +139,16 @@ class Achievements {
 	public $current_user = null;
 
 
+	// Slugs
+
+	/**
+	 * Root slug
+	 *
+	 * @var string
+	 */
+	public $root_slug = '';
+
+
 	// Errors
 
 	/**
@@ -153,16 +164,56 @@ class Achievements {
 	public $options = array();
 
 
+	// Singleton
+
 	/**
-	 * Constructor. Gets the ball rolling.
+	 * @var Achievements The one true Achievements
+	 */
+	private static $instance;
+
+	/**
+	 * Main Achievements instance
+	 *
+	 * Insures that only one instance of Achievements exists in memory at any one
+	 * time. Also prevents needing to define globals all over the place.
+	 *
+	 * @return Achievements The one true Achievements
+	 * @see achievements()
+	 * @since 3.0
+	 * @staticvar Achievements $instance
+	 */
+	public static function instance() {
+		if ( ! isset( self::$instance ) ) {
+			self::$instance = new Achievements;
+			self::$instance->setup_globals();
+			self::$instance->includes();
+			self::$instance->setup_actions();
+		}
+		return self::$instance;
+	}
+
+	// Magic Methods
+
+	/**
+	 * A dummy constructor to prevent Achievements from being loaded more than once.
 	 *
 	 * @since 3.0
 	 */
-	public function __construct() {
-		$this->setup_globals();
-		$this->includes();
-		$this->setup_actions();
-	}
+	private function __construct() {}
+
+	/**
+	 * A dummy magic method to prevent Achievements from being cloned
+	 *
+	 * @since 3.0
+	 */
+	public function __clone() { wp_die( __( 'Cheatin&#8217; huh?', 'dpa' ) ); }
+
+	/**
+	 * A dummy magic method to prevent Achievements from being unserialised
+	 *
+	 * @since 3.0
+	 */
+	public function __wakeup() { wp_die( __( 'Cheatin&#8217; huh?', 'dpa' ) ); }
 
 	/**
 	 * Set up global variables
@@ -185,7 +236,10 @@ class Achievements {
 
 		// Post type/taxonomy identifiers
 		$this->achievement_post_type = apply_filters( 'dpa_achievement_post_type', 'dpa_achievements' );
-		$this->action_tax_id         = apply_filters( 'dpa_action_tax_id', 'dp_actions' );
+		$this->action_tax_id         = apply_filters( 'dpa_action_tax_id',         'dpa_actions' );
+
+		// Slugs
+		$this->root_slug = apply_filters( 'dpa_root_slug', get_option( '_dpa_root_slug', 'achievements' ) );
 
 		// Errors
 		$this->errors = new WP_Error();
@@ -201,18 +255,25 @@ class Achievements {
 	 */
 	private function includes() {
 		// Core
-		require( $this->plugin_dir . 'includes/dpa-core-hooks.php'   );  // All filters and actions
-		require( $this->plugin_dir . 'includes/dpa-core-options.php' );  // Configuration Options
-		require( $this->plugin_dir . 'includes/dpa-core-caps.php'    );  // Roles and capabilities
-		require( $this->plugin_dir . 'includes/dpa-core-classes.php' );  // Common classes
-		require( $this->plugin_dir . 'includes/dpa-core-update.php'  );  // Database updater
+		require( $this->plugin_dir . 'includes/dpa-core-actions.php'    ); // All actions
+		require( $this->plugin_dir . 'includes/dpa-core-filters.php'    ); // All filters
+		require( $this->plugin_dir . 'includes/dpa-core-functions.php'  ); // Common functions
+		require( $this->plugin_dir . 'includes/dpa-core-options.php'    ); // Configuration options
+		require( $this->plugin_dir . 'includes/dpa-core-caps.php'       ); // Roles and capabilities
+		require( $this->plugin_dir . 'includes/dpa-core-classes.php'    ); // Common classes
+		//require( $this->plugin_dir . 'includes/dpa-core-widgets.php'    ); // Widgets
+		//require( $this->plugin_dir . 'includes/dpa-core-shortcodes.php' ); // Shortcodes for use with pages and posts
+		require( $this->plugin_dir . 'includes/dpa-core-update.php'     ); // Database updater
 
 		// Components
-		require( $this->plugin_dir . 'includes/dpa-common-functions.php' ); // Common functions
+		require( $this->plugin_dir . 'includes/dpa-achievements-functions.php' ); // Implements the main logic (achievement event monitoring, etc)
+		require( $this->plugin_dir . 'includes/dpa-achievements-template.php'  ); // Achievement post type template tags
 
 		// Admin
-		if ( is_admin() )
-			require( $this->plugin_dir . 'admin/dpa-admin.php' );
+		if ( is_admin() ) {
+			require( $this->plugin_dir . 'admin/dpa-admin.php'         );
+			require( $this->plugin_dir . 'admin/dpa-admin-actions.php' );
+		}
 	}
 
 	/**
@@ -239,6 +300,9 @@ class Achievements {
 
 		foreach( $actions as $class_action )
 			add_action( 'dpa_' . $class_action, array( $this, $class_action ), 5 );
+
+		// All Achievements actions are setup (includes dpa-core-actions.php)
+		do_action_ref_array( 'dpa_after_setup_actions', array( &$this ) );
 	}
 
 	/**
@@ -250,23 +314,26 @@ class Achievements {
 	 * @since 3.0
 	 */
 	public function load_textdomain() {
-		// Allow locale to be filtered
-		$locale = apply_filters( 'dpa_locale', get_locale() );
+		$locale = get_locale();                                     // Default locale
+		$locale = apply_filters( 'plugin_locale', $locale, 'dpa' ); // Traditional WordPress plugin locale filter
+		$locale = apply_filters( 'dpa_locale',    $locale );        // Achievements-specific locale filter
+		$mofile = sprintf( 'dpa-%s.mo', $locale );                  // Get .mo file name
 
-		// Get mo file name
-		$mofile = sprintf( 'dpa-%s.mo', $locale );
-
-		// Set up paths to current locale file
-		$mofile_local  = $this->lang_dir . '/' . $mofile;
+		// Setup paths to current locale file
+		$mofile_local  = $this->lang_dir . $mofile;
 		$mofile_global = WP_LANG_DIR . '/achievements/' . $mofile;
 
-		// Look in /wp-content/plugins/achievmeents/languages/
-		if ( file_exists( $mofile_local ) )
+		// Look in local /wp-content/plugins/achievements/languages/ folder
+		if ( file_exists( $mofile_local ) ) {
 			return load_textdomain( 'dpa', $mofile_local );
 
-		// Look in /wp-content/languages/
-		elseif ( file_exists( $mofile_global ) )
+		// Look in global /wp-content/languages/achievements/ folder
+		} elseif ( file_exists( $mofile_global ) ) {
 			return load_textdomain( 'dpa', $mofile_global );
+		}
+
+		// Nothing found
+		return false;
 	}
 
 	/**
@@ -296,10 +363,10 @@ class Achievements {
 		);
 
 		// CPT rewrite
-		/*$achievement['rewrite'] = array(
-			'slug'       => $this->achievement_slug,
+		$achievement['rewrite'] = array(
+			'slug'       => $this->root_slug,
 			'with_front' => false,
-		);*/
+		);
 
 		// CPT supports
 		$achievement['supports'] = array(
@@ -321,7 +388,7 @@ class Achievements {
 			'labels'              => $achievement['labels'],
 			'public'              => true,
 			'query_var'           => true,
-			//'rewrite'             => $achievement['rewrite'],
+			'rewrite'             => $achievement['rewrite'],
 			'show_in_menu'        => true,
 			'show_in_nav_menus'   => true,
 			'show_ui'             => true,
@@ -329,7 +396,7 @@ class Achievements {
 		) );
 
 		// Register Achievement post type
-		register_post_type( $this->achievement_post_type, $cpt['achievement'] );
+		register_post_type( dpa_get_achievement_post_type(), $cpt['achievement'] );
 	}
 
 	/**
@@ -357,18 +424,18 @@ class Achievements {
 		// Action filter
 		$action_tax = apply_filters( 'dpa_register_taxonomies_action', array(
 			'capabilities'          => dpa_get_action_caps(),
-			'hierarchical'          => false,
+			'hierarchical'          => true, // Better UI
 			'labels'                => $action['labels'],
 			'public'                => false,
-			'show_tagcloud'         => true,
+			'show_tagcloud'         => false,
 			'show_ui'               => true,
 			'update_count_callback' => '_update_post_term_count',
 		) );
 
 		// Register the achievement action taxonomy
 		register_taxonomy(
-			$this->action_tax_id,          // The topic tag id
-			$this->achievement_post_type,  // The topic post type
+			dpa_get_action_tax_id(),         // The action taxonomy id
+			dpa_get_achievement_post_type(), // The achievement post type
 			$action_tax
 		);
 	}
@@ -385,5 +452,21 @@ class Achievements {
 	}
 }
 
-$GLOBALS['achievements'] = new Achievements();
+/**
+ * The main function responsible for returning the one true Achievements instance.
+ *
+ * Use this function like you would a global variable, except without needing
+ * to declare the global.
+ *
+ * @return Achievements The one true Achievements instance
+ */
+function achievements() {
+	return Achievements::instance();
+}
+
+// This makes it go up to 11
+Achievements();
+
+endif; // class_exists check
+
 ?>

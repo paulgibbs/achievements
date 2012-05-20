@@ -30,13 +30,10 @@ function dpa_is_update() {
 /**
  * Determine if Achievements is being activated
  *
- * @global achievements $achievements Main Achievements object
  * @return bool True if activating Achievements, false if not
  * @since 3.0
  */
 function dpa_is_activation( $basename = '' ) {
-	global $achievements;
-
 	// Baif if action or plugin are empty, or not activating
 	if ( empty( $_GET['action'] ) || empty( $_GET['plugin'] ) || 'activate' !== $_GET['action'] )
 		return false;
@@ -45,8 +42,8 @@ function dpa_is_activation( $basename = '' ) {
 	$plugin = isset( $_GET['plugin'] ) ? $_GET['plugin'] : '';
 
 	// Set basename if empty
-	if ( empty( $basename ) && ! empty( $achievements->basename ) )
-		$basename = $achievements->basename;
+	if ( empty( $basename ) && ! empty( achievements()->basename ) )
+		$basename = achievements()->basename;
 
 	// Bail if no basename
 	if ( empty( $basename ) )
@@ -62,13 +59,10 @@ function dpa_is_activation( $basename = '' ) {
 /**
  * Determine if Achievements is being deactivated
  *
- * @global achievements $achievements Main Achievements object
  * @return bool True if deactivating Achievements, false if not
  * @since 3.0
  */
 function dpa_is_deactivation( $basename = '' ) {
-	global $achievements;
-
 	// Baif if action or plugin are empty, or not deactivating
 	if ( empty( $_GET['action'] ) || empty( $_GET['plugin'] ) || 'deactivate' !== $_GET['action'] )
 		return false;
@@ -77,8 +71,8 @@ function dpa_is_deactivation( $basename = '' ) {
 	$plugin = isset( $_GET['plugin'] ) ? $_GET['plugin'] : '';
 
 	// Set basename if empty
-	if ( empty( $basename ) && ! empty( $achievements->basename ) )
-		$basename = $achievements->basename;
+	if ( empty( $basename ) && ! empty( achievements()->basename ) )
+		$basename = achievements()->basename;
 
 	// Bail if no basename
 	if ( empty( $basename ) )

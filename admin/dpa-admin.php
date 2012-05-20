@@ -9,6 +9,7 @@
 // Exit if accessed directly
 if ( ! defined( 'ABSPATH' ) ) exit;
 
+if ( ! class_exists( 'DPA_Admin' ) ) :
 /**
  * Loads Achievements admin area thing
  *
@@ -50,23 +51,40 @@ class DPA_Admin {
 	 * @since 3.0
 	 */
 	private function setup_actions() {
-		// Attach Achievements' admin_init action to the WordPress admin_init action.
-		add_action( 'admin_init',         array( $this, 'admin_init'                 ) );
+		// General Actions
 
 		// Add menu item to settings menu
-		add_action( 'admin_menu',         array( $this, 'admin_menus'                ) );
+		add_action( 'dpa_admin_menu',              array( $this, 'admin_menus'             ) );
+
+		// Add some general styling to the admin area
+		//add_action( 'dpa_admin_head',              array( $this, 'admin_head'              ) );
 
 		// Add notice if not using an Achievements theme
-		add_action( 'admin_notices',      array( $this, 'activation_notice'          ) );
+		//add_action( 'dpa_admin_notices',           array( $this, 'activation_notice'       ) );
 
 		// Add settings
-		add_action( 'dpa_admin_init',     array( $this, 'register_admin_settings'    ) );
+		add_action( 'dpa_register_admin_settings', array( $this, 'register_admin_settings' ) );
+
+		// Add menu item to settings menu
+		//add_action( 'dpa_activation',              array( $this, 'new_install'             ) );
+
+
+		// Filters
 
 		// Add link to settings page
 		add_filter( 'plugin_action_links', array( $this, 'add_settings_link' ), 10, 2 );
 
-		// Add sample permalink filter
-		add_filter( 'post_type_link',     'dpa_filter_sample_permalink',        10, 4 );
+
+		// Network Admin
+
+		// Add menu item to settings menu
+		//add_action( 'network_admin_menu',  array( $this, 'network_admin_menus' ) );
+
+
+		// Dependencies
+
+		// Allow plugins to modify these actions
+		do_action_ref_array( 'dpa_admin_loaded', array( &$this ) );
 	}
 
 	/**
@@ -75,27 +93,19 @@ class DPA_Admin {
 	 * @since 3.0
 	 */
 	private function includes() {
-		require( $this->admin_dir . 'dpa-admin-functions.php' );
+		require( $this->admin_dir . 'dpa-admin-functions.php'   );
 		require( $this->admin_dir . 'dpa-supported-plugins.php' );  // Supported plugins screen
 	}
 
 	/**
 	 * Set admin globals
 	 *
-	 * @global achievements $achievements Main Achievements object
 	 * @since 3.0
 	 */
 	private function setup_globals() {
-		global $achievements;
-
-		// Admin dir
-		$this->admin_dir  = trailingslashit( $achievements->plugin_dir . 'admin' );
-
-		// Admin url
-		$this->admin_url  = trailingslashit( $achievements->plugin_url . 'admin' );
-
-		// Admin images URL
-		$this->images_url = trailingslashit( $this->admin_url . 'images' );
+		$this->admin_dir  = trailingslashit( achievements()->plugin_dir . 'admin'  );
+		$this->admin_url  = trailingslashit( achievements()->plugin_url . 'admin'  );
+		$this->images_url = trailingslashit( $this->admin_url           . 'images' );
 	}
 
 	/**
@@ -133,19 +143,16 @@ class DPA_Admin {
 	/**
 	 * Enqueue CSS for our custom admin screens
 	 *
-	 * @global achievements $achievements Main Achievements object
 	 * @since 3.0
 	 */
 	public function enqueue_styles() {
-		global $achievements;
-
 		// Only load up styles if we're on an Achievements admin screen
 		if ( ! DPA_Admin::is_admin_screen() )
 			return;
 
 		// "Supported Plugins" screen
 		if ( 'achievements-plugins' == $_GET['page'] )
-			wp_enqueue_style( 'dpa_admin_css', trailingslashit( $achievements->plugin_url ) . 'css/supportedplugins.css', array(), '20120209' );
+			wp_enqueue_style( 'dpa_admin_css', trailingslashit( achievements()->plugin_url ) . 'css/supportedplugins.css', array(), '20120209' );
 	}
 
 	/**
@@ -153,22 +160,19 @@ class DPA_Admin {
 	 *
 	 * jQuery Cookie plugin taken from BuddyPress. Original source unknown.
 	 *
-	 * @global achievements $achievements Main Achievements object
 	 * @since 3.0
 	 */
 	public function enqueue_scripts() {
-		global $achievements;
-
 		// Only load up scripts if we're on an Achievements admin screen
 		if ( ! DPA_Admin::is_admin_screen() )
 			return;
 
 		// "Supported Plugins" screen
 		if ( 'achievements-plugins' == $_GET['page'] ) {
-			wp_enqueue_script( 'dpa_socialite',   trailingslashit( $achievements->plugin_url ) . 'js/socialite-min.js',          array(),                                                                     '20120413', true );
-			wp_enqueue_script( 'dpa_cookie_js',   trailingslashit( $achievements->plugin_url ) . 'js/jquery-cookie-min.js',      array( 'jquery' ),                                                           '20120413', true );
-			wp_enqueue_script( 'tablesorter_js',  trailingslashit( $achievements->plugin_url ) . 'js/jquery-tablesorter-min.js', array( 'jquery' ),                                                           '20120413', true );
-			wp_enqueue_script( 'dpa_sp_admin_js', trailingslashit( $achievements->plugin_url ) . 'js/supportedplugins-min.js',   array( 'jquery', 'dpa_cookie_js', 'dpa_socialite', 'dashboard', 'postbox' ), '20120413', true );
+			wp_enqueue_script( 'dpa_socialite',   trailingslashit( achievements()->plugin_url ) . 'js/socialite-min.js',          array(),                                                                     '20120413', true );
+			wp_enqueue_script( 'dpa_cookie_js',   trailingslashit( achievements()->plugin_url ) . 'js/jquery-cookie-min.js',      array( 'jquery' ),                                                           '20120413', true );
+			wp_enqueue_script( 'tablesorter_js',  trailingslashit( achievements()->plugin_url ) . 'js/jquery-tablesorter-min.js', array( 'jquery' ),                                                           '20120413', true );
+			wp_enqueue_script( 'dpa_sp_admin_js', trailingslashit( achievements()->plugin_url ) . 'js/supportedplugins-min.js',   array( 'jquery', 'dpa_cookie_js', 'dpa_socialite', 'dashboard', 'postbox' ), '20120413', true );
 
 			// Add thickbox for the 'not installed' links on the List view
 			add_thickbox();
@@ -194,58 +198,27 @@ class DPA_Admin {
 	 *
 	 * Shows a nag message in admin area about the theme not supporting Achievements
 	 *
-	 * @global achievements $achievements Main Achievements object
-	 * @global string $pagenow
 	 * @since 3.0
 	 */
 	public function activation_notice() {
-		global $achievements, $pagenow;
-
-		// Bail if not on admin theme page
-		if ( 'themes.php' != $pagenow )
-			return;
-
-		// Bail if user cannot change the theme
-		if ( ! current_user_can( 'switch_themes' ) )
-			return;
-
-		// Set $achievements->theme_compat to true to supress this nag
-		if ( ! empty( $achievements->theme_compat->theme ) && ! current_theme_supports( 'dpa_achievements' ) ) : ?>
-
-			<div id="message" class="updated fade">
-				<p style="line-height: 150%"><?php _e( 'Your active theme does not include template files for Achievements. Your achievement pages are using the default styling included with Achievements.', 'dpa' ); ?></p>
-			</div>
-
-		<?php endif;
+		// @todo - something fun
 	}
 
 	/**
 	 * Add Settings link to plugins area
 	 *
-	 * @global achievements $achievements Main Achievements object
 	 * @param array $links Links array in which we would prepend our link
 	 * @param string $file Current plugin basename
 	 * @return array Processed links
 	 * @since 3.0
 	 */
 	public function add_settings_link( $links, $file ) {
-		global $achievements;
-
-		if ( plugin_basename( $achievements->file ) == $file ) {
+		if ( plugin_basename( achievements()->file ) == $file ) {
 			$settings_link = '<a href="' . esc_attr( admin_url( 'options-general.php?page=achievements' ) ) . '">' . __( 'Settings', 'dpa' ) . '</a>';
 			array_unshift( $links, $settings_link );
 		}
 
 		return $links;
-	}
-
-	/**
-	 * Dedicated admin init action for Achievements
-	 *
-	 * @since 3.0
-	 */
-	public function admin_init() {
-		do_action( 'dpa_admin_init' );
 	}
 
 	/**
@@ -263,6 +236,7 @@ class DPA_Admin {
 		return true;
 	}
 }
+endif; // class_exists check
 
 /**
  * Set up Achievements' Admin
@@ -270,7 +244,6 @@ class DPA_Admin {
  * @since 3.0
  */
 function dpa_admin() {
-	global $achievements;
-	$achievements->admin = new DPA_Admin();
+	achievements()->admin = new DPA_Admin();
 }
 ?>

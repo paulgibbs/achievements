@@ -21,12 +21,10 @@ function dpa_version() {
 	 * Return the Achievements version
 	 *
 	 * @since 3.0
-	 * @global achievements $achievements Main Achievements object
 	 * @return string The Achievements version
 	 */
 	function dpa_get_version() {
-		global $achievements;
-		return $achievements->version;
+		return achievements()->version;
 	}
 
 /**
@@ -41,12 +39,10 @@ function dpa_db_version() {
 	 * Return the Achievements database version
 	 *
 	 * @since 3.0
-	 * @global achievements $achievements Main Achievements object
 	 * @return string The Achievements version
 	 */
 	function dpa_get_db_version() {
-		global $achievements;
-		return $achievements->db_version;
+		return achievements()->db_version;
 	}
 
 
@@ -57,34 +53,29 @@ function dpa_db_version() {
 /**
  * Adds an error message to later be output in the theme
  *
- * @global achievements $achievements Main Achievements object
  * @param string $code Unique code for the error message
  * @param string $message Translated error message
  * @param string $data Any additional data passed with the error message
  * @since 3.0
  */
 function dpa_add_error( $code = '', $message = '', $data = '' ) {
-	global $achievements;
-	$achievements->errors->add( $code, $message, $data );
+	achievements()->errors->add( $code, $message, $data );
 }
 
 /**
  * Check if error messages exist in queue
  *
- * @global achievements $achievements Main Achievements object
  * @since 3.0
  */
 function dpa_has_errors() {
-	global $achievements;
-
 	// Assume no errors
 	$has_errors = false;
 
 	// Check for errors
-	if ( $achievements->errors->get_error_codes() )
+	if ( achievements()->errors->get_error_codes() )
 		$has_errors = true;
 
-	return apply_filters( 'dpa_has_errors', $has_errors, $achievements->errors );
+	return apply_filters( 'dpa_has_errors', $has_errors, achievements()->errors );
 }
 
 
@@ -234,14 +225,26 @@ function dpa_achievement_post_type() {
 	/**
 	 * Return the unique id of the custom post type for achievements
 	 *
-	 * @global achievements $achievements Main Achievements object
 	 * @return string The unique forum post type id
 	 * @since 3.0
 	 */
 	function dpa_get_achievement_post_type() {
-		global $achievements;
-		return apply_filters( 'dpa_get_achievement_post_type', $achievements->achievement_post_type );
+		return apply_filters( 'dpa_get_achievement_post_type', achievements()->achievement_post_type );
 	}
+
+
+// Achievement post type associated taxonomies
+
+/**
+ * Return the action taxonomy ID
+ *
+ * @since 3..0
+ * @return string
+ */
+function dpa_get_action_tax_id() {
+	return apply_filters( 'dpa_get_action_tax_id', achievements()->action_tax_id );
+}
+
 
 /**
  * Placeholder function to return a list of 3rd party plugins that are
@@ -265,14 +268,11 @@ function dpa_achievement_post_type() {
  *
  * Properties marked with an asterisk are auto-updated periodically from wporg.
  *
- * @global achievements $achievements Main Achievements object
  * @return array See function description for structure of returned array
  * @since 3.0
  * @todo Figure out how to handle 3rd party plugins adding their own support for Achievements.
  */
 function dpa_get_supported_plugins() {
-	global $achievements;
-
 	// Load required library
 	require_once( ABSPATH . 'wp-admin/includes/plugin-install.php' );
 
@@ -355,7 +355,7 @@ function dpa_get_supported_plugins() {
 			$plugin                   = new stdClass;
 			$plugin->contributors     = array();
 			$plugin->description      = strip_tags( $plugin_data['description'] );
-			$plugin->image->large     = esc_url( $achievements->plugin_url . 'images/' . $slug . '.png' );
+			$plugin->image->large     = esc_url( achievements()->plugin_url . 'images/' . $slug . '.png' );
 			$plugin->install_status   = false;
 			$plugin->install_url      = admin_url( 'plugin-install.php?tab=plugin-information&amp;plugin=' . $slug . '&amp;TB_iframe=true&amp;width=600&amp;height=550' );
 			$plugin->name             = strip_tags( $plugin_data['name'] );

@@ -23,10 +23,15 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 add_action( 'plugins_loaded',         'dpa_loaded',                 10 );
 add_action( 'init',                   'dpa_init',                   10 );
 add_action( 'widgets_init',           'dpa_widgets_init',           10 );
+//add_action( 'parse_query',            'dpa_parse_query',            2  ); // Early for overrides
 //add_action( 'generate_rewrite_rules', 'dpa_generate_rewrite_rules', 10 );
 add_action( 'wp_enqueue_scripts',     'dpa_enqueue_scripts',        10 );
+//add_action( 'wp_head',                'dpa_head',                   10 );
+//add_action( 'wp_footer',              'dpa_footer',                 10 );
+add_action( 'set_current_user',       'dpa_setup_current_user',     10 );
+//add_action( 'setup_theme',            'dpa_setup_theme',            10 );
+//add_action( 'after_setup_theme',      'dpa_after_setup_theme',      10 );
 //add_action( 'template_redirect',      'dpa_template_redirect',      10 );
-//add_filter( 'template_include',       'dpa_template_include',       10 );
 
 /**
  * dpa_loaded - Attached to 'plugins_loaded' above
@@ -37,54 +42,28 @@ add_action( 'dpa_loaded', 'dpa_constants',          2  );
 add_action( 'dpa_loaded', 'dpa_bootstrap_globals',  4  );
 add_action( 'dpa_loaded', 'dpa_includes',           6  );
 add_action( 'dpa_loaded', 'dpa_setup_globals',      8  );
+//add_action( 'dpa_loaded', 'dpa_register_theme_directory', 10 );
+//add_action( 'dpa_loaded', 'dpa_register_theme_packages',  12 );
 
 /**
  * dpa_init - Attached to 'init' above
  *
  * Attach various initialisation actions to the init action.
  */
-add_action( 'dpa_init', 'dpa_load_textdomain',        2   );
-add_action( 'dpa_init', 'dpa_setup_option_filters',   4   );
-add_action( 'dpa_init', 'dpa_setup_current_user',     6   );
-//add_action( 'dpa_init', 'dpa_setup_theme_compat',     8   );
-add_action( 'dpa_init', 'dpa_register_post_types',    10  );
-//add_action( 'dpa_init', 'dpa_register_post_statuses', 12  );
-add_action( 'dpa_init', 'dpa_register_taxonomies',    14  );
-//add_action( 'dpa_init', 'dpa_register_views',         16  );
-//add_action( 'dpa_init', 'dpa_add_rewrite_tags',       20  );
-add_action( 'dpa_init', 'dpa_ready',                  999 );
-
-// Caps & Roles
-add_filter( 'map_meta_cap',     'dpa_map_meta_caps', 10, 4 );
-add_action( 'dpa_activation',   'dpa_add_caps',      1     );
-add_action( 'dpa_deactivation', 'dpa_remove_caps',   1     );
-
-// Options & Settings
-add_action( 'dpa_activation', 'dpa_add_options', 1 );
-
-// Flush rewrite rules
-add_action( 'dpa_activation',   'flush_rewrite_rules' );
-add_action( 'dpa_deactivation', 'flush_rewrite_rules' );
-
-// Cache supported plugins on activation for a good first impression
-add_action( 'dpa_activation', 'dpa_get_supported_plugins' );
-
-
-// wp-admin stuff
-if ( is_admin() ) {
-	add_action( 'dpa_init', 'dpa_admin' );
-
-	/**
-	 * Take bbPress' advice and run the updater later on 'dpa_admin_init'.
-	 * This apparently ensures that all alterations to the permalink structure 
-	 * have taken place. This fixed a bbPress issue where permalinks were not
-	 * being flushed properly when an update occured.
-	 */
-	add_action( 'dpa_admin_init', 'dpa_setup_updater', 999 );
-}
-
+add_action( 'dpa_init', 'dpa_load_textdomain',         2   );
+add_action( 'dpa_init', 'dpa_setup_option_filters',    4   );
+add_action( 'dpa_init', 'dpa_register_post_types',     10  );
+//add_action( 'dpa_init', 'dpa_register_post_statuses',  12  );
+add_action( 'dpa_init', 'dpa_register_taxonomies',     14  );
+//add_action( 'dpa_init', 'dpa_register_views',          16  );
+//add_action( 'dpa_init', 'dpa_register_shortcodes',     18  );
+//add_action( 'dpa_init', 'dpa_add_rewrite_tags',        20  );
+add_action( 'dpa_init', 'dpa_register_events',         22  );
+add_action( 'dpa_init', 'dpa_ready',                   999 );
 
 /**
+ * Plugin Dependency
+ *
  * The purpose of the following actions is to mimic the behaviour of something
  * called 'plugin dependency' which enables a plugin to have plugins of their
  * own in a safe and reliable way.
@@ -193,19 +172,18 @@ function dpa_widgets_init() {
 	do_action( 'dpa_widgets_init' );
 }
 
-
 /**
- * Supplemental Actions
- */
-
-/**
- * Set up the currently logged-in user
+ * Setup the currently logged-in user
  *
  * @since 3.0
  */
 function dpa_setup_current_user() {
 	do_action( 'dpa_setup_current_user' );
 }
+
+/**
+ * Supplemental Actions
+ */
 
 /**
  * Load translations for current language

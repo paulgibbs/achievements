@@ -4,8 +4,8 @@ Title: Founding Developer
 Twitter: pgibbs
 
 /* THANKS */
-BuddyPress, bbPress
+BuddyPress, bbPress, WordPress
 
 /* META */
-Updated: 2012/01/14
+Updated: 2012/05/19
 See: http://humanstxt.org/
