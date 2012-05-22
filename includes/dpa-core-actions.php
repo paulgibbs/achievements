@@ -1,14 +1,14 @@
 <?php
 /**
-* Action and filters
-*
-* Contains the actions and filters that are used throughout Achievements.
-* They are consolidated here to better help developers understand the order
-* in which things occur.
-*
-* @package Achievements
-* @subpackage Hooks
-*/
+ * Actions
+ *
+ * This file contains the filters that are used throughout Achievements. They are
+ * consolidated here to make searching for them easier, and to help developers
+ * understand at a glance the order in which things occur.
+ *
+ * @package Achievements
+ * @subpackage Core
+ */
 
 // Exit if accessed directly
 if ( ! defined( 'ABSPATH' ) ) exit;

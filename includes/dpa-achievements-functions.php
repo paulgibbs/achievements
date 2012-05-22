@@ -1,26 +1,119 @@
 <?php
 /**
+ * Achievement post type functions.
+ *
  * Implements the main logic (achievement event monitoring, etc)
  *
  * @package Achievements
- * @subpackage Logic
+ * @subpackage Functions
  */
 
 // Exit if accessed directly
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 /**
- * Hooks into the relevant WordPress actions which Achievements need to make its magic work.
+ * Achievement actions are stored as a custom taxonomy. This function queries that taxonomy to find items,
+ * and then using that item's slug (which is the name of a WordPress action), registers a handler action
+ * in Achievements.
+ *
+ * Posts in trash are returned by get_terms(), even if hide_empty is set. We double-check the post status
+ * before we actually give the award.
+ *
+ * This function is invoked on every page load, but get_terms() provides built-in caching, so we don't
+ * have to worry about that.
  *
  * @since 3.0
  */
 function dpa_register_events() {
-	$events = get_terms( 'dpa_actions', array( 'hide_empty' => true )  );
-//	echo '<pre>';
-//	die(Var_dump( $events ));
-return;
-	$events = apply_filters( 'dpa_register_events', dpa_get_active_actions() );
+	$events = get_terms( achievements()->event_tax_id, array( 'hide_empty' => true )  );
+	if ( is_wp_error( $events ) )
+		return;
+
+	$events = wp_list_pluck( (array) $events, 'slug' );
+	$events = apply_filters( 'dpa_register_events', $events );
+
 	foreach ( (array) $events as $event )
-		add_action( $event->name, 'dpa_handle_event_' . $event->name, 12, 10 ); // Priority 12 in case object modified by other plugins
+		add_action( $event, 'dpa_handle_event', 12, 10 ); // Priority 12 in case object modified by other plugins
+}
+
+/**
+ * Implements the Achievement actions, and unlocks if criteria met.
+ *
+ * @global int $blog_id Site ID (variable is from WordPress and hasn't been updated for 3.0; confusing name is confusing)
+ * @global object $bp BuddyPress global settings
+ * @param string $name Action name
+ * @param array $func_args Optional; action's arguments, from func_get_args().
+ * @see dpa_register_events()
+ * @since 3.0
+ */
+function dpa_handle_event() {
+	global $blog_id, $bp;
+
+	// Look at the current_filter to find out what action/event has been called
+	$event_name = current_filter();
+	$func_args  = func_get_args();
+
+	do_action( 'dpa_before_handle_event', $event_name, $func_args );
+
+	// Allow plugins to bail out early
+	if ( ! $event_name = apply_filters( 'dpa_handle_event', $event_name, $func_args ) )
+		return;
+
+	// This filter allows the user ID to be updated (e.g. for draft posts which are then published by someone else)
+	$user_ids = apply_filters( 'dpa_handle_event_user_id', get_current_user_id(), $event_name, $func_args );
+	if ( empty( $user_ids ) )
+		return;
+
+	// The 'dpa_handle_event_user_id' filter can return an array of user IDs.
+	$user_ids = wp_parse_id_list( (array) $user_ids );
+
+	// Execute each potential unlock for each user
+	foreach( $user_ids as $user_id ) {
+		if ( empty( $user_id ) )
+			continue;
+
+		// Find achievements that are associated with the $event_name taxonomy
+		$args = array(
+			'nopaging'  => true,
+			'tax_query' => array(
+				'field'    => 'slug',
+				'taxonomy' => dpa_get_event_tax_id(),
+				'terms'    => $event_name,
+			),
+		);
+		//dpa_has_achievements( $args );
+	}
+
+	do_action( 'dpa_after_handle_event', $event_name, $func_args, $user_ids );
+}
+
+
+function dpa_handle_action( $name, $func_args=null, $type='' ) {
+
+	foreach ( $user_ids as $user_id ) {
+		if ( dpa_has_achievements( array( 'user_id' => $user_id, 'type' => 'active_by_action', 'action' => $name ) ) ) {
+			while ( dpa_achievements() ) {
+				dpa_the_achievement();
+
+				$site_id = apply_filters( 'dpa_handle_action_site_id', dpa_get_achievement_site_id(), $name, $func_args, $type, $user_id );
+				if ( false === $site_id )
+					continue;
+
+				$site_is_valid = false;
+				if ( !is_multisite() || $site_id < 1 || $blog_id == $site_id )
+					$site_is_valid = true;
+
+				$group_is_valid = false;
+				if ( dpa_get_achievement_group_id() < 1 || dpa_is_group_achievement_valid( $name, $func_args, $user_id ) )
+					$group_is_valid = true;
+
+				$site_is_valid = apply_filters( 'dpa_handle_action_site_is_valid', $site_is_valid, $name, $func_args, $type, $user_id );
+				$group_is_valid = apply_filters( 'dpa_handle_action_group_is_valid', $group_is_valid, $name, $func_args, $type, $user_id );
+
+				if ( $site_is_valid && $group_is_valid )
+					dpa_maybe_unlock_achievement( $user_id );
+			}
+		}
+	}
 }
 ?>

@@ -20,8 +20,11 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  */
 function dpa_get_default_options() {
 	$options = array(
-		'_dpa_db_version' => '0',            // Initial DB version
-		'_dpa_root_slug'  => 'achievements', // Root slug for URLs
+		'_dpa_db_version'            => '0',             // Initial DB version
+		'_dpa_root_slug'             => 'achievements',  // Root slug for URLs
+
+		// Per page
+		'_dpa_achievements_per_page' => 15,              // Achievements per page
 	);
 
 	return apply_filters( 'dpa_get_default_options', $options );

@@ -77,9 +77,9 @@ class Achievements {
 	// Taxonomies
 
 	/**
-	 * Action taxonomy ID
+	 * EVent taxonomy ID
 	 */
-	public $action_tax_id = '';
+	public $event_tax_id = '';
 
 
 	/**
@@ -139,6 +139,14 @@ class Achievements {
 	public $current_user = null;
 
 
+	// Queries
+
+	/**
+	 * @var WP_Query For achievements
+	 */
+	public $achievement_query = null;
+
+
 	// Slugs
 
 	/**
@@ -160,6 +168,7 @@ class Achievements {
 
 	/**
 	 * Options (overrides values from get_option)
+	 * @var array
 	 */
 	public $options = array();
 
@@ -236,7 +245,7 @@ class Achievements {
 
 		// Post type/taxonomy identifiers
 		$this->achievement_post_type = apply_filters( 'dpa_achievement_post_type', 'dpa_achievements' );
-		$this->action_tax_id         = apply_filters( 'dpa_action_tax_id',         'dpa_actions' );
+		$this->event_tax_id         = apply_filters( 'dpa_event_tax_id',         'dpa_actions' );
 
 		// Slugs
 		$this->root_slug = apply_filters( 'dpa_root_slug', get_option( '_dpa_root_slug', 'achievements' ) );
@@ -265,7 +274,15 @@ class Achievements {
 		//require( $this->plugin_dir . 'includes/dpa-core-shortcodes.php' ); // Shortcodes for use with pages and posts
 		require( $this->plugin_dir . 'includes/dpa-core-update.php'     ); // Database updater
 
-		// Components
+
+		/**
+		 * Components
+		 */
+		require( $this->plugin_dir . 'includes/dpa-common-functions.php' ); // Common functions
+		require( $this->plugin_dir . 'includes/dpa-common-template.php'  ); // Common template tags
+
+		require( $this->plugin_dir . 'includes/dpa-user-functions.php'   ); // User functions
+
 		require( $this->plugin_dir . 'includes/dpa-achievements-functions.php' ); // Implements the main logic (achievement event monitoring, etc)
 		require( $this->plugin_dir . 'includes/dpa-achievements-template.php'  ); // Achievement post type template tags
 
@@ -400,14 +417,14 @@ class Achievements {
 	}
 
 	/**
-	 * Register the topic tag taxonomy
+	 * Register the achievement event taxonomy
 	 *
 	 * @since 3.0
 	 */
 	public function register_taxonomies() {
 		$action = array();
 
-		// Action tax labels
+		// Event tax labels
 		$action['labels'] = array(
 			'add_new_item'  => __( 'Add New Event',                         'dpa' ),
 			'all_items'     => __( 'All',                                   'dpa' ),
@@ -432,9 +449,9 @@ class Achievements {
 			'update_count_callback' => '_update_post_term_count',
 		) );
 
-		// Register the achievement action taxonomy
+		// Register the achievement event taxonomy
 		register_taxonomy(
-			dpa_get_action_tax_id(),         // The action taxonomy id
+			dpa_get_event_tax_id(),          // The event taxonomy id
 			dpa_get_achievement_post_type(), // The achievement post type
 			$action_tax
 		);

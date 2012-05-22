@@ -1,13 +1,13 @@
 <?php
 /**
- * Achievements filters
- *
- * @package Achievements
- * @subpackage Filters
+ * Core filters
  *
  * This file contains the filters that are used throughout Achievements. They are
  * consolidated here to make searching for them easier, and to help developers
  * understand at a glance the order in which things occur.
+ *
+ * @package Achievements
+ * @subpackage Filters
  */
 
 // Exit if accessed directly
