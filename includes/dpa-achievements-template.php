@@ -39,26 +39,6 @@ function dpa_get_event_tax_id() {
 }
 
 /**
- * Return the achievements per page setting
- *
- * @return int
- * @since 3.0
- */
-function dpa_get_achievements_per_page() {
-	$default = 15;
-
-	// Get database option and cast as integer
-	$per = $retval = (int) get_option( '_dpa_achievements_per_page', $default );
-
-	// If return val is empty, set it to default
-	if ( empty( $retval ) )
-		$retval = $default;
-
-	// Filter and return
-	return (int) apply_filters( 'dpa_get_achievements_per_page', $retval, $per );
-}
-
-/**
  * The achievement post type loop.
  *
  * @param array|string $args All the arguments supported by {@link WP_Query}
@@ -66,10 +46,6 @@ function dpa_get_achievements_per_page() {
  * @since 3.0
  */
 function dpa_has_achievements( $args = '' ) {
-	// Check if user can read hidden forums
-	if ( current_user_can( 'read_hidden_forums' ) )
-		$post_stati[] = bbp_get_hidden_status_id();
-
 	// The default forum query for most circumstances
 	$defaults = array (
 		'order'          => 'ASC',                                                // 'ASC', 'DESC
@@ -101,6 +77,10 @@ function dpa_achievements() {
 	// Reset the post data when finished
 	if ( empty( $have_posts ) )
 		wp_reset_postdata();
+
+	// If multisite and running network-wide, undo the switch_to_blog
+	if ( is_multisite() && dpa_is_running_networkwide() )
+		restore_current_blog();
 
 	return $have_posts;
 }

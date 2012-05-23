@@ -150,11 +150,11 @@ class Achievements {
 	// Slugs
 
 	/**
-	 * Root slug
+	 * Achievement post type slug
 	 *
 	 * @var string
 	 */
-	public $root_slug = '';
+	public $achievement_slug = '';
 
 
 	// Errors
@@ -245,10 +245,10 @@ class Achievements {
 
 		// Post type/taxonomy identifiers
 		$this->achievement_post_type = apply_filters( 'dpa_achievement_post_type', 'dpa_achievements' );
-		$this->event_tax_id         = apply_filters( 'dpa_event_tax_id',         'dpa_actions' );
+		$this->event_tax_id          = apply_filters( 'dpa_event_tax_id',         'dpa_actions' );
 
 		// Slugs
-		$this->root_slug = apply_filters( 'dpa_root_slug', get_option( '_dpa_root_slug', 'achievements' ) );
+		$this->achievement_slug = dpa_get_achievement_slug();
 
 		// Errors
 		$this->errors = new WP_Error();
@@ -381,7 +381,7 @@ class Achievements {
 
 		// CPT rewrite
 		$achievement['rewrite'] = array(
-			'slug'       => $this->root_slug,
+			'slug'       => dpa_get_achievement_slug(),
 			'with_front' => false,
 		);
 
@@ -400,7 +400,7 @@ class Achievements {
 			'capability_type'     => array( 'achievement', 'achievements' ),
 			'description'         => _x( 'Achievements types (e.g. new post, new site, new user)', 'Achievement post type description', 'dpa' ),
 			'exclude_from_search' => true,
-			//'has_archive'         => $this->root_slug,
+			//'has_archive'         => dpa_get_achievement_slug(),
 			'hierarchical'        => true,
 			'labels'              => $achievement['labels'],
 			'public'              => true,
