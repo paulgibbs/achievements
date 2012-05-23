@@ -59,7 +59,7 @@ function dpa_get_achievements_per_page() {
 }
 
 /**
- * The main achievement loop.
+ * The achievement post type loop.
  *
  * @param array|string $args All the arguments supported by {@link WP_Query}
  * @return bool Returns true if the query has any results to loop over
@@ -87,5 +87,31 @@ function dpa_has_achievements( $args = '' ) {
 	achievements()->achievement_query = new WP_Query( $achievement_filters );
 
 	return apply_filters( 'dpa_has_achievements', achievements()->achievement_query->have_posts(), achievements()->achievement_query );
+}
+
+/**
+ * Whether there are more achievements available in the loop
+ *
+ * @since 3.0
+ * @return bool True if posts are in the loop
+ */
+function dpa_achievements() {
+	$have_posts = achievements()->achievement_query->have_posts();
+
+	// Reset the post data when finished
+	if ( empty( $have_posts ) )
+		wp_reset_postdata();
+
+	return $have_posts;
+}
+
+/**
+ * Iterate the post index in the loop. Retrieves the next post, sets up the post, sets the 'in the loop' property to true.
+ *
+ * @return object Forum information
+ * @since 3.0
+ */
+function dpa_the_achievement() {
+	return achievements()->achievement_query->the_post();
 }
 ?>

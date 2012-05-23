@@ -74,14 +74,26 @@ function dpa_handle_event() {
 
 		// Find achievements that are associated with the $event_name taxonomy
 		$args = array(
-			'nopaging'  => true,
-			'tax_query' => array(
+			'no_found_rows' => true,                 // Don't COUNT results if any LIMIT is set...
+			                                         // This is probably the default behaviour since nopaging is set, but, just in case.
+
+			'nopaging'      => true,                 // No pagination
+			's'             => '',                   // Stop sneaky people running searches on this query
+			'tax_query'     => array(                // Get posts in the event taxonomy
 				'field'    => 'slug',
 				'taxonomy' => dpa_get_event_tax_id(),
 				'terms'    => $event_name,
 			),
 		);
-		//dpa_has_achievements( $args );
+
+		// If any achievements were found, go through each one.
+		if ( dpa_has_achievements( $args ) ) {
+			while ( dpa_achievements() ) {
+				dpa_the_achievement();
+
+				// Do stuff here
+			}
+		}
 	}
 
 	do_action( 'dpa_after_handle_event', $event_name, $func_args, $user_ids );
