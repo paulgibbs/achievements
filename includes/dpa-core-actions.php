@@ -61,6 +61,10 @@ add_action( 'dpa_init', 'dpa_register_taxonomies',     14  );
 add_action( 'dpa_init', 'dpa_register_events',         22  );
 add_action( 'dpa_init', 'dpa_ready',                   999 );
 
+// User status
+add_action( 'make_ham_user',  'dpa_make_ham_user'  );
+add_action( 'make_spam_user', 'dpa_make_spam_user' );
+
 /**
  * Plugin Dependency
  *

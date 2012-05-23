@@ -77,6 +77,42 @@ function dpa_is_user_spammer( $user_id = 0 ) {
 }
 
 /**
+ * Mark a user's stuff as spam (or just delete it) when the user is marked as spam
+ *
+ * @param int $user_id Optional. User ID to spam.
+ * @since 3.0
+ */
+function dpa_make_spam_user( $user_id = 0 ) {
+	// Bail if no user ID
+	if ( empty( $user_id ) )
+		return;
+
+	// Bail if user ID is super admin
+	if ( is_super_admin( $user_id ) )
+		return;
+
+	// Do stuff here
+}
+
+/**
+ * Mark a user's stuff as ham when the user is marked as not a spammer
+ *
+ * @param int $user_id Optional. User ID to unspam.
+ * @since 3.0
+ */
+function dpa_make_ham_user( $user_id = 0 ) {
+	// Bail if no user ID
+	if ( empty( $user_id ) )
+		return;
+
+	// Bail if user ID is super admin
+	if ( is_super_admin( $user_id ) )
+		return;
+
+	// Do stuff here
+}
+
+/**
  * Checks if the user has been marked as deleted.
  *
  * @param int $user_id int The ID for the user.
