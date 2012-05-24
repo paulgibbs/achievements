@@ -46,6 +46,10 @@ function dpa_get_event_tax_id() {
  * @since 3.0
  */
 function dpa_has_achievements( $args = '' ) {
+	// If multisite and running network-wide, switch_to_blog to the data store site
+	if ( is_multisite() && dpa_is_running_networkwide() )
+		switch_to_blog( DPA_DATA_STORE );
+
 	// The default forum query for most circumstances
 	$defaults = array (
 		'order'          => 'ASC',                                                // 'ASC', 'DESC

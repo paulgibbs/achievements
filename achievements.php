@@ -230,6 +230,10 @@ class Achievements {
 	 * @since 3.0
 	 */
 	private function setup_globals() {
+		// If multisite and running network-wide, we switch_to_blog to this blog to store/fetch achievement data
+		if ( ! defined( 'DPA_DATA_STORE' ) )
+			define( 'DPA_DATA_STORE', 1 );
+
 		// Achievements root directory
 		$this->file       = __FILE__;
 		$this->basename   = 'achievements/achievements.php';  //plugin_basename( $this->file );  @todo Doesn't work in environments with symlink folder
