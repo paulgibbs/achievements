@@ -79,12 +79,13 @@ function dpa_achievements() {
 	$have_posts = achievements()->achievement_query->have_posts();
 
 	// Reset the post data when finished
-	if ( empty( $have_posts ) )
+	if ( empty( $have_posts ) ) {
 		wp_reset_postdata();
 
-	// If multisite and running network-wide, undo the switch_to_blog
-	if ( is_multisite() && dpa_is_running_networkwide() )
-		restore_current_blog();
+		// If multisite and running network-wide, undo the switch_to_blog
+		if ( is_multisite() && dpa_is_running_networkwide() )
+			restore_current_blog();
+	}
 
 	return $have_posts;
 }
