@@ -147,16 +147,6 @@ class Achievements {
 	public $achievement_query = null;
 
 
-	// Slugs
-
-	/**
-	 * Achievement post type slug
-	 *
-	 * @var string
-	 */
-	public $achievement_slug = '';
-
-
 	// Errors
 
 	/**
@@ -250,9 +240,6 @@ class Achievements {
 		// Post type/taxonomy identifiers
 		$this->achievement_post_type = apply_filters( 'dpa_achievement_post_type', 'dpa_achievements' );
 		$this->event_tax_id          = apply_filters( 'dpa_event_tax_id',         'dpa_actions' );
-
-		// Slugs
-		$this->achievement_slug = dpa_get_achievement_slug();
 
 		// Errors
 		$this->errors = new WP_Error();
