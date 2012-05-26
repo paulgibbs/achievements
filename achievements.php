@@ -73,6 +73,11 @@ class Achievements {
 	 */
 	public $achievement_post_type = '';
 
+	/**
+	 * Achievement Progress post type
+	 */
+	public $achievement_progress_post_type = '';
+
 
 	// Taxonomies
 
@@ -238,8 +243,9 @@ class Achievements {
 		$this->lang_dir = $this->plugin_dir . 'languages';
 
 		// Post type/taxonomy identifiers
-		$this->achievement_post_type = apply_filters( 'dpa_achievement_post_type', 'dpa_achievements' );
-		$this->event_tax_id          = apply_filters( 'dpa_event_tax_id',         'dpa_actions' );
+		$this->achievement_post_type          = apply_filters( 'dpa_achievement_post_type',          'dpa_achievement' );
+		$this->achievement_progress_post_type = apply_filters( 'dpa_achievement_progress_post_type', 'dpa_progress'    );
+		$this->event_tax_id                   = apply_filters( 'dpa_event_tax_id',                   'dpa_actions'     );
 
 		// Errors
 		$this->errors = new WP_Error();
@@ -345,15 +351,15 @@ class Achievements {
 	}
 
 	/**
-	 * Set up the post types for: achievement
+	 * Set up the post types for: achievement, achievement_progress
 	 *
 	 * @since 3.0
 	 */
 	public function register_post_types() {
-		$achievement = $cpt = array();
+		$cpt = $labels = $rewrite = $supports = array();
 
 		// CPT labels
-		$achievement['labels'] = array(
+		$labels['achievement'] = array(
 			'add_new'            => _x( 'Add New', 'achievement',          'dpa' ),
 			'add_new_item'       => __( 'Add New Achievement',             'dpa' ),
 			'all_items'          => __( 'All Achievements',                'dpa' ),
@@ -371,40 +377,70 @@ class Achievements {
 		);
 
 		// CPT rewrite
-		$achievement['rewrite'] = array(
+		$rewrite['achievement'] = array(
+			'feeds'      => false,
+			'pages'      => false,
 			'slug'       => dpa_get_achievement_slug(),
 			'with_front' => false,
 		);
+		$rewrite['achievement_progress'] = array(
+			'feeds' => false,
+			'pages' => false,
+		);
 
 		// CPT supports
-		$achievement['supports'] = array(
+		$supports['achievement'] = array(
 			'editor',
 			'revisions',
 			'thumbnail',
 			'title',
 		);
+		$supports['achievement_progress'] = array(
+			'author',
+		);
 
 		// CPT filter
-		$cpt['achievement'] = apply_filters( 'dpa_register_post_types_achievement', array(
+		$cpt['achievement'] = apply_filters( 'dpa_register_post_type_achievement', array(
 			'can_export'          => true,
 			'capabilities'        => dpa_get_achievement_caps(),
 			'capability_type'     => array( 'achievement', 'achievements' ),
 			'description'         => _x( 'Achievements types (e.g. new post, new site, new user)', 'Achievement post type description', 'dpa' ),
-			'exclude_from_search' => true,
+			'exclude_from_search' => false,
 			//'has_archive'         => dpa_get_achievement_slug(),
 			'hierarchical'        => true,
-			'labels'              => $achievement['labels'],
+			'labels'              => $labels['achievement'],
 			'public'              => true,
+			'publicly_queryable'  => true,
 			'query_var'           => true,
-			'rewrite'             => $achievement['rewrite'],
+			'rewrite'             => $rewrite['achievement'],
 			'show_in_menu'        => true,
 			'show_in_nav_menus'   => true,
 			'show_ui'             => true,
-			'supports'            => $achievement['supports'],
+			'supports'            => $supports['achievement'],
+		) );
+		$cpt['achievement_progress'] = apply_filters( 'dpa_register_post_type_achievement_progress', array(
+			'can_export'          => true,
+			'capabilities'        => dpa_get_achievement_progress_caps(),
+			'capability_type'     => array( 'achievement_progress', 'achievement_progresses' ),
+			'description'         => _x( 'Achievement Progress (e.g. unlocked achievements for a user, progress on an achievement for a user)', 'Achievement Progress post type description', 'dpa' ),
+			'exclude_from_search' => true,
+			'has_archive'         => false,
+			'hierarchical'        => false,
+			'public'              => false,
+			'publicly_queryable'  => false,
+			'query_var'           => false,
+			'rewrite'             => $rewrite['achievement_progress'],
+			'show_in_menu'        => false,
+			'show_in_nav_menus'   => false,
+			'show_ui'             => false,
+			'supports'            => $supports['achievement_progress'],
 		) );
 
 		// Register Achievement post type
 		register_post_type( dpa_get_achievement_post_type(), $cpt['achievement'] );
+
+		// Register Achievement Progress post type
+		register_post_type( dpa_get_achievement_progress_post_type(), $cpt['achievement_progress'] );
 	}
 
 	/**

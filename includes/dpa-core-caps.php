@@ -81,11 +81,13 @@ function dpa_map_meta_caps( $caps, $cap, $user_id, $args ) {
 	switch ( $cap ) {
 
 		// Reading
-		case 'read_achievement' :
+		case 'read_achievement'          :
+		case 'read_achievement_progress' :
 			if ( $post = get_post( $args[0] ) ) {
 				$caps      = array();
 				$post_type = get_post_type_object( $post->post_type );
 
+				// @todo Update for post statuses
 				if ( 'published' == $post->post_status )
 					$caps[] = 'read';
 				else
@@ -94,8 +96,21 @@ function dpa_map_meta_caps( $caps, $cap, $user_id, $args ) {
 
 			break;
 
+
+		// Publishing
+		case 'publish_achievements'           :
+		case 'publish_achievement_progresses' :
+			// Add do_not_allow cap if user is spam or deleted
+			if ( ! dpa_is_user_active( $user_id ) )
+				$caps = array( 'do_not_allow' );
+
+			break;
+
+		// @todo Do I need "publish_achievement" and "publish_achievement_progress" here?
+
 		// Editing
-		case 'edit_achievements' :
+		case 'edit_achievements'           :
+		case 'edit_achievement_progresses' :
 			// Add do_not_allow cap if user is spam or deleted
 			if ( ! dpa_is_user_active( $user_id ) )
 				$caps = array( 'do_not_allow' );
@@ -103,42 +118,53 @@ function dpa_map_meta_caps( $caps, $cap, $user_id, $args ) {
 			break;
 
 		case 'edit_achievement' :
-			if ( $post = get_post( $args[0] ) ) {
+		case 'edit_achievement_progress' :
+			$_post = get_post( $args[0] );
+			if ( ! empty( $_post ) ) {
+
+				// Get caps for post type object
+				$post_type = get_post_type_object( $_post->post_type );
 				$caps      = array();
-				$post_type = get_post_type_object( $post->post_type );
 
 				// Add 'do_not_allow' cap if user is spam or deleted
-				if ( ! dpa_is_user_active( $user_id ) )
+				if ( ! dpa_is_user_active( $user_id ) ) {
 					$caps[] = 'do_not_allow';
 
-				// Map to edit_posts
-				elseif ( (int) $user_id == (int) $post->post_author )
+				// User is author so allow edit
+				} elseif ( (int) $user_id == (int) $_post->post_author ) {
 					$caps[] = $post_type->cap->edit_posts;
 
-				// Map to edit_others_posts
-				else
+				// Unknown, so map to edit_others_posts
+				} else {
 					$caps[] = $post_type->cap->edit_others_posts;
+				}
 			}
 
 			break;
 
+
 		// Deleting
-		case 'delete_achievement' :
-			if ( $post = get_post( $args[0] ) ) {
+		case 'delete_achievement'          :
+		case 'delete_achievement_progress' :
+			$_post = get_post( $args[0] );
+			if ( ! empty( $_post ) ) {
+
+				// Get caps for post type object
+				$post_type = get_post_type_object( $_post->post_type );
 				$caps      = array();
-				$post_type = get_post_type_object( $post->post_type );
 
 				// Add 'do_not_allow' cap if user is spam or deleted
-				if ( ! dpa_is_user_active( $user_id ) )
+				if ( ! dpa_is_user_active( $user_id ) ) {
 					$caps[] = 'do_not_allow';
 
-				// Map to delete_posts
-				elseif ( (int) $user_id == (int) $post->post_author )
+				// User is author so allow to delete
+				} elseif ( (int) $user_id == (int) $_post->post_author ) {
 					$caps[] = $post_type->cap->delete_posts;
 
-				// Map to delete_others_posts
-				else
+				// Unknown so map to delete_others_posts
+				} else {
 					$caps[] = $post_type->cap->delete_others_posts;
+				}
 			}
 
 			break;
@@ -148,9 +174,9 @@ function dpa_map_meta_caps( $caps, $cap, $user_id, $args ) {
 }
 
 /**
- * Return forum capabilities (mapped to meta caps)
+ * Return achievement post type capabilities (mapped to meta caps)
  *
- * @return array Forum capabilities
+ * @return array achievement post type capabilities
  * @since 3.0
  */
 function dpa_get_achievement_caps() {
@@ -164,6 +190,25 @@ function dpa_get_achievement_caps() {
 	);
 
 	return apply_filters( 'dpa_get_achievement_caps', $caps );
+}
+
+/**
+ * Return achievement_progress post type capabilities (mapped to meta caps)
+ *
+ * @return array achievement_progress post type capabilities
+ * @since 3.0
+ */
+function dpa_get_achievement_progress_caps() {
+	$caps = array(
+		'delete_others_posts' => 'delete_others_achievement_progresses',
+		'delete_posts'        => 'delete_achievement_progresses',
+		'edit_posts'          => 'edit_achievement_progresses',
+		'edit_others_posts'   => 'edit_others_achievement_progresses',
+		'publish_posts'       => 'publish_achievement_progresses',
+		'read_private_posts'  => 'read_private_achievement_progresses',
+	);
+
+	return apply_filters( 'dpa_get_achievement_progress_caps', $caps );
 }
 
 /**
@@ -198,7 +243,7 @@ function dpa_get_caps_for_role( $role = '' ) {
 		// Administrator
 		case 'administrator' :
 			$caps = array(
-				// Achievements caps
+				// Achievement caps
 				'delete_achievements',
 				'delete_others_achievements',
 				'edit_achievements',
@@ -206,14 +251,19 @@ function dpa_get_caps_for_role( $role = '' ) {
 				'publish_achievements',
 				'read_private_achievements',
 
+				// Achievement progress caps
+				'delete_achievement_progresses',
+				'delete_others_achievement_progresses',
+				'edit_achievement_progresses',
+				'edit_others_achievement_progresses',
+				'publish_achievement_progresses',
+				'read_private_achievement_progresses',
+
 				// Actions tax caps
 				'assign_actions',
 				'delete_actions',
 				'edit_actions',
 				'manage_actions',
-
-				// Misc
-				'view_trash',
 			);
 
 			break;
@@ -226,6 +276,12 @@ function dpa_get_caps_for_role( $role = '' ) {
 				'edit_achievements',
 				'publish_achievements',
 
+				// Achievement progress caps
+				'delete_achievement_progresses',
+				'delete_others_achievement_progresses',
+				'edit_achievement_progresses',
+				'publish_achievement_progresses',
+
 				// Actions tax caps
 				'assign_actions',
 			);
@@ -236,7 +292,12 @@ function dpa_get_caps_for_role( $role = '' ) {
 		case 'contributor' :
 		case 'subscriber'  :
 		default            :
-			$caps = array();
+			$caps = array(
+				// Achievement progress caps
+				'delete_achievement_progresses',
+				'edit_achievement_progresses',
+				'publish_achievement_progresses',
+			);
 
 			break;
 	}
