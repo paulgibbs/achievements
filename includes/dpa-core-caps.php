@@ -217,15 +217,15 @@ function dpa_get_achievement_progress_caps() {
  * @return array Topic tag capabilities
  * @since 3.0
  */
-function dpa_get_action_caps() {
+function dpa_get_event_caps() {
 	$caps = array(
-		'assign_terms' => 'assign_actions',
-		'delete_terms' => 'delete_actions',
-		'edit_terms'   => 'edit_actions',
-		'manage_terms' => 'manage_actions',
+		'assign_terms' => 'assign_achievement_event',
+		'delete_terms' => 'delete_achievement_event',
+		'edit_terms'   => 'edit_achievement_event',
+		'manage_terms' => 'manage_achievement_event',
 	);
 
-	return apply_filters( 'dpa_get_action_caps', $caps );
+	return apply_filters( 'dpa_get_event_caps', $caps );
 }
 
 
@@ -259,11 +259,11 @@ function dpa_get_caps_for_role( $role = '' ) {
 				'publish_achievement_progresses',
 				'read_private_achievement_progresses',
 
-				// Actions tax caps
-				'assign_actions',
-				'delete_actions',
-				'edit_actions',
-				'manage_actions',
+				// Event tax caps
+				'assign_achievement_event',
+				'delete_achievement_event',
+				'edit_achievement_event',
+				'manage_achievement_event',
 			);
 
 			break;
@@ -282,8 +282,8 @@ function dpa_get_caps_for_role( $role = '' ) {
 				'edit_achievement_progresses',
 				'publish_achievement_progresses',
 
-				// Actions tax caps
-				'assign_actions',
+				// Event tax caps
+				'assign_achievement_event',
 			);
 
 			break;

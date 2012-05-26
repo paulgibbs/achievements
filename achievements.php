@@ -245,7 +245,7 @@ class Achievements {
 		// Post type/taxonomy identifiers
 		$this->achievement_post_type          = apply_filters( 'dpa_achievement_post_type',          'dpa_achievement' );
 		$this->achievement_progress_post_type = apply_filters( 'dpa_achievement_progress_post_type', 'dpa_progress'    );
-		$this->event_tax_id                   = apply_filters( 'dpa_event_tax_id',                   'dpa_actions'     );
+		$this->event_tax_id                   = apply_filters( 'dpa_event_tax_id',                   'dpa_event'       );
 
 		// Errors
 		$this->errors = new WP_Error();
@@ -449,10 +449,10 @@ class Achievements {
 	 * @since 3.0
 	 */
 	public function register_taxonomies() {
-		$action = array();
+		$labels = $tax = array();
 
 		// Event tax labels
-		$action['labels'] = array(
+		$labels['event'] = array(
 			'add_new_item'  => __( 'Add New Event',                         'dpa' ),
 			'all_items'     => __( 'All',                                   'dpa' ),
 			'edit_item'     => __( 'Edit Event',                            'dpa' ),
@@ -466,10 +466,10 @@ class Achievements {
 		);
 
 		// Action filter
-		$action_tax = apply_filters( 'dpa_register_taxonomies_action', array(
-			'capabilities'          => dpa_get_action_caps(),
-			'hierarchical'          => true, // Better UI
-			'labels'                => $action['labels'],
+		$tax = apply_filters( 'dpa_register_taxonomies_action', array(
+			'capabilities'          => dpa_get_event_caps(),
+			'hierarchical'          => true,  // Better UI
+			'labels'                => $labels['event'],
 			'public'                => false,
 			'show_tagcloud'         => false,
 			'show_ui'               => true,
@@ -480,7 +480,7 @@ class Achievements {
 		register_taxonomy(
 			dpa_get_event_tax_id(),          // The event taxonomy id
 			dpa_get_achievement_post_type(), // The achievement post type
-			$action_tax
+			$tax
 		);
 	}
 
