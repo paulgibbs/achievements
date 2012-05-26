@@ -2,8 +2,6 @@
 /**
  * Achievement post type functions.
  *
- * Implements the main logic (achievement event monitoring, etc)
- *
  * @package Achievements
  * @subpackage Functions
  */
@@ -12,119 +10,50 @@
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 /**
- * Achievement actions are stored as a custom taxonomy. This function queries that taxonomy to find items,
- * and then using that item's slug (which is the name of a WordPress action), registers a handler action
- * in Achievements.
- *
- * Posts in trash are returned by get_terms(), even if hide_empty is set. We double-check the post status
- * before we actually give the award.
- *
- * This function is invoked on every page load, but get_terms() provides built-in caching, so we don't
- * have to worry about that.
+ * Output the unique id of the custom post type for achievement
  *
  * @since 3.0
+ * @uses dpa_get_achievement_post_type() To get the achievement post type
  */
-function dpa_register_events() {
-	$events = get_terms( achievements()->event_tax_id, array( 'hide_empty' => true )  );
-	if ( is_wp_error( $events ) )
-		return;
-
-	$events = wp_list_pluck( (array) $events, 'slug' );
-	$events = apply_filters( 'dpa_register_events', $events );
-
-	foreach ( (array) $events as $event )
-		add_action( $event, 'dpa_handle_event', 12, 10 ); // Priority 12 in case object modified by other plugins
+function dpa_achievement_post_type() {
+	echo dpa_get_achievement_post_type();
 }
+	/**
+	 * Return the unique id of the custom post type for achievement
+	 *
+	 * @return string The unique post type id
+	 * @since 3.0
+	 */
+	function dpa_get_achievement_post_type() {
+		return apply_filters( 'dpa_get_achievement_post_type', achievements()->achievement_post_type );
+	}
 
 /**
- * Implements the Achievement actions, and unlocks if criteria met.
+ * Output the unique id of the custom post type for achievement_progress
  *
- * @global int $blog_id Site ID (variable is from WordPress and hasn't been updated for 3.0; confusing name is confusing)
- * @global object $bp BuddyPress global settings
- * @param string $name Action name
- * @param array $func_args Optional; action's arguments, from func_get_args().
- * @see dpa_register_events()
  * @since 3.0
+ * @uses dpa_get_achievement_progress_post_type() To get the achievement_progress post type
  */
-function dpa_handle_event() {
-	global $blog_id, $bp;
-
-	// Look at the current_filter to find out what action/event has been called
-	$event_name = current_filter();
-	$func_args  = func_get_args();
-
-	do_action( 'dpa_before_handle_event', $event_name, $func_args );
-
-	// Allow plugins to bail out early
-	if ( ! $event_name = apply_filters( 'dpa_handle_event', $event_name, $func_args ) )
-		return;
-
-	// This filter allows the user ID to be updated (e.g. for draft posts which are then published by someone else)
-	$user_ids = apply_filters( 'dpa_handle_event_user_id', get_current_user_id(), $event_name, $func_args );
-	if ( empty( $user_ids ) )
-		return;
-
-	// The 'dpa_handle_event_user_id' filter can return an array of user IDs.
-	$user_ids = wp_parse_id_list( (array) $user_ids );
-
-	// Execute each potential unlock for each user
-	foreach( $user_ids as $user_id ) {
-		if ( empty( $user_id ) )
-			continue;
-
-		// Find achievements that are associated with the $event_name taxonomy
-		$args = array(
-			'no_found_rows' => true,                 // Don't COUNT results if any LIMIT is set...
-			                                         // This is probably the default behaviour since nopaging is set, but, just in case.
-
-			'nopaging'      => true,                 // No pagination
-			's'             => '',                   // Stop sneaky people running searches on this query
-			'tax_query'     => array(                // Get posts in the event taxonomy
-				'field'    => 'slug',
-				'taxonomy' => dpa_get_event_tax_id(),
-				'terms'    => $event_name,
-			),
-		);
-
-		// If any achievements were found, go through each one.
-		if ( dpa_has_achievements( $args ) ) {
-			while ( dpa_achievements() ) {
-				dpa_the_achievement();
-
-				// Do stuff here
-			}
-		}
-	}
-
-	do_action( 'dpa_after_handle_event', $event_name, $func_args, $user_ids );
+function dpa_achievement_progress_post_type() {
+	echo dpa_get_achievement_progress_post_type();
 }
-
-
-/*function dpa_handle_action( $name, $func_args=null, $type='' ) {
-	foreach ( $user_ids as $user_id ) {
-		if ( dpa_has_achievements( array( 'user_id' => $user_id, 'type' => 'active_by_action', 'action' => $name ) ) ) {
-			while ( dpa_achievements() ) {
-				dpa_the_achievement();
-
-				$site_id = apply_filters( 'dpa_handle_action_site_id', dpa_get_achievement_site_id(), $name, $func_args, $type, $user_id );
-				if ( false === $site_id )
-					continue;
-
-				$site_is_valid = false;
-				if ( !is_multisite() || $site_id < 1 || $blog_id == $site_id )
-					$site_is_valid = true;
-
-				$group_is_valid = false;
-				if ( dpa_get_achievement_group_id() < 1 || dpa_is_group_achievement_valid( $name, $func_args, $user_id ) )
-					$group_is_valid = true;
-
-				$site_is_valid = apply_filters( 'dpa_handle_action_site_is_valid', $site_is_valid, $name, $func_args, $type, $user_id );
-				$group_is_valid = apply_filters( 'dpa_handle_action_group_is_valid', $group_is_valid, $name, $func_args, $type, $user_id );
-
-				if ( $site_is_valid && $group_is_valid )
-					dpa_maybe_unlock_achievement( $user_id );
-			}
-		}
+	/**
+	 * Return the unique id of the custom post type for achievement_progress
+	 *
+	 * @return string The unique post type id
+	 * @since 3.0
+	 */
+	function dpa_get_achievement_progress_post_type() {
+		return apply_filters( 'dpa_get_achievement_progress_post_type', achievements()->achievement_progress_post_type );
 	}
-}*/
+
+/**
+ * Return the event taxonomy ID
+ *
+ * @since 3..0
+ * @return string
+ */
+function dpa_get_event_tax_id() {
+	return apply_filters( 'dpa_get_event_tax_id', achievements()->event_tax_id );
+}
 ?>

@@ -41,7 +41,7 @@ function dpa_supported_plugins_on_load() {
 
 	// Detail view - metaboxes
 	$plugins = dpa_get_supported_plugins();
-	add_meta_box( 'dpa-supported-plugins-info', __( 'Plugin Information', 'dpa' ), 'dpa_supported_plugins_mb_info', 'dpa_achievements_page_achievements-plugins', 'side', 'core', array( $plugins ) );
+	add_meta_box( 'dpa-supported-plugins-info', __( 'Plugin Information', 'dpa' ), 'dpa_supported_plugins_mb_info', 'dpa_achievement_page_achievements-plugins', 'side', 'core', array( $plugins ) );
 }
 
 /**
@@ -146,7 +146,7 @@ function dpa_supported_plugins_detail() {
 		<?php dpa_supported_plugins_mb_switcher(); ?>
 
 		<div class="metabox-holder">
-				<?php do_meta_boxes( 'dpa_achievements_page_achievements-plugins', 'side', null ); ?>
+				<?php do_meta_boxes( 'dpa_achievement_page_achievements-plugins', 'side', null ); ?>
 		</div>
 	</div>
 
@@ -249,7 +249,7 @@ function dpa_supported_plugins_list() {
 		uasort( $plugins, create_function( '$a, $b', 'return strnatcasecmp($a->name, $b->name);' ) );
 
 	// Build URL for non-javascript table sorting
-	$redirect_to = remove_query_arg( array(), self_admin_url( 'edit.php?post_type=dpa_achievements&page=achievements-plugins' ) );
+	$redirect_to = remove_query_arg( array(), self_admin_url( 'edit.php?post_type=dpa_achievement&page=achievements-plugins' ) );
 ?>
 
 	<table class="widefat">

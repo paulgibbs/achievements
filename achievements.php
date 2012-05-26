@@ -307,8 +307,8 @@ class Achievements {
 		// Add the core actions
 		$actions = array(
 			'load_textdomain',      // Load textdomain
-			'register_post_types',  // Register post types (dpa_achievements)
-			'register_taxonomies',  // Register taxonomies (dpa_actions)
+			'register_post_types',  // Register post types (dpa_achievement)
+			'register_taxonomies',  // Register taxonomies (dpa_event)
 			'setup_current_user',   // Set up currently logged in user
 		);
 

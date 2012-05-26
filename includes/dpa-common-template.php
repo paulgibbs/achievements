@@ -22,6 +22,7 @@ function dpa_is_custom_post_type() {
 	// Achievements' post types
 	$achievements_post_types = array(
 		dpa_get_achievement_post_type(),
+		dpa_get_achievement_progress_post_type(),
 	);
 
 	// Viewing one of Achievements' post types

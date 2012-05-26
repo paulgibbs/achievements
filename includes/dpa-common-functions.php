@@ -2,6 +2,9 @@
 /**
  * Common functions
  *
+ * Common functions are ones that are used by more than one component, like
+ * achievements, achievement_progress, events taxonomy...
+ *
  * @package Achievements
  * @subpackage Functions
  */
