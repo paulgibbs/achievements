@@ -184,7 +184,7 @@ class DPA_Admin {
 	 *
 	 * @since 3.0
 	 */
-	public function register_admin_settings() {
+	public static function register_admin_settings() {
 		// Only do stuff if we're on an Achievements admin screen
 		if ( ! DPA_Admin::is_admin_screen() )
 			return;
@@ -212,7 +212,7 @@ class DPA_Admin {
 	 * @return array Processed links
 	 * @since 3.0
 	 */
-	public function add_settings_link( $links, $file ) {
+	public static function add_settings_link( $links, $file ) {
 		if ( plugin_basename( achievements()->file ) == $file ) {
 			$settings_link = '<a href="' . esc_attr( admin_url( 'options-general.php?page=achievements' ) ) . '">' . __( 'Settings', 'dpa' ) . '</a>';
 			array_unshift( $links, $settings_link );
