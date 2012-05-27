@@ -156,10 +156,6 @@ function dpa_is_user_deleted( $user_id = 0 ) {
 /**
  * Changes the specified user's points total
  *
- * So... as Achievements can run independantly (as well as sitewide) on a multisite
- * installation, the user meta key for the user's points total has a site ID suffix.
- * This function takes care of figuring out what site ID we should be using for this.
- *
  * @param int $new_points This can be a negative or a positive integer
  * @param int $user_id Optional; defaults to current user
  * @since 3.0
@@ -173,8 +169,8 @@ function dpa_update_user_points( $new_points, $user_id = 0 ) {
 	if ( empty( $user_id ) )
 		return;
 
-	// If multisite and running network-wide, switch_to_blog to the data store site
-	$site_id  = ( is_multisite() && dpa_is_running_networkwide() ) ? DPA_DATA_STORE : get_current_blog_id();
+	// Build the meta key
+	$site_id  = dpa_get_site_id_for_user_meta();
 	$meta_key = 'dpa_points_' . $site_id;
 
 	// Fetch the points from the user meta and update
@@ -201,13 +197,30 @@ function dpa_get_user_points( $user_id = 0 ) {
 	if ( empty( $user_id ) )
 		return;
 
-	// If multisite and running network-wide, switch_to_blog to the data store site
-	$site_id  = ( is_multisite() && dpa_is_running_networkwide() ) ? DPA_DATA_STORE : get_current_blog_id();
+	// Build the meta key
+	$site_id  = dpa_get_site_id_for_user_meta();
 	$meta_key = 'dpa_points_' . $site_id;
 
 	// Fetch the user's points and return
 	$retval = get_user_meta( $user_id, $meta_key, true );
-
 	return apply_filters( 'dpa_get_user_points', $retval, $user_id, $site_id ); ;
+}
+
+/**
+ * As Achievements can run independantly (as well as sitewide) on a multisite
+ * installation, the user meta key for the user's points total has a site ID suffix.
+ * This function takes care of figuring out what site ID we should be using for this.
+ *
+ * You shouldn't have to use this function unless you are adding new functionality to
+ * Achievements, which would likely include additional storage in the user meta tables.
+ *
+ * @return int
+ * @since 3.0
+ */
+function dpa_get_site_id_for_user_meta() {
+	// If multisite and running network-wide, switch_to_blog to the data store site
+	$site_id = ( is_multisite() && dpa_is_running_networkwide() ) ? DPA_DATA_STORE : get_current_blog_id();
+
+	return apply_filters( 'dpa_get_site_id_for_user_meta', $site_id );
 }
 ?>
