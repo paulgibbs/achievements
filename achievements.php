@@ -231,16 +231,16 @@ final class Achievements {
 
 		// Achievements root directory
 		$this->file       = __FILE__;
-		$this->basename   = 'achievements/achievements.php';  //plugin_basename( $this->file );  @todo Doesn't work in environments with symlink folder
-		$this->plugin_dir = plugin_dir_path( $this->file );
-		$this->plugin_url = plugin_dir_url ( $this->file );
+		$this->basename   = apply_filters( 'dpa_plugin_basename', 'achievements/achievements.php' );  //plugin_basename( $this->file );  @todo Doesn't work in environments with symlink folder
+		$this->plugin_dir = apply_filters( 'dpa_plugin_dir',      plugin_dir_path( $this->file )  );
+		$this->plugin_url = apply_filters( 'dpa_plugin_url',      plugin_dir_url(  $this->file )  );
 
 		// Themes
-		$this->themes_dir = $this->plugin_dir . 'themes';
-		$this->themes_url = $this->plugin_url . 'themes';
+		$this->themes_dir = apply_filters( 'dpa_themes_dir', trailingslashit( $this->plugin_dir . 'themes' ) );
+		$this->themes_url = apply_filters( 'dpa_themes_url', trailingslashit( $this->plugin_url . 'themes' ) );
 
 		// Languages
-		$this->lang_dir = $this->plugin_dir . 'languages';
+		$this->lang_dir = apply_filters( 'dpa_lang_dir', trailingslashit( $this->plugin_dir . 'languages' ) );
 
 		// Post type/taxonomy identifiers
 		$this->achievement_post_type          = apply_filters( 'dpa_achievement_post_type',          'dpa_achievement' );
