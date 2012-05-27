@@ -248,4 +248,3 @@ function dpa_get_user_unlocked_achievements_count( $user_id = 0 ) {
 	$retval = get_user_meta( $user_id, $meta_key, true );
 	return apply_filters( 'dpa_get_user_unlocked_achievements_count', $retval, $user_id, $site_id );
 }
-?>

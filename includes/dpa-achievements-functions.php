@@ -56,4 +56,3 @@ function dpa_achievement_progress_post_type() {
 function dpa_get_event_tax_id() {
 	return apply_filters( 'dpa_get_event_tax_id', achievements()->event_tax_id );
 }
-?>

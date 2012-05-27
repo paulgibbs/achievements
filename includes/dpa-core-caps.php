@@ -304,4 +304,3 @@ function dpa_get_caps_for_role( $role = '' ) {
 
 	return apply_filters( 'dpa_get_caps_for_role', $caps, $role );
 }
-?>

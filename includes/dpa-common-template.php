@@ -66,4 +66,3 @@ function dpa_is_query_name( $query_name )  {
 function dpa_get_query_name() {
 	return get_query_var( '_dpa_query_name' );
 }
-?>

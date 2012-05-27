@@ -201,4 +201,3 @@ function dpa_has_errors() {
 
 	return apply_filters( 'dpa_has_errors', $has_errors, achievements()->errors );
 }
-?>

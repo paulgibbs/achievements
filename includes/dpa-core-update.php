@@ -114,4 +114,3 @@ function dpa_setup_updater() {
 		dpa_activation();
 	}
 }
-?>

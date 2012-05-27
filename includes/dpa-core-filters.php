@@ -33,4 +33,3 @@ add_filter( 'map_meta_cap',            'dpa_map_meta_caps',      10, 4 );
 //add_filter( 'redirect_canonical',      'dpa_redirect_canonical', 10    );
 //add_filter( 'login_redirect',          'dpa_redirect_login',     2,  3 );
 //add_filter( 'logout_url',              'dpa_logout_url',         2,  2 );
-?>

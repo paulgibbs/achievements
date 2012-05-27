@@ -222,4 +222,3 @@ function dpa_supported_plugins_get_contributor_data( $raw_contributors ) {
 
 	return apply_filters( 'dpa_supported_plugins_get_contributor_data', $contributors, $raw_contributors, $people );
 }
-?>

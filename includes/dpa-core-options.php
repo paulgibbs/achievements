@@ -156,5 +156,3 @@ function dpa_is_running_networkwide() {
 function dpa_get_achievement_slug() {
 	return apply_filters( 'dpa_get_achievement_slug', get_option( '_dpa_achievement_slug' ) );
 }
-
-?>

@@ -109,4 +109,3 @@ function dpa_admin_menu() {
 function dpa_admin_head() {
 	do_action( 'dpa_admin_head' );
 }
-?>

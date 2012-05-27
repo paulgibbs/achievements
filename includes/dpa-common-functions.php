@@ -43,4 +43,3 @@ function dpa_get_paged() {
 	// Default to first page
 	return 1;
 }
-?>

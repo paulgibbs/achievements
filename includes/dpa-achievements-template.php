@@ -69,4 +69,3 @@ function dpa_achievements() {
 function dpa_the_achievement() {
 	return achievements()->achievement_query->the_post();
 }
-?>

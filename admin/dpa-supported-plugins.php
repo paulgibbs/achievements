@@ -447,4 +447,3 @@ function dpa_supported_plugins_mb_info( $null, $plugins ) {
 
 <?php
 }
-?>

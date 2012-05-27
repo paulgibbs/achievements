@@ -246,4 +246,3 @@ endif; // class_exists check
 function dpa_admin() {
 	achievements()->admin = new DPA_Admin();
 }
-?>
