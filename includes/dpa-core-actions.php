@@ -7,7 +7,7 @@
  * understand at a glance the order in which things occur.
  *
  * @package Achievements
- * @subpackage Core
+ * @subpackage CoreActions
  */
 
 // Exit if accessed directly
@@ -38,12 +38,14 @@ add_action( 'set_current_user',       'dpa_setup_current_user',     10 );
  *
  * Attach various loader actions to the dpa_loaded action.
  */
-add_action( 'dpa_loaded', 'dpa_constants',          2  );
-add_action( 'dpa_loaded', 'dpa_bootstrap_globals',  4  );
-add_action( 'dpa_loaded', 'dpa_includes',           6  );
-add_action( 'dpa_loaded', 'dpa_setup_globals',      8  );
-//add_action( 'dpa_loaded', 'dpa_register_theme_directory', 10 );
-//add_action( 'dpa_loaded', 'dpa_register_theme_packages',  12 );
+add_action( 'dpa_loaded', 'dpa_constants',                 2  );
+add_action( 'dpa_loaded', 'dpa_bootstrap_globals',         4  );
+add_action( 'dpa_loaded', 'dpa_includes',                  6  );
+add_action( 'dpa_loaded', 'dpa_setup_globals',             8  );
+add_action( 'dpa_loaded', 'dpa_setup_option_filters',      10 );
+add_action( 'dpa_loaded', 'dpa_setup_user_option_filters', 12 );
+//add_action( 'dpa_loaded', 'dpa_register_theme_directory', 14 );
+//add_action( 'dpa_loaded', 'dpa_register_theme_packages',  16 );
 
 /**
  * dpa_init - Attached to 'init' above
@@ -51,7 +53,6 @@ add_action( 'dpa_loaded', 'dpa_setup_globals',      8  );
  * Attach various initialisation actions to the init action.
  */
 add_action( 'dpa_init', 'dpa_load_textdomain',         2   );
-add_action( 'dpa_init', 'dpa_setup_option_filters',    4   );
 add_action( 'dpa_init', 'dpa_register_post_types',     10  );
 //add_action( 'dpa_init', 'dpa_register_post_statuses',  12  );
 add_action( 'dpa_init', 'dpa_register_taxonomies',     14  );
@@ -234,4 +235,3 @@ function dpa_enqueue_scripts() {
 function dpa_ready() {
 	do_action( 'dpa_ready' );
 }
-?>

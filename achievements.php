@@ -4,7 +4,7 @@
  *
  * @author Paul Gibbs <paul@byotos.com>
  * @package Achievements
- * @subpackage loader
+ * @subpackage Loader
  *
  * Plugin structure is based on bbPress and BuddyPress, because they're awesome. Borrowed with love.
  */
@@ -162,10 +162,18 @@ final class Achievements {
 	public $errors = null;
 
 	/**
-	 * Options (overrides values from get_option)
+	 * Overloads default options retrieved from get_option()
+	 *
 	 * @var array
 	 */
 	public $options = array();
+
+	/**
+	 * Overloads default user options retrieved from get_user_option()
+	 *
+	 * @var array
+	 */
+	public $user_options = array();
 
 
 	// Singleton
@@ -274,7 +282,8 @@ final class Achievements {
 		require( $this->plugin_dir . 'includes/dpa-common-functions.php' ); // Common functions
 		require( $this->plugin_dir . 'includes/dpa-common-template.php'  ); // Common template tags
 
-		require( $this->plugin_dir . 'includes/dpa-user-functions.php'   ); // User functions
+		require( $this->plugin_dir . 'includes/dpa-user-functions.php' ); // User functions
+		require( $this->plugin_dir . 'includes/dpa-user-options.php'   ); // User options
 
 		require( $this->plugin_dir . 'includes/dpa-achievements-functions.php' ); // Implements the main logic (achievement event monitoring, etc)
 		require( $this->plugin_dir . 'includes/dpa-achievements-template.php'  ); // Achievement post type template tags
@@ -520,5 +529,3 @@ function achievements() {
 Achievements();
 
 endif; // class_exists check
-
-?>
