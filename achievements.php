@@ -355,7 +355,7 @@ final class Achievements {
 	 *
 	 * @since 3.0
 	 */
-	public function register_post_types() {
+	public static function register_post_types() {
 		$cpt = $labels = $rewrite = $supports = array();
 
 		// CPT labels
@@ -448,7 +448,7 @@ final class Achievements {
 	 *
 	 * @since 3.0
 	 */
-	public function register_taxonomies() {
+	public static function register_taxonomies() {
 		$labels = $tax = array();
 
 		// Event tax labels
