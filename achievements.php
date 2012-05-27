@@ -247,7 +247,7 @@ final class Achievements {
 		$this->achievement_progress_post_type = apply_filters( 'dpa_achievement_progress_post_type', 'dpa_progress'    );
 		$this->event_tax_id                   = apply_filters( 'dpa_event_tax_id',                   'dpa_event'       );
 
-		// Errors
+		// Other stuff
 		$this->errors = new WP_Error();
 
 		// Add to global cache groups
