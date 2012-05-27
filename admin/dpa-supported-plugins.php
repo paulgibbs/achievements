@@ -3,7 +3,7 @@
  * "Supported plugins" admin screens
  *
  * @package Achievements
- * @subpackage Administration
+ * @subpackage AdminSupportedPlugins
  */
 
 // Exit if accessed directly

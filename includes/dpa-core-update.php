@@ -4,7 +4,7 @@
  * Achievements Updater
  *
  * @package Achievements
- * @subpackage Updater
+ * @subpackage CoreUpdate
  */
 
 // Exit if accessed directly

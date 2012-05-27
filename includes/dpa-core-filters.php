@@ -7,7 +7,7 @@
  * understand at a glance the order in which things occur.
  *
  * @package Achievements
- * @subpackage Filters
+ * @subpackage CoreFilters
  */
 
 // Exit if accessed directly

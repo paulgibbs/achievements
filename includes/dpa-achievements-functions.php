@@ -3,7 +3,7 @@
  * Achievement post type functions.
  *
  * @package Achievements
- * @subpackage Functions
+ * @subpackage AchievementsFunctions
  */
 
 // Exit if accessed directly

@@ -3,7 +3,7 @@
  * Achievements Capabilities
  *
  * @package Achievements
- * @subpackage Capabilities
+ * @subpackage CoreCapabilities
  */
 
 // Exit if accessed directly

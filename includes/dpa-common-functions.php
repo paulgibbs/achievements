@@ -6,7 +6,7 @@
  * achievements, achievement_progress, events taxonomy...
  *
  * @package Achievements
- * @subpackage Functions
+ * @subpackage CommonFunctions
  */
 
 // Exit if accessed directly

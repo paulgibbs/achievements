@@ -5,7 +5,7 @@
  * The first sections consists of functions directly related to the core achievement logic.
  *
  * @package Achievements
- * @subpackage Functions
+ * @subpackage CoreFunctions
  */
 
 // Exit if accessed directly

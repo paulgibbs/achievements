@@ -3,7 +3,7 @@
  * Main Achievements Admin Class
  *
  * @package Achievements
- * @subpackage Administration
+ * @subpackage Admin
  */
 
 // Exit if accessed directly

@@ -3,7 +3,7 @@
  * Achievement post type template tags
  *
  * @package Achievements
- * @subpackage Template
+ * @subpackage AchievementsTemplate
  */
 
 // Exit if accessed directly

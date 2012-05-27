@@ -3,7 +3,7 @@
 * Achievement options
 *
 * @package Achievements
-* @subpackage Options
+* @subpackage CoreOptions
 */
 
 // Exit if accessed directly

@@ -4,7 +4,7 @@
  * Achievements admin actions
  *
  * @package Achievements
- * @subpackage Admin
+ * @subpackage AdminActions
  *
  * This file contains the actions that are used throughout Achievements admin. They
  * are consolidated here to make searching for them easier, and to help developers

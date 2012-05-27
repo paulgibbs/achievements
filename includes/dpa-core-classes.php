@@ -6,7 +6,7 @@
  * Empty for now.
  *
  * @package Achievements
- * @subpackage Classes
+ * @subpackage CoreClasses
  */
 
 // Exit if accessed directly

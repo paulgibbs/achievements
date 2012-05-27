@@ -3,7 +3,7 @@
  * User functions
  *
  * @package Achievements
- * @subpackage Functions
+ * @subpackage UserFunctions
  */
 
 // Exit if accessed directly

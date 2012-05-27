@@ -3,7 +3,7 @@
  * Common template tags
  *
  * @package Achievements
- * @subpackage Template
+ * @subpackage CommonTemplate
  */
 
 // Exit if accessed directly

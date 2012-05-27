@@ -5,7 +5,7 @@
  * Common or post type/taxonomy-specific customisations.
  *
  * @package Achievements
- * @subpackage Administration
+ * @subpackage AdminFunctions
  */
 
 // Exit if accessed directly
