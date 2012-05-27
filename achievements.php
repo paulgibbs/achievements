@@ -52,7 +52,7 @@ if ( ! class_exists( 'Achievements' ) ) :
  *
  * @since 3.0
  */
-class Achievements {
+final class Achievements {
 	// Versions
 
 	/**
