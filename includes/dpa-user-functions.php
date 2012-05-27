@@ -185,7 +185,7 @@ function dpa_update_user_points( $new_points, $user_id = 0 ) {
  * Gets the specified user's points total
  *
  * @param int $user_id Optional; defaults to current user
- * @return int User's ppints
+ * @return int User's points
  * @since 3.0
  */
 function dpa_get_user_points( $user_id = 0 ) {
@@ -203,7 +203,7 @@ function dpa_get_user_points( $user_id = 0 ) {
 
 	// Fetch the user's points and return
 	$retval = get_user_meta( $user_id, $meta_key, true );
-	return apply_filters( 'dpa_get_user_points', $retval, $user_id, $site_id ); ;
+	return apply_filters( 'dpa_get_user_points', $retval, $user_id, $site_id );
 }
 
 /**
@@ -222,5 +222,30 @@ function dpa_get_site_id_for_user_meta() {
 	$site_id = ( is_multisite() && dpa_is_running_networkwide() ) ? DPA_DATA_STORE : get_current_blog_id();
 
 	return apply_filters( 'dpa_get_site_id_for_user_meta', $site_id );
+}
+
+/**
+ * Gets the total number of achievements that the specified user has unlocked
+ *
+ * @param int $user_id Optional; defaults to current user
+ * @return int
+ * @since 3.0
+ */
+function dpa_get_user_unlocked_achievements_count( $user_id = 0 ) {
+	// Default to current user
+	if ( empty( $user_id ) && is_user_logged_in() )
+		$user_id = get_current_user_id();
+
+	// No user, bail out
+	if ( empty( $user_id ) )
+		return;
+
+	// Build the meta key
+	$site_id  = dpa_get_site_id_for_user_meta();
+	$meta_key = 'dpa_unlocked_count_' . $site_id;
+
+	// Fetch the user's points and return
+	$retval = get_user_meta( $user_id, $meta_key, true );
+	return apply_filters( 'dpa_get_user_unlocked_achievements_count', $retval, $user_id, $site_id );
 }
 ?>
