@@ -225,10 +225,6 @@ final class Achievements {
 	 * @since 3.0
 	 */
 	private function setup_globals() {
-		// If multisite and running network-wide, we switch_to_blog to this blog to store/fetch achievement data
-		if ( ! defined( 'DPA_DATA_STORE' ) )
-			define( 'DPA_DATA_STORE', 1 );
-
 		// Achievements root directory
 		$this->file       = __FILE__;
 		$this->basename   = apply_filters( 'dpa_plugin_basename', 'achievements/achievements.php' );  //plugin_basename( $this->file );  @todo Doesn't work in environments with symlink folder
@@ -306,6 +302,7 @@ final class Achievements {
 
 		// Add the core actions
 		$actions = array(
+			'constants',            // Define constants
 			'load_textdomain',      // Load textdomain
 			'register_post_types',  // Register post types (dpa_achievement)
 			'register_taxonomies',  // Register taxonomies (dpa_event)
@@ -317,6 +314,17 @@ final class Achievements {
 
 		// All Achievements actions are setup (includes dpa-core-actions.php)
 		do_action_ref_array( 'dpa_after_setup_actions', array( &$this ) );
+	}
+
+	/**
+	 * Define constants
+	 *
+	 * @since 3.0
+	 */
+	public function constants() {
+		// If multisite and running network-wide, we switch_to_blog to this site to store/fetch achievement data
+		if ( ! defined( 'DPA_DATA_STORE' ) )
+			define( 'DPA_DATA_STORE', 1 );
 	}
 
 	/**
