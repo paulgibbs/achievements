@@ -147,13 +147,18 @@ final class Achievements {
 	// Queries
 
 	/**
-	 * @var WP_Query For achievements
+	 * @var WP_Query For achievement query
 	 */
 	public $achievement_query = null;
 
+	/**
+	 * @var WP_Query For achievement progress query
+	 */
+	public $progress_query = null;
 
-	// Errors
 
+	// Other stuff
+	
 	/**
 	 * Used to log and display errors
 	 *
@@ -504,7 +509,7 @@ final class Achievements {
 	/**
 	 * Set up the currently logged in user.
 	 *
-	 * Do not to call this before the 'init' action has started.
+	 * Do not call this before the 'init' action has started.
 	 *
 	 * @since 3.0
 	 */
