@@ -12,6 +12,11 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 /**
  * The achievement post type loop.
  *
+ * Most of the values that $args can accept are documented in {@link WP_Query}. The custom
+ * values added by Achievements are as follows:
+ *
+ * $achievement_event        - string - Loads achievements for a specific event. Matches a slug from the dpa_event tax.
+ *
  * @param array|string $args All the arguments supported by {@link WP_Query}, and some more.
  * @return bool Returns true if the query has any results to loop over
  * @since 3.0
@@ -22,42 +27,46 @@ function dpa_has_achievements( $args = '' ) {
 		switch_to_blog( DPA_DATA_STORE );
 
 	// The default achievement query for most circumstances
-	$defaults = array (
+	$defaults = array(
 		// Standard WP_Query params
-		'order'             => 'ASC',                                                // 'ASC', 'DESC
-		'orderby'           => 'title',                                              // 'meta_value', 'author', 'date', 'title', 'modified', 'parent', rand'
-		'max_num_pages'     => false,                                                // Maximum number of pages to show
-		'paged'             => dpa_get_paged(),                                      // Page number
-		'post_status'       => 'publish',                                            // Published (active) achievements only
-		'post_type'         => dpa_get_achievement_post_type(),                      // Only retrieve achievement posts
-		'posts_per_page'    => dpa_get_achievements_per_page(),                      // Achievements per page
-		's'                 => ! empty( $_REQUEST['dpa'] ) ? $_REQUEST['dpa'] : '',  // Achievements search
+		'order'                 => 'ASC',                                                // 'ASC', 'DESC
+		'orderby'               => 'title',                                              // 'meta_value', 'author', 'date', 'title', 'modified', 'parent', rand'
+		'max_num_pages'         => false,                                                // Maximum number of pages to show
+		'paged'                 => dpa_get_paged(),                                      // Page number
+		'post_status'           => 'publish',                                            // Published (active) achievements only
+		'post_type'             => dpa_get_achievement_post_type(),                      // Only retrieve achievement posts
+		'posts_per_page'        => dpa_get_achievements_per_page(),                      // Achievements per page
+		's'                     => ! empty( $_REQUEST['dpa'] ) ? $_REQUEST['dpa'] : '',  // Achievements search
 
 		// Achievements params
-		'achievement_event' => '',                                                   // Load achievements for a specific event
+		'achievement_event'     => '',                                                   // Load achievements for a specific event
 	);
-	$achievement_filters = wp_parse_args( $args, $defaults );
+	$achievement_args = wp_parse_args( $args, $defaults );
 
 
 	/**
 	 * Handle Achievements params
 	 */
+	$recipient_ids = array();
 
-	if ( isset( $achievement_filters['achievement_event'] ) ) {
-		$achievement_filters['tax_query'] = array(
-			'field'    => 'slug',
-			'taxonomy' => dpa_get_event_tax_id(),
-			'terms'    => $achievement_filters['achievement_event'],
-		);
+	// Load achievements for a specific event
+	if ( isset( $achievement_args['achievement_event'] ) ) {
+		if ( ! empty( $achievement_args['achievement_event']) ) {
 
-		// Unset the var in case it confuses WP_Query
-		unset( $achievement_filters['achievement_event'] );
+			$achievement_args['tax_query'] = array(
+				'field'    => 'slug',
+				'taxonomy' => dpa_get_event_tax_id(),
+				'terms'    => $achievement_args['achievement_event'],
+			);
+		}
+
+		unset( $achievement_args['achievement_event'] );
 	}
 
 	// Run the query
-	achievements()->achievement_query = new WP_Query( $achievement_filters );
+	achievements()->achievement_query = new WP_Query( $achievement_args );
 
-	return apply_filters( 'dpa_has_achievements', achievements()->achievement_query->have_posts(), achievements()->achievement_query );
+	return apply_filters( 'dpa_has_achievements', achievements()->achievement_query->have_posts() );
 }
 
 /**
