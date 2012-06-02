@@ -68,7 +68,7 @@ function dpa_has_achievements( $args = array() ) {
 	achievements()->achievement_query = new WP_Query( $args );
 
 	// Grab extra data for the achievements (e.g. has the current user unlocked it)
-	if ( $args['ach_populate_progress'] && achievements()->achievement_query->have_posts() && is_user_loggedin() ) {
+	if ( $args['ach_populate_progress'] && achievements()->achievement_query->have_posts() && is_user_logged_in() ) {
 		$progress_post_ids = wp_list_pluck( (array) achievements()->achievement_query->posts, 'ID' );
 
 		// Args for progress query
