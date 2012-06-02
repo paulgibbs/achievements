@@ -73,7 +73,7 @@ function dpa_has_achievements( $args = array() ) {
 
 		// Args for progress query
 		$progress_args = array(
-			'author'         => achievements()->current_user->ID;      // Current user
+			'author'         => achievements()->current_user->ID,      // Current user
 			'max_num_pages'  => false,                                 // Maximum number of pages to show
 			'no_found_rows'  => true,                                  // Disable SQL_CALC_FOUND_ROWS
 			'post_parent'    => $progress_post_ids,                    // Fetch progress posts with parent_id matching these
