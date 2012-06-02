@@ -74,10 +74,10 @@ function dpa_handle_event() {
 
 		// Find achievements that are associated with the $event_name taxonomy
 		$args = array(
-			'achievement_event' => $event_name,  // Get posts in the event taxonomy matching the event name
-			'no_found_rows'     => true,         // Don't COUNT results if any LIMIT is set
-			'nopaging'          => true,         // No pagination
-			's'                 => '',           // Stop sneaky people running searches on this query
+			'ach_event'      => $event_name,  // Get posts in the event taxonomy matching the event name
+			'no_found_rows'  => true,         // Disable SQL_CALC_FOUND_ROWS
+			'posts_per_page' => -1,           // No pagination
+			's'              => '',           // Stop sneaky people running searches on this query
 		);
 
 		// If any achievements were found, go through each one.

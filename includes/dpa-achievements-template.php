@@ -15,13 +15,14 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  * Most of the values that $args can accept are documented in {@link WP_Query}. The custom
  * values added by Achievements are as follows:
  *
- * $achievement_event        - string - Loads achievements for a specific event. Matches a slug from the dpa_event tax.
- *
+ * $ach_event             - string - Loads achievements for a specific event. Matches a slug from the dpa_event tax. Default is empty.
+ * $ach_populate_progress - bool   - Populate logged in user's progress for the results. Default is true.
+ * 
  * @param array|string $args All the arguments supported by {@link WP_Query}, and some more.
  * @return bool Returns true if the query has any results to loop over
  * @since 3.0
  */
-function dpa_has_achievements( $args = '' ) {
+function dpa_has_achievements( $args = array() ) {
 	// If multisite and running network-wide, switch_to_blog to the data store site
 	if ( is_multisite() && dpa_is_running_networkwide() )
 		switch_to_blog( DPA_DATA_STORE );
@@ -39,32 +40,52 @@ function dpa_has_achievements( $args = '' ) {
 		's'                     => ! empty( $_REQUEST['dpa'] ) ? $_REQUEST['dpa'] : '',  // Achievements search
 
 		// Achievements params
-		'achievement_event'     => '',                                                   // Load achievements for a specific event
+		'ach_event'             => '',                                                   // Load achievements for a specific event
+		'ach_populate_progress' => true,                                                 // Populate logged in user's progress for the results
 	);
-	$achievement_args = wp_parse_args( $args, $defaults );
+	$args = wp_parse_args( $args, $defaults );
 
 
 	/**
 	 * Handle Achievements params
 	 */
-	$recipient_ids = array();
 
 	// Load achievements for a specific event
-	if ( isset( $achievement_args['achievement_event'] ) ) {
-		if ( ! empty( $achievement_args['achievement_event']) ) {
+	if ( isset( $args['ach_event'] ) ) {
+		if ( ! empty( $args['ach_event']) ) {
 
-			$achievement_args['tax_query'] = array(
+			$args['tax_query'] = array(
 				'field'    => 'slug',
 				'taxonomy' => dpa_get_event_tax_id(),
-				'terms'    => $achievement_args['achievement_event'],
+				'terms'    => $args['ach_event'],
 			);
 		}
 
-		unset( $achievement_args['achievement_event'] );
+		unset( $args['ach_event'] );
 	}
 
 	// Run the query
-	achievements()->achievement_query = new WP_Query( $achievement_args );
+	achievements()->achievement_query = new WP_Query( $args );
+
+	// Grab extra data for the achievements (e.g. has the current user unlocked it)
+	if ( $args['ach_populate_progress'] && achievements()->achievement_query->have_posts() && is_user_loggedin() ) {
+		$progress_post_ids = wp_list_pluck( (array) achievements()->achievement_query->posts, 'ID' );
+
+		// Args for progress query
+		$progress_args = array(
+			'author'         => achievements()->current_user->ID;      // Current user
+			'max_num_pages'  => false,                                 // Maximum number of pages to show
+			'no_found_rows'  => true,                                  // Disable SQL_CALC_FOUND_ROWS
+			'post_parent'    => $progress_post_ids,                    // Fetch progress posts with parent_id matching these
+			'post_status'    => 'publish',                             // @todo Post statuses for locked/unlocked
+			'post_type'      => dpa_achievement_progress_post_type(),  // Only retrieve progress posts
+			'posts_per_page' => -1,                                    // No pagination
+			's'              => '',                                    // No search
+		);
+
+		// Run the query
+		achievements()->progress_query = new WP_Query( $progress_args );
+	}
 
 	return apply_filters( 'dpa_has_achievements', achievements()->achievement_query->have_posts() );
 }
