@@ -73,14 +73,14 @@ function dpa_has_achievements( $args = array() ) {
 
 		// Args for progress query
 		$progress_args = array(
-			'author'         => achievements()->current_user->ID,      // Current user
-			'max_num_pages'  => false,                                 // Maximum number of pages to show
-			'no_found_rows'  => true,                                  // Disable SQL_CALC_FOUND_ROWS
-			'post_parent'    => $progress_post_ids,                    // Fetch progress posts with parent_id matching these
-			'post_status'    => 'publish',                             // @todo Post statuses for locked/unlocked
-			'post_type'      => dpa_achievement_progress_post_type(),  // Only retrieve progress posts
-			'posts_per_page' => -1,                                    // No pagination
-			's'              => '',                                    // No search
+			'author'         => achievements()->current_user->ID,          // Current user
+			'max_num_pages'  => false,                                     // Maximum number of pages to show
+			'no_found_rows'  => true,                                      // Disable SQL_CALC_FOUND_ROWS
+			'post_parent'    => $progress_post_ids,                        // Fetch progress posts with parent_id matching these
+			'post_status'    => 'publish',                                 // @todo Post statuses for locked/unlocked
+			'post_type'      => dpa_get_achievement_progress_post_type(),  // Only retrieve progress posts
+			'posts_per_page' => -1,                                        // No pagination
+			's'              => '',                                        // No search
 		);
 
 		// Run the query
