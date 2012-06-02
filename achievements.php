@@ -290,8 +290,11 @@ final class Achievements {
 		require( $this->plugin_dir . 'includes/user-functions.php' ); // User functions
 		require( $this->plugin_dir . 'includes/user-options.php'   ); // User options
 
-		require( $this->plugin_dir . 'includes/achievements-functions.php' ); // Implements the main logic (achievement event monitoring, etc)
+		require( $this->plugin_dir . 'includes/achievements-functions.php' ); // Implements the main logic for the achievement post type (achievement event monitoring, etc)
 		require( $this->plugin_dir . 'includes/achievements-template.php'  ); // Achievement post type template tags
+
+		require( $this->plugin_dir . 'includes/progress-functions.php' ); // Implements the Progress post type
+		require( $this->plugin_dir . 'includes/progress-template.php'  ); // Progress post type template tags
 
 		// Admin
 		if ( is_admin() ) {

@@ -96,7 +96,7 @@ function dpa_has_achievements( $args = array() ) {
  * @since 3.0
  * @return bool True if posts are in the loop
  */
-function dpa_achievements() {
+function dpa_have_achievements() {
 	$have_posts = achievements()->achievement_query->have_posts();
 
 	// Reset the post data when finished

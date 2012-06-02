@@ -82,7 +82,7 @@ function dpa_handle_event() {
 
 		// If any achievements were found, go through each one.
 		if ( dpa_has_achievements( $args ) ) {
-			while ( dpa_achievements() ) {
+			while ( dpa_have_achievements() ) {
 				dpa_the_achievement();
 
 				// Do stuff here
@@ -97,7 +97,7 @@ function dpa_handle_event() {
 /*function dpa_handle_action( $name, $func_args=null, $type='' ) {
 	foreach ( $user_ids as $user_id ) {
 		if ( dpa_has_achievements( array( 'user_id' => $user_id, 'type' => 'active_by_action', 'action' => $name ) ) ) {
-			while ( dpa_achievements() ) {
+			while ( dpa_have_achievements() ) {
 				dpa_the_achievement();
 
 				$site_id = apply_filters( 'dpa_handle_action_site_id', dpa_get_achievement_site_id(), $name, $func_args, $type, $user_id );
