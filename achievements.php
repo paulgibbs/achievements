@@ -270,33 +270,33 @@ final class Achievements {
 	 */
 	private function includes() {
 		// Core
-		require( $this->plugin_dir . 'includes/dpa-core-actions.php'    ); // All actions
-		require( $this->plugin_dir . 'includes/dpa-core-filters.php'    ); // All filters
-		require( $this->plugin_dir . 'includes/dpa-core-functions.php'  ); // Common functions
-		require( $this->plugin_dir . 'includes/dpa-core-options.php'    ); // Configuration options
-		require( $this->plugin_dir . 'includes/dpa-core-caps.php'       ); // Roles and capabilities
-		require( $this->plugin_dir . 'includes/dpa-core-classes.php'    ); // Common classes
-		//require( $this->plugin_dir . 'includes/dpa-core-widgets.php'    ); // Widgets
-		//require( $this->plugin_dir . 'includes/dpa-core-shortcodes.php' ); // Shortcodes for use with pages and posts
-		require( $this->plugin_dir . 'includes/dpa-core-update.php'     ); // Database updater
+		require( $this->plugin_dir . 'includes/core-actions.php'    ); // All actions
+		require( $this->plugin_dir . 'includes/core-filters.php'    ); // All filters
+		require( $this->plugin_dir . 'includes/core-functions.php'  ); // Common functions
+		require( $this->plugin_dir . 'includes/core-options.php'    ); // Configuration options
+		require( $this->plugin_dir . 'includes/core-caps.php'       ); // Roles and capabilities
+		require( $this->plugin_dir . 'includes/core-classes.php'    ); // Common classes
+		//require( $this->plugin_dir . 'includes/core-widgets.php'    ); // Widgets
+		//require( $this->plugin_dir . 'includes/core-shortcodes.php' ); // Shortcodes for use with pages and posts
+		require( $this->plugin_dir . 'includes/core-update.php'     ); // Database updater
 
 
 		/**
 		 * Components
 		 */
-		require( $this->plugin_dir . 'includes/dpa-common-functions.php' ); // Common functions
-		require( $this->plugin_dir . 'includes/dpa-common-template.php'  ); // Common template tags
+		require( $this->plugin_dir . 'includes/common-functions.php' ); // Common functions
+		require( $this->plugin_dir . 'includes/common-template.php'  ); // Common template tags
 
-		require( $this->plugin_dir . 'includes/dpa-user-functions.php' ); // User functions
-		require( $this->plugin_dir . 'includes/dpa-user-options.php'   ); // User options
+		require( $this->plugin_dir . 'includes/user-functions.php' ); // User functions
+		require( $this->plugin_dir . 'includes/user-options.php'   ); // User options
 
-		require( $this->plugin_dir . 'includes/dpa-achievements-functions.php' ); // Implements the main logic (achievement event monitoring, etc)
-		require( $this->plugin_dir . 'includes/dpa-achievements-template.php'  ); // Achievement post type template tags
+		require( $this->plugin_dir . 'includes/achievements-functions.php' ); // Implements the main logic (achievement event monitoring, etc)
+		require( $this->plugin_dir . 'includes/achievements-template.php'  ); // Achievement post type template tags
 
 		// Admin
 		if ( is_admin() ) {
-			require( $this->plugin_dir . 'admin/dpa-admin.php'         );
-			require( $this->plugin_dir . 'admin/dpa-admin-actions.php' );
+			require( $this->plugin_dir . 'admin/admin.php'         );
+			require( $this->plugin_dir . 'admin/admin-actions.php' );
 		}
 	}
 
@@ -326,7 +326,7 @@ final class Achievements {
 		foreach( $actions as $class_action )
 			add_action( 'dpa_' . $class_action, array( $this, $class_action ), 5 );
 
-		// All Achievements actions are setup (includes dpa-core-actions.php)
+		// All Achievements actions are setup (includes core-actions.php)
 		do_action_ref_array( 'dpa_after_setup_actions', array( &$this ) );
 	}
 
