@@ -465,7 +465,7 @@ final class Achievements {
 		register_post_type( dpa_get_achievement_post_type(), $cpt['achievement'] );
 
 		// Register Achievement Progress post type
-		register_post_type( dpa_get_achievement_progress_post_type(), $cpt['achievement_progress'] );
+		register_post_type( dpa_get_progress_post_type(), $cpt['achievement_progress'] );
 	}
 
 	/**

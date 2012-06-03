@@ -45,11 +45,6 @@ function dpa_has_achievements( $args = array() ) {
 	);
 	$args = wp_parse_args( $args, $defaults );
 
-
-	/**
-	 * Handle Achievements params
-	 */
-
 	// Load achievements for a specific event
 	if ( isset( $args['ach_event'] ) ) {
 		if ( ! empty( $args['ach_event']) ) {
@@ -74,17 +69,13 @@ function dpa_has_achievements( $args = array() ) {
 		// Args for progress query
 		$progress_args = array(
 			'author'         => achievements()->current_user->ID,          // Current user
-			'max_num_pages'  => false,                                     // Maximum number of pages to show
 			'no_found_rows'  => true,                                      // Disable SQL_CALC_FOUND_ROWS
 			'post_parent'    => $progress_post_ids,                        // Fetch progress posts with parent_id matching these
-			'post_status'    => 'publish',                                 // @todo Post statuses for locked/unlocked
-			'post_type'      => dpa_get_achievement_progress_post_type(),  // Only retrieve progress posts
 			'posts_per_page' => -1,                                        // No pagination
-			's'              => '',                                        // No search
 		);
 
 		// Run the query
-		achievements()->progress_query = new WP_Query( $progress_args );
+		dpa_has_progress( $progress_args );
 	}
 
 	return apply_filters( 'dpa_has_achievements', achievements()->achievement_query->have_posts() );

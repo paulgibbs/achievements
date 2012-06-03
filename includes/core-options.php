@@ -23,6 +23,9 @@ function dpa_get_default_options() {
 		// Achievement post type
 		'_dpa_achievements_per_page' => 15,              // Achievements per page
 
+		// Progress post type
+		'_dpa_progresses_per_page'   => 15,              // Progresses per page
+
 		// Settings
 		'_dpa_run_networkwide'       => false,           // Run plugin across entire network, rather than on a specific site (for multisite)
 	);
@@ -127,6 +130,26 @@ function dpa_get_achievements_per_page() {
 
 	// Filter and return
 	return (int) apply_filters( 'dpa_get_achievements_per_page', $retval, $per );
+}
+
+/**
+ * Return the progresses per page setting
+ *
+ * @return int
+ * @since 3.0
+ */
+function dpa_get_progresses_per_page() {
+	$default = 15;
+
+	// Get database option and cast as integer
+	$per = $retval = (int) get_option( '_dpa_progresses_per_page', $default );
+
+	// If return val is empty, set it to default
+	if ( empty( $retval ) )
+		$retval = $default;
+
+	// Filter and return
+	return (int) apply_filters( 'dpa_get_progresses_per_page', $retval, $per );
 }
 
 /**

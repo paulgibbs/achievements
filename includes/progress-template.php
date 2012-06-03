@@ -16,7 +16,37 @@
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 /**
- * Whether there are more achievements available in the loop
+ * The Progress post type loop.
+ *
+ * Only for use inside a dpa_has_achievements() template loop.
+ *
+ * @param array|string $args All the arguments supported by {@link WP_Query}, and some more.
+ * @return bool Returns true if the query has any results to loop over
+ * @since 3.0
+ */
+function dpa_has_progress( $args = array() ) {
+	$defaults = array(
+		// @todo Maybe re-implement order/orderby once I decided how the Progress post type is going to be used in more detail
+		//'order'          => 'ASC',                          // 'ASC', 'DESC
+		//'orderby'        => 'title',                        // 'meta_value', 'author', 'date', 'title', 'modified', 'parent', rand'
+
+		'max_num_pages'  => false,                          // Maximum number of pages to show
+		'paged'          => dpa_get_paged(),                // Page number
+		'post_status'    => 'publish',                      // @todo Post statuses for locked/unlocked
+		'post_type'      => dpa_get_progress_post_type(),   // Only retrieve progress posts
+		'posts_per_page' => dpa_get_progresses_per_page(),  // Progresses per page
+		's'              => '',                             // No search
+	);
+	$args = wp_parse_args( $args, $defaults );
+
+	// Run the query
+	achievements()->progress_query = new WP_Query( $args );
+
+	return apply_filters( 'dpa_has_progress', achievements()->progress_query->have_posts() );
+}
+
+/**
+ * Whether there are more achievement progresses available in the loop. Is progresses a word?
  *
  * @since 3.0
  * @return bool True if posts are in the loop
