@@ -32,7 +32,10 @@ function dpa_has_progress( $args = array() ) {
 
 		'max_num_pages'  => false,                          // Maximum number of pages to show
 		'paged'          => dpa_get_paged(),                // Page number
-		'post_status'    => 'publish',                      // @todo Post statuses for locked/unlocked
+		'post_status'    => array(                          // Get posts in the locked / unlocked status by default.
+		                      dpa_get_locked_status_id(),
+		                      dpa_get_unlocked_status_id(),
+		                    ),
 		'post_type'      => dpa_get_progress_post_type(),   // Only retrieve progress posts
 		'posts_per_page' => dpa_get_progresses_per_page(),  // Progresses per page
 		's'              => '',                             // No search
