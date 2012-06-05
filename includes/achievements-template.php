@@ -20,7 +20,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  *                                                - bool: True - uses the logged in user (default). False - don't fetch progress.
  *                                                - int: pass a user ID (single user).
  *                                                - array: array of integers (multiple users' IDs).
- *                                                - string: comma-separated list of user IDs (multiple users).
+ *                                                - string: "all" (get all users), or a comma-separated list of user IDs (multiple users).
  * $ach_progress_status   - array                 - array: Post status IDs for the Progress post type.
  *
  * @param array|string $args All the arguments supported by {@link WP_Query}, and some more.
@@ -73,6 +73,8 @@ function dpa_has_achievements( $args = array() ) {
 	if ( ! empty( $args['ach_populate_progress'] ) ) {
 		if ( true === $args['ach_populate_progress'] && is_user_logged_in() )
 			$progress_user_ids = achievements()->current_user->ID;
+		elseif ( is_string( $args['ach_populate_progress'] ) && 'all' === $args['ach_populate_progress'] )
+			$progress_user_ids = false;
 		else
 			$progress_user_ids = wp_parse_id_list( (array) $args['ach_populate_progress'] );
 	}
