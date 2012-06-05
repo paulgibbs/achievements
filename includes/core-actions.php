@@ -54,7 +54,7 @@ add_action( 'dpa_loaded', 'dpa_setup_user_option_filters', 12 );
  */
 add_action( 'dpa_init', 'dpa_load_textdomain',         2   );
 add_action( 'dpa_init', 'dpa_register_post_types',     10  );
-//add_action( 'dpa_init', 'dpa_register_post_statuses',  12  );
+add_action( 'dpa_init', 'dpa_register_post_statuses',  12  );
 add_action( 'dpa_init', 'dpa_register_taxonomies',     14  );
 //add_action( 'dpa_init', 'dpa_register_views',          16  );
 //add_action( 'dpa_init', 'dpa_register_shortcodes',     18  );
@@ -206,6 +206,15 @@ function dpa_load_textdomain() {
  */
 function dpa_register_post_types() {
 	do_action( 'dpa_register_post_types' );
+}
+
+/**
+ * Set up the post statuses
+ *
+ * @since 3.0
+ */
+function dpa_register_post_statuses() {
+	do_action( 'dpa_register_post_statuses' );
 }
 
 /**

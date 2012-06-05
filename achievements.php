@@ -87,6 +87,21 @@ final class Achievements {
 	public $event_tax_id = '';
 
 
+	// Post statuses
+
+	/**
+	 * @var string Locked achievement post status. Used by Progress post type.
+	 */
+	public $locked_status_id = '';
+
+	/**
+	 * @var string Unlocked achievement post status. Used by Progress post type.
+	 */
+	public $unlocked_status_id = '';
+
+
+	// Theme compat
+
 	/**
 	 * Theme to use for theme compatibility
 	 */
@@ -256,6 +271,10 @@ final class Achievements {
 		$this->achievement_progress_post_type = apply_filters( 'dpa_achievement_progress_post_type', 'dpa_progress'    );
 		$this->event_tax_id                   = apply_filters( 'dpa_event_tax_id',                   'dpa_event'       );
 
+		// Status identifiers
+		$this->locked_status_id   = apply_filters( 'dpa_locked_post_status',   'dpa_locked'   );
+		$this->unlocked_status_id = apply_filters( 'dpa_unlocked_post_status', 'dpa_unlocked' );
+
 		// Other stuff
 		$this->errors = new WP_Error();
 
@@ -319,11 +338,12 @@ final class Achievements {
 
 		// Add the core actions
 		$actions = array(
-			'constants',            // Define constants
-			'load_textdomain',      // Load textdomain
-			'register_post_types',  // Register post types (dpa_achievement)
-			'register_taxonomies',  // Register taxonomies (dpa_event)
-			'setup_current_user',   // Set up currently logged in user
+			'constants',               // Define constants
+			'load_textdomain',         // Load textdomain
+			'register_post_types',     // Register post types (dpa_achievement, dpa_progress)
+			'register_post_statuses',  // Register post statuses (dpa_progress: locked, unlocked)
+			'register_taxonomies',     // Register taxonomies (dpa_event)
+			'setup_current_user',      // Set up currently logged in user
 		);
 
 		foreach( $actions as $class_action )
@@ -466,6 +486,35 @@ final class Achievements {
 
 		// Register Achievement Progress post type
 		register_post_type( dpa_get_progress_post_type(), $cpt['achievement_progress'] );
+	}
+
+	/**
+	 * Register the post statuses used by Achievements
+	 *
+	 * @since 3.0
+	 */
+	public static function register_post_statuses() {
+		// Locked
+		$status = apply_filters( 'dpa_register_locked_post_status', array(
+			'label'                     => _x( 'Locked', 'achievement', 'dpa' ),
+			'label_count'               => _nx_noop( 'Locked <span class="count">(%s)</span>', 'Locked <span class="count">(%s)</span>', 'dpa' ),
+			'public'                    => false,
+			'exclude_from_search'       => true,
+			'show_in_admin_status_list' => true,
+			'show_in_admin_all_list'    => true,
+		) );
+		register_post_status( dpa_get_locked_status_id(), $status );
+
+		// Unlocked
+		$status = apply_filters( 'dpa_register_unlocked_post_status', array(
+			'label'                     => _x( 'Unlocked', 'achievement', 'dpa' ),
+			'label_count'               => _nx_noop( 'Unlocked <span class="count">(%s)</span>', 'Unlocked <span class="count">(%s)</span>', 'dpa' ),
+			'public'                    => true,
+			'exclude_from_search'       => true,
+			'show_in_admin_status_list' => true,
+			'show_in_admin_all_list'    => true,
+		) );
+		register_post_status( dpa_get_unlocked_status_id(), $status );
 	}
 
 	/**

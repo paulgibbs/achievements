@@ -163,6 +163,26 @@ function dpa_db_version() {
 		return achievements()->db_version;
 	}
 
+/**
+ * Return the locked (achievement) post status ID
+ *
+ * @return string
+ * @since 3.0
+ */
+function dpa_get_locked_status_id() {
+	return achievements()->locked_status_id;
+}
+
+/**
+ * Return the unlocked (achievement progress) post status ID
+ *
+ * @return string
+ * @since 3.0
+ */
+function dpa_get_unlocked_status_id() {
+	return achievements()->unlocked_status_id;
+}
+
 
 /**
  * Errors
