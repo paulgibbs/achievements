@@ -86,11 +86,11 @@ function dpa_has_achievements( $args = array() ) {
 
 		// Args for progress query
 		$progress_args = array(
-			'author'         => $progress_user_ids,           // Posts belonging to these author(s)
-			'no_found_rows'  => true,                         // Disable SQL_CALC_FOUND_ROWS
-			'post_parent'    => $progress_post_ids,           // Fetch progress posts with parent_id matching these
-			'post_status'    => $args['ach_progress_status']  // Get posts in these post statuses
-			'posts_per_page' => -1,                           // No pagination
+			'author'         => $progress_user_ids,            // Posts belonging to these author(s)
+			'no_found_rows'  => true,                          // Disable SQL_CALC_FOUND_ROWS
+			'post_parent'    => $progress_post_ids,            // Fetch progress posts with parent_id matching these
+			'post_status'    => $args['ach_progress_status'],  // Get posts in these post statuses
+			'posts_per_page' => -1,                            // No pagination
 		);
 
 		// Run the query
