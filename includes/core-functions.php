@@ -13,8 +13,8 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 /**
  * Achievement actions are stored as a custom taxonomy. This function queries that taxonomy to find items,
- * and then using that item's slug (which is the name of a WordPress action), registers a handler action
- * in Achievements.
+ * and then using the items' slugs (which are the name of a WordPress action), registers a handler action
+ * in Achievements. The user needs to be logged in for this to hapen.
  *
  * Posts in trash are returned by get_terms(), even if hide_empty is set. We double-check the post status
  * before we actually give the award.
@@ -25,6 +25,9 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  * @since 3.0
  */
 function dpa_register_events() {
+	if ( ! is_user_logged_in() )
+		return;
+
 	$events = get_terms( achievements()->event_tax_id, array( 'hide_empty' => true )  );
 	if ( is_wp_error( $events ) )
 		return;
