@@ -25,9 +25,11 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  * @since 3.0
  */
 function dpa_register_events() {
+	// Only do things if the user is logged in
 	if ( ! is_user_logged_in() )
 		return;
 
+	// Get all valid events from the event taxononmy. A valid event is one associated with a post type.
 	$events = get_terms( achievements()->event_tax_id, array( 'hide_empty' => true )  );
 	if ( is_wp_error( $events ) )
 		return;
@@ -35,12 +37,13 @@ function dpa_register_events() {
 	$events = wp_list_pluck( (array) $events, 'slug' );
 	$events = apply_filters( 'dpa_register_events', $events );
 
+	// For each event, add a handler function to the action.
 	foreach ( (array) $events as $event )
-		add_action( $event, 'dpa_handle_event', 12, 10 ); // Priority 12 in case object modified by other plugins
+		add_action( $event, 'dpa_handle_event', 12, 10 );  // Priority 12 in case object modified by other plugins
 }
 
 /**
- * Implements the Achievement actions, and unlocks if criteria met.
+ * Implements the Achievement actions and unlocks if criteria met.
  *
  * @global int $blog_id Site ID (variable is from WordPress and hasn't been updated for 3.0; confusing name is confusing)
  * @global object $bp BuddyPress global settings
