@@ -45,89 +45,76 @@ function dpa_register_events() {
 /**
  * Implements the Achievement actions and unlocks if criteria met.
  *
- * @global int $blog_id Site ID (variable is from WordPress and hasn't been updated for 3.0; confusing name is confusing)
- * @global object $bp BuddyPress global settings
  * @param string $name Action name
  * @param array $func_args Optional; action's arguments, from func_get_args().
  * @see dpa_register_events()
  * @since 3.0
  */
 function dpa_handle_event() {
-	global $blog_id, $bp;
-
-	// Look at the current_filter to find out what action/event has been called
+	// Look at the current_filter to find out what action has occured
 	$event_name = current_filter();
 	$func_args  = func_get_args();
 
+	// Let other plugins do things before anything happens
 	do_action( 'dpa_before_handle_event', $event_name, $func_args );
 
-	// Allow plugins to bail out early
-	if ( ! $event_name = apply_filters( 'dpa_handle_event', $event_name, $func_args ) )
+	// Allow other plugins to bail out early
+	$event_name = apply_filters( 'dpa_handle_event_name', $event_name, $func_args );
+	if ( false === $event_name )
 		return;
 
 	// This filter allows the user ID to be updated (e.g. for draft posts which are then published by someone else)
-	$user_ids = apply_filters( 'dpa_handle_event_user_id', get_current_user_id(), $event_name, $func_args );
-	if ( empty( $user_ids ) )
+	$user_id = absint( apply_filters( 'dpa_handle_event_user_id', get_current_user_id(), $event_name, $func_args ) );
+	if ( ! $user_id )
 		return;
 
-	// The 'dpa_handle_event_user_id' filter can return an array of user IDs.
-	$user_ids = wp_parse_id_list( (array) $user_ids );
+	// Find achievements that are associated with the $event_name taxonomy
+	$args = array(
+		'ach_event'             => $event_name,  // Get posts in the event taxonomy matching the event name
+		'ach_populate_progress' => $user_id,     // Fetch Progress posts for this user ID
+		'no_found_rows'         => true,         // Disable SQL_CALC_FOUND_ROWS
+		'posts_per_page'        => -1,           // No pagination
+		's'                     => '',           // Stop sneaky people running searches on this query
+	);
 
-	// Execute each potential unlock for each user
-	foreach( $user_ids as $user_id ) {
-		if ( empty( $user_id ) )
-			continue;
+	// Loop through achievements found
+	if ( dpa_has_achievements( $args ) ) {
 
-		// Find achievements that are associated with the $event_name taxonomy
-		$args = array(
-			'ach_event'      => $event_name,  // Get posts in the event taxonomy matching the event name
-			'no_found_rows'  => true,         // Disable SQL_CALC_FOUND_ROWS
-			'posts_per_page' => -1,           // No pagination
-			's'              => '',           // Stop sneaky people running searches on this query
-		);
+		while ( dpa_achievements() ) {
+			dpa_the_achievement();
 
-		// If any achievements were found, go through each one.
-		if ( dpa_has_achievements( $args ) ) {
-			while ( dpa_have_achievements() ) {
-				dpa_the_achievement();
+			/**
+			 * Check the achievement post is published.
+			 *
+			 * get_terms() in dpa_register_events() can retrieve taxonomies which are
+			 * associated only with posts in the trash. We only want to process
+			 * 'active' achievements (post_status = published).
+			 */
+			if ( 'publish' != achievements()->achievement_query->post->post_status )
+				continue;
 
-				// Do stuff here
-			}
+			// Let other plugins do things before we maybe_unlock_achievement
+			do_action( 'dpa_handle_event', $event_name, $func_args, $user_id );
+
+			// Allow plugins to stop any more processing for this achievement
+			if ( false === apply_filters( 'dpa_handle_event_maybe_unlock_achievement', true, $event_name, $func_args, $user_id ) )
+				continue;
+
+			// Look in the progress posts and match against a post_parent which is the same as the current achievement.
+			$post = wp_filter_object_list( achievements()->progress_query->posts, array( 'post_parent' => dpa_get_the_achievement_ID() ), 'and', 'post_status' );
+
+			// If $user_id does not have any progress for this achievement, or some progress has been made.
+			if ( empty( $post ) || dpa_get_locked_status_id() == $post[0] )
+				dpa_maybe_unlock_achievement();
 		}
 	}
 
-	do_action( 'dpa_after_handle_event', $event_name, $func_args, $user_ids );
+	// Everything is done. Let other plugins do other things.
+	do_action( 'dpa_after_handle_event', $event_name, $func_args, $user_id );
 }
 
-
-/*function dpa_handle_action( $name, $func_args=null, $type='' ) {
-	foreach ( $user_ids as $user_id ) {
-		if ( dpa_has_achievements( array( 'user_id' => $user_id, 'type' => 'active_by_action', 'action' => $name ) ) ) {
-			while ( dpa_have_achievements() ) {
-				dpa_the_achievement();
-
-				$site_id = apply_filters( 'dpa_handle_action_site_id', dpa_get_achievement_site_id(), $name, $func_args, $type, $user_id );
-				if ( false === $site_id )
-					continue;
-
-				$site_is_valid = false;
-				if ( !is_multisite() || $site_id < 1 || $blog_id == $site_id )
-					$site_is_valid = true;
-
-				$group_is_valid = false;
-				if ( dpa_get_achievement_group_id() < 1 || dpa_is_group_achievement_valid( $name, $func_args, $user_id ) )
-					$group_is_valid = true;
-
-				$site_is_valid = apply_filters( 'dpa_handle_action_site_is_valid', $site_is_valid, $name, $func_args, $type, $user_id );
-				$group_is_valid = apply_filters( 'dpa_handle_action_group_is_valid', $group_is_valid, $name, $func_args, $type, $user_id );
-
-				if ( $site_is_valid && $group_is_valid )
-					dpa_maybe_unlock_achievement( $user_id );
-			}
-		}
-	}
-}*/
-
+function dpa_maybe_unlock_achievement() {
+}
 
 /**
  * Below this point consists of functions not directly related to the core achievement logic.

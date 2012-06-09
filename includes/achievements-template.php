@@ -71,12 +71,15 @@ function dpa_has_achievements( $args = array() ) {
 
 	// Populate user(s) progress for the results.
 	if ( ! empty( $args['ach_populate_progress'] ) ) {
-		if ( true === $args['ach_populate_progress'] && is_user_logged_in() )
+		if ( true === $args['ach_populate_progress'] && is_user_logged_in() ) {
 			$progress_user_ids = achievements()->current_user->ID;
-		elseif ( is_string( $args['ach_populate_progress'] ) && 'all' === $args['ach_populate_progress'] )
+		} elseif ( is_string( $args['ach_populate_progress'] ) && 'all' === $args['ach_populate_progress'] ) {
 			$progress_user_ids = false;
-		else
+		} else {
 			$progress_user_ids = wp_parse_id_list( (array) $args['ach_populate_progress'] );
+			$progress_user_ids = implode( ',', $progress_user_ids );
+		}
+
 	}
 
 	// Run the query
@@ -105,10 +108,10 @@ function dpa_has_achievements( $args = array() ) {
 /**
  * Whether there are more achievements available in the loop
  *
- * @since 3.0
  * @return bool True if posts are in the loop
+ * @since 3.0
  */
-function dpa_have_achievements() {
+function dpa_achievements() {
 	$have_posts = achievements()->achievement_query->have_posts();
 
 	// Reset the post data when finished
@@ -126,8 +129,19 @@ function dpa_have_achievements() {
 /**
  * Iterate the post index in the loop. Retrieves the next post, sets up the post, sets the 'in the loop' property to true.
  *
+ * @return bool
  * @since 3.0
  */
 function dpa_the_achievement() {
 	return achievements()->achievement_query->the_post();
+}
+
+/**
+ * Retrieve the ID of the current item in the achievement loop.
+ *
+ * @return int
+ * @since 3.0
+ */
+function dpa_get_the_achievement_ID() {
+	return achievements()->achievement_query->post->ID;
 }

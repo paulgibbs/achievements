@@ -54,7 +54,7 @@ function dpa_has_progress( $args = array() ) {
  * @since 3.0
  * @return bool True if posts are in the loop
  */
-function dpa_have_progress() {
+function dpa_progress() {
 	return achievements()->progress_query->have_posts();
 }
 
