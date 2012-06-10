@@ -94,31 +94,107 @@ function dpa_handle_event() {
 				continue;
 
 			// Let other plugins do things before we maybe_unlock_achievement
-			do_action( 'dpa_handle_event', $event_name, $func_args, $user_id );
+			do_action( 'dpa_handle_event', $event_name, $func_args, $user_id, $args );
 
 			// Allow plugins to stop any more processing for this achievement
-			if ( false === apply_filters( 'dpa_handle_event_maybe_unlock_achievement', true, $event_name, $func_args, $user_id ) )
+			if ( false === apply_filters( 'dpa_handle_event_maybe_unlock_achievement', true, $event_name, $func_args, $user_id, $args ) )
 				continue;
 
 			// Look in the progress posts and match against a post_parent which is the same as the current achievement.
-			$post = wp_filter_object_list( achievements()->progress_query->posts, array( 'post_parent' => dpa_get_the_achievement_ID() ), 'and', 'post_status' );
+			$progress = wp_filter_object_list( achievements()->progress_query->posts, array( 'post_parent' => dpa_get_the_achievement_ID() ) );
+			$progress = array_shift( $progress );
 
-			// If $user_id does not have any progress for this achievement, or some progress has been made.
-			if ( empty( $post ) || dpa_get_locked_status_id() == $post[0] )
-				dpa_maybe_unlock_achievement();
+			// If the achievement hasn't already been unlocked, maybe_unlock_achievement.
+			if ( empty( $progress ) || dpa_get_unlocked_status_id() != $progress->post_status )
+				dpa_maybe_unlock_achievement( $user_id, false, $progress );
 		}
 	}
 
-	// These could be quite large and are not needed anywhere else
 	unset( achievements()->achievement_query );
 	unset( achievements()->progress_query    );
 
-	// Everything is done. Let other plugins do other things.
-	do_action( 'dpa_after_handle_event', $event_name, $func_args, $user_id );
+	// Everything's done. Let other plugins do things.
+	do_action( 'dpa_after_handle_event', $event_name, $func_args, $user_id, $args );
 }
 
-function dpa_maybe_unlock_achievement() {
+/**
+ * If the specified achievement's criteria has been met, we unlock the
+ * achievement. Otherwise we record progress for the achievement for next time.
+ *
+ * $skip_validation is the second parameter for backpat with Achievements 2.x
+ *
+ * @param int     $user_id
+ * @param string  $skip_validation  Optional. Set to "skip_validation" to skip Achievement validation (unlock achievement regardless of criteria).
+ * @param object  $progress_obj     Optional. The Progress post object. Defaults to Progress object in the Progress loop.
+ * @param object  $achievement_obj  Optional. The Achievement post object to maybe_unlock. Defaults to current object in Achievement loop.
+ * @since 2.0
+ */
+function dpa_maybe_unlock_achievement( $user_id, $skip_validation = '', $progress_obj = null, $achievement_obj = null ) {
+	// Default to current object in the achievement loop
+	if ( empty( $achievement_obj ) )
+		$achievement_obj = achievements()->achievement_query->post;
+
+	// Default to progress object in the progress loop
+	if ( empty( $progress_obj ) ) {
+		$progress_obj = wp_filter_object_list( achievements()->progress_query->posts, array( 'post_parent' => $achievement_obj->ID ) );
+		$progress_obj = array_shift( $progress_obj );
+	}
+
+	// Has the user already unlocked the achievement?
+	if ( ! empty( $progress_obj ) && dpa_get_unlocked_status_id() == $progress_obj->post_status )
+		return;
+
+	// Prepare default values to create/update a progress post
+	$progress_args = array(
+		'comment_status' => 'closed',
+		'ping_status'    => 'closed',
+		'post_author'    => $user_id,
+		'post_parent'    => $achievement_obj->ID,
+		'post_title'     => $achievement_obj->post_title,
+		'post_type'      => dpa_get_progress_post_type(),
+	);
+
+	// If achievement already has some progress, grab the ID so we update the post later
+	if ( ! empty( $progress_obj->ID ) )
+		$progress_args['ID'] = $progress_obj->ID;
+
+	// Does the achievement not have a target set or are we skipping validation?
+	$achievement_target = (int) get_post_meta( $achievement_obj->ID, '_dpa_target', true );
+	if ( empty( $achievement_target ) || 'skip_validation' === $skip_validation ) {
+
+		// Unlock the achievement
+		$progress_args['post_status'] = dpa_get_unlocked_status_id();
+
+
+	// Does the achievement have a target set?
+	} elseif ( ! empty( $achievement_target ) ) {
+
+		// Increment progress count
+		$progress_obj->content = (int) $progress_obj->content + apply_filters( 'dpa_maybe_unlock_achievement_progress_increment', 1 );
+
+		// Does the progress count now meet the achievement target?
+		if ( (int) $progress_obj->content >= $achievement_target ) {
+
+			// Yes. Unlock achievement.
+			$progress_args['post_status'] = dpa_get_unlocked_status_id();
+		}
+	}
+
+	// Create or update the progress post
+	$progress_id = wp_insert_post( $progress_args );
+
+	// If the achievement was just unlocked, do stuff.
+	if ( dpa_get_unlocked_status_id() == $progress_args['post_status'] ) {
+
+		// Update user's points
+		$points = dpa_get_user_points( $user_id ) + get_post_meta( $achievement_obj->ID, '_dpa_points', true );
+		dpa_update_user_points( $user_id, $points );
+
+		// Achievement was unlocked. Let other plugins do things.
+		do_action( 'dpa_unlock_achievement', $achievement_obj, $user_id, $progress_obj, $progress_id );
+	}
 }
+
 
 /**
  * Below this point consists of functions not directly related to the core achievement logic.
