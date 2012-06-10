@@ -109,6 +109,10 @@ function dpa_handle_event() {
 		}
 	}
 
+	// These could be quite large and are not needed anywhere else
+	unset( achievements()->achievement_query );
+	unset( achievements()->progress_query    );
+
 	// Everything is done. Let other plugins do other things.
 	do_action( 'dpa_after_handle_event', $event_name, $func_args, $user_id );
 }
