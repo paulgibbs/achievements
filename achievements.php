@@ -428,11 +428,6 @@ final class Achievements {
 			'slug'       => dpa_get_achievement_slug(),
 			'with_front' => false,
 		);
-		$rewrite['achievement_progress'] = array(
-			'feeds' => false,
-			'pages' => false,
-		);
-
 		// CPT supports
 		$supports['achievement'] = array(
 			'editor',
@@ -449,24 +444,27 @@ final class Achievements {
 			'can_export'          => true,
 			'capabilities'        => dpa_get_achievement_caps(),
 			'capability_type'     => array( 'achievement', 'achievements' ),
+			'delete_with_user'    => false,
 			'description'         => _x( 'Achievements types (e.g. new post, new site, new user)', 'Achievement post type description', 'dpa' ),
 			'exclude_from_search' => false,
-			//'has_archive'         => dpa_get_achievement_slug(),
+			'has_archive'         => true,
 			'hierarchical'        => true,
 			'labels'              => $labels['achievement'],
 			'public'              => true,
 			'publicly_queryable'  => true,
 			'query_var'           => true,
 			'rewrite'             => $rewrite['achievement'],
+			'show_in_admin_bar'   => true,
 			'show_in_menu'        => true,
 			'show_in_nav_menus'   => true,
 			'show_ui'             => true,
 			'supports'            => $supports['achievement'],
 		) );
 		$cpt['achievement_progress'] = apply_filters( 'dpa_register_post_type_achievement_progress', array(
-			'can_export'          => true,
+			'can_export'          => false,
 			'capabilities'        => dpa_get_achievement_progress_caps(),
 			'capability_type'     => array( 'achievement_progress', 'achievement_progresses' ),
+			'delete_with_user'    => true,
 			'description'         => _x( 'Achievement Progress (e.g. unlocked achievements for a user, progress on an achievement for a user)', 'Achievement Progress post type description', 'dpa' ),
 			'exclude_from_search' => true,
 			'has_archive'         => false,
@@ -474,7 +472,8 @@ final class Achievements {
 			'public'              => false,
 			'publicly_queryable'  => false,
 			'query_var'           => false,
-			'rewrite'             => $rewrite['achievement_progress'],
+			'rewrite'             => false,
+			'show_in_admin_bar'   => false,
 			'show_in_menu'        => false,
 			'show_in_nav_menus'   => false,
 			'show_ui'             => false,
@@ -545,8 +544,11 @@ final class Achievements {
 			'hierarchical'          => true,  // Better UI
 			'labels'                => $labels['event'],
 			'public'                => false,
+			'query_var'             => false,
+			'rewrite'               => false,
+			'show_in_nav_menus'     => false,
 			'show_tagcloud'         => false,
-			'show_ui'               => true,
+			'show_ui'               => true,  // @todo Temp for dev
 			'update_count_callback' => '_update_post_term_count',
 		) );
 
