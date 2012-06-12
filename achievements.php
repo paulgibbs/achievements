@@ -500,26 +500,30 @@ final class Achievements {
 	 */
 	public static function register_post_statuses() {
 		// Locked
-		$status = apply_filters( 'dpa_register_locked_post_status', array(
-			'label'                     => _x( 'Locked', 'achievement', 'dpa' ),
-			'label_count'               => _nx_noop( 'Locked <span class="count">(%s)</span>', 'Locked <span class="count">(%s)</span>', 'dpa' ),
-			'public'                    => false,
-			'exclude_from_search'       => true,
-			'show_in_admin_status_list' => true,
-			'show_in_admin_all_list'    => true,
-		) );
-		register_post_status( dpa_get_locked_status_id(), $status );
+		register_post_status(
+			dpa_get_locked_status_id(),
+			apply_filters( 'dpa_register_locked_post_status', array(
+				'label'                     => _x( 'Locked', 'achievement', 'dpa' ),
+				'label_count'               => _nx_noop( 'Locked <span class="count">(%s)</span>', 'Locked <span class="count">(%s)</span>', 'dpa' ),
+				'public'                    => false,
+				'exclude_from_search'       => true,
+				'show_in_admin_status_list' => true,
+				'show_in_admin_all_list'    => true,
+			) )
+		);
 
 		// Unlocked
-		$status = apply_filters( 'dpa_register_unlocked_post_status', array(
-			'label'                     => _x( 'Unlocked', 'achievement', 'dpa' ),
-			'label_count'               => _nx_noop( 'Unlocked <span class="count">(%s)</span>', 'Unlocked <span class="count">(%s)</span>', 'dpa' ),
-			'public'                    => true,
-			'exclude_from_search'       => true,
-			'show_in_admin_status_list' => true,
-			'show_in_admin_all_list'    => true,
-		) );
-		register_post_status( dpa_get_unlocked_status_id(), $status );
+		register_post_status(
+			dpa_get_unlocked_status_id(),
+			apply_filters( 'dpa_register_unlocked_post_status', array(
+				'label'                     => _x( 'Unlocked', 'achievement', 'dpa' ),
+				'label_count'               => _nx_noop( 'Unlocked <span class="count">(%s)</span>', 'Unlocked <span class="count">(%s)</span>', 'dpa' ),
+				'public'                    => true,
+				'exclude_from_search'       => true,
+				'show_in_admin_status_list' => true,
+				'show_in_admin_all_list'    => true,
+			) )
+		);
 	}
 
 	/**
