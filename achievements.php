@@ -46,167 +46,43 @@ if ( ! class_exists( 'Achievements' ) ) :
 /**
  * Main Achievements class
  *
- * Note to plugin and theme authors:
- * Do not directly reference these class properties in your code. They are subject
- * to change at any time. Most of them have reference functions in the includes.
- *
  * @since 3.0
  */
 final class Achievements {
-	// Versions
-
 	/**
-	 * Achievements version
+	 * Achievements uses many variables, most of which can be filtered to customize
+	 * the way that it works. To prevent unauthorized access these variables
+	 * are stored in a private array that is magically updated using PHP 5.2+
+	 * methods. This is to prevent third party plugins from tampering with
+	 * essential information indirectly, which could cause issues later.
+	 *
+	 * @see Achievements::setup_globals()
+	 * @var array
 	 */
-	public $version = 3.0;
-
-	/**
-	 * Achievements DB version
-	 */
-	public $db_version = 300;
-
-
-	// Post types
-
-	/**
-	 * Achievement post type ID
-	 */
-	public $achievement_post_type = '';
-
-	/**
-	 * Achievement Progress post type
-	 */
-	public $achievement_progress_post_type = '';
-
-
-	// Taxonomies
-
-	/**
-	 * EVent taxonomy ID
-	 */
-	public $event_tax_id = '';
-
-
-	// Post statuses
-
-	/**
-	 * @var string Locked achievement post status. Used by Progress post type.
-	 */
-	public $locked_status_id = '';
-
-	/**
-	 * @var string Unlocked achievement post status. Used by Progress post type.
-	 */
-	public $unlocked_status_id = '';
-
-
-	// Theme compat
-
-	/**
-	 * Theme to use for theme compatibility
-	 */
-	public $theme_compat = '';
-
-
-	// Paths
-
-	/**
-	 * Basename of this plugin's directory
-	 */
-	public $basename = '';
-
-	/**
-	 * The full path and filename of this file (achievements.php)
-	 */
-	public $file = '';
-
-	/**
-	 * Absolute path to this plugin's directory
-	 */
-	public $plugin_dir = '';
-
-	/**
-	 * Absolute path to this plugin's themes directory
-	 */
-	public $themes_dir = '';
-
-	/**
-	 * Absolute path to this plugin's language directory
-	 */
-	public $lang_dir = '';
-
-
-	// URLs
-
-	/**
-	 * URL to this plugin's directory
-	 */
-	public $plugin_url = '';
-
-	/**
-	 * URL to this plugin's themes directory
-	 */
-	public $themes_url = '';
-
-
-	// Users
+	private $data;
 
 	/**
 	 * Current user
 	 *
-	 * @var WP_User
+	 * @var null|WP_User Null when not logged in; WP_User object when logged in. (By ref)
 	 */
 	public $current_user = null;
 
-
-	// Queries
-
 	/**
-	 * @var WP_Query For achievement query
+	 * @var array Overloads get_option()
 	 */
-	public $achievement_query = null;
+	public $options      = array(); 
 
 	/**
-	 * @var WP_Query For achievement progress query
-	 */
-	public $progress_query = null;
-
-
-	// Other stuff
-	
-	/**
-	 * Used to log and display errors
-	 *
-	 * @var WP_Error
-	 */
-	public $errors = null;
-
-	/**
-	 * Overloads default options retrieved from get_option()
-	 *
-	 * @var array
-	 */
-	public $options = array();
-
-	/**
-	 * Overloads default user options retrieved from get_user_option()
-	 *
-	 * @var array
+	 * @var array Overloads get_user_meta()
 	 */
 	public $user_options = array();
-
-	/**
-	 * @var bool Minimum capability to access most admin screens
-	 */
-	public $minimum_capability = '';
-
-
-	// Singleton
 
 	/**
 	 * @var Achievements The one true Achievements
 	 */
 	private static $instance;
+
 
 	/**
 	 * Main Achievements instance
@@ -228,6 +104,7 @@ final class Achievements {
 		}
 		return self::$instance;
 	}
+
 
 	// Magic Methods
 
@@ -253,22 +130,50 @@ final class Achievements {
 	public function __wakeup() { wp_die( __( 'Cheatin&#8217; huh?', 'dpa' ) ); }
 
 	/**
+	 * Magic method for checking the existence of a certain custom field
+	 *
+	 * @since 3.0
+	 */
+	public function __isset( $key ) { return isset( $this->data[$key] ); }
+
+	/**
+	 * Magic method for getting Achievements variables
+	 *
+	 * @since 3.0
+	 */
+	public function __get( $key ) { return isset( $this->data[$key] ) ? $this->data[$key] : null; }
+
+	/**
+	 * Magic method for setting Achievements variables
+	 *
+	 * @since 3.0
+	 */
+	public function __set( $key, $value ) { $this->data[$key] = $value; }
+
+
+	// Private methods
+
+	/**
 	 * Set up global variables
 	 *
 	 * @since 3.0
 	 */
 	private function setup_globals() {
-		// Achievements root directory
+		// Versions
+		$this->version    = 3.0;  // Achievements version
+		$this->db_version = 300;  // Achievements DB version
+
+		// Paths - plugin
 		$this->file       = __FILE__;
-		$this->basename   = apply_filters( 'dpa_plugin_basename', 'achievements/achievements.php' );  //plugin_basename( $this->file );  @todo Doesn't work in environments with symlink folder
+		$this->basename   = apply_filters( 'dpa_plugin_basename', 'achievements/achievements.php' );
 		$this->plugin_dir = apply_filters( 'dpa_plugin_dir',      plugin_dir_path( $this->file )  );
 		$this->plugin_url = apply_filters( 'dpa_plugin_url',      plugin_dir_url(  $this->file )  );
 
-		// Themes
+		// Paths - themes
 		$this->themes_dir = apply_filters( 'dpa_themes_dir', trailingslashit( $this->plugin_dir . 'themes' ) );
 		$this->themes_url = apply_filters( 'dpa_themes_url', trailingslashit( $this->plugin_url . 'themes' ) );
 
-		// Languages
+		// Paths - languages
 		$this->lang_dir = apply_filters( 'dpa_lang_dir', trailingslashit( $this->plugin_dir . 'languages' ) );
 
 		// Post type/taxonomy identifiers
@@ -276,9 +181,20 @@ final class Achievements {
 		$this->achievement_progress_post_type = apply_filters( 'dpa_achievement_progress_post_type', 'dpa_progress'    );
 		$this->event_tax_id                   = apply_filters( 'dpa_event_tax_id',                   'dpa_event'       );
 
-		// Status identifiers
+		// Post status identifiers
 		$this->locked_status_id   = apply_filters( 'dpa_locked_post_status',   'dpa_locked'   );
 		$this->unlocked_status_id = apply_filters( 'dpa_unlocked_post_status', 'dpa_unlocked' );
+
+		// Queries
+		$this->achievement_query = new stdClass;  // Main dpa_achievement query
+		$this->progress_query    = new stdClass;  // Main dpa_progress query
+
+		// Theme compat
+		$this->theme_compat = new stdClass();  // Base theme compatibility class
+		$this->filters      = new stdClass();  // Used when adding/removing filters
+
+		// Users
+		$this->current_user = new stdClass();  // Currently logged in user
 
 		// Other stuff
 		$this->errors             = new WP_Error();
