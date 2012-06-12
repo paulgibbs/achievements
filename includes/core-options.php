@@ -19,15 +19,13 @@ function dpa_get_default_options() {
 	$options = array(
 		'_dpa_db_version'            => '0',             // Initial DB version
 		'_dpa_achievement_slug'      => 'achievements',  // Achievement post type slug
+		'_dpa_run_networkwide'       => false,           // Run plugin across entire network, rather than on a specific site (for multisite)
 
 		// Achievement post type
 		'_dpa_achievements_per_page' => 15,              // Achievements per page
 
 		// Progress post type
 		'_dpa_progresses_per_page'   => 15,              // Progresses per page
-
-		// Settings
-		'_dpa_run_networkwide'       => false,           // Run plugin across entire network, rather than on a specific site (for multisite)
 	);
 
 	return apply_filters( 'dpa_get_default_options', $options );
