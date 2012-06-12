@@ -304,3 +304,38 @@ function dpa_get_caps_for_role( $role = '' ) {
 
 	return apply_filters( 'dpa_get_caps_for_role', $caps, $role );
 }
+
+/**
+ * Can the current user see a specific UI element?
+ * 
+ * Used when registering post types and taxonomies to decide if 'show_ui' should
+ * be set to true or false. Also used for fine-grained control over which admin
+ * sections are visible under what conditions.
+ *
+ * This function is in core-caps.php rather than in /admin/ so that it
+ * can be used during the dpa_register_post_types action.
+ *
+ * @return bool
+ * @since 3.0
+ */
+function dpa_current_user_can_see( $component = '' ) {
+	$retval = false;
+
+	// Which component are we checking UI visibility for?
+	switch ( $component ) {
+		// Everywhere
+
+		case dpa_get_achievement_post_type() :  // Achievements
+			$retval = current_user_can( 'edit_achievements' );
+			break;
+
+
+		// Admin setions
+
+		default :  // Anything else
+			$retval = current_user_can( achievements()->minimum_capability );
+			break;
+	}
+
+	return (bool) apply_filters( 'bbp_current_user_can_see', (bool) $retval, $component );
+}

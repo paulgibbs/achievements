@@ -195,6 +195,11 @@ final class Achievements {
 	 */
 	public $user_options = array();
 
+	/**
+	 * @var bool Minimum capability to access most admin screens
+	 */
+	public $minimum_capability = '';
+
 
 	// Singleton
 
@@ -276,7 +281,8 @@ final class Achievements {
 		$this->unlocked_status_id = apply_filters( 'dpa_unlocked_post_status', 'dpa_unlocked' );
 
 		// Other stuff
-		$this->errors = new WP_Error();
+		$this->errors             = new WP_Error();
+		$this->minimum_capability = apply_filters( 'dpa_minimum_capability', 'manage_options' );
 
 		// Add to global cache groups
 		wp_cache_add_global_groups( 'achievements' );
@@ -457,7 +463,7 @@ final class Achievements {
 			'show_in_admin_bar'   => true,
 			'show_in_menu'        => true,
 			'show_in_nav_menus'   => true,
-			'show_ui'             => true,
+			'show_ui'             => dpa_current_user_can_see( dpa_get_achievement_post_type() ),
 			'supports'            => $supports['achievement'],
 		) );
 		$cpt['achievement_progress'] = apply_filters( 'dpa_register_post_type_achievement_progress', array(
