@@ -176,9 +176,10 @@ final class Achievements {
 		// Paths - languages
 		$this->lang_dir = apply_filters( 'dpa_lang_dir', trailingslashit( $this->plugin_dir . 'languages' ) );
 
-		// Post type/taxonomy identifiers
+		// Post type/taxonomy/endpoints identifiers
 		$this->achievement_post_type          = apply_filters( 'dpa_achievement_post_type',          'dpa_achievement' );
 		$this->achievement_progress_post_type = apply_filters( 'dpa_achievement_progress_post_type', 'dpa_progress'    );
+		$this->authors_endpoint               = apply_filters( 'dpa_authors_endpoint',               'achievements'    );
 		$this->event_tax_id                   = apply_filters( 'dpa_event_tax_id',                   'dpa_event'       );
 
 		// Post status identifiers
@@ -265,6 +266,7 @@ final class Achievements {
 			'register_post_types',     // Register post types (dpa_achievement, dpa_progress)
 			'register_post_statuses',  // Register post statuses (dpa_progress: locked, unlocked)
 			'register_taxonomies',     // Register taxonomies (dpa_event)
+			'register_endpoints',      // Register endpoints (achievements)
 			'setup_current_user',      // Set up currently logged in user
 		);
 
@@ -484,6 +486,15 @@ final class Achievements {
 			dpa_get_achievement_post_type(), // The achievement post type
 			$tax
 		);
+	}
+
+	/**
+	 * Register endpoints
+	 *
+	 * @since 3.0
+	 */
+	public static function register_endpoints() {
+		add_rewrite_endpoint( dpa_get_authors_endpoint(), EP_AUTHORS );  // /authors/paul/[achievements]
 	}
 
 	/**

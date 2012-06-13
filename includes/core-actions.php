@@ -56,10 +56,11 @@ add_action( 'dpa_init', 'dpa_load_textdomain',         2   );
 add_action( 'dpa_init', 'dpa_register_post_types',     10  );
 add_action( 'dpa_init', 'dpa_register_post_statuses',  12  );
 add_action( 'dpa_init', 'dpa_register_taxonomies',     14  );
-//add_action( 'dpa_init', 'dpa_register_views',          16  );
-//add_action( 'dpa_init', 'dpa_register_shortcodes',     18  );
-//add_action( 'dpa_init', 'dpa_add_rewrite_tags',        20  );
-add_action( 'dpa_init', 'dpa_register_events',         22  );
+add_action( 'dpa_init', 'dpa_register_endpoints',      16  );
+//add_action( 'dpa_init', 'dpa_register_views',          18  );
+//add_action( 'dpa_init', 'dpa_register_shortcodes',     20  );
+//add_action( 'dpa_init', 'dpa_add_rewrite_tags',        22  );
+add_action( 'dpa_init', 'dpa_register_events',         24  );
 add_action( 'dpa_init', 'dpa_ready',                   999 );
 
 // User status
@@ -226,6 +227,14 @@ function dpa_register_taxonomies() {
 	do_action( 'dpa_register_taxonomies' );
 }
 
+/**
+ * Register custom endpoints
+ *
+ * @since 3.0
+ */
+function dpa_register_endpoints() {
+	do_action( 'dpa_register_endpoints' );
+}
 /**
  * Enqueue CSS and JS
  *
