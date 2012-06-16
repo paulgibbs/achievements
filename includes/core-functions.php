@@ -2,8 +2,6 @@
 /**
  * Achievements core functions
  *
- * The first sections consists of functions directly related to the core achievement logic.
- *
  * @package Achievements
  * @subpackage CoreFunctions
  */
@@ -197,10 +195,6 @@ function dpa_maybe_unlock_achievement( $user_id, $skip_validation = '', $progres
 
 
 /**
- * Below this point consists of functions not directly related to the core achievement logic.
- */
-
-/**
  * Output the Achievements version
  *
  * @since 3.0
@@ -237,7 +231,7 @@ function dpa_db_version() {
 	}
 
 /**
- * Return the locked (achievement) post status ID
+ * Return the locked (achievement progress) post status ID
  *
  * @return string
  * @since 3.0
@@ -254,37 +248,4 @@ function dpa_get_locked_status_id() {
  */
 function dpa_get_unlocked_status_id() {
 	return achievements()->unlocked_status_id;
-}
-
-
-/**
- * Errors
- */
-
-/**
- * Adds an error message to later be output in the theme
- *
- * @param string $code Unique code for the error message
- * @param string $message Translated error message
- * @param string $data Any additional data passed with the error message
- * @since 3.0
- */
-function dpa_add_error( $code = '', $message = '', $data = '' ) {
-	achievements()->errors->add( $code, $message, $data );
-}
-
-/**
- * Check if error messages exist in queue
- *
- * @since 3.0
- */
-function dpa_has_errors() {
-	// Assume no errors
-	$has_errors = false;
-
-	// Check for errors
-	if ( achievements()->errors->get_error_codes() )
-		$has_errors = true;
-
-	return apply_filters( 'dpa_has_errors', $has_errors, achievements()->errors );
 }

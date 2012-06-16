@@ -88,3 +88,36 @@ function dpa_query_post_parent__in( $where, $object = null ) {
 	// Return possibly modified $where
 	return $where;
 }
+
+
+/**
+ * Errors
+ */
+
+/**
+ * Adds an error message to later be output in the theme
+ *
+ * @param string $code Unique code for the error message
+ * @param string $message Translated error message
+ * @param string $data Any additional data passed with the error message
+ * @since 3.0
+ */
+function dpa_add_error( $code = '', $message = '', $data = '' ) {
+	achievements()->errors->add( $code, $message, $data );
+}
+
+/**
+ * Check if error messages exist in queue
+ *
+ * @since 3.0
+ */
+function dpa_has_errors() {
+	// Assume no errors
+	$has_errors = false;
+
+	// Check for errors
+	if ( achievements()->errors->get_error_codes() )
+		$has_errors = true;
+
+	return apply_filters( 'dpa_has_errors', $has_errors, achievements()->errors );
+}
