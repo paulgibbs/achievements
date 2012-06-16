@@ -69,6 +69,15 @@ final class Achievements {
 	public $current_user = null;
 
 	/**
+	 * Other plugins (addons) append data here. Used to store information about
+	 * 'supported' achievement types -- such as the other plugin's name, URL,
+	 * RSS feed, authors, and so on..
+	 *
+	 * @var stdClass
+	 */
+	public $extend;
+
+	/**
 	 * @var array Overloads get_option()
 	 */
 	public $options      = array(); 
@@ -206,6 +215,7 @@ final class Achievements {
 		$this->current_user = new stdClass();  // Currently logged in user
 
 		// Other stuff
+		$this->extend             = new stdClass();  // Other plugins (addons) add data here
 		$this->errors             = new WP_Error();
 		$this->minimum_capability = apply_filters( 'dpa_minimum_capability', 'manage_options' );
 
@@ -219,17 +229,23 @@ final class Achievements {
 	 * @since 3.0
 	 */
 	private function includes() {
-		// Core
+		/**
+		 * Core
+		 */
 		require( $this->plugin_dir . 'includes/core-actions.php'    ); // All actions
 		require( $this->plugin_dir . 'includes/core-filters.php'    ); // All filters
-		require( $this->plugin_dir . 'includes/core-functions.php'  ); // Common functions
+		require( $this->plugin_dir . 'includes/core-functions.php'  ); // Core functions
 		require( $this->plugin_dir . 'includes/core-options.php'    ); // Configuration options
 		require( $this->plugin_dir . 'includes/core-caps.php'       ); // Roles and capabilities
-		require( $this->plugin_dir . 'includes/core-classes.php'    ); // Common classes
 		//require( $this->plugin_dir . 'includes/core-widgets.php'    ); // Widgets
 		//require( $this->plugin_dir . 'includes/core-shortcodes.php' ); // Shortcodes for use with pages and posts
 		require( $this->plugin_dir . 'includes/core-update.php'     ); // Database updater
 
+
+		/**
+		 * Supported plugins
+		 */
+		require( $this->plugin_dir . '' );
 
 		/**
 		 * Components
@@ -246,7 +262,10 @@ final class Achievements {
 		require( $this->plugin_dir . 'includes/progress-functions.php' ); // Implements the Progress post type
 		require( $this->plugin_dir . 'includes/progress-template.php'  ); // Progress post type template tags
 
-		// Admin
+
+		/**
+		 * Admin
+		 */
 		if ( is_admin() ) {
 			require( $this->plugin_dir . 'admin/admin.php'         );
 			require( $this->plugin_dir . 'admin/admin-actions.php' );
