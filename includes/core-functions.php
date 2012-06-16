@@ -2,6 +2,34 @@
 /**
  * Achievements core functions
  *
+ * The architecture of Achievements is straightforward, making use of custom post types,
+ * statuses, and taxonomies (no custom tables or SQL queries). Custom rewrite rules and
+ * endpoints are used to register and display templates, but this file primarily takes
+ * care of the core logic -- when a user does something, how does that trigger an event
+ * and award an achievement?
+ *
+ * The dpa_achievement post type has a taxonomy called dpa_event. An event is any
+ * do_action in WordPress. An achievement post is assigned a term from that taxonomy.
+ *
+ * On every page load, we grab all terms from the dpa_event taxonomy that have been
+ * associated with a post. The dpa_handle_event() function is then registered with
+ * those actions, and that's what lets us detect when something interesting happens.
+ *
+ * dpa_handle_event() makes a WP_Query query of the dpa_achievement post type, passing
+ * the name of the current action (aka event) as the "tax_query" parameter. This is
+ * because multiple achievements could use the same event and we need details of each
+ * of those achievements. At this point, we know that the user has maybe unlocked an
+ * achievement.
+ *
+ * The aptly named dpa_maybe_unlock_achievement() function takes over. An achievement
+ * has a criteria of how many times an event has to occur (in post meta) for a user
+ * before that achievement is unlocked. If the criteria has not been met, then a
+ * record of the progress is stored in another custom post type, dpa_progress. If the
+ * criteria was met, the dpa_progress post's status is changed to "unlocked".
+ *
+ * Each achievement has points (in post meta) and those are added to the user's score
+ * (in user meta). The user is then made aware that they've unlocked an achievement.
+ *
  * @package Achievements
  * @subpackage CoreFunctions
  */
@@ -14,10 +42,10 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  * and then using the items' slugs (which are the name of a WordPress action), registers a handler action
  * in Achievements. The user needs to be logged in for this to hapen.
  *
- * Posts in trash are returned by get_terms(), even if hide_empty is set. We double-check the post status
+ * Posts in trash are returned by get_terms() even if hide_empty is set. We double-check the post status
  * before we actually give the award.
  *
- * This function is invoked on every page load, but get_terms() provides built-in caching, so we don't
+ * This function is invoked on every page load but as get_terms() provides built-in caching, we don't
  * have to worry about that.
  *
  * @since 3.0
