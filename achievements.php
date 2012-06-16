@@ -163,8 +163,16 @@ final class Achievements {
 		$this->version    = 3.0;  // Achievements version
 		$this->db_version = 300;  // Achievements DB version
 
+		// Workaround PHP's handling of __FILE__ and symlinks. See http://gist.github.com/2940978
+		if ( isset( $GLOBALS['plugin'] ) )
+			$this->file = $GLOBALS['plugin'];
+		elseif ( isset( $GLOBALS['mu_plugin'] ) )
+			$this->file = $GLOBALS['mu_plugin'];
+		elseif ( isset( $GLOBALS['network_plugin'] ) )
+			$this->file = $GLOBALS['network_plugin'];
+
 		// Paths - plugin
-		$this->file       = __FILE__;
+		$this->file       = WP_PLUGIN_DIR . '/' . $this->file;
 		$this->basename   = apply_filters( 'dpa_plugin_basename', 'achievements/achievements.php' );
 		$this->plugin_dir = apply_filters( 'dpa_plugin_dir',      plugin_dir_path( $this->file )  );
 		$this->plugin_url = apply_filters( 'dpa_plugin_url',      plugin_dir_url(  $this->file )  );
