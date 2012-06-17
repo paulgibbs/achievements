@@ -181,7 +181,7 @@ final class Achievements {
 			$this->file = $GLOBALS['network_plugin'];
 
 		// Paths - plugin
-		$this->file       = WP_PLUGIN_DIR . '/' . $this->file;
+		$this->file       = $this->file;
 		$this->basename   = apply_filters( 'dpa_plugin_basename', 'achievements/achievements.php' );
 		$this->plugin_dir = apply_filters( 'dpa_plugin_dir',      plugin_dir_path( $this->file )  );
 		$this->plugin_url = apply_filters( 'dpa_plugin_url',      plugin_dir_url(  $this->file )  );
