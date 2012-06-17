@@ -41,9 +41,10 @@ add_action( 'dpa_admin_init', 'dpa_setup_updater',           999 );
 add_action( 'dpa_init', 'dpa_admin' );
 
 // Activation
-add_action( 'dpa_activation', 'dpa_add_caps',        2 );
-add_action( 'dpa_activation', 'dpa_add_options',     1 );
-add_action( 'dpa_activation', 'flush_rewrite_rules'    );
+add_action( 'dpa_activation', 'dpa_add_caps',               4 );
+add_action( 'dpa_activation', 'dpa_add_options',            6 );
+add_action( 'dpa_activation', 'dpa_create_initial_content', 8 );
+add_action( 'dpa_activation', 'flush_rewrite_rules'           );
 
 // Deactivation
 add_action( 'dpa_deactivation', 'dpa_remove_caps',    1 );
@@ -52,7 +53,7 @@ add_action( 'dpa_deactivation', 'flush_rewrite_rules'   );
 // New site created in multisite
 add_action( 'dpa_new_site', 'dpa_add_caps',               4 );
 add_action( 'dpa_new_site', 'dpa_add_options',            6 );
-//add_action( 'dpa_new_site', 'dpa_create_initial_content', 8 );
+add_action( 'dpa_new_site', 'dpa_create_initial_content', 8 );
 add_action( 'dpa_new_site', 'flush_rewrite_rules'           );
 
 // Add sample permalink filter

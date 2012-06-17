@@ -114,3 +114,13 @@ function dpa_setup_updater() {
 		dpa_activation();
 	}
 }
+
+/**
+ * Create initial content on plugin activation or on a new site (in multisite).
+ *
+ * @param array $args Array of arguments to override default values
+ * @since 3.0
+ * @todo This.
+ */
+function dpa_create_initial_content( $args = array() ) {
+}
