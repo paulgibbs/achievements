@@ -245,7 +245,7 @@ final class Achievements {
 		/**
 		 * Supported plugins
 		 */
-		require( $this->plugin_dir . '' );
+		require( $this->plugin_dir . 'includes/class-dpa-addon.php' ); // Base interface and class for adding support for other plugins
 
 		/**
 		 * Components
