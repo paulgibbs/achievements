@@ -200,3 +200,23 @@ function dpa_get_achievement_slug() {
 function dpa_get_extend_versions() {
 	return apply_filters( 'dpa_get_extend_versions', get_option( '_dpa_extend_versions' ) );
 }
+
+/**
+ * Update the _dpa_extend_versions option.
+ *
+ * @param array $new_value
+ * @return array
+ * @see dpa_get_extend_versions()
+ * @since 3.0
+ */
+function dpa_update_extend_versions( $new_value ) {
+	// If multisite and running network-wide, switch_to_blog to the data store site
+	if ( is_multisite() && dpa_is_running_networkwide() )
+		switch_to_blog( DPA_DATA_STORE );
+
+	update_option( '_dpa_extend_versions', $new_value );
+
+	// If multisite and running network-wide, undo the switch_to_blog
+	if ( is_multisite() && dpa_is_running_networkwide() )
+		restore_current_blog();
+}
