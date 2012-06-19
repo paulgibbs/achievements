@@ -14,8 +14,8 @@ Plugin Name: Achievements
 Plugin URI: http://achievementsapp.wordpress.com/
 Description: Achievements gives your BuddyPress community fresh impetus by promoting and rewarding social interaction with challenges, badges and points.
 Version: 3
-Requires at least: WP 3.3, BuddyPress 1.6
-Tested up to: WP 3.3, BuddyPress 1.6
+Requires at least: WP 3.4
+Tested up to: WP 3.4
 License: General Public License version 3
 Author: Paul Gibbs
 Author URI: http://byotos.com/
@@ -69,8 +69,8 @@ final class Achievements {
 	public $current_user = null;
 
 	/**
-	 * Other plugins (addons) append data here. Used to store information about
-	 * 'supported' achievement types -- such as the other plugin's name, URL,
+	 * Other plugins append data here. Used to store information about supported
+	 * achievement types -- such as the other plugin's name, URL,
 	 * RSS feed, authors, and so on..
 	 *
 	 * @var stdClass
@@ -215,9 +215,9 @@ final class Achievements {
 		$this->current_user = new stdClass();  // Currently logged in user
 
 		// Other stuff
-		$this->extend             = new stdClass();  // Other plugins (addons) add data here
 		$this->errors             = new WP_Error();
-		$this->minimum_capability = apply_filters( 'dpa_minimum_capability', 'manage_options' );
+		$this->extend             = new stdClass();                                               // Other plugins add data here
+		$this->minimum_capability = apply_filters( 'dpa_minimum_capability', 'manage_options' );  // Required capability to access most admin screens
 
 		// Add to global cache groups
 		wp_cache_add_global_groups( 'achievements' );
@@ -245,7 +245,7 @@ final class Achievements {
 		/**
 		 * Supported plugins
 		 */
-		require( $this->plugin_dir . 'includes/class-dpa-addon.php' ); // Base interface and class for adding support for other plugins
+		require( $this->plugin_dir . 'includes/class-dpa-extension.php' ); // Base interface and class for adding support for other plugins
 
 		/**
 		 * Components

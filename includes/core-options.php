@@ -17,8 +17,8 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  */
 function dpa_get_default_options() {
 	$options = array(
-		'_dpa_db_version'            => achievements()->db_version,  // Initial DB version
 		'_dpa_achievement_slug'      => 'achievements',              // Achievement post type slug
+		'_dpa_db_version'            => achievements()->db_version,  // Initial DB version
 		'_dpa_run_networkwide'       => false,                       // Run plugin across entire network, rather than on a specific site (for multisite)
 
 		// Achievement post type
@@ -26,6 +26,9 @@ function dpa_get_default_options() {
 
 		// Progress post type
 		'_dpa_progresses_per_page'   => 15,                          // Progresses per page
+
+		// Extension support
+		'_dpa_extend_versions'       => array(),                     // Version numbers for the plugin extensions
 	);
 
 	return apply_filters( 'dpa_get_default_options', $options );
@@ -150,6 +153,7 @@ function dpa_get_progresses_per_page() {
 	return (int) apply_filters( 'dpa_get_progresses_per_page', $retval, $per );
 }
 
+
 /**
  * Boolean functions (aka is this thing on?)
  */
@@ -164,6 +168,7 @@ function dpa_is_running_networkwide() {
 	return (bool) apply_filters( 'dpa_is_running_networkwide', (bool) get_option( '_dpa_run_networkwide' ) );
 }
 
+
 /**
  * Slug functions
  */
@@ -176,4 +181,22 @@ function dpa_is_running_networkwide() {
  */
 function dpa_get_achievement_slug() {
 	return apply_filters( 'dpa_get_achievement_slug', get_option( '_dpa_achievement_slug' ) );
+}
+
+
+/**
+ * Extension functions
+ */
+
+/**
+ * Return the _dpa_extend_versions option, which is an associative array that
+ * Achievements extensions can use to store a version number.
+ *
+ * The format is ['my_plugin' => '1.0']
+ *
+ * @return array
+ * @since 3.0
+ */
+function dpa_get_extend_versions() {
+	return apply_filters( 'dpa_get_extend_versions', get_option( '_dpa_extend_versions' ) );
 }

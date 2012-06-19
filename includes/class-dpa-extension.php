@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  *
  * @since 3.0
  */
-interface DPA_Plugin_Interface {
+interface DPA_Extension_Interface {
 	/**
 	 * Returns details of actions from this plugin that Achievements can use.
 	 *
@@ -95,7 +95,7 @@ interface DPA_Plugin_Interface {
  *
  * @since 3.0
  */
-abstract class DPA_CPT_Plugin implements DPA_Plugin_Interface {
+abstract class DPA_CPT_Extension implements DPA_Extension_Interface {
 	/**
 	 * For actions that are in WordPress core and handle post types, update the
 	 * user ID from the logged in user to the post author's ID (e.g. for draft
