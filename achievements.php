@@ -64,14 +64,15 @@ final class Achievements {
 	/**
 	 * Current user
 	 *
-	 * @var null|WP_User Null when not logged in; WP_User object when logged in. (By ref)
+	 * @var stdClass|WP_User Empty when not logged in; WP_User object when logged in. (By ref)
 	 */
-	public $current_user = null;
+	public $current_user;
 
 	/**
-	 * Other plugins append data here. Used to store information about supported
-	 * achievement types -- such as the other plugin's name, URL,
-	 * RSS feed, authors, and so on..
+	 * Other plugins append data here. Used to store information about the supported plugin
+	 * and a list of its actions that you want to support.
+	 *
+	 * The items contained within this object need to derive from the {@link DPA_Extension} class.
 	 *
 	 * @var stdClass
 	 */
@@ -172,26 +173,19 @@ final class Achievements {
 		$this->version    = 3.0;  // Achievements version
 		$this->db_version = 300;  // Achievements DB version
 
-		// Workaround PHP's handling of __FILE__ and symlinks. See http://gist.github.com/2940978
-		if ( isset( $GLOBALS['plugin'] ) )
-			$this->file = $GLOBALS['plugin'];
-		elseif ( isset( $GLOBALS['mu_plugin'] ) )
-			$this->file = $GLOBALS['mu_plugin'];
-		elseif ( isset( $GLOBALS['network_plugin'] ) )
-			$this->file = $GLOBALS['network_plugin'];
-
 		// Paths - plugin
-		$this->file       = $this->file;
-		$this->basename   = apply_filters( 'dpa_plugin_basename', 'achievements/achievements.php' );
-		$this->plugin_dir = apply_filters( 'dpa_plugin_dir',      plugin_dir_path( $this->file )  );
-		$this->plugin_url = apply_filters( 'dpa_plugin_url',      plugin_dir_url(  $this->file )  );
+		$this->file       = __FILE__;
+		$this->basename   = apply_filters( 'dpa_basenname',       plugin_basename( $this->file ) );
+		$this->plugin_dir = apply_filters( 'dpa_plugin_dir_path', plugin_dir_path( $this->file ) );
+		$this->plugin_url = apply_filters( 'dpa_plugin_dir_url',  plugin_dir_url ( $this->file ) );
 
 		// Paths - themes
-		$this->themes_dir = apply_filters( 'dpa_themes_dir', trailingslashit( $this->plugin_dir . 'themes' ) );
-		$this->themes_url = apply_filters( 'dpa_themes_url', trailingslashit( $this->plugin_url . 'themes' ) );
+		$this->themes_dir = apply_filters( 'dpa_themes_dir',      trailingslashit( $this->plugin_dir . 'themes' ) );
+		$this->themes_url = apply_filters( 'dpa_themes_url',      trailingslashit( $this->plugin_url . 'themes' ) );
 
 		// Paths - languages
-		$this->lang_dir = apply_filters( 'dpa_lang_dir', trailingslashit( $this->plugin_dir . 'languages' ) );
+		$this->lang_dir   = apply_filters( 'dpa_lang_dir',        trailingslashit( $this->plugin_dir . 'languages' ) );
+
 
 		// Post type/taxonomy/endpoints identifiers
 		$this->achievement_post_type          = apply_filters( 'dpa_achievement_post_type',          'dpa_achievement' );
