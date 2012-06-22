@@ -2,6 +2,21 @@
 /**
  * Base interface and class for adding support for your plugin to Achievements.
  *
+ * To add support for your plugin to Achievements, you need to create a new
+ * class derived from either {@link DPA_Extension} or {@link DPA_CPT_Extension}.
+ *
+ * Your class will need to contain some installation logic to check if your
+ * actions already exist in the dpa_event taxonomy; if they haven't, you need
+ * to add them. Check out the supported plugins that come bundled with
+ * Achievements for examples of how to do this.
+ *
+ * In a function hooked to the 'dpa_ready' action, instantiate your class and
+ * store it in the main achievements object, e.g.
+ *
+ * achievements()->extend->your_plugin = new Your_DPA_Extension_Class();
+ *
+ * That's all. Achievements takes care of everything else.
+ *
  * @package Achievements
  * @subpackage CoreClasses
  */
@@ -10,29 +25,62 @@
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 /**
- * The objects that you store in achievements()->extends->your_plugin needs to
- * implement this interface. Please note the return types in the phpdoc.
+ * Add support to Achievements for your plugin using this class. It's used to
+ * to store information about the plugin and actions that you are adding
+ * support for.
+ *
+ * The objects that you store in achievements()->extends need to be derived
+ * from this class.
+ *
+ * If the action which you are adding support for is a WordPress core custom
+ * post type action, use {@link DPA_CPT_Extension} rather than this class.
  *
  * @since 3.0
  */
-interface DPA_Extension_Interface {
+abstract class DPA_Extension {
 	/**
 	 * Returns details of actions from this plugin that Achievements can use.
-	 *
 	 * Note that you still have to add these into the dpa_event taxonomy yourself.
 	 *
-	 * @return array e.g. array[0] = array( 'action' => 'publish_post', name => 'Publish blog post', 'description' => 'This event occurs when a blog post has been published. Reward authors for publishing frequently.' );
+	 * You should return an array with these key/value pairs:
+	 *
+	 * array(
+	 *   'action_name' => 'description',
+	 *
+	 *   // For example
+	 *   'publish_post' => __( 'The user publishes a post or page.', 'your_plugin' ),
+	 *   'trashed_post' => __( 'The user trashes a post or page.',   'your_plugin' ),
+	 * )
+	 *
+	 * @return array
 	 * @since 3.0
 	 */
-	public function get_actions();
+	abstract public function get_actions();
 
 	/**
-	 * Returns array of key/value pairs for each contributor to this plugin (user name, gravatar URL, profile URL).
+	 * Returns nested array of key/value pairs for each contributor to this plugin (name, gravatar URL, profile URL).
 	 *
-	 * @return array e.g. array[0] = array( 'username' => 'Paul Gibbs', 'gravatar' => 'http://www.gravatar.com/avatar/3bc9ab796299d67ce83dceb9554f75df', 'profile' => 'http://profiles.wordpress.org/DJPaul' )
+	 * You should return an array with these key/value pairs:
+	 *
+	 * array(
+	 *   array(
+	 *     'name'         => '',
+	 *     'gravatar_url' => '',
+	 *     'profile_url'  => '',
+	 *  ),
+	 *
+	 *   // For example
+	 *   array(
+	 *     'name'         => 'Paul Gibbs',
+	 *     'gravatar_url' => 'http://www.gravatar.com/avatar/3bc9ab796299d67ce83dceb9554f75df',
+	 *     'profile_url   => 'http://profiles.wordpress.org/DJPaul'
+	 *   ),
+	 * )
+	 *
+	 * @return array
 	 * @since 3.0
 	 */
-	public function get_contributors();
+	abstract public function get_contributors();
 
 	/**
 	 * Plugin description
@@ -40,17 +88,17 @@ interface DPA_Extension_Interface {
 	 * @return string
 	 * @since 3.0
 	 */
-	public function get_description();
+	abstract public function get_description();
 
 	/**
-	 * URL to plugin image.
+	 * Absolute URL to plugin image.
 	 *
-	 * SHOULD be local (e.g. on user's own site, rather than linking to your own site).
+	 * MUST be local (e.g. on user's own site, rather than linking to your own site).
 	 *
 	 * @return string
 	 * @since 3.0
 	 */
-	public function get_image_url();
+	abstract public function get_image_url();
 
 	/**
 	 * Plugin name
@@ -58,15 +106,15 @@ interface DPA_Extension_Interface {
 	 * @return string
 	 * @since 3.0
 	 */
-	public function get_name();
+	abstract public function get_name();
 
 	/**
-	 * URL to a news RSS feed for this plugin. This may be the author's own website.
+	 * Absolute URL to a news RSS feed for this plugin. This may be your own website.
 	 *
 	 * @return string
 	 * @since 3.0
 	 */
-	public function get_rss_url();
+	abstract public function get_rss_url();
 
 	/**
 	 * Plugin slug
@@ -77,33 +125,34 @@ interface DPA_Extension_Interface {
 	 * @return string
 	 * @since 3.0
 	 */
-	public function get_slug();
+	abstract public function get_slug();
 
 	/**
-	 * URL to your plugin on WordPress.org
+	 * Absolute URL to your plugin on WordPress.org
 	 *
 	 * @return string
 	 * @since 3.0
 	 */
-	public function get_wporg_url();
+	abstract public function get_wporg_url();
 }
 
 /**
  * Adding support to Achievements for your plugin can be a little complicated if
- * the action is a built-in WordPress action for a post types. This abstract
+ * the event is a built-in WordPress action for a post types. This abstract
  * class gives you a starting point to more easily add support for such plugins.
+ * Otherwise, use {@link DPA_Extension}.
  *
  * @since 3.0
  */
-abstract class DPA_CPT_Extension implements DPA_Extension_Interface {
+abstract class DPA_CPT_Extension extends DPA_Extension {
 	/**
 	 * For actions that are in WordPress core and handle post types, update the
 	 * user ID from the logged in user to the post author's ID (e.g. for draft
 	 * posts which are then published by another user).
 	 *
 	 * In your class you need to add_filter this method to 'dpa_handle_event_user_id'.
-	 * In your implementation you need to check that $event_name matches the
-	 * name of the action that your plugin implements.
+	 * In your implementation you must check that $event_name matches the name of the
+	 * action that your plugin implements.
 	 *
 	 * This method assumes that $func_args[0] is the Post object.
 	 *
