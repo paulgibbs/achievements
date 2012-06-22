@@ -60,8 +60,14 @@ add_action( 'dpa_init', 'dpa_register_endpoints',      16  );
 //add_action( 'dpa_init', 'dpa_register_views',          18  );
 //add_action( 'dpa_init', 'dpa_register_shortcodes',     20  );
 //add_action( 'dpa_init', 'dpa_add_rewrite_tags',        22  );
-add_action( 'dpa_init', 'dpa_register_events',         24  );
 add_action( 'dpa_init', 'dpa_ready',                   999 );
+
+/**
+ * dpa_ready - Attached to 'dpa_init' above
+ *
+ * Attach various initialisation actions to the dpa_init action.
+ */
+add_action( 'dpa_ready', 'dpa_register_events', 20 );
 
 // User status
 add_action( 'make_ham_user',  'dpa_make_ham_user'  );
