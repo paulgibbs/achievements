@@ -120,7 +120,8 @@ abstract class DPA_Extension {
 	 * Plugin slug
 	 *
 	 * A unique string representing your plugin. This is used for keying indexes
-	 * and is also output on elements' class property in the wp-admin screens.
+	 * and is also output on elements' class property in the wp-admin screens, so
+	 * it has to be safe and valid for use as PHP array keys and as HTML class names.
 	 *
 	 * @return string
 	 * @since 3.0
