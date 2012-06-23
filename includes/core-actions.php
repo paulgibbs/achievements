@@ -67,7 +67,8 @@ add_action( 'dpa_init', 'dpa_ready',                   999 );
  *
  * Attach various initialisation actions to the dpa_init action.
  */
-add_action( 'dpa_ready', 'dpa_register_events', 20 );
+add_action( 'dpa_ready', 'dpa_maybe_update_extensions', 18 );
+add_action( 'dpa_ready', 'dpa_register_events',         20 );
 
 // User status
 add_action( 'make_ham_user',  'dpa_make_ham_user'  );

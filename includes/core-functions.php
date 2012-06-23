@@ -8,7 +8,7 @@
  * care of the core logic -- when a user does something, how does that trigger an event
  * and award an achievement?
  *
- * The dpa_achievement post type has a taxonomy called dpa_event. An event is any
+ * The dpa_achievement post type has a taxonomy called dpa_event. An "event" is any
  * do_action in WordPress. An achievement post is assigned a term from that taxonomy.
  *
  * On every page load, we grab all terms from the dpa_event taxonomy that have been
@@ -36,6 +36,43 @@
 
 // Exit if accessed directly
 if ( ! defined( 'ABSPATH' ) ) exit;
+
+/**
+ * Check if any of the plugin extensions need to be set up or updated
+ *
+ * @since 3.0
+ */
+function dpa_maybe_update_extensions() {
+	$orig_versions = $versions = dpa_get_extension_versions();
+
+	foreach ( achievements()->extensions as $extension ) {
+		// Extensions must inherit the DPA_Extension class
+		if ( ! is_a( $extension, 'DPA_Extension' ) )
+			continue;
+
+		// No previous version in $versions, so add the extension's actions to the dpa_event taxonomy
+		$id = $extension->get_id();
+		if ( ! isset( $versions[$id] ) ) {
+			$actions = $extension->get_actions();
+
+			// Add the actions to the dpa_event taxonomy
+			foreach ( $actions as $action_name => $action_desc )
+				wp_insert_term( $action_name, dpa_get_event_tax_id(), array( 'description' => $action_desc ) );
+
+			// Record version
+			$versions[$id] = $extension->get_version();
+
+		// An update is available.
+		} elseif ( version_compare( $extension->get_version(), $versions[$id], '>' ) ) {
+			$extension->do_update( $versions[$id] );
+			$versions[$id] = $extension->get_version();
+		}
+	}
+
+	// Update the version records in the database
+	if ( $orig_versions != $versions )
+		dpa_update_extension_versions( $versions );
+}
 
 /**
  * Achievement actions are stored as a custom taxonomy. This function queries that taxonomy to find items,
@@ -219,61 +256,4 @@ function dpa_maybe_unlock_achievement( $user_id, $skip_validation = '', $progres
 		// Achievement was unlocked. Let other plugins do things.
 		do_action( 'dpa_unlock_achievement', $achievement_obj, $user_id, $progress_obj, $progress_id );
 	}
-}
-
-
-/**
- * Output the Achievements version
- *
- * @since 3.0
- */
-function dpa_version() {
-	echo dpa_get_version();
-}
-	/**
-	 * Return the Achievements version
-	 *
-	 * @since 3.0
-	 * @return string The Achievements version
-	 */
-	function dpa_get_version() {
-		return achievements()->version;
-	}
-
-/**
- * Output the Achievements database version
- *
- * @uses dpa_get_version() To get the Achievements DB version
- */
-function dpa_db_version() {
-	echo dpa_get_db_version();
-}
-	/**
-	 * Return the Achievements database version
-	 *
-	 * @since 3.0
-	 * @return string The Achievements version
-	 */
-	function dpa_get_db_version() {
-		return achievements()->db_version;
-	}
-
-/**
- * Return the locked (achievement progress) post status ID
- *
- * @return string
- * @since 3.0
- */
-function dpa_get_locked_status_id() {
-	return achievements()->locked_status_id;
-}
-
-/**
- * Return the unlocked (achievement progress) post status ID
- *
- * @return string
- * @since 3.0
- */
-function dpa_get_unlocked_status_id() {
-	return achievements()->unlocked_status_id;
 }

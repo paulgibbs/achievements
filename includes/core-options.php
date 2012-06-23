@@ -28,7 +28,7 @@ function dpa_get_default_options() {
 		'_dpa_progresses_per_page'   => 15,                          // Progresses per page
 
 		// Extension support
-		'_dpa_extend_versions'       => array(),                     // Version numbers for the plugin extensions
+		'_dpa_extension_versions'    => array(),                     // Version numbers for the plugin extensions
 	);
 
 	return apply_filters( 'dpa_get_default_options', $options );
@@ -189,32 +189,32 @@ function dpa_get_achievement_slug() {
  */
 
 /**
- * Return the _dpa_extend_versions option, which is an associative array that
- * Achievements extensions can use to store a version number.
+ * Return the _dpa_extension_versions option, which is an associative array that
+ * extensions can use to store a version number.
  *
  * The format is ['my_plugin' => '1.0']
  *
  * @return array
  * @since 3.0
  */
-function dpa_get_extend_versions() {
-	return apply_filters( 'dpa_get_extend_versions', get_option( '_dpa_extend_versions' ) );
+function dpa_get_extension_versions() {
+	return apply_filters( 'dpa_get_extension_versions', get_option( '_dpa_extension_versions' ) );
 }
 
 /**
- * Update the _dpa_extend_versions option.
+ * Update the _dpa_extension_versions option.
  *
  * @param array $new_value
  * @return array
- * @see dpa_get_extend_versions()
+ * @see dpa_get_extension_versions()
  * @since 3.0
  */
-function dpa_update_extend_versions( $new_value ) {
+function dpa_update_extension_versions( $new_value ) {
 	// If multisite and running network-wide, switch_to_blog to the data store site
 	if ( is_multisite() && dpa_is_running_networkwide() )
 		switch_to_blog( DPA_DATA_STORE );
 
-	update_option( '_dpa_extend_versions', $new_value );
+	update_option( '_dpa_extension_versions', $new_value );
 
 	// If multisite and running network-wide, undo the switch_to_blog
 	if ( is_multisite() && dpa_is_running_networkwide() )

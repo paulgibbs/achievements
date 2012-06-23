@@ -76,7 +76,7 @@ final class Achievements {
 	 *
 	 * @var stdClass
 	 */
-	public $extend;
+	public $extensions;
 
 	/**
 	 * @var array Overloads get_option()
@@ -210,7 +210,7 @@ final class Achievements {
 
 		// Other stuff
 		$this->errors             = new WP_Error();
-		$this->extend             = new stdClass();                                               // Other plugins add data here
+		$this->extensions         = new stdClass();                                               // Other plugins add data here
 		$this->minimum_capability = apply_filters( 'dpa_minimum_capability', 'manage_options' );  // Required capability to access most admin screens
 
 		// Add to global cache groups

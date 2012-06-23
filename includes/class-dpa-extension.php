@@ -8,7 +8,7 @@
  * In a function hooked to the 'dpa_ready' action, instantiate your class and
  * store it in the main achievements object, e.g.
  *
- * achievements()->extend->your_plugin = new Your_DPA_Extension_Class();
+ * achievements()->extensions->your_plugin = new Your_DPA_Extension_Class();
  *
  * We need to add the actions you are supporting into the dpa_event taxonomy.
  * Achievements will take care of initial "installation" for you, so you'll only
@@ -28,7 +28,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  * Add support to Achievements for your plugin using this class. It's used to
  * store information about the plugin and actions that you are adding support for.
  *
- * The objects that you store in achievements()->extends need to be derived
+ * The objects that you store in achievements()->extensions need to be derived
  * from this class.
  *
  * If the action which you are adding support for is a WordPress core custom
@@ -41,9 +41,9 @@ abstract class DPA_Extension {
 	 * Implement an update routine for your extension.
 	 *
 	 * Achievements adds your actions into the dpa_event taxonomy if it has no
-	 * record of it in the "_dpa_extend_versions" site option. If the option already
+	 * record of it in the "_dpa_extension_versions" site option. If the option already
 	 * has a version number recorded, Achievements compares that to the value from
-	 * {@link self::get_version}. If the extension reports a hugher version number,
+	 * {@link self::get_version}. If the extension reports a higher version number,
 	 * then this method will be called.
 	 *
 	 * @since 3.0
@@ -86,7 +86,7 @@ abstract class DPA_Extension {
 	 *   array(
 	 *     'name'         => 'Paul Gibbs',
 	 *     'gravatar_url' => 'http://www.gravatar.com/avatar/3bc9ab796299d67ce83dceb9554f75df',
-	 *     'profile_url   => 'http://profiles.wordpress.org/DJPaul'
+	 *     'profile_url'  => 'http://profiles.wordpress.org/DJPaul'
 	 *   ),
 	 * )
 	 *
@@ -130,16 +130,15 @@ abstract class DPA_Extension {
 	abstract public function get_rss_url();
 
 	/**
-	 * Plugin slug
+	 * Plugin identifier
 	 *
 	 * A unique string representing your plugin. This is used for keying indexes
-	 * and is also output on elements' class property in the wp-admin screens, so
-	 * it has to be safe and valid for use as PHP array keys and as HTML class names.
+	 * and is also output on elements' class property in the templates/
 	 *
 	 * @return string
 	 * @since 3.0
 	 */
-	abstract public function get_slug();
+	abstract public function get_id();
 
 	/**
 	 * Version number

@@ -89,11 +89,6 @@ function dpa_query_post_parent__in( $where, $object = null ) {
 	return $where;
 }
 
-
-/**
- * Errors
- */
-
 /**
  * Adds an error message to later be output in the theme
  *
@@ -121,3 +116,39 @@ function dpa_has_errors() {
 
 	return apply_filters( 'dpa_has_errors', $has_errors, achievements()->errors );
 }
+
+/**
+ * Output the Achievements version
+ *
+ * @since 3.0
+ */
+function dpa_version() {
+	echo dpa_get_version();
+}
+	/**
+	 * Return the Achievements version
+	 *
+	 * @since 3.0
+	 * @return string The Achievements version
+	 */
+	function dpa_get_version() {
+		return achievements()->version;
+	}
+
+/**
+ * Output the Achievements database version
+ *
+ * @uses dpa_get_version() To get the Achievements DB version
+ */
+function dpa_db_version() {
+	echo dpa_get_db_version();
+}
+	/**
+	 * Return the Achievements database version
+	 *
+	 * @since 3.0
+	 * @return string The Achievements version
+	 */
+	function dpa_get_db_version() {
+		return achievements()->db_version;
+	}
