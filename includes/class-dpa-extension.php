@@ -5,15 +5,15 @@
  * To add support for your plugin to Achievements, you need to create a new
  * class derived from either {@link DPA_Extension} or {@link DPA_CPT_Extension}.
  *
- * Your class will need to contain some installation logic to check if your
- * actions already exist in the dpa_event taxonomy; if they haven't, you need
- * to add them. Check out the supported plugins that come bundled with
- * Achievements for examples of how to do this.
- *
  * In a function hooked to the 'dpa_ready' action, instantiate your class and
  * store it in the main achievements object, e.g.
  *
  * achievements()->extend->your_plugin = new Your_DPA_Extension_Class();
+ *
+ * We need to add the actions you are supporting into the dpa_event taxonomy.
+ * Achievements will take care of initial "installation" for you, so you'll only
+ * need to implement any update logic in your {@link DPA_Extension::do_update}
+ * method as/when required.
  *
  * That's all. Achievements takes care of everything else.
  *
@@ -26,8 +26,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 /**
  * Add support to Achievements for your plugin using this class. It's used to
- * to store information about the plugin and actions that you are adding
- * support for.
+ * store information about the plugin and actions that you are adding support for.
  *
  * The objects that you store in achievements()->extends need to be derived
  * from this class.
@@ -38,6 +37,20 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  * @since 3.0
  */
 abstract class DPA_Extension {
+	/**
+	 * Implement an update routine for your extension.
+	 *
+	 * Achievements adds your actions into the dpa_event taxonomy if it has no
+	 * record of it in the "_dpa_extend_versions" site option. If the option already
+	 * has a version number recorded, Achievements compares that to the value from
+	 * {@link self::get_version}. If the extension reports a hugher version number,
+	 * then this method will be called.
+	 *
+	 * @since 3.0
+	 */
+	public function do_update( $current_version ) {
+	}
+
 	/**
 	 * Returns details of actions from this plugin that Achievements can use.
 	 * Note that you still have to add these into the dpa_event taxonomy yourself.
@@ -127,6 +140,21 @@ abstract class DPA_Extension {
 	 * @since 3.0
 	 */
 	abstract public function get_slug();
+
+	/**
+	 * Version number
+	 *
+	 * Return an integer representing the version of your extension. This is used
+	 * internally to detect if we need to run any installation or update routine
+	 * for your plugin. For example, you might add a new action to support in a
+	 * second version of your extension.
+	 *
+	 * The implementation of any updating handling is down to you.
+	 *
+	 * @return int
+	 * @since 3.0
+	 */
+	abstract public function get_version();
 
 	/**
 	 * Absolute URL to your plugin on WordPress.org
