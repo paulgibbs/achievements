@@ -5,17 +5,17 @@
  * To add support for your plugin to Achievements, you need to create a new
  * class derived from either {@link DPA_Extension} or {@link DPA_CPT_Extension}.
  *
- * In a function hooked to the 'dpa_ready' action, instantiate your class and
- * store it in the main achievements object, e.g.
+ * We need to add the actions you are supporting into the dpa_event taxonomy.
+ * We take care of initial "installation" for you, so you'll only need to
+ * implement any update logic in your {@link DPA_Extension::do_update} method
+ * as/when required.
+ *
+ * To load an extension, in a function hooked to the 'dpa_ready' action,
+ * instantiate your class and store it in the main achievements object, e.g.
  *
  * achievements()->extensions->your_plugin = new Your_DPA_Extension_Class();
  *
- * We need to add the actions you are supporting into the dpa_event taxonomy.
- * Achievements will take care of initial "installation" for you, so you'll only
- * need to implement any update logic in your {@link DPA_Extension::do_update}
- * method as/when required.
- *
- * That's all. Achievements takes care of everything else.
+ * That's all. We takes care of everything else.
  *
  * @package Achievements
  * @subpackage CoreClasses

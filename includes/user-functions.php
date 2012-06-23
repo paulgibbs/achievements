@@ -92,7 +92,7 @@ function dpa_make_spam_user( $user_id = 0 ) {
 	if ( is_super_admin( $user_id ) )
 		return;
 
-	// Do stuff here
+	// @todo Do stuff here
 }
 
 /**

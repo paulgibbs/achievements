@@ -1,6 +1,6 @@
 <?php
 /**
- * Achievement post type functions.
+ * Achievement post type, endpoint, and Event taxonomy functions.
  *
  * @package Achievements
  * @subpackage AchievementsFunctions

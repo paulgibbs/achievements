@@ -109,11 +109,6 @@ function dpa_filter_get_user_option( $value = false, $option = '', $user = null 
 	return $value;
 }
 
-
-/**
- * _dpa_unlocked_count option - how many achievements this user has unlocked
- */
-
 /**
  * Update a user's unlocked achievement count
  *

@@ -120,7 +120,7 @@ function dpa_setup_updater() {
  *
  * @param array $args Array of arguments to override default values
  * @since 3.0
- * @todo This.
+ * @todo This. Add a 'hello world' achievement.
  */
 function dpa_create_initial_content( $args = array() ) {
 }

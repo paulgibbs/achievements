@@ -50,7 +50,7 @@ function dpa_maybe_update_extensions() {
 		if ( ! is_a( $extension, 'DPA_Extension' ) )
 			continue;
 
-		// No previous version in $versions, so add the extension's actions to the dpa_event taxonomy
+		// If no old version in $versions, it's a new extension. Add its actions to the dpa_event taxonomy.
 		$id = $extension->get_id();
 		if ( ! isset( $versions[$id] ) ) {
 			$actions = $extension->get_actions();
@@ -62,14 +62,14 @@ function dpa_maybe_update_extensions() {
 			// Record version
 			$versions[$id] = $extension->get_version();
 
-		// An update is available.
+		// Check if an update is available.
 		} elseif ( version_compare( $extension->get_version(), $versions[$id], '>' ) ) {
 			$extension->do_update( $versions[$id] );
 			$versions[$id] = $extension->get_version();
 		}
 	}
 
-	// Update the version records in the database
+	// If $versions has changed, update the option in the database
 	if ( $orig_versions != $versions )
 		dpa_update_extension_versions( $versions );
 }

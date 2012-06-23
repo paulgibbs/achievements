@@ -1,6 +1,6 @@
 <?php
 /**
- * Achievement Progress post type functions.
+ * Achievement Progress post type and post status functions.
  *
  * @package Achievements
  * @subpackage ProgressFunctions

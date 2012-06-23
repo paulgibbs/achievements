@@ -186,7 +186,6 @@ final class Achievements {
 		// Paths - languages
 		$this->lang_dir   = apply_filters( 'dpa_lang_dir',        trailingslashit( $this->plugin_dir . 'languages' ) );
 
-
 		// Post type/taxonomy/endpoints identifiers
 		$this->achievement_post_type          = apply_filters( 'dpa_achievement_post_type',          'dpa_achievement' );
 		$this->achievement_progress_post_type = apply_filters( 'dpa_achievement_progress_post_type', 'dpa_progress'    );
@@ -241,6 +240,7 @@ final class Achievements {
 		 */
 		require( $this->plugin_dir . 'includes/class-dpa-extension.php'     ); // Base class for adding support for other plugins
 		require( $this->plugin_dir . 'includes/class-dpa-cpt-extension.php' ); // Base class for adding support for other plugins implementing post type actions
+
 
 		/**
 		 * Components
