@@ -239,7 +239,8 @@ final class Achievements {
 		/**
 		 * Supported plugins
 		 */
-		require( $this->plugin_dir . 'includes/class-dpa-extension.php' ); // Base interface and class for adding support for other plugins
+		require( $this->plugin_dir . 'includes/class-dpa-extension.php'     ); // Base class for adding support for other plugins
+		require( $this->plugin_dir . 'includes/class-dpa-cpt-extension.php' ); // Base class for adding support for other plugins implementing post type actions
 
 		/**
 		 * Components
