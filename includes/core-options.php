@@ -19,7 +19,6 @@ function dpa_get_default_options() {
 	$options = array(
 		'_dpa_achievement_slug'      => 'achievements',              // Achievement post type slug
 		'_dpa_db_version'            => achievements()->db_version,  // Initial DB version
-		'_dpa_run_networkwide'       => false,                       // Run plugin across entire network, rather than on a specific site (for multisite)
 
 		// Achievement post type
 		'_dpa_achievements_per_page' => 15,                          // Achievements per page
@@ -159,13 +158,13 @@ function dpa_get_progresses_per_page() {
  */
 
 /**
- * Checks if the plugin is set to run network-wide (for multisite).
+ * Checks if the plugin across entire network, rather than on a specific site (for multisite)
  *
  * @return true
  * @since 3.0
  */
 function dpa_is_running_networkwide() {
-	return (bool) apply_filters( 'dpa_is_running_networkwide', (bool) get_option( '_dpa_run_networkwide' ) );
+	return (bool) apply_filters( 'dpa_is_running_networkwide', (bool) get_site_option( '_dpa_run_networkwide', false ) );
 }
 
 
