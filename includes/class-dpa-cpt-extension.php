@@ -28,11 +28,10 @@ abstract class DPA_CPT_Extension extends DPA_Extension {
 	 * user ID from the logged in user to the post author's ID (e.g. for draft
 	 * posts which are then published by another user).
 	 *
-	 * In your class you need to add_filter this method to 'dpa_handle_event_user_id'.
 	 * In your implementation you must check that $event_name matches the name of the
 	 * action that your plugin implements.
 	 *
-	 * This method assumes that $func_args[0] is the Post object.
+	 * This method assumes that $func_args[1] is the Post object.
 	 *
 	 * @param int    $user_id    Logged in user's ID
 	 * @param string $event_name Name of the event
@@ -40,8 +39,8 @@ abstract class DPA_CPT_Extension extends DPA_Extension {
 	 * @return int New user ID
 	 * @since 3.0
 	 */
-	public function modify_user_id_for_post( $user_id, $event_name, $func_args ) {
-		$post = $func_args[0];
+	protected function modify_user_id_for_post( $user_id, $event_name, $func_args ) {
+		$post = $func_args[1];
 
 		if ( ! empty( $post->post_author ) )
 			return (int) $post->post_author;

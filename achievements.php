@@ -252,10 +252,11 @@ final class Achievements {
 
 
 		/**
-		 * Supported plugins
+		 * Plugin extensions
 		 */
 		require( $this->plugin_dir . 'includes/class-dpa-extension.php'     ); // Base class for adding support for other plugins
 		require( $this->plugin_dir . 'includes/class-dpa-cpt-extension.php' ); // Base class for adding support for other plugins implementing post type actions
+		require( $this->plugin_dir . 'includes/extension-wordpress.php'     ); // Extension for WordPress core
 
 
 		/**
