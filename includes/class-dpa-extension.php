@@ -141,7 +141,7 @@ abstract class DPA_Extension {
 	abstract public function get_id();
 
 	/**
-	 * Version number
+	 * Version number of your extension
 	 *
 	 * Return an integer representing the version of your extension. This is used
 	 * internally to detect if we need to run any installation or update routine
