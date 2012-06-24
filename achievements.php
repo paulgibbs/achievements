@@ -344,13 +344,13 @@ final class Achievements {
 		$mofile_local  = $this->lang_dir . $mofile;
 		$mofile_global = WP_LANG_DIR . '/achievements/' . $mofile;
 
-		// Look in local /wp-content/plugins/achievements/languages/ folder
-		if ( file_exists( $mofile_local ) ) {
-			return load_textdomain( 'dpa', $mofile_local );
-
 		// Look in global /wp-content/languages/achievements/ folder
-		} elseif ( file_exists( $mofile_global ) ) {
+		if ( file_exists( $mofile_global ) ) {
 			return load_textdomain( 'dpa', $mofile_global );
+
+		// Look in local /wp-content/plugins/achievements/languages/ folder
+		} elseif ( file_exists( $mofile_local ) ) {
+			return load_textdomain( 'dpa', $mofile_local );
 		}
 
 		// Nothing found
