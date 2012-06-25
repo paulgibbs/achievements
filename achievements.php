@@ -508,7 +508,7 @@ final class Achievements {
 		// Action filter
 		$tax = apply_filters( 'dpa_register_taxonomies_action', array(
 			'capabilities'          => dpa_get_event_caps(),
-			'hierarchical'          => true,  // Better UI
+			'hierarchical'          => false,
 			'labels'                => $labels['event'],
 			'public'                => false,
 			'query_var'             => false,
