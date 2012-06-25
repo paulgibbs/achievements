@@ -75,15 +75,28 @@ function dpa_maybe_update_extensions() {
 }
 
 /**
- * Achievement actions are stored as a custom taxonomy. This function queries that taxonomy to find items,
- * and then using the items' slugs (which are the name of a WordPress action), registers a handler action
- * in Achievements. The user needs to be logged in for this to hapen.
+ * Achievement actions are stored in a custom taxonomy. This function queries that taxonomy to find
+ * items and, with those items' slugs (which are the name of a WordPress action), registers them to a
+ * handler action that contains the next part of the main logic. The user needs to be logged in for
+ * this to hapen.
  *
  * Posts in trash are returned by get_terms() even if hide_empty is set. We double-check the post status
  * before we actually give the award.
  *
  * This function is invoked on every page load but as get_terms() provides built-in caching, we don't
  * have to worry about that.
+ *
+ *
+ * A note about the "user publishes a post" event. The simple way would be to use the "publish post"
+ * action, but from that it's not efficent to find out if that post has already been published previously.
+ * Instead the WordPress extension uses "draft_to_publish", but there are other x_to_publish actions
+ * that might be used when a post is published (e.g. "pending_to_publish").
+ *
+ * If we added those in the WordPress extension we'd end up with four/five different types of
+ * "publish a post" events. That's a very poor user experience. Instead we manually add those other
+ * actions to the events stack and use some trickery on the dpa_handle_event_name filter in
+ * DPA_WordPress_Extension:event_name() to change the action name to draft_to_publish when one of
+ * these actions are being processed.
  *
  * @since 3.0
  */
@@ -97,8 +110,8 @@ function dpa_register_events() {
 	if ( is_wp_error( $events ) )
 		return;
 
-	$events = wp_list_pluck( (array) $events, 'slug' );
-	$events = apply_filters( 'dpa_register_events', $events );
+	$events = array_merge( wp_list_pluck( (array) $events, 'slug' ), array( 'future_to_publish', 'pending_to_publish', 'private_to_publish', ) );
+	$events = apply_filters( 'dpa_register_events', array_unique( $events ) );
 
 	// For each event, add a handler function to the action.
 	foreach ( (array) $events as $event )

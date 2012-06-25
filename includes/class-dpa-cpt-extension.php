@@ -31,7 +31,7 @@ abstract class DPA_CPT_Extension extends DPA_Extension {
 	 * In your implementation you must check that $event_name matches the name of the
 	 * action that your plugin implements.
 	 *
-	 * This method assumes that $func_args[1] is the Post object.
+	 * This method assumes that $func_args[0] is the Post object.
 	 *
 	 * @param int    $user_id    Logged in user's ID
 	 * @param string $event_name Name of the event
@@ -39,8 +39,8 @@ abstract class DPA_CPT_Extension extends DPA_Extension {
 	 * @return int New user ID
 	 * @since 3.0
 	 */
-	protected function modify_user_id_for_post( $user_id, $event_name, $func_args ) {
-		$post = $func_args[1];
+	protected function get_post_author( $user_id, $event_name, $func_args ) {
+		$post = $func_args[0];
 
 		if ( ! empty( $post->post_author ) )
 			return (int) $post->post_author;
