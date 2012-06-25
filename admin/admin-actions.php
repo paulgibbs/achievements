@@ -72,6 +72,10 @@ add_filter( 'post_type_link', 'dpa_filter_sample_permalink', 10, 4 );
  * @since 3.0
  */
 function dpa_new_site( $blog_id, $user_id, $domain, $path, $site_id, $meta ) {
+	// If we're running network wide, it doesn't matter that we've created a new blog.
+	if ( is_multisite() && dpa_is_running_networkwide() )
+		return;
+
 	// Switch to the new blog
 	switch_to_blog( $blog_id );
 
