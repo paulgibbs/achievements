@@ -14,6 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  *
  * @return array Option names and values
  * @since 3.0
+ * @todo When dpa_get_default_options() are updated and multisite and network-wide are enabled, copy values to site options.
  */
 function dpa_get_default_options() {
 	$options = array(

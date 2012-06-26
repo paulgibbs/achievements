@@ -216,19 +216,15 @@ final class Achievements {
 		wp_cache_add_global_groups( 'achievements' );
 
 		/**
-		 * If multisite and running network-wide, grab the options from the data store
-		 * site and store in achievements()->options. dpa_setup_option_filters() sets
-		 * up a pre_option filter which loads from achievements()->options if an
-		 * option has been set there. This saves a lot of switch_to_blog calls later on.
+		 * If multisite and running network-wide, grab the options from the site options
+		 * table and store in achievements()->options. dpa_setup_option_filters() sets
+		 * up a pre_option filter which loads from achievements()->options if an option
+		 * has been set there. This saves a lot of conditionals throughout the plugin.
 		 */
 		if ( is_multisite() && dpa_is_running_networkwide() ) {
-			switch_to_blog( DPA_DATA_STORE );
-
 			$options = dpa_get_default_options();
 			foreach ( $options as $option_name => $option_value )
-				achievements()->options[$option_name] = get_option( $option_name );
-
-			restore_current_blog();
+				achievements()->options[$option_name] = get_site_option( $option_name );
 		}
 	}
 
