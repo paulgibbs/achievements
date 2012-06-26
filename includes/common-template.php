@@ -12,24 +12,18 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 /**
  * Check if the current post type belongs to Achievements
  *
+ * @param mixed $the_post Optional. Post object or post ID.
  * @return bool
  * @since 3.0
  */
-function dpa_is_custom_post_type() {
-	// Current post type
-	$post_type = get_post_type();
-
-	// Achievements' post types
-	$achievements_post_types = array(
-		dpa_get_achievement_post_type(),
-		dpa_get_progress_post_type(),
-	);
+function dpa_is_custom_post_type( $the_post = false ) {
+	$retval = false;
 
 	// Viewing one of Achievements' post types
-	if ( in_array( $post_type, $achievements_post_types ) )
-		return true;
+	if ( in_array( get_post_type( $the_post ), array( dpa_get_achievement_post_type(), dpa_get_progress_post_type(), ) ) )
+		$retval = true;
 
-	return false;
+	return (bool) apply_filters( 'dpa_is_custom_post_type', $retval, $the_post );
 }
 
 
