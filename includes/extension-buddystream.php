@@ -23,14 +23,6 @@ add_action( 'dpa_ready', 'dpa_init_buddystream_extension' );
 
 class DPA_BuddyStream_Extension extends DPA_Extension {
 	/**
-	 * Constructor
-	 *
-	 * @since 3.0
-	 */
-	public function __construct() {
-	}
-
-	/**
 	 * Returns details of actions from this plugin that Achievements can use.
 	 *
 	 * @return array
@@ -56,9 +48,9 @@ class DPA_BuddyStream_Extension extends DPA_Extension {
 	public function get_contributors() {
 			return array(
 				array(
-				'name'         => 'Peter Hofman',
-				'gravatar_url' => 'http://www.gravatar.com/avatar/fa62da3fa8b3997be04448e7280dad29',
-				'profile_url'  => 'http://profiles.wordpress.org/blackphantom',
+					'name'         => 'Peter Hofman',
+					'gravatar_url' => 'http://www.gravatar.com/avatar/fa62da3fa8b3997be04448e7280dad29',
+					'profile_url'  => 'http://profiles.wordpress.org/blackphantom/',
 				)
 			);
 	}
