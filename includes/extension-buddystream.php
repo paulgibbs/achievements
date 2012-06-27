@@ -43,7 +43,6 @@ class DPA_BuddyStream_Extension extends DPA_Extension {
 	 *
 	 * @return array
 	 * @since 3.0
-	 * @todo WordPress has far too many people who deserve to be listed here. Maybe link to wp-admin/credits.php?
 	 */
 	public function get_contributors() {
 			return array(
