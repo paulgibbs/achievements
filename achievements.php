@@ -253,6 +253,7 @@ final class Achievements {
 		require( $this->plugin_dir . 'includes/class-dpa-extension.php'     ); // Base class for adding support for other plugins
 		require( $this->plugin_dir . 'includes/class-dpa-cpt-extension.php' ); // Base class for adding support for other plugins implementing post type actions
 		require( $this->plugin_dir . 'includes/extension-wordpress.php'     ); // Extension for WordPress core
+		require( $this->plugin_dir . 'includes/extension-buddystream.php'   ); // Extension for BuddyStream
 
 
 		/**
