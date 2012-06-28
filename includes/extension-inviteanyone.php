@@ -72,7 +72,7 @@ class DPA_InviteAnyone_Extension extends DPA_Extension {
 	 *
 	 * @return string
 	 * @since 3.0
-	 * @todo Add BuddyStream logo image
+	 * @todo Add Invite Anyone logo image
 	 */
 	public function get_image_url() {
 		return 'http://placekitten.com/772/250';
