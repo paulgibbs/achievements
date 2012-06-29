@@ -1,0 +1,168 @@
+<?php
+/**
+ * Extension for BuddyPress
+ *
+ * This file extends Achievements to support actions from BuddyPress
+ *
+ * @package Achievements
+ * @subpackage ExtensionBuddyPress
+ */
+
+// Exit if accessed directly
+if ( ! defined( 'ABSPATH' ) ) exit;
+
+/**
+ * Extends Achievements to support actions from BuddyPress.
+ *
+ * @since 3.0
+ */
+function dpa_init_buddypress_extension() {
+	achievements()->extensions->buddypress = new DPA_BuddyPress_Extension;
+}
+add_action( 'dpa_ready', 'dpa_init_buddypress_extension' );
+
+class DPA_BuddyPress_Extension extends DPA_Extension {
+	/**
+	 * Returns details of actions from this plugin that Achievements can use.
+	 *
+	 * @return array
+	 * @since 3.0
+	 */
+	public function get_actions() {
+		return array(
+			'bp_activity_add_user_favorite'    => __( 'The user marks an item in an activity stream as a favourite.', 'dpa' ),
+			'bp_activity_comment_posted'       => __( 'The user replies to an item in an activity stream.', 'dpa' ),
+			'bp_activity_posted_update'        => __( 'The user writes an activity update message.', 'dpa' ),
+			'bp_activity_remove_user_favorite' => __( 'The user un-favourites an item in their activity stream.', 'dpa' ),
+			'bp_core_activated_user'           => __( 'A new user activates their account on your website.', 'dpa' ),
+			'bp_groups_posted_update'          => __( "The user writes a message in a group's activity stream.", 'dpa' ),
+			'friends_friendship_accepted'      => __( 'The user accepts a friendship request from someone.', 'dpa' ),
+			'friends_friendship_deleted'       => __( 'The user cancels a friendship.', 'dpa' ),
+			'friends_friendship_rejected'      => __( 'The user rejects a friendship request from someone.', 'dpa' ),
+			'friends_friendship_requested'     => __( 'The user sends a friendship request to someone.', 'dpa' ),
+			'groups_banned_member'             => __( 'The user bans a member from a group.', 'dpa' ),
+			'groups_created_group'             => __( 'The user creates a group.', 'dpa' ),
+			'groups_delete_group'              => __( 'The user deletes a group.', 'dpa' ),
+			'groups_demoted_member'            => __( 'The user demotes a group member from moderator or administrator status.', 'dpa' ),
+			'groups_demote_member'             => __( 'The user is demoted from being a moderator or an administrator in a group.', 'dpa' ),
+			'groups_invite_user'               => __( 'The user invites someone to join a group.', 'dpa' ),
+			'groups_join_group'                => __( 'The user joins a group.', 'dpa' ),
+			'groups_leave_group'               => __( 'The user leaves a group.', 'dpa' ),
+			'groups_promote_member'            => __( 'The user is promoted to a moderator or an administrator in a group.', 'dpa' ),
+			'groups_promoted_member'           => __( 'The user promotes a group member to moderator or administrator status.', 'dpa' ),
+			'groups_unbanned_member'           => __( 'The user unbans a member from a group.', 'dpa' ),
+			'messages_delete_thread'           => __( 'The user deletes a private message.', 'dpa' ),
+			'messages_message_sent'            => __( 'The user sends a new private message or replies to an existing one.', 'dpa' ),
+			'xprofile_avatar_uploaded'         => __( "The user changes their profile's avatar.", 'dpa' ),
+			'xprofile_updated_profile'         => __( 'The user updates their profile information.', 'dpa' ),
+		);
+	}
+
+	/**
+	 * Returns nested array of key/value pairs for each contributor to this plugin (name, gravatar URL, profile URL).
+	 *
+	 * @return array
+	 * @since 3.0
+	 */
+	public function get_contributors() {
+			return array(
+				array(
+					'name'         => 'Andy Peatling',
+					'gravatar_url' => 'http://www.gravatar.com/avatar/bb29d699b5cba218c313b61aa82249da',
+					'profile_url'  => 'http://profiles.wordpress.org/apeatling/',
+				),
+				array(
+					'name'         => 'John James Jacoby',
+					'gravatar_url' => 'http://www.gravatar.com/avatar/81ec16063d89b162d55efe72165c105f',
+					'profile_url'  => 'http://profiles.wordpress.org/johnjamesjacoby/',
+				),
+				array(
+					'name'         => 'Marshall Sorenson',
+					'gravatar_url' => 'http://www.gravatar.com/avatar/a32efc5efefecb3fb1ef1149e23a077c',
+					'profile_url'  => 'http://profiles.wordpress.org/MrMaz/',
+				),
+				array(
+					'name'         => 'Boone Gorges',
+					'gravatar_url' => 'http://www.gravatar.com/avatar/9cf7c4541a582729a5fc7ae484786c0c',
+					'profile_url'  => 'http://profiles.wordpress.org/boonebgorges/',
+				),
+				array(
+					'name'         => 'Paul Gibbs',
+					'gravatar_url' => 'http://www.gravatar.com/avatar/3bc9ab796299d67ce83dceb9554f75df',
+					'profile_url'  => 'http://profiles.wordpress.org/DJPaul/',
+				),
+			);
+	}
+
+
+	/**
+	 * Plugin description
+	 *
+	 * @return string
+	 * @since 3.0
+	 */
+	public function get_description() {
+		return __( 'Social networking in a box. Build a social network for your company, school, sports team or niche community.', 'dpa' );
+	}
+
+	/**
+	 * Absolute URL to plugin image.
+	 *
+	 * @return string
+	 * @since 3.0
+	 * @todo Add BuddyPress logo image
+	 */
+	public function get_image_url() {
+		return 'http://placekitten.com/772/250';
+	}
+
+	/**
+	 * Plugin name
+	 *
+	 * @return string
+	 * @since 3.0
+	 */
+	public function get_name() {
+		return __( 'BuddyPress', 'dpa' );
+	}
+
+	/**
+	 * Absolute URL to a news RSS feed for this plugin. This may be your own website.
+	 *
+	 * @return string
+	 * @since 3.0
+	 */
+	public function get_rss_url() {
+		return 'http://buddypress.org/blog/feed/';
+	}
+
+	/**
+	 * Plugin identifier
+	 *
+	 * @return string
+	 * @since 3.0
+	 */
+	public function get_id() {
+		return 'BuddyPress';
+	}
+
+	/**
+	 * Version number of your extension
+	 *
+	 * @return int
+	 * @since 3.0
+	 */
+	public function get_version() {
+		return 1;
+	}
+
+	/**
+	 * Absolute URL to your plugin on WordPress.org
+	 *
+	 * @return string
+	 * @since 3.0
+	 */
+	public function get_wporg_url() {
+		return 'http://wordpress.org/extend/plugins/buddypress/';
+	}
+}
