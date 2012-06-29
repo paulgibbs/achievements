@@ -23,6 +23,46 @@ add_action( 'dpa_ready', 'dpa_init_buddypress_extension' );
 
 class DPA_BuddyPress_Extension extends DPA_Extension {
 	/**
+	 * Constructor
+	 *
+	 * @since 3.0
+	 */
+	public function __construct() {
+		add_action( 'dpa_handle_event_user_id', array( $this, 'event_user_id' ), 10, 3 );
+	}
+
+	/**
+ 	 * For the accepted_email_invite action from Invite Anyone, get the user ID from the function
+ 	 * arguments as the user isn't logged in yet.
+	 *
+	 * @param int $user_id
+	 * @param string $action_name
+	 * @param array $action_func_args The action's arguments from func_get_args().
+	 * @return int|false New user ID or false to skip any further processing
+	 * @since 3.0
+	 */
+	protected function event_user_id( $user_id, $action_name, $action_func_args ) {
+		// Only deal with events added by this extension.
+		if ( ! in_array( $action_name, array( 'bp_core_activated_user', 'groups_demote_member', 'groups_promote_member', ) ) )
+			return $user_id;
+
+		// A new user activates their account on your website
+		if ( 'bp_core_activated_user' == $action_name ) {
+			$user_id = $action_func_args[0];
+
+		// The user is demoted from being a moderator or an administrator in a group
+		} elseif ( 'groups_demote_member' == $action_name ) {
+			$user_id = $action_func_args[1];
+
+		// The user is promoted to a moderator or an administrator in a group
+		} elseif ( 'groups_promote_member' == $action_name ) {
+			$user_id = $action_func_args[1];
+		}
+
+		return (int) $user_id;
+	}
+
+	/**
 	 * Returns details of actions from this plugin that Achievements can use.
 	 *
 	 * @return array
