@@ -23,6 +23,32 @@ add_action( 'dpa_ready', 'dpa_init_inviteanyone_extension' );
 
 class DPA_InviteAnyone_Extension extends DPA_Extension {
 	/**
+	 * Constructor
+	 *
+	 * @since 3.0
+	 */
+	public function __construct() {
+		add_action( 'dpa_handle_event_user_id', array( $this, 'event_user_id' ), 10, 3 );
+	}
+
+	/**
+ 	 * For the accepted_email_invite action from Invite Anyone, get the user ID from the function
+ 	 * arguments as the user isn't logged in yet.
+	 *
+	 * @param int $user_id
+	 * @param string $action_name
+	 * @param array $action_func_args The action's arguments from func_get_args().
+	 * @return int|false New user ID or false to skip any further processing
+	 * @since 3.0
+	 */
+	protected function event_user_id( $user_id, $action_name, $action_func_args ) {
+		if ( 'accepted_email_invite' != $action_name )
+			return $user_id;
+
+		return (int) $action_func_args[0];
+	}
+
+	/**
 	 * Returns details of actions from this plugin that Achievements can use.
 	 *
 	 * @return array
