@@ -105,33 +105,33 @@ class DPA_BuddyPress_Extension extends DPA_Extension {
 	 * @since 3.0
 	 */
 	public function get_contributors() {
-			return array(
-				array(
-					'name'         => 'Andy Peatling',
-					'gravatar_url' => 'http://www.gravatar.com/avatar/bb29d699b5cba218c313b61aa82249da',
-					'profile_url'  => 'http://profiles.wordpress.org/apeatling/',
-				),
-				array(
-					'name'         => 'John James Jacoby',
-					'gravatar_url' => 'http://www.gravatar.com/avatar/81ec16063d89b162d55efe72165c105f',
-					'profile_url'  => 'http://profiles.wordpress.org/johnjamesjacoby/',
-				),
-				array(
-					'name'         => 'Marshall Sorenson',
-					'gravatar_url' => 'http://www.gravatar.com/avatar/a32efc5efefecb3fb1ef1149e23a077c',
-					'profile_url'  => 'http://profiles.wordpress.org/MrMaz/',
-				),
-				array(
-					'name'         => 'Boone Gorges',
-					'gravatar_url' => 'http://www.gravatar.com/avatar/9cf7c4541a582729a5fc7ae484786c0c',
-					'profile_url'  => 'http://profiles.wordpress.org/boonebgorges/',
-				),
-				array(
-					'name'         => 'Paul Gibbs',
-					'gravatar_url' => 'http://www.gravatar.com/avatar/3bc9ab796299d67ce83dceb9554f75df',
-					'profile_url'  => 'http://profiles.wordpress.org/DJPaul/',
-				),
-			);
+		return array(
+			array(
+				'name'         => 'Andy Peatling',
+				'gravatar_url' => 'http://www.gravatar.com/avatar/bb29d699b5cba218c313b61aa82249da',
+				'profile_url'  => 'http://profiles.wordpress.org/apeatling/',
+			),
+			array(
+				'name'         => 'John James Jacoby',
+				'gravatar_url' => 'http://www.gravatar.com/avatar/81ec16063d89b162d55efe72165c105f',
+				'profile_url'  => 'http://profiles.wordpress.org/johnjamesjacoby/',
+			),
+			array(
+				'name'         => 'Marshall Sorenson',
+				'gravatar_url' => 'http://www.gravatar.com/avatar/a32efc5efefecb3fb1ef1149e23a077c',
+				'profile_url'  => 'http://profiles.wordpress.org/MrMaz/',
+			),
+			array(
+				'name'         => 'Boone Gorges',
+				'gravatar_url' => 'http://www.gravatar.com/avatar/9cf7c4541a582729a5fc7ae484786c0c',
+				'profile_url'  => 'http://profiles.wordpress.org/boonebgorges/',
+			),
+			array(
+				'name'         => 'Paul Gibbs',
+				'gravatar_url' => 'http://www.gravatar.com/avatar/3bc9ab796299d67ce83dceb9554f75df',
+				'profile_url'  => 'http://profiles.wordpress.org/DJPaul/',
+			),
+		);
 	}
 
 

@@ -45,13 +45,13 @@ class DPA_BuddyStream_Extension extends DPA_Extension {
 	 * @since 3.0
 	 */
 	public function get_contributors() {
-			return array(
-				array(
-					'name'         => 'Peter Hofman',
-					'gravatar_url' => 'http://www.gravatar.com/avatar/fa62da3fa8b3997be04448e7280dad29',
-					'profile_url'  => 'http://profiles.wordpress.org/blackphantom/',
-				)
-			);
+		return array(
+			array(
+				'name'         => 'Peter Hofman',
+				'gravatar_url' => 'http://www.gravatar.com/avatar/fa62da3fa8b3997be04448e7280dad29',
+				'profile_url'  => 'http://profiles.wordpress.org/blackphantom/',
+			)
+		);
 	}
 
 

@@ -68,18 +68,18 @@ class DPA_InviteAnyone_Extension extends DPA_Extension {
 	 * @since 3.0
 	 */
 	public function get_contributors() {
-			return array(
-				array(
-					'name'         => 'Boone Gorges',
-					'gravatar_url' => 'http://www.gravatar.com/avatar/9cf7c4541a582729a5fc7ae484786c0c',
-					'profile_url'  => 'http://profiles.wordpress.org/blackphantom/',
-				),
-				array(
-					'name'         => 'CUNY Academic Commons',
-					'gravatar_url' => 'http://www.gravatar.com/avatar/80c3fc801559bbc7111d5e3f56ac6a4c',
-					'profile_url'  => 'http://profiles.wordpress.org/cuny-academic-commons/',
-				),
-			);
+		return array(
+			array(
+				'name'         => 'Boone Gorges',
+				'gravatar_url' => 'http://www.gravatar.com/avatar/9cf7c4541a582729a5fc7ae484786c0c',
+				'profile_url'  => 'http://profiles.wordpress.org/blackphantom/',
+			),
+			array(
+				'name'         => 'CUNY Academic Commons',
+				'gravatar_url' => 'http://www.gravatar.com/avatar/80c3fc801559bbc7111d5e3f56ac6a4c',
+				'profile_url'  => 'http://profiles.wordpress.org/cuny-academic-commons/',
+			),
+		);
 	}
 
 
