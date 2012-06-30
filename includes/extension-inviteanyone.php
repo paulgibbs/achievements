@@ -57,7 +57,7 @@ class DPA_InviteAnyone_Extension extends DPA_Extension {
 	public function get_actions() {
 		return array(
 			'accepted_email_invite' => __( 'A new user activates their account.', 'dpa' ),
-			'sent_email_invite'     => __( 'The user invites someone to join the site.', 'dpa' ),
+			'sent_email_invite'     => __( 'The user invites someone else to join the site.', 'dpa' ),
 		);
 	}
 

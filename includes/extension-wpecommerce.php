@@ -30,8 +30,8 @@ class DPA_WPeCommerce_Extension extends DPA_Extension {
 	 */
 	public function get_actions() {
 		return array(
-			'wpsc_activate_subscription' => __( 'User sets up a PayPal Subscription', 'dpa' ),
-			'wpsc_confirm_checkout'      => __( 'User completes checkout', 'dpa' ),
+			'wpsc_activate_subscription' => __( 'The user sets up a PayPal Subscription', 'dpa' ),
+			'wpsc_confirm_checkout'      => __( 'The user completes checkout', 'dpa' ),
  		);
 	}
 

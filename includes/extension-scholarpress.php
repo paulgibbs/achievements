@@ -5,7 +5,7 @@
  * This file extends Achievements to support actions from BuddyPress ScholarPress Courseware.
  *
  * @package Achievements
- * @subpackage ExtensionScholarPress
+ * @subpackage ExtensionBPScholarPressCourseware
  */
 
 // Exit if accessed directly
@@ -17,11 +17,11 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  * @since 3.0
  */
 function dpa_init_scholarpress_extension() {
-	achievements()->extensions->scholarpress = new DPA_ScholarPress_Extension;
+	achievements()->extensions->bpscholarpress = new DPA_ScholarPress_Extension;
 }
 add_action( 'dpa_ready', 'dpa_init_scholarpress_extension' );
 
-class DPA_ScholarPress_Extension extends DPA_CPT_Extension {
+class DPA_ScholarPress_Extension extends DPA_Extension {
 	/**
 	 * Constructor
 	 *
@@ -46,15 +46,12 @@ class DPA_ScholarPress_Extension extends DPA_CPT_Extension {
 			return $user_id;
 
 		// User added/removed as a teacher
-		if ( in_array( $action_name, array( 'courseware_new_teacher_added', 'courseware_new_teacher_removed', ) ) ) {
-			$user_id = $action_func_args[0];  // $bp->displayed_user->id
+		if ( in_array( $action_name, array( 'courseware_new_teacher_added', 'courseware_new_teacher_removed', ) ) )
+			return $action_func_args[0];  // $bp->displayed_user->id
 
 		// User has a grade added/updated
-		} elseif ( in_array( $action_name, array( 'courseware_grade_added', 'courseware_grade_updated', ) ) ) {
-			$user_id = $action_func_args[0]['grade']['uid'];
-		}
-
-		return (int) $user_id;
+		elseif ( in_array( $action_name, array( 'courseware_grade_added', 'courseware_grade_updated', ) ) )
+			return $action_func_args[0]['grade']['uid'];
 	}
 
 	/**
@@ -65,14 +62,14 @@ class DPA_ScholarPress_Extension extends DPA_CPT_Extension {
 	 */
 	public function get_actions() {
 		return array(
-			'courseware_new_teacher_added'   => __( 'The user is added as a new teacher', 'dpa' ),
+			'courseware_new_teacher_added'   => __( 'The user is added as a teacher', 'dpa' ),
 			'courseware_new_teacher_removed' => __( 'The user is removed as a teacher', 'dpa' ),
-			'courseware_grade_added'         => __( 'The user has a grade added', 'dpa' ),
-			'courseware_grade_updated'       => __( 'The user has an existing grade updated', 'dpa' ),
-			'courseware_assignment_added'    => __( 'The user adds a new assignment', 'dpa' ),
-			'courseware_lecture_added'       => __( 'The user adds a new lecture', 'dpa' ),
+			'courseware_grade_added'         => __( 'A grade is given to the user', 'dpa' ),
+			'courseware_grade_updated'       => __( "A user's grade is updated", 'dpa' ),
+			'courseware_assignment_added'    => __( 'The user creates a new assignment', 'dpa' ),
+			'courseware_lecture_added'       => __( 'The user creates a new lecture', 'dpa' ),
 			'courseware_response_added'      => __( 'The user adds a response to an assignment', 'dpa' ),
-			'courseware_schedule_activity'   => __( 'The user adds a new schedule', 'dpa' ),
+			'courseware_schedule_activity'   => __( 'The user creates a new schedule', 'dpa' ),
 		);
 	}
 

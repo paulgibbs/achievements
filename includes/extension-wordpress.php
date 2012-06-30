@@ -51,16 +51,14 @@ class DPA_WordPress_Extension extends DPA_CPT_Extension {
 	 */
 	function event_name( $event_name, $func_args ) {
 		// Check we're dealing with the right type of event
-		if ( ! in_array( $event_name, array( 'future_to_publish', 'pending_to_publish', 'private_to_publish', ) ) ) {
+		if ( ! in_array( $event_name, array( 'future_to_publish', 'pending_to_publish', 'private_to_publish', ) ) )
 			return $event_name;
 
 		// Only switch the event name for Posts
-		} elseif ( 'post' == $func_args[0]->post_type ) {
+		if ( 'post' == $func_args[0]->post_type )
 			return 'draft_to_publish';
-
-		} else {
+		else
 			return $event_name;
-		}
 	}
 
 	/**
@@ -78,8 +76,6 @@ class DPA_WordPress_Extension extends DPA_CPT_Extension {
 		// Only deal with events added by this extension.
 		if ( ! in_array( $action_name, array( 'comment_post', 'draft_to_publish', ) ) )
 			return $user_id;
-
-		$new_user_id = $user_id;
 
 		// New comment, check that the author isn't anonymous
 		if ( 'comment_post' == $action_name ) {
@@ -107,9 +103,9 @@ class DPA_WordPress_Extension extends DPA_CPT_Extension {
 	 */
 	public function get_actions() {
 		return array(
-			'comment_post'     => __( 'The user writes a comment.', 'dpa' ),
+			'comment_post'     => __( 'A comment is written by the user.', 'dpa' ),
 			'draft_to_publish' => __( 'The user publishes a blog post.', 'dpa' ),
-			'signup_finished'  => __( 'The user creates a new site (multi-site only).', 'dpa' ),
+			'signup_finished'  => __( 'A new site is created by the user (multi-site only).', 'dpa' ),
 			'trashed_post'     => __( 'The user trashes a blog post.', 'dpa' ),
 		);
 	}
