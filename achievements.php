@@ -255,6 +255,7 @@ final class Achievements {
 		require( $this->plugin_dir . 'includes/extension-buddypress.php'    ); // Extension for BuddyPress
 		require( $this->plugin_dir . 'includes/extension-buddystream.php'   ); // Extension for BuddyStream
 		require( $this->plugin_dir . 'includes/extension-inviteanyone.php'  ); // Extension for Invite Anyone
+		require( $this->plugin_dir . 'includes/extension-scholarpress.php'  ); // Extension for BuddyPress ScholarPress Courseware
 		require( $this->plugin_dir . 'includes/extension-wordpress.php'     ); // Extension for WordPress core
 		require( $this->plugin_dir . 'includes/extension-wpecommerce.php'   ); // Extension for WP e-Commerce
 
