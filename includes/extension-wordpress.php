@@ -95,7 +95,7 @@ class DPA_WordPress_Extension extends DPA_CPT_Extension {
 
 		// New post, get the post author
 		} elseif ( 'draft_to_publish' == $action_name && 'post' == $action_func_args[0]->post_type ) {
-			return $this->get_post_author( $user_id, $action_name, $action_func_args  );
+			return $this->get_post_author( $user_id, $action_name, $action_func_args );
 		}
 	}
 
