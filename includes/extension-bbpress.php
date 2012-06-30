@@ -33,7 +33,27 @@ class DPA_bbPress_Extension extends DPA_CPT_Extension {
 	 * @since 3.0
 	 */
 	public function __construct() {
+		//add_action( 'dpa_handle_event_name',    array( $this, 'event_name' ),    10, 2 );
 		//add_action( 'dpa_handle_event_user_id', array( $this, 'event_user_id' ), 10, 3 );
+	}
+
+	/**
+	 * @param string $name Action name
+	 * @param array $func_args Optional; action's arguments, from func_get_args().
+	 * @return string|bool Action name or false to skip any further processing
+	 * @see dpa_register_events()
+	 * @since 3.0
+	 */
+	function event_name( $event_name, $func_args ) {
+		// Check we're dealing with the right type of event
+		if ( ! in_array( $event_name, array( 'future_to_publish', 'pending_to_publish', 'private_to_publish', ) ) )
+			return $event_name;
+
+		// Only switch the event name for Posts
+		if ( 'post' == $func_args[0]->post_type )
+			return 'draft_to_publish';
+		else
+			return $event_name;
 	}
 
 	/**
@@ -47,8 +67,25 @@ class DPA_bbPress_Extension extends DPA_CPT_Extension {
 	 */
 	protected function event_user_id( $user_id, $action_name, $action_func_args ) {
 		// Only deal with events added by this extension.
-		if ( ! in_array( $action_name, array( '', '', ) ) )
+		if ( ! in_array( $action_name, array( 'comment_post', 'draft_to_publish', ) ) )
 			return $user_id;
+
+		// New comment, check that the author isn't anonymous
+		if ( 'comment_post' == $action_name ) {
+			if ( ( ! $comment = get_comment( $action_func_args[0] ) ) || ! $comment->user_id )
+				return $user_id;
+
+			// Bail if comment isn't approved
+			if ( 1 != $action_func_args[1]  )
+				return false;
+
+			// Return comment author ID
+			return $comment->user_id;
+
+		// New post, get the post author
+		} elseif ( 'draft_to_publish' == $action_name && 'post' == $action_func_args[0]->post_type ) {
+			return $this->get_post_author( $user_id, $action_name, $action_func_args );
+		}
 	}
 
 	/**
@@ -67,7 +104,9 @@ class DPA_bbPress_Extension extends DPA_CPT_Extension {
 			'bbp_untrashed_forum'  => __( 'The user restores a forum from the trash', 'dpa' ),
 
 			// Topic management
+			'bbp_closed_topic'     => __( 'The user closes a topic.', 'dpa' ),
 			'bbp_merged_topic'     => __( 'Separate topics are merged together by a user', 'dpa' ),
+			'bbp_opened_topic'     => __( 'The user opens a topic for new replies', 'dpa' ),
 			'bbp_post_split_topic' => __( 'An existing topic is split into seperate threads by a user', 'dpa' ),
 
 			// Topic
