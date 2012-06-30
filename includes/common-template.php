@@ -38,17 +38,7 @@ function dpa_is_custom_post_type( $the_post = false ) {
  * @since 3.0
  */
 function dpa_is_query_name( $query_name )  {
-
-	// No empties
-	if ( empty( $query_name ) )
-		return false;
-
-	// Check if query var matches
-	if ( dpa_get_query_name() == $query_name )
-		return true;
-
-	// No match
-	return false;
+	return (bool) ( dpa_get_query_name() == $name );
 }
 
 /**
