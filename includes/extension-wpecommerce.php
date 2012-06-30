@@ -21,6 +21,11 @@ function dpa_init_wpecommerce_extension() {
 }
 add_action( 'dpa_ready', 'dpa_init_wpecommerce_extension' );
 
+/**
+ * Extension to add WordPress e-Commerce support to Achievements
+ *
+ * @since 3.0
+ */
 class DPA_WPeCommerce_Extension extends DPA_Extension {
 	/**
 	 * Returns details of actions from this plugin that Achievements can use.

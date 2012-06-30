@@ -21,6 +21,11 @@ function dpa_init_inviteanyone_extension() {
 }
 add_action( 'dpa_ready', 'dpa_init_inviteanyone_extension' );
 
+/**
+ * Extension to add Invite Anyone support to Achievements
+ *
+ * @since 3.0
+ */
 class DPA_InviteAnyone_Extension extends DPA_Extension {
 	/**
 	 * Constructor

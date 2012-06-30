@@ -21,6 +21,11 @@ function dpa_init_wordpress_extension() {
 }
 add_action( 'dpa_ready', 'dpa_init_wordpress_extension' );
 
+/**
+ * Extension to add WordPress support to Achievements
+ *
+ * @since 3.0
+ */
 class DPA_WordPress_Extension extends DPA_CPT_Extension {
 	/**
 	 * Constructor

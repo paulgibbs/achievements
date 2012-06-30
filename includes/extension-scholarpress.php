@@ -17,11 +17,16 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  * @since 3.0
  */
 function dpa_init_scholarpress_extension() {
-	achievements()->extensions->bpscholarpress = new DPA_ScholarPress_Extension;
+	achievements()->extensions->bpscholarpresscourseware = new DPA_BPScholarPressCourseware_Extension;
 }
 add_action( 'dpa_ready', 'dpa_init_scholarpress_extension' );
 
-class DPA_ScholarPress_Extension extends DPA_Extension {
+/**
+ * Extension to add BuddyPress ScholarPress Courseware support to Achievements
+ *
+ * @since 3.0
+ */
+class DPA_BPScholarPressCourseware_Extension extends DPA_Extension {
 	/**
 	 * Constructor
 	 *

@@ -21,6 +21,11 @@ function dpa_init_buddypress_extension() {
 }
 add_action( 'dpa_ready', 'dpa_init_buddypress_extension' );
 
+/**
+ * Extension to add BuddyPress support to Achievements
+ *
+ * @since 3.0
+ */
 class DPA_BuddyPress_Extension extends DPA_Extension {
 	/**
 	 * Constructor
