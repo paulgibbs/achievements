@@ -33,31 +33,65 @@ class DPA_bbPress_Extension extends DPA_CPT_Extension {
 	 * @since 3.0
 	 */
 	public function __construct() {
-		//add_action( 'dpa_handle_event_name',    array( $this, 'event_name' ),    10, 2 );
-		//add_action( 'dpa_handle_event_user_id', array( $this, 'event_user_id' ), 10, 3 );
+		parent::__construct();
+
+		// Filter the user ID
+		add_action( 'dpa_handle_event_user_id', array( $this, 'event_user_id' ),   10, 3 );
 	}
 
 	/**
+	 * Add generic post type actions to the list of events that Achievements will listen for.
+	 *
+	 * @param array $events
+ 	 * @since 3.0
+ 	 */
+ 	public function get_generic_cpt_actions( $events ) {
+ 		$more_events = array(
+ 			// Public
+ 			'draft_to_publish',
+ 			'future_to_publish',
+ 			'pending_to_publish',
+ 			'private_to_publish',
+ 			'spam_to_publish',
+ 		);
+
+ 		return array_merge( $events, $more_events );
+	}
+
+	/**
+	 * Filters the event name which is currently being processed
+	 *
 	 * @param string $name Action name
 	 * @param array $func_args Optional; action's arguments, from func_get_args().
 	 * @return string|bool Action name or false to skip any further processing
-	 * @see dpa_register_events()
 	 * @since 3.0
 	 */
 	function event_name( $event_name, $func_args ) {
 		// Check we're dealing with the right type of event
-		if ( ! in_array( $event_name, array( 'future_to_publish', 'pending_to_publish', 'private_to_publish', ) ) )
+		if ( ! in_array( $event_name, array(
+ 			'draft_to_publish',
+ 			'future_to_publish',
+ 			'pending_to_publish',
+ 			'private_to_publish',
+ 			'spam_to_publish',
+		) ) )
 			return $event_name;
 
-		// Only switch the event name for Posts
-		if ( 'post' == $func_args[0]->post_type )
-			return 'draft_to_publish';
+		// Switch the event name for Replies
+		if ( 'reply' == $func_args[0]->post_type )
+			return 'bbpress_reply_draft_to_publish';
+
+		// Switch the event name for Topics
+		elseif ( 'topic' == $func_args[0]->post_type )
+			return 'bbpress_topic_draft_to_publish';
+
+		// The event is a generic post type action which isn't handled by this extension. Bail out.
 		else
 			return $event_name;
 	}
 
 	/**
-	 * For some actions from bbPress, get the user ID from the function arguments.
+	 * For some actions from bbPress, get the user ID from the Post's author.
 	 *
 	 * @param int $user_id
 	 * @param string $action_name
@@ -65,27 +99,16 @@ class DPA_bbPress_Extension extends DPA_CPT_Extension {
 	 * @return int|false New user ID or false to skip any further processing
 	 * @since 3.0
 	 */
-	protected function event_user_id( $user_id, $action_name, $action_func_args ) {
+	public function event_user_id( $user_id, $action_name, $action_func_args ) {
 		// Only deal with events added by this extension.
-		if ( ! in_array( $action_name, array( 'comment_post', 'draft_to_publish', ) ) )
+		if ( ! in_array( $action_name, array( 'bbpress_reply_draft_to_publish', 'bbpress_topic_draft_to_publish', ) ) )
 			return $user_id;
 
-		// New comment, check that the author isn't anonymous
-		if ( 'comment_post' == $action_name ) {
-			if ( ( ! $comment = get_comment( $action_func_args[0] ) ) || ! $comment->user_id )
-				return $user_id;
-
-			// Bail if comment isn't approved
-			if ( 1 != $action_func_args[1]  )
-				return false;
-
-			// Return comment author ID
-			return $comment->user_id;
-
-		// New post, get the post author
-		} elseif ( 'draft_to_publish' == $action_name && 'post' == $action_func_args[0]->post_type ) {
+		// New Reply or Topic, get the post author
+		if ( in_array( $action_func_args[0]->post_type, array( 'reply', 'topic', ) ) )
 			return $this->get_post_author( $user_id, $action_name, $action_func_args );
-		}
+		else
+			return $user_id;
 	}
 
 	/**
@@ -97,11 +120,11 @@ class DPA_bbPress_Extension extends DPA_CPT_Extension {
 	public function get_actions() {
 		return array(
 			// Forum
-			'bbp_deleted_forum'    => __( 'A forum is permanently deleted by the user', 'dpa' ),
-			'bbp_edit_forum'       => __( "A forum's settings are changed by the user", 'dpa' ),
-			'bbp_new_forum'        => __( 'The user creates a new forum', 'dpa' ),
-			'bbp_trashed_forum'    => __( 'The user puts a forum into the trash', 'dpa' ),
-			'bbp_untrashed_forum'  => __( 'The user restores a forum from the trash', 'dpa' ),
+			'bbp_deleted_forum'   => __( 'A forum is permanently deleted by the user', 'dpa' ),
+			'bbp_edit_forum'      => __( "A forum's settings are changed by the user", 'dpa' ),
+			'bbp_new_forum'       => __( 'The user creates a new forum', 'dpa' ),
+			'bbp_trashed_forum'   => __( 'The user puts a forum into the trash', 'dpa' ),
+			'bbp_untrashed_forum' => __( 'The user restores a forum from the trash', 'dpa' ),
 
 			// Topic management
 			'bbp_closed_topic'     => __( 'The user closes a topic.', 'dpa' ),
@@ -110,16 +133,18 @@ class DPA_bbPress_Extension extends DPA_CPT_Extension {
 			'bbp_post_split_topic' => __( 'An existing topic is split into seperate threads by a user', 'dpa' ),
 
 			// Topic
-			'bbp_deleted_topic'   => __( 'The user permanently deletes a topic', 'dpa' ),
-			'bbp_sticked_topic'   => __( 'The user marks a topic as a sticky', 'dpa' ),
-			'bbp_trashed_topic'   => __( 'The user trashes a topic', 'dpa' ),
-			'bbp_unsticked_topic' => __( 'The user unstickies a topic', 'dpa' ),
-			'bbp_untrashed_topic' => __( 'The user restores a topic from the trash', 'dpa' ),
+			'bbp_deleted_topic'              => __( 'The user permanently deletes a topic', 'dpa' ),
+			'bbp_sticked_topic'              => __( 'The user marks a topic as a sticky', 'dpa' ),
+			'bbp_trashed_topic'              => __( 'The user trashes a topic', 'dpa' ),
+			'bbp_unsticked_topic'            => __( 'The user unstickies a topic', 'dpa' ),
+			'bbp_untrashed_topic'            => __( 'The user restores a topic from the trash', 'dpa' ),
+			'bbpress_topic_draft_to_publish' => __( 'The user creates a new topic.', 'dpa' ),
 
 			// Reply
-			'bbp_deleted_reply'   => __( 'The user permanently deletes a reply', 'dpa' ),
-			'bbp_trashed_reply'   => __( 'The user trashes a reply', 'dpa' ),
-			'bbp_untrashed_reply' => __( 'The user restores a reply from the trash', 'dpa' ),
+			'bbp_deleted_reply'              => __( 'The user permanently deletes a reply', 'dpa' ),
+			'bbp_trashed_reply'              => __( 'The user trashes a reply', 'dpa' ),
+			'bbp_untrashed_reply'            => __( 'The user restores a reply from the trash', 'dpa' ),
+			'bbpress_reply_draft_to_publish' => __( 'The user replies to a topic.', 'dpa' ),
 		);
 	}
 
