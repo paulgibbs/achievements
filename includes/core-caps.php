@@ -219,10 +219,10 @@ function dpa_get_achievement_progress_caps() {
  */
 function dpa_get_event_caps() {
 	$caps = array(
-		'assign_terms' => 'assign_achievement_event',
-		'delete_terms' => 'delete_achievement_event',
-		'edit_terms'   => 'edit_achievement_event',
-		'manage_terms' => 'manage_achievement_event',
+		'assign_terms' => 'assign_achievement_events',
+		'delete_terms' => 'delete_achievement_events',
+		'edit_terms'   => 'edit_achievement_events',
+		'manage_terms' => 'manage_achievement_events',
 	);
 
 	return apply_filters( 'dpa_get_event_caps', $caps );
@@ -260,10 +260,10 @@ function dpa_get_caps_for_role( $role = '' ) {
 				'read_private_achievement_progresses',
 
 				// Event tax caps
-				'assign_achievement_event',
-				'delete_achievement_event',
-				'edit_achievement_event',
-				'manage_achievement_event',
+				'assign_achievement_events',
+				'delete_achievement_events',
+				'edit_achievement_events',
+				'manage_achievement_events',
 			);
 
 			break;
@@ -283,7 +283,7 @@ function dpa_get_caps_for_role( $role = '' ) {
 				'publish_achievement_progresses',
 
 				// Event tax caps
-				'assign_achievement_event',
+				'assign_achievement_events',
 			);
 
 			break;

@@ -43,6 +43,14 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  * @since 3.0
  */
 function dpa_maybe_update_extensions() {
+	// Only do things if the user is active (logged in and not a spammer)
+	if ( ! dpa_is_user_active() )
+		return;
+
+	// Check user has the ability to edit and create terms
+	if ( ! current_user_can( 'edit_achievement_events' ) )
+		return;
+
 	$orig_versions = $versions = dpa_get_extension_versions();
 
 	foreach ( achievements()->extensions as $extension ) {
@@ -92,13 +100,13 @@ function dpa_maybe_update_extensions() {
  * @since 3.0
  */
 function dpa_register_events() {
-	// Only do things if the user is logged in
-	if ( ! is_user_logged_in() )
+	// Only do things if the user is active (logged in and not a spammer)
+	if ( ! dpa_is_user_active() )
 		return;
 
 	// Get all valid events from the event taxononmy. A valid event is one associated with a post type.
 	$events = get_terms( achievements()->event_tax_id, array( 'hide_empty' => true )  );
-	if ( is_wp_error( $events ) )
+	if ( is_wp_error( $events ) || empty( $events ) )
 		return;
 
 	// Get terms' slugs
@@ -152,6 +160,10 @@ function dpa_handle_event() {
 	// This filter allows the user ID to be updated (e.g. for draft posts which are then published by someone else)
 	$user_id = absint( apply_filters( 'dpa_handle_event_user_id', get_current_user_id(), $event_name, $func_args ) );
 	if ( ! $user_id )
+		return;
+
+	// Only proceed if the specified user is active (logged in and not a spammer)
+	if ( ! dpa_is_user_active( $user_id ) )
 		return;
 
 	// Find achievements that are associated with the $event_name taxonomy
@@ -216,6 +228,10 @@ function dpa_handle_event() {
  * @since 2.0
  */
 function dpa_maybe_unlock_achievement( $user_id, $skip_validation = '', $progress_obj = null, $achievement_obj = null ) {
+	// Only proceed if the specified user is active (logged in and not a spammer)
+	if ( ! dpa_is_user_active( $user_id ) )
+		return;
+
 	// Default to current object in the achievement loop
 	if ( empty( $achievement_obj ) )
 		$achievement_obj = achievements()->achievement_query->post;
