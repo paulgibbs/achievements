@@ -39,7 +39,7 @@ class DPA_bbPress_Extension extends DPA_CPT_Extension {
 		parent::__construct();
 
 		// Filter the user ID
-		add_action( 'dpa_handle_event_user_id', array( $this, 'event_user_id' ),   10, 3 );
+		add_filter( 'dpa_handle_event_user_id', array( $this, 'event_user_id' ),   10, 3 );
 	}
 
 	/**

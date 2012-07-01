@@ -36,7 +36,7 @@ class DPA_BuddyPress_Extension extends DPA_Extension {
 	 * @since 3.0
 	 */
 	public function __construct() {
-		add_action( 'dpa_handle_event_user_id', array( $this, 'event_user_id' ), 10, 3 );
+		add_filter( 'dpa_handle_event_user_id', array( $this, 'event_user_id' ), 10, 3 );
 	}
 
 	/**

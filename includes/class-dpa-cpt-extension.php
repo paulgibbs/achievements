@@ -46,8 +46,8 @@ abstract class DPA_CPT_Extension extends DPA_Extension {
 	 * @since 3.0
 	 */
 	public function __construct() {
-		add_action( 'dpa_register_events',   array( get_class( $this ), 'get_generic_cpt_actions' ), 1,  1 );
-		add_action( 'dpa_handle_event_name', array( get_class( $this ), 'event_name'              ), 10, 2 );
+		add_filter( 'dpa_filter_events',     array( get_class( $this ), 'get_generic_cpt_actions' ), 1,  1 );
+		add_filter( 'dpa_handle_event_name', array( get_class( $this ), 'event_name'              ), 10, 2 );
 	}
 
 	/**

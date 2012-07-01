@@ -72,6 +72,9 @@ function dpa_maybe_update_extensions() {
 	// If $versions has changed, update the option in the database
 	if ( $orig_versions != $versions )
 		dpa_update_extension_versions( $versions );
+
+	// Run an action for other plugins
+	do_action( 'dpa_maybe_update_extensions', $orig_versions, $versions );
 }
 
 /**
@@ -100,11 +103,14 @@ function dpa_register_events() {
 
 	// Get terms' slugs
 	$events = wp_list_pluck( (array) $events, 'slug' );
-	$events = array_unique( (array) apply_filters( 'dpa_register_events', $events ) );
+	$events = array_unique( (array) apply_filters( 'dpa_filter_events', $events ) );
 
 	// For each event, add a handler function to the action.
 	foreach ( (array) $events as $event )
 		add_action( $event, 'dpa_handle_event', 12, 10 );  // Priority 12 in case object modified by other plugins
+
+	// Run an action for other plugins
+	do_action( 'dpa_register_events', $events );
 }
 
 /**
