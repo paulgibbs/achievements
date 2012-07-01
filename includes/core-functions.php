@@ -86,18 +86,6 @@ function dpa_maybe_update_extensions() {
  * This function is invoked on every page load but as get_terms() provides built-in caching, we don't
  * have to worry about that.
  *
- *
- * A note about the "user publishes a post" event. The simple way would be to use the "publish post"
- * action, but from that it's not efficent to find out if that post has already been published previously.
- * Instead the WordPress extension uses "draft_to_publish", but there are other x_to_publish actions
- * that might be used when a post is published (e.g. "pending_to_publish").
- *
- * If we added those in the WordPress extension we'd end up with four/five different types of
- * "publish a post" events. That's a very poor user experience. Instead we manually add those other
- * actions to the events stack and use some trickery on the dpa_handle_event_name filter in
- * DPA_WordPress_Extension:event_name() to change the action name to draft_to_publish when one of
- * these actions are being processed.
- *
  * @since 3.0
  */
 function dpa_register_events() {
@@ -110,8 +98,9 @@ function dpa_register_events() {
 	if ( is_wp_error( $events ) )
 		return;
 
-	$events = array_merge( wp_list_pluck( (array) $events, 'slug' ), array( 'future_to_publish', 'pending_to_publish', 'private_to_publish', ) );
-	$events = apply_filters( 'dpa_register_events', array_unique( $events ) );
+	// Get terms' slugs
+	$events = wp_list_pluck( (array) $events, 'slug' );
+	$events = array_unique( (array) apply_filters( 'dpa_register_events', $events ) );
 
 	// For each event, add a handler function to the action.
 	foreach ( (array) $events as $event )
@@ -134,10 +123,25 @@ function dpa_handle_event() {
 	// Let other plugins do things before anything happens
 	do_action( 'dpa_before_handle_event', $event_name, $func_args );
 
-	// Allow other plugins to bail out early
+	// Allow other plugins to change the name of the event being processed, or to bail out early
 	$event_name = apply_filters( 'dpa_handle_event_name', $event_name, $func_args );
 	if ( false === $event_name )
 		return;
+
+	/**
+	 * Extensions using the DPA_CPT_Extension base class may not capture their generic CPT
+	 * actions if that same action was used with by another extension with a different post
+	 * type. As no achievement will ever be associated with a generic action, if we're about
+	 * to query for a generic action, bail out.
+	 */
+	foreach ( achievements()->extensions as $extension ) {
+		if ( ! is_a( $extension, 'DPA_CPT_Extension' ) )
+			continue;
+
+		// Is $event_name a generic CPT action?
+		if ( in_array( $event_name, $extension->get_generic_cpt_actions( array() ) ) )
+				return;
+	}
 
 	// This filter allows the user ID to be updated (e.g. for draft posts which are then published by someone else)
 	$user_id = absint( apply_filters( 'dpa_handle_event_user_id', get_current_user_id(), $event_name, $func_args ) );

@@ -33,41 +33,51 @@ class DPA_WordPress_Extension extends DPA_CPT_Extension {
 	 * @since 3.0
 	 */
 	public function __construct() {
-		add_action( 'dpa_handle_event_name',    array( $this, 'event_name' ),    10, 2 );
-		add_action( 'dpa_handle_event_user_id', array( $this, 'event_user_id' ), 10, 3 );
+		parent::__construct();
+
+		// Filter the user ID
+		add_action( 'dpa_handle_event_user_id', array( $this, 'event_user_id' ),   10, 3 );
 	}
 
 	/**
-	 * A note about the "user publishes a post" event. The simple way would be to use the "publish post"
-	 * action, but from that it's not efficent to find out if that post has already been published previously.
-	 * Instead the WordPress extension uses "draft_to_publish", but there are other x_to_publish actions
-	 * that might be used when a post is published (e.g. "pending_to_publish").
+	 * Add generic post type actions to the list of events that Achievements will listen for.
 	 *
-	 * If we added those in the WordPress extension we'd end up with four/five different types of
-	 * "publish a post" events. That's a very poor user experience. Instead we manually add those other
-	 * actions to the events stack in dpa_register_events() and use some trickery on the dpa_handle_event_name
-	 * filter to change the action name to draft_to_publish when one of these actions are being processed.
+	 * @param array $events
+ 	 * @since 3.0
+ 	 */
+ 	public function get_generic_cpt_actions( $events ) {
+ 		$more_events = array(
+ 			'draft_to_publish',
+ 			'future_to_publish',
+ 			'pending_to_publish',
+ 			'private_to_publish',
+ 		);
+
+ 		return array_merge( $events, $more_events );
+	}
+
+	/**
+	 * Filters the event name which is currently being processed
 	 *
 	 * @param string $name Action name
 	 * @param array $func_args Optional; action's arguments, from func_get_args().
 	 * @return string|bool Action name or false to skip any further processing
-	 * @see dpa_register_events()
 	 * @since 3.0
 	 */
 	function event_name( $event_name, $func_args ) {
 		// Check we're dealing with the right type of event
-		if ( ! in_array( $event_name, array( 'future_to_publish', 'pending_to_publish', 'private_to_publish', ) ) )
+		if ( ! in_array( $event_name, array( 'draft_to_publish', 'future_to_publish', 'pending_to_publish', 'private_to_publish', ) ) )
 			return $event_name;
 
 		// Only switch the event name for Posts
 		if ( 'post' == $func_args[0]->post_type )
-			return 'draft_to_publish';
+			return 'wordpress_draft_to_publish';
 		else
 			return $event_name;
 	}
 
 	/**
-	 * For the comment_post and publish_post events, swap the logged in user's ID
+	 * For the comment_post and post publish events, swap the logged in user's ID
 	 * for the post's author's ID. This is to support post moderation and publishing
 	 * by other users.
 	 *
@@ -77,7 +87,7 @@ class DPA_WordPress_Extension extends DPA_CPT_Extension {
 	 * @return int|false New user ID or false to skip any further processing
 	 * @since 3.0
 	 */
-	protected function event_user_id( $user_id, $action_name, $action_func_args ) {
+	public function event_user_id( $user_id, $action_name, $action_func_args ) {
 		// Only deal with events added by this extension.
 		if ( ! in_array( $action_name, array( 'comment_post', 'draft_to_publish', ) ) )
 			return $user_id;
@@ -108,10 +118,10 @@ class DPA_WordPress_Extension extends DPA_CPT_Extension {
 	 */
 	public function get_actions() {
 		return array(
-			'comment_post'     => __( 'A comment is written by the user.', 'dpa' ),
-			'draft_to_publish' => __( 'The user publishes a blog post.', 'dpa' ),
-			'signup_finished'  => __( 'A new site is created by the user (multi-site only).', 'dpa' ),
-			'trashed_post'     => __( 'The user trashes a blog post.', 'dpa' ),
+			'comment_post'               => __( 'A comment is written by the user.', 'dpa' ),
+			'wordpress_draft_to_publish' => __( 'The user publishes a blog post.', 'dpa' ),
+			'signup_finished'            => __( 'A new site is created by the user (multi-site only).', 'dpa' ),
+			'trashed_post'               => __( 'The user trashes a blog post.', 'dpa' ),
 		);
 	}
 
