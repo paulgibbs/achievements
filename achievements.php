@@ -477,7 +477,7 @@ final class Achievements {
 			apply_filters( 'dpa_register_unlocked_post_status', array(
 				'label'                     => _x( 'Unlocked', 'achievement', 'dpa' ),
 				'label_count'               => _nx_noop( 'Unlocked <span class="count">(%s)</span>', 'Unlocked <span class="count">(%s)</span>', 'dpa' ),
-				'public'                    => true,
+				'public'                    => false,
 				'exclude_from_search'       => true,
 				'show_in_admin_status_list' => true,
 				'show_in_admin_all_list'    => true,
