@@ -43,8 +43,8 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  * @since 3.0
  */
 function dpa_maybe_update_extensions() {
-	// Only do things if the user is active (logged in and not a spammer)
-	if ( ! dpa_is_user_active() )
+	// Only do things if the user is active (logged in and not a spammer) and in wp-admin
+	if ( ! dpa_is_user_active() || ! is_admin() )
 		return;
 
 	// Check user has the ability to edit and create terms
