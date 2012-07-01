@@ -18,6 +18,9 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  */
 function dpa_init_scholarpress_extension() {
 	achievements()->extensions->bpscholarpresscourseware = new DPA_BPScholarPressCourseware_Extension;
+
+	// Run an action for other plugins
+	do_action( 'dpa_init_scholarpress_extension' );
 }
 add_action( 'dpa_ready', 'dpa_init_scholarpress_extension' );
 

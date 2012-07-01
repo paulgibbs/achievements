@@ -18,6 +18,9 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  */
 function dpa_init_inviteanyone_extension() {
 	achievements()->extensions->invite_anyone = new DPA_InviteAnyone_Extension;
+
+	// Run an action for other plugins
+	do_action( 'dpa_init_inviteanyone_extension' );
 }
 add_action( 'dpa_ready', 'dpa_init_inviteanyone_extension' );
 
