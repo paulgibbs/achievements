@@ -45,7 +45,7 @@ class DPA_BPScholarPressCourseware_Extension extends DPA_Extension {
 	 * @return int|false New user ID or false to skip any further processing
 	 * @since 3.0
 	 */
-	protected function event_user_id( $user_id, $action_name, $action_func_args ) {
+	public function event_user_id( $user_id, $action_name, $action_func_args ) {
 		// Only deal with events added by this extension.
 		if ( ! in_array( $action_name, array( 'courseware_new_teacher_added', 'courseware_new_teacher_removed', 'courseware_grade_added', 'courseware_grade_updated', ) ) )
 			return $user_id;

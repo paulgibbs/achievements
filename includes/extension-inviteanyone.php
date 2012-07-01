@@ -46,7 +46,7 @@ class DPA_InviteAnyone_Extension extends DPA_Extension {
 	 * @return int|false New user ID or false to skip any further processing
 	 * @since 3.0
 	 */
-	protected function event_user_id( $user_id, $action_name, $action_func_args ) {
+	public function event_user_id( $user_id, $action_name, $action_func_args ) {
 		if ( 'accepted_email_invite' != $action_name )
 			return $user_id;
 
