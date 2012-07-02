@@ -6,6 +6,20 @@
  * @subpackage AdminSupportedPlugins
  */
 
+/**
+ * ['plugin_ID']->contributors     *    Array of key/value pairs for each contributor (User name, gravatar URL)
+ * ['plugin_ID']->contributors_raw *    Array of key/value pairs for each contributor (User name, profile URL)
+ * ['plugin_ID']->description      *    Plugin description
+ * ['plugin_ID']->image->large          URL to plugin image (large size)
+ * ['plugin_ID']->install_status   *    Result from install_plugin_install_status(); is the plugin installed on the current site?
+ * ['plugin_ID']->name             *    Plugin name
+ * ['plugin_ID']->rating           *    1.0-5.0 plugin rating from wporg
+ * ['plugin_ID']->rss_url               RSS news feed URL
+ * ['plugin_ID']->slug                  Plugin slug
+ * ['plugin_ID']->supported_events      Description of this plugin's supported events for Achievements
+ * ['plugin_ID']->wporg_url             wporg/extends URL page for this plugin
+ */
+
 // Exit if accessed directly
 if ( ! defined( 'ABSPATH' ) ) exit;
 
@@ -40,8 +54,7 @@ function dpa_supported_plugins_on_load() {
 	);
 
 	// Detail view - metaboxes
-	$plugins = dpa_get_supported_plugins();
-	add_meta_box( 'dpa-supported-plugins-info', __( 'Plugin Information', 'dpa' ), 'dpa_supported_plugins_mb_info', 'dpa_achievement_page_achievements-plugins', 'side', 'core', array( $plugins ) );
+//@djpaultodo	add_meta_box( 'dpa-supported-plugins-info', __( 'Plugin Information', 'dpa' ), 'dpa_supported_plugins_mb_info', 'dpa_achievement_page_achievements-plugins', 'side', 'core', array( $plugins ) );
 }
 
 /**
@@ -139,7 +152,7 @@ function dpa_supported_plugins_detail() {
 		$last_plugin = trim( $_COOKIE['dpa_sp_lastplugin'] );
 
 	// Get supported plugins
-	$plugins = dpa_get_supported_plugins();
+	$plugins = achievements()->extensions;
 ?>
 
 	<div id="dpa-info-column">
@@ -234,7 +247,7 @@ function dpa_supported_plugins_detail() {
  * @since 3.0
  */
 function dpa_supported_plugins_list() {
-	$plugins = dpa_get_supported_plugins();
+	$plugins = achievements()->extensions;
 
 	// Sort list of plugins by rating
 	if ( ! empty( $_GET['order'] ) && 'rating' == $_GET['order'] )
@@ -353,7 +366,7 @@ function dpa_supported_plugins_list() {
  * @since 3.0
  */
 function dpa_supported_plugins_grid() {
-	$plugins = dpa_get_supported_plugins();
+	$plugins = achievements()->extensions;
 
 	foreach ( $plugins as $plugin ) {
 		// Record if this plugin is installed by setting the class
@@ -379,7 +392,7 @@ function dpa_supported_plugins_mb_switcher() {
 		$last_plugin = trim( $_COOKIE['dpa_sp_lastplugin'] );
 
 	// Get supported plugins
-	$plugins = dpa_get_supported_plugins();
+	$plugins = achievements()->extensions;
 
 	// Build dropdown box
 	echo '<select id="dpa-details-plugins">';
