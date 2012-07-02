@@ -6,20 +6,6 @@
  * @subpackage AdminSupportedPlugins
  */
 
-/**
- * ['plugin_ID']->contributors     *    Array of key/value pairs for each contributor (User name, gravatar URL)
- * ['plugin_ID']->contributors_raw *    Array of key/value pairs for each contributor (User name, profile URL)
- * ['plugin_ID']->description      *    Plugin description
- * ['plugin_ID']->image->large          URL to plugin image (large size)
- * ['plugin_ID']->install_status   *    Result from install_plugin_install_status(); is the plugin installed on the current site?
- * ['plugin_ID']->name             *    Plugin name
- * ['plugin_ID']->rating           *    1.0-5.0 plugin rating from wporg
- * ['plugin_ID']->rss_url               RSS news feed URL
- * ['plugin_ID']->slug                  Plugin slug
- * ['plugin_ID']->supported_events      Description of this plugin's supported events for Achievements
- * ['plugin_ID']->wporg_url             wporg/extends URL page for this plugin
- */
-
 // Exit if accessed directly
 if ( ! defined( 'ABSPATH' ) ) exit;
 
@@ -489,14 +475,15 @@ function dpa_supported_plugins_mb_info( $null, $plugins ) {
  * @param string $plugin Plugin directory slug
  * @return bool
  * @since 3.0
+ * @todo Use is_plugin_active() to add an "activate" status in a future release
  */
 function _dpa_is_plugin_installed( $plugin ) {
+	// Special case for the WordPress extension
+	if ( 'wordpress' == $plugin )
+			return true;
+
 	// Can we find the plugin directory?
 	$plugin = get_plugins( "/{$plugin}" );
-	if ( empty( $plugin ) )
-			return false;
 
-	// Return true if the plugin is active active (either on the current site or network-wide).
-	$plugin_file = array_pop( array_keys( $plugin ) );
-	return is_plugin_active( "/{$plugin}/{$plugin_file}" );
+	return ! empty( $plugin );
 }
