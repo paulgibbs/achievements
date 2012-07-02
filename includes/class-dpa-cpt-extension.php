@@ -41,6 +41,15 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  */
 abstract class DPA_CPT_Extension extends DPA_Extension {
 	/**
+	 * Set this to an array of generic post type actions that you need Achievements to listen for (if any).
+	 *
+	 * @see DPA_CPT_Extension::event_name();
+	 * @see DPA_Extension::get_generic_cpt_actions();
+	 * @since 3.0
+	 */
+	protected $generic_cpt_actions = array();
+
+	/**
 	 * Constructor
 	 *
 	 * @since 3.0
@@ -53,13 +62,13 @@ abstract class DPA_CPT_Extension extends DPA_Extension {
 	/**
 	 * Add generic post type actions to the list of events that Achievements will listen for.
 	 *
-	 * Be sure to array_merge the new events that you are adding to the $events argument.
-	 *
 	 * @param array $events
 	 * @return array
  	 * @since 3.0
  	 */
- 	abstract public function get_generic_cpt_actions( $events );
+ 	public function get_generic_cpt_actions( $events ) {
+ 		return array_merge( $events, $this->generic_cpt_actions );
+	}
 
  	/**
 	 * Filters the event name which is currently being processed.

@@ -38,24 +38,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  */
 abstract class DPA_Extension {
 	/**
-	 * Implement an update routine for your extension.
-	 *
-	 * Achievements adds your actions into the dpa_event taxonomy if it has no
-	 * record of it in the "_dpa_extension_versions" site option. If the option already
-	 * has a version number recorded, Achievements compares that to the value from
-	 * {@link self::get_version}. If the extension reports a higher version number,
-	 * then this method will be called.
-	 *
-	 * @since 3.0
-	 */
-	public function do_update( $current_version ) {
-	}
-
-	/**
-	 * Returns details of actions from this plugin that Achievements can use.
-	 * Note that you still have to add these into the dpa_event taxonomy yourself.
-	 *
-	 * You should return an array with these key/value pairs:
+	 * You should set this to an array with these key/value pairs:
 	 *
 	 * array(
 	 *   'action_name' => 'description',
@@ -65,15 +48,13 @@ abstract class DPA_Extension {
 	 *   'trashed_post' => __( 'The user trashes a post or page.',   'your_plugin' ),
 	 * )
 	 *
-	 * @return array
+	 * @see DPA_Extension::get_actions();
 	 * @since 3.0
 	 */
-	abstract public function get_actions();
+	protected $actions      = array();
 
 	/**
-	 * Returns nested array of key/value pairs for each contributor to this plugin (name, gravatar URL, profile URL).
-	 *
-	 * You should return an array with these key/value pairs:
+	 * You should set this to an array with these key/value pairs:
 	 *
 	 * array(
 	 *   array(
@@ -89,77 +70,176 @@ abstract class DPA_Extension {
 	 *     'profile_url'  => 'http://profiles.wordpress.org/DJPaul'
 	 *   ),
 	 * )
+	 * @see DPA_Extension::get_contributors()
+	 * @since 3.0
+	 */
+	protected $contributors = array();
+
+	/**
+	 * Set this to a short description of your plugin.
+	 *
+	 * @see DPA_Extension::get_description();
+	 * @since 3.0
+	 */
+	protected $description  = '';
+
+	/**
+	 * Set this to an absolute path to your plugin's logo.
+	 *
+	 * MUST be local (e.g. on user's own site, rather than linking to your own site).
+	 *
+	 * @see DPA_Extension::get_image_url();
+	 * @since 3.0
+	 */
+	protected $image_url    = '';
+
+	/**
+	 * Set this to the name of your plugin.
+	 *
+	 * @see DPA_Extension::get_name();
+	 * @since 3.0
+	 */
+	protected $name         = '';
+
+	/**
+	 * Set this to an absolute URL to a news RSS feed for this plugin. This may be your own website.
+	 *
+	 * @see DPA_Extension::get_rss_url();
+	 * @since 3.0
+	 */
+	protected $rss_url      = '';
+
+	/**
+	 * Set this to an unique string representing your plugin. This is used for keying indexes
+	 * and is also output on elements' class properties in the templates.
+	 *
+	 * @see DPA_Extension::get_id();
+	 * @since 3.0
+	 */
+	protected $id           = '';
+
+	/**
+	 * Set this to an integer representing the version of your extension (not the version of your plugin).
+	 * This is used internally to detect if we need to run any installation or update routine for your
+	 * plugin. For example, you might add a new action to support in a second version of your extension.
+	 *
+	 * The implementation of any updating handling is down to you.
+	 *
+	 * @see DPA_Extension::do_update();
+	 * @see DPA_Extension::version();
+	 * @since 3.0
+	 */
+	protected $version      = 0;
+
+	/**
+	 * Set this to an absolute URL to your plugin's page on WordPress.org.
+	 *
+	 * @see DPA_Extension::wporg_url();
+	 * @since 3.0
+	 */
+	protected $wporg_url    = '';
+
+
+	/**
+	 * Returns details of actions from this plugin that Achievements can use.
 	 *
 	 * @return array
 	 * @since 3.0
 	 */
-	abstract public function get_contributors();
+	public function get_actions() {
+		return $this->actions;
+	}
 
 	/**
-	 * Plugin description
+	 * Returns nested array of key/value pairs for each contributor to this plugin (name, gravatar URL, profile URL).
+	 *
+	 * @return array
+	 * @since 3.0
+	 */
+	public function get_contributors() {
+		return $this->contributors;
+	}
+
+	/**
+	 * Return description
 	 *
 	 * @return string
 	 * @since 3.0
 	 */
-	abstract public function get_description();
+	public function get_description() {
+		return $this->description;
+	}
 
 	/**
-	 * Absolute URL to plugin image.
-	 *
-	 * MUST be local (e.g. on user's own site, rather than linking to your own site).
+	 * Return absolute URL to plugin image.
 	 *
 	 * @return string
 	 * @since 3.0
 	 */
-	abstract public function get_image_url();
+	public function get_image_url() {
+		return $this->image_url;
+	}
 
 	/**
-	 * Plugin name
+	 * Return plugin name
 	 *
 	 * @return string
 	 * @since 3.0
 	 */
-	abstract public function get_name();
+	public function get_name() {
+		return $this->name;
+	}
 
 	/**
-	 * Absolute URL to a news RSS feed for this plugin. This may be your own website.
+	 * Return absolute URL to a news RSS feed for this plugin.
 	 *
 	 * @return string
 	 * @since 3.0
 	 */
-	abstract public function get_rss_url();
+	public function get_rss_url() {
+		return $this->rss_url;
+	}
 
 	/**
-	 * Plugin identifier
-	 *
-	 * A unique string representing your plugin. This is used for keying indexes
-	 * and is also output on elements' class property in the templates/
+	 * Return plugin identifier
 	 *
 	 * @return string
 	 * @since 3.0
 	 */
-	abstract public function get_id();
+	public function get_id() {
+		return $this->id;
+	}
 
 	/**
-	 * Version number of your extension
-	 *
-	 * Return an integer representing the version of your extension. This is used
-	 * internally to detect if we need to run any installation or update routine
-	 * for your plugin. For example, you might add a new action to support in a
-	 * second version of your extension.
-	 *
-	 * The implementation of any updating handling is down to you.
+	 * Return version number of your extension
 	 *
 	 * @return int
 	 * @since 3.0
 	 */
-	abstract public function get_version();
+	public function get_version() {
+		return $this->version;
+	}
 
 	/**
-	 * Absolute URL to your plugin on WordPress.org
+	 * Return absolute URL to your plugin on WordPress.org
 	 *
 	 * @return string
 	 * @since 3.0
 	 */
-	abstract public function get_wporg_url();
+	public function get_wporg_url() {
+		return $this->wporg_url;
+	}
+
+	/**
+	 * Implement an update routine for your extension.
+	 *
+	 * Achievements adds your actions into the dpa_event taxonomy if it has no
+	 * record of it in the "_dpa_extension_versions" site option. If the option already
+	 * has a version number recorded, Achievements compares that to the value from
+	 * {@link self::get_version}. If the extension reports a higher version number,
+	 * then this method will be called.
+	 *
+	 * @since 3.0
+	 */
+	public function do_update( $current_version ) {}
 }

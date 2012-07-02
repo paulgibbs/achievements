@@ -33,43 +33,12 @@ class DPA_BPScholarPressCourseware_Extension extends DPA_Extension {
 	/**
 	 * Constructor
 	 *
+	 * Sets up extension properties. See class phpdoc for details.
+	 *
 	 * @since 3.0
 	 */
 	public function __construct() {
-		add_filter( 'dpa_handle_event_user_id', array( $this, 'event_user_id' ), 10, 3 );
-	}
-
-	/**
- 	 * For some actions from ScholarPress, get the user ID from the function arguments.
-	 *
-	 * @param int $user_id
-	 * @param string $action_name
-	 * @param array $action_func_args The action's arguments from func_get_args().
-	 * @return int|false New user ID or false to skip any further processing
-	 * @since 3.0
-	 */
-	public function event_user_id( $user_id, $action_name, $action_func_args ) {
-		// Only deal with events added by this extension.
-		if ( ! in_array( $action_name, array( 'courseware_new_teacher_added', 'courseware_new_teacher_removed', 'courseware_grade_added', 'courseware_grade_updated', ) ) )
-			return $user_id;
-
-		// User added/removed as a teacher
-		if ( in_array( $action_name, array( 'courseware_new_teacher_added', 'courseware_new_teacher_removed', ) ) )
-			return $action_func_args[0];  // $bp->displayed_user->id
-
-		// User has a grade added/updated
-		elseif ( in_array( $action_name, array( 'courseware_grade_added', 'courseware_grade_updated', ) ) )
-			return $action_func_args[0]['grade']['uid'];
-	}
-
-	/**
-	 * Returns details of actions from this plugin that Achievements can use.
-	 *
-	 * @return array
-	 * @since 3.0
-	 */
-	public function get_actions() {
-		return array(
+		$this->actions = array(
 			'courseware_new_teacher_added'   => __( 'The user is added as a teacher', 'dpa' ),
 			'courseware_new_teacher_removed' => __( 'The user is removed as a teacher', 'dpa' ),
 			'courseware_grade_added'         => __( 'A grade is given to the user', 'dpa' ),
@@ -79,16 +48,8 @@ class DPA_BPScholarPressCourseware_Extension extends DPA_Extension {
 			'courseware_response_added'      => __( 'The user adds a response to an assignment', 'dpa' ),
 			'courseware_schedule_activity'   => __( 'The user creates a new schedule', 'dpa' ),
 		);
-	}
 
-	/**
-	 * Returns nested array of key/value pairs for each contributor to this plugin (name, gravatar URL, profile URL).
-	 *
-	 * @return array
-	 * @since 3.0
-	 */
-	public function get_contributors() {
-		return array(
+		$this->contributors = array(
 			array(
 				'name'         => 'Stas Sușcov',
 				'gravatar_url' => 'http://www.gravatar.com/avatar/39639fde05c65fae440b775989e55006',
@@ -115,76 +76,38 @@ class DPA_BPScholarPressCourseware_Extension extends DPA_Extension {
 				'profile_url'  => 'http://profiles.wordpress.org/chexee/',
 			),
 		);
+
+		$this->description = __( 'A Learning Management System for BuddyPress.', 'dpa' );
+		$this->id          = 'BPScholarPressCourseware';
+		$this->image_url   = 'http://placekitten.com/772/250';
+		$this->name        = __( 'BuddyPress ScholarPress Courseware', 'dpa' );
+		$this->rss_url     = 'http://feeds.nerd.ro/stas/';
+		$this->version     = 1;
+		$this->wporg_url   = 'http://wordpress.org/extend/plugins/buddypress-courseware/';
+
+		add_filter( 'dpa_handle_event_user_id', array( $this, 'event_user_id' ), 10, 3 );
 	}
 
 	/**
-	 * Plugin description
+ 	 * For some actions from ScholarPress, get the user ID from the function arguments.
 	 *
-	 * @return string
+	 * @param int $user_id
+	 * @param string $action_name
+	 * @param array $action_func_args The action's arguments from func_get_args().
+	 * @return int|false New user ID or false to skip any further processing
 	 * @since 3.0
 	 */
-	public function get_description() {
-		return __( 'A Learning Management System for BuddyPress.', 'dpa' );
-	}
+	public function event_user_id( $user_id, $action_name, $action_func_args ) {
+		// Only deal with events added by this extension.
+		if ( ! in_array( $action_name, array( 'courseware_new_teacher_added', 'courseware_new_teacher_removed', 'courseware_grade_added', 'courseware_grade_updated', ) ) )
+			return $user_id;
 
-	/**
-	 * Absolute URL to plugin image.
-	 *
-	 * @return string
-	 * @since 3.0
-	 * @todo Add ScholarPress logo image
-	 */
-	public function get_image_url() {
-		return 'http://placekitten.com/772/250';
-	}
+		// User added/removed as a teacher
+		if ( in_array( $action_name, array( 'courseware_new_teacher_added', 'courseware_new_teacher_removed', ) ) )
+			return $action_func_args[0];  // $bp->displayed_user->id
 
-	/**
-	 * Plugin name
-	 *
-	 * @return string
-	 * @since 3.0
-	 */
-	public function get_name() {
-		return __( 'BuddyPress ScholarPress Courseware', 'dpa' );
-	}
-
-	/**
-	 * Absolute URL to a news RSS feed for this plugin. This may be your own website.
-	 *
-	 * @return string
-	 * @since 3.0
-	 */
-	public function get_rss_url() {
-		return 'http://feeds.nerd.ro/stas/';
-	}
-
-	/**
-	 * Plugin identifier
-	 *
-	 * @return string
-	 * @since 3.0
-	 */
-	public function get_id() {
-		return 'BPScholarPressCourseware';
-	}
-
-	/**
-	 * Version number of your extension
-	 *
-	 * @return int
-	 * @since 3.0
-	 */
-	public function get_version() {
-		return 1;
-	}
-
-	/**
-	 * Absolute URL to your plugin on WordPress.org
-	 *
-	 * @return string
-	 * @since 3.0
-	 */
-	public function get_wporg_url() {
-		return 'http://wordpress.org/extend/plugins/buddypress-courseware/';
+		// User has a grade added/updated
+		elseif ( in_array( $action_name, array( 'courseware_grade_added', 'courseware_grade_updated', ) ) )
+			return $action_func_args[0]['grade']['uid'];
 	}
 }

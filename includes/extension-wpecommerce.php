@@ -31,26 +31,19 @@ add_action( 'dpa_ready', 'dpa_init_wpecommerce_extension' );
  */
 class DPA_WPeCommerce_Extension extends DPA_Extension {
 	/**
-	 * Returns details of actions from this plugin that Achievements can use.
+	 * Constructor
 	 *
-	 * @return array
+	 * Sets up extension properties. See class phpdoc for details.
+	 *
 	 * @since 3.0
 	 */
-	public function get_actions() {
-		return array(
+	public function __construct() {
+		$this->actions  = array(
 			'wpsc_activate_subscription' => __( 'The user sets up a PayPal Subscription', 'dpa' ),
 			'wpsc_confirm_checkout'      => __( 'The user completes checkout', 'dpa' ),
- 		);
-	}
+		);
 
-	/**
-	 * Returns nested array of key/value pairs for each contributor to this plugin (name, gravatar URL, profile URL).
-	 *
-	 * @return array
-	 * @since 3.0
-	 */
-	public function get_contributors() {
-		return array(
+		$this->contributors = array(
 			array(
 				'name'         => 'Dan Milward',
 				'gravatar_url' => 'http://www.gravatar.com/avatar/5ba89a2ce585864ce73cafa7e79d114c',
@@ -72,77 +65,13 @@ class DPA_WPeCommerce_Extension extends DPA_Extension {
 				'profile_url'  => 'http://profiles.wordpress.org/justinsainton/',
 			),
 		);
-	}
 
-
-	/**
-	 * Plugin description
-	 *
-	 * @return string
-	 * @since 3.0
-	 */
-	public function get_description() {
-		return __( 'WP e-Commerce is a free WordPress Shopping Cart Plugin that lets customers buy your products, services and digital downloads online.', 'dpa' );
-	}
-
-	/**
-	 * Absolute URL to plugin image.
-	 *
-	 * @return string
-	 * @since 3.0
-	 * @todo Add WP e-Commerce logo image
-	 */
-	public function get_image_url() {
-		return 'http://placekitten.com/772/250';
-	}
-
-	/**
-	 * Plugin name
-	 *
-	 * @return string
-	 * @since 3.0
-	 */
-	public function get_name() {
-		return __( 'WP e-Commerce', 'dpa' );
-	}
-
-	/**
-	 * Absolute URL to a news RSS feed for this plugin. This may be your own website.
-	 *
-	 * @return string
-	 * @since 3.0
-	 */
-	public function get_rss_url() {
-		return 'http://getshopped.org/blog/feed/';
-	}
-
-	/**
-	 * Plugin identifier
-	 *
-	 * @return string
-	 * @since 3.0
-	 */
-	public function get_id() {
-		return 'WPeCommerce';
-	}
-
-	/**
-	 * Version number of your extension
-	 *
-	 * @return int
-	 * @since 3.0
-	 */
-	public function get_version() {
-		return 1;
-	}
-
-	/**
-	 * Absolute URL to your plugin on WordPress.org
-	 *
-	 * @return string
-	 * @since 3.0
-	 */
-	public function get_wporg_url() {
-		return 'http://wordpress.org/extend/plugins/wp-e-commerce/';
+		$this->description = __( 'WP e-Commerce is a free WordPress Shopping Cart Plugin that lets customers buy your products, services and digital downloads online.', 'dpa' );
+		$this->id          = 'WPeCommerce';
+		$this->image_url   = 'http://placekitten.com/772/250';
+		$this->name        = __( 'WP e-Commerce', 'dpa' );
+		$this->rss_url     = 'http://getshopped.org/blog/feed/';
+		$this->version     = 1;
+		$this->wporg_url   = 'http://wordpress.org/extend/plugins/wp-e-commerce/';
 	}
 }
