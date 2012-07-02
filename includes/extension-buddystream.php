@@ -55,7 +55,7 @@ class DPA_BuddyStream_Extension extends DPA_Extension {
 		);
 
 		$this->description = __( 'BuddyStream is a BuddyPress plugin that will synchronize all of your favorite Social Networks to the BuddyPress activity stream.', 'dpa' );
-		$this->id          = 'BuddyStream';
+		$this->id          = 'buddystream';
 		$this->image_url   = 'http://placekitten.com/772/250';
 		$this->name        = __( 'BuddyStream', 'dpa' );
 		$this->rss_url     = 'http://buddystream.net/blog/feed/';

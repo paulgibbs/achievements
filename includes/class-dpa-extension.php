@@ -110,8 +110,8 @@ abstract class DPA_Extension {
 	protected $rss_url      = '';
 
 	/**
-	 * Set this to an unique string representing your plugin. This is used for keying indexes
-	 * and is also output on elements' class properties in the templates.
+	 * Set this to your plugin's svn.wp-plugins.org slug. e.g. http://svn.wp-plugins.org/[your_plugin_slug]/
+	 * This is used for keying indexes and is also output on elements' class properties in the templates.
 	 *
 	 * @see DPA_Extension::get_id();
 	 * @since 3.0

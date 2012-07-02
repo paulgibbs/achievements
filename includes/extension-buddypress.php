@@ -95,7 +95,7 @@ class DPA_BuddyPress_Extension extends DPA_Extension {
 		);
 
 		$this->description = __( 'Social networking in a box. Build a social network for your company, school, sports team or niche community.', 'dpa' );
-		$this->id          = 'BuddyPress';
+		$this->id          = 'buddypress';
 		$this->image_url   = 'http://placekitten.com/772/250';
 		$this->name        = __( 'BuddyPress', 'dpa' );
 		$this->rss_url     = 'http://buddypress.org/blog/feed/';
