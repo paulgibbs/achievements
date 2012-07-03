@@ -388,7 +388,9 @@ final class Achievements {
 
 		// CPT rewrite
 		$rewrite['achievement'] = array(
-			'feeds'      => false,
+			'ep_mask'    => 0,      // EP_ROOT - removes comment-page rewrite rules
+			'feed'       => false,  // Remove feed rewrite rules
+			'feeds'      => false,  // Remove feed rewrite rules (this is what the parameter ought to be)
 			'pages'      => false,
 			'slug'       => dpa_get_achievement_slug(),
 			'with_front' => false,
@@ -517,7 +519,7 @@ final class Achievements {
 			'rewrite'               => false,
 			'show_in_nav_menus'     => false,
 			'show_tagcloud'         => false,
-			'show_ui'               => true,  // @todo Temp for dev
+			'show_ui'               => true,  // @todo Achievements: temp for dev
 			'update_count_callback' => '_update_post_term_count',
 		) );
 
