@@ -535,6 +535,7 @@ final class Achievements {
 	 * Register endpoints
 	 *
 	 * @since 3.0
+	 * @todo Use the 'template_include' action to conditionally switch the 'achievements' endpoint to a custom template
 	 */
 	public function register_endpoints() {
 		add_rewrite_endpoint( dpa_get_authors_endpoint(), EP_AUTHORS );  // /authors/paul/[achievements]
