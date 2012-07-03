@@ -365,7 +365,7 @@ final class Achievements {
 	 *
 	 * @since 3.0
 	 */
-	public static function register_post_types() {
+	public function register_post_types() {
 		$cpt = $labels = $rewrite = $supports = array();
 
 		// CPT labels
@@ -459,7 +459,7 @@ final class Achievements {
 	 *
 	 * @since 3.0
 	 */
-	public static function register_post_statuses() {
+	public function register_post_statuses() {
 		// Locked
 		register_post_status(
 			dpa_get_locked_status_id(),
@@ -492,7 +492,7 @@ final class Achievements {
 	 *
 	 * @since 3.0
 	 */
-	public static function register_taxonomies() {
+	public function register_taxonomies() {
 		$labels = $tax = array();
 
 		// Event tax labels
@@ -536,7 +536,7 @@ final class Achievements {
 	 *
 	 * @since 3.0
 	 */
-	public static function register_endpoints() {
+	public function register_endpoints() {
 		add_rewrite_endpoint( dpa_get_authors_endpoint(), EP_AUTHORS );  // /authors/paul/[achievements]
 	}
 
