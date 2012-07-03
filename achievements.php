@@ -388,9 +388,9 @@ final class Achievements {
 
 		// CPT rewrite
 		$rewrite['achievement'] = array(
-			'ep_mask'    => 0,      // EP_ROOT - removes comment-page rewrite rules
-			'feed'       => false,  // Remove feed rewrite rules
-			'feeds'      => false,  // Remove feed rewrite rules (this is what the parameter ought to be)
+			'ep_mask'    => 0,                           // EP_ROOT - removes comment-page rewrite rules
+			'feed'       => false,                       // Remove feed rewrite rules
+			'feeds'      => false,                       // Remove feed rewrite rules (this is what the parameter ought to be)
 			'pages'      => false,
 			'slug'       => dpa_get_achievement_slug(),
 			'with_front' => false,
