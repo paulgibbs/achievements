@@ -221,7 +221,8 @@ final class Achievements {
 		 * up a pre_option filter which loads from achievements()->options if an option
 		 * has been set there. This saves a lot of conditionals throughout the plugin.
 		 */
-		if ( is_multisite() && dpa_is_running_networkwide() ) {
+
+		if ( is_multisite() && (bool) get_site_option( '_dpa_run_networkwide', false ) ) {
 			$options = dpa_get_default_options();
 			foreach ( $options as $option_name => $option_value )
 				achievements()->options[$option_name] = get_site_option( $option_name );
