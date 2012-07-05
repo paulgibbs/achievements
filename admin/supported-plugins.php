@@ -369,6 +369,7 @@ function dpa_supported_plugins_grid() {
 	// Get supported plugins
 	$extensions = achievements()->extensions;
 
+	echo '<div class="wrapper"><div>';
 	foreach ( $extensions as $extension ) {
 		// Record if the plugin is installed by setting the class
 		$class = _dpa_is_plugin_installed( $extension->get_id() ) ? ' installed' : ' notinstalled';
@@ -381,6 +382,7 @@ function dpa_supported_plugins_grid() {
 			esc_attr( $extension->get_name() )
 		);
 	}
+	echo '</div></div>';
 }
 
 /**

@@ -317,12 +317,16 @@ div.grid:after {
 div.grid:after {
   clear: both;
 }
-div.grid a {
-  display: inline-block;
-  margin: 0 10px 6px 0;
+div.grid .wrapper {
+  overflow: auto;
+  width: 100%;
 }
-div.grid a img {
-  width: 386px;
+div.grid .wrapper div {
+  margin-top: -10px;
+}
+div.grid .wrapper div img {
+  width: 48%;
+  margin: 10px 10px 0 0;
 }
 div.grid .plugin {
   -webkit-border-radius: 6px;
@@ -334,6 +338,14 @@ div.grid .plugin {
   -webkit-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.25);
   -moz-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.25);
   box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.25);
+}
+@media only screen and (max-width: 900px) {
+  div.grid .wrapper div img {
+    width: 100%;
+  }
+}
+@media only screen and (min-width: 901px) {
+  
 }
 div.list {
   display: none;
