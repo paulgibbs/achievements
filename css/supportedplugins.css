@@ -344,9 +344,6 @@ div.grid .plugin {
     width: 100%;
   }
 }
-@media only screen and (min-width: 901px) {
-  
-}
 div.list {
   display: none;
   margin-top: 10px;
