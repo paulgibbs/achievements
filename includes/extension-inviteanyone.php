@@ -58,7 +58,7 @@ class DPA_InviteAnyone_Extension extends DPA_Extension {
 
 		$this->description = __( "Makes BuddyPress's invitation features more powerful.", 'dpa' );
 		$this->id          = 'invite-anyone';
-		$this->image_url   = 'http://placekitten.com/772/250';
+		$this->image_url   = trailingslashit( achievements()->plugin_url ) . 'images/placeholder.png';
 		$this->name        = __( 'Invite Anyone', 'dpa' );
 		$this->rss_url     = 'http://teleogistic.net/feed/';
 		$this->version     = 1;

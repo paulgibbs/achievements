@@ -57,7 +57,7 @@ class DPA_WordPress_Extension extends DPA_CPT_Extension {
 		$this->contributors  = array();
 		$this->description   = __( 'WordPress started in 2003 with a single bit of code to enhance the typography of everyday writing and with fewer users than you can count on your fingers and toes. Since then it has grown to be the largest self-hosted blogging tool in the world, used on millions of sites and seen by tens of millions of people every day.', 'dpa' );
 		$this->id            = 'wordpress';
-		$this->image_url     = 'http://placekitten.com/772/250';
+		$this->image_url     = trailingslashit( achievements()->plugin_url ) . 'images/placeholder.png';
 		$this->name          = __( 'WordPress', 'dpa' );
 		$this->rss_url       = 'http://wordpress.org/news/feed/';
 		$this->version       = 1;
