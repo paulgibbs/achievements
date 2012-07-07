@@ -100,88 +100,7 @@ function dpa_update_filters(event, sss, ddd) {
 	$.cookie( 'dpa_sp_filter', current_filter, {path: '/'} );
 }
 
-/**
- * Switch current view to $new_view.
- *
- * Updates visible content and view tab state.
- *
- * @param string new_view
- * @param object event
- * @since 3.0
- */
-function dpa_switch_view(new_view, event) {
-	// Truncate whitespace
-	new_view = $.trim(new_view);
-
-	// Hide old view, show new view.
-	$('#post-body-content > .current, #dpa-toolbar-views li.current').removeClass('current');
-	$('#post-body-content > .' + new_view).addClass('current');
-	$('#dpa-toolbar-views li a.' + new_view).parent().addClass('current');
-
-	// Update the visible plugins for the search results and the installed/not installed/all plugins filters.
-	dpa_update_filters(event);
-
-	// Save the new_view to a cookie
-	$.cookie( 'dpa_sp_view', new_view, {path: '/'} );
-}
-
-/**
- * Select a plugin in the detail view. Updates visible content and plugin list selected item.
- *
- * Hi! You might be wondering why I suffix an empty space onto the end of the
- * plugin slug. Sometimes, the slug is a single word and doesn't have any spaces.
- * So this helps avoid weird jQuery errors.
- *
- * @param string slug
- * @since 3.0
- */
-function dpa_show_plugin(slug) {
-	slug = slug + ' ';
-	slug = slug.substr(0, slug.indexOf(' '));
-
-	// Select plugin in the dropdown box
-	$('#dpa-details-plugins option:selected').prop("selected", false);
-	$('#dpa-details-plugins .' + slug).prop("selected", true);
-
-	// Show detail panel for the selected plugin
-	$('#dpa-detail-contents > div').removeClass('current');
-	$('#dpa-detail-contents .' + slug).addClass('current');
-
-	// Save plugin slug to a cookie
-	$.cookie( 'dpa_sp_lastplugin', slug, {path: '/'} );
-}
-
 $(document).ready(function() {
-	// Detail view - update content when new plugin is clicked
-	$('#dpa-details-plugins').on('click.achievements', function(event) {
-		event.preventDefault();
-		dpa_show_plugin($(this).children(':selected').prop('class'));
-	});
-
-	// List view - switch to Detail view when a plugin's logo is clicked
-	$('#post-body-content > .list .plugin img').on('click.achievements', function(event) {
-		event.preventDefault();
-
-		dpa_switch_view('detail', event);
-		dpa_show_plugin($(this).prop('class'));
-	});
-
-	// Grid view - switch to Detail view when a plugin is clicked
-	$('#post-body-content > .grid a').on('click.achievements', function(event) {
-		event.preventDefault();
-
-		dpa_switch_view('detail', event);
-		dpa_show_plugin($(this).children('img').prop('class'));
-	});
-
-	// Switch state of toolbar views, and update main display
-	$('#dpa-toolbar-wrapper li a').on('click.achievements', function(event) {
-		// Switch the view
-		if ( !$(this).hasClass('current') ) {
-			dpa_switch_view($(this).prop('class'), event);
-		}
-	});
-
 	// Never submit the search field
 	$('#dpa-toolbar').submit(function(event) {
 		event.stopPropagation();
@@ -192,8 +111,7 @@ $(document).ready(function() {
 			var new_plugin = $('#post-body-content > .grid a:visible img');
 
 			$('#dpa-toolbar-search').val('');
-			dpa_switch_view('detail', event);
-			dpa_show_plugin(new_plugin.prop('class'));
+			// @todo Reimplement - maybe let form submission through?
 		}
 	});
 
