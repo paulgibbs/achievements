@@ -286,7 +286,10 @@ function dpa_supported_plugins_list() {
 						?>
 					</td>
 
-					<td class="name"><?php echo esc_html( $plugin_name ); ?></td>
+					<td class="name">
+						<?php echo esc_html( $plugin_name ); ?>
+						<!-- <br><span style="font-weight: normal"><?php echo esc_html( $extension->get_description() ); ?></span> -->
+					</td>
 
 					<?php /* <!-- <td class="rating">
 						<div class="star-holder" title="<?php printf( __( 'Rated %1$s out of 100 by the WordPress.org community', 'dpa' ), number_format_i18n( $plugin->rating ) ); ?>">
@@ -342,7 +345,7 @@ function dpa_supported_plugins_list() {
 
 							printf( '<a href="%1$s"><img src="%2$s" alt="%3$s" title="%4$s" /></a>',
 								esc_attr( esc_url( $contributor['profile_url']  ) ),
-								esc_attr( esc_url( $contributor['gravatar_url'] ) ),
+								esc_attr( esc_url( add_query_arg( 's', '24', $contributor['gravatar_url'] ) ) ),
 								esc_attr( $name ),
 								esc_attr( $name )
 							);

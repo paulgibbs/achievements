@@ -367,10 +367,8 @@ div.list .contributors img {
   -webkit-box-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
   -moz-box-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
   box-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
-  height: 24px;
   margin: 0 10px 0 0;
   padding: 2px;
-  width: 24px;
 }
 div.list .installed {
   font-weight: bold;
