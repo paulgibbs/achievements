@@ -44,15 +44,42 @@ function dpa_supported_plugins_on_load() {
 }
 
 /**
+ * Returns the filter choice of the Supported Plugins Detail screen 
+ *
+ * @return string Name of filter (either 0, 1, or 'all')
+ * @since 3.0
+ */
+function dpa_supported_plugins_get_filter() {
+	$allowed_filters = array( '0', '1', 'all' );
+	$filter          = ! empty( $_GET['filter'] ) && in_array( $_GET['filter'], $allowed_filters ) ? $_GET['filter'] : 'all';
+
+	return apply_filters( 'dpa_supported_plugins_get_filter', $filter );
+}
+
+/**
+ * Returns the name of the Supported Plugins screen view
+ *
+ * @return string Name of view (either detail, grid, or list)
+ * @since 3.0
+ */
+function dpa_supported_plugins_get_view() {
+	$allowed_views = array( 'detail', 'grid', 'list' );
+	$view          = ! empty( $_GET['view'] ) && in_array( $_GET['view'], $allowed_views ) ? $_GET['view'] : 'grid';
+
+	return apply_filters( 'dpa_supported_plugins_get_view', $view );
+}
+
+/**
  * Supported Plugins admin screen
  *
  * @since 3.0
  */
 function dpa_supported_plugins() {
-	$view = 'grid';
+	// Get current view of the Supported Plugins screen
+	$view = dpa_supported_plugins_get_view();
 ?>
-
 	<div class="wrap">
+
 		<?php screen_icon( 'options-general' ); ?>
 		<h2><?php _e( 'Supported Plugins', 'dpa' ); ?></h2>
 
@@ -61,15 +88,21 @@ function dpa_supported_plugins() {
 				<div id="post-body-content">
 					<?php dpa_supported_plugins_header(); ?>
 
-					<div class="detail <?php if ( 'detail' == $view ) echo 'current'; ?>"><?php dpa_supported_plugins_detail(); ?></div>
-					<div class="list <?php if ( 'list' == $view ) echo 'current'; ?>"><?php dpa_supported_plugins_list(); ?></div>
-					<div class="grid <?php if ( 'grid' == $view ) echo 'current'; ?>"><?php dpa_supported_plugins_grid(); ?></div>
+					<?php if ( 'detail' == $view ) : ?>
+						<div class="detail current"><?php dpa_supported_plugins_detail(); ?></div>
+
+					<?php elseif ( 'grid' == $view ) : ?>
+						<div class="grid current"><?php dpa_supported_plugins_grid(); ?></div>
+
+					<?php elseif ( 'list' == $view ) : ?>
+						<div class="list current"><?php dpa_supported_plugins_list(); ?></div>
+
+					<?php endif; ?>
 				</div>
 			</div><!-- #post-body -->
-
 		</div><!-- #poststuff -->
-	</div><!-- .wrap -->
 
+	</div><!-- .wrap -->
 <?php
 }
 
@@ -79,33 +112,35 @@ function dpa_supported_plugins() {
  * @since 1.0
  */
 function dpa_supported_plugins_header() {
-	$filter = 'all';
-	$view = 'grid';
-	?>
+	// Get current filter and view of the Supported Plugins screen
+	$filter = dpa_supported_plugins_get_filter();
+	$view   = dpa_supported_plugins_get_view();
+
+	// Build URL
+	$page_url = remove_query_arg( _dpa_supported_plugin_get_queryargs(), $_SERVER['REQUEST_URI'] );
+	$page_url = add_query_arg( 'filter', $filter, $page_url );
+?>
 	<form class="dpa-toolbar" enctype="multipart/form-data" id="dpa-toolbar" method="post"  name="dpa-toolbar">
 
-		<?php // Required to remember the state of the metaboxes on the Detail view ?>
-		<?php wp_nonce_field( 'closedpostboxes', 'closedpostboxesnonce', false ); ?>
-		<?php wp_nonce_field( 'meta-box-order', 'meta-box-order-nonce', false ); ?>
-
 		<div id="dpa-toolbar-wrapper">
-			<input type="search" results="5" name="dpa-toolbar-search" id="dpa-toolbar-search" placeholder="<?php esc_attr_e( 'Search for a plugin...', 'dpa' ); ?>" />
+			<input type="search" results="5" name="dpa-toolbar-search" id="dpa-toolbar-search" spellcheck="false" placeholder="<?php esc_attr_e( 'Search for a plugin...', 'dpa' ); ?>" />
 
 			<select class="<?php if ( ! $GLOBALS['is_gecko'] ) echo 'dpa-ff-hack'; ?>" name="dpa-toolbar-filter" id="dpa-toolbar-filter">
-				<option value="all" <?php selected( $filter, 'all' ); ?>><?php esc_html_e( 'All Plugins', 'dpa' ); ?></option>
+				<option value="all" <?php selected( $filter, 'all' ); ?>><?php esc_html_e( 'All Plugins', 'dpa' );       ?></option>
 				<option value="0"   <?php selected( $filter, '0'   ); ?>><?php esc_html_e( 'Available Plugins', 'dpa' ); ?></option>
 				<option value="1"   <?php selected( $filter, '1'   ); ?>><?php esc_html_e( 'Installed Plugins', 'dpa' ); ?></option>
 			</select>
 
 			<ul id="dpa-toolbar-views">
-				<li class="<?php if ( 'grid' == $view ) echo 'current'; ?>"><a class="grid" title="<?php esc_attr_e( 'Grid view', 'dpa' ); ?>" href="#"></a></li>
-				<li class="<?php if ( 'list' == $view ) echo 'current'; ?>"><a class="list" title="<?php esc_attr_e( 'List view', 'dpa' ); ?>" href="#"></a></li>
-				<li class="<?php if ( 'detail' == $view ) echo 'current'; ?>"><a class="detail" title="<?php esc_attr_e( 'Detail view', 'dpa' ); ?>" href="#"></a></li>
+					<li class="grid <?php if ( 'grid' == $view ) echo 'current'; ?>"><a class="grid" title="<?php esc_attr_e( 'Grid view', 'dpa' ); ?>" href="<?php echo esc_url( add_query_arg( 'view', 'grid', $page_url ) ); ?>"></a></li>
+					<li class="list <?php if ( 'list' == $view ) echo 'current'; ?>"><a class="list" title="<?php esc_attr_e( 'List view', 'dpa' ); ?>" href="<?php echo esc_url( add_query_arg( 'view', 'list', $page_url ) ); ?>"></a></li>
+					<li class="detail <?php if ( 'detail' == $view ) echo 'current'; ?>"><a class="detail" title="<?php esc_attr_e( 'Detail view', 'dpa' ); ?>" href="<?php echo esc_url( add_query_arg( 'view', 'detail', $page_url ) ); ?>"></a></li>
+
 			</ul>
 		</div>
 
 	</form>
-	<?php
+<?php
 }
 
 /**
@@ -206,6 +241,14 @@ function dpa_supported_plugins_detail() {
  * @since 3.0
  */
 function dpa_supported_plugins_list() {
+	// Get current filter and view of the Supported Plugins screen
+	$filter = dpa_supported_plugins_get_filter();
+	$view   = dpa_supported_plugins_get_view();
+
+	// Build URL
+	$page_url = remove_query_arg( _dpa_supported_plugin_get_queryargs(), $_SERVER['REQUEST_URI'] );
+	$page_url = add_query_arg( 'filter', $filter, $page_url );
+
 	// Get supported plugins
 	$extensions = achievements()->extensions;
 
@@ -214,6 +257,7 @@ function dpa_supported_plugins_list() {
 	//	uasort( $extensions, create_function( '$a, $b', 'return strnatcasecmp($a->rating, $b->rating);' ) );
 
 	// Sort by plugin status (installed, not installed)
+	// @todo Achievements - reimplement this for 3.0
 	//elseif ( ! empty( $_GET['order'] ) && 'status' == $_GET['order'] )
 	//	uasort( $extensions, create_function( '$a, $b', 'return strnatcasecmp($a->install_status["status"], $b->install_status["status"]);' ) );
 
@@ -223,7 +267,9 @@ function dpa_supported_plugins_list() {
 	uasort( $extensions_array, create_function( '$a, $b', 'return strnatcasecmp($a->get_name(), $b->get_name());' ) );
 
 	// Build URL for non-javascript table sorting
-	$redirect_to = remove_query_arg( array(), self_admin_url( 'edit.php?post_type=dpa_achievement&page=achievements-plugins' ) );
+	$redirect_to = remove_query_arg( _dpa_supported_plugin_get_queryargs(), self_admin_url( 'edit.php?post_type=dpa_achievement&page=achievements-plugins' ) );
+	$redirect_to = add_query_arg( 'filter', $filter, $page_url );
+	$redirect_to = add_query_arg( 'view',   'list',  $page_url );
 ?>
 
 	<table class="widefat">
@@ -251,27 +297,30 @@ function dpa_supported_plugins_list() {
 		<tbody>
 
 			<?php foreach ( $extensions as $extension ) :
-			// Record if the plugin is installed by setting the class
+			// Mark if the plugin is installed by setting the class
 			$is_plugin_installed = _dpa_is_plugin_installed( $extension->get_id() );
-			$class               =  $is_plugin_installed ? ' installed' : ' notinstalled';
+
+			// Construct plugin's <img> tag
+			$plugin_class     = sanitize_html_class( $extension->get_id() );
+			$plugin_name      = convert_chars( wptexturize( $extension->get_name() ) );
+			$plugin_image_url = sprintf( '<img src="%1$s" alt="%2$s" title="%3$s" class="%4$s" />',
+				esc_url( $extension->get_image_url() ),
+				esc_attr( $plugin_name ),
+				esc_attr( $plugin_name ),
+				esc_attr( $plugin_class )
+			);
+
+			// Build URL to the current plugin's detail screen
+			$plugin_page_url = add_query_arg( array( 'plugin' => $plugin_class, 'view' => 'detail', ), $page_url );
 			?>
-				<tr class="<?php echo esc_attr( $class ); ?>">
+				<tr class="<?php echo ( $is_plugin_installed ) ? ' installed' : ' notinstalled'; ?>">
 					<td class="plugin">
-						<?php
-						$image_url   = esc_url( $extension->get_image_url() );
-						$plugin_name = convert_chars( wptexturize( $extension->get_name() ) );
- 						printf( '<img src="%1$s" alt="%2$s" title="%3$s" class="%4$s" />',
- 							esc_url( $image_url ),
- 							esc_attr( $plugin_name ),
- 							esc_attr( $plugin_name ),
- 							esc_attr( sanitize_html_class( $extension->get_id() ) )
- 						);
-						?>
+						<a href="<?php echo esc_url( $plugin_page_url ); ?>"><?php echo $plugin_image_url; ?></a>
 					</td>
 
 					<td class="name">
-						<?php echo esc_html( $plugin_name ); ?>
-						<!-- <br><span style="font-weight: normal"><?php echo esc_html( $extension->get_description() ); ?></span> -->
+						<a href="<?php echo esc_url( $plugin_page_url ); ?>"><?php echo esc_html( $plugin_name ); ?></a>
+						<!-- <br><span style="font-weight: normal"><?php echo esc_html( convert_chars( wptexturize( $extension->get_description() ) ) ); ?></span> -->
 					</td>
 
 					<?php /* <!-- <td class="rating">
@@ -288,16 +337,16 @@ function dpa_supported_plugins_list() {
 					<?php
 					// Is the plugin installed? Yes.
 					if ( $is_plugin_installed ) {
-						echo '<td class="installed"><span class="installed">' . __( 'Ready', 'dpa' ) . '</span></td>';
+						printf( '<td class="installed"><span class="installed">%1$s</span></td>', _x( 'Ready', 'A plugin is installed', 'dpa' ) );
 
-					// It's not installed
+					// No, it isn't.
 					} else {
 						echo '<td class="notinstalled">';
 
 						// If current user can install plugins, link directly to the plugn install screen
 						if ( current_user_can( 'install_plugins' ) || current_user_can( 'update_plugins' ) ) {
 							printf( '<a class="thickbox" href="%2$s">%1$s</a>',
-								__( 'Not installed', 'dpa' ),
+								_x( 'Not installed', 'A plugin is not installed', 'dpa' ),
 
 								// Build install plugin URL
 								admin_url( add_query_arg(
@@ -313,7 +362,7 @@ function dpa_supported_plugins_list() {
 							);
 						
 						} else {
-							_e( 'Not installed', 'dpa' );
+							_ex( 'Not installed', 'A plugin is not installed', 'dpa' );
 						}
 
 						echo '</td>';
@@ -352,20 +401,29 @@ function dpa_supported_plugins_list() {
  * @since 3.0
  */
 function dpa_supported_plugins_grid() {
+	// Get current filter of the Supported Plugins screen
+	$filter = dpa_supported_plugins_get_filter();
+
 	// Get supported plugins
 	$extensions = achievements()->extensions;
 
 	echo '<div class="wrapper"><div>';
 	foreach ( $extensions as $extension ) {
+		// Build URL to link to Detail view
+		$plugin_slug = sanitize_html_class( $extension->get_id() );	
+		$page_url    = remove_query_arg( _dpa_supported_plugin_get_queryargs(), $_SERVER['REQUEST_URI'] );
+		$page_url    = add_query_arg( array( 'filter' => $filter, 'plugin' => $plugin_slug, 'view' => 'detail', ), $page_url );
+
 		// Record if the plugin is installed by setting the class
 		$class = _dpa_is_plugin_installed( $extension->get_id() ) ? ' installed' : ' notinstalled';
 
 		// Output plugin's grid item
-		printf( '<a href="#" class="%1$s"><img class="%2$s" src="%3$s" alt="%4$s" title="%4$s" /></a>', 
+		printf( '<a href="%5$s" class="%1$s"><img class="%2$s" src="%3$s" alt="%4$s" title="%4$s" /></a>', 
 			esc_attr( $class ),
 			esc_attr( sanitize_html_class( $extension->get_id() ) ),
 			esc_attr( $extension->get_image_url() ),
-			esc_attr( $extension->get_name() )
+			esc_attr( $extension->get_name() ),
+			esc_url( $page_url )
 		);
 	}
 	echo '</div></div>';
@@ -377,7 +435,8 @@ function dpa_supported_plugins_grid() {
  * @since 3.0
  */
 function dpa_supported_plugins_mb_switcher() {
-	$last_plugin = '';
+	// Get current plugin selection from URL
+	$plugin = ! empty( $_GET['plugin'] ) ? $_GET['plugin'] : '';
 
 	// Build dropdown box
 	echo '<select id="dpa-details-plugins">';
@@ -396,7 +455,7 @@ function dpa_supported_plugins_mb_switcher() {
 		// Build option for the plugin
 		printf( '<option class="%1$s" %2$s>%3$s</option>',
 			esc_attr( $class ),
-			selected( $last_plugin, $extension->get_id() ),
+			selected( $plugin, $extension->get_id() ),
 			esc_html( convert_chars( wptexturize( $extension->get_name() ) ) )
 		);
 	}
@@ -450,6 +509,17 @@ function dpa_supported_plugins_mb_info( $null, $plugins ) {
 	</ul>
 
 <?php
+}
+
+/**
+ * Return the list of $_GET variable names that are used across the Supported Plugins screens.
+ *
+ * @access private
+ * @return array
+ * @since 3.0
+ */
+function _dpa_supported_plugin_get_queryargs() {
+	return array( 'filter', 'plugin', 'view', );
 }
 
 /**
