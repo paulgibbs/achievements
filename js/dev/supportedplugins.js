@@ -95,9 +95,6 @@ function dpa_update_filters(event, sss, ddd) {
 		// Reset the visibility markers for future iterations
 		item.removeClass('hideme').removeClass('showme');
 	});
-
-	// Save current filter selection to a cookie
-	$.cookie( 'dpa_sp_filter', current_filter, {path: '/'} );
 }
 
 $(document).ready(function() {

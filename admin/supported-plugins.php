@@ -49,11 +49,7 @@ function dpa_supported_plugins_on_load() {
  * @since 3.0
  */
 function dpa_supported_plugins() {
-	// See if a cookie has been set to remember which view the user was on last. Defaults to 'grid'.
-	if ( ! empty( $_COOKIE['dpa_sp_view'] ) && in_array( trim( $_COOKIE['dpa_sp_view'] ), array( 'detail', 'list', 'grid', ) ) )
-	 	$view = trim( $_COOKIE['dpa_sp_view'] );
-	else
-		$view = 'grid';
+	$view = 'grid';
 ?>
 
 	<div class="wrap">
@@ -83,17 +79,8 @@ function dpa_supported_plugins() {
  * @since 1.0
  */
 function dpa_supported_plugins_header() {
-	// See if a cookie has been set to remember which view the user was on last. Defaults to 'grid'.
-	if ( ! empty( $_COOKIE['dpa_sp_view'] ) && in_array( trim( $_COOKIE['dpa_sp_view'] ), array( 'detail', 'list', 'grid', ) ) )
-	 	$view = trim( $_COOKIE['dpa_sp_view'] );
-	else
-		$view = 'grid';
-
-	// See if a cookie has been set to remember which filter the user was on last. Defaults to 'all'.
-	if ( ! empty( $_COOKIE['dpa_sp_filter'] ) && in_array( trim( $_COOKIE['dpa_sp_filter'] ), array( 'all', '0', '1', ) ) )
-	 	$filter = trim( $_COOKIE['dpa_sp_filter'] );
-	else
-		$filter = 'all';
+	$filter = 'all';
+	$view = 'grid';
 	?>
 	<form class="dpa-toolbar" enctype="multipart/form-data" id="dpa-toolbar" method="post"  name="dpa-toolbar">
 
@@ -132,10 +119,6 @@ function dpa_supported_plugins_header() {
  */
 function dpa_supported_plugins_detail() {
 	$last_plugin = '';
-
-	// See if a cookie has been set to remember the last viewed plugin
-	if ( ! empty( $_COOKIE['dpa_sp_lastplugin'] ) )
-		$last_plugin = trim( $_COOKIE['dpa_sp_lastplugin'] );
 
 	// Get supported plugins
 	$extensions = achievements()->extensions;
@@ -395,10 +378,6 @@ function dpa_supported_plugins_grid() {
  */
 function dpa_supported_plugins_mb_switcher() {
 	$last_plugin = '';
-
-	// See if a cookie has been set to remember the last viewed plugin
-	if ( ! empty( $_COOKIE['dpa_sp_lastplugin'] ) )
-		$last_plugin = trim( $_COOKIE['dpa_sp_lastplugin'] );
 
 	// Build dropdown box
 	echo '<select id="dpa-details-plugins">';
