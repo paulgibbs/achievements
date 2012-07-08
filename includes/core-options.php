@@ -102,7 +102,7 @@ function dpa_pre_get_option( $value = false ) {
 	$option = str_replace( 'pre_option_', '', current_filter() );
 
 	// Check the options global for preset value
-	if ( ! empty( achievements()->options[$option] ) )
+	if ( isset( achievements()->options[$option] ) )
 		$value = achievements()->options[$option];
 
 	return $value;
