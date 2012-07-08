@@ -89,13 +89,13 @@ function dpa_supported_plugins() {
 					<?php dpa_supported_plugins_header(); ?>
 
 					<?php if ( 'detail' == $view ) : ?>
-						<div class="detail current"><?php dpa_supported_plugins_detail(); ?></div>
+						<div class="detail"><?php dpa_supported_plugins_detail(); ?></div>
 
 					<?php elseif ( 'grid' == $view ) : ?>
-						<div class="grid current"><?php dpa_supported_plugins_grid(); ?></div>
+						<div class="grid"><?php dpa_supported_plugins_grid(); ?></div>
 
 					<?php elseif ( 'list' == $view ) : ?>
-						<div class="list current"><?php dpa_supported_plugins_list(); ?></div>
+						<div class="list"><?php dpa_supported_plugins_list(); ?></div>
 
 					<?php endif; ?>
 				</div>

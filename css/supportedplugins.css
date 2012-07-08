@@ -68,9 +68,6 @@
 #post-body-content {
   margin: 18px 0 0;
 }
-#post-body-content .current {
-  display: block !important;
-}
 /**
  * Everything to do with the search/filter Toolbar
  */
@@ -305,7 +302,6 @@
 }
 div.grid {
   *zoom: 1;
-  display: none;
   margin-top: 10px;
   text-align: center;
 }
@@ -345,7 +341,6 @@ div.grid .plugin {
   }
 }
 div.list {
-  display: none;
   margin-top: 10px;
   *zoom: 1;
 }
@@ -383,7 +378,6 @@ div.list .plugin img:hover {
   cursor: pointer;
 }
 div.detail {
-  display: none;
   margin-top: 10px;
 }
 div.detail #dpa-info-column {
@@ -501,7 +495,6 @@ div.detail #dpa-details-plugins {
   font-size: 15px;
 }
 #dpa-detail-contents > div {
-  display: none;
   float: left;
   margin-top: 10px;
 }
