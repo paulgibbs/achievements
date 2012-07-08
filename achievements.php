@@ -520,7 +520,7 @@ final class Achievements {
 			'rewrite'               => false,
 			'show_in_nav_menus'     => false,
 			'show_tagcloud'         => false,
-			'show_ui'               => true,  // @todo Achievements: temp for dev
+			'show_ui'               => false,
 			'update_count_callback' => '_update_post_term_count',
 		) );
 
