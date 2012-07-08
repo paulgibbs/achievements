@@ -74,6 +74,9 @@ add_action( 'dpa_ready', 'dpa_register_events',         20 );
 add_action( 'make_ham_user',  'dpa_make_ham_user'  );
 add_action( 'make_spam_user', 'dpa_make_spam_user' );
 
+// Actions for extension support
+add_action( 'bp_init', 'dpa_bp_loaded' );
+
 /**
  * Plugin Dependency
  *

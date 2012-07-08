@@ -25,11 +25,28 @@ function dpa_init_buddypress_extension() {
 add_action( 'dpa_ready', 'dpa_init_buddypress_extension' );
 
 /**
+ * This function is hooked to the "bp_init" action from BuddyPress.
+ * We use it to record that BuddyPress is active on the site.
+ *
+ * @since 3.0
+ */
+function dpa_bp_loaded() {
+	achievements()->extensions->buddypress->set_bp_loaded( true );
+}
+
+/**
  * Extension to add BuddyPress support to Achievements
  *
  * @since 3.0
  */
 class DPA_BuddyPress_Extension extends DPA_Extension {
+	/**
+	 * Is BuddyPress loaded?
+	 *
+	 * @since 3.0
+	 */
+	protected $bp_loaded = false;
+
 	/**
 	 * Constructor
 	 *
@@ -134,5 +151,24 @@ class DPA_BuddyPress_Extension extends DPA_Extension {
 		}
 
 		return (int) $user_id;
+	}
+
+	/**
+	 * Sets the bp_loaded property if BuddyPress is loaded.
+	 *
+	 * @param bool $bp_is_loaded
+	 * @since 3.0
+	 */
+	public function set_bp_loaded( $bp_is_loaded ) {
+		$this->bp_loaded = $bp_is_loaded;
+	}
+
+	/**
+	 * Returns true if BuddyPress is loaded.
+	 *
+	 * @since 3.0
+	 */
+	public function is_bp_loaded() {
+		return $this->bp_loaded;
 	}
 }
