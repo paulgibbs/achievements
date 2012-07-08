@@ -103,9 +103,9 @@ class DPA_Admin {
 	 * @since 3.0
 	 */
 	private function setup_globals() {
-		$this->admin_dir  = trailingslashit( achievements()->plugin_dir . 'admin'  );
-		$this->admin_url  = trailingslashit( achievements()->plugin_url . 'admin'  );
-		$this->images_url = trailingslashit( $this->admin_url           . 'images' );
+		$this->admin_dir  = trailingslashit( achievements()->plugin_dir . 'admin'  ); // Admin path
+		$this->admin_url  = trailingslashit( achievements()->plugin_url . 'admin'  ); // Admin URL
+		$this->images_url = trailingslashit( $this->admin_url           . 'images' ); // Admin images URL
 	}
 
 	/**
