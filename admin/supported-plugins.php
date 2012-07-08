@@ -70,6 +70,17 @@ function dpa_supported_plugins_get_view() {
 }
 
 /**
+ * Returns the name of the plugin displayed on the Supported Plugins detail view
+ *
+ * @return string Name of plugin
+ * @since 3.0
+ */
+function dpa_supported_plugins_get_plugin() {
+	$view = ! empty( $_GET['plugin'] ) ? $_GET['plugin'] : 'buddypress';
+	return apply_filters( 'dpa_supported_plugins_get_plugin', $view );
+}
+
+/**
  * Supported Plugins admin screen
  *
  * @since 3.0
@@ -132,10 +143,9 @@ function dpa_supported_plugins_header() {
 			</select>
 
 			<ul id="dpa-toolbar-views">
-					<li class="grid <?php if ( 'grid' == $view ) echo 'current'; ?>"><a class="grid" title="<?php esc_attr_e( 'Grid view', 'dpa' ); ?>" href="<?php echo esc_url( add_query_arg( 'view', 'grid', $page_url ) ); ?>"></a></li>
-					<li class="list <?php if ( 'list' == $view ) echo 'current'; ?>"><a class="list" title="<?php esc_attr_e( 'List view', 'dpa' ); ?>" href="<?php echo esc_url( add_query_arg( 'view', 'list', $page_url ) ); ?>"></a></li>
-					<li class="detail <?php if ( 'detail' == $view ) echo 'current'; ?>"><a class="detail" title="<?php esc_attr_e( 'Detail view', 'dpa' ); ?>" href="<?php echo esc_url( add_query_arg( 'view', 'detail', $page_url ) ); ?>"></a></li>
-
+				<li class="grid <?php if ( 'grid' == $view ) echo 'current'; ?>"><a class="grid" title="<?php esc_attr_e( 'Grid view', 'dpa' ); ?>" href="<?php echo esc_url( add_query_arg( 'view', 'grid', $page_url ) ); ?>"></a></li>
+				<li class="list <?php if ( 'list' == $view ) echo 'current'; ?>"><a class="list" title="<?php esc_attr_e( 'List view', 'dpa' ); ?>" href="<?php echo esc_url( add_query_arg( 'view', 'list', $page_url ) ); ?>"></a></li>
+				<li class="detail <?php if ( 'detail' == $view ) echo 'current'; ?>"><a class="detail" title="<?php esc_attr_e( 'Detail view', 'dpa' ); ?>" href="<?php echo esc_url( add_query_arg( 'view', 'detail', $page_url ) ); ?>"></a></li>
 			</ul>
 		</div>
 
@@ -153,7 +163,8 @@ function dpa_supported_plugins_header() {
  * @since 1.0
  */
 function dpa_supported_plugins_detail() {
-	$last_plugin = '';
+	// Get plugin to display
+	$plugin = dpa_supported_plugins_get_plugin();
 
 	// Get supported plugins
 	$extensions = achievements()->extensions;
@@ -173,7 +184,7 @@ function dpa_supported_plugins_detail() {
 		$class = _dpa_is_plugin_installed( $extension->get_id() ) ? ' installed' : ' notinstalled';
 		?>
 
-			<div class="<?php echo esc_attr( $class ); if ( $last_plugin == $extension->get_id() ) echo ' current'; ?>">
+			<div class="<?php echo esc_attr( $class ); if ( $plugin == $extension->get_id() ) echo ' current'; ?>">
 				<div class="plugin-title">
 					<h3><?php echo esc_html( convert_chars( wptexturize( $extension->get_name() ) ) ); ?></h3>
 					<a class="socialite twitter" href="http://twitter.com/share" data-text="<?php echo esc_attr( convert_chars( wptexturize( $extension->get_name() ) ) ); ?>" data-related="pgibbs" data-url="<?php echo esc_attr( $extension->get_wporg_url() ); ?>" target="_blank"><?php _e( 'Share on Twitter', 'dpa' ); ?></a>
