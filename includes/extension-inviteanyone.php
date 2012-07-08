@@ -56,13 +56,14 @@ class DPA_InviteAnyone_Extension extends DPA_Extension {
 			),
 		);
 
-		$this->description = __( "Makes BuddyPress's invitation features more powerful.", 'dpa' );
-		$this->id          = 'invite-anyone';
-		$this->image_url   = trailingslashit( achievements()->plugin_url ) . 'images/placeholder.png';
-		$this->name        = __( 'Invite Anyone', 'dpa' );
-		$this->rss_url     = 'http://teleogistic.net/feed/';
-		$this->version     = 1;
-		$this->wporg_url   = 'http://wordpress.org/extend/plugins/invite-anyone/';
+		$this->description     = __( "Makes BuddyPress's invitation features more powerful.", 'dpa' );
+		$this->id              = 'invite-anyone';
+		$this->image_url       = trailingslashit( achievements()->plugin_url ) . 'images/placeholder.png';
+		$this->name            = __( 'Invite Anyone', 'dpa' );
+		$this->rss_url         = 'http://teleogistic.net/feed/';
+		$this->small_image_url = trailingslashit( achievements()->plugin_url ) . 'images/placeholder-small.jpg';
+		$this->version         = 1;
+		$this->wporg_url       = 'http://wordpress.org/extend/plugins/invite-anyone/';
 
 		add_filter( 'dpa_handle_event_user_id', array( $this, 'event_user_id' ), 10, 3 );
 	}

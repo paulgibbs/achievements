@@ -315,7 +315,7 @@ function dpa_supported_plugins_list() {
 			$plugin_class     = sanitize_html_class( $extension->get_id() );
 			$plugin_name      = convert_chars( wptexturize( $extension->get_name() ) );
 			$plugin_image_url = sprintf( '<img src="%1$s" alt="%2$s" title="%3$s" class="%4$s" />',
-				esc_url( $extension->get_image_url() ),
+				esc_url( $extension->get_small_image_url() ),
 				esc_attr( $plugin_name ),
 				esc_attr( $plugin_name ),
 				esc_attr( $plugin_class )

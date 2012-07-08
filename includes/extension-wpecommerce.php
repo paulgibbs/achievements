@@ -38,7 +38,7 @@ class DPA_WPeCommerce_Extension extends DPA_Extension {
 	 * @since 3.0
 	 */
 	public function __construct() {
-		$this->actions  = array(
+		$this->actions = array(
 			'wpsc_activate_subscription' => __( 'The user sets up a PayPal Subscription', 'dpa' ),
 			'wpsc_confirm_checkout'      => __( 'The user completes checkout', 'dpa' ),
 		);
@@ -66,12 +66,13 @@ class DPA_WPeCommerce_Extension extends DPA_Extension {
 			),
 		);
 
-		$this->description = __( 'WP e-Commerce is a free WordPress Shopping Cart Plugin that lets customers buy your products, services and digital downloads online.', 'dpa' );
-		$this->id          = 'wp-e-commerce';
-		$this->image_url   = trailingslashit( achievements()->plugin_url ) . 'images/wp-e-commerce.jpg';
-		$this->name        = __( 'WP e-Commerce', 'dpa' );
-		$this->rss_url     = 'http://getshopped.org/blog/feed/';
-		$this->version     = 1;
-		$this->wporg_url   = 'http://wordpress.org/extend/plugins/wp-e-commerce/';
+		$this->description     = __( 'WP e-Commerce is a free WordPress Shopping Cart Plugin that lets customers buy your products, services and digital downloads online.', 'dpa' );
+		$this->id              = 'wp-e-commerce';
+		$this->image_url       = trailingslashit( achievements()->plugin_url ) . 'images/wp-e-commerce.jpg';
+		$this->name            = __( 'WP e-Commerce', 'dpa' );
+		$this->rss_url         = 'http://getshopped.org/blog/feed/';
+		$this->small_image_url = trailingslashit( achievements()->plugin_url ) . 'images/wp-e-commerce.jpg';
+		$this->version         = 1;
+		$this->wporg_url       = 'http://wordpress.org/extend/plugins/wp-e-commerce/';
 	}
 }

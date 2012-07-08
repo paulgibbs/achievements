@@ -88,13 +88,14 @@ class DPA_bbPress_Extension extends DPA_CPT_Extension {
  			'spam_to_publish',
 		);
 
-		$this->description = __( 'bbPress is forum software with a twist from the creators of WordPress.', 'dpa' );
-		$this->id          = 'bbpress';
-		$this->image_url   = trailingslashit( achievements()->plugin_url ) . 'images/bbpress.png';
-		$this->name        = __( 'bbPress', 'dpa' );
-		$this->rss_url     = 'http://bbpress.org/blog/feed/';
-		$this->version     = 1;
-		$this->wporg_url   = 'http://wordpress.org/extend/plugins/bbpress/';
+		$this->description     = __( 'bbPress is forum software with a twist from the creators of WordPress.', 'dpa' );
+		$this->id              = 'bbpress';
+		$this->image_url       = trailingslashit( achievements()->plugin_url ) . 'images/bbpress.png';
+		$this->name            = __( 'bbPress', 'dpa' );
+		$this->rss_url         = 'http://bbpress.org/blog/feed/';
+		$this->small_image_url = trailingslashit( achievements()->plugin_url ) . 'images/bbpress-small.png';
+		$this->version         = 1;
+		$this->wporg_url       = 'http://wordpress.org/extend/plugins/bbpress/';
 
 		// Filter the user ID
 		add_filter( 'dpa_handle_event_user_id', array( $this, 'event_user_id' ),   10, 3 );

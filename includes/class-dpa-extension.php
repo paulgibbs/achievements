@@ -51,7 +51,7 @@ abstract class DPA_Extension {
 	 * @see DPA_Extension::get_actions();
 	 * @since 3.0
 	 */
-	protected $actions      = array();
+	protected $actions         = array();
 
 	/**
 	 * You should set this to an array with these key/value pairs:
@@ -73,7 +73,7 @@ abstract class DPA_Extension {
 	 * @see DPA_Extension::get_contributors()
 	 * @since 3.0
 	 */
-	protected $contributors = array();
+	protected $contributors    = array();
 
 	/**
 	 * Set this to a short description of your plugin.
@@ -81,17 +81,29 @@ abstract class DPA_Extension {
 	 * @see DPA_Extension::get_description();
 	 * @since 3.0
 	 */
-	protected $description  = '';
+	protected $description     = '';
 
 	/**
 	 * Set this to an absolute path to your plugin's logo.
 	 *
 	 * MUST be local (e.g. on user's own site, rather than linking to your own site).
+	 * MUST be 772×250px.
 	 *
 	 * @see DPA_Extension::get_image_url();
 	 * @since 3.0
 	 */
-	protected $image_url    = '';
+	protected $image_url       = '';
+
+	/**
+	 * Set this to an absolute path a small version of your plugin's logo.
+	 *
+	 * MUST be local (e.g. on user's own site, rather than linking to your own site).
+	 * MUST be 145x57px.
+	 *
+	 * @see DPA_Extension::get_image_url();
+	 * @since 3.0
+	 */
+	protected $small_image_url = '';
 
 	/**
 	 * Set this to the name of your plugin.
@@ -99,7 +111,7 @@ abstract class DPA_Extension {
 	 * @see DPA_Extension::get_name();
 	 * @since 3.0
 	 */
-	protected $name         = '';
+	protected $name            = '';
 
 	/**
 	 * Set this to an absolute URL to a news RSS feed for this plugin. This may be your own website.
@@ -107,7 +119,7 @@ abstract class DPA_Extension {
 	 * @see DPA_Extension::get_rss_url();
 	 * @since 3.0
 	 */
-	protected $rss_url      = '';
+	protected $rss_url         = '';
 
 	/**
 	 * Set this to your plugin's svn.wp-plugins.org slug. e.g. http://svn.wp-plugins.org/[your_plugin_slug]/
@@ -116,7 +128,7 @@ abstract class DPA_Extension {
 	 * @see DPA_Extension::get_id();
 	 * @since 3.0
 	 */
-	protected $id           = '';
+	protected $id              = '';
 
 	/**
 	 * Set this to an integer representing the version of your extension (not the version of your plugin).
@@ -129,7 +141,7 @@ abstract class DPA_Extension {
 	 * @see DPA_Extension::version();
 	 * @since 3.0
 	 */
-	protected $version      = 0;
+	protected $version         = 0;
 
 	/**
 	 * Set this to an absolute URL to your plugin's page on WordPress.org.
@@ -137,7 +149,7 @@ abstract class DPA_Extension {
 	 * @see DPA_Extension::wporg_url();
 	 * @since 3.0
 	 */
-	protected $wporg_url    = '';
+	protected $wporg_url       = '';
 
 
 	/**
@@ -178,6 +190,16 @@ abstract class DPA_Extension {
 	 */
 	public function get_image_url() {
 		return $this->image_url;
+	}
+
+	/**
+	 * Return absolute URL to small size plugin image.
+	 *
+	 * @return string
+	 * @since 3.0
+	 */
+	public function get_small_image_url() {
+		return $this->small_image_url;
 	}
 
 	/**
