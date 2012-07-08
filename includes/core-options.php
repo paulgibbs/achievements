@@ -93,11 +93,11 @@ function dpa_setup_option_filters() {
  * Filter default options and allow them to be overloaded from inside the
  * achievements()->options array.
  *
- * @param bool $value
+ * @param string $value
  * @return mixed
  * @since 3.0
  */
-function dpa_pre_get_option( $value = false ) {
+function dpa_pre_get_option( $value = '' ) {
 	// Get the name of the current filter so we can manipulate it, and remove the filter prefix
 	$option = str_replace( 'pre_option_', '', current_filter() );
 
