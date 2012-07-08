@@ -89,7 +89,7 @@ function dpa_update_filters(event, sss, ddd) {
 		if (item.hasClass('showme')) {
 			item.show();
 		} else if ( item.hasClass('hideme')) {
-			item.fadeOut();
+			item.hide();
 		}
 
 		// Reset the visibility markers for future iterations
