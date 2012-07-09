@@ -44,7 +44,6 @@ class DPA_WordPress_Extension extends DPA_CPT_Extension {
 			'wordpress_draft_to_publish' => __( 'The user publishes a blog post.', 'dpa' ),
 			'signup_finished'            => __( 'A new site is created by the user (multi-site only).', 'dpa' ),
 			'trashed_post'               => __( 'The user trashes a blog post.', 'dpa' ),
-
 		);
 
 		$this->generic_cpt_actions = array(
