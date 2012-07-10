@@ -344,9 +344,6 @@ div.list {
   margin-top: 10px;
   *zoom: 1;
 }
-div.list tr:hover {
-  background-color: white;
-}
 div.list:before,
 div.list:after {
   display: table;
@@ -354,6 +351,12 @@ div.list:after {
 }
 div.list:after {
   clear: both;
+}
+div.list tr:hover {
+  background-color: white;
+}
+div.list .contributors {
+  width: 15%;
 }
 div.list .contributors img {
   -webkit-box-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
@@ -365,9 +368,6 @@ div.list .contributors img {
   margin: 0 10px 0 0;
   padding: 2px;
 }
-div.list .installed {
-  font-weight: bold;
-}
 div.list .plugin {
   width: 145px;
 }
@@ -376,6 +376,9 @@ div.list .plugin img {
 }
 div.list .plugin img:hover {
   cursor: pointer;
+}
+div.list .status {
+  width: 15%;
 }
 div.detail {
   margin-top: 10px;

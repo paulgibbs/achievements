@@ -330,8 +330,7 @@ function dpa_supported_plugins_list() {
 					</td>
 
 					<td class="name">
-						<a href="<?php echo esc_url( $plugin_page_url ); ?>"><?php echo esc_html( $plugin_name ); ?></a>
-						<!-- <br><span style="font-weight: normal"><?php echo esc_html( convert_chars( wptexturize( $extension->get_description() ) ) ); ?></span> -->
+						<?php echo esc_html( $plugin_name ); ?>
 					</td>
 
 					<?php /* <!-- <td class="rating">
@@ -348,11 +347,11 @@ function dpa_supported_plugins_list() {
 					<?php
 					// Is the plugin installed? Yes.
 					if ( $is_plugin_installed ) {
-						printf( '<td class="installed"><span class="installed">%1$s</span></td>', _x( 'Ready', 'A plugin is installed', 'dpa' ) );
+						printf( '<td class="status installed"><span class="installed">%1$s</span></td>', _x( 'Ready', 'A plugin is installed', 'dpa' ) );
 
 					// No, it isn't.
 					} else {
-						echo '<td class="notinstalled">';
+						echo '<td class="status notinstalled">';
 
 						// If current user can install plugins, link directly to the plugn install screen
 						if ( current_user_can( 'install_plugins' ) || current_user_can( 'update_plugins' ) ) {

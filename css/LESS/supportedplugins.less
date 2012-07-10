@@ -215,16 +215,18 @@ div.grid {
 
 div.list {
 	margin-top: @toolbarMargin;
+	.clearfix();
 
 	tr:hover { background-color: white; }
+	.contributors {
+		width: 15%;
 
-	.clearfix();
-	.contributors img {
-		.box-shadow( 0 0 4px rgba( 0, 0, 0, 0.4 ) );
-		margin: 0 10px 0 0;  // @todo RTL
-		padding: 2px;
+		img {
+			.box-shadow( 0 0 4px rgba( 0, 0, 0, 0.4 ) );
+			margin: 0 10px 0 0;  // @todo RTL
+			padding: 2px;
+		}
 	}
-	.installed { font-weight: bold; }
 	.plugin {
 		width: 145px; // Matches wp-admin sidebar as of WP 3.4.1
 
@@ -232,6 +234,9 @@ div.list {
 			width: 100%;
 			&:hover { cursor: pointer; }
 		}
+	}
+	.status {
+		width: 15%;
 	}
 }
 
