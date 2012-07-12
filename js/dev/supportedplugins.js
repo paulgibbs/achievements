@@ -23,7 +23,7 @@ function dpa_update_filters(event, sss, ddd) {
 	object               = '',
 
 	// Find out what view we're in. This controls what we need to search for in the DOM.
-	current_view = $('#post-body-content > .current').prop('class');
+	current_view = $('#post-body-content > div').prop('class');
 	if (current_view.indexOf('grid') >= 0) {
 		current_view = 'grid';
 		object       = '#post-body-content > .grid a';
@@ -104,7 +104,7 @@ $(document).ready(function() {
 		event.preventDefault();
 
 		// If only one plugin is visible in search results, jump to the detail view and select it.
-		if (1 === $('div.current a:visible').size() && 'detail' !== $('#post-body-content > .current').prop('class').trim() && 'list' !== $('#post-body-content > .current').prop('class').trim()) {
+		if (1 === $('#post-body-content > div a:visible').size() && 'detail' !== $('#post-body-content > div').prop('class').trim() && 'list' !== $('#post-body-content > div').prop('class').trim()) {
 			var new_plugin = $('#post-body-content > .grid a:visible img');
 
 			$('#dpa-toolbar-search').val('');
