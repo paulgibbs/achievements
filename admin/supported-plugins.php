@@ -29,8 +29,8 @@ function dpa_supported_plugins_on_load() {
 		'title'   => __( 'Views', 'dpa' ),
 		'content' =>
 			'<p>' . __( "<strong>Grid view</strong> displays high-quality artwork of each plugin, showing you at a glance the plugins supported by Achievements.", 'dpa' ) . '</p>' .
-			'<p>' . __( "<strong>List view</strong> drills down into each plugin, showing you its WordPress.org community rating, its authors, and whether you already have the plugin installed.", 'dpa' ) . '</p>' .
-			'<p>' . __( "<strong>Detail view</strong> goes even further, showing you exactly which features of the plugin are supported, and the latest news from the authors.", 'dpa' ) . '</p>'
+			'<p>' . __( "<strong>List view</strong> drills down into each plugin, showing you its authors and whether you already have the plugin installed.", 'dpa' ) . '</p>' .
+			'<p>' . __( "<strong>Detail view</strong> goes even further, showing you which features of the plugin are supported and the latest news about the plugin.", 'dpa' ) . '</p>'
 	) );
 
 	// Help panel - sidebar links
