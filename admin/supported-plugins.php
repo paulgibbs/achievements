@@ -192,7 +192,7 @@ function dpa_supported_plugins_detail() {
 		$class = _dpa_is_plugin_installed( $plugin ) ? ' installed' : ' notinstalled';
 		?>
 
-			<div class="<?php echo esc_attr( $class ); if ( $plugin == $extension->get_id() ) echo ' current'; ?>">
+			<div class="<?php echo esc_attr( $class ); ?>">
 				<div class="plugin-title">
 					<h3><?php echo esc_html( convert_chars( wptexturize( $extension->get_name() ) ) ); ?></h3>
 					<a class="socialite twitter" href="http://twitter.com/share" data-text="<?php echo esc_attr( convert_chars( wptexturize( $extension->get_name() ) ) ); ?>" data-related="pgibbs" data-url="<?php echo esc_attr( $extension->get_wporg_url() ); ?>" target="_blank"><?php _e( 'Share on Twitter', 'dpa' ); ?></a>
@@ -471,8 +471,9 @@ function dpa_supported_plugins_mb_switcher() {
 		$class = _dpa_is_plugin_installed( $extension->get_id() ) ? ' installed' : ' notinstalled';
 
 		// Build option for the plugin
-		printf( '<option class="%1$s" %2$s>%3$s</option>',
+		printf( '<option class="%1$s" data-plugin="%2$s" %3$s>%4$s</option>',
 			esc_attr( $class ),
+			sanitize_html_class( $extension->get_id() ),
 			selected( $plugin, $extension->get_id() ),
 			esc_html( convert_chars( wptexturize( $extension->get_name() ) ) )
 		);

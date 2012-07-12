@@ -112,6 +112,11 @@ $(document).ready(function() {
 		}
 	});
 
+	// When the plugin picker changes on the Detail view, reload the page to show the new plugon
+	$('#dpa-details-plugins').on('change.achievements', function() {
+		window.location.search = 'post_type=dpa_achievement&page=achievements-plugins&filter=all&view=detail&plugin=' + $(this.options[this.selectedIndex]).data('plugin');
+	});
+
 	// "All Plugins" dropdown and live search box
 	$('#dpa-toolbar-filter').on('change.achievements', dpa_update_filters);
 	$('#dpa-toolbar-search').on('keyup.achievements',  dpa_update_filters);
