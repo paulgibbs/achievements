@@ -121,7 +121,7 @@ $(document).ready(function() {
 		headers: {
 			0: { sorter: false },
 			1: { sorter: false },
-			4: { sorter: false }
+			3: { sorter: false }
 		},
 		textExtraction: function(node) {
 			return node.innerHTML;
