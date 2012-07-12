@@ -40,7 +40,7 @@ function dpa_supported_plugins_on_load() {
 	);
 
 	// Detail view - metaboxes
-//@djpaultodo	add_meta_box( 'dpa-supported-plugins-info', __( 'Plugin Information', 'dpa' ), 'dpa_supported_plugins_mb_info', 'dpa_achievement_page_achievements-plugins', 'side', 'core', array( $plugins ) );
+	add_meta_box( 'dpa-supported-plugins-info', __( 'Plugin Information', 'dpa' ), 'dpa_supported_plugins_mb_info', 'dpa_achievement_page_achievements-plugins', 'side', 'core' );
 }
 
 /**
@@ -246,7 +246,10 @@ function dpa_supported_plugins_detail() {
 				</div><!-- .plugin-rss -->
 			</div>
 
-		<?php endforeach; ?>
+		<?php
+		break;
+		endforeach; 
+		?>
 	</div>
 
 <?php
@@ -316,7 +319,7 @@ function dpa_supported_plugins_list() {
 		<tbody>
 
 			<?php foreach ( $extensions as $extension ) :
-			// Mark if the plugin is installed by setting the class
+			// Is this plugin installed?
 			$is_plugin_installed = _dpa_is_plugin_installed( $extension->get_id() );
 
 			// Construct plugin's <img> tag
@@ -453,8 +456,8 @@ function dpa_supported_plugins_grid() {
  * @since 3.0
  */
 function dpa_supported_plugins_mb_switcher() {
-	// Get current plugin selection from URL
-	$plugin = ! empty( $_GET['plugin'] ) ? $_GET['plugin'] : '';
+	// Get current plugin
+	$selected_plugin = dpa_supported_plugins_get_plugin();
 
 	// Build dropdown box
 	echo '<select id="dpa-details-plugins">';
@@ -468,13 +471,14 @@ function dpa_supported_plugins_mb_switcher() {
 			continue;
 
 		// Record if the plugin is installed by setting the class
-		$class = _dpa_is_plugin_installed( $extension->get_id() ) ? ' installed' : ' notinstalled';
+		$class       = _dpa_is_plugin_installed( $extension->get_id() ) ? ' installed' : ' notinstalled';
+		$plugin_slug = sanitize_html_class( $extension->get_id() );
 
 		// Build option for the plugin
 		printf( '<option class="%1$s" data-plugin="%2$s" %3$s>%4$s</option>',
 			esc_attr( $class ),
-			sanitize_html_class( $extension->get_id() ),
-			selected( $plugin, $extension->get_id() ),
+			$plugin_slug,
+			selected( $selected_plugin, $plugin_slug ),
 			esc_html( convert_chars( wptexturize( $extension->get_name() ) ) )
 		);
 	}
@@ -483,51 +487,88 @@ function dpa_supported_plugins_mb_switcher() {
 }
 
 /**
- * The metabox for the "plugin info" dropdown box on the Supported Plugins grid view.
- *
+ * The metabox for the "plugin info" dropdown box on the Supported Plugins Detail view.
+ * Shows: installed/not install status, contributors, description, wporg link
  * @since 3.0
  */
-function dpa_supported_plugins_mb_info( $null, $plugins ) {
-	$plugin = $plugins['args'][0][0];
-	$class  = 'temp';
+function dpa_supported_plugins_mb_info() {
+	// Get current plugin
+	$plugin = dpa_supported_plugins_get_plugin();
+
+	// Get supported plugins
+	$extensions = achievements()->extensions;
+
+	foreach ( $extensions as $extension ) :
+		// Extensions must inherit the DPA_Extension class
+		if ( ! is_a( $extension, 'DPA_Extension' ) )
+			continue;
+
+		// Only show details for the current $plugin
+		if ( $plugin != $extension->get_id() )
+			continue;
+
+		// Is this plugin installed?
+		$is_plugin_installed = _dpa_is_plugin_installed( $extension->get_id() );
 ?>
 
-	<p><?php echo convert_chars( wptexturize( $plugin->description ) ); ?></p>
+	<p><?php echo convert_chars( wptexturize( $extension->get_description() ) ); ?></p>
 	<ul>
-		<li class="status <?php echo esc_attr( $class ); ?>">
+		<li>
 			<?php
-				// Is plugin installed?
-				if ( in_array( $plugin->install_status['status'], array( 'latest_installed', 'newer_installed', 'update_available', ) ) ) {
-					_e( 'Status: Ready', 'dpa' );
+			// Is plugin installed?
+			if ( $is_plugin_installed ) {
+				_ex( 'Ready', 'A plugin is installed', 'dpa' );
 
-				// It's not installed
+			// It's not installed
+			} else {
+
+				// If current user can install plugins, link directly to the install screen
+				if ( current_user_can( 'install_plugins' ) || current_user_can( 'update_plugins' ) ) {
+					printf( '<a class="thickbox" href="%2$s">%1$s</a>',
+						_x( 'Not installed', 'A plugin is not installed', 'dpa' ),
+
+						// Build install plugin URL
+						admin_url( add_query_arg(
+							array(
+								'tab'       => 'plugin-information',
+								'plugin'    => $extension->get_id(),
+								'TB_iframe' => 'true',
+								'width'     => '640',
+								'height'    => '500'
+							),
+							'plugin-install.php'
+						) )
+					);
+
 				} else {
-
-					// If current user can install plugins, link directly to the install screen
-					if ( current_user_can( 'install_plugins' ) || current_user_can( 'update_plugins' ) )
-						printf( '%1$s <a class="thickbox" href="%2$s">%3$s</a>', __( 'Status:', 'dpa' ), esc_url( $plugin->install_url ), __( 'Not installed', 'dpa' ) );
-					else
-					_e( 'Status: Not installed', 'dpa' );
+					_ex( 'Not installed', 'A plugin is not installed', 'dpa' );
 				}
+			}
 			?>
 		</li>
 
-		<li class="links"><?php printf( '<a href="%1$s" target="_new">%2$s</a>', esc_url( $plugin->wporg_url ), __( 'More info', 'dpa' ) ); ?></li>
+		<li class="links"><?php printf( '<a href="%1$s" target="_new">%2$s</a>', esc_url( $extension->get_wporg_url() ), __( 'More info', 'dpa' ) ); ?></li>
 
 		<li class="authors">
 			<?php
-				foreach ( $plugin->contributors as $name => $gravatar_url ) {
-					// Sanitise plugin info as it may have been fetched from wporg
-					$gravatar_url = esc_url( $gravatar_url );
-					$profile_url  = esc_url( 'http://profiles.wordpress.org/users/' . urlencode( $name ) );
-					$name         = convert_chars( wptexturize( wp_kses_data( $name ) ) );
-					printf( '<a href="%1$s"><img src="%2$s" alt="%3$s" title="%4$s" /></a>', esc_attr( $profile_url ), esc_attr( $gravatar_url ), esc_attr( $name ), esc_attr( $name ) );
-				}
+			$contributors = $extension->get_contributors();
+			foreach ( $contributors as $contributor ) {
+				$name = convert_chars( wptexturize( $contributor['name'] ) );
+
+				printf( '<a href="%1$s"><img src="%2$s" alt="%3$s" title="%4$s" /></a>',
+					esc_attr( esc_url( $contributor['profile_url']  ) ),
+					esc_attr( esc_url( add_query_arg( 's', '48', $contributor['gravatar_url'] ) ) ),
+					esc_attr( $name ),
+					esc_attr( $name )
+				);
+			}
 			?>
 		</li>
 	</ul>
 
-<?php
+	<?php
+	break;
+	endforeach;
 }
 
 /**
