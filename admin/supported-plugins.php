@@ -387,7 +387,7 @@ function dpa_supported_plugins_list() {
 
 							printf( '<a href="%1$s"><img src="%2$s" alt="%3$s" title="%4$s" /></a>',
 								esc_attr( esc_url( $contributor['profile_url']  ) ),
-								esc_attr( esc_url( add_query_arg( 's', '24', $contributor['gravatar_url'] ) ) ),
+								esc_attr( esc_url( add_query_arg( 's', '48', $contributor['gravatar_url'] ) ) ),
 								esc_attr( $name ),
 								esc_attr( $name )
 							);

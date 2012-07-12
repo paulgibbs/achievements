@@ -211,6 +211,8 @@ div.grid {
 // Responsive CSS for when the wp-admin menu bar compresses
 @media only screen and (max-width: 900px) {
 	div.grid .wrapper div img { width: 100%; }
+
+	#post-body-content div.list .contributors { width: 32%; }
 }
 
 div.list {
@@ -219,13 +221,14 @@ div.list {
 
 	tr:hover { background-color: white; }
 	.contributors {
-		width: 15%;
+		width: 27%;
 
 		img {
 			.box-shadow( 0 0 4px rgba( 0, 0, 0, 0.4 ) );
+			height: 48px;
 			margin: 0 10px 0 0;  // @todo RTL
 			padding: 2px;
-			width: 24px;
+			width: 48px;
 		}
 	}
 	.plugin {

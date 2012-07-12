@@ -339,6 +339,9 @@ div.grid .plugin {
   div.grid .wrapper div img {
     width: 100%;
   }
+  #post-body-content div.list .contributors {
+    width: 32%;
+  }
 }
 div.list {
   margin-top: 10px;
@@ -356,7 +359,7 @@ div.list tr:hover {
   background-color: white;
 }
 div.list .contributors {
-  width: 15%;
+  width: 27%;
 }
 div.list .contributors img {
   -webkit-box-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
@@ -365,9 +368,10 @@ div.list .contributors img {
   -webkit-box-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
   -moz-box-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
   box-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
+  height: 48px;
   margin: 0 10px 0 0;
   padding: 2px;
-  width: 24px;
+  width: 48px;
 }
 div.list .plugin {
   width: 145px;
