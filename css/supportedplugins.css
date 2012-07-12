@@ -367,6 +367,7 @@ div.list .contributors img {
   box-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
   margin: 0 10px 0 0;
   padding: 2px;
+  width: 24px;
 }
 div.list .plugin {
   width: 145px;
