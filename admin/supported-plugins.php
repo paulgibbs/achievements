@@ -180,8 +180,16 @@ function dpa_supported_plugins_detail() {
 
 	<div id="dpa-detail-contents">
 		<?php foreach ( $extensions as $extension ) :
+		// Extensions must inherit the DPA_Extension class
+		if ( ! is_a( $extension, 'DPA_Extension' ) )
+			continue;
+
+		// Only show details for the current $plugin
+		if ( $plugin != $extension->get_id() )
+			continue;
+
 		// Record if the plugin is installed by setting the class
-		$class = _dpa_is_plugin_installed( $extension->get_id() ) ? ' installed' : ' notinstalled';
+		$class = _dpa_is_plugin_installed( $plugin ) ? ' installed' : ' notinstalled';
 		?>
 
 			<div class="<?php echo esc_attr( $class ); if ( $plugin == $extension->get_id() ) echo ' current'; ?>">
