@@ -517,7 +517,7 @@ function dpa_supported_plugins_mb_info() {
 			<?php
 			// Is plugin installed?
 			if ( $is_plugin_installed ) {
-				_ex( 'Ready', 'A plugin is installed', 'dpa' );
+				_ex( 'Status: Ready', 'A plugin is installed', 'dpa' );
 
 			// It's not installed
 			} else {
@@ -525,29 +525,29 @@ function dpa_supported_plugins_mb_info() {
 				// If current user can install plugins, link directly to the install screen
 				if ( current_user_can( 'install_plugins' ) || current_user_can( 'update_plugins' ) ) {
 					printf( '<a class="thickbox" href="%2$s">%1$s</a>',
-						_x( 'Not installed', 'A plugin is not installed', 'dpa' ),
+						_x( 'Install Plugin', 'A plugin is not installed', 'dpa' ),
 
 						// Build install plugin URL
 						admin_url( add_query_arg(
 							array(
-								'tab'       => 'plugin-information',
+								'height'    => '500',
 								'plugin'    => $extension->get_id(),
+								'tab'       => 'plugin-information',
 								'TB_iframe' => 'true',
 								'width'     => '640',
-								'height'    => '500'
 							),
 							'plugin-install.php'
 						) )
 					);
 
 				} else {
-					_ex( 'Not installed', 'A plugin is not installed', 'dpa' );
+					_ex( 'Status: Not installed', 'A plugin is not installed', 'dpa' );
 				}
 			}
 			?>
 		</li>
 
-		<li class="links"><?php printf( '<a href="%1$s" target="_new">%2$s</a>', esc_url( $extension->get_wporg_url() ), __( 'More info', 'dpa' ) ); ?></li>
+		<li class="links"><?php printf( '<a href="%1$s" target="_new">%2$s</a>', esc_url( $extension->get_wporg_url() ), __( 'More Info', 'dpa' ) ); ?></li>
 
 		<li class="authors">
 			<?php

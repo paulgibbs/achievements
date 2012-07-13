@@ -455,6 +455,7 @@ div.detail #dpa-supported-plugins-info {
   text-align: center;
 }
 div.detail #dpa-supported-plugins-info .authors a {
+  line-height: 3em;
   margin-left: 10px;
 }
 div.detail #dpa-supported-plugins-info .authors a:first-child {
@@ -537,7 +538,7 @@ div.detail #dpa-details-plugins {
 }
 #dpa-detail-contents .plugin-title h3 {
   float: left;
-  padding-right: 1.5em;
+  padding-right: 0.9em;
 }
 #dpa-detail-contents .plugin-title .socialised,
 #dpa-detail-contents .plugin-title .socialite {
