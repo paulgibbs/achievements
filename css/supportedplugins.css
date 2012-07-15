@@ -355,6 +355,9 @@ div.list:after {
 div.list:after {
   clear: both;
 }
+div.list tr {
+  cursor: pointer;
+}
 div.list tr:hover {
   background-color: white;
 }
