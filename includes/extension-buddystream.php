@@ -58,7 +58,7 @@ class DPA_BuddyStream_Extension extends DPA_Extension {
 		$this->id              = 'buddystream';
 		$this->image_url       = trailingslashit( achievements()->plugin_url ) . 'images/buddystream.jpg';
 		$this->name            = __( 'BuddyStream', 'dpa' );
-		$this->rss_url         = 'http://buddystream.net/blog/feed/';
+		$this->rss_url         = 'http://buddystream.net/feed/';
 		$this->small_image_url = trailingslashit( achievements()->plugin_url ) . 'images/buddystream-small.jpg';
 		$this->version         = 1;
 		$this->wporg_url       = 'http://wordpress.org/extend/plugins/buddystream/';
