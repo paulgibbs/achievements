@@ -32,9 +32,9 @@ function dpa_update_filters(event, sss, ddd) {
 		current_view = 'list';
 		object       = '#post-body-content > .list tbody tr';
 
+	// @todo This isn't implemented for 3.0
 	} else if (current_view.indexOf('detail') >= 0) {
-		current_view = 'detail';
-		object       = '#post-body-content > .detail > ul li';
+		return;
 	}
 
 	// Go through the DOM elements and figure out filter visibility
