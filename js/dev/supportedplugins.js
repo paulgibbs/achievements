@@ -98,21 +98,23 @@ function dpa_update_filters(event, sss, ddd) {
 }
 
 $(document).ready(function() {
-	// Never submit the search field
+	// Never submit the search field's form
 	$('#dpa-toolbar').submit(function(event) {
 		event.stopPropagation();
 		event.preventDefault();
 
 		// If only one plugin is visible in search results, jump to the detail view and select it.
-		if (1 === $('#post-body-content > div a:visible').size() && 'detail' !== $('#post-body-content > div').prop('class').trim() && 'list' !== $('#post-body-content > div').prop('class').trim()) {
-			var new_plugin = $('#post-body-content > .grid a:visible img');
+		// Grid view
+		if (1 === $('#post-body-content > .grid a:visible').size() ) {
+			window.location = $('#post-body-content > .grid a:visible').prop('href');
 
-			$('#dpa-toolbar-search').val('');
-			// @todo Reimplement - maybe let form submission through?
+		// List view
+		} else if (1 === $('#post-body-content > .list tbody tr:visible').size() ) {
+			window.location = $('#post-body-content > .list tbody tr:visible .plugin a').prop('href');
 		}
 	});
 
-	// When the plugin picker changes on the Detail view, reload the page to show the new plugon
+	// When the plugin picker changes on the Detail view, reload the page to show the new plugin
 	$('#dpa-details-plugins').on('change.achievements', function() {
 		window.location.search = 'post_type=dpa_achievement&page=achievements-plugins&filter=all&view=detail&plugin=' + $(this.options[this.selectedIndex]).data('plugin');
 	});
