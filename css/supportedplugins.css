@@ -359,7 +359,7 @@ div.list tr {
   cursor: pointer;
 }
 div.list tr:hover {
-  background-color: white;
+  background-color: #FCFCFC;
 }
 div.list .contributors {
   width: 27%;
