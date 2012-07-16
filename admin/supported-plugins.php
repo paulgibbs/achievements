@@ -135,7 +135,7 @@ function dpa_supported_plugins_header() {
 	<form class="dpa-toolbar" enctype="multipart/form-data" id="dpa-toolbar" method="post"  name="dpa-toolbar">
 
 		<div id="dpa-toolbar-wrapper">
-			<input type="search" results="5" name="dpa-toolbar-search" id="dpa-toolbar-search" spellcheck="false" placeholder="<?php esc_attr_e( 'Search for a plugin...', 'dpa' ); ?>" />
+			<input type="search" autocomplete="off" results="5" name="dpa-toolbar-search" id="dpa-toolbar-search" spellcheck="false" placeholder="<?php esc_attr_e( 'Search for a plugin...', 'dpa' ); ?>" />
 
 			<select class="<?php if ( ! $GLOBALS['is_gecko'] ) echo 'dpa-ff-hack'; ?>" name="dpa-toolbar-filter" id="dpa-toolbar-filter">
 				<option value="all" <?php selected( $filter, 'all' ); ?>><?php esc_html_e( 'All Plugins', 'dpa' );       ?></option>
