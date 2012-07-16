@@ -13,6 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  * Set up the Supported Plugins admin page before any output is sent. Register contextual help and screen options for this page.
  *
  * @since 3.0
+ * @todo WordPress - find a way to hide "Plugin Information" from the screen option panel. Setting empty title doesn't render metabox.
  */
 function dpa_supported_plugins_on_load() {
 	// Help panel - overview text
