@@ -123,11 +123,6 @@ $(document).ready(function() {
 	$('#dpa-toolbar-filter').on('change.achievements', dpa_update_filters);
 	$('#dpa-toolbar-search').on('keyup.achievements',  dpa_update_filters);
 
-	// Clickable rows in list view
-	$('#post-body-content .list tr').on('click.achievements', function() {
-		window.location = $(this).find('td.plugin a').prop('href');
-	});
-
 	// Tablesorter
 	$("#post-body-content .list table").tablesorter({
 		headers: {
