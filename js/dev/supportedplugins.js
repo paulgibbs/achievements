@@ -139,7 +139,7 @@ $(document).ready(function() {
 			return node.innerHTML;
 		}
 	});
-	$("#post-body-content .list table th a").on('click.achievements', function(event) {
+	$("#post-body-content .list table th").on('click.achievements', 'a', function(event) {
 		event.preventDefault();
 	});
 
