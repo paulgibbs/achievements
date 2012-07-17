@@ -356,10 +356,10 @@ div.list:after {
 div.list:after {
   clear: both;
 }
-div.list tr {
+div.list tbody tr {
   cursor: pointer;
 }
-div.list tr:hover {
+div.list tbody tr:hover {
   background-color: #FCFCFC;
 }
 div.list .contributors {
