@@ -36,7 +36,6 @@ class DPA_WordPress_Extension extends DPA_CPT_Extension {
 	 * Sets up extension properties. See class phpdoc for details.
 	 *
 	 * @since 3.0
-	 * @todo WordPress has far too many people who deserve to be listed here. Maybe link to wp-admin/credits.php?
 	 */
 	public function __construct() {
 		$this->actions = array(
@@ -53,7 +52,14 @@ class DPA_WordPress_Extension extends DPA_CPT_Extension {
  			'private_to_publish',
 		);
 
-		$this->contributors    = array();
+		$this->contributors = array(
+			array(
+				'name'         => 'WordPress',
+				'gravatar_url' => 'http://s.wordpress.org/about/images/logos/wordpress-logo-notext-rgb.png',
+				'profile_url'  => network_admin_url( 'credits.php' ),
+			),
+		);
+
 		$this->description     = __( 'WordPress started in 2003 with a single bit of code to enhance the typography of everyday writing and with fewer users than you can count on your fingers and toes. Since then it has grown to be the largest self-hosted blogging tool in the world, used on millions of sites and seen by tens of millions of people every day.', 'dpa' );
 		$this->id              = 'wordpress';
 		$this->image_url       = trailingslashit( achievements()->plugin_url ) . 'images/placeholder.png';
