@@ -7,7 +7,7 @@
  * would not be robust enough to predict where Achievements templates might exist.
  *
  * @package Achievements
- * @subpackage Template
+ * @subpackage TemplateFunctions
  */
 
 // Exit if accessed directly
