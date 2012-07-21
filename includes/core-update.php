@@ -11,20 +11,23 @@
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 /**
+ * If there is no raw DB version, this is the first installation
+ *
+ * @return bool True if update, False if not
+ * @since 3.0
+ */
+function dpa_is_install() {
+	return ! dpa_get_db_version_raw();
+}
+
+/**
  * Compare the Achievements version to the DB version to determine if updating
  *
  * @return bool True if update, False if not
  * @since 3.0
  */
 function dpa_is_update() {
-	// Current DB version of this site (per site in a multisite network)
-	$current_db   = get_option( '_dpa_db_version' );
-	$current_live = dpa_get_db_version();
-
-	// Compare versions (cast as int and bool to be safe)
-	$is_update = (bool) ( (int) $current_db < (int) $current_live );
-
-	return $is_update;
+	return (bool) ( (int) dpa_get_db_version_raw() < (int) dpa_get_db_version() );
 }
 
 /**

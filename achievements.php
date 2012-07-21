@@ -422,7 +422,7 @@ final class Achievements {
 			'feed'       => false,                       // Remove feed rewrite rules
 			'feeds'      => false,                       // Remove feed rewrite rules (this is what the parameter ought to be)
 			'pages'      => false,
-			'slug'       => dpa_get_achievement_slug(),
+			'slug'       => dpa_get_root_slug(),
 			'with_front' => false,
 		);
 		// CPT supports

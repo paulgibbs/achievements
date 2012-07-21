@@ -162,6 +162,7 @@ function dpa_db_version() {
 		return achievements()->db_version;
 	}
 
+	/**
 
 /**
  * Rewrite IDs

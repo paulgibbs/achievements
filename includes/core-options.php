@@ -18,17 +18,23 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  */
 function dpa_get_default_options() {
 	$options = array(
-		'_dpa_achievement_slug'      => 'achievements',              // Achievement post type slug
-		'_dpa_db_version'            => achievements()->db_version,  // Initial DB version
+		// DB version
+		'_dpa_db_version'       => achievements()->db_version,       // Initial DB version
+
+		// Settings
+		'_dpa_theme_package_id' => 'default',                        // The ID for the current theme package.
 
 		// Achievement post type
-		'_dpa_achievements_per_page' => 15,                          // Achievements per page
+		'_dpa_achievements_per_page'     => 15,                      // Achievements per page
+		'_dpa_achievements_per_rss_page' => 25,                      // Achievements per RSS page
+		'_dpa_root_slug'                 => 'achievements',          // Achievements archive slug
 
 		// Progress post type
-		'_dpa_progresses_per_page'   => 15,                          // Progresses per page
+		'_dpa_progresses_per_page'     => 15,                        // Progresses per page
+		'_dpa_progresses_per_rss_page' => 25,                        // Progresses per RSS page
 
 		// Extension support
-		'_dpa_extension_versions'    => array(),                     // Version numbers for the plugin extensions
+		'_dpa_extension_versions' => array(),                        // Version numbers for the plugin extensions
 	);
 
 	return apply_filters( 'dpa_get_default_options', $options );
@@ -110,6 +116,21 @@ function dpa_pre_get_option( $value = '' ) {
 
 
 /**
+ * General settings
+ */
+
+/**
+ * Get the current theme package ID
+ *
+ * @param string $default Optional. Default value 'default'
+ * @return string ID of the subtheme
+ * @since 3.0
+ */
+function dpa_get_theme_package_id( $default = 'default' ) {
+	return apply_filters( 'dpa_get_theme_package_id', get_option( '_dpa_theme_package_id', $default ) );
+}
+
+/**
  * Numeric settings
  */
 
@@ -134,6 +155,26 @@ function dpa_get_achievements_per_page() {
 }
 
 /**
+ * Return the achievements per RSS page setting
+ *
+ * @return int
+ * @since 3.0
+ */
+function dpa_get_achievements_per_rss_page() {
+	$default = 25;
+
+	// Get database option and cast as integer
+	$per = $retval = (int) get_option( '_dpa_achievements_per_rss_page', $default );
+
+	// If return val is empty, set it to default
+	if ( empty( $retval ) )
+		$retval = $default;
+
+	// Filter and return
+	return (int) apply_filters( 'dpa_get_achievements_per_rss_page', $retval, $per );
+}
+
+/**
  * Return the progresses per page setting
  *
  * @return int
@@ -151,6 +192,26 @@ function dpa_get_progresses_per_page() {
 
 	// Filter and return
 	return (int) apply_filters( 'dpa_get_progresses_per_page', $retval, $per );
+}
+
+/**
+ * Return the progresses per RSS page setting
+ *
+ * @return int
+ * @since 3.0
+ */
+function dpa_get_progresses_per_rss_page() {
+	$default = 25;
+
+	// Get database option and cast as integer
+	$per = $retval = (int) get_option( '_dpa_progresses_per_rss_page', $default );
+
+	// If return val is empty, set it to default
+	if ( empty( $retval ) )
+		$retval = $default;
+
+	// Filter and return
+	return (int) apply_filters( 'dpa_get_progresses_per_rss_page', $retval, $per );
 }
 
 
@@ -174,13 +235,25 @@ function dpa_is_running_networkwide() {
  */
 
 /**
+ * Return the root slug
+ *
+ * @return string
+ * @since 3.0
+ */
+function dpa_get_root_slug( $default = 'achievements' ) {
+	return apply_filters( 'dpa_get_root_slug', get_option( '_dpa_root_slug', $default ) );
+}
+
+/**
  * Return the achievement post type slug
+ *
+ * This is just a wrapper function for bbp_get_root_slug() right now.
  *
  * @return string
  * @since 3.0
  */
 function dpa_get_achievement_slug() {
-	return apply_filters( 'dpa_get_achievement_slug', get_option( '_dpa_achievement_slug' ) );
+	return apply_filters( 'dpa_get_achievement_slug', dpa_get_root_slug() );
 }
 
 
