@@ -10,6 +10,106 @@
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 /**
+ * URLs
+ */
+
+/**
+ * Ouput the achievements post type URL
+ * 
+ * @param string $path Additional path with leading slash
+ * @since 3.0
+ */
+function dpa_achievements_url( $path = '/' ) {
+	echo dpa_get_achievements_url( $path );
+}
+	/**
+	 * Return the achievements post type URL
+	 * 
+	 * @param string $path Additional path with leading slash
+	 * @since 3.0
+	 */
+	function dpa_get_achievements_url( $path = '/' ) {
+		return home_url( dpa_get_root_slug() . $path );
+	}
+
+
+/**
+ * Add-on Actions
+ */
+
+/**
+ * Add our custom head action to wp_head
+ *
+ * @since 3.0
+ */
+function dpa_head() {
+	do_action( 'dpa_head' );
+}
+
+/**
+ * Add our custom head action to wp_head
+ *
+ * @since 3.0
+ */
+function dpa_footer() {
+	do_action( 'dpa_footer' );
+}
+
+
+/**
+ * "is_" functions
+ */
+
+/**
+ * Check if current page is an achievement post type page.
+ *
+ * @param int $post_id Optional. Possible post_id to check
+ * @return bool True if it's a forum page, false if not
+ * @since 3.0
+ */
+function dpa_is_achievement( $post_id = 0 ) {
+	$retval = false;
+
+	// Supplied ID is an achievement
+	if ( ! empty( $post_id ) && ( dpa_get_achievement_post_type() == get_post_type( $post_id ) ))
+		$retval = true;
+
+	return (bool) apply_filters( 'dpa_is_achievement', $retval, $post_id );
+}
+
+/**
+ * Check if we are viewing an achievement post type archive page.
+ *
+ * @return bool
+ * @since 3.0
+ */
+function dpa_is_achievement_archive() {
+	$retval = false;
+
+	// Is achievement archive?
+	if ( is_post_type_archive( dpa_get_achievement_post_type() ) || dpa_is_query_name( 'dpa_achievement_archive' ) )
+		$retval = true;
+
+	return (bool) apply_filters( 'dpa_is_achievement_archive', $retval );
+}
+
+/**
+ * Viewing a single achievement page
+ *
+ * @return bool
+ * @since 3.0
+ */
+function dpa_is_single_achievement() {
+	$retval = false;
+
+	// Single and a match
+	if ( is_singular( dpa_get_achievement_post_type() ) || dpa_is_query_name( 'dpa_single_achievement' ) )
+		$retval = true;
+
+	return (bool) apply_filters( 'dpa_is_single_forum', $retval );
+}
+
+/**
  * Check if the current post type belongs to Achievements
  *
  * @param mixed $the_post Optional. Post object or post ID.
@@ -25,6 +125,119 @@ function dpa_is_custom_post_type( $the_post = false ) {
 
 	return (bool) apply_filters( 'dpa_is_custom_post_type', $retval, $the_post );
 }
+
+/**
+ * Use the above is_() functions to output a body class for each possible scenario
+ *
+ * @param array $wp_classes
+ * @param array $custom_classes Optional
+ * @return array Body Classes
+ * @since 3.0
+ */
+function dpa_body_class( $wp_classes, $custom_classes = array() ) {
+	$achievements_classes = array();
+
+	// Archives
+	if ( dpa_is_achievement_archive() )
+		$achievements_classes[] = bbp_get_achievement_post_type() . '-archive';
+
+	// Components
+	if ( dpa_is_single_achievement() )
+		$achievements_classes[] = dpa_get_achievement_post_type();
+
+	//* Clean up **************************************************************/
+
+	// Add achievements class if we are on an Achievements page
+	if ( ! empty( $achievements_classes ) )
+		$achievements_classes[] = 'achievements';
+
+	// Merge WP classes with Achievements classes
+	$classes = array_merge( (array) $achievements_classes, (array) $wp_classes );
+
+	// Remove any duplicates
+	$classes = array_unique( $classes );
+
+	return apply_filters( 'dpa_body_class', $classes, $achievements_classes, $wp_classes, $custom_classes );
+}
+
+/**
+ * Use the above is_() functions to return if in any Achievements page
+ *
+ * @return bool In a bbPress page
+ * @since 3.0
+ */
+function is_achievements() {
+	$retval = false;
+
+	// Archives
+	if ( dpa_is_achievement_archive() )
+		$retval = true;
+
+	// Components
+	elseif ( dpa_is_single_achievement() )
+		$retval = true;
+
+	return (bool) apply_filters( 'is_achievements', $retval );
+}
+
+
+/**
+ * General template helpers
+ */
+
+/**
+ * Echo sanitised $_REQUEST value.
+ *
+ * Use the $input_type parameter to properly process the value. This
+ * ensures correct sanitisation of the value for the receiving input.
+ *
+ * @param string $request Name of $_REQUEST to look for
+ * @param string $input_type Type of input. Optional. Default: text. Accepts: textarea|password|select|radio|checkbox
+ * @since 3.0
+ */
+function dpa_sanitise_val( $request, $input_type = 'text' ) {
+	echo dpa_get_sanitise_val( $request, $input_type );
+}
+	/**
+	 * Return sanitised $_REQUEST value.
+	 *
+	 * Use the $input_type parameter to properly process the value. This
+	 * ensures correct sanitisation of the value for the receiving input.
+	 *
+	 * @param string $request Name of $_REQUEST to look for
+	 * @param string $input_type Type of input. Optional. Default: text. Accepts: textarea|password|select|radio|checkbox
+	 * @return string Sanitised value ready for screen display
+	 * @since 3.0
+	 */
+	function dpa_get_sanitise_val( $request, $input_type = 'text' ) {
+		// Check that requested variable exists
+		if ( empty( $_REQUEST[$request] ) )
+			return false;
+
+		// Set request varaible
+		$pre_ret_val = $_REQUEST[$request];
+
+		// Treat different kinds of fields in different ways
+		switch ( $input_type ) {
+			case 'text'     :
+				$retval = esc_attr( stripslashes( $pre_ret_val ) );
+				break;
+
+			case 'textarea' :
+				$retval = esc_html( stripslashes( $pre_ret_val ) );
+				break;
+
+			case 'checkbox' :
+			case 'password' :
+			case 'radio'    :
+			case 'select'   :
+			default :
+				$retval = esc_attr( $pre_ret_val );
+				break;
+		}
+
+		return apply_filters( 'dpa_get_sanitise_val', $retval, $request, $input_type );
+	}
 
 
 /**
@@ -72,122 +285,339 @@ function dpa_reset_query_name() {
 
 
 /**
- * Views
+ * Breadcrumbs
  */
 
 /**
- * Output the view id
+ * Output the page title as a breadcrumb
  *
- * @param string $view Optional. View id
+ * @param array $args Optional. See dpa_get_breadcrumb()
+ * @see dpa_get_breadcrumb()
  * @since 3.0
  */
-function dpa_view_id( $view = '' ) {
-	echo dpa_get_view_id( $view );
+function dpa_title_breadcrumb( $args = array() ) {
+	echo dpa_get_breadcrumb( $args );
 }
-
-	/**
-	 * Get the view id
-	 *
-	 * If a view id is supplied, that is used. Otherwise the 'dpa_view' query var is checked for.
-	 *
-	 * @param string $view Optional. View id.
-	 * @return bool|string ID on success, false on failure
-	 * @since 3.0
-	 */
-	function dpa_get_view_id( $view = '' ) {
-		$view = ! empty( $view ) ? sanitize_title( $view ) : get_query_var( 'dpa_view' );
-
-		if ( array_key_exists( $view, achievements()->views ) )
-			return $view;
-
-		return false;
-	}
 
 /**
- * Output the view name aka title
+ * Output a breadcrumb
  *
- * @param string $view Optional. View id
+ * @param array $args Optional. See dpa_get_breadcrumb()
  * @since 3.0
  */
-function dpa_view_title( $view = '' ) {
-	echo dpa_get_view_title( $view );
-}
-
-	/**
-	 * Get the view name aka title
-	 *
-	 * If a view id is supplied, that is used. Otherwise the bbp_view
-	 * query var is checked for.
-	 *
-	 * @since 3.0
-	 *
-	 * @param string $view Optional. View id
-	 * @return bool|string Title on success, false on failure
-	 */
-	function dpa_get_view_title( $view = '' ) {
-		$view = dpa_get_view_id( $view );
-		if ( empty( $view ) )
-			return false;
-
-		return achievements()->views[$view]['title'];
-	}
-
-/**
- * Output the view url
- *
- * @param string $view Optional. View id
- * @since 3.0
- */
-function dpa_view_url( $view = false ) {
-	echo dpa_get_view_url( $view );
+function dpa_breadcrumb( $args = array() ) {
+	echo dpa_get_breadcrumb( $args );
 }
 	/**
-	 * Return the view url
+	 * Return a breadcrumb ( achievement archive -> achievement -> [achievement, ...] )
 	 *
-	 * @global unknown $wp_rewrite
-	 * @param string $view Optional. View id
-	 * @return string View url (or home url if the view was not found)
+	 * @param array $args Optional.
+	 * @return string Breadcrumbs
 	 * @since 3.0
+	 * @todo Achievements - phpDoc for $args. Contribute back to bbPress.
 	 */
-	function dpa_get_view_url( $view = false ) {
-		global $wp_rewrite;
+	function dpa_get_breadcrumb( $args = array() ) {
+		// Turn off breadcrumbs
+		if ( apply_filters( 'dpa_no_breadcrumb', is_front_page() ) )
+			return;
 
-		$view = dpa_get_view_id( $view );
-		if ( empty( $view ) )
-			return home_url();
+		// Define variables
+		$front_id         = $root_id                                 = 0;
+		$ancestors        = $crumbs           = $tag_data            = array();
+		$pre_root_text    = $pre_front_text   = $pre_current_text    = '';
+		$pre_include_root = $pre_include_home = $pre_include_current = true;
 
-		// Pretty permalinks
-		if ( $wp_rewrite->using_permalinks() ) {
-			$url = $wp_rewrite->root . dpa_get_view_slug() . '/' . $view;
-			$url = home_url( user_trailingslashit( $url ) );
 
-		// Unpretty permalinks
-		} else {
-			$url = add_query_arg( array( 'dpa_view' => $view ), home_url( '/' ) );
+		/**
+		 * Home text
+		 */
+
+		// No custom home text
+		if ( empty( $args['home_text'] ) ) {
+
+			// Set home text to page title
+			$front_id = get_option( 'page_on_front' );
+			if ( ! empty( $front_id ) )
+				$pre_front_text = get_the_title( $front_id );
+
+			// Default to 'Home'
+			else
+				$pre_front_text = _x( 'Home', 'Home screen of the website', 'dpa' );
 		}
 
-		return apply_filters( 'dpa_get_view_url', $url, $view );
+
+		/**
+		 * Root text
+		 */
+
+		// No custom root text
+		if ( empty( $args['root_text'] ) ) {
+			$page = dpa_get_page_by_path( dpa_get_root_slug() );
+			if ( ! empty( $page ) )
+				$root_id = $page->ID;
+
+			$pre_root_text = dpa_get_achievement_archive_title();
+		}
+
+
+		/**
+		 * Includes
+		 */
+
+		// Root slug is also the front page
+		if ( ! empty( $front_id ) && ( $front_id == $root_id ) )
+			$pre_include_root = false;
+
+		// Don't show root if viewing achievement archive
+		if ( dpa_is_achievement_archive() )
+			$pre_include_root = false;
+
+		// Don't show root if viewing page in place of achievement archive
+		if ( ! empty( $root_id ) && ( ( is_single() || is_page() ) && ( $root_id == get_the_ID() ) ) )
+			$pre_include_root = false;
+
+
+		/**
+		 * Current text
+		 */
+
+		// Achievement archive
+		if ( dpa_is_achievement_archive() ) {
+			$pre_current_text = dpa_get_achievement_archive_title();
+
+		// Single achievement
+		} elseif ( dpa_is_single_achievement() ) {
+			$pre_current_text = bbp_get_achievement_title();
+
+		// Single object of some type
+		} else {
+			$pre_current_text = get_the_title();
+		}
+
+
+		/**
+		 * Parse args
+		 */
+
+		// Parse args
+		$defaults = array(
+			// HTML
+			'before'          => '<div class="dpa-breadcrumb"><p>',
+			'after'           => '</p></div>',
+			'sep'             => _x( '&rsaquo;', 'HTML entity for right single angle quotes', 'dpa' ),
+			'pad_sep'         => 1,
+
+			// Home
+			'include_home'    => $pre_include_home,
+			'home_text'       => $pre_front_text,
+
+			// Achievement root
+			'include_root'    => $pre_include_root,
+			'root_text'       => $pre_root_text,
+
+			// Current
+			'include_current' => $pre_include_current,
+			'current_text'    => $pre_current_text
+		);
+		$r = bbp_parse_args( $args, $defaults, 'get_breadcrumb' );
+		extract( $r );
+
+
+		/**
+		 * Ancestors
+		 */
+
+		// Get post ancestors
+		if ( is_page() || is_single() )
+			$ancestors = array_reverse( get_post_ancestors( get_the_ID() ) );
+
+		// Do we want to include a link to home?
+		if ( ! empty( $include_home ) || empty( $home_text ) )
+			$crumbs[] = '<a href="' . trailingslashit( home_url() ) . '" class="dpa-breadcrumb-home">' . $home_text . '</a>';
+
+		// Do we want to include a link to the forum root?
+		if ( ! empty( $include_root ) || empty( $root_text ) ) {
+
+			// Page exists at root slug path, so use its permalink
+			$page = dpa_get_page_by_path( dpa_get_root_slug() );
+			if ( ! empty( $page ) )
+				$root_url = get_permalink( $page->ID );
+
+			// Use the root slug
+			else
+				$root_url = get_post_type_archive_link( dpa_get_achievement_post_type() );
+
+			// Add the breadcrumb
+			$crumbs[] = '<a href="' . $root_url . '" class="dpa-breadcrumb-root">' . $root_text . '</a>';
+		}
+
+		// Ancestors exist
+		if ( ! empty( $ancestors ) ) {
+
+			// Loop through parents
+			foreach( (array) $ancestors as $parent_id ) {
+
+				// Parents
+				$parent = get_post( $parent_id );
+
+				// Switch through post_type to ensure correct filters are applied
+				switch ( $parent->post_type ) {
+					// Achievement
+					case dpa_get_achievement_post_type() :
+						$crumbs[] = '<a href="' . dpa_get_achievement_permalink( $parent->ID ) . '" class="dpa-breadcrumb-achievement">' . dpa_get_achievement_title( $parent->ID ) . '</a>';
+						break;
+
+					// WordPress Post/Page/Other
+					default :
+						$crumbs[] = '<a href="' . get_permalink( $parent->ID ) . '" class="dpa-breadcrumb-item">' . get_the_title( $parent->ID ) . '</a>';
+						break;
+				}
+			}
+		}
+
+
+		/**
+		 * Current
+		 */
+
+		// Add current page to breadcrumb
+		if ( ! empty( $include_current ) || empty( $pre_current_text ) )
+			$crumbs[] = '<span class="dpa-breadcrumb-current">' . $current_text . '</span>';
+
+
+		/**
+		 * Separator
+		 */
+
+		// Wrap the separator in a span before padding and filter
+		if ( ! empty( $sep ) )
+			$sep = '<span class="dpa-breadcrumb-separator">' . $sep . '</span>';
+
+		// Pad the separator
+		if ( ! empty( $pad_sep ) )
+			$sep = str_pad( $sep, strlen( $sep ) + ( (int) $pad_sep * 2 ), ' ', STR_PAD_BOTH );
+
+		/**
+		 * And -- eventually -- we're done.
+		 */
+
+		// Filter the separator and breadcrumb
+		$sep    = apply_filters( 'dpa_breadcrumb_separator', $sep    );
+		$crumbs = apply_filters( 'dpa_breadcrumbs',          $crumbs );
+
+		// Build the trail
+		$trail = ! empty( $crumbs ) ? ( $before . implode( $sep, $crumbs ) . $after ) : '';
+
+		return apply_filters( 'dpa_get_breadcrumb', $trail, $crumbs, $r );
 	}
 
 
 /**
- * Add-on Actions
+ * Errors & Messages
  */
 
 /**
- * Add our custom head action to wp_head
+ * Display possible errors & messages inside a template file
  *
  * @since 3.0
  */
-function dpa_head() {
-	do_action( 'dpa_head' );
+function dpa_template_notices() {
+	// Bail if no notices or errors
+	if ( ! dpa_has_errors() )
+		return;
+
+	// Define local variable(s)
+	$errors = $messages = array();
+
+	// Loop through notices
+	foreach ( achievements()->errors->get_error_codes() as $code ) {
+		// Get notice severity
+		$severity = achievements()=>errors->get_error_data( $code );
+
+		// Loop through notices and separate errors from messages
+		foreach ( achievements()->errors->get_error_messages( $code ) as $error ) {
+			if ( 'message' == $severity )
+				$messages[] = $error;
+			else
+				$errors[] = $error;
+		}
+	}
+
+	// Display errors first...
+	if ( ! empty( $errors ) ) : ?>
+
+		<div class="dpa-template-notice error">
+			<p>
+				<?php echo implode( "</p>\n<p>", $errors ); ?>
+			</p>
+		</div>
+
+	<?php endif;
+
+	// ...and messages last
+	if ( ! empty( $messages ) ) : ?>
+
+		<div class="dpa-template-notice">
+			<p>
+				<?php echo implode( "</p>\n<p>", $messages ); ?>
+			</p>
+		</div>
+
+	<?php endif;
 }
 
+
 /**
- * Add our custom head action to wp_head
+ * Page title
+ */
+
+/**
+ * Custom page title for Achievements pages
  *
+ * @param string $title Optional. The title (not used).
+ * @param string $sep Optional, default is '&raquo;'. How to separate each part within the page title.
+ * @param string $seplocation Optional. Direction to display title, 'right'.
+ * @return string The title
  * @since 3.0
  */
-function dpa_footer() {
-	do_action( 'dpa_footer' );
+function dpa_title( $title = '', $sep = '&raquo;', $seplocation = '' ) {
+	// Store original title to compare
+	$_title = $title;
+
+	// Achievement archive
+	if ( dpa_is_achievement_archive() ) {
+		$title = dpa_get_achievement_archive_title();
+
+	// Single achievement page
+	} elseif ( dpa_is_single_achievement() ) {
+		$title = sprintf( __( 'Achievement: %s', 'dpa' ), dpa_get_achievement_title() );
+
+	// Filter the raw title
+	$title = apply_filters( 'dpa_raw_title', $title, $sep, $seplocation );
+
+	// Compare new title with original title
+	if ( $title == $_title )
+		return $title;
+
+	// Temporary separator, for accurate flipping, if necessary
+	$t_sep  = '%WP_TITILE_SEP%';
+	$prefix = '';
+
+	if ( ! empty( $title ) )
+		$prefix = " $sep ";
+
+	// Separate on right, so reverse the order
+	if ( 'right' == $seplocation ) {
+		$title_array = explode( $t_sep, $title );
+		$title_array = array_reverse( $title_array );
+		$title       = implode( " $sep ", $title_array ) . $prefix;
+
+	// Separate on left, do not reverse
+	} else {
+		$title_array = explode( $t_sep, $title );
+		$title       = $prefix . implode( " $sep ", $title_array );
+	}
+
+	// Filter and return
+	return apply_filters( 'dpa_title', $title, $sep, $seplocation );
 }

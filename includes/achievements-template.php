@@ -52,7 +52,7 @@ function dpa_has_achievements( $args = array() ) {
 		                             dpa_get_unlocked_status_id(),
 		                           ),
 	);
-	$args              = wp_parse_args( $args, $defaults );
+	$args              = dpa_parse_args( $args, $defaults );
 	$progress_user_ids = false;
 
 	// Load achievements for a specific event
@@ -145,3 +145,61 @@ function dpa_the_achievement() {
 function dpa_get_the_achievement_ID() {
 	return achievements()->achievement_query->post->ID;
 }
+
+/**
+ * Output the achievement archive title
+ *
+ * @param string $title Optional. Default text to use as title
+ * @since 3.0
+ */
+function dpa_achievement_archive_title( $title = '' ) {
+	echo dpa_get_achievement_archive_title( $title );
+}
+	/**
+	 * Return the achievement archive title
+	 *
+	 * @param string $title Optional. Default text to use as title
+	 * @return string The forum archive title
+	 * @since 3.0
+	 */
+	function dpa_get_achievement_archive_title( $title = '' ) {
+		// If no title was passed
+		if ( empty( $title ) ) {
+
+			// Set root text to page title
+			$page = dpa_get_page_by_path( dpa_get_root_slug() );
+			if ( ! empty( $page ) ) {
+				$title = get_the_title( $page->ID );
+
+			// Default to achievement post type name label
+			} else {
+				$pto   = get_post_type_object( dpa_get_achievement_post_type() );
+				$title = $pto->labels->name;
+			}
+		}
+
+		return apply_filters( 'dpa_get_achievement_archive_title', $title );
+	}
+
+/**
+ * Output the title of the achievement
+ *
+ * @param int $forum_id Optional. Forum ID
+ * @since 3.0
+ */
+function dpa_achievement_title( $forum_id = 0 ) {
+	echo dpa_get_achievement_title( $forum_id );
+}
+	/**
+	 * Return the title of the forum
+	 *
+	 * @param int $post_id Optional. Achievement ID to get title of.
+	 * @return string Title of achievement
+	 * @since 3.0
+	 */
+	function dpa_get_achievement_title( $post_id = 0 ) {
+		$post_id = dpa_get_the_achievement_ID();
+		$title   = get_the_title( $post_id );
+
+		return apply_filters( 'dpa_get_achievement_title', $title, $post_id );
+	}

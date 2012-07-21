@@ -67,7 +67,7 @@ function dpa_is_user_spammer( $user_id = 0 ) {
 	} else {
 
 		// Check if spam
-		if ( !empty( $user->spam ) )
+		if ( ! empty( $user->spam ) )
 			$is_spammer = true;
 
 		if ( 1 == $user->user_status )
@@ -143,7 +143,7 @@ function dpa_is_user_deleted( $user_id = 0 ) {
 	} else {
 
 		// Check if deleted
-		if ( !empty( $user->deleted ) )
+		if ( ! empty( $user->deleted ) )
 			$is_deleted = true;
 
 		if ( 2 == $user->user_status )
