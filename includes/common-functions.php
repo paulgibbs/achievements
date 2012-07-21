@@ -162,7 +162,24 @@ function dpa_db_version() {
 		return achievements()->db_version;
 	}
 
+/**
+ * Output the Achievements database version directly from the database
+ *
+ * @since 3.0
+ */
+function dpa_db_version_raw() {
+	echo dpa_get_db_version_raw();
+}
 	/**
+	 * Return the Achievements database version directly from the database
+	 *
+	 * @return string The current Achievements version
+	 * @since 3.0
+	 */
+	function dpa_get_db_version_raw() {
+		return get_option( '_dpa_db_version', '' );
+	}
+
 
 /**
  * Rewrite IDs
