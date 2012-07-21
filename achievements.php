@@ -319,13 +319,16 @@ final class Achievements {
 
 		// Add the core actions
 		$actions = array(
-			'constants',               // Define constants
-			'load_textdomain',         // Load textdomain
-			'register_post_types',     // Register post types (dpa_achievement, dpa_progress)
-			'register_post_statuses',  // Register post statuses (dpa_progress: locked, unlocked)
-			'register_taxonomies',     // Register taxonomies (dpa_event)
-			'register_endpoints',      // Register endpoints (achievements)
-			'setup_current_user',      // Set up currently logged in user
+			'constants',                 // Define constants
+			'load_textdomain',           // Load textdomain
+			'register_endpoints',        // Register endpoints (achievements)
+			'register_post_statuses',    // Register post statuses (dpa_progress: locked, unlocked)
+			'register_post_types',       // Register post types (dpa_achievement, dpa_progress)
+			'register_taxonomies',       // Register taxonomies (dpa_event)
+			'register_theme_directory',  // Register the theme directory (themes)
+			'register_theme_packages',   // Register bundled theme packages (theme-compat)
+			'setup_current_user',        // Set up currently logged in user
+			'setup_theme',               // Setup the default theme compat
 		);
 
 		foreach( $actions as $class_action )
@@ -375,6 +378,16 @@ final class Achievements {
 
 		// Nothing found
 		return false;
+	}
+
+	/**
+	 * Register endpoints
+	 *
+	 * @since 3.0
+	 * @todo Use the 'template_include' action to conditionally switch the 'achievements' endpoint to a custom template
+	 */
+	public function register_endpoints() {
+		add_rewrite_endpoint( dpa_get_authors_endpoint(), EP_AUTHORS );  // /authors/paul/[achievements]
 	}
 
 	/**
@@ -549,13 +562,33 @@ final class Achievements {
 	}
 
 	/**
-	 * Register endpoints
+	 * Sets up the Achievements theme directory to use in WordPress
+	 *
+	 * @return bool True on success, false on failure
+	 * @since 3.0
+	 */
+	public function register_theme_directory() {
+		return register_theme_directory( $this->themes_dir );
+	}
+
+	/**
+	 * Register bundled theme packages
+	 *
+	 * Note that since we currently have complete control over the /themes/ and
+	 * the /theme-compat/ folders, it's fine to hardcode these here. If at a
+	 * later date we need to automate this, an API will need to be built.
 	 *
 	 * @since 3.0
-	 * @todo Use the 'template_include' action to conditionally switch the 'achievements' endpoint to a custom template
 	 */
-	public function register_endpoints() {
-		add_rewrite_endpoint( dpa_get_authors_endpoint(), EP_AUTHORS );  // /authors/paul/[achievements]
+	public function register_theme_packages() {
+		// Default theme
+		dpa_register_theme_package( array(
+			'id'      => 'default',
+			'name'    => __( 'Achievements Default', 'dpa' ),
+			'version' => dpa_get_version(),
+			'dir'     => trailingslashit( $this->plugin_dir . 'theme-compat' ),
+			'url'     => trailingslashit( $this->plugin_url . 'theme-compat' )
+		) );
 	}
 
 	/**
@@ -567,6 +600,20 @@ final class Achievements {
 	 */
 	public function setup_current_user() {
 		$this->current_user = &wp_get_current_user();
+	}
+
+	/**
+	 * Setup the default Achievements theme compatability location.
+	 *
+	 * @since 3.0
+	 */
+	public function setup_theme() {
+		// Bail if something already has this under control
+		if ( ! empty( $this->theme_compat->theme ) )
+			return;
+
+		// Setup the theme package to use for compatibility
+		dpa_setup_theme_compat( dpa_get_theme_package_id() );
 	}
 }
 
@@ -582,7 +629,18 @@ function achievements() {
 	return Achievements::instance();
 }
 
+/**
+ * Hook Achievements early onto the 'plugins_loaded' action.
+ *
+ * This gives all other plugins the chance to load before Achievements to get their
+ * actions, filters, and overrides setup without Achievements being in the way.
+ */
+if ( defined( 'DPA_LATE_LOAD' ) ) {
+	add_action( 'plugins_loaded', 'achievements', (int) DPA_LATE_LOAD );
+
 // This makes it go up to 11
-Achievements();
+} else {
+	Achievements();
+}
 
 endif; // class_exists check
