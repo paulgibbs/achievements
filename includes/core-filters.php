@@ -36,3 +36,14 @@ add_filter( 'map_meta_cap',            'dpa_map_meta_caps',      10, 4 );
 
 // Add post_parent__in to posts_where
 add_filter( 'posts_where', 'dpa_query_post_parent__in', 10, 2 );
+
+
+/**
+ * Generate Achievements-specific rewrite rules
+ *
+ * @param WP_Rewrite $wp_rewrite
+ * @since 3.0
+ */
+function dpa_generate_rewrite_rules( $wp_rewrite ) {
+	do_action_ref_array( 'dpa_generate_rewrite_rules', array( &$wp_rewrite ) );
+}

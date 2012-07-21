@@ -23,15 +23,15 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 add_action( 'plugins_loaded',         'dpa_loaded',                 10 );
 add_action( 'init',                   'dpa_init',                   10 );
 add_action( 'widgets_init',           'dpa_widgets_init',           10 );
-//add_action( 'parse_query',            'dpa_parse_query',            2  ); // Early for overrides
-//add_action( 'generate_rewrite_rules', 'dpa_generate_rewrite_rules', 10 );
+add_action( 'parse_query',            'dpa_parse_query',            2  ); // Early for overrides
+add_action( 'generate_rewrite_rules', 'dpa_generate_rewrite_rules', 10 );
 add_action( 'wp_enqueue_scripts',     'dpa_enqueue_scripts',        10 );
-//add_action( 'wp_head',                'dpa_head',                   10 );
-//add_action( 'wp_footer',              'dpa_footer',                 10 );
+add_action( 'wp_head',                'dpa_head',                   10 );
+add_action( 'wp_footer',              'dpa_footer',                 10 );
 add_action( 'set_current_user',       'dpa_setup_current_user',     10 );
-//add_action( 'setup_theme',            'dpa_setup_theme',            10 );
-//add_action( 'after_setup_theme',      'dpa_after_setup_theme',      10 );
-//add_action( 'template_redirect',      'dpa_template_redirect',      10 );
+add_action( 'setup_theme',            'dpa_setup_theme',            10 );
+add_action( 'after_setup_theme',      'dpa_after_setup_theme',      10 );
+add_action( 'template_redirect',      'dpa_template_redirect',      10 );
 
 /**
  * dpa_loaded - Attached to 'plugins_loaded' above
@@ -254,7 +254,6 @@ function dpa_enqueue_scripts() {
 	do_action( 'dpa_enqueue_scripts' );
 }
 
-
 /**
  * Everything's loaded and ready to go!
  *
@@ -262,4 +261,51 @@ function dpa_enqueue_scripts() {
  */
 function dpa_ready() {
 	do_action( 'dpa_ready' );
+}
+
+
+/**
+ * Theme Helpers
+ */
+
+/**
+ * The main action used for executing code before the theme has been setup
+ *
+ * @since 3.0
+ */
+function dpa_register_theme_packages() {
+	do_action( 'dpa_register_theme_packages' );
+}
+
+/**
+ * The main action used for executing code before the theme has been setup
+ *
+ * @since 3.0
+ */
+function dpa_setup_theme() {
+	do_action( 'dpa_setup_theme' );
+}
+
+/**
+ * The main action used for executing code after the theme has been setup
+ *
+ * @since 3.0
+ */
+function dpa_after_setup_theme() {
+	do_action( 'dpa_after_setup_theme' );
+}
+
+
+/**
+ * Theme Permissions
+ */
+
+/**
+ * The main action used for redirecting Achievements theme actions that are not
+ * permitted by the current_user.
+ *
+ * @since 3.0
+ */
+function dpa_template_redirect() {
+	do_action( 'dpa_template_redirect' );
 }

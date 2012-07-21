@@ -79,6 +79,11 @@ final class Achievements {
 	public $extensions;
 
 	/**
+	 * @var array Achievement views
+	 */
+	public $views        = array();
+
+	/**
 	 * @var array Overloads get_option()
 	 */
 	public $options      = array(); 
@@ -186,7 +191,7 @@ final class Achievements {
 		// Paths - languages
 		$this->lang_dir   = apply_filters( 'dpa_lang_dir',        trailingslashit( $this->plugin_dir . 'languages' ) );
 
-		// Post type/taxonomy/endpoints identifiers
+		// Post type/endpoint/taxonomy identifiers
 		$this->achievement_post_type          = apply_filters( 'dpa_achievement_post_type',          'dpa_achievement' );
 		$this->achievement_progress_post_type = apply_filters( 'dpa_achievement_progress_post_type', 'dpa_progress'    );
 		$this->authors_endpoint               = apply_filters( 'dpa_authors_endpoint',               'achievements'    );
@@ -195,6 +200,9 @@ final class Achievements {
 		// Post status identifiers
 		$this->locked_status_id   = apply_filters( 'dpa_locked_post_status',   'dpa_locked'   );
 		$this->unlocked_status_id = apply_filters( 'dpa_unlocked_post_status', 'dpa_unlocked' );
+
+		// Other identifiers
+		$this->view_id = apply_filters( 'dpa_view_id', 'dpa_view' );
 
 		// Queries
 		$this->achievement_query = new stdClass;  // Main dpa_achievement query
@@ -205,7 +213,8 @@ final class Achievements {
 		$this->filters      = new stdClass();  // Used when adding/removing filters
 
 		// Users
-		$this->current_user = new stdClass();  // Currently logged in user
+		$this->current_user   = new stdClass();  // Currently logged in user
+		$this->displayed_user = new stdClass();  // Currently displayed user
 
 		// Other stuff
 		$this->errors             = new WP_Error();
@@ -247,6 +256,13 @@ final class Achievements {
 		//require( $this->plugin_dir . 'includes/core-shortcodes.php' ); // Shortcodes for use with pages and posts
 		require( $this->plugin_dir . 'includes/core-update.php'     ); // Database updater
 
+
+		/**
+		 * Templates
+		 */
+		require( $this->plugin_dir . 'includes/template-functions.php'  ); // Template functions
+		require( $this->plugin_dir . 'includes/template-loader.php'     ); // Template loader
+		require( $this->plugin_dir . 'includes/theme-compatibility.php' ); // Theme compatibility for existing themes
 
 		/**
 		 * Plugin extensions

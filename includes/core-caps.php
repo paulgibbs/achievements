@@ -337,5 +337,5 @@ function dpa_current_user_can_see( $component = '' ) {
 			break;
 	}
 
-	return (bool) apply_filters( 'bbp_current_user_can_see', (bool) $retval, $component );
+	return (bool) apply_filters( 'dpa_current_user_can_see', (bool) $retval, $component );
 }

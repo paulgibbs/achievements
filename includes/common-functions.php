@@ -85,6 +85,20 @@ function dpa_query_post_parent__in( $where, $object = null ) {
 }
 
 /**
+ * Return the view's query arguments
+ *
+ * @param string $view View name
+ * @return array Query arguments
+ * @since 3.0
+ */
+function dpa_get_view_query_args( $view ) {
+	$view   = dpa_get_view_id( $view );
+	$retval = ! empty( $view ) ? achievements()->views[$view]['query'] : false;
+
+	return apply_filters( 'dpa_get_view_query_args', $retval, $view );
+}
+
+/**
  * Adds an error message to later be output in the theme
  *
  * @param string $code Unique code for the error message
@@ -147,3 +161,18 @@ function dpa_db_version() {
 	function dpa_get_db_version() {
 		return achievements()->db_version;
 	}
+
+
+/**
+ * Rewrite IDs
+ */
+
+/**
+ * Return the unique ID for achievement view rewrite rules
+ *
+ * @return string
+ * @since 3.0
+ */
+function dpa_get_view_rewrite_id() {
+	return achievements()->view_id;
+}
