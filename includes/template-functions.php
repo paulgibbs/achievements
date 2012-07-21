@@ -184,22 +184,5 @@ function dpa_parse_query( $posts_query ) {
 
 		// Set the displayed user global to this user
 		achievements()->displayed_user = get_queried_object();
-
-	// View Page
-	} elseif ( ! empty( $dpa_view ) ) {
-		// Check if the view exists by checking if there are query args are set
-		$view_args = dpa_get_view_query_args( $bbp_view );
-
-		// Bail if view args is false (view isn't registered)
-		if ( false === $view_args ) {
-			$posts_query->set_404();
-			return;
-		}
-
-		// Correct is_home variable
-		$posts_query->is_home     = false;
-
-		// We are in a custom topic view
-		$posts_query->dpa_is_view = true;
 	}
 }

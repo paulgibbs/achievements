@@ -247,7 +247,7 @@ function dpa_get_root_slug( $default = 'achievements' ) {
 /**
  * Return the achievement post type slug
  *
- * This is just a wrapper function for bbp_get_root_slug() right now.
+ * This is just a wrapper function for dpa_get_root_slug() right now.
  *
  * @return string
  * @since 3.0

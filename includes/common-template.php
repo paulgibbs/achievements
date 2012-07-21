@@ -139,7 +139,7 @@ function dpa_body_class( $wp_classes, $custom_classes = array() ) {
 
 	// Archives
 	if ( dpa_is_achievement_archive() )
-		$achievements_classes[] = bbp_get_achievement_post_type() . '-archive';
+		$achievements_classes[] = dpa_get_achievement_post_type() . '-archive';
 
 	// Components
 	if ( dpa_is_single_achievement() )
@@ -387,7 +387,7 @@ function dpa_breadcrumb( $args = array() ) {
 
 		// Single achievement
 		} elseif ( dpa_is_single_achievement() ) {
-			$pre_current_text = bbp_get_achievement_title();
+			$pre_current_text = dpa_get_achievement_title();
 
 		// Single object of some type
 		} else {
@@ -419,7 +419,7 @@ function dpa_breadcrumb( $args = array() ) {
 			'include_current' => $pre_include_current,
 			'current_text'    => $pre_current_text
 		);
-		$r = bbp_parse_args( $args, $defaults, 'get_breadcrumb' );
+		$r = dpa_parse_args( $args, $defaults, 'get_breadcrumb' );
 		extract( $r );
 
 

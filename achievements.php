@@ -640,7 +640,7 @@ if ( defined( 'DPA_LATE_LOAD' ) ) {
 
 // This makes it go up to 11
 } else {
-	Achievements();
+	achievements();
 }
 
 endif; // class_exists check
