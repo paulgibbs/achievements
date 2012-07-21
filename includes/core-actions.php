@@ -44,8 +44,8 @@ add_action( 'dpa_loaded', 'dpa_includes',                  6  );
 add_action( 'dpa_loaded', 'dpa_setup_globals',             8  );
 add_action( 'dpa_loaded', 'dpa_setup_option_filters',      10 );
 add_action( 'dpa_loaded', 'dpa_setup_user_option_filters', 12 );
-//add_action( 'dpa_loaded', 'dpa_register_theme_directory', 14 );
-//add_action( 'dpa_loaded', 'dpa_register_theme_packages',  16 );
+add_action( 'dpa_loaded', 'dpa_register_theme_directory',  14 );
+add_action( 'dpa_loaded', 'dpa_register_theme_packages',   16 );
 add_action( 'dpa_loaded', 'dpa_load_textdomain',           18 );
 
 /**
@@ -57,9 +57,7 @@ add_action( 'dpa_init', 'dpa_register_post_types',     10  );
 add_action( 'dpa_init', 'dpa_register_post_statuses',  12  );
 add_action( 'dpa_init', 'dpa_register_taxonomies',     14  );
 add_action( 'dpa_init', 'dpa_register_endpoints',      16  );
-//add_action( 'dpa_init', 'dpa_register_views',          18  );
 //add_action( 'dpa_init', 'dpa_register_shortcodes',     20  );
-//add_action( 'dpa_init', 'dpa_add_rewrite_tags',        22  );
 add_action( 'dpa_init', 'dpa_ready',                   999 );
 
 /**
@@ -70,12 +68,20 @@ add_action( 'dpa_init', 'dpa_ready',                   999 );
 add_action( 'dpa_ready', 'dpa_maybe_update_extensions', 18 );
 add_action( 'dpa_ready', 'dpa_register_events',         20 );
 
+// Actions for BuddyPress support
+add_action( 'bp_init', 'dpa_bp_loaded' );
+
+// Try to load the achievements-functions.php file from the active theme
+add_action( 'dpa_after_setup_theme', 'dpa_load_theme_functions', 10 );
+
+// Template - Head, foot, errors and messages
+add_action( 'dpa_head',             'dpa_achievement_notices'    );
+add_action( 'dpa_template_notices', 'dpa_template_notices' );
+
 // User status
 add_action( 'make_ham_user',  'dpa_make_ham_user'  );
 add_action( 'make_spam_user', 'dpa_make_spam_user' );
 
-// Actions for extension support
-add_action( 'bp_init', 'dpa_bp_loaded' );
 
 /**
  * Plugin Dependency
@@ -211,6 +217,15 @@ function dpa_load_textdomain() {
 }
 
 /**
+ * Sets up the theme directory
+ *
+ * @since 3.0
+ */
+function dpa_register_theme_directory() {
+	do_action( 'dpa_register_theme_directory' );
+}
+
+/**
  * Set up the post types
  *
  * @since 3.0
@@ -265,6 +280,21 @@ function dpa_ready() {
 
 
 /**
+ * Theme Permissions
+ */
+
+/**
+ * The main action used for redirecting Achievements theme actions that are not
+ * permitted by the current_user.
+ *
+ * @since 3.0
+ */
+function dpa_template_redirect() {
+	do_action( 'dpa_template_redirect' );
+}
+
+
+/**
  * Theme Helpers
  */
 
@@ -293,19 +323,4 @@ function dpa_setup_theme() {
  */
 function dpa_after_setup_theme() {
 	do_action( 'dpa_after_setup_theme' );
-}
-
-
-/**
- * Theme Permissions
- */
-
-/**
- * The main action used for redirecting Achievements theme actions that are not
- * permitted by the current_user.
- *
- * @since 3.0
- */
-function dpa_template_redirect() {
-	do_action( 'dpa_template_redirect' );
 }
