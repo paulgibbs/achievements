@@ -42,7 +42,7 @@ function dpa_template_include_theme_supports( $template = '' ) {
 }
 
 /**
- * Attempt to load a custom bbPress functions file, similar to a theme's functions.php file.
+ * Attempt to load a custom Achievements functions file, similar to a theme's functions.php file.
  *
  * @global string $pagenow
  * @since 3.0
@@ -67,7 +67,7 @@ function dpa_load_theme_functions() {
  */
 function dpa_get_single_achievement_template() {
 	$templates = array(
-		'single-' . dpa_get_achievement_post_type() . '.php',  // Single achievement
+		'single-achievement.php',  // Single achievement
 	);
 
 	return dpa_get_query_template( 'single_achievement', $templates );
@@ -81,7 +81,7 @@ function dpa_get_single_achievement_template() {
  */
 function dpa_get_achievement_archive_template() {
 	$templates = array(
-		'archive-' . dpa_get_achievement_post_type() . '.php',  // Achievement archive
+		'archive-achievement.php',  // Achievement archive
 	);
 
 	return dpa_get_query_template( 'achievement_archive', $templates );

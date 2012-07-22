@@ -205,8 +205,10 @@ final class Achievements {
 		$this->view_id = apply_filters( 'dpa_view_id', 'dpa_view' );
 
 		// Queries
-		$this->achievement_query = new stdClass;  // Main dpa_achievement query
-		$this->progress_query    = new stdClass;  // Main dpa_progress query
+		$this->current_achievement_id = 0;             // Current achievement ID
+
+		$this->achievement_query      = new stdClass;  // Main dpa_achievement query
+		$this->progress_query         = new stdClass;  // Main dpa_progress query
 
 		// Theme compat
 		$this->theme_compat = new stdClass();  // Base theme compatibility class
@@ -253,7 +255,7 @@ final class Achievements {
 		require( $this->plugin_dir . 'includes/core-options.php'    ); // Configuration options
 		require( $this->plugin_dir . 'includes/core-caps.php'       ); // Roles and capabilities
 		//require( $this->plugin_dir . 'includes/core-widgets.php'    ); // Widgets
-		//require( $this->plugin_dir . 'includes/core-shortcodes.php' ); // Shortcodes for use with pages and posts
+		require( $this->plugin_dir . 'includes/core-shortcodes.php' ); // Shortcodes for use with pages and posts
 		require( $this->plugin_dir . 'includes/core-update.php'     ); // Database updater
 
 

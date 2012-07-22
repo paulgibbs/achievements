@@ -77,7 +77,7 @@ function dpa_delete_user_options( $user_id = 0 ) {
 }
 
 /**
- * Add filters to each bbPress option and allow them to be overloaded from
+ * Add filters to each Achievement option and allow them to be overloaded from
  * inside the $bbp->options array.
  *
  * @since 3.0

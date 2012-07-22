@@ -57,7 +57,7 @@ add_action( 'dpa_init', 'dpa_register_post_types',     10  );
 add_action( 'dpa_init', 'dpa_register_post_statuses',  12  );
 add_action( 'dpa_init', 'dpa_register_taxonomies',     14  );
 add_action( 'dpa_init', 'dpa_register_endpoints',      16  );
-//add_action( 'dpa_init', 'dpa_register_shortcodes',     20  );
+add_action( 'dpa_init', 'dpa_register_shortcodes',     20  );
 add_action( 'dpa_init', 'dpa_ready',                   999 );
 
 /**
