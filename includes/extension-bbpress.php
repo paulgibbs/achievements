@@ -90,10 +90,10 @@ class DPA_bbPress_Extension extends DPA_CPT_Extension {
 
 		$this->description     = __( 'bbPress is forum software with a twist from the creators of WordPress.', 'dpa' );
 		$this->id              = 'bbpress';
-		$this->image_url       = trailingslashit( achievements()->plugin_url ) . 'images/bbpress.png';
+		$this->image_url       = trailingslashit( achievements()->admin->images_url ) . 'bbpress.png';
 		$this->name            = __( 'bbPress', 'dpa' );
 		$this->rss_url         = 'http://bbpress.org/blog/feed/';
-		$this->small_image_url = trailingslashit( achievements()->plugin_url ) . 'images/bbpress-small.png';
+		$this->small_image_url = trailingslashit( achievements()->admin->images_url ) . 'bbpress-small.png';
 		$this->version         = 1;
 		$this->wporg_url       = 'http://wordpress.org/extend/plugins/bbpress/';
 

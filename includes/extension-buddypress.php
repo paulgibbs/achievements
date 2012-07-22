@@ -113,10 +113,10 @@ class DPA_BuddyPress_Extension extends DPA_Extension {
 
 		$this->description     = __( 'Social networking in a box. Build a social network for your company, school, sports team or niche community.', 'dpa' );
 		$this->id              = 'buddypress';
-		$this->image_url       = trailingslashit( achievements()->plugin_url ) . 'images/buddypress.png';
+		$this->image_url       = trailingslashit( achievements()->admin->images_url ) . 'buddypress.png';
 		$this->name            = __( 'BuddyPress', 'dpa' );
 		$this->rss_url         = 'http://buddypress.org/blog/feed/';
-		$this->small_image_url = trailingslashit( achievements()->plugin_url ) . 'images/buddypress-small.png';
+		$this->small_image_url = trailingslashit( achievements()->admin->images_url ) . 'buddypress-small.png';
 		$this->version         = 1;
 		$this->wporg_url       = 'http://wordpress.org/extend/plugins/buddypress/';
 

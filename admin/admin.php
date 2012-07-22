@@ -29,9 +29,19 @@ class DPA_Admin {
 	public $admin_url = '';
 
 	/**
-	 * URL to the Achievements image directory
+	 * URL to the Achievements admin css directory
+	 */
+	public $css_url = '';
+
+	/**
+	 * URL to the Achievements admin image directory
 	 */
 	public $images_url = '';
+
+	/**
+	 * URL to the Achievements admin javascript directory
+	 */
+	public $javascript_url = '';
 
 
 	/**
@@ -103,9 +113,11 @@ class DPA_Admin {
 	 * @since 3.0
 	 */
 	private function setup_globals() {
-		$this->admin_dir  = trailingslashit( achievements()->plugin_dir . 'admin'  ); // Admin path
-		$this->admin_url  = trailingslashit( achievements()->plugin_url . 'admin'  ); // Admin URL
-		$this->images_url = trailingslashit( $this->admin_url           . 'images' ); // Admin images URL
+		$this->admin_dir      = trailingslashit( achievements()->plugin_dir . 'admin'  ); // Admin path
+		$this->admin_url      = trailingslashit( achievements()->plugin_url . 'admin'  ); // Admin URL
+		$this->css_url        = trailingslashit( $this->admin_url           . 'css'    ); // Admin CSS URL
+		$this->images_url     = trailingslashit( $this->admin_url           . 'images' ); // Admin images URL
+		$this->javascript_url = trailingslashit( $this->admin_url           . 'js'     ); // Admin javascript URL
 	}
 
 	/**
@@ -159,7 +171,7 @@ class DPA_Admin {
 
 		// "Supported Plugins" screen
 		if ( 'achievements-plugins' == $_GET['page'] )
-			wp_enqueue_style( 'dpa_admin_css', trailingslashit( achievements()->plugin_url ) . 'css/supportedplugins.css', array(), '20120209' );
+			wp_enqueue_style( 'dpa_admin_css', trailingslashit( $this->css_url ) . 'supportedplugins.css', array(), '20120722' );
 	}
 
 	/**
@@ -174,9 +186,9 @@ class DPA_Admin {
 
 		// "Supported Plugins" screen
 		if ( 'achievements-plugins' == $_GET['page'] ) {
-			wp_enqueue_script( 'dpa_socialite',   trailingslashit( achievements()->plugin_url ) . 'js/socialite-min.js',          array(), '20120413', true );
-			wp_enqueue_script( 'tablesorter_js',  trailingslashit( achievements()->plugin_url ) . 'js/jquery-tablesorter-min.js', array( 'jquery' ), '20120413', true );
-			wp_enqueue_script( 'dpa_sp_admin_js', trailingslashit( achievements()->plugin_url ) . 'js/supportedplugins-min.js',   array( 'jquery', 'dpa_socialite', 'dashboard', 'postbox' ), '20120413', true );
+			wp_enqueue_script( 'dpa_socialite',   trailingslashit( $this->javascript_url ) . 'socialite-min.js',          array(), '20120722', true );
+			wp_enqueue_script( 'tablesorter_js',  trailingslashit( $this->javascript_url ) . 'jquery-tablesorter-min.js', array( 'jquery' ), '20120722', true );
+			wp_enqueue_script( 'dpa_sp_admin_js', trailingslashit( $this->javascript_url ) . 'supportedplugins-min.js',   array( 'jquery', 'dpa_socialite', 'dashboard', 'postbox' ), '20120722', true );
 
 			// Add thickbox for the 'not installed' links on the List view
 			add_thickbox();
