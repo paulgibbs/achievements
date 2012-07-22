@@ -88,7 +88,7 @@ function dpa_map_meta_caps( $caps, $cap, $user_id, $args ) {
 				$post_type = get_post_type_object( $post->post_type );
 
 				// @todo Update for post statuses
-				if ( 'published' == $post->post_status )
+				if ( 'publish' == $post->post_status )
 					$caps[] = 'read';
 				else
 					$caps[] = $post_type->cap->read_private_posts;
