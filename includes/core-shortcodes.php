@@ -24,7 +24,7 @@ class DPA_Shortcodes {
 	public $codes = array();
 
 	/**
-	 * Add the register_shortcodes action to bbp_init
+	 * Constructor
 	 *
 	 * @since 3.0
 	 */

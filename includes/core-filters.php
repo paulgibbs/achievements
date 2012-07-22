@@ -31,8 +31,6 @@ add_filter( 'body_class',              'dpa_body_class',         10, 2 );
 add_filter( 'map_meta_cap',            'dpa_map_meta_caps',      10, 4 );
 add_filter( 'allowed_themes',          'dpa_allowed_themes',     10    );
 add_filter( 'redirect_canonical',      'dpa_redirect_canonical', 10    );
-add_filter( 'login_redirect',          'dpa_redirect_login',     2,  3 );
-add_filter( 'logout_url',              'dpa_logout_url',         2,  2 );
 
 // Add post_parent__in to posts_where
 add_filter( 'posts_where', 'dpa_query_post_parent__in', 10, 2 );

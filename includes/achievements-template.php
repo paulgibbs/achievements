@@ -185,6 +185,7 @@ function dpa_achievement_archive_title( $title = '' ) {
  * Output the title of the achievement
  *
  * @param int $forum_id Optional. Forum ID
+ * @see dpa_get_achievement_title()
  * @since 3.0
  */
 function dpa_achievement_title( $forum_id = 0 ) {
@@ -203,3 +204,62 @@ function dpa_achievement_title( $forum_id = 0 ) {
 
 		return apply_filters( 'dpa_get_achievement_title', $title, $post_id );
 	}
+
+/**
+ * Output the achievement ID
+ *
+ * @param int $achievement_id Optional
+ * @see dpa_get_achievement_id()
+ * @since 3.0
+ */
+function dpa_achievement_id( $achievement_id = 0 ) {
+	echo dpa_get_achievement_id( $achievement_id );
+}
+	/**
+	 * Return the achievement ID
+	 *
+	 * @param int $achievement_id Optional
+	 * @return int The achievement ID
+	 * @since 3.0
+	 */
+	function dpa_get_achievement_id( $achievement_id = 0 ) {
+		global $wp_query;
+
+		// Easy empty checking
+		if ( ! empty( $achievement_id ) && is_numeric( $achievement_id ) )
+			$the_achievement_id = $achievement_id;
+
+		// Currently inside an achievement loop
+		elseif ( ! empty( achievements()->achievement_query->in_the_loop ) && isset( achievements()->achievement_query->post->ID ) )
+			$the_achievement_id = achievements()->achievement_query->post->ID;
+
+		// Currently viewing an achievement
+		elseif ( dpa_is_single_achievement() && ! empty( achievements()->current_achievement_id ) )
+			$the_achievement_id = achievements()->current_topic_id;
+
+		else
+			$the_achievement_id = 0;
+
+		return (int) apply_filters( 'dpa_get_achievement_id', (int) $the_achievement_id, $achievement_id );
+	}
+
+/**
+ * Displays achievement notices
+ *
+ * @since 3.0
+ */
+function dpa_achievement_notices() {
+	// Bail if not viewing an achievement
+	if ( ! dpa_is_single_achievement() )
+		return;
+
+	// @todo Maybe add "locked"/"unlocked" achievement notices here
+	$notice_text = '';
+
+	// Filter notice text and bail if empty
+	$notice_text = apply_filters( 'dpa_achievement_notices', $notice_text, dpa_get_achievement_id() );
+	if ( empty( $notice_text ) )
+		return;
+
+	dpa_add_error( 'achievement_notice', $notice_text, 'message' );
+}

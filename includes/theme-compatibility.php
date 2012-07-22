@@ -22,9 +22,11 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 /**
  * Theme compatibility base class
  *
+ * This is only intended to be extended and is included here as a basic guide for future Theme Packs to use.
+ *
  * @since 3.0
  */
-abstract class DPA_Theme_Compat {
+class DPA_Theme_Compat {
 	/**
 	 * Consisting of arrays in this format:
 	 *
@@ -45,7 +47,7 @@ abstract class DPA_Theme_Compat {
 	 * @param array $properties
 	 * @since 3.0
 	 */
-    public function __construct( Array $properties = array() ) {
+    public function __construct( array $properties = array() ) {
 		$this->_data = $properties;
 	}
 

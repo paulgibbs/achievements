@@ -75,8 +75,8 @@ add_action( 'bp_init', 'dpa_bp_loaded' );
 add_action( 'dpa_after_setup_theme', 'dpa_load_theme_functions', 10 );
 
 // Template - Head, foot, errors and messages
-add_action( 'dpa_head',             'dpa_achievement_notices'    );
-add_action( 'dpa_template_notices', 'dpa_template_notices' );
+add_action( 'dpa_head',             'dpa_achievement_notices' );
+add_action( 'dpa_template_notices', 'dpa_template_notices'    );
 
 // User status
 add_action( 'make_ham_user',  'dpa_make_ham_user'  );

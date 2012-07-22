@@ -247,11 +247,12 @@ function dpa_sanitise_val( $request, $input_type = 'text' ) {
 /**
  * Check the passed parameter against the current _dpa_query_name
  *
+ * @param string $name
  * @return bool True if match, false if not
  * @since 3.0
  */
-function dpa_is_query_name( $query_name )  {
-	return (bool) ( dpa_get_query_name() == $name );
+function dpa_is_query_name( $name )  {
+	return (bool) dpa_get_query_name() == $name;
 }
 
 /**
@@ -532,7 +533,7 @@ function dpa_template_notices() {
 	// Loop through notices
 	foreach ( achievements()->errors->get_error_codes() as $code ) {
 		// Get notice severity
-		$severity = achievements()=>errors->get_error_data( $code );
+		$severity = achievements()->errors->get_error_data( $code );
 
 		// Loop through notices and separate errors from messages
 		foreach ( achievements()->errors->get_error_messages( $code ) as $error ) {
@@ -585,12 +586,13 @@ function dpa_title( $title = '', $sep = '&raquo;', $seplocation = '' ) {
 	$_title = $title;
 
 	// Achievement archive
-	if ( dpa_is_achievement_archive() ) {
+	if ( dpa_is_achievement_archive() )
 		$title = dpa_get_achievement_archive_title();
 
 	// Single achievement page
-	} elseif ( dpa_is_single_achievement() ) {
+	elseif ( dpa_is_single_achievement() )
 		$title = sprintf( __( 'Achievement: %s', 'dpa' ), dpa_get_achievement_title() );
+
 
 	// Filter the raw title
 	$title = apply_filters( 'dpa_raw_title', $title, $sep, $seplocation );
