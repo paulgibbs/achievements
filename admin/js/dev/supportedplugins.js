@@ -1,3 +1,5 @@
+/*! http://wordpress.org/extend/plugins/achievements/
+*/
 /*global Socialite*/
 (function($) {
 
