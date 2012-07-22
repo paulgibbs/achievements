@@ -460,7 +460,7 @@ function dpa_replace_the_content( $content = '' ) {
 
 		// No page so show the archive
 		} else {
-			$new_content = achievements()->shortcodes->display_achievement_index();
+			$new_content = achievements()->shortcodes->display_achievements_index();
 		}
 
 	// Single achievement post
