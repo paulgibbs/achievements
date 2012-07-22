@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 /**
  * Possibly intercept the template being loaded
  *
- * Listens to the 'template_include' filter and waits for any Achieveemtns. specific
+ * Listens to the 'template_include' filter and waits for any Achievements specific
  * template condition to be met. If one is met and the template file exists it will be used. 
  *
  * @param string $template Optional.
