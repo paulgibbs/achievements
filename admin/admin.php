@@ -116,7 +116,7 @@ class DPA_Admin {
 	public function admin_menus() {
 		// "Supported Plugins" menu
 		$hook = add_submenu_page(
-			'edit.php?post_type=dpa_achievement',
+			'edit.php?post_type=achievement',
 			__( 'Achievements &mdash; Supported Plugins', 'dpa' ),
 			__( 'Supported Plugins', 'dpa' ),
 			achievements()->minimum_capability,
@@ -234,7 +234,7 @@ class DPA_Admin {
 	public static function is_admin_screen() {
 		$result = false;
 
-		if ( ! empty( $_GET['post_type'] ) && 'dpa_achievement' == $_GET['post_type'] )
+		if ( ! empty( $_GET['post_type'] ) && 'achievement' == $_GET['post_type'] )
 			$result = true;
 
 		return true;

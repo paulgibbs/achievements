@@ -116,7 +116,7 @@ $(document).ready(function() {
 
 	// When the plugin picker changes on the Detail view, reload the page to show the new plugin
 	$('#dpa-details-plugins').on('change.achievements', function() {
-		window.location.search = 'post_type=dpa_achievement&page=achievements-plugins&filter=all&view=detail&plugin=' + $(this.options[this.selectedIndex]).data('plugin');
+		window.location.search = 'post_type=achievement&page=achievements-plugins&filter=all&view=detail&plugin=' + $(this.options[this.selectedIndex]).data('plugin');
 	});
 
 	// "All Plugins" dropdown and live search box

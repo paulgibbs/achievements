@@ -8,14 +8,14 @@
  * care of the core logic -- when a user does something, how does that trigger an event
  * and award an achievement?
  *
- * The dpa_achievement post type has a taxonomy called dpa_event. An "event" is any
+ * The achievement post type has a taxonomy called dpa_event. An "event" is any
  * do_action in WordPress. An achievement post is assigned a term from that taxonomy.
  *
  * On every page load, we grab all terms from the dpa_event taxonomy that have been
  * associated with a post. The dpa_handle_event() function is then registered with
  * those actions, and that's what lets us detect when something interesting happens.
  *
- * dpa_handle_event() makes a WP_Query query of the dpa_achievement post type, passing
+ * dpa_handle_event() makes a WP_Query query of the achievement post type, passing
  * the name of the current action (aka event) as the "tax_query" parameter. This is
  * because multiple achievements could use the same event and we need details of each
  * of those achievements. At this point, we know that the user has maybe unlocked an

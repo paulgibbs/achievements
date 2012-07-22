@@ -192,10 +192,10 @@ final class Achievements {
 		$this->lang_dir   = apply_filters( 'dpa_lang_dir',        trailingslashit( $this->plugin_dir . 'languages' ) );
 
 		// Post type/endpoint/taxonomy identifiers
-		$this->achievement_post_type          = apply_filters( 'dpa_achievement_post_type',          'dpa_achievement' );
-		$this->achievement_progress_post_type = apply_filters( 'dpa_achievement_progress_post_type', 'dpa_progress'    );
-		$this->authors_endpoint               = apply_filters( 'dpa_authors_endpoint',               'achievements'    );
-		$this->event_tax_id                   = apply_filters( 'dpa_event_tax_id',                   'dpa_event'       );
+		$this->achievement_post_type          = apply_filters( 'dpa_achievement_post_type',          'achievement'  );
+		$this->achievement_progress_post_type = apply_filters( 'dpa_achievement_progress_post_type', 'dpa_progress' );
+		$this->authors_endpoint               = apply_filters( 'dpa_authors_endpoint',               'achievements' );
+		$this->event_tax_id                   = apply_filters( 'dpa_event_tax_id',                   'dpa_event'    );
 
 		// Post status identifiers
 		$this->locked_status_id   = apply_filters( 'dpa_locked_post_status',   'dpa_locked'   );
@@ -207,8 +207,8 @@ final class Achievements {
 		// Queries
 		$this->current_achievement_id = 0;             // Current achievement ID
 
-		$this->achievement_query      = new stdClass;  // Main dpa_achievement query
-		$this->progress_query         = new stdClass;  // Main dpa_progress query
+		$this->achievement_query      = new stdClass;  // Main achievement post type query
+		$this->progress_query         = new stdClass;  // Main dpa_progress post type query
 
 		// Theme compat
 		$this->theme_compat = new stdClass();  // Base theme compatibility class
@@ -325,7 +325,7 @@ final class Achievements {
 			'load_textdomain',           // Load textdomain
 			'register_endpoints',        // Register endpoints (achievements)
 			'register_post_statuses',    // Register post statuses (dpa_progress: locked, unlocked)
-			'register_post_types',       // Register post types (dpa_achievement, dpa_progress)
+			'register_post_types',       // Register post types (achievement, dpa_progress)
 			'register_taxonomies',       // Register taxonomies (dpa_event)
 			'register_theme_directory',  // Register the theme directory (themes)
 			'register_theme_packages',   // Register bundled theme packages (theme-compat)
