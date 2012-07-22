@@ -67,7 +67,7 @@ function dpa_load_theme_functions() {
  */
 function dpa_get_single_achievement_template() {
 	$templates = array(
-		'single-achievement.php',  // Single achievement
+		'single-' . dpa_get_achievement_post_type() . '.php',  // Single achievement
 	);
 
 	return dpa_get_query_template( 'single_achievement', $templates );
@@ -81,7 +81,7 @@ function dpa_get_single_achievement_template() {
  */
 function dpa_get_achievement_archive_template() {
 	$templates = array(
-		'archive-achievement.php',  // Achievement archive
+		'archive-' . dpa_get_achievement_post_type() . '.php',  // Achievement archive
 	);
 
 	return dpa_get_query_template( 'achievement_archive', $templates );
