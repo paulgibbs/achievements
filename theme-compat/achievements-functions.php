@@ -61,40 +61,8 @@ class DPA_Default extends DPA_Theme_Compat {
 		add_action( 'dpa_enqueue_scripts',      array( $this, 'enqueue_styles'        ) ); // Enqueue theme CSS
 		add_action( 'dpa_enqueue_scripts',      array( $this, 'enqueue_scripts'       ) ); // Enqueue theme JS
 
-		// Template wrappers
-		add_action( 'dpa_before_main_content',  array( $this, 'before_main_content'   ) ); // Top wrapper HTML
-		add_action( 'dpa_after_main_content',   array( $this, 'after_main_content'    ) ); // Bottom wrapper HTML
-
 		// Override
 		do_action_ref_array( 'dpa_theme_compat_actions', array( &$this ) );
-	}
-
-	/**
-	 * Inserts HTML at the top of the main content area to be compatible with the Twenty Twelve theme.
-	 *
-	 * @since 3.0
-	 */
-	public function before_main_content() {
-	?>
-
-		<div id="container">
-			<div id="content" role="main">
-
-	<?php
-	}
-
-	/**
-	 * Inserts HTML at the bottom of the main content area to be compatible with the Twenty Twelve theme.
-	 *
-	 * @since 3.0
-	 */
-	public function after_main_content() {
-	?>
-
-			</div><!-- #content -->
-		</div><!-- #container -->
-
-	<?php
 	}
 
 	/**
