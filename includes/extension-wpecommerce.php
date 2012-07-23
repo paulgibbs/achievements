@@ -68,10 +68,10 @@ class DPA_WPeCommerce_Extension extends DPA_Extension {
 
 		$this->description     = __( 'WP e-Commerce is a free WordPress Shopping Cart Plugin that lets customers buy your products, services and digital downloads online.', 'dpa' );
 		$this->id              = 'wp-e-commerce';
-		$this->image_url       = trailingslashit( achievements()->admin->images_url ) . 'wp-e-commerce.jpg';
+		$this->image_url       = trailingslashit( achievements()->plugin_url ) . 'admin/images/wp-e-commerce.jpg';
 		$this->name            = __( 'WP e-Commerce', 'dpa' );
 		$this->rss_url         = 'http://getshopped.org/blog/feed/';
-		$this->small_image_url = trailingslashit( achievements()->admin->images_url ) . 'wp-e-commerce.jpg';
+		$this->small_image_url = trailingslashit( achievements()->plugin_url ) . 'admin/images/wp-e-commerce.jpg';
 		$this->version         = 1;
 		$this->wporg_url       = 'http://wordpress.org/extend/plugins/wp-e-commerce/';
 	}
