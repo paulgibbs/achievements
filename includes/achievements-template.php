@@ -194,15 +194,15 @@ function dpa_achievement_title( $forum_id = 0 ) {
 	/**
 	 * Return the title of the forum
 	 *
-	 * @param int $post_id Optional. Achievement ID to get title of.
+	 * @param int $achievement_id Optional. Achievement ID to get title of.
 	 * @return string Title of achievement
 	 * @since 3.0
 	 */
-	function dpa_get_achievement_title( $post_id = 0 ) {
-		$post_id = dpa_get_the_achievement_ID();
-		$title   = get_the_title( $post_id );
+	function dpa_get_achievement_title( $achievement_id = 0 ) {
+		$achievement_id = dpa_get_achievement_ID( $achievement_id );
+		$title   = get_the_title( $achievement_id );
 
-		return apply_filters( 'dpa_get_achievement_title', $title, $post_id );
+		return apply_filters( 'dpa_get_achievement_title', $title, $achievement_id );
 	}
 
 /**
@@ -235,7 +235,11 @@ function dpa_achievement_id( $achievement_id = 0 ) {
 
 		// Currently viewing an achievement
 		elseif ( dpa_is_single_achievement() && ! empty( achievements()->current_achievement_id ) )
-			$the_achievement_id = achievements()->current_topic_id;
+			$the_achievement_id = achievements()->current_achievement_id;
+
+		// Currently viewing an achievement
+		elseif ( dpa_is_single_achievement() && isset( $wp_query->post->ID ) )
+			$the_achievement_id = $wp_query->post->ID;
 
 		else
 			$the_achievement_id = 0;
