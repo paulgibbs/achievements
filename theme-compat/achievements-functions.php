@@ -58,8 +58,8 @@ class DPA_Default extends DPA_Theme_Compat {
 	 */
 	private function setup_actions() {
 		// Scripts
-		add_action( 'dpa_enqueue_scripts',      array( $this, 'enqueue_styles'        ) ); // Enqueue theme CSS
-		add_action( 'dpa_enqueue_scripts',      array( $this, 'enqueue_scripts'       ) ); // Enqueue theme JS
+		add_action( 'dpa_enqueue_scripts', array( $this, 'enqueue_styles'  ) ); // Enqueue theme CSS
+		add_action( 'dpa_enqueue_scripts', array( $this, 'enqueue_scripts' ) ); // Enqueue theme JS
 
 		// Override
 		do_action_ref_array( 'dpa_theme_compat_actions', array( &$this ) );
