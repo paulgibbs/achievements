@@ -163,7 +163,7 @@ function dpa_body_class( $wp_classes, $custom_classes = array() ) {
 /**
  * Use the above is_() functions to return if in any Achievements page
  *
- * @return bool In a bbPress page
+ * @return bool In an Achievements page
  * @since 3.0
  */
 function is_achievements() {
