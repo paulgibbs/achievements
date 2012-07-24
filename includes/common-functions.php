@@ -14,6 +14,125 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 
 /**
+ * Time/date
+ */
+
+/**
+ * Output formatted time to display human readable time difference.
+ *
+ * @param string $older_date Unix timestamp from which the difference begins.
+ * @param bool|string $newer_date Optional. Unix timestamp from which the difference ends. False for current time.
+ * @since 3.0
+ */
+function dpa_time_since( $older_date, $newer_date = false ) {
+	echo dpa_get_time_since( $older_date, $newer_date = false );
+}
+	/**
+	 * Return formatted time to display human readable time difference.
+	 *
+	 * @param string $older_date Unix timestamp from which the difference begins.
+	 * @param bool|string $newer_date Optional. Unix timestamp from which the difference ends. False for current time.
+	 * @return string Formatted time
+	 * @since 3.0
+	 */
+	function dpa_get_time_since( $older_date, $newer_date = false ) {		
+		// Setup the strings
+		$unknown_text   = apply_filters( 'dpa_time_since_unknown_text',   _x( 'sometime',  'time', 'dpa' ) );
+		$right_now_text = apply_filters( 'dpa_time_since_right_now_text', _x( 'right now', 'time', 'dpa' ) );
+		$ago_text       = apply_filters( 'dpa_rime_since_ago_text',       _x( '%s ago',    'time', 'dpa' ) );
+
+		// Array of time period chunks
+		$chunks = array(
+			array( 60 * 60 * 24 * 365 , __( 'year',   'dpa' ), __( 'years',   'dpa' ) ),
+			array( 60 * 60 * 24 * 30 ,  __( 'month',  'dpa' ), __( 'months',  'dpa' ) ),
+			array( 60 * 60 * 24 * 7,    __( 'week',   'dpa' ), __( 'weeks',   'dpa' ) ),
+			array( 60 * 60 * 24 ,       __( 'day',    'dpa' ), __( 'days',    'dpa' ) ),
+			array( 60 * 60 ,            __( 'hour',   'dpa' ), __( 'hours',   'dpa' ) ),
+			array( 60 ,                 __( 'minute', 'dpa' ), __( 'minutes', 'dpa' ) ),
+			array( 1,                   __( 'second', 'dpa' ), __( 'seconds', 'dpa' ) )
+		);
+
+		if ( ! empty( $older_date ) && ! is_numeric( $older_date ) ) {
+			$time_chunks = explode( ':', str_replace( ' ', ':', $older_date ) );
+			$date_chunks = explode( '-', str_replace( ' ', '-', $older_date ) );
+			$older_date  = gmmktime( (int) $time_chunks[1], (int) $time_chunks[2], (int) $time_chunks[3], (int) $date_chunks[1], (int) $date_chunks[2], (int) $date_chunks[0] );
+		}
+
+		/**
+		 * $newer_date will equal false if we want to know the time elapsed
+		 * between a date and the current time. $newer_date will have a value if
+		 * we want to work out time elapsed between two known dates.
+		 */
+		$newer_date = ( ! $newer_date ) ? strtotime( current_time( 'mysql' ) ) : $newer_date;
+
+		// Difference in seconds
+		$since = $newer_date - $older_date;
+
+		// Something went wrong with date calculation and we ended up with a negative date.
+		if ( 0 > $since ) {
+			$output = $unknown_text;
+
+		/**
+		 * We only want to output two chunks of time here, eg:
+		 *     x years, xx months
+		 *     x days, xx hours
+		 * so there's only two bits of calculation below:
+		 */
+		} else {
+
+			// Step one: the first chunk
+			for ( $i = 0, $j = count( $chunks ); $i < $j; ++$i ) {
+				$seconds = $chunks[$i][0];
+
+				// Finding the biggest chunk (if the chunk fits, break)
+				$count = floor( $since / $seconds );
+				if ( 0 != $count ) {
+					break;
+				}
+			}
+
+			// If $i iterates all the way to $j, then the event happened 0 seconds ago
+			if ( ! isset( $chunks[$i] ) ) {
+				$output = $right_now_text;
+
+			} else {
+
+				// Set output var
+				$output = ( 1 == $count ) ? '1 '. $chunks[$i][1] : $count . ' ' . $chunks[$i][2];
+
+				// Step two: the second chunk
+				if ( $i + 2 < $j ) {
+					$seconds2 = $chunks[$i + 1][0];
+					$name2    = $chunks[$i + 1][1];
+					$count2   = floor( ( $since - ( $seconds * $count ) ) / $seconds2 );
+
+					// Add to output var
+					if ( 0 != $count2 ) {
+						$output .= ( 1 == $count2 ) ? _x( ',', 'Separator in time since', 'dpa' ) . ' 1 '. $name2 : _x( ',', 'Separator in time since', 'dpa' ) . ' ' . $count2 . ' ' . $chunks[$i + 1][2];
+					}
+				}
+
+				// No output, so happened right now
+				if ( ! (int) trim( $output ) ) {
+					$output = $right_now_text;
+				}
+			}
+		}
+
+		// Append 'ago' to the end of time-since if not 'right now'
+		if ( $output != $right_now_text ) {
+			$output = sprintf( $ago_text, $output );
+		}
+
+		return apply_filters( 'dpa_get_time_since', $output, $older_date, $newer_date );
+	}
+
+
+/**
+ * Errors
+ */
+
+/**
  * Adds an error message to later be output in the theme
  *
  * @param string $code Unique code for the error message
@@ -40,6 +159,11 @@ function dpa_has_errors() {
 
 	return apply_filters( 'dpa_has_errors', $has_errors, achievements()->errors );
 }
+
+
+/**
+ * Versions
+ */
 
 /**
  * Output the Achievements version
@@ -94,21 +218,6 @@ function dpa_db_version_raw() {
 	function dpa_get_db_version_raw() {
 		return get_option( '_dpa_db_version', '' );
 	}
-
-
-/**
- * Rewrite IDs
- */
-
-/**
- * Return the unique ID for achievement view rewrite rules
- *
- * @return string
- * @since 3.0
- */
-function dpa_get_view_rewrite_id() {
-	return achievements()->view_id;
-}
 
 
 /**
@@ -178,6 +287,28 @@ function dpa_parse_args( $args, $defaults = '', $filter_key = '' ) {
 		$r = apply_filters( 'dpa_after_' . $filter_key . '_parse_args', $r );
 
 	return $r;
+}
+
+/**
+ * Used to guess if page exists at requested path
+ *
+ * @param string $path Optional
+ * @since 3.0
+ * @return mixed False if no page, Page object if true
+ */
+function dpa_get_page_by_path( $path = '' ) {
+	$retval = false;
+
+	// Path is not empty
+	if ( ! empty( $path ) ) {
+
+		// Pretty permalinks are on so path might exist
+		// @todo Achievements - do I need to worry about the plugin running sitewide in multisite?
+		if ( get_option( 'permalink_structure' ) )
+			$retval = get_page_by_path( $path );
+	}
+
+	return apply_filters( 'dpa_get_page_by_path', $retval, $path );
 }
 
 /**
