@@ -176,9 +176,6 @@ function dpa_parse_query( $posts_query ) {
 	if ( is_admin() )
 		return;
 
-	// Get query variables
-	$dpa_view = $posts_query->get( dpa_get_view_rewrite_id() );
-
 	// Are we on an author archive page?
 	if ( $posts_query->is_author() ) {
 
