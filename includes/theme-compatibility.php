@@ -467,6 +467,7 @@ function dpa_replace_the_content( $content = '' ) {
 
 	// Single achievement post
 	} else {
+
 		// Check the post_type
 		switch ( get_post_type() ) {
 
@@ -498,7 +499,9 @@ function dpa_replace_the_content( $content = '' ) {
 		if ( ! apply_filters( 'dpa_spill_the_beans', false ) ) {
 			// Empty globals that aren't being used in this loop anymore
 			$GLOBALS['withcomments'] = false;
-			$GLOBALS['post']         = false;
+
+			// @todo bbPress' theme compat had this, but it causes PHP Notices for me. What's going on?
+			//$GLOBALS['post'] = false;
 
 			// Reset the post data when the next sidebar is fired
 			add_action( 'get_sidebar', 'dpa_theme_compat_reset_post_data' );
@@ -514,6 +517,7 @@ function dpa_replace_the_content( $content = '' ) {
  * Resets the post data after the content has displayed
  *
  * @since 3.0
+ * @static $bool $ran Has this function already run?
  */
 function dpa_theme_compat_reset_post_data() {
 	static $ran = false;
