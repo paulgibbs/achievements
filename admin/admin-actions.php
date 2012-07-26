@@ -56,8 +56,6 @@ add_action( 'dpa_new_site', 'dpa_add_options',            6 );
 add_action( 'dpa_new_site', 'dpa_create_initial_content', 8 );
 add_action( 'dpa_new_site', 'flush_rewrite_rules'           );
 
-// Add sample permalink filter
-add_filter( 'post_type_link', 'dpa_filter_sample_permalink', 10, 4 );
 
 /**
  * When a new site is created in a multisite installation, run the activation
