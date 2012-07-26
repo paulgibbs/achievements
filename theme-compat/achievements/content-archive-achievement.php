@@ -5,7 +5,6 @@
  * @package Achievements
  * @subpackage ThemeCompatibility
  */
-
 ?>
 
 <div id="dpa-achievements">

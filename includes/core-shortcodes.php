@@ -135,7 +135,7 @@ class DPA_Shortcodes {
 	 */
 
 	/**
-	 * Display an index of all achievements forums in an output buffer
+	 * Display an index of all achievement posts in an output buffer
 	 * and return to ensure that post/page contents are displayed first.
 	 *
 	 * @return string
@@ -155,7 +155,7 @@ class DPA_Shortcodes {
 	}
 
 	/**
-	 * Display the contents of a specific forum ID in an output buffer
+	 * Display the contents of a specific achievement ID in an output buffer
 	 * and return to ensure that post/page contents are displayed first.
 	 *
 	 * @param array $attr
@@ -171,7 +171,7 @@ class DPA_Shortcodes {
 		// Set passed attribute to $achievement_id for clarity
 		$achievement_id = achievements()->current_achievement_id = $attr['id'];
 
-		// Bail if ID passed is not a forum
+		// Bail if ID passed is not an achievement
 		if ( ! dpa_is_achievement( $achievement_id ) )
 			return $content;
 

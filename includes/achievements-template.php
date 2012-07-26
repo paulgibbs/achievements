@@ -159,7 +159,7 @@ function dpa_achievement_archive_title( $title = '' ) {
 	 * Return the achievement archive title
 	 *
 	 * @param string $title Optional. Default text to use as title
-	 * @return string The forum archive title
+	 * @return string The achievement archive title
 	 * @since 3.0
 	 */
 	function dpa_get_achievement_archive_title( $title = '' ) {
@@ -184,15 +184,15 @@ function dpa_achievement_archive_title( $title = '' ) {
 /**
  * Output the title of the achievement
  *
- * @param int $forum_id Optional. Forum ID
+ * @param int $achievement_id Optional. Achievement ID
  * @see dpa_get_achievement_title()
  * @since 3.0
  */
-function dpa_achievement_title( $forum_id = 0 ) {
-	echo dpa_get_achievement_title( $forum_id );
+function dpa_achievement_title( $achievement_id = 0 ) {
+	echo dpa_get_achievement_title( $achievement_id );
 }
 	/**
-	 * Return the title of the forum
+	 * Return the title of the achievement
 	 *
 	 * @param int $achievement_id Optional. Achievement ID to get title of.
 	 * @return string Title of achievement
@@ -200,7 +200,7 @@ function dpa_achievement_title( $forum_id = 0 ) {
 	 */
 	function dpa_get_achievement_title( $achievement_id = 0 ) {
 		$achievement_id = dpa_get_achievement_ID( $achievement_id );
-		$title   = get_the_title( $achievement_id );
+		$title          = get_the_title( $achievement_id );
 
 		return apply_filters( 'dpa_get_achievement_title', $title, $achievement_id );
 	}

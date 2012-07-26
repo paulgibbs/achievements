@@ -64,7 +64,7 @@ function dpa_footer() {
  * Check if current page is an achievement post type page.
  *
  * @param int $post_id Optional. Possible post_id to check
- * @return bool True if it's a forum page, false if not
+ * @return bool True if it's an achievement page, false if not
  * @since 3.0
  */
 function dpa_is_achievement( $post_id = 0 ) {
@@ -106,7 +106,7 @@ function dpa_is_single_achievement() {
 	if ( is_singular( dpa_get_achievement_post_type() ) || dpa_is_query_name( 'dpa_single_achievement' ) )
 		$retval = true;
 
-	return (bool) apply_filters( 'dpa_is_single_forum', $retval );
+	return (bool) apply_filters( 'dpa_is_single_achievement', $retval );
 }
 
 /**
@@ -436,7 +436,7 @@ function dpa_breadcrumb( $args = array() ) {
 		if ( ! empty( $include_home ) || empty( $home_text ) )
 			$crumbs[] = '<a href="' . trailingslashit( home_url() ) . '" class="dpa-breadcrumb-home">' . $home_text . '</a>';
 
-		// Do we want to include a link to the forum root?
+		// Do we want to include a link to the achievement root?
 		if ( ! empty( $include_root ) || empty( $root_text ) ) {
 
 			// Page exists at root slug path, so use its permalink

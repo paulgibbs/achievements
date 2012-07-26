@@ -60,7 +60,7 @@ function dpa_load_theme_functions() {
  */
 
 /**
- * Get the single forum template
+ * Get the single achievement template
  *
  * @return string Path to template file
  * @since 3.0
@@ -74,7 +74,7 @@ function dpa_get_single_achievement_template() {
 }
 
 /**
- * Get the forum archive template
+ * Get the achievement archive template
  *
  * @return string Path to template file
  * @since 3.0

@@ -5,13 +5,12 @@
  * @package Achievements
  * @subpackage ThemeCompatibility
  */
-
 ?>
 
 <div id="dpa-achievements">
 
 	<?php dpa_breadcrumb(); ?>
 
-	<?php dpa_achievement_title(); ?>
+	Title: <?php dpa_achievement_title(); ?>
 
 </div>

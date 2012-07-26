@@ -471,7 +471,7 @@ function dpa_replace_the_content( $content = '' ) {
 		// Check the post_type
 		switch ( get_post_type() ) {
 
-			// Single Forum
+			// Single achievement
 			case dpa_get_achievement_post_type() :
 				$new_content = achievements()->shortcodes->display_achievement( array( 'id' => get_the_ID() ) );
 				break;
@@ -547,7 +547,7 @@ function dpa_theme_compat_reset_post_data() {
  *
  * @global unknown $wp_rewrite
  * @param string $redirect_url Redirect url
- * @return bool|string False if it's a topic/forum and their first page, otherwise the redirect url.
+ * @return bool|string False if it's an achievement archive or post, and on the first page of pagination, otherwise the redirect url.
  * @since 3.0
  */
 function dpa_redirect_canonical( $redirect_url ) {
