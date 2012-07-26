@@ -11,6 +11,7 @@
 
 	<?php dpa_breadcrumb(); ?>
 
+	Single post template
 	Title: <?php dpa_achievement_title(); ?>
 
 </div>
