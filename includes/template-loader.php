@@ -88,17 +88,23 @@ function dpa_get_achievement_archive_template() {
 }
 
 /**
- * Get the templates to use as the endpoint for Achievements template parts
+ * Get the templates to use as the endpoint for Achievements template parts.
+ *
+ * The way this works is that we'll look in your theme for any of these files.
+ * If we find one, we'll use it to build the output. For most themes this
+ * will probably be page.php.
+ *
+ * The other options are there to let enterprising theme developers really
+ * make Achievements sing.
  *
  * @return string Path to template file
  * @since 3.0
  */
 function dpa_get_theme_compat_templates() {
 	$templates = array(
-		'plugin-achievements.php',
+		'plugin-achievements.php',  // https://core.trac.wordpress.org/ticket/20509
 		'achievements.php',
-		'achievement.php',
-		'generic.php',
+		'generic.php',              // https://core.trac.wordpress.org/ticket/20509
 		'page.php',
 		'single.php',
 		'index.php',
