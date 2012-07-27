@@ -46,8 +46,8 @@ function dpa_get_template_part( $slug, $name = null ) {
  * not found in either of those, it looks in the theme-compat folder last.
  *
  * @param string|array $template_names Template file(s) to search for, in order.
- * @param bool $load If true the template file will be loaded if it is found.
- * @param bool $require_once Whether to require_once or require. Default true. Has no effect if $load is false.
+ * @param bool $load Optional. If true the template file will be loaded if it is found.
+ * @param bool $require_once Optional. Whether to require_once or require. Default true. Has no effect if $load is false.
  * @return string The template filename if one is located.
  * @since 3.0
  */
