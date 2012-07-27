@@ -247,6 +247,13 @@ final class Achievements {
 	 */
 	private function includes() {
 		/**
+		 * Classes
+		 */
+		require( $this->plugin_dir . 'includes/class-dpa-extension.php'     ); // Base class for adding support for other plugins
+		require( $this->plugin_dir . 'includes/class-dpa-cpt-extension.php' ); // Base class for adding support for other plugins implementing post type actions
+		require( $this->plugin_dir . 'includes/class-dpa-shortcodes.php'    ); // Class for shortcodes
+
+		/**
 		 * Core
 		 */
 		require( $this->plugin_dir . 'includes/core-actions.php'    ); // All actions
@@ -269,8 +276,6 @@ final class Achievements {
 		/**
 		 * Plugin extensions
 		 */
-		require( $this->plugin_dir . 'includes/class-dpa-extension.php'     ); // Base class for adding support for other plugins
-		require( $this->plugin_dir . 'includes/class-dpa-cpt-extension.php' ); // Base class for adding support for other plugins implementing post type actions
 		require( $this->plugin_dir . 'includes/extension-bbpress.php'       ); // Extension for bbPress
 		require( $this->plugin_dir . 'includes/extension-buddypress.php'    ); // Extension for BuddyPress
 		require( $this->plugin_dir . 'includes/extension-buddystream.php'   ); // Extension for BuddyStream
