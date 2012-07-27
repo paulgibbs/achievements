@@ -47,7 +47,7 @@ class DPA_Theme_Compat {
 	 * @param array $properties
 	 * @since 3.0
 	 */
-    public function __construct( array $properties = array() ) {
+	public function __construct( array $properties = array() ) {
 		$this->_data = $properties;
 	}
 
