@@ -39,7 +39,7 @@ add_filter( 'posts_where', 'dpa_query_post_parent__in', 10, 2 );
  * Template Compatibility
  *
  * If you want to completely bypass this and manage your own custom Achievements
- * template hierarchy, start here by removing this filter and then look at how
+ * template hierarchy, start here by removing these filter and then look at how
  * dpa_template_include() works and do something similar. :)
  */
 add_filter( 'dpa_template_include', 'dpa_template_include_theme_supports', 2, 1 );

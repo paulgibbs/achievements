@@ -293,8 +293,9 @@ final class Achievements {
 		require( $this->plugin_dir . 'includes/common-functions.php' ); // Common functions
 		require( $this->plugin_dir . 'includes/common-template.php'  ); // Common template tags
 
-		require( $this->plugin_dir . 'includes/user-functions.php' ); // User functions
-		require( $this->plugin_dir . 'includes/user-options.php'   ); // User options
+		require( $this->plugin_dir . 'includes/user-functions.php'     ); // User functions
+		require( $this->plugin_dir . 'includes/user-options.php'       ); // User options
+		require( $this->plugin_dir . 'includes/user-notifications.php' ); // User notifications
 
 		require( $this->plugin_dir . 'includes/achievements-functions.php' ); // Implements the main logic for the achievement post type (achievement event monitoring, etc)
 		require( $this->plugin_dir . 'includes/achievements-template.php'  ); // Achievement post type template tags
@@ -558,7 +559,7 @@ final class Achievements {
 			'rewrite'               => false,
 			'show_in_nav_menus'     => false,
 			'show_tagcloud'         => false,
-			'show_ui'               => false,
+			'show_ui'               => true,
 			'update_count_callback' => '_update_post_term_count',
 		) );
 
