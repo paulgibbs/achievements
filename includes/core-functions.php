@@ -272,16 +272,20 @@ function dpa_maybe_unlock_achievement( $user_id, $skip_validation = '', $progres
 	} elseif ( ! empty( $achievement_target ) ) {
 
 		// Increment progress count
+		$progress_args['post_content'] = apply_filters( 'dpa_maybe_unlock_achievement_progress_increment', 1 );
 		if ( ! empty( $progress_obj ) )
-			$progress_obj->content    = (int) $progress_obj->content + apply_filters( 'dpa_maybe_unlock_achievement_progress_increment', 1 );
-		else
-			$progress_args['content'] = (int) $progress_obj->content + apply_filters( 'dpa_maybe_unlock_achievement_progress_increment', 1 );
+			$progress_args['post_content'] = (int) $progress_args['post_content'] + (int) $progress_obj->post_content;
 
 		// Does the progress count now meet the achievement target?
-		if ( ( ! empty( $progress_obj ) && (int) $progress_obj->content >= $achievement_target ) || ( empty( $progress_obj ) && (int) $progress_args['content'] >= $achievement_target ) ) {
+		if ( (int) $progress_args['post_content'] >= $achievement_target ) {
 
 			// Yes. Unlock achievement.
 			$progress_args['post_status'] = dpa_get_unlocked_status_id();
+
+		// No.
+		} else {
+			// The achievement is still locked; make sure the status is set.
+			$progress_args['post_status'] = dpa_get_locked_status_id();
 		}
 	}
 
