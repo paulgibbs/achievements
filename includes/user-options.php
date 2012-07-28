@@ -233,12 +233,12 @@ function dpa_user_points( $user_id = 0 ) {
 /**
  * Update a user's notifications
  *
- * @param int $user_id User ID to update. Optional, defaults to current logged in user.
  * @param array $new_value Optional. The new value
+ * @param int $user_id User ID to update. Optional, defaults to current logged in user.
  * @return bool False if no user or failure, true if successful
  * @since 3.0
  */
-function dpa_update_user_notifications( $user_id = 0, $new_value = array() ) {
+function dpa_update_user_notifications( $new_value = array(), $user_id = 0 ) {
 	// Default to current user
 	if ( empty( $user_id ) && is_user_logged_in() )
 		$user_id = get_current_user_id();
