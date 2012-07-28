@@ -295,10 +295,6 @@ function dpa_maybe_unlock_achievement( $user_id, $skip_validation = '', $progres
 	// If the achievement was just unlocked, do stuff.
 	if ( dpa_get_unlocked_status_id() == $progress_args['post_status'] ) {
 
-		// Update user's points
-		$points = dpa_get_user_points( $user_id ) + get_post_meta( $achievement_obj->ID, '_dpa_points', true );
-		dpa_update_user_points( $user_id, $points );
-
 		// Achievement was unlocked. Let other plugins do things.
 		do_action( 'dpa_unlock_achievement', $achievement_obj, $user_id, $progress_id );
 	}

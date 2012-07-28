@@ -152,3 +152,16 @@ function dpa_is_user_deleted( $user_id = 0 ) {
 
 	return apply_filters( 'dpa_is_user_deleted', (bool) $is_deleted );
 }
+
+/**
+ * When an achievement is unlocked, give the points to the user.
+ *
+ * @param object $achievement_obj The Achievement object to send a notification for.
+ * @param int $user_id ID of the user who unlocked the achievement.
+ * @param object $progress_obj The Progress object's ID.
+ * @since 3.0
+ */
+function dpa_send_points( $achievement_obj, $user_id, $progress_id ) {
+	$points = dpa_get_user_points( $user_id ) + get_post_meta( $achievement_obj->ID, '_dpa_points', true );
+	dpa_update_user_points( $user_id, $points );
+}
