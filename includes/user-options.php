@@ -17,8 +17,9 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  */
 function dpa_get_default_user_options() {
 	return apply_filters( 'dpa_get_default_user_options', array(
-		'_dpa_unlocked_count' => 0,  // How many achievements this user has unlocked (per site or network)
-		'_dpa_points'         => 0,  // How many points this user has (per site or network)
+		'_dpa_unlocked_count' => 0,        // How many achievements this user has unlocked (per site or network)
+		'_dpa_points'         => 0,        // How many points this user has (per site or network)
+		'_dpa_notifications'  => array(),  // User notifications (per site or network)
 	) );
 }
 
@@ -39,7 +40,7 @@ function dpa_add_user_options( $user_id = 0 ) {
 	if ( empty( $user_id ) )
 		return;
 
-	// As Achievements can run independantly (as well as sitewide) on a multisite, decide where to store the user option
+	// As Achievements can run independently (as well as sitewide) on a multisite, decide where to store the user option
 	$store_global = is_multisite() && dpa_is_running_networkwide();
 
 	// Add default options
@@ -68,9 +69,11 @@ function dpa_delete_user_options( $user_id = 0 ) {
 	if ( empty( $user_id ) )
 		return;
 
-	// Add default options
-	foreach ( dpa_get_default_user_options() as $key => $value )
-		delete_user_option( $user_id, $key );
+	// Delete default options (both per site and per network)
+	foreach ( dpa_get_default_user_options() as $key => $value ) {
+		delete_user_option( $user_id, $key, false );
+		delete_user_option( $user_id, $key, true );
+	}
 
 	// Allow previously activated plugins to append their own options.
 	do_action( 'dpa_delete_user_options' );
@@ -97,8 +100,8 @@ function dpa_setup_user_option_filters() {
  *
  * @since 3.0
  * @param bool $value Optional. Fallback value if none found (default is false).
- * @param string $option Option name
- * @param WP_User $user User to get option for
+ * @param string $option Optional. Option name
+ * @param WP_User $user Optional. User to get option for
  * @return mixed false if not overloaded, mixed if set
  */
 function dpa_filter_get_user_option( $value = false, $option = '', $user = null ) {
@@ -112,8 +115,8 @@ function dpa_filter_get_user_option( $value = false, $option = '', $user = null 
 /**
  * Update a user's unlocked achievement count
  *
- * @param int $user_id User ID to update. Optional, defaults to current logged in user.
- * @param int $new_value The new value
+ * @param int $user_id Optional. User ID to update. Optional, defaults to current logged in user.
+ * @param int $new_value Optional.  The new value.
  * @return bool False if no user or failure, true if successful
  * @since 3.0
  */
@@ -126,7 +129,7 @@ function dpa_update_user_unlocked_count( $user_id = 0, $new_value = 0 ) {
 	if ( empty( $user_id ) )
 		return false;
 
-	// As Achievements can run independantly (as well as sitewide) on a multisite, decide where to store the user option
+	// As Achievements can run independently (as well as sitewide) on a multisite, decide where to store the user option
 	$store_global = is_multisite() && dpa_is_running_networkwide();
 
 	$new_value = apply_filters( 'dpa_update_user_unlocked_count', $new_value, $user_id );
@@ -136,7 +139,7 @@ function dpa_update_user_unlocked_count( $user_id = 0, $new_value = 0 ) {
 /**
  * Output the total of how many achievements that this user has unlocked
  *
- * @param int $user_id User ID to retrieve value for
+ * @param int $user_id Optional. User ID to retrieve value for
  * @since 3.0
  */
 function dpa_user_unlocked_count( $user_id = 0 ) {
@@ -146,7 +149,7 @@ function dpa_user_unlocked_count( $user_id = 0 ) {
 	/**
 	 * Return the total of how many achievements that this user has unlocked
 	 *
-	 * @param int $user_id User ID to retrieve value for
+	 * @param int $user_id Optional. User ID to retrieve value for
 	 * @return mixed False if no user, option value otherwise.
 	 * @since 3.0
 	 */
@@ -172,7 +175,7 @@ function dpa_user_unlocked_count( $user_id = 0 ) {
  * Update a user's points total
  *
  * @param int $user_id User ID to update. Optional, defaults to current logged in user.
- * @param int $new_value The new value
+ * @param int $new_value Optional. The new value
  * @return bool False if no user or failure, true if successful
  * @since 3.0
  */
@@ -185,7 +188,7 @@ function dpa_update_user_points( $user_id = 0, $new_value = 0 ) {
 	if ( empty( $user_id ) )
 		return false;
 
-	// As Achievements can run independantly (as well as sitewide) on a multisite, decide where to store the user option
+	// As Achievements can run independently (as well as sitewide) on a multisite, decide where to store the user option
 	$store_global = is_multisite() && dpa_is_running_networkwide();
 
 	$new_value = apply_filters( 'dpa_update_user_points', $new_value, $user_id );
@@ -195,7 +198,7 @@ function dpa_update_user_points( $user_id = 0, $new_value = 0 ) {
 /**
  * Output the user's points total
  *
- * @param int $user_id User ID to retrieve value for
+ * @param int $user_id Optional. User ID to retrieve value for
  * @since 3.0
  */
 function dpa_user_points( $user_id = 0 ) {
@@ -205,7 +208,7 @@ function dpa_user_points( $user_id = 0 ) {
 	/**
 	 * Return the user's points total
 	 *
-	 * @param int $user_id User ID to retrieve value for
+	 * @param int $user_id Optional. User ID to retrieve value for
 	 * @return mixed False if no user, option value otherwise.
 	 * @since 3.0
 	 */
@@ -221,3 +224,52 @@ function dpa_user_points( $user_id = 0 ) {
 		$value = get_user_option( '_dpa_points', $user_id );
 		return apply_filters( 'dpa_get_user_points', $value, $user_id );
 	}
+
+
+/**
+ * _dpa_notifications option - this user's notifications
+ */
+
+/**
+ * Update a user's notifications
+ *
+ * @param int $user_id User ID to update. Optional, defaults to current logged in user.
+ * @param array $new_value Optional. The new value
+ * @return bool False if no user or failure, true if successful
+ * @since 3.0
+ */
+function dpa_update_user_notifications( $user_id = 0, $new_value = array() ) {
+	// Default to current user
+	if ( empty( $user_id ) && is_user_logged_in() )
+		$user_id = get_current_user_id();
+
+	// No user, bail out
+	if ( empty( $user_id ) )
+		return false;
+
+	// As Achievements can run independently (as well as sitewide) on a multisite, decide where to store the user option
+	$store_global = is_multisite() && dpa_is_running_networkwide();
+
+	$new_value = apply_filters( 'dpa_update_user_notifications', $new_value, $user_id );
+	return update_user_option( $user_id, '_dpa_notifications', $new_value, $store_global );
+}
+
+/**
+ * Return the user's notifications
+ *
+ * @param int $user_id Optional. User ID to retrieve value for
+ * @return array False if no user, option value otherwise.
+ * @since 3.0
+ */
+function dpa_get_user_notifications( $user_id = 0 ) {
+	// Default to current user
+	if ( empty( $user_id ) && is_user_logged_in() )
+		$user_id = get_current_user_id();
+
+	// No user, bail out
+	if ( empty( $user_id ) )
+		return false;
+
+	$value = get_user_option( '_dpa_notifications', $user_id );
+	return apply_filters( 'dpa_get_user_notifications', $value, $user_id );
+}
