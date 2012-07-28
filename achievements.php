@@ -253,6 +253,7 @@ final class Achievements {
 		require( $this->plugin_dir . 'includes/class-dpa-cpt-extension.php' ); // Base class for adding support for other plugins implementing post type actions
 		require( $this->plugin_dir . 'includes/class-dpa-shortcodes.php'    ); // Class for shortcodes
 
+
 		/**
 		 * Core
 		 */
@@ -272,6 +273,7 @@ final class Achievements {
 		require( $this->plugin_dir . 'includes/template-functions.php'  ); // Template functions
 		require( $this->plugin_dir . 'includes/template-loader.php'     ); // Template loader
 		require( $this->plugin_dir . 'includes/theme-compatibility.php' ); // Theme compatibility for existing themes
+
 
 		/**
 		 * Plugin extensions
