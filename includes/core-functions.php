@@ -272,10 +272,13 @@ function dpa_maybe_unlock_achievement( $user_id, $skip_validation = '', $progres
 	} elseif ( ! empty( $achievement_target ) ) {
 
 		// Increment progress count
-		$progress_obj->content = (int) $progress_obj->content + apply_filters( 'dpa_maybe_unlock_achievement_progress_increment', 1 );
+		if ( ! empty( $progress_obj ) )
+			$progress_obj->content    = (int) $progress_obj->content + apply_filters( 'dpa_maybe_unlock_achievement_progress_increment', 1 );
+		else
+			$progress_args['content'] = (int) $progress_obj->content + apply_filters( 'dpa_maybe_unlock_achievement_progress_increment', 1 );
 
 		// Does the progress count now meet the achievement target?
-		if ( (int) $progress_obj->content >= $achievement_target ) {
+		if ( ( ! empty( $progress_obj ) && (int) $progress_obj->content >= $achievement_target ) || ( empty( $progress_obj ) && (int) $progress_args['content'] >= $achievement_target ) ) {
 
 			// Yes. Unlock achievement.
 			$progress_args['post_status'] = dpa_get_unlocked_status_id();
@@ -293,6 +296,6 @@ function dpa_maybe_unlock_achievement( $user_id, $skip_validation = '', $progres
 		dpa_update_user_points( $user_id, $points );
 
 		// Achievement was unlocked. Let other plugins do things.
-		do_action( 'dpa_unlock_achievement', $achievement_obj, $user_id, $progress_obj, $progress_id );
+		do_action( 'dpa_unlock_achievement', $achievement_obj, $user_id, $progress_id );
 	}
 }
