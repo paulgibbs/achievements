@@ -19,11 +19,12 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  * @since 3.0
  */
 function dpa_send_notification( $achievement_obj, $user_id, $progress_id ) {
+	// Let other plugins easily bypass sending notifications.
+	if ( ! apply_filters( 'dpa_send_notification', true, $achievement_obj, $user_id, $progress_id ) )
+		return;
+
 	// Create a notification for this user/achievement.
 	dpa_new_notification( $user_id, $achievement_obj->ID );
-
-	// Run an action for third-party plugins
-	do_action( 'dpa_send_notification', $achievement_obj, $user_id, $progress_id );
 }
 
 /**
