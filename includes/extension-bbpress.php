@@ -19,7 +19,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 function dpa_init_bbpress_extension() {
 	achievements()->extensions->bbpress = new DPA_bbPress_Extension;
 
-	// Run an action for other plugins
+	// Tell the world that the bbPress extension is ready
 	do_action( 'dpa_init_bbpress_extension' );
 }
 add_action( 'dpa_ready', 'dpa_init_bbpress_extension' );

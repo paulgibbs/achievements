@@ -19,7 +19,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 function dpa_init_wordpress_extension() {
 	achievements()->extensions->wordpress = new DPA_WordPress_Extension;
 
-	// Run an action for other plugins
+	// Tell the world that the WordPress extension is ready
 	do_action( 'dpa_init_wordpress_extension' );
 }
 add_action( 'dpa_ready', 'dpa_init_wordpress_extension' );

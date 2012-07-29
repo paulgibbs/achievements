@@ -19,7 +19,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 function dpa_init_buddystream_extension() {
 	achievements()->extensions->buddystream = new DPA_BuddyStream_Extension;
 
-	// Run an action for other plugins
+	// Tell the world that the BuddyStream extension is ready
 	do_action( 'dpa_init_buddystream_extension' );
 }
 add_action( 'dpa_ready', 'dpa_init_buddystream_extension' );

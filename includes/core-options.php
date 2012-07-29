@@ -55,7 +55,7 @@ function dpa_add_options() {
 	foreach ( $options as $key => $value )
 		add_option( $key, $value );
 
-	// Run an action for other plugins
+	// Let other plugins add any extra options
 	do_action( 'dpa_add_options' );
 }
 
@@ -74,7 +74,7 @@ function dpa_delete_options() {
 	foreach ( $options as $key => $value )
 		delete_option( $key );
 
-	// Run an action for other plugins
+	// Let other plugins delete any extra options which they've added
 	do_action( 'dpa_delete_options' );
 }
 
@@ -91,7 +91,7 @@ function dpa_setup_option_filters() {
 	foreach ( $options as $key => $value )
 		add_filter( 'pre_option_' . $key, 'dpa_pre_get_option' );
 
-	// Run an action for other plugins
+	// Let other plugins add their own option filters
 	do_action( 'dpa_setup_option_filters' );
 }
 

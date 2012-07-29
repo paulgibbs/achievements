@@ -19,7 +19,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 function dpa_init_wpecommerce_extension() {
 	achievements()->extensions->wp_ecommerce = new DPA_WPeCommerce_Extension;
 
-	// Run an action for other plugins
+	// Tell the world that the WP e-Commerce extension is ready
 	do_action( 'dpa_init_wpecommerce_extension' );
 }
 add_action( 'dpa_ready', 'dpa_init_wpecommerce_extension' );

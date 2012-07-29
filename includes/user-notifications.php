@@ -26,7 +26,7 @@ function dpa_send_notification( $achievement_obj, $user_id, $progress_id ) {
 	// Create a notification for this user/achievement.
 	dpa_new_notification( $user_id, $achievement_obj->ID );
 
-	// Run an action for other plugins to use
+	// Tell other plugins that we've just added a new notification
 	do_action( 'dpa_send_notification', $achievement_obj, $user_id, $progress_id );
 }
 
@@ -57,7 +57,7 @@ function dpa_new_notification( $user_id = 0, $post_id = 0 ) {
 	$notifications[$post_id] = current_time( 'mysql', true );
 	dpa_update_user_notifications( $notifications, $user_id );
 
-	// Run an action for third-party plugins before we add the notification
+	// Tell other plugins that we've just created a new notification
 	do_action( 'dpa_new_notification', $user_id, $post_id );
 }
 
@@ -92,6 +92,6 @@ function dpa_clear_notification( $post_id = 0, $user_id = 0 ) {
 	unset( $notifications[$post_id] );
 	dpa_update_user_notifications( $notifications, $user_id );
 
-	// Run an action for third-party plugins before we clear the notification
+	// Tell other plugins that we've just cleared other plugins
 	do_action( 'dpa_clear_notification', $post_id, $user_id );
 }

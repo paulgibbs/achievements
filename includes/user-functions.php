@@ -173,6 +173,6 @@ function dpa_send_points( $achievement_obj, $user_id, $progress_id ) {
 	// Give points to user
 	dpa_update_user_points( $user_id, $points );
 
-	// Run an action for other plugins to use
+	// Allow other things to happen after the user's points have been updated
 	do_action( 'dpa_send_points', $achievement_obj, $user_id, $progress_id, $points );
 }

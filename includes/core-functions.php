@@ -81,7 +81,7 @@ function dpa_maybe_update_extensions() {
 	if ( $orig_versions != $versions )
 		dpa_update_extension_versions( $versions );
 
-	// Run an action for other plugins
+	// Allow other plugins to run any update routines for their extension
 	do_action( 'dpa_maybe_update_extensions', $orig_versions, $versions );
 }
 
@@ -117,7 +117,7 @@ function dpa_register_events() {
 	foreach ( (array) $events as $event )
 		add_action( $event, 'dpa_handle_event', 12, 10 );  // Priority 12 in case object modified by other plugins
 
-	// Run an action for other plugins
+	// Allow other plugins to register extra events
 	do_action( 'dpa_register_events', $events );
 }
 
@@ -295,7 +295,7 @@ function dpa_maybe_unlock_achievement( $user_id, $skip_validation = '', $progres
 	// If the achievement was just unlocked, do stuff.
 	if ( dpa_get_unlocked_status_id() == $progress_args['post_status'] ) {
 
-		// Achievement was unlocked. Let other plugins do things.
+		// Achievement was unlocked. Notifications and points updates are hooked to this function.
 		do_action( 'dpa_unlock_achievement', $achievement_obj, $user_id, $progress_id );
 	}
 }

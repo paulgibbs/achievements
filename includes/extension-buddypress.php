@@ -19,7 +19,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 function dpa_init_buddypress_extension() {
 	achievements()->extensions->buddypress = new DPA_BuddyPress_Extension;
 
-	// Run an action for other plugins
+	// Tell the world that the BuddyPress extension is ready
 	do_action( 'dpa_init_buddypress_extension' );
 }
 add_action( 'dpa_ready', 'dpa_init_buddypress_extension' );
