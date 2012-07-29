@@ -20,11 +20,14 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  */
 function dpa_send_notification( $achievement_obj, $user_id, $progress_id ) {
 	// Let other plugins easily bypass sending notifications.
-	if ( ! apply_filters( 'dpa_send_notification', true, $achievement_obj, $user_id, $progress_id ) )
+	if ( ! apply_filters( 'dpa_maybe_send_notification', true, $achievement_obj, $user_id, $progress_id ) )
 		return;
 
 	// Create a notification for this user/achievement.
 	dpa_new_notification( $user_id, $achievement_obj->ID );
+
+	// Run an action for other plugins to use
+	do_action( 'dpa_send_notification', $achievement_obj, $user_id, $progress_id );
 }
 
 /**
@@ -47,15 +50,15 @@ function dpa_new_notification( $user_id = 0, $post_id = 0 ) {
 	if ( empty( $user_id ) || empty( $post_id ) )
 		return;
 
-	// Run an action for third-party plugins before we add the notification
-	do_action( 'dpa_new_notification', $user_id, $post_id );
-
 	// Get current notifications; the array is keyed by the achievement (post) ID.
 	$notifications = dpa_get_user_notifications( $user_id );
 
 	// Add the new notification - value is the timestamp in GMT
 	$notifications[$post_id] = current_time( 'mysql', true );
 	dpa_update_user_notifications( $notifications, $user_id );
+
+	// Run an action for third-party plugins before we add the notification
+	do_action( 'dpa_new_notification', $user_id, $post_id );
 }
 
 /**
@@ -85,10 +88,10 @@ function dpa_clear_notification( $post_id = 0, $user_id = 0 ) {
 	if ( ! isset( $notifications[$post_id] ) )
 		return;
 
-	// Run an action for third-party plugins before we clear the notification
-	do_action( 'dpa_clear_notification', $post_id, $user_id );
-
 	// Clear the notification
 	unset( $notifications[$post_id] );
 	dpa_update_user_notifications( $notifications, $user_id );
+
+	// Run an action for third-party plugins before we clear the notification
+	do_action( 'dpa_clear_notification', $post_id, $user_id );
 }

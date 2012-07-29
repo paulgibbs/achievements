@@ -163,7 +163,7 @@ function dpa_is_user_deleted( $user_id = 0 ) {
  */
 function dpa_send_points( $achievement_obj, $user_id, $progress_id ) {
 	// Let other plugins easily bypass sending points.
-	if ( ! apply_filters( 'dpa_send_points', true, $achievement_obj, $user_id, $progress_id ) )
+	if ( ! apply_filters( 'dpa_maybe_send_points', true, $achievement_obj, $user_id, $progress_id ) )
 		return;
 
 	// Get the user's current total points plus the point value for the unlocked achievement
@@ -172,4 +172,7 @@ function dpa_send_points( $achievement_obj, $user_id, $progress_id ) {
 
 	// Give points to user
 	dpa_update_user_points( $user_id, $points );
+
+	// Run an action for other plugins to use
+	do_action( 'dpa_send_points', $achievement_obj, $user_id, $progress_id, $points );
 }
