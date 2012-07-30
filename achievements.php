@@ -14,8 +14,8 @@ Plugin Name: Achievements
 Plugin URI: http://achievementsapp.wordpress.com/
 Description: Achievements gives your BuddyPress community fresh impetus by promoting and rewarding social interaction with challenges, badges and points.
 Version: 3
-Requires at least: 3.4
-Tested up to: 3.4
+Requires at least: 3.4.1
+Tested up to: 3.4.1
 License: General Public License version 3
 Author: Paul Gibbs
 Author URI: http://byotos.com/
