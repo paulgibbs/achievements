@@ -468,14 +468,14 @@ final class Achievements {
 			'supports'            => $supports['achievement'],
 		) );
 		$cpt['achievement_progress'] = apply_filters( 'dpa_register_post_type_achievement_progress', array(
-			'can_export'          => false,
+			'can_export'          => true,
 			'capabilities'        => dpa_get_achievement_progress_caps(),
 			'capability_type'     => array( 'achievement_progress', 'achievement_progresses' ),
 			'delete_with_user'    => true,
 			'description'         => _x( 'Achievement Progress (e.g. unlocked achievements for a user, progress on an achievement for a user)', 'Achievement Progress post type description', 'dpa' ),
 			'exclude_from_search' => true,
 			'has_archive'         => false,
-			'hierarchical'        => false,
+			'hierarchical'        => true,
 			'public'              => false,
 			'publicly_queryable'  => false,
 			'query_var'           => false,
