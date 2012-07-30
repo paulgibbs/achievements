@@ -53,12 +53,12 @@ add_action( 'dpa_loaded', 'dpa_load_textdomain',           18 );
  *
  * Attach various initialisation actions to the init action.
  */
-add_action( 'dpa_init', 'dpa_register_post_types',     10  );
-add_action( 'dpa_init', 'dpa_register_post_statuses',  12  );
-add_action( 'dpa_init', 'dpa_register_taxonomies',     14  );
-add_action( 'dpa_init', 'dpa_register_endpoints',      16  );
-add_action( 'dpa_init', 'dpa_register_shortcodes',     20  );
-add_action( 'dpa_init', 'dpa_ready',                   999 );
+add_action( 'dpa_init', 'dpa_register_post_types',    10  );
+add_action( 'dpa_init', 'dpa_register_post_statuses', 12  );
+add_action( 'dpa_init', 'dpa_register_taxonomies',    14  );
+add_action( 'dpa_init', 'dpa_register_endpoints',     16  );
+add_action( 'dpa_init', 'dpa_register_shortcodes',    20  );
+add_action( 'dpa_init', 'dpa_ready',                  999 );
 
 /**
  * dpa_ready - Attached to 'dpa_init' above
@@ -83,9 +83,9 @@ add_action( 'make_ham_user',  'dpa_make_ham_user'  );
 add_action( 'make_spam_user', 'dpa_make_spam_user' );
 
 // Achievement unlocked
-add_action( 'dpa_unlock_achievement', 'dpa_send_points',       10, 3 );
-add_action( 'dpa_unlock_achievement', 'dpa_send_notification', 10, 3 );
-
+add_action( 'dpa_unlock_achievement', 'dpa_send_points',        10, 3 );
+add_action( 'dpa_unlock_achievement', 'dpa_send_notification',  10, 3 );
+add_action( 'dpa_footer',             'dpa_print_notifications'       );
 
 /**
  * Plugin Dependency
