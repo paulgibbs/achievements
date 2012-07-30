@@ -51,8 +51,12 @@ function dpa_print_notifications() {
 		$achievements[$achievement_id] = esc_js( sprintf( __( 'Achievement unlocked: %1$s', 'dpa' ), $achievement_name ) );
 	}
 
+	// Allow other plugins to filters the notifications
+	$achievements = apply_filters( 'dpa_print_notifications', $achievements );
+
 	// Add the words that we need to use in the javascript to the page so they can be translated and still used.
-	wp_localize_script( 'achievements-js', 'DPA_Notifications', $achievements );
+	if ( ! empty( $achievements ) )
+		wp_localize_script( 'achievements-js', 'DPA_Notifications', $achievements );
 }
 
 /**
