@@ -455,7 +455,7 @@ final class Achievements {
 			'description'         => _x( 'Achievements types (e.g. new post, new site, new user)', 'Achievement post type description', 'dpa' ),
 			'exclude_from_search' => false,
 			'has_archive'         => true,
-			'hierarchical'        => true,
+			'hierarchical'        => false,
 			'labels'              => $labels['achievement'],
 			'public'              => true,
 			'publicly_queryable'  => true,
