@@ -223,7 +223,7 @@ class DPA_Admin {
 	}
 
 	/**
-	 * Add 'User Points' box to Edit User page
+	 * Update the user's 'User Points' meta information when the Edit User page has been saved.
 	 *
 	 * @param int $user_id
 	 * @since 1.0
