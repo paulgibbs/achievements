@@ -475,7 +475,7 @@ final class Achievements {
 			'description'         => _x( 'Achievement Progress (e.g. unlocked achievements for a user, progress on an achievement for a user)', 'Achievement Progress post type description', 'dpa' ),
 			'exclude_from_search' => true,
 			'has_archive'         => false,
-			'hierarchical'        => true,
+			'hierarchical'        => false,
 			'public'              => false,
 			'publicly_queryable'  => false,
 			'query_var'           => false,
