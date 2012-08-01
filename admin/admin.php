@@ -122,14 +122,18 @@ class DPA_Admin {
 		);
 
 		// Hook into early actions to register custom CSS and JS
-		add_action( "admin_print_styles-$hook",  array( $this, 'enqueue_styles'     ) );
-		add_action( "admin_print_scripts-$hook", array( $this, 'enqueue_scripts'    ) );
+		add_action( "admin_print_styles-$hook",  array( $this, 'enqueue_styles'  ) );
+		add_action( "admin_print_scripts-$hook", array( $this, 'enqueue_scripts' ) );
 
 		// Hook into early actions to register contextual help and screen options
-		add_action( "load-$hook",                array( $this, 'screen_options'     ) );
+		add_action( "load-$hook",                array( $this, 'screen_options' ) );
 
-		// Add custom field to the edit user screen
-		add_action( 'edit_user_profile',         array( $this, 'add_profile_fields' ) );
+		// Add/save custom profile field on the edit user screen
+		add_action( 'edit_user_profile',         array( $this, 'add_profile_fields'  ) );
+		add_action( 'show_user_profile',         array( $this, 'add_profile_fields'  ) );
+		add_action( 'edit_user_profile_update',  array( $this, 'save_profile_fields' ) );
+		add_action( 'personal_options_update',   array( $this, 'save_profile_fields' ) );
+
 	}
 
 	/**
@@ -198,6 +202,48 @@ class DPA_Admin {
 	}
 
 	/**
+	 * Add 'User Points' box to Edit User page
+	 *
+	 * @param object $user
+	 * @since 1.0
+	 */
+	public function add_profile_fields( $user ) {
+	?>
+
+		<h3><?php _e( 'Achievements', 'dpa' ); ?></h3>
+		<table class="form-table">
+			<tr>
+				<th><label for="dpa_achievements"><?php _ex( 'Total Points', "User's total points from unlocked Achievements", 'dpa' ); ?></label></th>
+				<td><input type="number" name="dpa_achievements" id="dpa_achievements" value="<?php echo esc_attr( dpa_get_user_points( $user->ID ) ); ?>" class="regular-text" />
+				</td>
+			</tr>
+		</table>
+
+	<?php
+	}
+
+	/**
+	 * Add 'User Points' box to Edit User page
+	 *
+	 * @param int $user_id
+	 * @since 1.0
+	 */
+	public function save_profile_fields( $user_id ) {
+		// Check current user has the appropriate capability to edit edit $user_id's profile.
+		if ( ! current_user_can( 'edit_user', $user_id ) )
+			return;
+
+		// Sanity checks
+		if ( ! isset( $_POST['dpa_achievements'] ) )
+			return;
+
+		$points = (int) $_POST['dpa_achievements'];
+
+		// Update user's points
+		dpa_update_user_points( $points, $user_id );
+	}
+
+	/**
 	 * Is the current screen part of Achievements? e.g. a post type screen.
 	 *
 	 * @return bool True if this is an Achievements admin screen
@@ -211,7 +257,6 @@ class DPA_Admin {
 
 		return true;
 	}
-
 }
 endif; // class_exists check
 
