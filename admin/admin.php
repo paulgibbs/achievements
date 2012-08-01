@@ -69,26 +69,11 @@ class DPA_Admin {
 		// Add some general styling to the admin area
 		//add_action( 'dpa_admin_head',              array( $this, 'admin_head'              ) );
 
-		// Add notice if not using an Achievements theme
-		//add_action( 'dpa_admin_notices',           array( $this, 'activation_notice'       ) );
-
 		// Add settings
 		add_action( 'dpa_register_admin_settings', array( $this, 'register_admin_settings' ) );
 
 		// Add menu item to settings menu
 		//add_action( 'dpa_activation',              array( $this, 'new_install'             ) );
-
-
-		// Filters
-
-		// Add link to settings page
-		add_filter( 'plugin_action_links', array( $this, 'add_settings_link' ), 10, 2 );
-
-
-		// Network Admin
-
-		// Add menu item to settings menu
-		//add_action( 'network_admin_menu',  array( $this, 'network_admin_menus' ) );
 
 
 		// Dependencies
@@ -137,11 +122,14 @@ class DPA_Admin {
 		);
 
 		// Hook into early actions to register custom CSS and JS
-		add_action( "admin_print_styles-$hook",  array( $this, 'enqueue_styles'  ) );
-		add_action( "admin_print_scripts-$hook", array( $this, 'enqueue_scripts' ) );
+		add_action( "admin_print_styles-$hook",  array( $this, 'enqueue_styles'     ) );
+		add_action( "admin_print_scripts-$hook", array( $this, 'enqueue_scripts'    ) );
 
 		// Hook into early actions to register contextual help and screen options
-		add_action( "load-$hook",                array( $this, 'screen_options'  ) );
+		add_action( "load-$hook",                array( $this, 'screen_options'     ) );
+
+		// Add custom field to the edit user screen
+		add_action( 'edit_user_profile',         array( $this, 'add_profile_fields' ) );
 	}
 
 	/**
@@ -200,41 +188,13 @@ class DPA_Admin {
 	 *
 	 * @since 3.0
 	 */
-	public static function register_admin_settings() {
+	public function register_admin_settings() {
 		// Only do stuff if we're on an Achievements admin screen
 		if ( ! DPA_Admin::is_admin_screen() )
 			return;
 
 		// Fire an action for Achievements plugins to register their custom settings
 		do_action( 'dpa_register_admin_settings' );
-	}
-
-	/**
-	 * Admin area activation notice
-	 *
-	 * Shows a nag message in admin area about the theme not supporting Achievements
-	 *
-	 * @since 3.0
-	 */
-	public function activation_notice() {
-		// @todo - something fun
-	}
-
-	/**
-	 * Add Settings link to plugins area
-	 *
-	 * @param array $links Links array in which we would prepend our link
-	 * @param string $file Current plugin basename
-	 * @return array Processed links
-	 * @since 3.0
-	 */
-	public static function add_settings_link( $links, $file ) {
-		if ( plugin_basename( achievements()->file ) == $file ) {
-			$settings_link = '<a href="' . esc_attr( admin_url( 'options-general.php?page=achievements' ) ) . '">' . __( 'Settings', 'dpa' ) . '</a>';
-			array_unshift( $links, $settings_link );
-		}
-
-		return $links;
 	}
 
 	/**
@@ -251,6 +211,7 @@ class DPA_Admin {
 
 		return true;
 	}
+
 }
 endif; // class_exists check
 
