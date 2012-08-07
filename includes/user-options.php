@@ -258,7 +258,7 @@ function dpa_update_user_notifications( $new_value = array(), $user_id = 0 ) {
  * Return the user's notifications
  *
  * @param int $user_id Optional. User ID to retrieve value for
- * @return array False if no user, option value otherwise.
+ * @return array
  * @since 3.0
  */
 function dpa_get_user_notifications( $user_id = 0 ) {
@@ -268,8 +268,8 @@ function dpa_get_user_notifications( $user_id = 0 ) {
 
 	// No user, bail out
 	if ( empty( $user_id ) )
-		return false;
+		return array();
 
 	$value = get_user_option( '_dpa_notifications', $user_id );
-	return apply_filters( 'dpa_get_user_notifications', $value, $user_id );
+	return (array) apply_filters( 'dpa_get_user_notifications', $value, $user_id );
 }
