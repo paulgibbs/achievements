@@ -252,7 +252,7 @@ function dpa_sanitise_val( $request, $input_type = 'text' ) {
  * @since 3.0
  */
 function dpa_is_query_name( $name )  {
-	return (bool) dpa_get_query_name() == $name;
+	return (bool) ( dpa_get_query_name() == $name );
 }
 
 /**
