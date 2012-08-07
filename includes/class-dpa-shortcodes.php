@@ -167,12 +167,24 @@ class DPA_Shortcodes {
 		if ( ! empty( $content ) || ( empty( $attr['id'] ) || ! is_numeric( $attr['id'] ) ) )
 			return $content;
 
+		// Unset globals
+		$this->unset_globals();
+
 		// Set passed attribute to $achievement_id for clarity
 		$achievement_id = achievements()->current_achievement_id = $attr['id'];
 
 		// Bail if ID passed is not an achievement
 		if ( ! dpa_is_achievement( $achievement_id ) )
 			return $content;
+
+		// Reset the queries if not in theme compat
+		if ( ! dpa_is_theme_compat_active() ) {
+
+			// Reset necessary achievement_query attributes for achievements loop to function
+			achievements()->achievement_query->query_vars['post_type'] = dpa_get_achievement_post_type();
+			achievements()->achievement_query->in_the_loop             = true;
+			achievements()->achievement_query->post                    = get_post( $achievement_id );
+		}
 
 		// Start output buffer
 		$this->start( 'dpa_single_achievement' );
