@@ -1,2 +1,2 @@
 /*! http://wordpress.org/extend/plugins/achievements/
-*/
+*/.noty_bar{-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px;-webkit-box-shadow:0 1px 3px rgba(0,0,0,0.4);-moz-box-shadow:0 1px 3px rgba(0,0,0,0.4);box-shadow:0 1px 3px rgba(0,0,0,0.4);border:2px solid #fcdf0a;background-color:#fdec6f;padding:.7rem 0;position:relative;width:auto}#noty_topCenter_layout_container{height:auto;list-style-type:none;position:fixed;top:2rem;z-index:99999}.noty_message{padding:0 10px;text-align:center}

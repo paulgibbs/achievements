@@ -1,4 +1,1 @@
-/*! http://wordpress.org/extend/plugins/achievements/
-*//**
- * Achievements theme compatibility javascript
- */;
+/*! http://wordpress.org/extend/plugins/achievements/ */(function(e){function t(e,t){noty({buttons:!1,layout:"topCenter",dismissQueue:!0,text:e,type:"success"})}e(document).ready(function(){if("function"==typeof noty&&"undefined"!=typeof DPA_Notifications)for(var e in DPA_Notifications)DPA_Notifications.hasOwnProperty(e)&&t(DPA_Notifications[e].message,DPA_Notifications[e].url)})})(jQuery);

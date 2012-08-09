@@ -270,6 +270,10 @@ function dpa_get_user_notifications( $user_id = 0 ) {
 	if ( empty( $user_id ) )
 		return array();
 
+	// Get notifications for this user
 	$value = get_user_option( '_dpa_notifications', $user_id );
+	if ( empty( $value ) )
+		return array();
+
 	return (array) apply_filters( 'dpa_get_user_notifications', $value, $user_id );
 }

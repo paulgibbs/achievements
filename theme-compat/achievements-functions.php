@@ -100,7 +100,16 @@ class DPA_Default extends DPA_Theme_Compat {
 	 * @since 3.0
 	 */
 	public function enqueue_scripts() {
-		wp_enqueue_script( 'achievements-js', $this->url . 'js/achievements-min.js', array(), $this->version, true );
+		$notifications = dpa_get_user_notifications();
+
+		// Only include noty JS if current user has notifications
+		if ( is_user_logged_in() && ! empty( $notifications ) ) {
+			wp_enqueue_script( 'noty',       $this->url . 'js/jquery.noty-min.js',        array( 'jquery' ), '2.0.3', true );
+			wp_enqueue_script( 'noty-theme', $this->url . 'js/jquery.noty.theme-min.js',  array( 'jquery' ), '2.0.3', true );
+		}
+
+		// Include core JS
+		wp_enqueue_script( 'achievements-js', $this->url . 'js/achievements-min.js', array( 'jquery' ), $this->version, true );
 	}
 }  // class_exists
 

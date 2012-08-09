@@ -43,14 +43,17 @@ function dpa_print_notifications() {
 		return;
 
 	// Get current notifications
+	$achievements = array();
 	$notifications = dpa_get_user_notifications( get_current_user_id() );
 
-	$achievements = array();
-	foreach ( $notifications as $achievement_id => $achievement_name ) {
-		$achievement_id                = (int) $achievement_id;
-		$achievements[$achievement_id] = esc_js( sprintf( __( 'Achievement unlocked: %1$s', 'dpa' ), $achievement_name ) );
+	// Check we have notifications before we build the javascript object
+	if ( ! empty( $notifications ) ) {
+		foreach ( $notifications as $a_id => $a_name ) {
+			$a_id = (int) $a_id;
+			$achievements[$a_id]['message'] = esc_js( sprintf( __( 'Achievement unlocked: %1$s', 'dpa' ), $a_name ) );
+			$achievements[$a_id]['url']     = esc_js( home_url() . '/?p=' . $a_id );
+		}
 	}
-
 	// Allow other plugins to filters the notifications
 	$achievements = apply_filters( 'dpa_print_notifications', $achievements );
 
