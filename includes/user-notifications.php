@@ -44,7 +44,15 @@ function dpa_print_notifications() {
 
 	// Get current notifications
 	$achievements = array();
-	$notifications = dpa_get_user_notifications( get_current_user_id() );
+	$notifications = dpa_get_user_notifications();
+
+	// If we're viewing an achievement, don't show a notification for it
+	if ( ! empty( $notifications ) && dpa_is_single_achievement() && isset( $notifications[get_the_ID()] ) ) {
+		unset( $notifications[get_the_ID()] );
+
+		// Save the user's notifications
+		dpa_update_user_notifications( $notifications );
+	}
 
 	// Check we have notifications before we build the javascript object
 	if ( ! empty( $notifications ) ) {
