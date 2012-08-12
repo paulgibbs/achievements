@@ -1,0 +1,81 @@
+/**
+ * Variables
+ */
+
+@notificationsBorderColour: rgba(0, 0, 0, 0.2);
+@notificationsGradientBottom: #FFC940;
+@notificationsGradientTop: lighten(@notificationsGradientBottom, 15%);
+@notificationsTextShadowColour: rgba(0, 0, 0, 0.1); //rgba(243, 174, 0, 1);
+
+/**
+ * Markup
+ */
+
+.dpaSlideDown-keyframes-translateY(-50px);
+#dpa-notifications {
+	.animation-slidedown();
+	left: 0;
+	position: fixed;
+	right: 0;
+	top: 0;
+	.translate(0, -50px);
+	z-index: 999999;  // Notifications are on top of the WP Toolbar
+
+	a {
+		border-bottom: 1px solid;
+		color: #404040;
+		text-decoration: none;
+		font-weight: bold;
+	}
+	p {
+		margin: 0;
+		margin-bottom: 0 !important; }
+	}
+	span {
+		font-weight: bold;
+	}
+
+	.dpa-notification-message {
+		background-color: @notificationsGradientBottom;
+		background-repeat: repeat-x;
+		background-image: -khtml-gradient(linear, left top, left bottom, from(@notificationsGradientTop), to(@notificationsGradientBottom));
+		background-image: -moz-linear-gradient(top, @notificationsGradientTop, @notificationsGradientBottom);
+		background-image: -ms-linear-gradient(top, @notificationsGradientTop, @notificationsGradientBottom);
+		background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, @notificationsGradientTop), color-stop(100%, @notificationsGradientBottom));
+		background-image: -webkit-linear-gradient(top, @notificationsGradientTop, @notificationsGradientBottom);
+		background-image: -o-linear-gradient(top, @notificationsGradientTop, @notificationsGradientBottom);
+		background-image: linear-gradient(top, @notificationsGradientTop, @notificationsGradientBottom);
+		filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='@notificationsGradientTop', endColorstr='@notificationsGradientBottom', GradientType=0);
+
+		.border-radius(5px);  // Must be above the left/right overrides
+		-webkit-border-top-left-radius: 0;
+		-webkit-border-top-right-radius: 0;
+		-moz-border-radius-topleft: 0;
+		-moz-border-radius-topright: 0;
+		border-top-left-radius: 0;
+		border-top-right-radius: 0;
+	  border: 1px solid @notificationsBorderColour;
+	  font-size: larger;
+	  padding: 0.6rem 1rem;
+	  position: relative;
+		//text-shadow: 0px 1px 0px @notificationsTextShadowColour;
+
+
+		.close {
+			font-family: Arial, sans-serif; 
+			float: right;
+			color: #000;
+			font-size: large;
+			font-weight: bold;
+			text-shadow: 1px 1px 1px @notificationsTextShadowColour;
+			.opacity(50);
+
+		  &:hover {
+				border-bottom: 0;
+				color: #000000;
+				cursor: pointer;
+				.opacity(100);
+			}
+		}
+	}
+}

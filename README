@@ -128,10 +128,9 @@ under the MIT License (http://www.opensource.org/licenses/mit-license.php).
 socialite-min.js from "Socialite" https://github.com/dbushell/Socialite/
 under the MIT License (http://www.opensource.org/licenses/mit-license.php).
 
---
-
-"noty - A jQuery Notification Plugin" https://github.com/needim/noty/
-under the MIT License (http://www.opensource.org/licenses/mit-license.php).
+== Acknowledgements ==
+* Notification bar markup sourced from http://css-tricks.com/pop-from-top-notification/
+* @tood More acknowledgements
 
 == Screenshots ==
 1. @todo Add pretty screenshots

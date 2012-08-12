@@ -8,26 +8,5 @@
 // Mixins
 @import "../../../admin/css/dev/utility.less";
 
-// Notification bar
-.noty_bar {
-	.border-radius(3px);
-	.box-shadow(0 1px 3px rgba(0,0,0,.4));
-	border: 2px solid #FCDF0A;
-	background-color: #FDEC6F;
-	padding: 0.7rem 0;
-	position: relative;
-	width: auto;
-}
-
-#noty_topCenter_layout_container {
-	height: auto;
-	list-style-type: none;
-	position: fixed;
-	top: 2rem;
-	z-index: 99999;
-}
-
-.noty_message {
-	padding: 0 10px;
-	text-align: center;
-}
+// Notifications
+@import "notifications.less";

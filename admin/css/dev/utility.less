@@ -1,13 +1,46 @@
 /**
  * Snippets of reusable CSS to develop faster and keep code readable.
  *
- * Taken from Twitter Bootstrap http://twitter.github.com/bootstrap/
+ * Mostly taken from Twitter Bootstrap http://twitter.github.com/bootstrap/
  * under the Apache License, Version 2.0.
  */
 // ------------------------------------------------------------------
 
 /**
- * UTILITY MIXINS
+ * Custom non-Bootstrap mixins
+ */
+
+/**
+ * CSS3 animations
+ */
+.animation-slidedown(@slidedown: dpaSlideDown 2.5s 3s 1 ease forwards) {
+	-moz-animation:    @slidedown;
+	-webkit-animation: @slidedown;
+	animation:         @slidedown;
+}
+
+/**
+ * CSS3 animation keyframes
+ */
+.dpaSlideDown-keyframes-translateY(@startY: 0px, @endY: 0px) {
+	@-moz-keyframes dpaSlideDown {
+		0%        { -moz-transform: translateY(@startY); }
+		15%, 100% { -moz-transform: translateY(@endY); }
+	}
+
+	@-webkit-keyframes dpaSlideDown {
+		0%        { -webkit-transform: translateY(@startY); }
+		15%, 100% { -webkit-transform: translateY(@endY); }
+	}
+
+	@keyframes dpaSlideDown {
+		0%        { transform: translateY(@startY); }
+		15%, 100% { transform: translateY(@endY);	}
+	}
+}
+
+/**
+ * Utility mixins from Bootstrap
  */
 
 /**

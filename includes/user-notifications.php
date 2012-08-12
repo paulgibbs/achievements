@@ -30,10 +30,7 @@ function dpa_send_notification( $achievement_obj, $user_id, $progress_id ) {
 }
 
 /**
- * Print any notifications to the page footer for the current user.
- *
- * The output is a javascript object that is used by the default theme
- * compatibility pack to create Web Notifications.
+ * Print any notifications for the current user to the page footer.
  * 
  * @since 3.0
  */
@@ -54,20 +51,27 @@ function dpa_print_notifications() {
 		dpa_update_user_notifications( $notifications );
 	}
 
-	// Check we have notifications before we build the javascript object
-	if ( ! empty( $notifications ) ) {
-		foreach ( $notifications as $a_id => $a_name ) {
-			$a_id = (int) $a_id;
-			$achievements[$a_id]['message'] = esc_js( sprintf( __( 'Achievement unlocked: %1$s', 'dpa' ), $a_name ) );
-			$achievements[$a_id]['url']     = esc_js( home_url() . '/?p=' . $a_id );
-		}
-	}
-	// Allow other plugins to filters the notifications
-	$achievements = apply_filters( 'dpa_print_notifications', $achievements );
+	// Allow other plugins to filters the notifications before we display then
+	$notifications = apply_filters( 'dpa_print_notifications', $notifications );
 
-	// Add the words that we need to use in the javascript to the page so they can be translated and still used.
-	if ( ! empty( $achievements ) )
-		wp_localize_script( 'achievements-js', 'DPA_Notifications', $achievements );
+	// Check we actually have notifications to display
+	if ( ! empty( $notifications ) ) :
+		echo '<div id="dpa-notifications" aria-live="polite">';
+
+		foreach ( $notifications as $achievement_id => $n_message ) :
+			$n_message = apply_filters( 'dpa_get_achievement_title', $n_message, $achievement_id );
+			$n_url     = esc_url( home_url() . '/?p=' . $achievement_id );
+	?>
+
+		<div class="dpa-notification-message">
+			<a class="close" title="<?php esc_attr_e( 'Hide notifications', 'dpa' ); ?>" alt="<?php esc_attr_e( 'Hide notifications', 'dpa' ); ?>"><?php /* translators: click the "X" to close the panel - like on Windows computers. */ _e( 'x', 'dpa' ); ?></a>
+			<p><?php printf( __( '<span>You\'ve unlocked an achievement!</span> <a href="%1$s">%2$s</a>', 'dpa' ), $n_url, $n_message ); ?></p>
+		</div>
+
+	<?php
+		endforeach;
+		echo '</div>';
+	endif;
 }
 
 /**
