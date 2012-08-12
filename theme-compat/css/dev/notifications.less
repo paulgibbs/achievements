@@ -46,14 +46,6 @@
 		background-image: -o-linear-gradient(top, @notificationsGradientTop, @notificationsGradientBottom);
 		background-image: linear-gradient(top, @notificationsGradientTop, @notificationsGradientBottom);
 		filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='@notificationsGradientTop', endColorstr='@notificationsGradientBottom', GradientType=0);
-
-		.border-radius(5px);  // Must be above the left/right overrides
-		-webkit-border-top-left-radius: 0;
-		-webkit-border-top-right-radius: 0;
-		-moz-border-radius-topleft: 0;
-		-moz-border-radius-topright: 0;
-		border-top-left-radius: 0;
-		border-top-right-radius: 0;
 	  border: 1px solid @notificationsBorderColour;
 	  font-size: larger;
 	  padding: 0.6rem 1rem;
@@ -67,7 +59,7 @@
 			color: #000;
 			font-size: large;
 			font-weight: bold;
-			text-shadow: 1px 1px 1px @notificationsTextShadowColour;
+			//text-shadow: 1px 1px 1px @notificationsTextShadowColour;
 			.opacity(50);
 
 		  &:hover {
