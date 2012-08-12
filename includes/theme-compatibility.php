@@ -378,9 +378,20 @@ function dpa_template_include_theme_compat( $template = '' ) {
 			'post_type'      => dpa_get_achievement_post_type(),
 		) );
 
-	// Single achievement, and anything else
-	} elseif ( dpa_is_custom_post_type() ) {
-		dpa_set_theme_compat_active();
+	// Single Achievement
+	} elseif ( dpa_is_single_achievement() ) {
+		// Reset post
+		dpa_theme_compat_reset_post( array(
+			'comment_status' => 'closed',
+			'ID'             => dpa_get_achievement_id(),
+			'is_single'      => true,
+			'post_author'    => dpa_get_achievement_author_id(),
+			'post_content'   => get_post_field( 'post_content', dpa_get_achievement_id() ),
+			'post_date'      => 0,
+			'post_status'    => 'publish',
+			'post_title'     => dpa_get_achievement_title(),
+			'post_type'      => dpa_get_achievement_post_type(),
+		) );
 	}
 
 	/**
@@ -496,45 +507,12 @@ function dpa_replace_the_content( $content = '' ) {
 		 *
 		 * @see comments_template() For why we're doing this :)
 		 */
-		if ( ! apply_filters( 'dpa_spill_the_beans', false ) ) {
-			// Empty globals that aren't being used in this loop anymore
-			$GLOBALS['withcomments'] = false;
-
-			// @todo bbPress' theme compat had this, but it causes PHP Notices for me. What's going on?
-			//$GLOBALS['post'] = false;
-
-			// Reset the post data when the next sidebar is fired
-			add_action( 'get_sidebar', 'dpa_theme_compat_reset_post_data' );
-			add_action( 'get_footer',  'dpa_theme_compat_reset_post_data' );
-		}
+		if ( ! apply_filters( 'dpa_spill_the_beans', false ) )
+			wp_reset_postdata();
 	}
 
 	// Return possibly hi-jacked content
 	return $content;
-}
-
-/**
- * Resets the post data after the content has displayed
- *
- * @since 3.0
- * @static $bool $ran Has this function already run?
- */
-function dpa_theme_compat_reset_post_data() {
-	static $ran = false;
-
-	// Bail if this already ran
-	if ( true === $ran )
-		return;
-
-	// Reset the post data to whatever our global post is
-	wp_reset_postdata();
-
-	// Prevent this from firing again
-	remove_action( 'get_sidebar', 'dpa_theme_compat_reset_post_data' );
-	remove_action( 'get_footer',  'dpa_theme_compat_reset_post_data' );
-
-	// Set this to true so it does not run again
-	$ran = true;
 }
 
 

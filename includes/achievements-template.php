@@ -248,6 +248,29 @@ function dpa_achievement_id( $achievement_id = 0 ) {
 	}
 
 /**
+ * Output the author ID of the achievement
+ *
+ * @param int $achievement_id Optional. Achievement ID
+ * @since 3.0
+ */
+function dpa_achievement_author_id( $achievement_id = 0 ) {
+	echo dpa_get_achievement_author_id( $achievement_id );
+}
+	/**
+	 * Return the author ID of the achievement
+	 *
+	 * @param int $achievement_id Optional. Achievement ID
+	 * @return string Author of achievement
+	 * @since 3.0
+	 */
+	function dpa_get_achievement_author_id( $achievement_id = 0 ) {
+		$achievement_id = dpa_get_achievement_id( $achievement_id );
+		$author_id      = get_post_field( 'post_author', $achievement_id );
+
+		return (int) apply_filters( 'dpa_get_achievement_author_id', (int) $author_id, $achievement_id );
+	}
+
+/**
  * Displays achievement notices
  *
  * @since 3.0
