@@ -206,6 +206,38 @@ function dpa_achievement_title( $achievement_id = 0 ) {
 	}
 
 /**
+ * Output the permanent link to the achievement in the achievement loop
+ *
+ * @param int $achievement_id Optional. Achievement ID
+ * @param string $redirect_to Optional
+ * @since 3.0
+ */
+function dpa_achievement_permalink( $achievement_id = 0, $redirect_to = '' ) {
+	echo dpa_get_achievement_permalink( $achievement_id, $redirect_to );
+}
+	/**
+	 * Return the permanent link to the topic
+	 *
+	 * @param int $achievement_id Optional. Achievement ID
+	 * @param string $redirect_to Optional
+	 * @return string
+	 * @since 3.0
+	 */
+	function dpa_get_achievement_permalink( $achievement_id = 0, $redirect_to = '' ) {
+		$achievement_id = dpa_get_achievement_id( $achievement_id );
+
+		// Maybe the redirect address
+		if ( ! empty( $redirect_to ) )
+			$achievement_permalink = esc_url_raw( $redirect_to );
+
+		// Otherwise use the topic permalink
+		else
+			$achievement_permalink = get_permalink( $achievement_id );
+
+		return apply_filters( 'dpa_get_achievement_permalink', $achievement_permalink, $achievement_id );
+	}
+
+/**
  * Output the achievement ID
  *
  * @param int $achievement_id Optional
@@ -268,6 +300,36 @@ function dpa_achievement_author_id( $achievement_id = 0 ) {
 		$author_id      = get_post_field( 'post_author', $achievement_id );
 
 		return (int) apply_filters( 'dpa_get_achievement_author_id', (int) $author_id, $achievement_id );
+	}
+
+/**
+ * Output the row class of an achievement
+ *
+ * @param int $achievement_id Optional. Achievement ID
+ * @since 3.0
+ */
+function dpa_achievement_class( $achievement_id = 0 ) {
+	echo dpa_get_achievement_class( $achievement_id );
+}
+	/**
+	 * Return the row class of an achievement
+	 *
+	 * @param int $achievement_id Optional. Achievement ID
+	 * @return string Row class of an achievement
+	 * @since 3.0
+	 */
+	function dpa_get_achievement_class( $achievement_id = 0 ) {
+		$achievement_id = dpa_get_achievement_id( $achievement_id );
+		$count          = isset( achievements()->achievement_query->current_post ) ? achievements()->achievement_query->current_post : 1;
+
+		$classes   = array();
+		$classes[] = ( (int) $count % 2 ) ? 'even' : 'odd';
+		$classes[] = 'user-id-' . dpa_get_achievement_author_id( $achievement_id );
+		$classes   = get_post_class( array_filter( $classes ), $achievement_id );
+		$classes   = apply_filters( 'dpa_get_achievement_class', $classes, $achievement_id );
+
+		$retval  = 'class="' . join( ' ', $classes ) . '"';
+		return $retval;
 	}
 
 /**
