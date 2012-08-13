@@ -496,19 +496,8 @@ function dpa_replace_the_content( $content = '' ) {
 		$content = apply_filters( 'dpa_replace_the_content', $new_content, $content );
 		unset( $new_content );
 
-		/**
-		 * Supplemental hack to prevent stubborn comments_template() output.
-		 *
-		 * Note: If a theme uses custom code to output comments, it's possible all of this is a waste of time.
-		 * Note: If you need to keep these globals around for any special reason, we've provided a failsafe
-		 *       hook to bypass this. You can put in your plugin or theme below:
-		 *
-		 *       apply_filters( 'dpa_spill_the_beans', '__return_true' );
-		 *
-		 * @see comments_template() For why we're doing this :)
-		 */
-		if ( ! apply_filters( 'dpa_spill_the_beans', false ) )
-			wp_reset_postdata();
+		// Reset the $post global 
+		wp_reset_postdata(); 
 	}
 
 	// Return possibly hi-jacked content
