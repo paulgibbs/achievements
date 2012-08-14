@@ -55,18 +55,17 @@ function dpa_has_achievements( $args = array() ) {
 	$args              = dpa_parse_args( $args, $defaults );
 	$progress_user_ids = false;
 
+	// Extract the query variables
+	extract( $args );
+
 	// Load achievements for a specific event
-	if ( isset( $args['ach_event'] ) ) {
-		if ( ! empty( $args['ach_event']) ) {
+	if ( ! empty( $args['ach_event'] ) ) {
 
-			$args['tax_query'] = array(
-				'field'    => 'slug',
-				'taxonomy' => dpa_get_event_tax_id(),
-				'terms'    => $args['ach_event'],
-			);
-		}
-
-		unset( $args['ach_event'] );
+		$args['tax_query'] = array(
+			'field'    => 'slug',
+			'taxonomy' => dpa_get_event_tax_id(),
+			'terms'    => $args['ach_event'],
+		);
 	}
 
 	// Populate user(s) progress for the results.
@@ -79,11 +78,66 @@ function dpa_has_achievements( $args = array() ) {
 			$progress_user_ids = wp_parse_id_list( (array) $args['ach_populate_progress'] );
 			$progress_user_ids = implode( ',', $progress_user_ids );
 		}
-
 	}
 
 	// Run the query
 	achievements()->achievement_query = new WP_Query( $args );
+
+	// If no limit to posts per page, set it to the current post_count
+	if ( -1 == $posts_per_page )
+		$posts_per_page = achievements()->achievement_query->post_count;
+
+	// Add pagination values to query object
+	achievements()->achievement_query->posts_per_page = $posts_per_page;
+	achievements()->achievement_query->paged          = $paged;
+
+	// Only add pagination if query returned results
+	if ( ( (int) achievements()->achievement_query->post_count || (int) achievements()->achievement_query->found_posts ) && (int) achievements()->achievement_query->posts_per_page ) {
+
+		// Limit the number of achievements shown based on maximum allowed pages
+		if ( ( ! empty( $max_num_pages ) ) && achievements()->achievement_query->found_posts > achievements()->achievement_query->max_num_pages * achievements()->achievement_query->post_count )
+			achievements()->achievement_query->found_posts = achievements()->achievement_query->max_num_pages * achievements()->achievement_query->post_count;
+
+		// If pretty permalinks are enabled, make our pagination pretty
+		if ( $GLOBALS['wp_rewrite']->using_permalinks() ) {
+
+			// Page or single post
+			if ( is_page() || is_single() )
+				$base = get_permalink();
+
+			// Achievements archive
+			elseif ( dpa_is_achievement_archive() )
+				$base = dpa_get_achievements_url();
+
+			// Default
+			else
+				$base = get_permalink( $post_parent );
+
+			// Use pagination base
+			$base = trailingslashit( $base ) . user_trailingslashit( $GLOBALS['wp_rewrite']->pagination_base . '/%#%/' );
+
+		// Unpretty pagination
+		} else {
+			$base = add_query_arg( 'paged', '%#%' );
+		}
+
+		// Pagination settings with filter
+		$achievement_pagination = apply_filters( 'dpa_achievement_pagination', array(
+			'base'      => $base,
+			'current'   => (int) achievements()->achievement_query->paged,
+			'format'    => '',
+			'mid_size'  => 1,
+			'next_text' => '&rarr;',
+			'prev_text' => '&larr;',
+			'total'     => ( $posts_per_page == achievements()->achievement_query->found_posts ) ? 1 : ceil( (int) achievements()->achievement_query->found_posts / (int) $posts_per_page ),
+		) );
+
+		// Add pagination to query object
+		achievements()->achievement_query->pagination_links = paginate_links( $achievement_pagination );
+
+		// Remove first page from pagination
+		achievements()->achievement_query->pagination_links = str_replace( $GLOBALS['wp_rewrite']->pagination_base . "/1/'", "'", achievements()->achievement_query->pagination_links );
+	}
 
 	// Populate extra progress information for the achievements
 	if ( ! empty( $progress_user_ids ) && achievements()->achievement_query->have_posts() ) {
@@ -352,3 +406,66 @@ function dpa_achievement_notices() {
 
 	dpa_add_error( 'achievement_notice', $notice_text, 'message' );
 }
+
+
+/**
+ * Topic Pagination
+ */
+
+/**
+ * Output the pagination count
+ *
+ * @since 3.0
+ */
+function dpa_achievement_pagination_count() {
+	echo dpa_get_achievement_pagination_count();
+}
+	/**
+	 * Return the pagination count
+	 *
+	 * @return string Achievement pagination count
+	 * @since 3.0
+	 */
+	function dpa_get_achievement_pagination_count() {
+		if ( empty( achievements()->achievement_query ) )
+			return;
+
+		// Set pagination values
+		$start_num = intval( ( achievements()->achievement_query->paged - 1 ) * achievements()->achievement_query->posts_per_page ) + 1;
+		$from_num  = number_format_i18n( $start_num );
+		$to_num    = number_format_i18n( ( $start_num + ( achievements()->achievement_query->posts_per_page - 1 ) > achievements()->achievement_query->found_posts ) ? achievements()->achievement_query->found_posts : $start_num + ( achievements()->achievement_query->posts_per_page - 1 ) );
+		$total_int = (int) ! empty( achievements()->achievement_query->found_posts ) ? achievements()->achievement_query->found_posts : achievements()->achievement_query->post_count;
+		$total     = number_format_i18n( $total_int );
+
+		// Several achievements within a single page
+		if ( empty( $to_num ) ) {
+			$retstr = sprintf( _n( 'Viewing %1$s achievement', 'Viewing %1$s achievements', $total_int, 'dpa' ), $total );
+
+		// Several achievements with several pages
+		} else {
+			$retstr = sprintf( _n( 'Viewing achievement %2$s (of %4$s total)', 'Viewing %1$s achievements - %2$s through %3$s (of %4$s total)', $total_int, 'dpa' ), achievements()->achievement_query->post_count, $from_num, $to_num, $total );
+		}
+
+		return apply_filters( 'dpa_get_achievement_pagination_count', $retstr );
+	}
+
+/**
+ * Output pagination links
+ *
+ * @since 3.0
+ */
+function dpa_achievement_pagination_links() {
+	echo dpa_get_achievement_pagination_links();
+}
+	/**
+	 * Return pagination links
+	 *
+	 * @return string Pagination links
+	 * @since 3.0
+	 */
+	function dpa_get_achievement_pagination_links() {
+		if ( empty( achievements()->achievement_query ) )
+			return;
+
+		return apply_filters( 'dpa_get_achievement_pagination_links', achievements()->achievement_query->pagination_links );
+	}
