@@ -81,7 +81,7 @@ function dpa_delete_user_options( $user_id = 0 ) {
 
 /**
  * Add filters to each Achievement option and allow them to be overloaded from
- * inside the $bbp->options array.
+ * inside the achievements()->options array.
  *
  * @since 3.0
  */
