@@ -33,16 +33,27 @@ function dpa_is_update() {
 /**
  * Determine if Achievements is being activated
  *
+ * @param string $basename Optional
  * @return bool True if activating Achievements, false if not
  * @since 3.0
  */
 function dpa_is_activation( $basename = '' ) {
-	// Baif if action or plugin are empty, or not activating
-	if ( empty( $_GET['action'] ) || empty( $_GET['plugin'] ) || 'activate' !== $_GET['action'] )
+	$action = false;
+
+	if ( ! empty( $_REQUEST['action'] ) && '-1' != $_REQUEST['action'] )
+		$action = $_REQUEST['action'];
+	elseif ( ! empty( $_REQUEST['action2'] ) && '-1' != $_REQUEST['action2'] )
+		$action = $_REQUEST['action2'];
+
+	// Bail if not activating
+	if ( empty( $action ) || ! in_array( $action, array( 'activate', 'activate-selected' ) ) )
 		return false;
 
-	// Get the plugin being activated
-	$plugin = isset( $_GET['plugin'] ) ? $_GET['plugin'] : '';
+	// The plugin(s) being activated
+	if ( $action == 'activate' )
+		$plugins = isset( $_GET['plugin'] ) ? array( $_GET['plugin'] ) : array();
+	else
+		$plugins = isset( $_POST['checked'] ) ? (array) $_POST['checked'] : array();
 
 	// Set basename if empty
 	if ( empty( $basename ) && ! empty( achievements()->basename ) )
@@ -52,26 +63,34 @@ function dpa_is_activation( $basename = '' ) {
 	if ( empty( $basename ) )
 		return false;
 
-	// Bail if plugin is not Achievements
-	if ( $basename !== $_GET['plugin'] )
-		return false;
-
-	return true;
+	// Is Achievements being activated?
+	return in_array( $basename, $plugins );
 }
 
 /**
  * Determine if Achievements is being deactivated
  *
+ * @param string $basename Optional
  * @return bool True if deactivating Achievements, false if not
  * @since 3.0
  */
 function dpa_is_deactivation( $basename = '' ) {
-	// Baif if action or plugin are empty, or not deactivating
-	if ( empty( $_GET['action'] ) || empty( $_GET['plugin'] ) || 'deactivate' !== $_GET['action'] )
+	$action = false;
+
+	if ( ! empty( $_REQUEST['action'] ) && '-1' != $_REQUEST['action'] )
+		$action = $_REQUEST['action'];
+	elseif ( ! empty( $_REQUEST['action2'] ) && '-1' != $_REQUEST['action2'] )
+		$action = $_REQUEST['action2'];
+
+	// Bail if not deactivating
+	if ( empty( $action ) || ! in_array( $action, array( 'deactivate', 'deactivate-selected' ) ) )
 		return false;
 
-	// Get the plugin being deactivated
-	$plugin = isset( $_GET['plugin'] ) ? $_GET['plugin'] : '';
+	// The plugin(s) being deactivated
+	if ( $action == 'deactivate' )
+		$plugins = isset( $_GET['plugin'] ) ? array( $_GET['plugin'] ) : array();
+	else
+		$plugins = isset( $_POST['checked'] ) ? (array) $_POST['checked'] : array();
 
 	// Set basename if empty
 	if ( empty( $basename ) && ! empty( achievements()->basename ) )
@@ -81,11 +100,8 @@ function dpa_is_deactivation( $basename = '' ) {
 	if ( empty( $basename ) )
 		return false;
 
-	// Bail if plugin is not Achievements
-	if ( $basename !== $plugin )
-		return false;
-
-	return true;
+	// Is Achievements being deactivated?
+	return in_array( $basename, $plugins );
 }
 
 /**
