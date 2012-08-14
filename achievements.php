@@ -257,14 +257,17 @@ final class Achievements {
 		/**
 		 * Core
 		 */
-		require( $this->plugin_dir . 'includes/core-actions.php'    ); // All actions
-		require( $this->plugin_dir . 'includes/core-filters.php'    ); // All filters
+		require( $this->plugin_dir . 'includes/core-dependency.php' ); // Core dependencies
 		require( $this->plugin_dir . 'includes/core-functions.php'  ); // Core functions
 		require( $this->plugin_dir . 'includes/core-options.php'    ); // Configuration options
 		require( $this->plugin_dir . 'includes/core-caps.php'       ); // Roles and capabilities
 		//require( $this->plugin_dir . 'includes/core-widgets.php'    ); // Widgets
 		require( $this->plugin_dir . 'includes/core-shortcodes.php' ); // Shortcodes for use with pages and posts
 		require( $this->plugin_dir . 'includes/core-update.php'     ); // Database updater
+
+		// If Achievements is being deactivated, do not load any more files 
+		if ( dpa_is_deactivation( $this->basename ) ) 
+			return; 
 
 
 		/**
@@ -293,15 +296,22 @@ final class Achievements {
 		require( $this->plugin_dir . 'includes/common-functions.php' ); // Common functions
 		require( $this->plugin_dir . 'includes/common-template.php'  ); // Common template tags
 
-		require( $this->plugin_dir . 'includes/user-functions.php'     ); // User functions
-		require( $this->plugin_dir . 'includes/user-options.php'       ); // User options
-		require( $this->plugin_dir . 'includes/user-notifications.php' ); // User notifications
-
 		require( $this->plugin_dir . 'includes/achievements-functions.php' ); // Implements the main logic for the achievement post type (achievement event monitoring, etc)
 		require( $this->plugin_dir . 'includes/achievements-template.php'  ); // Achievement post type template tags
 
 		require( $this->plugin_dir . 'includes/progress-functions.php' ); // Implements the Progress post type
 		require( $this->plugin_dir . 'includes/progress-template.php'  ); // Progress post type template tags
+
+		require( $this->plugin_dir . 'includes/user-functions.php'     ); // User functions
+		require( $this->plugin_dir . 'includes/user-options.php'       ); // User options
+		require( $this->plugin_dir . 'includes/user-notifications.php' ); // User notifications
+
+
+		/**
+		 * Hooks
+		 */
+		require( $this->plugin_dir . 'includes/core-actions.php' ); // All actions
+		require( $this->plugin_dir . 'includes/core-filters.php' ); // All filters
 
 
 		/**
