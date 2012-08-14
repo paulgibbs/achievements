@@ -1,15 +1,18 @@
 <?php
 /**
- * Achievements loop - single achievement
+ * Achievements loop - single
  *
  * @package Achievements
  * @subpackage ThemeCompatibility
  */
 ?>
 
-<div id="dpa-achievements">
+<li id="achievement-<?php dpa_achievement_id(); ?>" <?php dpa_achievement_class(); ?>>
 
-	Loop - single - template
-	Title: <a href="<?php echo get_permalink(); ?>"><?php dpa_achievement_title(); ?></a>
+	<?php do_action( 'dpa_theme_before_achievement_title' ); ?>
 
-</div>
+	<a class="dpa-achievement-permalink" href="<?php dpa_achievement_permalink(); ?>" title="<?php dpa_achievement_title(); ?>"><?php dpa_achievement_title(); ?></a>
+
+	<?php do_action( 'dpa_theme_after_achievement_title' ); ?>
+
+</li><!-- #achievement-<?php dpa_achievement_id(); ?> -->

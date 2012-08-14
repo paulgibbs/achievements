@@ -357,6 +357,29 @@ function dpa_achievement_author_id( $achievement_id = 0 ) {
 	}
 
 /**
+ * Output the content of the achievement
+ *
+ * @param int $achievement_id Optional. Achievement ID
+ * @since 3.0
+ */
+function dpa_achievement_content( $achievement_id = 0 ) {
+	echo dpa_get_achievement_content( $achievement_id );
+}
+	/**
+	 * Return the content of the topic
+	 *
+	 * @param int $achievement_id Optional. Achievement ID
+	 * @return string Content of the achievement post
+	 * @since 3.0
+	 */
+	function dpa_get_achievement_content( $achievement_id = 0 ) {
+		$achievement_id = dpa_get_achievement_id( $achievement_id );
+		$content        = get_post_field( 'post_content', $achievement_id );
+
+		return apply_filters( 'dpa_get_achievement_content', $content, $achievement_id );
+	}
+
+/**
  * Output the row class of an achievement
  *
  * @param int $achievement_id Optional. Achievement ID

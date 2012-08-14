@@ -3,6 +3,8 @@
 
 /**
  * Achievements theme compatibility CSS
+ *
+ * @todo RTL all the things
  */
 
 // Mixins
@@ -10,3 +12,51 @@
 
 // Notifications
 @import "notifications.less";
+
+
+#dpa-achievements {
+	background: transparent;
+	clear: both;
+	overflow: hidden;
+}
+
+#dpa-achievements ul {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+#dpa-achievements li {
+	margin: 0;
+	list-style: none;
+}
+
+#dpa-achievements ul.dpa-achievements {
+	clear: both;
+	overflow: hidden;
+}
+
+
+/**
+ * Breadcrumb and Tags
+ */
+
+div.dpa-breadcrumb {
+	float: left;  // @todo RTL
+}
+
+
+/**
+ * Pagination
+ */
+
+.dpa-pagination-count {
+	float: left;
+}
+.dpa-pagination-links {
+	float: right;
+}
+.dpa-pagination {
+	float: left;
+	width: 100%;
+}
