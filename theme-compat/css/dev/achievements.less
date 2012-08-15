@@ -18,22 +18,25 @@
 	background: transparent;
 	clear: both;
 	overflow: hidden;
-}
 
-#dpa-achievements ul {
-	list-style: none;
-	margin: 0;
-	padding: 0;
-}
+	hr { margin: 0 0 2rem 0; }
 
-#dpa-achievements li {
-	margin: 0;
-	list-style: none;
-}
+	li {
+		margin: 0;
+		list-style: none;
+	}
 
-#dpa-achievements ul.dpa-achievements {
-	clear: both;
-	overflow: hidden;
+	ul {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+
+		&.dpa-achievements {
+			clear: both;
+			margin-bottom: 2rem;
+			overflow: hidden;
+		}
+	}
 }
 
 
@@ -43,6 +46,11 @@
 
 div.dpa-breadcrumb {
 	float: left;  // @todo RTL
+	font-size: smaller;
+}
+
+#dpa-achievements div.dpa-breadcrumb p {
+	margin-bottom: 1rem;
 }
 
 
@@ -58,5 +66,54 @@ div.dpa-breadcrumb {
 }
 .dpa-pagination {
 	float: left;
+	margin-bottom: 1rem;
 	width: 100%;
+}
+
+
+/**
+ * Notices
+ */
+
+div.dpa-template-notice {
+	.border-radius(3px);
+	background-color: #ffffe0;
+	border-color: #e6db55;
+	border-style: solid;
+	border-width: 1px;
+	color: #000;
+	clear: both;
+	margin: 5px 0 1rem;
+	padding: 0 0.6em;
+
+	a {
+		color: #555;
+		text-decoration: none;
+
+		&:hover { color: #000; }
+	}
+
+	p {
+		font-size: 12px;
+		line-height: 140%;
+		margin: 0.5rem 0 6px 0 !important;
+		padding: 2px;
+	}
+
+	&.info {
+		background-color: #f0f8ff;
+		border: #cee1ef 1px solid;
+	}
+
+	&.important (
+		background-color: #fffbcc;
+		border: #e6db55 1px solid;
+	)
+
+	&.error, &.warning {
+		background-color: #ffebe8;
+		border-color: #c00;
+
+		a { color: #c00; }
+	}
 }
