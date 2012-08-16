@@ -32,6 +32,8 @@ function dpa_has_achievements( $args = array() ) {
 	if ( is_multisite() && dpa_is_running_networkwide() )
 		switch_to_blog( DPA_DATA_STORE );
 
+	$default_post_parent = dpa_is_single_achievement() ? dpa_get_achievement_id() : 'any';
+
 	// The default achievement query for most circumstances
 	$defaults = array(
 		// Standard WP_Query params
@@ -39,10 +41,11 @@ function dpa_has_achievements( $args = array() ) {
 		'orderby'               => 'title',                                              // 'meta_value', 'author', 'date', 'title', 'modified', 'parent', rand'
 		'max_num_pages'         => false,                                                // Maximum number of pages to show
 		'paged'                 => dpa_get_paged(),                                      // Page number
+		'post_parent'           => $default_post_parent,                                 // Post parent
 		'post_status'           => 'publish',                                            // Published (active) achievements only
 		'post_type'             => dpa_get_achievement_post_type(),                      // Only retrieve achievement posts
 		'posts_per_page'        => dpa_get_achievements_per_page(),                      // Achievements per page
-		's'                     => ! empty( $_REQUEST['dpa'] ) ? $_REQUEST['dpa'] : '',  // Achievements search
+		's'                     => ! empty( $_REQUEST['dpa'] ) ? $_REQUEST['dpa'] : '',  // Achievements search @todo Is this implemented correctly?
 
 		// Achievements params
 		'ach_event'             => '',                                                   // Load achievements for a specific event
@@ -375,6 +378,10 @@ function dpa_achievement_content( $achievement_id = 0 ) {
 	function dpa_get_achievement_content( $achievement_id = 0 ) {
 		$achievement_id = dpa_get_achievement_id( $achievement_id );
 		$content        = get_post_field( 'post_content', $achievement_id );
+return get_the_content();
+//	$content = get_the_content($more_link_text, $stripteaser);
+	//$content = apply_filters('the_content', $content);
+	//$content = str_replace(']]>', ']]&gt;', $content);
 
 		return apply_filters( 'dpa_get_achievement_content', $content, $achievement_id );
 	}
