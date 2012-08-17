@@ -18,13 +18,17 @@
 		<li id="achievement-<?php dpa_achievement_id(); ?>" <?php dpa_achievement_class(); ?>>
 
 			<?php do_action( 'dpa_theme_before_achievement_title' ); ?>
+
 			<?php dpa_achievement_title(); ?>
+
 			<?php do_action( 'dpa_theme_after_achievement_title' ); ?>
 
-			<?php do_action( 'dpa_theme_before_achievement_content' ); ?>
-			<?php dpa_achievement_content(); ?>
-			<?php do_action( 'dpa_theme_after_achievement_content' ); ?>
 
+			<?php do_action( 'dpa_theme_before_achievement_content' ); ?>
+
+			<?php dpa_achievement_content(); ?>
+
+			<?php do_action( 'dpa_theme_after_achievement_content' ); ?>
 
 		</li><!-- #achievement-<?php dpa_achievement_id(); ?> -->
 

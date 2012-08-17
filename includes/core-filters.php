@@ -35,6 +35,15 @@ add_filter( 'redirect_canonical',      'dpa_redirect_canonical', 10    );
 // Add post_parent__in to posts_where
 add_filter( 'posts_where', 'dpa_query_post_parent__in', 10, 2 );
 
+// Run filters on achievement->post_content
+add_filter( 'dpa_get_achievement_content', 'capital_P_dangit'       );
+add_filter( 'dpa_get_achievement_content', 'wptexturize',        3  );
+add_filter( 'dpa_get_achievement_content', 'convert_chars',      5  );
+add_filter( 'dpa_get_achievement_content', 'make_clickable',     9  );
+add_filter( 'dpa_get_achievement_content', 'force_balance_tags', 25 );
+add_filter( 'dpa_get_achievement_content', 'convert_smilies',    20 );
+add_filter( 'dpa_get_achievement_content', 'wpautop',            30 );
+
 /**
  * Template Compatibility
  *

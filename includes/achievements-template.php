@@ -287,7 +287,7 @@ function dpa_achievement_permalink( $achievement_id = 0, $redirect_to = '' ) {
 		if ( ! empty( $redirect_to ) )
 			$achievement_permalink = esc_url_raw( $redirect_to );
 
-		// Otherwise use the topic permalink
+		// Otherwise use the achievement permalink
 		else
 			$achievement_permalink = get_permalink( $achievement_id );
 
@@ -362,28 +362,125 @@ function dpa_achievement_author_id( $achievement_id = 0 ) {
 /**
  * Output the content of the achievement
  *
+ * Based on wpcore's the_content();
+ *
+ * @param string $more_link_text Optional. Content for when there is more text.
+ * @param bool $stripteaser Optional. Strip teaser content before the more text. Default is false.
  * @param int $achievement_id Optional. Achievement ID
  * @since 3.0
  */
-function dpa_achievement_content( $achievement_id = 0 ) {
-	echo dpa_get_achievement_content( $achievement_id );
+function dpa_achievement_content( $more_link_text = null, $stripteaser = false, $achievement_id = 0 ) {
+	$content = dpa_get_achievement_content( $more_link_text, $stripteaser, $achievement_id );
+	$content = apply_filters( 'dpa_get_achievement_content', $content );
+	$content = str_replace( ']]>', ']]&gt;', $content );
+	echo $content;
 }
 	/**
-	 * Return the content of the topic
+	 * Return the content of the achievement
 	 *
+	 * Based on wpcore's get_the_content(); excuse the bad formatting.
+	 *
+	 * @param string $more_link_text Optional. Content for when there is more text.
+	 * @param bool $stripteaser Optional. Strip teaser content before the more text. Default is false.
 	 * @param int $achievement_id Optional. Achievement ID
 	 * @return string Content of the achievement post
 	 * @since 3.0
 	 */
-	function dpa_get_achievement_content( $achievement_id = 0 ) {
-		$achievement_id = dpa_get_achievement_id( $achievement_id );
-		$content        = get_post_field( 'post_content', $achievement_id );
-return get_the_content();
-//	$content = get_the_content($more_link_text, $stripteaser);
-	//$content = apply_filters('the_content', $content);
-	//$content = str_replace(']]>', ']]&gt;', $content);
+	function dpa_get_achievement_content( $more_link_text = null, $stripteaser = false, $achievement_id = 0 ) {
+		global $more, $page, $pages, $multipage, $preview;
 
-		return apply_filters( 'dpa_get_achievement_content', $content, $achievement_id );
+		// Achievements: we're not using the $post global, because it may not always be set.
+		$achievement_id = dpa_get_achievement_id( $achievement_id );
+		$post           = get_post( $achievement_id );
+
+		if ( null === $more_link_text )
+			$more_link_text = __( '(more...)', 'dpa' );
+
+		$output    = '';
+		$hasTeaser = false;
+
+		if ( $page > count($pages) ) // if the requested page doesn't exist
+			$page = count($pages); // give them the highest numbered page that DOES exist
+
+		$content = $pages[$page-1];
+		if ( preg_match('/<!--more(.*?)?-->/', $content, $matches) ) {
+			$content = explode($matches[0], $content, 2);
+			if ( !empty($matches[1]) && !empty($more_link_text) )
+				$more_link_text = strip_tags(wp_kses_no_null(trim($matches[1])));
+
+			$hasTeaser = true;
+		} else {
+			$content = array($content);
+		}
+		if ( (false !== strpos($post->post_content, '<!--noteaser-->') && ((!$multipage) || ($page==1))) )
+			$stripteaser = true;
+		$teaser = $content[0];
+		if ( $more && $stripteaser && $hasTeaser )
+			$teaser = '';
+		$output .= $teaser;
+		if ( count($content) > 1 ) {
+			if ( $more ) {
+				$output .= '<span id="more-' . $post->ID . '"></span>' . $content[1];
+			} else {
+				if ( ! empty($more_link_text) )
+					$output .= apply_filters( 'dpa_get_achievement_content_more_link', ' <a href="' . esc_attr( dpa_get_achievement_permalink( $achievement_id ) ) . "#more-{$post->ID}\" class=\"more-link\">$more_link_text</a>", $more_link_text );
+				$output = force_balance_tags($output);
+			}
+
+		}
+		if ( $preview ) // preview fix for javascript bug with foreign languages
+			$output =	preg_replace_callback('/\%u([0-9A-F]{4})/', '_convert_urlencoded_to_entities', $output);
+
+		return $output;
+	}
+
+/**
+ * Output the excerpt of the achievement
+ *
+ * @param int $achievement_id Optional. Achievement ID
+ * @param int $length Optional. Length of the excerpt. Defaults to 100 letters
+ * @since 3.0
+ */
+function dpa_achievement_excerpt( $achievement_id = 0, $length = 100 ) {
+	echo dpa_get_achievement_excerpt( $achievement_id, $length );
+}
+	/**
+	 * Return the excerpt of the achievement
+	 *
+	 * @param int $achievement_id Optional. Achievement ID.
+	 * @param int $length Optional. Length of the excerpt. Defaults to 100 letters
+	 * @return string Achievement excerpt
+	 * @since 3.0
+	 * @todo Handle multibyte characters when generating an excerpt
+	 * @todo Don't cut off part of a word; go to the nearest space
+	 */
+	function dpa_get_achievement_excerpt( $achievement_id = 0, $length = 100 ) {
+		$achievement_id = dpa_get_achievement_id( $achievement_id );
+		$excerpt        = get_post_field( $achievement_id, 'post_excerpt' );
+		$length         = (int) $length;
+
+		// If you don't specify an excerpt when creating an achievement, we'll use the post content.
+		if ( empty( $excerpt ) )
+			$excerpt = dpa_get_achievement_content( $achievement_id );
+
+		// Check the length of the excerpt
+		$excerpt = trim( strip_tags( $excerpt ) );
+		if ( ! empty( $length ) && strlen( $excerpt ) > $length ) {
+
+			// Trim the excerpt
+			$excerpt = substr( $excerpt, 0, $length - 1 );
+
+			// Build a "go here to read more" link
+			// translators: first param is post permalink, second param is the "more" text.
+			$more_link = sprintf( __( '&hellip; (<a href="%1$s">%2$s</a>)', 'dpa' ),
+				esc_attr( dpa_get_achievement_permalink( $achievement_id ) ),
+				_x( 'more', 'Excerpt - click here see more of the post', 'dpa' )
+			);
+			$more_link = apply_filters( 'dpa_get_achievement_excerpt_more_link', $more_link, $achievement_id, $length );
+			$excerpt  .= $more_link;
+		}
+
+		return apply_filters( 'dpa_get_achievement_excerpt', $excerpt, $achievement_id, $length );
 	}
 
 /**
@@ -439,7 +536,7 @@ function dpa_achievement_notices() {
 
 
 /**
- * Topic Pagination
+ * Achievement pagination
  */
 
 /**

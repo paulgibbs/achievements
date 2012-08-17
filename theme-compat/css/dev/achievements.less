@@ -9,6 +9,7 @@
 
 // Mixins
 @import "../../../admin/css/dev/utility.less";
+@import "variables.less";
 
 // Notifications
 @import "notifications.less";
@@ -17,9 +18,9 @@
 #dpa-achievements {
 	background: transparent;
 	clear: both;
-	overflow: hidden;
+	//overflow: hidden;
 
-	hr { margin: 0 0 2rem 0; }
+	hr { margin: 0 0 @themeCompatMargin*2 0; }
 
 	li {
 		margin: 0;
@@ -33,10 +34,24 @@
 
 		&.dpa-achievements {
 			clear: both;
-			margin-bottom: 2rem;
-			overflow: hidden;
+			margin-bottom: @themeCompatMargin*2;
+			//overflow: hidden;
 		}
 	}
+}
+
+// Achievement index and single template
+#dpa-achievements .dpa-achievements li {
+	.clearfix();
+	margin-bottom: @themeCompatMargin;
+}
+
+.dpa-achievement-body {
+}
+
+.dpa-achievement-logo {
+	float: left;
+	margin: 0 @themeCompatMargin/2 @themeCompatMargin/2 0;  // @todo RTL
 }
 
 
@@ -50,7 +65,7 @@ div.dpa-breadcrumb {
 }
 
 #dpa-achievements div.dpa-breadcrumb p {
-	margin-bottom: 1rem;
+	margin-bottom: @themeCompatMargin;
 }
 
 
@@ -66,7 +81,7 @@ div.dpa-breadcrumb {
 }
 .dpa-pagination {
 	float: left;
-	margin-bottom: 1rem;
+	margin-bottom: @themeCompatMargin;
 	width: 100%;
 }
 
@@ -83,8 +98,8 @@ div.dpa-template-notice {
 	border-width: 1px;
 	color: #000;
 	clear: both;
-	margin: 5px 0 1rem;
-	padding: 0 0.6em;
+	margin: 5px 0 @themeCompatMargin;
+	padding: 0 @themeCompatMargin*0.6;
 
 	a {
 		color: #555;
@@ -96,7 +111,7 @@ div.dpa-template-notice {
 	p {
 		font-size: 12px;
 		line-height: 140%;
-		margin: 0.5rem 0 6px 0 !important;
+		margin: @themeCompatMargin/2 0 6px 0 !important;
 		padding: 2px;
 	}
 
