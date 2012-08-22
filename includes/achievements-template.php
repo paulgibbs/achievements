@@ -474,7 +474,7 @@ function dpa_achievement_excerpt( $achievement_id = 0, $length = 100 ) {
 			// translators: first param is post permalink, second param is the "more" text.
 			$more_link = sprintf( __( '&hellip; (<a href="%1$s">%2$s</a>)', 'dpa' ),
 				esc_attr( dpa_get_achievement_permalink( $achievement_id ) ),
-				_x( 'more', 'Excerpt - click here see more of the post', 'dpa' )
+				_x( 'more', 'Excerpt - click here to see more of the post', 'dpa' )
 			);
 			$more_link = apply_filters( 'dpa_get_achievement_excerpt_more_link', $more_link, $achievement_id, $length );
 			$excerpt  .= $more_link;
@@ -482,6 +482,46 @@ function dpa_achievement_excerpt( $achievement_id = 0, $length = 100 ) {
 
 		return apply_filters( 'dpa_get_achievement_excerpt', $excerpt, $achievement_id, $length );
 	}
+
+/**
+ * Output the post date and time of an achievement
+ *
+ * @param int $achievement_id Optional. Achievement ID.
+ * @param bool $humanise Optional. Humanise output using time_since.
+ * @param bool $gmt Optional. Use GMT.
+ * @since 3.0
+ */
+function dpa_achievement_post_date( $achievement_id = 0, $humanise = false, $gmt = false ) {
+	echo dpa_get_achievement_post_date( $achievement_id, $humanise, $gmt );
+}
+	/**
+	 * Return the post date and time of an achievement
+	 *
+	 * @param int $achievement_id Optional. Achievement ID.
+	 * @param bool $humanise Optional. Humanise output using time_since.
+	 * @return string
+	 * @since 3.0
+	 */
+	function dpa_get_achievement_post_date( $achievement_id = 0, $humanise = false, $gmt = false ) {
+		$achievement_id = dpa_get_achievement_id( $achievement_id );
+		
+		// 4 days, 4 hours ago
+		if ( ! empty( $humanise ) ) {
+			$gmt    = ! empty( $gmt ) ? 'G' : 'U';
+			$date   = get_post_time( $gmt, $achievement_id );
+			$time   = false; // For filter below
+			$result = dpa_time_since( $date );
+
+		// August 22, 2012 at 5:55 pm
+		} else {
+			$date   = get_post_time( get_option( 'date_format' ), $gmt, $achievement_id );
+			$time   = get_post_time( get_option( 'time_format' ), $gmt, $achievement_id );
+			$result = sprintf( _x( '%1$s at %2$s', '[date] at [time]', 'dpa' ), $date, $time );
+		}
+
+		return apply_filters( 'dpa_get_achievement_post_date', $result, $achievement_id, $humanise, $gmt, $date, $time );
+	}
+
 
 /**
  * Output the row class of an achievement
