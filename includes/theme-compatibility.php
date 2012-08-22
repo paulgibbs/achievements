@@ -276,39 +276,71 @@ function dpa_theme_compat_reset_post( $args = array() ) {
 
 	// Default arguments
 	$defaults = array(
-		'comment_status'  => 'closed',
-		'ID'              => -9999,
-		'is_archive'      => false,
-		'is_page'         => false,
-		'is_single'       => false,
-		'is_tax'          => false,
-		'is_404'          => false,
-		'post_author'     => 0,
-		'post_content'    => '',
-		'post_date'       => 0,
-		'post_name'       => '',
-		'post_status'     => 'public',
-		'post_title'      => '',
-		'post_type'       => 'page',
+		'comment_count'         => 0,
+		'comment_status'        => 'closed',
+		'guid'                  => '',
+		'ID'                    => -9999,
+		'menu_order'            => 0,
+		'pinged'                => '',
+		'ping_status'           => '',
+		'post_author'           => 0,
+		'post_category'         => 0,
+		'post_content'          => '',
+		'post_content_filtered' => '',
+		'post_date'             => 0,
+		'post_date_gmt'         => 0,
+		'post_excerpt'          => '',
+		'post_mime_type'        => '',
+		'post_modified'         => 0,
+		'post_modified_gmt'     => 0,
+		'post_name'             => '',
+		'post_parent'           => 0,
+		'post_password'         => '',
+		'post_status'           => 'publish',
+		'post_title'            => '',
+		'post_type'             => 'page',
+		'to_ping'               => '',
+
+		'is_404'                => false,
+		'is_archive'            => false,
+		'is_page'               => false,
+		'is_single'             => false,
+		'is_tax'                => false,
 	);
 
 	// Switch defaults if post is set
 	if ( isset( $wp_query->post ) ) {
 		$defaults = array(
-			'comment_status'  => comments_open(),
-			'ID'              => get_the_ID(),
-			'is_archive'      => false,
-			'is_page'         => false,
-			'is_single'       => false,
-			'is_tax'          => false,
-			'is_404'          => false,
-			'post_author'     => get_the_author_meta( 'ID' ),
-			'post_content'    => get_the_content(),
-			'post_date'       => get_the_date(),
-			'post_name'       => ! empty( $wp_query->post->post_name ) ? $wp_query->post->post_name : '',
-			'post_status'     => get_post_status(),
-			'post_title'      => get_the_title(),
-			'post_type'       => get_post_type(),
+			'comment_count'         => $wp_query->post->comment_count,
+			'comment_status'        => $wp_query->post->comment_status,
+			'guid'                  => $wp_query->post->guid,
+			'ID'                    => $wp_query->post->ID,
+			'menu_order'            => $wp_query->post->menu_order,
+			'pinged'                => $wp_query->post->pinged,
+			'ping_status'           => $wp_query->post->ping_status,
+			'post_author'           => $wp_query->post->post_author,
+			'post_category'         => $wp_query->post->post_category,
+			'post_content'          => $wp_query->post->post_content,
+			'post_content_filtered' => $wp_query->post->post_content_filtered,
+			'post_date'             => $wp_query->post->post_date,
+			'post_date_gmt'         => $wp_query->post->post_date_gmt,
+			'post_excerpt'          => $wp_query->post->post_excerpt,
+			'post_mime_type'        => $wp_query->post->post_mime_type,
+			'post_modified'         => $wp_query->post->post_modified,
+			'post_modified_gmt'     => $wp_query->post->post_modified_gmt,
+			'post_name'             => $wp_query->post->post_name,
+			'post_parent'           => $wp_query->post->post_parent,
+			'post_password'         => $wp_query->post->post_password,
+			'post_status'           => $wp_query->post->post_status,
+			'post_title'            => $wp_query->post->post_title,
+			'post_type'             => $wp_query->post->post_type,
+			'to_ping'               => $wp_query->post->to_ping,
+
+			'is_404'                => false,
+			'is_archive'            => false,
+			'is_page'               => false,
+			'is_single'             => false,
+			'is_tax'                => false,
 		);
 	}
 	$dummy = dpa_parse_args( $args, $defaults, 'theme_compat_reset_post' );
@@ -319,16 +351,31 @@ function dpa_theme_compat_reset_post( $args = array() ) {
 	unset( $post            );
 
 	// Setup the dummy post object
-	$wp_query->post                 = new stdClass; 
-	$wp_query->post->ID             = $dummy['ID'];
-	$wp_query->post->post_title     = $dummy['post_title'];
-	$wp_query->post->post_author    = $dummy['post_author'];
-	$wp_query->post->post_date      = $dummy['post_date'];
-	$wp_query->post->post_content   = $dummy['post_content'];
-	$wp_query->post->post_type      = $dummy['post_type'];
-	$wp_query->post->post_status    = $dummy['post_status'];
-	$wp_query->post->post_name      = $dummy['post_name'];
-	$wp_query->post->comment_status = $dummy['comment_status'];
+	$wp_query->post                        = new stdClass;  
+	$wp_query->post->comment_count         = $dummy['comment_count'];
+	$wp_query->post->comment_status        = $dummy['comment_status']; 
+	$wp_query->post->guid                  = $dummy['guid']; 
+	$wp_query->post->ID                    = $dummy['ID']; 
+	$wp_query->post->menu_order            = $dummy['menu_order']; 
+	$wp_query->post->pinged                = $dummy['pinged']; 
+	$wp_query->post->ping_status           = $dummy['ping_status']; 
+	$wp_query->post->post_author           = $dummy['post_author']; 
+	$wp_query->post->post_category         = $dummy['post_category']; 
+	$wp_query->post->post_content          = $dummy['post_content']; 
+	$wp_query->post->post_content_filtered = $dummy['post_content_filtered']; 
+	$wp_query->post->post_date             = $dummy['post_date']; 
+	$wp_query->post->post_date_gmt         = $dummy['post_date_gmt']; 
+	$wp_query->post->post_excerpt          = $dummy['post_content_filtered']; 
+	$wp_query->post->post_mime_type        = $dummy['post_mime_type']; 
+	$wp_query->post->post_modified         = $dummy['post_modified']; 
+	$wp_query->post->post_modified_gmt     = $dummy['post_modified_gmt']; 
+	$wp_query->post->post_name             = $dummy['post_name']; 
+	$wp_query->post->post_parent           = $dummy['post_parent']; 
+	$wp_query->post->post_password         = $dummy['post_password']; 
+	$wp_query->post->post_title            = $dummy['post_title']; 
+	$wp_query->post->post_type             = $dummy['post_type']; 
+	$wp_query->post->to_ping               = $dummy['to_ping']; 
+	$wp_query->post->post_status           = $dummy['post_status']; 
 
 	// Set the $post global
 	$post = $wp_query->post;
@@ -339,9 +386,9 @@ function dpa_theme_compat_reset_post( $args = array() ) {
 	// Prevent comments form from appearing
 	$wp_query->post_count = 1;
 	$wp_query->is_404     = $dummy['is_404'];
+	$wp_query->is_archive = $dummy['is_archive'];
 	$wp_query->is_page    = $dummy['is_page'];
 	$wp_query->is_single  = $dummy['is_single'];
-	$wp_query->is_archive = $dummy['is_archive'];
 	$wp_query->is_tax     = $dummy['is_tax'];
 
 	// If we are resetting a post, we are in theme compat
