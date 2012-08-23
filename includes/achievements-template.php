@@ -438,23 +438,23 @@ function dpa_achievement_content( $more_link_text = null, $stripteaser = false, 
  * Output the excerpt of the achievement
  *
  * @param int $achievement_id Optional. Achievement ID
- * @param int $length Optional. Length of the excerpt. Defaults to 100 letters
+ * @param int $length Optional. Length of the excerpt. Defaults to 200 letters
  * @since 3.0
  */
-function dpa_achievement_excerpt( $achievement_id = 0, $length = 100 ) {
+function dpa_achievement_excerpt( $achievement_id = 0, $length = 200 ) {
 	echo dpa_get_achievement_excerpt( $achievement_id, $length );
 }
 	/**
 	 * Return the excerpt of the achievement
 	 *
 	 * @param int $achievement_id Optional. Achievement ID.
-	 * @param int $length Optional. Length of the excerpt. Defaults to 100 letters
+	 * @param int $length Optional. Length of the excerpt. Defaults to 200 letters
 	 * @return string Achievement excerpt
 	 * @since 3.0
 	 * @todo Handle multibyte characters when generating an excerpt
 	 * @todo Don't cut off part of a word; go to the nearest space
 	 */
-	function dpa_get_achievement_excerpt( $achievement_id = 0, $length = 100 ) {
+	function dpa_get_achievement_excerpt( $achievement_id = 0, $length = 200 ) {
 		$achievement_id = dpa_get_achievement_id( $achievement_id );
 		$excerpt        = get_post_field( $achievement_id, 'post_excerpt' );
 		$length         = (int) $length;
