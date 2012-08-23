@@ -36,13 +36,20 @@ add_filter( 'redirect_canonical',      'dpa_redirect_canonical', 10    );
 add_filter( 'posts_where', 'dpa_query_post_parent__in', 10, 2 );
 
 // Run filters on achievement->post_content
-add_filter( 'dpa_get_achievement_content', 'capital_P_dangit'       );
-add_filter( 'dpa_get_achievement_content', 'wptexturize',        3  );
-add_filter( 'dpa_get_achievement_content', 'convert_chars',      5  );
-add_filter( 'dpa_get_achievement_content', 'make_clickable',     9  );
-add_filter( 'dpa_get_achievement_content', 'force_balance_tags', 25 );
-add_filter( 'dpa_get_achievement_content', 'convert_smilies',    20 );
-add_filter( 'dpa_get_achievement_content', 'wpautop',            30 );
+add_filter( 'dpa_get_achievement_content', 'wptexturize',       10 );
+add_filter( 'dpa_get_achievement_content', 'capital_P_dangit',  12 );
+add_filter( 'dpa_get_achievement_content', 'convert_smilies',   14 );
+add_filter( 'dpa_get_achievement_content', 'convert_chars',     16 );
+add_filter( 'dpa_get_achievement_content', 'wpautop',           18 );
+add_filter( 'dpa_get_achievement_content', 'shortcode_unautop', 20 );
+
+// Run filters on achievement->post_excerpt
+add_filter( 'dpa_get_achievement_excerpt', 'wptexturize',       10 );
+add_filter( 'dpa_get_achievement_excerpt', 'capital_P_dangit',  12 );
+add_filter( 'dpa_get_achievement_excerpt', 'convert_smilies',   14 );
+add_filter( 'dpa_get_achievement_excerpt', 'convert_chars',     16 );
+add_filter( 'dpa_get_achievement_excerpt', 'wpautop',           18 );
+add_filter( 'dpa_get_achievement_excerpt', 'shortcode_unautop', 20 );
 
 /**
  * Template Compatibility
