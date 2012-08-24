@@ -15,14 +15,16 @@
 @import "notifications.less";
 
 
+/**
+ * This is the main wrapper for all Achievements theme compat. templating.
+ */
 #dpa-achievements {
 	background: transparent;
-	clear: both;
-	//overflow: hidden;
+	.clearfix();
 
 	li {
-		margin: 0;
 		list-style: none;
+		margin: 0;
 	}
 
 	ul {
@@ -32,19 +34,19 @@
 
 		&.dpa-achievements {
 			clear: both;
-			margin-bottom: @themeCompatMargin*2;
-			//overflow: hidden;
+			margin-bottom: @themeCompatMargin;
 		}
 	}
 }
 
-// Achievement index and single template
-#dpa-achievements .dpa-achievements li {
+
+/**
+ * Achievement index and single template
+ */
+
+.dpa-achievements li {
 	.clearfix();
 	margin-bottom: @themeCompatMargin;
-}
-
-.dpa-achievement-body {
 }
 
 .dpa-achievement-logo {
@@ -54,15 +56,18 @@
 
 
 /**
- * Breadcrumb and Tags
+ * Breadcrumb
  */
 
-div.dpa-breadcrumb {
+.dpa-breadcrumb {
 	float: left;  // @todo RTL
-	font-size: smaller;
+	font-size: @themeCompatSmallFont;
+
+	a { text-decoration: none; }
+	span { font-weight: normal; }
 }
 
-#dpa-achievements div.dpa-breadcrumb p {
+div.dpa-breadcrumb p {  // Specifity required
 	margin-bottom: @themeCompatMargin;
 }
 
@@ -74,14 +79,18 @@ div.dpa-breadcrumb {
 .dpa-pagination-count {
 	float: left;
 }
+
 .dpa-pagination-links {
 	float: right;
 }
+
 .dpa-pagination {
-	float: left;
-	font-size: smaller;
+	float: right;
+	font-size: @themeCompatSmallFont;
 	margin-bottom: @themeCompatMargin;
 	width: 100%;
+
+	a { text-decoration: none; }
 }
 
 
