@@ -135,14 +135,14 @@ final class Achievements {
 	 *
 	 * @since 3.0
 	 */
-	public function __clone() { wp_die( __( 'Cheatin&#8217; huh?', 'dpa' ) ); }
+	public function __clone() { _doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'dpa' ) ); }
 
 	/**
 	 * A dummy magic method to prevent Achievements from being unserialised
 	 *
 	 * @since 3.0
 	 */
-	public function __wakeup() { wp_die( __( 'Cheatin&#8217; huh?', 'dpa' ) ); }
+	public function __wakeup() { _doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'dpa' ) ); }
 
 	/**
 	 * Magic method for checking the existence of a certain custom field
