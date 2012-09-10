@@ -175,8 +175,8 @@ final class Achievements {
 	 */
 	private function setup_globals() {
 		// Versions
-		$this->version    = 3.0;  // Achievements version
-		$this->db_version = 300;  // Achievements DB version
+		$this->version    = 3.0;
+		$this->db_version = 300;
 
 		// Paths - plugin
 		$this->file       = __FILE__;
