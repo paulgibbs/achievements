@@ -150,12 +150,7 @@ function dpa_add_error( $code = '', $message = '', $data = '' ) {
  * @since 3.0
  */
 function dpa_has_errors() {
-	// Assume no errors
-	$has_errors = false;
-
-	// Check for errors
-	if ( achievements()->errors->get_error_codes() )
-		$has_errors = true;
+	$has_errors = achievements()->errors->get_error_codes() ? true : false; 
 
 	return apply_filters( 'dpa_has_errors', $has_errors, achievements()->errors );
 }
