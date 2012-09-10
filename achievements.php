@@ -266,10 +266,6 @@ final class Achievements {
 		require( $this->plugin_dir . 'includes/core-shortcodes.php' ); // Shortcodes for use with pages and posts
 		require( $this->plugin_dir . 'includes/core-update.php'     ); // Database updater
 
-		// If Achievements is being deactivated, do not load any more files 
-		if ( dpa_is_deactivation( $this->basename ) ) 
-			return; 
-
 
 		/**
 		 * Templates

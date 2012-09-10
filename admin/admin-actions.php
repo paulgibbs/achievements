@@ -41,25 +41,21 @@ add_action( 'dpa_admin_init', 'dpa_setup_updater',           999 );
 add_action( 'dpa_init', 'dpa_admin' );
 
 // Activation
-add_action( 'dpa_activation', 'dpa_add_caps',               4 );
-add_action( 'dpa_activation', 'dpa_add_options',            6 );
-add_action( 'dpa_activation', 'dpa_create_initial_content', 8 );
-add_action( 'dpa_activation', 'flush_rewrite_rules'           );
+add_action( 'dpa_activation', 'dpa_add_caps',             2 );
+add_action( 'dpa_activation', 'dpa_delete_rewrite_rules', 4 );
 
 // Deactivation
-add_action( 'dpa_deactivation', 'dpa_remove_caps',    1 );
-add_action( 'dpa_deactivation', 'flush_rewrite_rules'   );
+add_action( 'dpa_deactivation', 'dpa_remove_caps',          2 );
+add_action( 'dpa_deactivation', 'dpa_delete_rewrite_rules', 4 );
+add_action( 'dpa_deactivation', 'dpa_deactivated',          6 );
 
 // New site created in multisite
 add_action( 'dpa_new_site', 'dpa_add_caps',               4 );
-add_action( 'dpa_new_site', 'dpa_add_options',            6 );
-add_action( 'dpa_new_site', 'dpa_create_initial_content', 8 );
-add_action( 'dpa_new_site', 'flush_rewrite_rules'           );
+add_action( 'dpa_new_site', 'dpa_create_initial_content', 6 );
 
 
 /**
- * When a new site is created in a multisite installation, run the activation
- * routine on that site
+ * When a new site is created in a multisite installation, run the activation routine on that site.
  *
  * @param int $blog_id
  * @param int $user_id
@@ -73,6 +69,10 @@ function dpa_new_site( $blog_id, $user_id, $domain, $path, $site_id, $meta ) {
 	// If we're running network wide, it doesn't matter that we've created a new blog.
 	if ( is_multisite() && dpa_is_running_networkwide() )
 		return;
+
+	// Bail if plugin has not been network activated 
+	if ( ! is_plugin_active_for_network( achievements()->basename ) ) 
+		return; 
 
 	// Switch to the new blog
 	switch_to_blog( $blog_id );

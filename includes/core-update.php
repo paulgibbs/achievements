@@ -120,18 +120,34 @@ function dpa_version_bump() {
  * @since 3.0
  */
 function dpa_setup_updater() {
-	// Are we running an outdated version of Achievements?
-	if ( dpa_is_update() ) {
+	// Bail if no update needed
+	if ( ! dpa_is_update() )
+		return;
 
-		// Bump the version
-		dpa_version_bump();
+	// Call the automated updater
+	dpa_version_updater();
+}
 
-		// Run the deactivation function to wipe roles, caps, and rewrite rules
-		dpa_deactivation();
+/**
+ * Achievements' version updater looks at what the current database version is and
+ * runs whatever other code is needed.
+ *
+ * This is most-often used when the data schema changes, but should also be used
+ * to correct issues with Achievements meta-data silently on software update.
+ *
+ * @since 3.0
+ */
+function dpa_version_updater() {
+	// Get the raw database version
+	$raw_db_version = (int) dpa_get_db_version_raw();
 
-		// Run the activation function to reset roles, caps, and rewrite rules
-		dpa_activation();
-	}
+	// Chill; there's nothing to do for now!
+
+	// Bump the version
+	dpa_version_bump();
+
+	// Delete rewrite rules to force a flush
+	dpa_delete_rewrite_rules();
 }
 
 /**

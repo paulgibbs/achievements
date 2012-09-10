@@ -247,6 +247,15 @@ function dpa_get_paged() {
 }
 
 /**
+ * Delete a site's rewrite rules so that they are automatically rebuilt on subsequent page load.
+ *
+ * @since 3.0
+ */
+function dpa_delete_rewrite_rules() {
+	delete_option( 'rewrite_rules' );
+}
+
+/**
  * Merge user defined arguments into defaults array.
  *
  * This function is used throughout Achievements to allow for either a string or array
