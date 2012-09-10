@@ -94,9 +94,7 @@ class DPA_Shortcodes {
 	 * @param string $query_name Optional
 	 * @since 3.0
 	 */
-	private function start( $query_name = '' ) {
-		dpa_set_query_name( $query_name );
-
+	private function start() {
 		// Remove 'dpa_replace_the_content' filter to prevent infinite loops
 		remove_filter( 'the_content', 'dpa_replace_the_content' );
 
@@ -145,7 +143,7 @@ class DPA_Shortcodes {
 		$this->unset_globals();
 
 		// Start output buffer
-		$this->start( 'dpa_achievement_archive' );
+		$this->start();
 
 		dpa_get_template_part( 'content', 'archive-achievement' );
 
@@ -167,9 +165,6 @@ class DPA_Shortcodes {
 		if ( ! empty( $content ) || ( empty( $attr['id'] ) || ! is_numeric( $attr['id'] ) ) )
 			return $content;
 
-		// Unset globals
-		$this->unset_globals();
-
 		// Set passed attribute to $achievement_id for clarity
 		$achievement_id = achievements()->current_achievement_id = $attr['id'];
 
@@ -177,19 +172,11 @@ class DPA_Shortcodes {
 		if ( ! dpa_is_achievement( $achievement_id ) )
 			return $content;
 
-		// Reset the queries if not in theme compat
-		if ( ! dpa_is_theme_compat_active() ) {
-
-			// Reset necessary achievement_query attributes for achievements loop to function
-			achievements()->achievement_query->query_vars['post_type'] = dpa_get_achievement_post_type();
-			achievements()->achievement_query->in_the_loop             = true;
-			achievements()->achievement_query->post                    = get_post( $achievement_id );
-		}
-
 		// Start output buffer
-		$this->start( 'dpa_single_achievement' );
+		$this->start();
 
 		// Check achievement caps
+		// @todo Compare this to bbPress' display_forum() and port missing functions
 		$post = get_post( $achievement_id );
 		if ( ! empty( $post ) && 'publish' == $post->post_status && current_user_can( 'read_achievement', $achievement_id ) )
 			dpa_get_template_part( 'content', 'single-achievement' );
@@ -214,7 +201,7 @@ class DPA_Shortcodes {
 		$this->unset_globals();
 
 		// Start output buffer
-		$this->ob_start();
+		$this->start();
 
 		// Output breadcrumb
 		dpa_breadcrumb();
