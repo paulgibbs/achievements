@@ -21,9 +21,9 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  * updates to WordPress occur.
  */
 add_action( 'plugins_loaded',         'dpa_loaded',                 10 );
-add_action( 'init',                   'dpa_init',                   10 );
-add_action( 'widgets_init',           'dpa_widgets_init',           10 );
+add_action( 'init',                   'dpa_init',                   0  ); // Early for dpa_register 
 add_action( 'parse_query',            'dpa_parse_query',            2  ); // Early for overrides
+add_action( 'widgets_init',           'dpa_widgets_init',           10 );
 add_action( 'generate_rewrite_rules', 'dpa_generate_rewrite_rules', 10 );
 add_action( 'wp_enqueue_scripts',     'dpa_enqueue_scripts',        10 );
 add_action( 'wp_head',                'dpa_head',                   10 );
@@ -53,12 +53,21 @@ add_action( 'dpa_loaded', 'dpa_load_textdomain',           18 );
  *
  * Attach various initialisation actions to the init action.
  */
-add_action( 'dpa_init', 'dpa_register_post_types',    10  );
-add_action( 'dpa_init', 'dpa_register_post_statuses', 12  );
-add_action( 'dpa_init', 'dpa_register_taxonomies',    14  );
-add_action( 'dpa_init', 'dpa_register_endpoints',     16  );
-add_action( 'dpa_init', 'dpa_register_shortcodes',    20  );
-add_action( 'dpa_init', 'dpa_ready',                  999 );
+add_action( 'dpa_init', 'dpa_register',         0   );
+//add_action( 'dpa_init', 'dpa_add_rewrite_tags', 20  );
+add_action( 'dpa_init', 'dpa_ready',            999 );
+
+/**
+ * dpa_register - Attached to 'init' above on 0 priority
+ *
+ * Attach various initilisation actions early to the init action.
+ * The load order helps to execute code at the correct time.
+ */
+add_action( 'dpa_register', 'dpa_register_post_types',    2  );
+add_action( 'dpa_register', 'dpa_register_post_statuses', 4  );
+add_action( 'dpa_register', 'dpa_register_taxonomies',    6  );
+add_action( 'dpa_register', 'dpa_register_endpoints',     8  );
+add_action( 'dpa_register', 'dpa_register_shortcodes',    10 );
 
 /**
  * dpa_ready - Attached to 'dpa_init' above

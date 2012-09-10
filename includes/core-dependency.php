@@ -104,6 +104,15 @@ function dpa_init() {
 	do_action( 'dpa_init' );
 }
 
+/** 
+ * Register any objects before anything is initialised.
+ * 
+ * @since 3.0
+ */ 
+function dpa_register() { 
+	do_action( 'dpa_register' );
+}
+
 /**
  * Initialise widgets
  *
