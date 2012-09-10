@@ -107,3 +107,19 @@ class DPA_Cache_Skip_Children {
 	}
 }
 new DPA_Cache_Skip_Children();
+
+/**
+ * If multisite and running network-wide, clear custom caches when something
+ * is added, removed, or updated in the Events taxonomy.
+ *
+ * @param int|array $ids Single or list of term IDs
+ * @param string $taxonomy Taxonomy
+ * @see dpa_register_events()
+ * @since 3.0
+ */
+function dpa_clear_events_tax_cache( $ids, $taxonomy ) {
+	// If multisite and running network-wide, clear the registered events cache.
+	if ( is_multisite() && dpa_is_running_networkwide() )
+		wp_cache_delete( 'dpa_registered_events', 'achievements' );
+}
+add_action( 'clean_term_cache', 'dpa_clear_events_tax_cache', 10, 2 );

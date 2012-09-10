@@ -95,7 +95,8 @@ function dpa_maybe_update_extensions() {
  * before we actually give the award.
  *
  * This function is invoked on every page load but as get_terms() provides built-in caching, we don't
- * have to worry about that.
+ * have to worry too much. For multisite with the network-wide option enabled, we store the events
+ * in a global cache object to avoid a call to switch_to_blog.
  *
  * @since 3.0
  */
@@ -104,10 +105,37 @@ function dpa_register_events() {
 	if ( ! dpa_is_user_active() )
 		return;
 
-	// Get all valid events from the event taxononmy. A valid event is one associated with a post type.
-	$events = get_terms( achievements()->event_tax_id, array( 'hide_empty' => true )  );
-	if ( is_wp_error( $events ) || empty( $events ) )
-		return;
+	$events = array();
+
+	// If multisite and running network-wide, see if the terms have previously been cached.
+	if ( is_multisite() && dpa_is_running_networkwide() )
+		$events = wp_cache_get( 'dpa_registered_events', 'achievements' );
+
+	// No cache. Get events.
+	if ( empty( $events ) ) {
+
+		// If multisite and running network-wide, switch_to_blog to the data store site
+		if ( is_multisite() && dpa_is_running_networkwide() )
+			switch_to_blog( DPA_DATA_STORE );
+
+		// Get all valid events from the event taxononmy. A valid event is one associated with a post type.
+		$events = get_terms( achievements()->event_tax_id, array( 'hide_empty' => true )  );
+
+		// No items were found. Bail out.
+		if ( is_wp_error( $events ) || empty( $events ) ) {
+
+			// If multisite and running network-wide, undo the switch_to_blog
+			if ( is_multisite() && dpa_is_running_networkwide() )
+				restore_current_blog();
+
+			return;
+
+		// Items were found! If network-wide, cache the results and undo the switch_to_blog.
+		} elseif ( is_multisite() && dpa_is_running_networkwide() ) {
+			wp_cache_set( 'dpa_registered_events', $events, 'achievements' );
+			restore_current_blog();
+		}
+	}
 
 	// Get terms' slugs
 	$events = wp_list_pluck( (array) $events, 'slug' );
