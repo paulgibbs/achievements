@@ -48,7 +48,7 @@ function dpa_add_user_options( $user_id = 0 ) {
 		update_user_option( $user_id, $key, $value, $store_global );
 
 	// Allow previously activated plugins to append their own user options.
-	do_action( 'dpa_add_user_options' );
+	do_action( 'dpa_add_user_options', $user_id );
 }
 
 /**
@@ -76,7 +76,7 @@ function dpa_delete_user_options( $user_id = 0 ) {
 	}
 
 	// Allow previously activated plugins to append their own options.
-	do_action( 'dpa_delete_user_options' );
+	do_action( 'dpa_delete_user_options', $user_id );
 }
 
 /**
