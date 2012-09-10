@@ -259,6 +259,7 @@ final class Achievements {
 		 */
 		require( $this->plugin_dir . 'includes/core-dependency.php' ); // Core dependencies
 		require( $this->plugin_dir . 'includes/core-functions.php'  ); // Core functions
+		require( $this->plugin_dir . 'includes/core-cache.php'      ); // Cache helpers
 		require( $this->plugin_dir . 'includes/core-options.php'    ); // Configuration options
 		require( $this->plugin_dir . 'includes/core-caps.php'       ); // Roles and capabilities
 		//require( $this->plugin_dir . 'includes/core-widgets.php'    ); // Widgets
