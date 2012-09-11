@@ -342,6 +342,7 @@ final class Achievements {
 			'register_post_statuses',    // Register post statuses (dpa_progress: locked, unlocked)
 			'register_post_types',       // Register post types (achievement, dpa_progress)
 			'register_taxonomies',       // Register taxonomies (dpa_event)
+			'register_shortcodes',       // Register shortcodes
 			'register_theme_directory',  // Register the theme directory (themes)
 			'register_theme_packages',   // Register bundled theme packages (theme-compat)
 			'setup_current_user',        // Set up currently logged in user
@@ -606,6 +607,15 @@ final class Achievements {
 			'dir'     => trailingslashit( $this->plugin_dir . 'theme-compat' ),
 			'url'     => trailingslashit( $this->plugin_url . 'theme-compat' )
 		) );
+	}
+
+	/**
+	 * Register Achievements' shortcodes
+	 *
+	 * @since 3.0
+	 */
+	public function register_shortcodes() {
+		$this->shortcodes = new DPA_Shortcodes();
 	}
 
 	/**

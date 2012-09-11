@@ -188,6 +188,16 @@ function dpa_register_taxonomies() {
 function dpa_register_endpoints() {
 	do_action( 'dpa_register_endpoints' );
 }
+
+/**
+ * Register the Achievements shortcodes
+ *
+ * @since 3.0
+ */
+function dpa_register_shortcodes() {
+	do_action( 'dpa_register_shortcodes' );
+}
+
 /**
  * Enqueue CSS and JS
  *
