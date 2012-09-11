@@ -207,8 +207,8 @@ final class Achievements {
 		// Queries
 		$this->current_achievement_id = 0;             // Current achievement ID
 
-		$this->achievement_query      = new stdClass;  // Main achievement post type query
-		$this->progress_query         = new stdClass;  // Main dpa_progress post type query
+		$this->achievement_query = new stdClass();  // Main achievement post type query
+		$this->progress_query    = new stdClass();  // Main dpa_progress post type query
 
 		// Theme compat
 		$this->theme_compat = new stdClass();  // Base theme compatibility class
