@@ -219,7 +219,8 @@ final class Achievements {
 		$this->displayed_user = new stdClass();  // Currently displayed user
 
 		// Other stuff
-		$this->errors             = new WP_Error();
+		$this->domain             = 'dpa';                                                        // Unique identifier for retrieving translated strings
+		$this->errors             = new WP_Error();                                               // Errors
 		$this->extensions         = new stdClass();                                               // Other plugins add data here
 		$this->minimum_capability = apply_filters( 'dpa_minimum_capability', 'manage_options' );  // Required capability to access most admin screens
 
@@ -369,33 +370,31 @@ final class Achievements {
 
 	/**
 	 * Load the translation file for current language. Checks the languages
-	 * folder inside the plugin first, and then the WordPress languages folder.
+	 * folder inside the Achievements plugin first, and then the default WordPress
+	 * languages folder.
 	 *
-	 * If you're creating custom translation files, use the WordPress language folder.
+	 * Note that custom translation files inside the Achievements plugin folder
+	 * will be removed on Achievements updates. If you're creating custom
+	 * translation files, please use the global language folder.
 	 *
 	 * @since 3.0
 	 */
 	public function load_textdomain() {
-		$locale = get_locale();                                     // Default locale
-		$locale = apply_filters( 'plugin_locale', $locale, 'dpa' ); // Traditional WordPress plugin locale filter
-		$locale = apply_filters( 'dpa_locale',    $locale );        // Achievements-specific locale filter
-		$mofile = sprintf( 'dpa-%s.mo', $locale );                  // Get .mo file name
+		// Traditional WordPress plugin locale filter
+		$locale = apply_filters( 'plugin_locale',  get_locale(), $this->domain );
+		$mofile = sprintf( '%1$s-%2$s.mo', $this->domain, $locale );
 
 		// Setup paths to current locale file
 		$mofile_local  = $this->lang_dir . $mofile;
 		$mofile_global = WP_LANG_DIR . '/achievements/' . $mofile;
 
 		// Look in global /wp-content/languages/achievements/ folder
-		if ( file_exists( $mofile_global ) ) {
-			return load_textdomain( 'dpa', $mofile_global );
+		if ( file_exists( $mofile_global ) )
+			load_textdomain( $this->domain, $mofile_global );
 
 		// Look in local /wp-content/plugins/achievements/languages/ folder
-		} elseif ( file_exists( $mofile_local ) ) {
-			return load_textdomain( 'dpa', $mofile_local );
-		}
-
-		// Nothing found
-		return false;
+		elseif ( file_exists( $mofile_local ) )
+			load_textdomain( $this->domain, $mofile_local );
 	}
 
 	/**

@@ -263,6 +263,17 @@ function dpa_after_setup_theme() {
 	do_action( 'dpa_after_setup_theme' );
 }
 
+/**
+ * Filter the plugin locale and domain.
+ *
+ * @param string $locale Optional
+ * @param string $domain Optionl
+ * @since 3.0
+ */
+function dpa_plugin_locale( $locale = '', $domain = '' ) {
+	return apply_filters( 'dpa_plugin_locale', $locale, $domain );
+}
+
 
 /**
  * Filters
