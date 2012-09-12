@@ -55,11 +55,8 @@ class DPA_Shortcodes {
 	 */
 	private function add_shortcodes() {
 		// Loop through and add the shortcodes
-		foreach( $this->codes as $code => $function )
+		foreach( (array) $this->codes as $code => $function )
 			add_shortcode( $code, $function );
-
-		// Custom shortcodes
-		do_action( 'dpa_register_shortcodes' );
 	}
 
 	/**
@@ -94,7 +91,10 @@ class DPA_Shortcodes {
 	 * @param string $query_name Optional
 	 * @since 3.0
 	 */
-	private function start() {
+	private function start( $query_name = '' ) {
+		// Set query name
+		dpa_set_query_name( $query_name );
+
 		// Remove 'dpa_replace_the_content' filter to prevent infinite loops
 		remove_filter( 'the_content', 'dpa_replace_the_content' );
 
@@ -143,7 +143,7 @@ class DPA_Shortcodes {
 		$this->unset_globals();
 
 		// Start output buffer
-		$this->start();
+		$this->start( 'dpa_achievement_archive' );
 
 		dpa_get_template_part( 'content', 'archive-achievement' );
 
@@ -173,7 +173,7 @@ class DPA_Shortcodes {
 			return $content;
 
 		// Start output buffer
-		$this->start();
+		$this->start( 'dpa_single_achievement' );
 
 		// Check achievement caps
 		// @todo Compare this to bbPress' display_forum() and port missing functions
