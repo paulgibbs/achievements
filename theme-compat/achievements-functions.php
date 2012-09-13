@@ -100,9 +100,6 @@ class DPA_Default extends DPA_Theme_Compat {
 	 * @since 3.0
 	 */
 	public function enqueue_scripts() {
-		$notifications = dpa_get_user_notifications();
-
-		// Include core JS
 		wp_enqueue_script( 'achievements-js', $this->url . 'js/achievements-min.js', array( 'jquery' ), $this->version, true );
 	}
 }  // class_exists
