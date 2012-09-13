@@ -184,9 +184,9 @@ final class Achievements {
 		$this->plugin_dir = apply_filters( 'dpa_plugin_dir_path', plugin_dir_path( $this->file ) );
 		$this->plugin_url = apply_filters( 'dpa_plugin_dir_url',  plugin_dir_url ( $this->file ) );
 
-		// Paths - themes
-		$this->themes_dir = apply_filters( 'dpa_themes_dir',      trailingslashit( $this->plugin_dir . 'themes' ) );
-		$this->themes_url = apply_filters( 'dpa_themes_url',      trailingslashit( $this->plugin_url . 'themes' ) );
+		// Paths - theme compatibility packs
+		$this->themes_dir = apply_filters( 'dpa_themes_dir',      trailingslashit( $this->plugin_dir . 'theme-compat' ) );
+		$this->themes_url = apply_filters( 'dpa_themes_url',      trailingslashit( $this->plugin_url . 'theme-compat' ) );
 
 		// Paths - languages
 		$this->lang_dir   = apply_filters( 'dpa_lang_dir',        trailingslashit( $this->plugin_dir . 'languages' ) );
@@ -591,20 +591,19 @@ final class Achievements {
 	/**
 	 * Register bundled theme packages
 	 *
-	 * Note that since we currently have complete control over the /themes/ and
-	 * the /theme-compat/ folders, it's fine to hardcode these here. If at a
-	 * later date we need to automate this, an API will need to be built.
+	 * Note that since we currently have complete control over the /theme-compat/
+	 * folders, it's fine to hardcode these here. If at a later date we need to
+	 * automate this, an API will need to be built.
 	 *
 	 * @since 3.0
 	 */
 	public function register_theme_packages() {
-		// Default theme
 		dpa_register_theme_package( array(
 			'id'      => 'default',
 			'name'    => __( 'Achievements Default', 'dpa' ),
 			'version' => dpa_get_version(),
-			'dir'     => trailingslashit( $this->plugin_dir . 'theme-compat' ),
-			'url'     => trailingslashit( $this->plugin_url . 'theme-compat' )
+			'dir'     => trailingslashit( $this->themes_dir . '/achievements' ),
+			'url'     => trailingslashit( $this->themes_url . '/achievements' )
 		) );
 	}
 
