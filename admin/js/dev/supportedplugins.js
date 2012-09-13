@@ -14,7 +14,7 @@
  * @param object event
  * @since 3.0
  */
-function dpa_update_filters(event, sss, ddd) {
+function dpa_update_filters(event) {
 	event.preventDefault();
 	event.stopImmediatePropagation();
 

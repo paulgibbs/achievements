@@ -100,7 +100,7 @@ class DPA_Default extends DPA_Theme_Compat {
 	 * @since 3.0
 	 */
 	public function enqueue_scripts() {
-		wp_enqueue_script( 'achievements-js', $this->url . 'js/achievements-min.js', array( 'jquery' ), $this->version, true );
+		wp_enqueue_script( 'achievements-js', $this->url . 'js/achievements.js', array( 'jquery' ), $this->version, true );
 	}
 }  // class_exists
 
