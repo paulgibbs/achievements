@@ -86,7 +86,7 @@ class DPA_Default extends DPA_Theme_Compat {
 
 		// Achievements theme compatibility
 		} else {
-			$location = trailingslashit( $this->url );
+			$location = trailingslashit( $this->url ) . 'achievements/';
 			$handle   = 'dpa-default-achievements';
 		}
 
