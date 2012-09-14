@@ -435,6 +435,29 @@ function dpa_achievement_content( $more_link_text = null, $stripteaser = false, 
 	}
 
 /**
+ * Output the points value of the achievement.
+ *
+ * @param int $achievement_id Optional. Achievement ID
+ * @since 3.0
+ */
+function dpa_achievement_points( $achievement_id = 0 ) {
+	echo number_format_i18n( dpa_get_achievement_points( $achievement_id ) );
+}
+	/**
+	 * Return the points value of the achievement.
+	 *
+	 * @param int $achievement_id Optional. Achievement ID
+	 * @return int
+	 * @since 3.0
+	 */
+	function dpa_get_achievement_points( $achievement_id = 0 ) {
+		$achievement_id = dpa_get_achievement_id( $achievement_id );
+		$points         = (int) get_post_meta( $achievement_id, '_dpa_points', true );
+
+		return apply_filters( 'dpa_get_achievement_points', $points, $achievement_id );
+	}
+
+/**
  * Output the excerpt of the achievement
  *
  * @param int $achievement_id Optional. Achievement ID
@@ -521,7 +544,6 @@ function dpa_achievement_post_date( $achievement_id = 0, $humanise = false, $gmt
 
 		return apply_filters( 'dpa_get_achievement_post_date', $result, $achievement_id, $humanise, $gmt, $date, $time );
 	}
-
 
 /**
  * Output the row class of an achievement

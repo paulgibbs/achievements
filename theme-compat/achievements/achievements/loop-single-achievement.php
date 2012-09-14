@@ -24,7 +24,7 @@
 	<td headers="achievements-archive-karma">
 		<?php do_action( 'dpa_template_before_achievement_karma' ); ?>
 
-		<?php echo '100'; ?>
+		<?php dpa_achievement_points(); ?>
 
 		<?php do_action( 'dpa_template_after_achievement_karma' ); ?>
 	</td>

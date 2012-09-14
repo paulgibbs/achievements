@@ -167,7 +167,7 @@ function dpa_send_points( $achievement_obj, $user_id, $progress_id ) {
 		return;
 
 	// Get the user's current total points plus the point value for the unlocked achievement
-	$points = dpa_get_user_points( $user_id ) + get_post_meta( $achievement_obj->ID, '_dpa_points', true );
+	$points = dpa_get_user_points( $user_id ) + dpa_get_achievement_points( $achievement_obj->ID );
 	$points = apply_filters( 'dpa_send_points_value', $points, $achievement_obj, $user_id, $progress_id );
 
 	// Give points to user
