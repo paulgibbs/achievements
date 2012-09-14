@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  *
  * @param object $achievement_obj The Achievement object to send a notification for.
  * @param int $user_id ID of the user who unlocked the achievement.
- * @param object $progress_obj The Progress object's ID.
+ * @param int $progress_id The Progress object's ID.
  * @since 3.0
  */
 function dpa_send_notification( $achievement_obj, $user_id, $progress_id ) {
