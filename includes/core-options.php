@@ -35,6 +35,10 @@ function dpa_get_default_options() {
 
 		// Extension support
 		'_dpa_extension_versions' => array(),                   // Version numbers for the plugin extensions
+
+		// Stats
+		'_dpa_stats_last_achievement_id'      => 0,             // ID of the last unlocked achievement
+		'_dpa_stats_last_achievement_user_id' => 0,             // ID of the user who unlocked the last achievement
 	);
 
 	return apply_filters( 'dpa_get_default_options', $options );
@@ -290,4 +294,57 @@ function dpa_update_extension_versions( $new_value ) {
 		update_site_option( '_dpa_extension_versions', $new_value );
 	else
 		update_option( '_dpa_extension_versions', $new_value );
+}
+
+
+/**
+ * Stats functions
+ */
+
+/**
+ * Return the ID of the last unlocked achievement
+ *
+ * @return int
+ * @since 3.0
+ */
+function dpa_stats_get_last_achievement_id() {
+	$id = get_option( '_dpa_stats_last_achievement_id', 0 );
+
+	return (int) apply_filters( 'dpa_stats_get_last_achievement_id', $id );
+}
+
+/**
+ * Return the ID of the user who unlocked the last achievement
+ *
+ * @return int
+ * @since 3.0
+ */
+function dpa_stats_get_last_achievement_user_id() {
+	$user_id = get_option( '_dpa_stats_last_achievement_user_id', 0 );
+
+	return (int) apply_filters( 'dpa_stats_get_last_achievement_user_id', $user_id );
+}
+
+/**
+ * Set the ID of the last unlocked achievement
+ *
+ * @param int $achievement_id
+ * @since 3.0
+ */
+function dpa_stats_update_last_achievement_id( $achievement_id ) {
+	$achievement_id = apply_filters( 'dpa_stats_update_last_achievement_id', $achievement_id );
+
+	update_option( '_dpa_stats_last_achievement_id', $achievement_id );
+}
+
+/**
+ * Set the ID of the user who unlocked the last achievement
+ *
+ * @param int $user_id
+ * @since 3.0
+ */
+function dpa_stats_update_last_achievement_user_id( $user_id ) {
+	$user_id = apply_filters( 'dpa_stats_update_last_achievement_user_id', $user_id );
+
+	update_option( '_dpa_stats_last_achievement_user_id', $user_id );
 }

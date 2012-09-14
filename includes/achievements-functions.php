@@ -1,6 +1,6 @@
 <?php
 /**
- * Achievement post type, endpoint, and Event taxonomy functions.
+ * Achievement post type, endpoint, Event taxonomy, and other utility functions.
  *
  * @package Achievements
  * @subpackage AchievementsFunctions
@@ -66,4 +66,21 @@ function dpa_get_event_tax_id() {
 function dpa_get_total_achievement_count() {
 	$counts = wp_count_posts( dpa_get_achievement_post_type() );
 	return apply_filters( 'dpa_get_total_achievement_count', (int) $counts->publish );
+}
+
+/**
+ * When an achievement is unlocked, update various stats.
+ *
+ * @param object $achievement_obj The Achievement object.
+ * @param int $user_id ID of the user who unlocked the achievement.
+ * @param int $progress_id The Progress object's ID.
+ * @since 3.0
+ */
+function dpa_update_achievement_stats( $achievement_obj, $user_id, $progress_id ) {
+	// Update the 'last unlocked achievement' stats
+	dpa_stats_update_last_achievement_id( $achievement_obj->ID );
+	dpa_stats_update_last_achievement_user_id( $user_id );
+
+	// Allow other plugins to update their own stats when an achievement is unlocked
+	do_action( 'dpa_update_achievement_stats', $achievement_obj, $user_id, $progress_id );
 }

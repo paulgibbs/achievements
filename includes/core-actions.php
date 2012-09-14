@@ -92,6 +92,7 @@ add_action( 'make_ham_user',  'dpa_make_ham_user'  );
 add_action( 'make_spam_user', 'dpa_make_spam_user' );
 
 // Achievement unlocked
-add_action( 'dpa_unlock_achievement', 'dpa_send_points',        10, 3 );
-add_action( 'dpa_unlock_achievement', 'dpa_send_notification',  10, 3 );
-add_action( 'dpa_footer',             'dpa_print_notifications'       );
+add_action( 'dpa_unlock_achievement', 'dpa_send_points',              10, 3 );
+add_action( 'dpa_unlock_achievement', 'dpa_send_notification',        10, 3 );
+add_action( 'dpa_unlock_achievement', 'dpa_update_achievement_stats', 10, 3 );
+add_action( 'dpa_footer',             'dpa_print_notifications'             );
