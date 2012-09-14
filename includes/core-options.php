@@ -19,22 +19,22 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 function dpa_get_default_options() {
 	$options = array(
 		// DB version
-		'_dpa_db_version'       => achievements()->db_version,       // Initial DB version
+		'_dpa_db_version'       => achievements()->db_version,  // Initial DB version
 
 		// Settings
-		'_dpa_theme_package_id' => 'default',                        // The ID for the current theme package.
+		'_dpa_theme_package_id' => 'default',                   // The ID for the current theme package.
 
 		// Achievement post type
-		'_dpa_achievements_per_page'     => 15,                      // Achievements per page
-		'_dpa_achievements_per_rss_page' => 25,                      // Achievements per RSS page
-		'_dpa_root_slug'                 => 'achievements',          // Achievements archive slug
+		'_dpa_achievements_per_page'     => 15,                 // Achievements per page
+		'_dpa_achievements_per_rss_page' => 25,                 // Achievements per RSS page
+		'_dpa_root_slug'                 => 'achievements',     // Achievements archive slug
 
 		// Progress post type
-		'_dpa_progresses_per_page'     => 15,                        // Progresses per page
-		'_dpa_progresses_per_rss_page' => 25,                        // Progresses per RSS page
+		'_dpa_progresses_per_page'     => 15,                   // Progresses per page
+		'_dpa_progresses_per_rss_page' => 25,                   // Progresses per RSS page
 
 		// Extension support
-		'_dpa_extension_versions' => array(),                        // Version numbers for the plugin extensions
+		'_dpa_extension_versions' => array(),                   // Version numbers for the plugin extensions
 	);
 
 	return apply_filters( 'dpa_get_default_options', $options );
