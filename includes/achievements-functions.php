@@ -56,3 +56,14 @@ function dpa_authors_endpoint() {
 function dpa_get_event_tax_id() {
 	return apply_filters( 'dpa_get_event_tax_id', achievements()->event_tax_id );
 }
+
+/**
+ * Return the total count of the number of achievements
+ *
+ * @return int Total achievement count
+ * @since 3.0
+ */
+function dpa_get_total_achievement_count() {
+	$counts = wp_count_posts( dpa_get_achievement_post_type() );
+	return apply_filters( 'dpa_get_total_achievement_count', (int) $counts->publish );
+}

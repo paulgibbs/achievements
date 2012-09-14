@@ -546,6 +546,51 @@ function dpa_achievement_post_date( $achievement_id = 0, $humanise = false, $gmt
 	}
 
 /**
+ * Output a fancy description of the achievements on the site, including the
+ * number of public and hidden achievements.
+ *
+ * @param array $args Optional. Arguments passed to alter output
+ * @since 3.0
+ */
+function dpa_achievements_index_description( $args = '' ) {
+	echo dpa_get_achievements_index_description( $args );
+}
+	/**
+	 * Return a fancy description of the achievements on the site, including the
+	 * number of public and hidden achievements, and the username and avatar of
+	 * the most recent person who unlocked the achievement.
+	 *
+	 * @param mixed $args This function supports these arguments:
+	 *  - before: Before the text
+	 *  - after: After the text
+	 *  - size: Size of the avatar
+	 * @return string Fancy description
+	 * @since 3.0
+	 */
+	function dpa_get_achievements_index_description( $args = '' ) {
+		$defaults = array(
+			'after'     => '</p></div>',
+			'before'    => '<div class="dpa-template-notice info"><p class="dpa-achievements-description">',
+			'size'      => 14,
+		);
+		$r = dpa_parse_args( $args, $defaults, 'get_achievements_index_description' );
+		extract( $r );
+
+		// Get count of total achievements
+		$achievement_count = dpa_get_total_achievement_count();
+		$achievement_text  = sprintf( _n( '%s achievement', '%s achievements', $achievement_count, 'dpa' ), number_format_i18n( $achievement_count ) );
+
+		// Get data on the most recent unlocked achievement
+		// djpaultodo
+
+		// Combine all the things to build the output text
+		$retstr = sprintf( __( 'This site contains %1$s.', 'dpa' ), $achievement_text );
+		$retstr = $before . $retstr . $after;
+
+		return apply_filters( 'dpa_get_achievements_index_description', $retstr, $args );
+	}
+
+/**
  * Output the row class of an achievement
  *
  * @param int $achievement_id Optional. Achievement ID
