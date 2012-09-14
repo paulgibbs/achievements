@@ -7,35 +7,38 @@
  */
 ?>
 
-<li id="achievement-<?php dpa_achievement_id(); ?>" <?php dpa_achievement_class(); ?>>
+<tr id="achievement-<?php dpa_achievement_id(); ?>" <?php dpa_achievement_class(); ?>>
 
-	<?php do_action( 'dpa_theme_before_achievement_title' ); ?>
-
-	<a class="dpa-achievement-permalink" href="<?php dpa_achievement_permalink(); ?>"><?php dpa_achievement_title(); ?></a>
-
-	<?php do_action( 'dpa_theme_after_achievement_title' ); ?>
-
-	<div class="dpa-achievement-body">
-
-		<?php do_action( 'dpa_theme_before_achievement_logo' ); ?>
-
-		<?php if ( has_post_thumbnail( dpa_get_achievement_id() ) ) : ?>
-
-			<a class="dpa-achievement-permalink" href="<?php the_permalink(); ?>">
-				<?php echo get_the_post_thumbnail( dpa_get_achievement_id(), 'full', array( 'class' => 'dpa-achievement-logo' ) ); ?>
-			</a>
-
-		<?php endif; ?>
-
-		<?php do_action( 'dpa_theme_after_achievement_logo' ); ?>
+	<?php do_action( 'dpa_template_in_achievements_loop_early' ); ?>
 
 
-		<?php do_action( 'dpa_theme_before_achievement_excerpt' ); ?>
-		
-			<?php dpa_achievement_excerpt(); ?>
-		
-		<?php do_action( 'dpa_theme_after_achievement_excerpt' ); ?>
+	<td headers="achievements-archive-name">
+		<?php do_action( 'dpa_template_before_achievement_name' ); ?>
 
-	</div>
+		<a href="<?php dpa_achievement_permalink(); ?>"><?php dpa_achievement_title(); ?></a>
 
-</li><!-- #achievement-<?php dpa_achievement_id(); ?> -->
+		<?php do_action( 'dpa_template_after_achievement_name' ); ?>
+	</td>
+
+
+	<td headers="achievements-archive-karma">
+		<?php do_action( 'dpa_template_before_achievement_karma' ); ?>
+
+		<?php echo '100'; ?>
+
+		<?php do_action( 'dpa_template_after_achievement_karma' ); ?>
+	</td>
+
+
+	<td headers="achievements-archive-excerpt">
+		<?php do_action( 'dpa_template_before_achievement_excerpt' ); ?>
+
+		<?php dpa_achievement_excerpt(); ?>
+
+		<?php do_action( 'dpa_template_after_achievement_excerpt' ); ?>
+	</td>
+
+
+	<?php do_action( 'dpa_template_in_achievements_loop_late' ); ?>
+
+</tr>
