@@ -1,14 +1,5 @@
 /**
- * Variables
- */
-
-@notificationsBorderColour: rgba(0, 0, 0, 0.2);
-@notificationsGradientBottom: #FFC940;
-@notificationsGradientTop: lighten(@notificationsGradientBottom, 15%);
-@notificationsTextShadowColour: rgba(0, 0, 0, 0.1); //rgba(243, 174, 0, 1);
-
-/**
- * Markup
+ * Notifications markup
  */
 
 .dpaSlideDown-keyframes-translateY(-50px);
@@ -23,7 +14,7 @@
 
 	a {
 		border-bottom: 1px solid;
-		color: #404040;
+		color: @notificationsLinkColour;
 		text-decoration: none;
 		font-weight: bold;
 	}
@@ -31,9 +22,7 @@
 		margin: 0;
 		margin-bottom: 0 !important; }
 	}
-	span {
-		font-weight: bold;
-	}
+	span { font-weight: bold; }
 
 	.dpa-notification-message {
 		background-color: @notificationsGradientBottom;
@@ -48,23 +37,20 @@
 		filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='@notificationsGradientTop', endColorstr='@notificationsGradientBottom', GradientType=0);
 	  border: 1px solid @notificationsBorderColour;
 	  font-size: larger;
-	  padding: 0.6rem 1rem;
+	  padding: @themeCompatMargin*0.6 @themeCompatMargin;
 	  position: relative;
-		//text-shadow: 0px 1px 0px @notificationsTextShadowColour;
-
 
 		.close {
 			font-family: Arial, sans-serif; 
 			float: right;
-			color: #000;
+			color: @notificationsHighlightColour;
 			font-size: large;
 			font-weight: bold;
-			//text-shadow: 1px 1px 1px @notificationsTextShadowColour;
 			.opacity(50);
 
 		  &:hover {
 				border-bottom: 0;
-				color: #000000;
+				color: @notificationsHighlightColour;
 				cursor: pointer;
 				.opacity(100);
 			}

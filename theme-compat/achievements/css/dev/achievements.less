@@ -24,7 +24,7 @@
 
 
 /**
- * This is the main wrapper for all Achievements theme compat. templating.
+ * This is the main wrapper for all Achievements theme compatibility templating.
  */
 #dpa-achievements {
 	background: transparent;
@@ -113,45 +113,45 @@ div.dpa-breadcrumb p {  // Specifity required
  */
 
 div.dpa-template-notice {
-	.border-radius(3px);
-	background-color: #ffffe0;
-	border-color: #e6db55;
+	.border-radius( @noticeBorderRadius );
+	background-color: @noticeBackgroundColour;
+	border-color: @noticeBorderColour;
 	border-style: solid;
 	border-width: 1px;
-	color: #000;
+	color: @noticeTextColour;
 	clear: both;
-	margin: 5px 0 @themeCompatMargin;
+	margin: @themeCompatMargin*0.5 0 @themeCompatMargin;
 	padding: 0 @themeCompatMargin*0.6;
 
 	a {
-		color: #555;
+		color: @noticeLinkColour;
 		text-decoration: none;
 
-		&:hover { color: #000; }
+		&:hover { color: @noticeLinkHoverColour; }
 	}
 
 	p {
-		font-size: 12px;
+		font-size: @themeCompatSmallFont;
 		line-height: 140%;
-		margin: @themeCompatMargin/2 0 6px 0 !important;
+		margin: @themeCompatMargin/2 0 @themeCompatMargin/2 0 !important;
 		padding: 2px;
 	}
 
 	&.info {
-		background-color: #f0f8ff;
-		border: #cee1ef 1px solid;
+		background-color: @noticeInfoBackgroundColour;
+		border: @noticeInfoBorderColour 1px solid;
 	}
 
-	&.important (
-		background-color: #fffbcc;
-		border: #e6db55 1px solid;
-	)
+	&.important {
+		background-color: @noticeImportantBackgroundColour;
+		border: @noticeImportantBorderColour 1px solid;
+	}
 
 	&.error,
 	&.warning {
-		background-color: #ffebe8;
-		border-color: #c00;
+		background-color: @noticeErrorBackgroundColour;
+		border-color: @noticeErrorBorderColour;
 
-		a { color: #c00; }
+		a { color: @noticeErrorBorderColour; }
 	}
 }
