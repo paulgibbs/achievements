@@ -7,7 +7,7 @@
  */
 ?>
 
-<tr id="achievement-<?php dpa_achievement_id(); ?>" <?php dpa_achievement_class(); ?>>
+<tr id="dpa-achievement-<?php dpa_achievement_id(); ?>" <?php dpa_achievement_class(); ?>>
 
 	<?php do_action( 'dpa_template_in_achievements_loop_early' ); ?>
 
