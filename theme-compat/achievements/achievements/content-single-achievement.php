@@ -13,28 +13,37 @@
 
 	<?php do_action( 'dpa_template_before_single_achievement' ); ?>
 
-	<ul class="dpa-achievements dpa-single-achievement">
+	<div id="dpa-achievement-<?php dpa_achievement_id(); ?>" <?php dpa_achievement_class(); ?>>
 
-		<li id="achievement-<?php dpa_achievement_id(); ?>" <?php dpa_achievement_class(); ?>>
+		<?php do_action( 'dpa_template_before_achievement_thumbnail' ); ?>
 
-			<?php do_action( 'dpa_theme_before_achievement_title' ); ?>
+			<?php if ( has_post_thumbnail() ) : ?>
 
-			<?php dpa_achievement_title(); ?>
+				<?php the_post_thumbnail( 'medium', array( 'class' => 'attachment-medium dpa-single-achievement-thumbnail' ) ); ?>
 
-			<?php do_action( 'dpa_theme_after_achievement_title' ); ?>
+			<?php endif; ?>
+
+		<?php do_action( 'dpa_template_after_achievement_thumbnail' ); ?>
 
 
-			<?php do_action( 'dpa_theme_before_achievement_content' ); ?>
+		<?php do_action( 'dpa_template_before_achievement_content' ); ?>
 
-			<?php dpa_achievement_content(); ?>
+		<?php dpa_achievement_content(); ?>
 
-			<?php do_action( 'dpa_theme_after_achievement_content' ); ?>
+		<?php do_action( 'dpa_template_after_achievement_content' ); ?>
 
-		</li><!-- #achievement-<?php dpa_achievement_id(); ?> -->
 
-	</ul><!-- #dpa-achievements -->
+		<!--
+		<h3>Unlocked By</h3>
+		<ul>
+			<li>
+				<img />
+				<p>
+			</li>
+		</ul>
+		-->
 
-	<?php // DJPAULTODO. Show users who have unlocked this achievement below. And add new pair of actions ?>
+	</div><!-- #dpa-achievement-<?php dpa_achievement_id(); ?> -->
 
 	<?php do_action( 'dpa_template_after_single_achievement' ); ?>
 
