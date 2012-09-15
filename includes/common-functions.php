@@ -39,7 +39,7 @@ function dpa_time_since( $older_date, $newer_date = false ) {
 		// Setup the strings
 		$unknown_text   = apply_filters( 'dpa_time_since_unknown_text',   _x( 'sometime',  'time', 'dpa' ) );
 		$right_now_text = apply_filters( 'dpa_time_since_right_now_text', _x( 'right now', 'time', 'dpa' ) );
-		$ago_text       = apply_filters( 'dpa_rime_since_ago_text',       _x( '%s ago',    'time', 'dpa' ) );
+		$ago_text       = apply_filters( 'dpa_time_since_ago_text',       _x( '%s ago',    'time', 'dpa' ) );
 
 		// Array of time period chunks
 		$chunks = array(
