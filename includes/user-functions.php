@@ -40,7 +40,7 @@ function dpa_is_user_active( $user_id = 0 ) {
 /**
  * Checks if the user has been marked as a spammer.
  *
- * @param int $user_id int Optional. The ID for the user.
+ * @param int|WP_User $user_id int Optional. The ID for the user, or a WP_User object.
  * @return bool True if spammer, False if not.
  * @since 3.0
  */
@@ -57,7 +57,10 @@ function dpa_is_user_spammer( $user_id = 0 ) {
 	$is_spammer = false;
 
 	// Get user data
-	$user = get_userdata( $user_id );
+	if ( is_a( $user_id, 'WP_User' ) )
+		$user = $user_id;
+	else
+		$user = get_userdata( $user_id );
 
 	// No user found
 	if ( empty( $user ) ) {
@@ -116,7 +119,7 @@ function dpa_make_ham_user( $user_id = 0 ) {
 /**
  * Checks if the user has been marked as deleted.
  *
- * @param int $user_id int Optional. The ID for the user.
+ * @param int|WP_User $user_id int Optional. The ID for the user, or a WP_User object.
  * @return bool True if deleted, False if not.
  * @since 3.0
  */
@@ -133,7 +136,10 @@ function dpa_is_user_deleted( $user_id = 0 ) {
 	$is_deleted = false;
 
 	// Get user data
-	$user = get_userdata( $user_id );
+	if ( is_a( $user_id, 'WP_User' ) )
+		$user = $user_id;
+	else
+		$user = get_userdata( $user_id );
 
 	// No user found
 	if ( empty( $user ) ) {
