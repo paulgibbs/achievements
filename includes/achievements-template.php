@@ -596,7 +596,7 @@ function dpa_achievements_index_description( $args = '' ) {
 
 					// Combine all the things to build the output text
 					$retstr = sprintf(
-						__( 'This site contains %1$s, and the last unlock was <a href="%2$s">%3$s</a> by %4$s.', 'dpa' ),
+						__( 'This site contains %1$s, and the last unlocked was <a href="%2$s">%3$s</a> by %4$s.', 'dpa' ),
 						$achievement_text,
 						get_permalink( $achievement->ID ),
 						$achievement->post_title,
