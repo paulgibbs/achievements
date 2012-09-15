@@ -641,6 +641,8 @@ function dpa_achievement_class( $achievement_id = 0 ) {
 		// If we've only one post in the loop, don't both with odd and even.
 		if ( $count > 1 )
 			$classes[] = ( (int) $count % 2 ) ? 'even' : 'odd';
+		else
+			$classes[] = 'dpa-single-achievement';
 
 		$classes[] = 'user-id-' . dpa_get_achievement_author_id( $achievement_id );
 		$classes   = get_post_class( array_filter( $classes ), $achievement_id );
