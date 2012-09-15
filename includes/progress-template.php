@@ -40,7 +40,7 @@ function dpa_has_progress( $args = array() ) {
 		'posts_per_page' => dpa_get_progresses_per_page(),  // Progresses per page
 		's'              => '',                             // No search
 	);
-	$args = dpa_parse_args( $args, $defaults );
+	$args = dpa_parse_args( $args, $defaults, 'has_progress' );
 
 	// Run the query
 	achievements()->progress_query = new WP_Query( $args );

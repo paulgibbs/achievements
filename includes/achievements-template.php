@@ -55,7 +55,7 @@ function dpa_has_achievements( $args = array() ) {
 		                             dpa_get_unlocked_status_id(),
 		                           ),
 	);
-	$args              = dpa_parse_args( $args, $defaults );
+	$args              = dpa_parse_args( $args, $defaults, 'has_achievements' );
 	$progress_user_ids = false;
 
 	// Extract the query variables
