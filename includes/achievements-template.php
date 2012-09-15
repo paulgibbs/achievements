@@ -581,12 +581,39 @@ function dpa_achievements_index_description( $args = '' ) {
 		$achievement_text  = sprintf( _n( '%s achievement', '%s achievements', $achievement_count, 'dpa' ), number_format_i18n( $achievement_count ) );
 
 		// Get data on the most recent unlocked achievement
-		// djpaultodo
+		$recent_achievement_id = dpa_stats_get_last_achievement_id();
+		$recent_user_id        = dpa_stats_get_last_achievement_user_id();
 
-		// Combine all the things to build the output text
-		$retstr = sprintf( __( 'This site contains %1$s.', 'dpa' ), $achievement_text );
+		if ( ! empty( $recent_user_id ) && ! empty( $recent_achievement_id ) ) {
+
+			// Check user ID is still valid
+			$user = get_userdata( $recent_user_id );
+			if ( ! empty( $user ) && ! dpa_is_user_deleted( $user ) && dpa_is_user_active( $user ) ) {
+
+				// Check achievement ID is valid
+				$achievement = get_post( $recent_achievement_id );
+				if ( ! empty( $achievement ) && 'publish' == $achievement->post_status ) {
+
+					// Combine all the things to build the output text
+					$retstr = sprintf(
+						__( 'This site contains %1$s, and the last unlock was <a href="%2$s">%3$s</a> by %4$s.', 'dpa' ),
+						$achievement_text,
+						get_permalink( $achievement->ID ),
+						$achievement->post_title,
+						dpa_get_user_avatar_link( array(
+							'size'    => $size,
+							'user_id' => $user->ID,
+						) )
+					);
+				}
+			}
+		}
+
+		// If we haven't set a more specific description, fall back to the default.
+		if ( ! isset( $retstr ) )
+			$retstr = sprintf( __( 'This site contains %1$s.', 'dpa' ), $achievement_text );
+
 		$retstr = $before . $retstr . $after;
-
 		return apply_filters( 'dpa_get_achievements_index_description', $retstr, $args );
 	}
 
