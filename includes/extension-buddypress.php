@@ -124,8 +124,7 @@ class DPA_BuddyPress_Extension extends DPA_Extension {
 	}
 
 	/**
- 	 * For the accepted_email_invite action from Invite Anyone, get the user ID from the function
- 	 * arguments as the user isn't logged in yet.
+ 	 * For some of the actions, get the user ID from the function arguments.
 	 *
 	 * @param int $user_id
 	 * @param string $action_name
