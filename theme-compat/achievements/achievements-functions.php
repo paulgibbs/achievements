@@ -58,10 +58,8 @@ class DPA_Default extends DPA_Theme_Compat {
 	 */
 	private function setup_actions() {
 		// Scripts
-		if ( is_achievements() ) {
-			add_action( 'dpa_enqueue_scripts', array( $this, 'enqueue_styles'  ) ); // Enqueue theme CSS
-			add_action( 'dpa_enqueue_scripts', array( $this, 'enqueue_scripts' ) ); // Enqueue theme JS
-		}
+		add_action( 'dpa_enqueue_scripts', array( $this, 'enqueue_styles'  ) ); // Enqueue theme CSS
+		add_action( 'dpa_enqueue_scripts', array( $this, 'enqueue_scripts' ) ); // Enqueue theme JS
 
 		// Override
 		do_action_ref_array( 'dpa_theme_compat_actions', array( &$this ) );
@@ -74,6 +72,10 @@ class DPA_Default extends DPA_Theme_Compat {
 	 * @todo LTR CSS
 	 */
 	public function enqueue_styles() {
+		// Only load on Achievements pages
+		if ( ! is_achievements() )
+			return;
+
 		$file = 'css/achievements.css';
 
 		// Check child theme
@@ -102,6 +104,10 @@ class DPA_Default extends DPA_Theme_Compat {
 	 * @since 3.0
 	 */
 	public function enqueue_scripts() {
+		// Only load on Achievements pages
+		if ( ! is_achievements() )
+			return;
+
 		wp_enqueue_script( 'achievements-js', $this->url . 'js/achievements.js', array( 'jquery' ), $this->version, true );
 	}
 }  // class_exists
