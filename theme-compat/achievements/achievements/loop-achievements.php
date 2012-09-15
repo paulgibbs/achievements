@@ -9,7 +9,7 @@
 
 <?php do_action( 'dpa_template_before_achievements_loop_block' ); ?>
 
-<table class="archive-achievements">
+<table class="dpa-achievements-archive">
 	<caption class="screen-reader-text"><?php _e( 'All of the available achievements with the name, avatar, and karma points for each.', 'dpa' ); ?></caption>
 
 	<thead>

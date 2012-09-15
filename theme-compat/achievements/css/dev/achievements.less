@@ -44,38 +44,15 @@
 
 
 /**
- * Gravatar
- */
-
-.dpa-template-notice img.avatar {
-	margin-bottom: -6px;
-	border: 3px double @themeCompatSubtleBorder;
-}
-
-/**
  * Achievement index
  */
-.archive-achievements {
+#dpa-achievements .dpa-achievements-archive {
+	margin-bottom: 1rem;
 	width: 100%;
 }
 
 #achievements-archive-karma { width: 10%; }
 #achievements-archive-description { width: 50%; }
-
-
-/**
- * Achievement single template
- */
-
-/*.dpa-achievements li {
-	.clearfix();
-	margin-bottom: @themeCompatMargin;
-}
-
-.dpa-achievement-logo {
-	float: left;
-	margin: 0 @themeCompatMargin/2 @themeCompatMargin/2 0;  // @todo RTL
-}*/
 
 
 /**
@@ -129,8 +106,8 @@ div.dpa-template-notice {
 	border-width: 1px;
 	color: @noticeTextColour;
 	clear: both;
-	margin: @themeCompatMargin*0.5 0 @themeCompatMargin;
-	padding: 0 @themeCompatMargin*0.6;
+	margin: @themeCompatMargin*0.5 0 1rem;
+	padding: 0 @themeCompatMargin;
 
 	a {
 		color: @noticeLinkColour;
@@ -141,9 +118,8 @@ div.dpa-template-notice {
 
 	p {
 		font-size: @themeCompatSmallFont;
-		line-height: 140%;
+		line-height: 200%;
 		margin: @themeCompatMargin/2 0 @themeCompatMargin/2 0 !important;
-		padding: 2px;
 	}
 
 	&.info {
@@ -162,5 +138,10 @@ div.dpa-template-notice {
 		border-color: @noticeErrorBorderColour;
 
 		a { color: @noticeErrorBorderColour; }
+	}
+
+	.avatar {
+		border: 3px double @themeCompatSubtleBorder;
+		margin-bottom: -6px;
 	}
 }
