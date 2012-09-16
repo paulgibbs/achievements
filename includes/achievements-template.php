@@ -523,6 +523,7 @@ function dpa_achievement_post_date( $achievement_id = 0, $humanise = false, $gmt
 	 *
 	 * @param int $achievement_id Optional. Achievement ID.
 	 * @param bool $humanise Optional. Humanise output using time_since.
+	 * @param bool $gmt Optional. Use GMT.
 	 * @return string
 	 * @since 3.0
 	 */
