@@ -129,8 +129,8 @@ function dpa_progress_author_id( $progress_id = 0 ) {
  * @param bool $gmt Optional. Use GMT.
  * @since 3.0
  */
-function dpa_progress_post_date( $progress_id = 0, $humanise = false, $gmt = false ) {
-	echo dpa_get_progress_post_date( $progress_id, $humanise, $gmt );
+function dpa_progress_date( $progress_id = 0, $humanise = false, $gmt = false ) {
+	echo dpa_get_progress_date( $progress_id, $humanise, $gmt );
 }
 	/**
 	 * Return the post date and time that a user made progress on an achievement
@@ -141,7 +141,7 @@ function dpa_progress_post_date( $progress_id = 0, $humanise = false, $gmt = fal
 	 * @return string
 	 * @since 3.0
 	 */
-	function dpa_get_progress_post_date( $progress_id = 0, $humanise = false, $gmt = false ) {
+	function dpa_get_progress_date( $progress_id = 0, $humanise = false, $gmt = false ) {
 		$progress_id = dpa_get_progress_id( $progress_id );
 		
 		// 4 days, 4 hours ago
@@ -158,7 +158,72 @@ function dpa_progress_post_date( $progress_id = 0, $humanise = false, $gmt = fal
 			$result = sprintf( _x( '%1$s at %2$s', '[date] at [time]', 'dpa' ), $date, $time );
 		}
 
-		return apply_filters( 'dpa_get_progress_post_date', $result, $progress_id, $humanise, $gmt, $date, $time );
+		return apply_filters( 'dpa_get_progress_date', $result, $progress_id, $humanise, $gmt, $date, $time );
+	}
+
+/**
+ * Output the avatar link of the user who the achievement progress belongs to.
+ *
+ * @param array $args See dpa_get_user_avatar_link() documentation.
+ * @since 3.0
+ */
+function dpa_progress_user_avatar( $args = array() ) {
+	echo dpa_get_progress_user_avatar( $args );
+}
+	/**
+	 * Return the avatar link of the user who the achievement progress belongs to.
+	 *
+	 * @param array $args See dpa_get_user_avatar_link() documentation.
+	 * @return string
+	 * @since 3.0
+	 */
+	function dpa_get_progress_user_avatar( $args = array() ) {
+		$defaults = array(
+			'type'    => 'avatar',
+			'user_id' => dpa_get_progress_author_id(),
+		);
+		$r = dpa_parse_args( $args, $defaults, 'get_progress_user_avatar' );
+		extract( $r );
+
+		// Get the user's avatar link
+		$avatar = dpa_user_avatar_link( array(
+			'type'    => $type,
+			'user_id' => $user_id,
+		) );
+
+		return apply_filters( 'dpa_get_progress_user_avatar', $avatar, $args );
+	}
+
+/**
+ * Output the display name of the user who the achievement progress belongs to.
+ *
+ * @param int $progress_id Optional. Progress ID
+ * @since 3.0
+ */
+function dpa_progress_user_display_name( $progress_id = 0 ) {
+	echo dpa_get_progress_user_display_name( $progress_id );
+}
+	/**
+	 * Return the display name of the user who the achievement progress belongs to.
+	 *
+	 * @param int $progress_id Optional. Progress ID
+	 * @return string
+	 * @since 3.0
+	 */
+	function dpa_get_progress_user_display_name( $progress_id = 0 ) {
+		$progress_id = dpa_get_progress_id( $progress_id );
+
+		// Get the author ID
+		$author_id = dpa_get_progress_author_id( $progress_id );
+
+		// Try to get a display name
+		$author_name = get_the_author_meta( 'display_name', $author_id );
+
+		// Fall back to user login
+		if ( empty( $author_name ) )
+			$author_name = get_the_author_meta( 'user_login', $author_id );
+
+		return apply_filters( 'dpa_get_progress_user_display_name', $author_name, $author_id, $progress_id );
 	}
 
 /**
@@ -191,6 +256,13 @@ function dpa_progress_class( $progress_id = 0 ) {
 		$classes[] = 'user-id-' . dpa_get_progress_author_id( $progress_id );
 		$classes   = get_post_class( array_filter( $classes ), $progress_id );
 		$classes   = apply_filters( 'dpa_get_progress_class', $classes, $progress_id );
+
+		// Remove hentry as Achievements isn't hAtom compliant.
+		foreach ( $classes as &$class ) {
+			if ( 'hentry' == $class )
+				$class = '';
+		}
+		$classes = array_merge( $classes, array() );
 
 		$retval = 'class="' . join( ' ', $classes ) . '"';
 		return $retval;

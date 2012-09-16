@@ -650,6 +650,13 @@ function dpa_achievement_class( $achievement_id = 0 ) {
 		$classes   = get_post_class( array_filter( $classes ), $achievement_id );
 		$classes   = apply_filters( 'dpa_get_achievement_class', $classes, $achievement_id );
 
+		// Remove hentry as Achievements isn't hAtom compliant.
+		foreach ( $classes as &$class ) {
+			if ( 'hentry' == $class )
+				$class = '';
+		}
+		$classes = array_merge( $classes, array() );
+
 		$retval = 'class="' . join( ' ', $classes ) . '"';
 		return $retval;
 	}
