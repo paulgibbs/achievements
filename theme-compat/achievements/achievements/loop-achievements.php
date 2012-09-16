@@ -15,9 +15,9 @@
 	<thead>
 		<tr>
 
-			<th id="achievements-archive-name" scope="col"><?php _ex( 'Achievement Name', 'column header for list of achievements', 'dpa' ); ?></th>
-			<th id="achievements-archive-karma" scope="col"><?php _ex( 'Karma', 'column header for list of achievements', 'dpa' ); ?></th>
-			<th id="achievements-archive-excerpt" scope="col"><?php _ex( 'Description', 'column header for list of achievements', 'dpa' ); ?></th>
+			<th id="dpa-archive-achievements-name" scope="col"><?php _ex( 'Achievement Name', 'column header for list of achievements', 'dpa' ); ?></th>
+			<th id="dpa-archive-achievements-karma" scope="col"><?php _ex( 'Karma', 'column header for list of achievements', 'dpa' ); ?></th>
+			<th id="dpa-archive-achievements-excerpt" scope="col"><?php _ex( 'Description', 'column header for list of achievements', 'dpa' ); ?></th>
 
 		</tr>
 	</thead>

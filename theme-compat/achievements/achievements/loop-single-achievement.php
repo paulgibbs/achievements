@@ -12,7 +12,7 @@
 	<?php do_action( 'dpa_template_in_achievements_loop_early' ); ?>
 
 
-	<td headers="achievements-archive-name">
+	<td headers="dpa-archive-achievements-name">
 		<?php do_action( 'dpa_template_before_achievement_name' ); ?>
 
 		<a href="<?php dpa_achievement_permalink(); ?>"><?php dpa_achievement_title(); ?></a>
@@ -21,7 +21,7 @@
 	</td>
 
 
-	<td headers="achievements-archive-karma">
+	<td headers="dpa-archive-achievements-karma">
 		<?php do_action( 'dpa_template_before_achievement_karma' ); ?>
 
 		<?php dpa_achievement_points(); ?>
@@ -30,7 +30,7 @@
 	</td>
 
 
-	<td headers="achievements-archive-excerpt">
+	<td headers="dpa-archive-achievements-excerpt">
 		<?php do_action( 'dpa_template_before_achievement_excerpt' ); ?>
 
 		<?php dpa_achievement_excerpt(); ?>
