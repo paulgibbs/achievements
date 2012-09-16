@@ -350,7 +350,7 @@ function dpa_achievement_author_id( $achievement_id = 0 ) {
 	 * Return the author ID of the achievement
 	 *
 	 * @param int $achievement_id Optional. Achievement ID
-	 * @return string Author of achievement
+	 * @return int User ID
 	 * @since 3.0
 	 */
 	function dpa_get_achievement_author_id( $achievement_id = 0 ) {
