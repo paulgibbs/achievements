@@ -199,7 +199,7 @@ function dpa_send_points( $achievement_obj, $user_id, $progress_id ) {
  * @param array $args See dpa_get_user_avatar_link() documentation.
  * @since 3.0
  */
-function dpa_user_avatar_link( $args = 0 ) {
+function dpa_user_avatar_link( $args = array() ) {
 	echo dpa_get_user_avatar_link( $args );
 }
 	/**
