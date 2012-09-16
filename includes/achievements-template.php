@@ -511,7 +511,7 @@ function dpa_achievement_excerpt( $achievement_id = 0, $length = 200 ) {
  * Output the post date and time of an achievement
  *
  * @param int $achievement_id Optional. Achievement ID.
- * @param bool $humanise Optional. Humanise output using time_since.
+ * @param bool $humanise Optional. Humanise output using time_since. Defaults to false.
  * @param bool $gmt Optional. Use GMT.
  * @since 3.0
  */
@@ -522,7 +522,7 @@ function dpa_achievement_post_date( $achievement_id = 0, $humanise = false, $gmt
 	 * Return the post date and time of an achievement
 	 *
 	 * @param int $achievement_id Optional. Achievement ID.
-	 * @param bool $humanise Optional. Humanise output using time_since.
+	 * @param bool $humanise Optional. Humanise output using time_since. Defaults to false.
 	 * @param bool $gmt Optional. Use GMT.
 	 * @return string
 	 * @since 3.0
@@ -531,7 +531,7 @@ function dpa_achievement_post_date( $achievement_id = 0, $humanise = false, $gmt
 		$achievement_id = dpa_get_achievement_id( $achievement_id );
 		
 		// 4 days, 4 hours ago
-		if ( ! empty( $humanise ) ) {
+		if ( $humanise ) {
 			$gmt    = ! empty( $gmt ) ? 'G' : 'U';
 			$date   = get_post_time( $gmt, $achievement_id );
 			$time   = false; // For filter below

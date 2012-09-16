@@ -125,27 +125,27 @@ function dpa_progress_author_id( $progress_id = 0 ) {
  * Output the post date and time that a user made progress on an achievement
  *
  * @param int $progress_id Optional. Progress ID.
- * @param bool $humanise Optional. Humanise output using time_since.
+ * @param bool $humanise Optional. Humanise output using time_since. Defaults to true.
  * @param bool $gmt Optional. Use GMT.
  * @since 3.0
  */
-function dpa_progress_date( $progress_id = 0, $humanise = false, $gmt = false ) {
+function dpa_progress_date( $progress_id = 0, $humanise = true, $gmt = false ) {
 	echo dpa_get_progress_date( $progress_id, $humanise, $gmt );
 }
 	/**
 	 * Return the post date and time that a user made progress on an achievement
 	 *
 	 * @param int $progress_id Optional. Progress ID.
-	 * @param bool $humanise Optional. Humanise output using time_since.
+	 * @param bool $humanise Optional. Humanise output using time_since. Defaults to true.
 	 * @param bool $gmt Optional. Use GMT.
 	 * @return string
 	 * @since 3.0
 	 */
-	function dpa_get_progress_date( $progress_id = 0, $humanise = false, $gmt = false ) {
+	function dpa_get_progress_date( $progress_id = 0, $humanise = true, $gmt = false ) {
 		$progress_id = dpa_get_progress_id( $progress_id );
 		
 		// 4 days, 4 hours ago
-		if ( ! empty( $humanise ) ) {
+		if ( $humanise ) {
 			$gmt    = ! empty( $gmt ) ? 'G' : 'U';
 			$date   = get_post_time( $gmt, $progress_id );
 			$time   = false; // For filter below
