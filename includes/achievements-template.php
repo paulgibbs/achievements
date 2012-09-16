@@ -307,6 +307,7 @@ function dpa_achievement_id( $achievement_id = 0 ) {
 	/**
 	 * Return the achievement ID
 	 *
+	 * @global WP_Query $wp_query
 	 * @param int $achievement_id Optional
 	 * @return int The achievement ID
 	 * @since 3.0
