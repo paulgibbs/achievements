@@ -32,12 +32,12 @@ function dpa_has_progress( $args = array() ) {
 		'paged'          => dpa_get_paged(),               // Page number
 		'post_status'    => dpa_get_unlocked_status_id(),  // Get posts in the unlocked status by default.
 		'post_type'      => dpa_get_progress_post_type(),  // Only retrieve progress posts
-		'posts_per_page' => dpa_get_progresses_per_page(), // Progresses per page
 		's'              => '',                            // No search
 
 		// Conditional defaults
 		'author'         => is_author()                 ? get_the_author_ID()      : null,  // If on author archive page, use that author's user ID.
 		'post_parent'    => dpa_is_single_achievement() ? dpa_get_achievement_id() : null,  // If on single achievement page, use that post's ID. 
+		'posts_per_page' => dpa_is_single_achievement() ? -1                       : dpa_get_progresses_per_page(), // If on a single achievement page, don't paginate progresses.
 	);
 	$args = dpa_parse_args( $args, $defaults, 'has_progress' );
 
@@ -195,35 +195,36 @@ function dpa_progress_user_avatar( $args = array() ) {
 	}
 
 /**
- * Output the display name of the user who the achievement progress belongs to.
+ * Output a link to the profile of the user who the achievement progress belongs to.
  *
- * @param int $progress_id Optional. Progress ID
+ * @param array $args See dpa_get_user_avatar_link() documentation.
  * @since 3.0
  */
-function dpa_progress_user_display_name( $progress_id = 0 ) {
-	echo dpa_get_progress_user_display_name( $progress_id );
+function dpa_progress_user_link( $args = array() ) {
+	echo dpa_get_progress_user_link( $args );
 }
 	/**
-	 * Return the display name of the user who the achievement progress belongs to.
+	 * Return a link to the profile of the user who the achievement progress belongs to.
 	 *
-	 * @param int $progress_id Optional. Progress ID
+	 * @param array $args See dpa_get_user_avatar_link() documentation.
 	 * @return string
 	 * @since 3.0
 	 */
-	function dpa_get_progress_user_display_name( $progress_id = 0 ) {
-		$progress_id = dpa_get_progress_id( $progress_id );
+	function dpa_get_progress_user_link( $args = array() ) {
+		$defaults = array(
+			'type'    => 'name',
+			'user_id' => dpa_get_progress_author_id(),
+		);
+		$r = dpa_parse_args( $args, $defaults, 'get_progress_user_link' );
+		extract( $r );
 
-		// Get the author ID
-		$author_id = dpa_get_progress_author_id( $progress_id );
+		// Get the user's avatar link
+		$link = dpa_user_avatar_link( array(
+			'type'    => $type,
+			'user_id' => $user_id,
+		) );
 
-		// Try to get a display name
-		$author_name = get_the_author_meta( 'display_name', $author_id );
-
-		// Fall back to user login
-		if ( empty( $author_name ) )
-			$author_name = get_the_author_meta( 'user_login', $author_id );
-
-		return apply_filters( 'dpa_get_progress_user_display_name', $author_name, $author_id, $progress_id );
+		return apply_filters( 'dpa_get_progress_user_link', $link, $args );
 	}
 
 /**
@@ -300,11 +301,11 @@ function dpa_progress_pagination_count() {
 
 		// Several achievements within a single page
 		if ( empty( $to_num ) ) {
-			$retstr = sprintf( _n( 'Viewing %1$s achievement progress', "Viewing %1$s achievements' progress", $total_int, 'dpa' ), $total );
+			$retstr = sprintf( _n( 'Viewing %1$s achievement progress', "Viewing %1$s achievements&rsquo; progress", $total_int, 'dpa' ), $total );
 
 		// Several achievements with several pages
 		} else {
-			$retstr = sprintf( _n( 'Viewing achievement progress %2$s (of %4$s total)', 'Viewing %1$s achievements\' progress - %2$s through %3$s (of %4$s total)', $total_int, 'dpa' ), achievements()->progress_query->post_count, $from_num, $to_num, $total );
+			$retstr = sprintf( _n( 'Viewing achievement progress %2$s (of %4$s total)', 'Viewing %1$s achievements&rsquo; progress - %2$s through %3$s (of %4$s total)', $total_int, 'dpa' ), achievements()->progress_query->post_count, $from_num, $to_num, $total );
 		}
 
 		return apply_filters( 'dpa_get_progress_pagination_count', $retstr );
