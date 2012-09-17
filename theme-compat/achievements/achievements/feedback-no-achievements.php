@@ -8,5 +8,5 @@
 ?>
 
 <div class="dpa-template-notice">
-	<p><?php _e( 'Oh dear, no achievements were found. Have you considered adopting one?', 'dpa' ); ?></p>
+	<p><?php _e( 'This is somewhat embarrassing, isn&rsquo;t it? No achievements were found.', 'dpa' ); ?></p>
 </div>
