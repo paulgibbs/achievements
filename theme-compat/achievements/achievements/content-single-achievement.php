@@ -33,15 +33,15 @@
 		<?php do_action( 'dpa_template_after_achievement_content' ); ?>
 
 
-		<!--
-		<h3>Unlocked By</h3>
-		<ul>
-			<li>
-				<img />
-				<p>
-			</li>
-		</ul>
-		-->
+		<?php if ( dpa_has_progress() ) : ?>
+
+			<?php dpa_get_template_part( 'loop', 'progresses' ); ?>
+
+		<?php else : ?>
+
+			<?php dpa_get_template_part( 'feedback', 'no-progresses' ); ?>
+
+		<?php endif; ?>
 
 	</div><!-- #dpa-achievement-<?php dpa_achievement_id(); ?> -->
 

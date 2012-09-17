@@ -47,12 +47,13 @@
  * Achievement archive
  */
 #dpa-achievements .dpa-archive-achievements {
-	margin-bottom: 1rem;
+	margin-bottom: @themeCompatMargin;
 	width: 100%;
 }
 
 #dpa-archive-achievements-karma { width: 10%; }
 #dpa-archive-achievements-exerpt { width: 50%; }
+
 
 /**
  * Single achievement
@@ -62,8 +63,24 @@
 }
 
 .dpa-single-achievement-thumbnail {
-	float: left;
+	float: left;  // @todo RTL
 	margin: 0 @themeCompatMargin @themeCompatMargin 0;  // @todo RTL
+}
+
+.dpa-single-progress-unlockedby {
+	.box-sizing(border-box);
+	.clearfix();
+	width: 100%;
+
+	li {
+		float: left;  // @todo RTL
+		width: 50%;
+
+		.avatar {
+			float: left;  // @todo RTL
+			margin: 0 @themeCompatMargin @themeCompatMargin 0;  // @todo RTL
+		}
+	}
 }
 
 
