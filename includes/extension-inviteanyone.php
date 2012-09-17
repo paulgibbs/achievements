@@ -56,7 +56,7 @@ class DPA_InviteAnyone_Extension extends DPA_Extension {
 			),
 		);
 
-		$this->description     = __( "Makes BuddyPress's invitation features more powerful.", 'dpa' );
+		$this->description     = __( "Makes BuddyPress&rsquo;s invitation features more powerful.", 'dpa' );
 		$this->id              = 'invite-anyone';
 		$this->image_url       = trailingslashit( achievements()->plugin_url ) . 'admin/images/placeholder.png';
 		$this->name            = __( 'Invite Anyone', 'dpa' );

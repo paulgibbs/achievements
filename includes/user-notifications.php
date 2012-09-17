@@ -65,7 +65,7 @@ function dpa_print_notifications() {
 
 		<div class="dpa-notification-message">
 			<a class="close" title="<?php esc_attr_e( 'Hide notifications', 'dpa' ); ?>" alt="<?php esc_attr_e( 'Hide notifications', 'dpa' ); ?>"><?php /* translators: click the "X" to close the panel - like on Windows computers. */ _e( 'x', 'dpa' ); ?></a>
-			<p><?php printf( __( '<span>You\'ve unlocked an achievement!</span> <a href="%1$s">%2$s</a>', 'dpa' ), $n_url, $n_message ); ?></p>
+			<p><?php printf( __( '<span>You&rsquo;ve unlocked an achievement!</span> <a href="%1$s">%2$s</a>', 'dpa' ), $n_url, $n_message ); ?></p>
 		</div>
 
 	<?php

@@ -213,7 +213,7 @@ class DPA_Admin {
 		<h3><?php _e( 'Achievements', 'dpa' ); ?></h3>
 		<table class="form-table">
 			<tr>
-				<th><label for="dpa_achievements"><?php _ex( 'Total Points', "User's total points from unlocked Achievements", 'dpa' ); ?></label></th>
+				<th><label for="dpa_achievements"><?php _ex( 'Total Points', "User&rsquo;s total points from unlocked Achievements", 'dpa' ); ?></label></th>
 				<td><input type="number" name="dpa_achievements" id="dpa_achievements" value="<?php echo esc_attr( dpa_get_user_points( $user->ID ) ); ?>" class="regular-text" />
 				</td>
 			</tr>
