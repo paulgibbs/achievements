@@ -24,7 +24,10 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  * @since 3.0
  */
 function dpa_clear_events_tax_cache( $ids, $taxonomy ) {
-	// If multisite and running network-wide, clear the registered events cache.
+	if ( dpa_get_event_tax_id() != $taxonomy )
+		return;
+
+	// If multisite and running network-wide, clear the registered events cache for the events taxonomy.
 	if ( is_multisite() && dpa_is_running_networkwide() )
 		wp_cache_delete( 'dpa_registered_events', 'achievements' );
 }
