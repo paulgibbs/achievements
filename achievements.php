@@ -19,7 +19,6 @@ Tested up to: 3.4.1
 License: General Public License version 3
 Author: Paul Gibbs
 Author URI: http://byotos.com/
-Network: true
 Domain Path: /languages/
 Text Domain: dpa
 
