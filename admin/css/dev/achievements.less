@@ -1,0 +1,64 @@
+/*! http://wordpress.org/extend/plugins/achievements/
+*/
+/**
+ * The stylesheet for Achievements' post type admin screen
+ */
+
+// Mixins
+@import "utility.less";
+
+body #dpa-mb .inside {
+	margin: 0 0;
+	padding: 0 0;
+}
+
+#dpa-mb {
+	label {
+		display: inline-block;
+		min-width: 45%;
+	}
+
+	.hint { color: #777; }
+}
+
+#dpa-points {
+	display: inline-block;
+	width: 50%;
+}
+
+#dpa-type-event {
+	margin-left: 10px;
+}
+
+#dpa_event_chzn {
+	width: 100% !important;
+
+	.default { height: 100%; }
+
+	.chzn-choices {
+		border-color: #999 #ddd #ddd #999;
+		box-shadow: 0;
+	}
+
+	// Taken from wp-admin's stylesheet (WP 3.5 beta 1)
+	.chzn-results .highlighted {
+		background-color: #21759b;
+		background-image: -webkit-gradient(linear, left top, left bottom, from(#2a95c5), to(#21759b));
+		background-image: -webkit-linear-gradient(top, #2a95c5, #21759b);
+		background-image: -moz-linear-gradient(top, #2a95c5, #21759b);
+		background-image: -o-linear-gradient(top, #2a95c5, #21759b);
+		background-image: linear-gradient(to bottom, #2a95c5, #21759b);
+		border-color: #21759b;
+		border-bottom-color: #1e6a8d;
+		-webkit-box-shadow: inset 0 1px 0 rgba(120,200,230,0.5);
+		box-shadow: inset 0 1px 0 rgba(120,200,230,0.5);
+		color: #fff;
+		text-decoration: none;
+		text-shadow: -1px -1px 0 rgba(0,0,0,0.1);
+	}
+}
+
+#dpa-event,
+.chzn-drop {
+	width: 100% !important;
+}

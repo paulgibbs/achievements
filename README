@@ -120,7 +120,7 @@ under the Apache License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.
 
 --
 
-jquery-tablesorter-min.js from "tablesorter" http://tablesorter.com/
+Uses the jquery-tablesorter-min.js library from "tablesorter" http://tablesorter.com/
 under the MIT License (http://www.opensource.org/licenses/mit-license.php).
 
 --
@@ -128,9 +128,14 @@ under the MIT License (http://www.opensource.org/licenses/mit-license.php).
 socialite-min.js from "Socialite" https://github.com/dbushell/Socialite/
 under the MIT License (http://www.opensource.org/licenses/mit-license.php).
 
+--
+
+Uses the "Chosen" jQuery library https://github.com/harvesthq/chosen
+under the MIT License (http://harvesthq.github.com/chosen/).
+
 == Acknowledgements ==
 * Notification bar markup sourced from http://css-tricks.com/pop-from-top-notification/
-* @tood More acknowledgements
+* @todo More acknowledgements
 
 == Screenshots ==
 1. @todo Add pretty screenshots
