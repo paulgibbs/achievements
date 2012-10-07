@@ -41,6 +41,8 @@ function dpa_admin_setup_metaboxes() {
  * @since 1.0
  */
 function dpa_achievement_metabox() {
+	// Get all events grouped by the extension which provided them
+	$events = dpa_get_all_events_details();
 ?>
 
 	<div class="misc-pub-section">
@@ -55,11 +57,19 @@ function dpa_achievement_metabox() {
 
 		<p class="hint"><?php _e( "An <em>award</em> is given by a site admin, whereas an <em>event</em> is unlocked automatically when its criteria have been met.", 'dpa' ) ?></p>
 
-		<select id="dpa-event" name="dpa_event" style="display: none;" data-placeholder="<?php esc_attr_e( 'Choose an event', 'dpa' ); ?>" class="chzn-select <?php if ( is_rtl() ) echo 'chzn-rtl'; ?>" multiple="multiple">
+		<select id="dpa-event" name="dpa_event" style="display: none;" data-placeholder="<?php esc_attr_e( 'Press here to pick events', 'dpa' ); ?>" class="chzn-select <?php if ( is_rtl() ) echo 'chzn-rtl'; ?>" multiple="multiple">
 			<option value=""></option>
-			<option value="Myanmar">Myanmar</option> 
-			<option value="Namibia">Namibia</option> 
-			<option value="Nauru">Nauru</option> 
+
+			<?php foreach ( $events as $extension => $extension_events ) : ?>
+				<optgroup label="<?php echo esc_attr( $extension ); ?>">
+
+				<?php foreach ( $extension_events as $event ) : ?>
+					<option value="<?php esc_attr( $event['id'] ); ?>"><?php echo esc_html( $event['description'] ); ?></option>
+				<?php endforeach; ?>
+
+				</optgroup>
+			<?php endforeach; ?>
+
 		</select>
 	</div>
 
