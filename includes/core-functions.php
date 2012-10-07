@@ -289,7 +289,7 @@ function dpa_maybe_unlock_achievement( $user_id, $skip_validation = '', $progres
 		$progress_args['ID'] = $progress_obj->ID;
 
 	// Does the achievement not have a target set or are we skipping validation?
-	$achievement_target = (int) get_post_meta( $achievement_obj->ID, '_dpa_target', true );
+	$achievement_target = dpa_get_achievement_target( $achievement_obj->ID );
 	if ( empty( $achievement_target ) || 'skip_validation' === $skip_validation ) {
 
 		// Unlock the achievement
