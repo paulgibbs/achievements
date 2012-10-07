@@ -53,6 +53,9 @@ add_action( 'dpa_deactivation', 'dpa_deactivated',          6 );
 add_action( 'dpa_new_site', 'dpa_add_caps',               4 );
 add_action( 'dpa_new_site', 'dpa_create_initial_content', 6 );
 
+// When a post is saved
+add_action( 'save_post', 'dpa_achievement_metabox_save' );
+
 
 /**
  * When a new site is created in a multisite installation, run the activation routine on that site.
