@@ -459,6 +459,31 @@ function dpa_achievement_points( $achievement_id = 0 ) {
 	}
 
 /**
+ * Output the target value of the achievement. Only used for event-type achievements.
+ * The target is the number of times that an achievement's events must occur before the achievement is unlocked.
+ *
+ * @param int $achievement_id Optional. Achievement ID
+ * @since 3.0
+ */
+function dpa_achievement_target( $achievement_id = 0 ) {
+	echo number_format_i18n( dpa_get_achievement_target( $achievement_id ) );
+}
+	/**
+	 * Return the points value of the achievement. Only used for event-type achievements.
+	 * The target is the number of times that an achievement's events must occur before the achievement is unlocked.
+	 *
+	 * @param int $achievement_id Optional. Achievement ID
+	 * @return int
+	 * @since 3.0
+	 */
+	function dpa_get_achievement_target( $achievement_id = 0 ) {
+		$achievement_id = dpa_get_achievement_id( $achievement_id );
+		$target         = (int) get_post_meta( $achievement_id, '_dpa_target', true );
+
+		return apply_filters( 'dpa_get_achievement_target', $target, $achievement_id );
+	}
+
+/**
  * Output the excerpt of the achievement
  *
  * @param int $achievement_id Optional. Achievement ID
