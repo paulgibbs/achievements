@@ -84,3 +84,42 @@ function dpa_update_achievement_stats( $achievement_obj, $user_id, $progress_id 
 	// Allow other plugins to update their own stats when an achievement is unlocked
 	do_action( 'dpa_update_achievement_stats', $achievement_obj, $user_id, $progress_id );
 }
+
+/**
+ * Returns details of all events from the event taxonomy, and groups the events by extension.
+ *
+ * This is used in the new/edit post type screen, but can be used anywhere where you need to
+ * show a list of all events grouped by the extension which provides them.
+ *
+ * @return array
+ * @since 3.0
+ */
+function dpa_get_all_events_details() {
+	$temp_events = array();
+
+	// Get all events from the event taxonomy and sort them by the plugin which provides them
+	$events = get_terms( achievements()->event_tax_id, array( 'hide_empty' => false ) );
+
+	foreach ( $events as $event ) {
+
+		// Find out which plugin provides this event
+		foreach ( achievements()->extensions as $extension ) {
+			if ( ! is_a( $extension, 'DPA_Extension' ) )
+				continue;
+
+			// If this extension contains this event
+			if ( array_key_exists( $event->name, $extension->get_actions() )) {
+				if ( ! isset( $temp_events[$extension->get_name()] ) )
+					$temp_events[$extension->get_name()] = array();
+
+				// Store term description and ID
+				$temp_events[$extension->get_name()][] = array( 'description' => $event->description, 'id' => $event->term_id );
+				break;
+			}
+		}
+
+	}
+	$events = $temp_events;
+
+	return apply_filters( 'dpa_get_all_events_details', $events );
+}
