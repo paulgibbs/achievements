@@ -21,7 +21,7 @@ function dpa_supported_plugins_on_load() {
 		'id'      => 'dpa-supported-plugins-overview',
 		'title'   => __( 'Overview', 'dpa' ),
 		'content' =>
-			'<p>' . __( 'Learn about and discover the plugins that are supported by Achievements. This screen allows you to customize your view in three main ways; Detail view, List view, and Grid view. A powerful search box and filter gives you even more controls to see exactly what you want to.', 'dpa' ) . '</p>'
+			'<p>' . __( 'Learn about and discover the plugins which are supported by Achievements. This screen allows you to customize your view in three main ways; Detail view, List view, and Grid view. A powerful search box and filter gives you even more control to see exactly what you want.', 'dpa' ) . '</p>'
 	) );
 
 	// Help panel - views text
