@@ -84,7 +84,7 @@ function dpa_locate_template( $template_names, $load = false, $require_once = tr
 
 		// 3rd-party plugins can use this to load custom templates for their component if desired
 		} else {
-			$fallback_template = apply_filters( 'dpa_locate_fallback_template', trailingslashit( $fallback_theme ) . $template_name, $template_name );
+			$fallback_template = apply_filters( 'dpa_locate_fallback_template', trailingslashit( $fallback_theme ) . $template_name, $template_name, $template_names, $load, $require_once );
 
 			if ( file_exists( $fallback_template ) ) {
 				$located = $fallback_template;
