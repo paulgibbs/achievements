@@ -34,10 +34,10 @@ function dpa_supported_plugins_on_load() {
 			'<p>' . __( "<strong>Detail view</strong> goes even further, showing you which features of the plugin are supported and the latest news about the plugin.", 'dpa' ) . '</p>'
 	) );
 
-	// Help panel - sidebar links
 	get_current_screen()->set_help_sidebar(
 		'<p><strong>' . __( 'For more information:', 'dpa' ) . '</strong></p>' .
-		'<p>' . __( '<a href="http://buddypress.org/community/groups/achievements/forum/">Support Forums</a>', 'dpa' ) . '</p>'
+		'<p><a href="http://achievementsapp.com/" target="_blank">' . __( 'Achievements Website', 'dpa' ) . '</a></p>' .
+		'<p><a href="http://wordpress.org/support/plugin/achievements/" target="_blank">' . __( 'Support Forums', 'dpa' ) . '</a></p>'
 	);
 
 	// Detail view - metaboxes
