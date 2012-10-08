@@ -162,3 +162,58 @@ function dpa_achievement_metabox_save( $achievement_id ) {
 
 	return $achievement_id;
 }
+add_action( 'save_post', 'dpa_achievement_metabox_save' );
+
+/**
+ * Add custom columns to the achievement post type index screen
+ *
+ * @param array $columns
+ * @return array
+ * @since 3.0
+ */
+function dpa_achievement_posts_columns( $columns ) {
+	$columns = array(
+		'cb'               => '<input type="checkbox" />',
+		'title'            => __( 'Title', 'dpa' ),
+		'achievement_type' => _x( 'Type', 'Type of the achievement; award or badge', 'dpa' ),
+		'karma'            => __( 'Karma Points', 'dpa' ),
+		'date'             => __( 'Date', 'dpa' ),
+	);
+
+	return apply_filters( 'dpa_achievements_posts_columns', $columns );
+}
+add_filter( 'manage_achievement_posts_columns', 'dpa_achievement_posts_columns' );
+
+/**
+ * Outputs the content for the custom columns on the achievement post type index screen
+ *
+ * @param string $column
+ * @param int $post_id
+ * @since 3.0
+ */
+function dpa_achievement_custom_column( $column, $post_id ) {
+	if ( 'karma' == $column ) {
+		dpa_achievement_points( $post_id );
+
+	} elseif ( 'achievement_type' == $column ) {
+		$existing_events = wp_get_post_terms( $post_id, dpa_get_event_tax_id(), array( 'fields' => 'ids', ) );
+		$existing_type   = empty( $existing_events ) ? __( 'Award', 'dpa' ) : __( 'Event', 'dpa' );
+		echo $existing_type;
+	}
+}
+add_action( 'manage_posts_custom_column', 'dpa_achievement_custom_column', 10, 2 );
+
+/**
+ * Set the "achievement type" and "karma" columns as sortable on the achievement post type index screen
+ *
+ * @param array $columns
+ * @return array
+ * @since 3.0
+ */
+function dpa_achievement_sortable_columns( $columns ) {
+	$columns['karma']            = 'karma';
+	$columns['achievement_type'] = 'achievement_type';
+
+	return apply_filters( 'dpa_achievement_sortable_columns', $columns );
+}
+add_filter( 'manage_edit-achievement_sortable_columns', 'dpa_achievement_sortable_columns' );
