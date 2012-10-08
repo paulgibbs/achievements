@@ -162,7 +162,6 @@ function dpa_achievement_metabox_save( $achievement_id ) {
 
 	return $achievement_id;
 }
-add_action( 'save_post', 'dpa_achievement_metabox_save' );
 
 /**
  * Add custom columns to the achievement post type index screen
@@ -182,7 +181,6 @@ function dpa_achievement_posts_columns( $columns ) {
 
 	return apply_filters( 'dpa_achievements_posts_columns', $columns );
 }
-add_filter( 'manage_achievement_posts_columns', 'dpa_achievement_posts_columns' );
 
 /**
  * Outputs the content for the custom columns on the achievement post type index screen
@@ -201,7 +199,6 @@ function dpa_achievement_custom_column( $column, $post_id ) {
 		echo $existing_type;
 	}
 }
-add_action( 'manage_posts_custom_column', 'dpa_achievement_custom_column', 10, 2 );
 
 /**
  * Set the "achievement type" and "karma" columns as sortable on the achievement post type index screen
@@ -216,4 +213,60 @@ function dpa_achievement_sortable_columns( $columns ) {
 
 	return apply_filters( 'dpa_achievement_sortable_columns', $columns );
 }
-add_filter( 'manage_edit-achievement_sortable_columns', 'dpa_achievement_sortable_columns' );
+
+/**
+ * Contextual help for the new/edit achievement CPT screen
+ *
+ * @since 3.0
+ */
+function dpa_achievement_new_contextual_help() {
+	// Bail out if we're not on the right screen
+	if ( dpa_get_achievement_post_type() != get_current_screen()->post_type )
+		return;
+
+	// Most of this was copied from wpcore's New Post screen
+	$customise_display = '<p>' . __( 'The title field and the big achievement Editing Area are fixed in place, but you can reposition all the other boxes using drag and drop, and can minimize or expand them by clicking the title bar of each box. Use the Screen Options tab to hide or reveal more boxes (Featured Image, Achievements, Slug) or to choose a 1- or 2-column layout for this screen.', 'dpa' ) . '</p>';
+
+	get_current_screen()->add_help_tab( array(
+		'id'      => 'customise-display',
+		'title'   => __( 'Customizing This Display', 'dpa' ),
+		'content' => $customise_display,
+	) );
+
+	$title_and_editor  = '<p>' . __( '<strong>Title</strong> - Enter a title for your achievement. After you enter a title, you&#8217;ll see the permalink below, which you can edit.', 'dpa' ) . '</p>';
+	$title_and_editor .= '<p>' . __( '<strong>Post editor</strong> - Enter the text for your achievement. There are two modes of editing: Visual and Text. Choose the mode by clicking on the appropriate tab. Visual mode gives you a WYSIWYG editor. Click the last icon in the row to get a second row of controls. The Text mode allows you to enter HTML along with your achievement text. Line breaks will be converted to paragraphs automatically. You can insert media files by clicking the icons above the achievement editor and following the directions. You can go to the distraction-free writing screen via the Fullscreen icon in Visual mode (second to last in the top row) or the Fullscreen button in Text mode (last in the row). Once there, you can make buttons visible by hovering over the top area. Exit Fullscreen back to the regular achievement editor.', 'dpa' ) . '</p>';
+
+	get_current_screen()->add_help_tab( array(
+		'id'      => 'title-post-editor',
+		'title'   => __( 'Title and Achievement Editor', 'dpa' ),
+		'content' => $title_and_editor,
+	) );
+
+	$publish_box = '<p>' . __( "<strong>Publish</strong> - You can set the terms of publishing your achievement in the Publish box. For Status, Visibility, and Publish (immediately), click on the Edit link to reveal more options. Visibility includes options for password-protecting an achievement's page or setting the achievement to not appear in lists on your site). Publish (immediately) allows you to set a future or past date and time, so you can schedule an achievement to be published in the future.", 'dpa' ) . '</p>';
+
+	$publish_box .= '<p>' . __( '<strong>Featured Image</strong> - This allows you to associate an image with your achievement without inserting it into the big achievement Editing Area.', 'dpa' ) . '</p>';
+
+	get_current_screen()->add_help_tab( array(
+		'id'      => 'publish-box',
+		'title'   => __( 'Publish Box', 'dpa' ),
+		'content' => $publish_box,
+	) );
+
+	$achievements_box  = '<p>' . __( '<strong>Karma points</strong> - set the number of points (called karma) given to a user when they unlock an achievement.', 'dpa' ) . '</p>';
+	$achievements_box .= '<p>' . __( '<strong>Type</strong> - there are two types of achievement, Award and Event. An Award is given by a site admin, whereas an Event is unlocked automatically when its criteria have been met.', 'dpa' ) . '</p>';
+	$achievements_box .= '<p>' . __( '<strong>Event Achievements</strong> - this field appears when you create an Event achievement. Use the dropdown box to choose the events that you want to trigger this achievement.', 'dpa' ) . '</p>';
+	$achievements_box .= '<p>' . __( '<strong>Events repeat</strong> - for Event achievements, set the number of times the events need to occur before the achievement is awarded.', 'dpa' ) . '</p>';
+
+	get_current_screen()->add_help_tab( array(
+		'id'      => 'achievement-box',
+		'title'   => __( 'Achievements Box', 'dpa' ),
+		'content' => $achievements_box,
+	) );
+
+
+	get_current_screen()->set_help_sidebar(
+			'<p><strong>' . __( 'For more information:', 'dpa' ) . '</strong></p>' .
+			'<p><a href="http://achievementsapp.com/" target="_blank">' . __( 'Achievements Website', 'dpa' ) . '</a></p>' .
+			'<p><a href="http://wordpress.org/support/plugin/achievements/" target="_blank">' . __( 'Support Forums', 'dpa' ) . '</a></p>'
+	);
+}

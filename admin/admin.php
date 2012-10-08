@@ -64,16 +64,32 @@ class DPA_Admin {
 		// General Actions
 
 		// Add menu item to settings menu
-		add_action( 'dpa_admin_menu',              array( $this, 'admin_menus'             ) );
+		add_action( 'dpa_admin_menu',                           array( $this, 'admin_menus'             ) );
 
 		// Add some general styling to the admin area
-		//add_action( 'dpa_admin_head',              array( $this, 'admin_head'              ) );
+		//add_action( 'dpa_admin_head',                         array( $this, 'admin_head'              ) );
 
 		// Add settings
-		add_action( 'dpa_register_admin_settings', array( $this, 'register_admin_settings' ) );
+		add_action( 'dpa_register_admin_settings',              array( $this, 'register_admin_settings' ) );
 
 		// Add menu item to settings menu
-		//add_action( 'dpa_activation',              array( $this, 'new_install'             ) );
+		//add_action( 'dpa_activation',                         array( $this, 'new_install'             ) );
+
+		// Column headers
+		add_filter( 'manage_achievement_posts_columns',         'dpa_achievement_posts_columns' );
+
+		// Columns (in page row)
+		add_action( 'manage_posts_custom_column',               'dpa_achievement_custom_column', 10, 2 );
+
+		// Sortable columns
+		add_filter( 'manage_edit-achievement_sortable_columns', 'dpa_achievement_sortable_columns' );
+
+		// Metabox actions
+		add_action( 'save_post',                                'dpa_achievement_metabox_save' );
+
+		// Contextual Help
+		//add_action( 'load-edit.php',                          'dpa_achievement_edit_contextual_help' );
+		add_action( 'load-post-new.php',                        'dpa_achievement_new_contextual_help' );
 
 
 		// Dependencies
