@@ -61,7 +61,7 @@ class DPA_BuddyPress_Extension extends DPA_Extension {
 			'bp_activity_posted_update'        => __( 'The user writes an activity update message.', 'dpa' ),
 			'bp_activity_remove_user_favorite' => __( 'The user un-favourites an item in their activity stream.', 'dpa' ),
 			'bp_core_activated_user'           => __( 'A new user activates their account on your website.', 'dpa' ),
-			'bp_groups_posted_update'          => __( "The user writes a message in a group's activity stream.", 'dpa' ),
+			'bp_groups_posted_update'          => __( "The user writes a message in a group&#8217;s activity stream.", 'dpa' ),
 			'friends_friendship_accepted'      => __( 'The user accepts a friendship request from someone.', 'dpa' ),
 			'friends_friendship_deleted'       => __( 'The user cancels a friendship.', 'dpa' ),
 			'friends_friendship_rejected'      => __( 'The user rejects a friendship request from someone.', 'dpa' ),
@@ -79,7 +79,7 @@ class DPA_BuddyPress_Extension extends DPA_Extension {
 			'groups_unbanned_member'           => __( 'The user unbans a member from a group.', 'dpa' ),
 			'messages_delete_thread'           => __( 'The user deletes a private message.', 'dpa' ),
 			'messages_message_sent'            => __( 'The user sends a new private message or replies to an existing one.', 'dpa' ),
-			'xprofile_avatar_uploaded'         => __( "The user changes their profile's avatar.", 'dpa' ),
+			'xprofile_avatar_uploaded'         => __( "The user changes their profile&#8217;s avatar.", 'dpa' ),
 			'xprofile_updated_profile'         => __( 'The user updates their profile information.', 'dpa' ),
 		);
 

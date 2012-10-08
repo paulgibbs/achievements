@@ -41,7 +41,7 @@ class DPA_bbPress_Extension extends DPA_CPT_Extension {
 		$this->actions = array(
 			// Forum
 			'bbp_deleted_forum'   => __( 'A forum is permanently deleted by the user', 'dpa' ),
-			'bbp_edit_forum'      => __( "A forum's settings are changed by the user", 'dpa' ),
+			'bbp_edit_forum'      => __( "A forum&#8217;s settings are changed by the user", 'dpa' ),
 			'bbp_new_forum'       => __( 'The user creates a new forum', 'dpa' ),
 			'bbp_trashed_forum'   => __( 'The user puts a forum into the trash', 'dpa' ),
 			'bbp_untrashed_forum' => __( 'The user restores a forum from the trash', 'dpa' ),
