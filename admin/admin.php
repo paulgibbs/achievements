@@ -90,6 +90,7 @@ class DPA_Admin {
 		// Contextual Help
 		add_action( 'load-edit.php',                            'dpa_achievement_index_contextual_help' );
 		add_action( 'load-post-new.php',                        'dpa_achievement_new_contextual_help' );
+		add_action( 'load-post.php',                            'dpa_achievement_new_contextual_help' );
 
 
 		// Dependencies
