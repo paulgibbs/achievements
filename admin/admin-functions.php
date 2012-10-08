@@ -88,7 +88,7 @@ function dpa_achievement_metabox( $post ) {
 	</div>
 
 	<div class="misc-pub-section dpa-target">
-		<label for="dpa_target"><?php _ex( 'Events repeat:', "Number of times an achievement's events need to repeat before the achievement is awarded", 'dpa' ); ?></label>
+		<label for="dpa_target"><?php _ex( 'Events repeat:', "Number of times an achievement&#8217;s events need to repeat before the achievement is awarded", 'dpa' ); ?></label>
 		<input type="number" name="dpa_target" id="dpa-target" min="1" value="<?php echo esc_attr( $existing_target ); ?>" />
 
 		<p class="hint"><?php _e( "Number of times the events need to repeat before the achievement is awarded.", 'dpa' ); ?></p>
@@ -224,7 +224,7 @@ function dpa_achievement_new_contextual_help() {
 	if ( dpa_get_achievement_post_type() != get_current_screen()->post_type )
 		return;
 
-	// Most of this was copied from wpcore's New Post screen
+	// Most of this was copied from wpcore
 	$customise_display = '<p>' . __( 'The title field and the big achievement Editing Area are fixed in place, but you can reposition all the other boxes using drag and drop, and can minimize or expand them by clicking the title bar of each box. Use the Screen Options tab to hide or reveal more boxes (Featured Image, Achievements, Slug) or to choose a 1- or 2-column layout for this screen.', 'dpa' ) . '</p>';
 
 	get_current_screen()->add_help_tab( array(
@@ -242,7 +242,7 @@ function dpa_achievement_new_contextual_help() {
 		'content' => $title_and_editor,
 	) );
 
-	$publish_box = '<p>' . __( "<strong>Publish</strong> - You can set the terms of publishing your achievement in the Publish box. For Status, Visibility, and Publish (immediately), click on the Edit link to reveal more options. Visibility includes options for password-protecting an achievement's page or setting the achievement to not appear in lists on your site). Publish (immediately) allows you to set a future or past date and time, so you can schedule an achievement to be published in the future.", 'dpa' ) . '</p>';
+	$publish_box = '<p>' . __( "<strong>Publish</strong> - You can set the terms of publishing your achievement in the Publish box. For Status, Visibility, and Publish (immediately), click on the Edit link to reveal more options. Visibility includes options for password-protecting an achievement&#8217;s page or setting the achievement to not appear in lists on your site). Publish (immediately) allows you to set a future or past date and time, so you can schedule an achievement to be published in the future.", 'dpa' ) . '</p>';
 
 	$publish_box .= '<p>' . __( '<strong>Featured Image</strong> - This allows you to associate an image with your achievement without inserting it into the big achievement Editing Area.', 'dpa' ) . '</p>';
 
@@ -263,10 +263,59 @@ function dpa_achievement_new_contextual_help() {
 		'content' => $achievements_box,
 	) );
 
+	get_current_screen()->set_help_sidebar(
+		'<p><strong>' . __( 'For more information:', 'dpa' ) . '</strong></p>' .
+		'<p><a href="http://achievementsapp.com/" target="_blank">' . __( 'Achievements Website', 'dpa' ) . '</a></p>' .
+		'<p><a href="http://wordpress.org/support/plugin/achievements/" target="_blank">' . __( 'Support Forums', 'dpa' ) . '</a></p>'
+	);
+}
+
+/**
+ * Contextual help for the achievement CPT index screen
+ *
+ * @since 3.0
+ */
+function dpa_achievement_index_contextual_help() {
+	// Bail out if we're not on the right screen
+	if ( dpa_get_achievement_post_type() != get_current_screen()->post_type )
+		return;
+
+	// Most of this was copied from wpcore
+	get_current_screen()->add_help_tab( array(
+	'id'      => 'overview',
+	'title'   => __( 'Overview', 'dpa' ),
+	'content' =>
+		'<p>' . __( 'This screen provides access to all of your achievements. You can customize the display of this screen to suit your workflow.', 'dpa' ) . '</p>'
+	) );
+
+	get_current_screen()->add_help_tab( array(
+	'id'      => 'screen-content',
+	'title'   => __( 'Screen Content', 'dpa' ),
+	'content' =>
+		'<p>' . __( 'You can customize the display of this screen&#8217;s contents in a number of ways:', 'dpa' ) . '</p>' .
+		'<ul>' .
+			'<li>' . __( 'You can hide/display columns based on your needs and decide how many achievements to list per screen using the Screen Options tab.', 'dpa' ) . '</li>' .
+			'<li>' . __( 'You can filter the list of achievements by achievement status using the text links in the upper left to show All, Published, Draft, or Trashed achievements. The default view is to show all achievements.', 'dpa' ) . '</li>' .
+			'<li>' . __( 'You can view achievements in a simple title list or with an excerpt. Choose the view you prefer by clicking on the icons at the top of the list on the right.', 'dpa' ) . '</li>' .
+			'<li>' . __( 'You can refine the list to show only achievements from a specific month by using the dropdown menus above the posts list. Click the Filter button after making your selection.', 'dpa' ) . '</li>' .
+		'</ul>'
+	) );
+
+	get_current_screen()->add_help_tab( array(
+	'id'      => 'action-links',
+	'title'   => __( 'Available Actions' ),
+	'content' =>
+		'<p>' . __( 'Hovering over a row in the achievements list will display action links that allow you to manage your achievement. You can perform the following actions:', 'dpa' ) . '</p>' .
+		'<ul>' .
+			'<li>' . __( '<strong>Edit</strong> takes you to the editing screen for that post. You can also reach that screen by clicking on the post title.', 'dpa' ) . '</li>' .
+			'<li>' . __( '<strong>Trash</strong> removes your post from this list and places it in the trash, from which you can permanently delete it.', 'dpa' ) . '</li>' .
+			'<li>' . __( '<strong>Preview</strong> will show you what your draft achievement will look like if you publish it. View will take you to your live site to view the post. Which link is available depends on your achievement&#8217;s status.', 'dpa' ) . '</li>' .
+		'</ul>'
+	) );
 
 	get_current_screen()->set_help_sidebar(
-			'<p><strong>' . __( 'For more information:', 'dpa' ) . '</strong></p>' .
-			'<p><a href="http://achievementsapp.com/" target="_blank">' . __( 'Achievements Website', 'dpa' ) . '</a></p>' .
-			'<p><a href="http://wordpress.org/support/plugin/achievements/" target="_blank">' . __( 'Support Forums', 'dpa' ) . '</a></p>'
+		'<p><strong>' . __( 'For more information:', 'dpa' ) . '</strong></p>' .
+		'<p><a href="http://achievementsapp.com/" target="_blank">' . __( 'Achievements Website', 'dpa' ) . '</a></p>' .
+		'<p><a href="http://wordpress.org/support/plugin/achievements/" target="_blank">' . __( 'Support Forums', 'dpa' ) . '</a></p>'
 	);
 }

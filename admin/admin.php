@@ -88,7 +88,7 @@ class DPA_Admin {
 		add_action( 'save_post',                                'dpa_achievement_metabox_save' );
 
 		// Contextual Help
-		//add_action( 'load-edit.php',                          'dpa_achievement_edit_contextual_help' );
+		add_action( 'load-edit.php',                            'dpa_achievement_index_contextual_help' );
 		add_action( 'load-post-new.php',                        'dpa_achievement_new_contextual_help' );
 
 
