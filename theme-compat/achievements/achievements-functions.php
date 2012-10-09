@@ -146,7 +146,26 @@ class DPA_Default extends DPA_Theme_Compat {
 		if ( ! is_achievements() && empty( $notifications ) )
 			return;
 
-		wp_enqueue_script( 'achievements-js', $this->url . 'achievements/js/achievements.js', array( 'jquery' ), $this->version, true );
+		$file = 'js/achievements.js';
+
+		// Check child theme
+		if ( file_exists( trailingslashit( get_stylesheet_directory() ) . $file ) ) {
+			$location = trailingslashit( get_stylesheet_directory_uri() );
+			$handle   = 'dpa-child-javascript';
+
+		// Check parent theme
+		} elseif ( file_exists( trailingslashit( get_template_directory() ) . $file ) ) {
+			$location = trailingslashit( get_template_directory_uri() );
+			$handle   = 'dpa-parent-javascript';
+
+		// Achievements theme compatibility
+		} else {
+			$location = trailingslashit( $this->url ) . 'achievements/';
+			$handle   = 'dpa-default-javascript';
+		}
+
+		// Enqueue the stylesheet
+		wp_enqueue_script( $handle, $location . $file, array( 'jquery' ), $this->version, 'screen', true );
 	}
 }  // class_exists
 
