@@ -57,11 +57,13 @@ class DPA_Default extends DPA_Theme_Compat {
 	 * @since 3.0
 	 */
 	private function setup_actions() {
-		// Scripts
-		add_action( 'dpa_enqueue_scripts', array( $this, 'enqueue_styles'  ) ); // Enqueue theme CSS
-		add_action( 'dpa_enqueue_scripts', array( $this, 'enqueue_scripts' ) ); // Enqueue theme JS
+		// Template pack
+		add_action( 'dpa_enqueue_scripts', array( $this, 'enqueue_styles'  ) );
+		add_action( 'dpa_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
 
-		// Override
+		// Notifications
+		add_action( 'dpa_enqueue_scripts', array( $this, 'enqueue_notifications_style' ) );
+
 		do_action_ref_array( 'dpa_theme_compat_actions', array( &$this ) );
 	}
 
@@ -99,16 +101,52 @@ class DPA_Default extends DPA_Theme_Compat {
 	}
 
 	/**
+	 * Load the CSS for notifications
+	 *
+	 * @since 3.0
+	 * @todo LTR CSS
+	 */
+	public function enqueue_notifications_style() {
+		// If we don't have any notifications to show, bail out
+		$notifications = dpa_get_user_notifications();
+		if ( empty( $notifications ) )
+			return;
+
+		$file = 'css/notifications.css';
+
+		// Check child theme
+		if ( file_exists( trailingslashit( get_stylesheet_directory() ) . $file ) ) {
+			$location = trailingslashit( get_stylesheet_directory_uri() );
+			$handle   = 'dpa-child-notifications';
+
+		// Check parent theme
+		} elseif ( file_exists( trailingslashit( get_template_directory() ) . $file ) ) {
+			$location = trailingslashit( get_template_directory_uri() );
+			$handle   = 'dpa-parent-notifications';
+
+		// Achievements theme compatibility
+		} else {
+			$location = trailingslashit( $this->url ) . 'achievements/';
+			$handle   = 'dpa-default-notifications';
+		}
+
+		// Enqueue the stylesheet
+		wp_enqueue_style( $handle, $location . $file, array(), $this->version, 'screen' );
+	}
+
+	/**
 	 * Enqueue the required Javascript files
 	 *
 	 * @since 3.0
 	 */
 	public function enqueue_scripts() {
-		// Only load on Achievements pages
-		if ( ! is_achievements() )
+		$notifications = dpa_get_user_notifications();
+
+		// Only load on Achievements pages, or when we have notifications to show
+		if ( ! is_achievements() && empty( $notifications ) )
 			return;
 
-		wp_enqueue_script( 'achievements-js', $this->url . 'js/achievements.js', array( 'jquery' ), $this->version, true );
+		wp_enqueue_script( 'achievements-js', $this->url . 'achievements/js/achievements.js', array( 'jquery' ), $this->version, true );
 	}
 }  // class_exists
 
