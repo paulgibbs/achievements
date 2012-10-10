@@ -47,7 +47,6 @@ add_action( 'dpa_activation', 'dpa_delete_rewrite_rules', 4 );
 // Deactivation
 add_action( 'dpa_deactivation', 'dpa_remove_caps',          2 );
 add_action( 'dpa_deactivation', 'dpa_delete_rewrite_rules', 4 );
-add_action( 'dpa_deactivation', 'dpa_deactivated',          6 );
 
 // New site created in multisite
 add_action( 'dpa_new_site', 'dpa_add_caps',               4 );
