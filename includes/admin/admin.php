@@ -105,7 +105,7 @@ class DPA_Admin {
 	 * @since 3.0
 	 */
 	private function includes() {
-		require( $this->admin_dir . 'admin-functions.php'   );
+		require( $this->admin_dir . 'functions.php'         );
 		require( $this->admin_dir . 'supported-plugins.php' );  // Supported plugins screen
 	}
 

@@ -253,74 +253,74 @@ final class Achievements {
 		/**
 		 * Classes
 		 */
-		require( $this->plugin_dir . 'includes/class-dpa-extension.php'     ); // Base class for adding support for other plugins
-		require( $this->plugin_dir . 'includes/class-dpa-cpt-extension.php' ); // Base class for adding support for other plugins implementing post type actions
-		require( $this->plugin_dir . 'includes/class-dpa-shortcodes.php'    ); // Class for shortcodes
+		require( $this->includes_dir . 'class-dpa-extension.php'     ); // Base class for adding support for other plugins
+		require( $this->includes_dir . 'class-dpa-cpt-extension.php' ); // Base class for adding support for other plugins using post type actions
+		require( $this->includes_dir . 'class-dpa-shortcodes.php'    );
 
 
 		/**
 		 * Core
 		 */
-		require( $this->plugin_dir . 'includes/core-dependency.php' ); // Core dependencies
-		require( $this->plugin_dir . 'includes/core-functions.php'  ); // Core functions
-		require( $this->plugin_dir . 'includes/core-cache.php'      ); // Cache helpers
-		require( $this->plugin_dir . 'includes/core-options.php'    ); // Configuration options
-		require( $this->plugin_dir . 'includes/core-caps.php'       ); // Roles and capabilities
-		//require( $this->plugin_dir . 'includes/core-widgets.php'    ); // Widgets
-		require( $this->plugin_dir . 'includes/core-shortcodes.php' ); // Shortcodes for use with pages and posts
-		require( $this->plugin_dir . 'includes/core-update.php'     ); // Database updater
+		require( $this->includes_dir . 'core/dependency.php' );
+		require( $this->includes_dir . 'core/functions.php'  );
+		require( $this->includes_dir . 'core/cache.php'      );
+		require( $this->includes_dir . 'core/options.php'    );
+		require( $this->includes_dir . 'core/caps.php'       );
+		//require( $this->includes_dir . 'core/widgets.php'    );
+		require( $this->includes_dir . 'core/shortcodes.php' );
+		require( $this->includes_dir . 'core/update.php'     );
 
 
 		/**
 		 * Templates
 		 */
-		require( $this->plugin_dir . 'includes/template-functions.php'  ); // Template functions
-		require( $this->plugin_dir . 'includes/template-loader.php'     ); // Template loader
-		require( $this->plugin_dir . 'includes/theme-compatibility.php' ); // Theme compatibility for existing themes
+		require( $this->includes_dir . 'core/template-functions.php'  );
+		require( $this->includes_dir . 'core/template-loader.php'     );
+		require( $this->includes_dir . 'core/theme-compatibility.php' );
 
 
 		/**
 		 * Plugin extensions
 		 */
-		require( $this->plugin_dir . 'includes/extension-bbpress.php'       ); // Extension for bbPress
-		require( $this->plugin_dir . 'includes/extension-buddypress.php'    ); // Extension for BuddyPress
-		require( $this->plugin_dir . 'includes/extension-buddystream.php'   ); // Extension for BuddyStream
-		require( $this->plugin_dir . 'includes/extension-inviteanyone.php'  ); // Extension for Invite Anyone
-		require( $this->plugin_dir . 'includes/extension-scholarpress.php'  ); // Extension for BuddyPress ScholarPress Courseware
-		require( $this->plugin_dir . 'includes/extension-wordpress.php'     ); // Extension for WordPress core
-		require( $this->plugin_dir . 'includes/extension-wpecommerce.php'   ); // Extension for WP e-Commerce
+		require( $this->includes_dir . 'extensions/bbpress.php'      );
+		require( $this->includes_dir . 'extensions/buddypress.php'   );
+		require( $this->includes_dir . 'extensions/buddystream.php'  );
+		require( $this->includes_dir . 'extensions/inviteanyone.php' );
+		require( $this->includes_dir . 'extensions/scholarpress.php' );
+		require( $this->includes_dir . 'extensions/wordpress.php'    );
+		require( $this->includes_dir . 'extensions/wpecommerce.php'  );
 
 
 		/**
 		 * Components
 		 */
-		require( $this->plugin_dir . 'includes/common-functions.php' );       // Common functions
-		require( $this->plugin_dir . 'includes/common-template.php'  );       // Common template tags
+		require( $this->includes_dir . 'common/functions.php' );
+		require( $this->includes_dir . 'common/template.php'  );
 
-		require( $this->plugin_dir . 'includes/achievements-functions.php' ); // Implements the main logic for the achievement post type (achievement event monitoring, etc)
-		require( $this->plugin_dir . 'includes/achievements-template.php'  ); // Achievement post type template tags
+		require( $this->includes_dir . 'achievements/functions.php' );
+		require( $this->includes_dir . 'achievements/template.php'  );
 
-		require( $this->plugin_dir . 'includes/progress-functions.php' );     // Implements the Progress post type
-		require( $this->plugin_dir . 'includes/progress-template.php'  );     // Progress post type template tags
+		require( $this->includes_dir . 'progress/functions.php' );
+		require( $this->includes_dir . 'progress/template.php'  );
 
-		require( $this->plugin_dir . 'includes/user-functions.php'     );     // User functions
-		require( $this->plugin_dir . 'includes/user-options.php'       );     // User options
-		require( $this->plugin_dir . 'includes/user-notifications.php' );     // User notifications
+		require( $this->includes_dir . 'users/functions.php'     );
+		require( $this->includes_dir . 'users/options.php'       );
+		require( $this->includes_dir . 'users/notifications.php' );
 
 
 		/**
 		 * Hooks
 		 */
-		require( $this->plugin_dir . 'includes/core-actions.php' ); // All actions
-		require( $this->plugin_dir . 'includes/core-filters.php' ); // All filters
+		require( $this->includes_dir . 'core/actions.php' );
+		require( $this->includes_dir . 'core/filters.php' );
 
 
 		/**
 		 * Admin
 		 */
 		if ( is_admin() ) {
-			require( $this->includes_dir . 'admin/admin.php'         );
-			require( $this->includes_dir . 'admin/admin-actions.php' );
+			require( $this->includes_dir . 'admin/admin.php'   );
+			require( $this->includes_dir . 'admin/actions.php' );
 		}
 	}
 
@@ -356,7 +356,7 @@ final class Achievements {
 		foreach( $actions as $class_action )
 			add_action( 'dpa_' . $class_action, array( $this, $class_action ), 5 );
 
-		// All Achievements actions are setup (includes core-actions.php)
+		// All Achievements actions are setup (includes core/actions.php)
 		do_action_ref_array( 'dpa_after_setup_actions', array( &$this ) );
 	}
 

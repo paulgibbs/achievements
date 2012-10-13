@@ -312,7 +312,7 @@ function dpa_get_caps_for_role( $role = '' ) {
  * be set to true or false. Also used for fine-grained control over which admin
  * sections are visible under what conditions.
  *
- * This function is in core-caps.php rather than in /admin/ so that it
+ * This function is in core/caps.php rather than in /admin/ so that it
  * can be used during the dpa_register_post_types action.
  *
  * @return bool
