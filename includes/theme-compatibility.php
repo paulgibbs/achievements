@@ -284,7 +284,6 @@ function dpa_theme_compat_reset_post( $args = array() ) {
 		'pinged'                => '',
 		'ping_status'           => '',
 		'post_author'           => 0,
-		'post_category'         => 0,
 		'post_content'          => '',
 		'post_content_filtered' => '',
 		'post_date'             => 0,
