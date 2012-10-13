@@ -184,11 +184,15 @@ final class Achievements {
 		$this->plugin_url = apply_filters( 'dpa_plugin_dir_url',  plugin_dir_url ( $this->file ) );
 
 		// Paths - theme compatibility packs
-		$this->themes_dir = apply_filters( 'dpa_themes_dir',      trailingslashit( $this->plugin_dir . 'theme-compat' ) );
-		$this->themes_url = apply_filters( 'dpa_themes_url',      trailingslashit( $this->plugin_url . 'theme-compat' ) );
+		$this->themes_dir = apply_filters( 'dpa_themes_dir', trailingslashit( $this->plugin_dir . 'theme-compat' ) );
+		$this->themes_url = apply_filters( 'dpa_themes_url', trailingslashit( $this->plugin_url . 'theme-compat' ) );
 
 		// Paths - languages
-		$this->lang_dir   = apply_filters( 'dpa_lang_dir',        trailingslashit( $this->plugin_dir . 'languages' ) );
+		$this->lang_dir = apply_filters( 'dpa_lang_dir', trailingslashit( $this->plugin_dir . 'languages' ) );
+
+		// Includes 
+		$this->includes_dir = apply_filters( 'dpa_includes_dir', trailingslashit( $this->plugin_dir . 'includes' ) ); 
+		$this->includes_url = apply_filters( 'dpa_includes_url', trailingslashit( $this->plugin_url . 'includes' ) ); 
 
 		// Post type/endpoint/taxonomy identifiers
 		$this->achievement_post_type          = apply_filters( 'dpa_achievement_post_type',          'achievement'  );
@@ -204,7 +208,7 @@ final class Achievements {
 		$this->view_id = apply_filters( 'dpa_view_id', 'dpa_view' );
 
 		// Queries
-		$this->current_achievement_id = 0;             // Current achievement ID
+		$this->current_achievement_id = 0;  // Current achievement ID
 
 		$this->achievement_query = new stdClass();  // Main achievement post type query
 		$this->progress_query    = new stdClass();  // Main dpa_progress post type query
@@ -315,8 +319,8 @@ final class Achievements {
 		 * Admin
 		 */
 		if ( is_admin() ) {
-			require( $this->plugin_dir . 'admin/admin.php'         );
-			require( $this->plugin_dir . 'admin/admin-actions.php' );
+			require( $this->includes_dir . 'admin/admin.php'         );
+			require( $this->includes_dir . 'admin/admin-actions.php' );
 		}
 	}
 

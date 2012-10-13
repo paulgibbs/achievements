@@ -115,11 +115,11 @@ class DPA_Admin {
 	 * @since 3.0
 	 */
 	private function setup_globals() {
-		$this->admin_dir      = trailingslashit( achievements()->plugin_dir . 'admin'  ); // Admin path
-		$this->admin_url      = trailingslashit( achievements()->plugin_url . 'admin'  ); // Admin URL
-		$this->css_url        = trailingslashit( $this->admin_url           . 'css'    ); // Admin CSS URL
-		$this->images_url     = trailingslashit( $this->admin_url           . 'images' ); // Admin images URL
-		$this->javascript_url = trailingslashit( $this->admin_url           . 'js'     ); // Admin javascript URL
+		$this->admin_dir      = trailingslashit( achievements()->includes_dir . 'admin'  ); // Admin path
+		$this->admin_url      = trailingslashit( achievements()->includes_url . 'admin'  ); // Admin URL
+		$this->css_url        = trailingslashit( $this->admin_url             . 'css'    ); // Admin CSS URL
+		$this->images_url     = trailingslashit( $this->admin_url             . 'images' ); // Admin images URL
+		$this->javascript_url = trailingslashit( $this->admin_url             . 'js'     ); // Admin javascript URL
 	}
 
 	/**
