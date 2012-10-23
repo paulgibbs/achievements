@@ -62,5 +62,6 @@ add_filter( 'dpa_get_achievement_excerpt', 'shortcode_unautop', 20 );
 add_filter( 'dpa_template_include', 'dpa_template_include_theme_supports', 2, 1 );
 add_filter( 'dpa_template_include', 'dpa_template_include_theme_compat',   4, 2 );
 
-// Filter template locations
+// Run all template parts through additional template locations
+//add_filter( 'dpa_locate_template',   'dpa_add_template_locations' );
 add_filter( 'dpa_get_template_part', 'dpa_add_template_locations' );

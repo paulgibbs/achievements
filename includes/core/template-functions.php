@@ -57,6 +57,9 @@ function dpa_locate_template( $template_names, $load = false, $require_once = tr
 	$parent_theme   = get_template_directory(); 
 	$fallback_theme = dpa_get_theme_compat_dir(); 
 
+	// Allow templates to be filtered. Achievements automatically adds dpa_add_template_locations() 
+	$template_names = apply_filters( 'dpa_locate_template', $template_names )
+
 	// Try to find a template file
 	foreach ( (array) $template_names as $template_name ) {
 
@@ -83,13 +86,9 @@ function dpa_locate_template( $template_names, $load = false, $require_once = tr
 			break;
 
 		// 3rd-party plugins can use this to load custom templates for their component if desired
-		} else {
-			$fallback_template = apply_filters( 'dpa_locate_fallback_template', trailingslashit( $fallback_theme ) . $template_name, $template_name, $template_names, $load, $require_once );
-
-			if ( file_exists( $fallback_template ) ) {
-				$located = $fallback_template;
-				break;
-			}
+		} elseif ( file_exists( trailingslashit( $fallback_theme ) . $template_name ) ) {
+			$located = trailingslashit( $fallback_theme ) . $template_name;
+			break;
 		}
 	}
 
@@ -162,9 +161,9 @@ function dpa_add_template_locations( $templates = array() ) {
 	$locations = dpa_get_template_locations( $templates );
 
 	// Loop through locations and templates and combine
-	foreach ( $locations as $location )
-		foreach ( $templates as $template )
-			$retval[] = trailingslashit( $location ) . $template;
+	foreach ( (array) $locations as $location )
+		foreach ( (array) $templates as $template )
+			$retval[] = ltrim( trailingslashit( $location ) . $template, '/' );
 
 	return apply_filters( 'dpa_add_template_locations', $retval, $templates );
 }
