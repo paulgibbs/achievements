@@ -405,8 +405,16 @@ function dpa_breadcrumb( $args = array() ) {
 			// HTML
 			'before'          => '<div class="dpa-breadcrumb"><p>',
 			'after'           => '</p></div>',
+
+			// Separator
 			'sep'             => _x( '&rsaquo;', 'HTML entity for right single angle quotes', 'dpa' ),
 			'pad_sep'         => 1,
+			'sep_before'      => '<span class="dpa-breadcrumb-current">',
+			'sep_after'       => '</span>',
+
+			// Crumbs
+			'crumb_before'    => '',
+			'crumb_after'     => '',
 
 			// Home
 			'include_home'    => $pre_include_home,
@@ -418,7 +426,9 @@ function dpa_breadcrumb( $args = array() ) {
 
 			// Current
 			'include_current' => $pre_include_current,
-			'current_text'    => $pre_current_text
+			'current_text'    => $pre_current_text,
+			'current_before'  => '<span class="dpa-breadcrumb-current">',
+			'current_after'   => '</span>',
 		);
 		$r = dpa_parse_args( $args, $defaults, 'get_breadcrumb' );
 		extract( $r );
@@ -483,16 +493,16 @@ function dpa_breadcrumb( $args = array() ) {
 
 		// Add current page to breadcrumb
 		if ( ! empty( $include_current ) || empty( $pre_current_text ) )
-			$crumbs[] = '<span class="dpa-breadcrumb-current">' . $current_text . '</span>';
+			$crumbs[] = $current_before . $current_text . $current_after;
 
 
 		/**
 		 * Separator
 		 */
 
-		// Wrap the separator in a span before padding and filter
+		// Wrap the separator in before/after before padding and filter
 		if ( ! empty( $sep ) )
-			$sep = '<span class="dpa-breadcrumb-separator">' . $sep . '</span>';
+			$sep = $sep_before . $sep . $sep_after;
 
 		// Pad the separator
 		if ( ! empty( $pad_sep ) )
@@ -507,7 +517,7 @@ function dpa_breadcrumb( $args = array() ) {
 		$crumbs = apply_filters( 'dpa_breadcrumbs',          $crumbs );
 
 		// Build the trail
-		$trail = ! empty( $crumbs ) ? ( $before . implode( $sep, $crumbs ) . $after ) : '';
+		$trail = ! empty( $crumbs ) ? ( $before . $crumb_before . implode( $sep . $crumb_after . $crumb_before , $crumbs ) . $crumb_after . $after ) : '';
 
 		return apply_filters( 'dpa_get_breadcrumb', $trail, $crumbs, $r );
 	}
