@@ -266,8 +266,6 @@ final class Achievements {
 		require( $this->includes_dir . 'core/cache.php'      );
 		require( $this->includes_dir . 'core/options.php'    );
 		require( $this->includes_dir . 'core/caps.php'       );
-		//require( $this->includes_dir . 'core/widgets.php'    );
-		require( $this->includes_dir . 'core/shortcodes.php' );
 		require( $this->includes_dir . 'core/update.php'     );
 
 
@@ -294,8 +292,10 @@ final class Achievements {
 		/**
 		 * Components
 		 */
-		require( $this->includes_dir . 'common/functions.php' );
-		require( $this->includes_dir . 'common/template.php'  );
+		require( $this->includes_dir . 'common/functions.php'  );
+		require( $this->includes_dir . 'common/template.php'   );
+		//require( $this->includes_dir . 'common/widgets.php'    );
+		require( $this->includes_dir . 'common/shortcodes.php' );
 
 		require( $this->includes_dir . 'achievements/functions.php' );
 		require( $this->includes_dir . 'achievements/template.php'  );
