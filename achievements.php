@@ -303,7 +303,9 @@ final class Achievements {
 		require( $this->includes_dir . 'progress/functions.php' );
 		require( $this->includes_dir . 'progress/template.php'  );
 
+		require( $this->includes_dir . 'users/capabilities.php'  );
 		require( $this->includes_dir . 'users/functions.php'     );
+		require( $this->includes_dir . 'users/template.php'      );
 		require( $this->includes_dir . 'users/options.php'       );
 		require( $this->includes_dir . 'users/notifications.php' );
 
