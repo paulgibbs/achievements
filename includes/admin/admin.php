@@ -61,6 +61,11 @@ class DPA_Admin {
 	 * @since 3.0
 	 */
 	private function setup_actions() {
+
+		// Bail to prevent interfering with the deactivation process 
+		if ( dpa_is_deactivation() )
+			return;
+
 		// General Actions
 
 		// Add menu item to settings menu
