@@ -409,7 +409,7 @@ function dpa_breadcrumb( $args = array() ) {
 			// Separator
 			'sep'             => _x( '&rsaquo;', 'HTML entity for right single angle quotes', 'dpa' ),
 			'pad_sep'         => 1,
-			'sep_before'      => '<span class="dpa-breadcrumb-current">',
+			'sep_before'      => '<span class="dpa-breadcrumb-sep">',
 			'sep_after'       => '</span>',
 
 			// Crumbs
