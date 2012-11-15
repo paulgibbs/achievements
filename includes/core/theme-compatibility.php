@@ -479,6 +479,10 @@ function dpa_template_include_theme_compat( $template = '' ) {
  * @since 3.0
  */
 function dpa_replace_the_content( $content = '' ) {
+	// Bail if not inside the main query loop
+	if ( ! in_the_loop() || ! is_main_query() )
+			return $content;
+
 	// Bail if shortcodes are unset somehow
 	if ( ! is_a( achievements()->shortcodes, 'DPA_Shortcodes' ) )
 		return $content;
