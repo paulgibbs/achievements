@@ -80,7 +80,7 @@ class DPA_BPScholarPressCourseware_Extension extends DPA_Extension {
 		$this->description     = __( 'A Learning Management System for BuddyPress.', 'dpa' );
 		$this->id              = 'buddypress-courseware';
 		$this->image_url       = trailingslashit( achievements()->includes_url ) . 'admin/images/buddypress-courseware.png';
-		$this->name            = __( 'BuddyPress ScholarPress Courseware', 'dpa' );
+		$this->name            = __( 'BuddyPress Courseware', 'dpa' );
 		$this->rss_url         = 'http://feeds.nerd.ro/stas/';
 		$this->small_image_url = trailingslashit( achievements()->includes_url ) . 'admin/images/buddypress-courseware-small.png';
 		$this->version         = 1;

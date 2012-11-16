@@ -88,7 +88,7 @@ class DPA_bbPress_Extension extends DPA_CPT_Extension {
  			'spam_to_publish',
 		);
 
-		$this->description     = __( 'bbPress is forum software with a twist from the creators of WordPress.', 'dpa' );
+		$this->description     = __( 'bbPress is forum software, made the WordPress way.', 'dpa' );
 		$this->id              = 'bbpress';
 		$this->image_url       = trailingslashit( achievements()->includes_url ) . 'admin/images/bbpress.png';
 		$this->name            = __( 'bbPress', 'dpa' );
