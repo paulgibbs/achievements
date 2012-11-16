@@ -58,7 +58,7 @@ function dpa_locate_template( $template_names, $load = false, $require_once = tr
 	$fallback_theme = dpa_get_theme_compat_dir(); 
 
 	// Allow templates to be filtered. Achievements automatically adds dpa_add_template_locations() 
-	$template_names = apply_filters( 'dpa_locate_template', $template_names )
+	$template_names = apply_filters( 'dpa_locate_template', $template_names );
 
 	// Try to find a template file
 	foreach ( (array) $template_names as $template_name ) {
