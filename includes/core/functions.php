@@ -199,6 +199,7 @@ function dpa_handle_event() {
 		'ach_event'             => $event_name,  // Get posts in the event taxonomy matching the event name
 		'ach_populate_progress' => $user_id,     // Fetch Progress posts for this user ID
 		'no_found_rows'         => true,         // Disable SQL_CALC_FOUND_ROWS
+		'nopaging'              => true,         // No pagination
 		'post_status'           => 'publish',    // We only want active achievements
 		'posts_per_page'        => -1,           // No pagination
 		's'                     => '',           // Stop sneaky people running searches on this query
