@@ -65,9 +65,11 @@ function dpa_has_achievements( $args = array() ) {
 	if ( ! empty( $args['ach_event'] ) ) {
 
 		$args['tax_query'] = array(
-			'field'    => 'slug',
-			'taxonomy' => dpa_get_event_tax_id(),
-			'terms'    => $args['ach_event'],
+			array(
+				'field'    => 'slug',
+				'taxonomy' => dpa_get_event_tax_id(),
+				'terms'    => $args['ach_event'],
+			)
 		);
 	}
 
