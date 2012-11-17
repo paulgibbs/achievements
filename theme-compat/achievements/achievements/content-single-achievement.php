@@ -9,8 +9,6 @@
 
 <div id="dpa-achievements">
 
-	<?php dpa_breadcrumb(); ?>
-
 	<?php do_action( 'dpa_template_before_single_achievement' ); ?>
 
 	<div id="dpa-achievement-<?php dpa_achievement_id(); ?>" <?php dpa_achievement_class(); ?>>
