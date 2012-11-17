@@ -24,8 +24,6 @@
 
 		<?php dpa_progress_user_link(); ?>
 
-		<?php do_action( 'dpa_template_after_progress_user_link' ); ?>
-
 
 		<?php do_action( 'dpa_template_before_progress_date' ); ?>
 

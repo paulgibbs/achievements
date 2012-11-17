@@ -21,8 +21,6 @@
 
 			<?php endif; ?>
 
-		<?php do_action( 'dpa_template_after_achievement_thumbnail' ); ?>
-
 
 		<?php do_action( 'dpa_template_before_achievement_content' ); ?>
 
