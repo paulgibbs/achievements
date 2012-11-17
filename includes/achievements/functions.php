@@ -123,3 +123,37 @@ function dpa_get_all_events_details() {
 
 	return apply_filters( 'dpa_get_all_events_details', $events );
 }
+
+/**
+ * Called before a post is deleted; if an achievement post, we tidy up any related Progress posts.
+ * 
+ * This function is supplemental to the actual achievement deletion which is handled by WordPress core API functions.
+ * It is used to clean up after an achievement that is being deleted.
+ *
+ * @param int $post_id Optional; post ID that is being deleted.
+ * @since 3.0
+ */
+function dpa_before_achievement_deleted( $post_id = 0 ) {
+	$post_id = dpa_get_achievement_id( $post_id );
+	if ( empty( $post_id ) || ! dpa_is_achievement( $post_id ) )
+		return;
+
+	do_action( 'dpa_before_achievement_deleted', $post_id );
+
+	// An achievement is being permanently deleted, so any related Progress posts have to go, too.
+	$progress = new WP_Query( array(
+		'fields'           => 'id=>parent',
+		'nopaging'         => true,
+		'post_parent'      => $post_id,
+		'post_status'      => array( dpa_get_locked_status_id(), dpa_get_unlocked_status_id() ),
+		'post_type'        => dpa_get_progress_post_type(),
+		'posts_per_page'   => -1,
+		'suppress_filters' => true,
+	) );
+
+	if ( ! empty( $progress ) )
+		foreach ( $progress->posts as $post ) 
+			wp_delete_post( $post->ID, true );
+
+	wp_reset_postdata();
+}

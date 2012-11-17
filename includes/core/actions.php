@@ -96,3 +96,6 @@ add_action( 'dpa_unlock_achievement', 'dpa_send_points',              10, 3 );
 add_action( 'dpa_unlock_achievement', 'dpa_send_notification',        10, 3 );
 add_action( 'dpa_unlock_achievement', 'dpa_update_achievement_stats', 10, 3 );
 add_action( 'dpa_footer',             'dpa_print_notifications'             );
+
+// Before delete achievement
+add_action( 'delete_post', 'dpa_before_achievement_deleted' );
