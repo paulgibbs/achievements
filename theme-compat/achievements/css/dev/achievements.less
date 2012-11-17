@@ -23,6 +23,7 @@
 /**
  * This is the main wrapper ID for all Achievements.
  */
+
 #dpa-achievements {
 	background: transparent;
 	.clearfix();
@@ -58,6 +59,7 @@
  */
 
 .dpa-single-achievement { clear: both; }
+.dpa-single-progress-loop-heading { clear: left; }  // @todo RTL
 
 .dpa-single-achievement-thumbnail {
 	float: left;  // @todo RTL
@@ -80,10 +82,6 @@
 	}
 }
 
-.dpa-single-progress-loop-heading {
-	clear: left;  // @todo RTL
-}
-
 
 /**
  * Breadcrumb
@@ -97,9 +95,7 @@
 	span { font-weight: normal; }
 }
 
-div.dpa-breadcrumb p {  // Specifity required
-	margin-bottom: @themeCompatMargin;
-}
+div.dpa-breadcrumb p { margin-bottom: @themeCompatMargin; } // Specifity required
 
 
 /**
