@@ -17,15 +17,15 @@
 
 	<?php if ( dpa_has_achievements() ) : ?>
 
-		<?php dpa_get_template_part( 'pagination', 'achievements' ); ?>
+		<?php dpa_get_template_part( 'pagination-achievements' ); ?>
 
-		<?php dpa_get_template_part( 'loop', 'achievements'       ); ?>
+		<?php dpa_get_template_part( 'loop-achievements'       ); ?>
 
-		<?php dpa_get_template_part( 'pagination', 'achievements' ); ?>
+		<?php dpa_get_template_part( 'pagination-achievements' ); ?>
 
 	<?php else : ?>
 
-		<?php dpa_get_template_part( 'feedback', 'no-achievements' ); ?>
+		<?php dpa_get_template_part( 'feedback-no-achievements' ); ?>
 
 	<?php endif; ?>
 

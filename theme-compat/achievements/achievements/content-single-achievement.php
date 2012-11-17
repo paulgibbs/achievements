@@ -35,11 +35,11 @@
 
 		<?php if ( dpa_has_progress() ) : ?>
 
-			<?php dpa_get_template_part( 'loop', 'progresses' ); ?>
+			<?php dpa_get_template_part( 'loop-progresses' ); ?>
 
 		<?php else : ?>
 
-			<?php dpa_get_template_part( 'feedback', 'no-progresses' ); ?>
+			<?php dpa_get_template_part( 'feedback-no-progresses' ); ?>
 
 		<?php endif; ?>
 

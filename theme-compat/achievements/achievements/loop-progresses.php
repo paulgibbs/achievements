@@ -17,7 +17,7 @@
 
 	<?php while ( dpa_progress() ) : dpa_the_progress(); ?>
 
-		<?php dpa_get_template_part( 'loop', 'single-progress' ); ?>
+		<?php dpa_get_template_part( 'loop-single-progress' ); ?>
 
 	<?php endwhile; ?>
 

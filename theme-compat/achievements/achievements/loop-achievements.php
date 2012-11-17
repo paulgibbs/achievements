@@ -38,7 +38,7 @@
 
 		<?php while ( dpa_achievements() ) : dpa_the_achievement(); ?>
 
-			<?php dpa_get_template_part( 'loop', 'single-achievement' ); ?>
+			<?php dpa_get_template_part( 'loop-single-achievement' ); ?>
 
 		<?php endwhile; ?>
 
