@@ -13,9 +13,9 @@
 
 	<?php do_action( 'dpa_template_before_achievements_index' ); ?>
 
-	<?php dpa_achievements_index_description(); ?>
-
 	<?php if ( dpa_has_achievements() ) : ?>
+
+		<?php dpa_achievements_index_description(); ?>
 
 		<?php dpa_get_template_part( 'pagination-achievements' ); ?>
 
