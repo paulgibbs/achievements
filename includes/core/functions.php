@@ -288,33 +288,25 @@ function dpa_maybe_unlock_achievement( $user_id, $skip_validation = '', $progres
 	if ( ! empty( $progress_obj->ID ) )
 		$progress_args['ID'] = $progress_obj->ID;
 
-	// Does the achievement not have a target set or are we skipping validation?
+	// If the achievement does not have a target set, this is an award achievement, so bail out.
 	$achievement_target = dpa_get_achievement_target( $achievement_obj->ID );
-	if ( empty( $achievement_target ) || 'skip_validation' === $skip_validation ) {
+	if ( ! $achievement_target  )
+		return;
 
-		// Unlock the achievement
+	// Increment progress count
+	$progress_args['post_content'] = apply_filters( 'dpa_maybe_unlock_achievement_progress_increment', 1 );
+	if ( ! empty( $progress_obj ) )
+		$progress_args['post_content'] = (int) $progress_args['post_content'] + (int) $progress_obj->post_content;
+
+	// Does the progress count now meet the achievement target?
+	if ( 'skip_validation' === $skip_validation || (int) $progress_args['post_content'] >= $achievement_target ) {
+
+		// Yes. Unlock achievement.
 		$progress_args['post_status'] = dpa_get_unlocked_status_id();
 
-
-	// Does the achievement have a target set?
-	} elseif ( ! empty( $achievement_target ) ) {
-
-		// Increment progress count
-		$progress_args['post_content'] = apply_filters( 'dpa_maybe_unlock_achievement_progress_increment', 1 );
-		if ( ! empty( $progress_obj ) )
-			$progress_args['post_content'] = (int) $progress_args['post_content'] + (int) $progress_obj->post_content;
-
-		// Does the progress count now meet the achievement target?
-		if ( (int) $progress_args['post_content'] >= $achievement_target ) {
-
-			// Yes. Unlock achievement.
-			$progress_args['post_status'] = dpa_get_unlocked_status_id();
-
-		// No.
-		} else {
-			// The achievement is still locked; make sure the status is set.
-			$progress_args['post_status'] = dpa_get_locked_status_id();
-		}
+	// No, user needs to make more progress. Make sure the locked status is set correctly.
+	} else {
+		$progress_args['post_status'] = dpa_get_locked_status_id();
 	}
 
 	// Create or update the progress post
