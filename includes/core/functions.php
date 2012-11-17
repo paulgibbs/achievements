@@ -199,6 +199,7 @@ function dpa_handle_event() {
 		'ach_event'             => $event_name,  // Get posts in the event taxonomy matching the event name
 		'ach_populate_progress' => $user_id,     // Fetch Progress posts for this user ID
 		'no_found_rows'         => true,         // Disable SQL_CALC_FOUND_ROWS
+		'post_status'           => 'publish',    // We only want active achievements
 		'posts_per_page'        => -1,           // No pagination
 		's'                     => '',           // Stop sneaky people running searches on this query
 	);
@@ -208,16 +209,6 @@ function dpa_handle_event() {
 
 		while ( dpa_achievements() ) {
 			dpa_the_achievement();
-
-			/**
-			 * Check the achievement post is published.
-			 *
-			 * get_terms() in dpa_register_events() can retrieve taxonomies which are
-			 * associated only with posts in the trash. We only want to process
-			 * 'active' achievements (post_status = published).
-			 */
-			if ( 'publish' != achievements()->achievement_query->post->post_status )
-				continue;
 
 			// Let other plugins do things before we maybe_unlock_achievement
 			do_action( 'dpa_handle_event', $event_name, $func_args, $user_id, $args );
