@@ -34,10 +34,17 @@ function dpa_has_progress( $args = array() ) {
 		'post_type'      => dpa_get_progress_post_type(),  // Only retrieve progress posts
 		's'              => '',                            // No search
 
+
 		// Conditional defaults
-		'author'         => is_author()                 ? get_the_author_ID()      : null,  // If on author archive page, use that author's user ID.
-		'post_parent'    => dpa_is_single_achievement() ? dpa_get_achievement_id() : null,  // If on single achievement page, use that post's ID. 
-		'posts_per_page' => dpa_is_single_achievement() ? -1                       : dpa_get_progresses_per_page(), // If on a single achievement page, don't paginate progresses.
+
+		// If on author archive page, use that author's user ID.
+		'author'         => is_author() ? get_the_author_meta( 'ID' ) : null,
+
+		// If on single achievement page, use that post's ID. 
+		'post_parent'    => dpa_is_single_achievement() ? dpa_get_achievement_id() : null,
+
+		// If on a single achievement page, don't paginate progresses.
+		'posts_per_page' => dpa_is_single_achievement() ? -1 : dpa_get_progresses_per_page(),
 	);
 	$args = dpa_parse_args( $args, $defaults, 'has_progress' );
 
