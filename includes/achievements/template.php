@@ -34,7 +34,6 @@ function dpa_has_achievements( $args = array() ) {
 
 	$default_post_parent = dpa_is_single_achievement() ? dpa_get_achievement_id() : 'any';
 
-	// The default achievement query for most circumstances
 	$defaults = array(
 		// Standard WP_Query params
 		'order'                 => 'ASC',                                                // 'ASC', 'DESC
@@ -77,8 +76,10 @@ function dpa_has_achievements( $args = array() ) {
 	if ( ! empty( $args['ach_populate_progress'] ) ) {
 		if ( true === $args['ach_populate_progress'] && is_user_logged_in() ) {
 			$progress_user_ids = achievements()->current_user->ID;
+
 		} elseif ( is_string( $args['ach_populate_progress'] ) && 'all' === $args['ach_populate_progress'] ) {
 			$progress_user_ids = false;
+
 		} else {
 			$progress_user_ids = wp_parse_id_list( (array) $args['ach_populate_progress'] );
 			$progress_user_ids = implode( ',', $progress_user_ids );

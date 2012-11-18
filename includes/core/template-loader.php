@@ -94,8 +94,7 @@ function dpa_get_achievement_archive_template() {
  * If we find one, we'll use it to build the output. For most themes this
  * will probably be page.php.
  *
- * The other options are there to let enterprising theme developers really
- * make Achievements sing.
+ * The other options are there to let enterprising theme developers really make Achievements sing.
  *
  * @return string Path to template file
  * @since 3.0

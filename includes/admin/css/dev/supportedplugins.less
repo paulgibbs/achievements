@@ -39,9 +39,7 @@
  * General page styles to fit in with the WordPress Admin UI
  */
 
-#post-body-content {
-	margin: 18px 0 0;
-}
+#post-body-content { margin: 18px 0 0; }
 
 
 /**
@@ -223,10 +221,7 @@ div.list {
 
 	tbody tr {
 		cursor: pointer;
-
-		&:hover {
-			background-color: #FCFCFC;
-		}
+		&:hover { background-color: #FCFCFC; }
 	}
 
 	.contributors {
@@ -248,9 +243,7 @@ div.list {
 			&:hover { cursor: pointer; }
 		}
 	}
-	.status {
-		width: 15%;
-	}
+	.status { width: 15%; }
 }
 
 div.detail {
@@ -265,11 +258,7 @@ div.detail {
 		// Override wp-admin metabox styles
 		.postbox {
 			.reset_postbox();
-
-			.handlediv {
-				.show_for_screen_readers();  // @todo RTL
-			}
-
+			.handlediv { .show_for_screen_readers(); } // @todo RTL
 			.hndle {
 				.reset_postbox();
 				border-bottom: 1px solid @toolbarMainBorderColour;
@@ -282,14 +271,9 @@ div.detail {
 					text-shadow: 1px 1px 1px white;
 				}
 
-				&:hover {
-					color: @wpHeadingColour;  // Overrides a wp-admin style
-				}
+				&:hover { color: @wpHeadingColour; } // Overrides a wp-admin style
 			}
-
-			.inside {
-				margin-top: 0;
-			}
+			.inside { margin-top: 0; }
 		}
 	}
 
@@ -302,9 +286,7 @@ div.detail {
 				line-height: 3em;
 				margin-left: 10px;
 
-				&:first-child {
-					margin-left: 0;
-				}
+				&:first-child { margin-left: 0; }
 			}
 
 			img {
@@ -326,9 +308,7 @@ div.detail {
 		margin-left: @metaboxWidth + @toolbarMargin;
 	}
 
-	#dpa-details-plugins {
-		width: 100%;
-	}
+	#dpa-details-plugins { width: 100%; }
 }
 
 #dpa-detail-contents {

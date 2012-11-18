@@ -356,6 +356,5 @@ function dpa_query_post_parent__in( $where, $object = null ) {
 		$where .= " AND $wpdb->posts.post_parent NOT IN ($ids)";
 	}
 
-	// Return possibly modified $where
 	return $where;
 }
