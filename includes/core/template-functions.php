@@ -175,22 +175,4 @@ function dpa_add_template_locations( $templates = array() ) {
  * @since 3.0
  */
 function dpa_parse_query( $posts_query ) {
-	// Bail if $posts_query is not the main loop
-	if ( ! $posts_query->is_main_query() )
-		return;
-
-	// Bail if filters are suppressed on this query
-	if ( true == $posts_query->get( 'suppress_filters' ) )
-		return;
-
-	// Bail if in admin
-	if ( is_admin() )
-		return;
-
-	// Are we on an author archive page?
-	if ( $posts_query->is_author() ) {
-
-		// Set the displayed user global to this user
-		achievements()->displayed_user = get_queried_object();
-	}
 }

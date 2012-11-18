@@ -219,7 +219,6 @@ final class Achievements {
 
 		// Users
 		$this->current_user   = new stdClass();  // Currently logged in user
-		$this->displayed_user = new stdClass();  // Currently displayed user
 
 		// Other stuff
 		$this->domain             = 'dpa';                                                        // Unique identifier for retrieving translated strings
