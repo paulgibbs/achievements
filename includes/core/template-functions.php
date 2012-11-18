@@ -18,10 +18,10 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  *
  * @param string $slug The slug name for the generic template.
  * @param string $name Optional. The name of the specialised template.
+ * @return string
  * @since 3.0
  */
 function dpa_get_template_part( $slug, $name = null ) {
-	// Execute code for this part
 	do_action( 'get_template_part_' . $slug, $slug, $name );
 
 	// Setup possible parts
@@ -34,7 +34,6 @@ function dpa_get_template_part( $slug, $name = null ) {
 	// Allow template parts to be filtered
 	$templates = apply_filters( 'dpa_get_template_part', $templates, $slug, $name );
 
-	// Return the part that is found
 	return dpa_locate_template( $templates, true, false );
 }
 
@@ -67,7 +66,6 @@ function dpa_locate_template( $template_names, $load = false, $require_once = tr
 		if ( empty( $template_name ) )
 			continue;
 
-		// Trim off any slashes from the template name
 		$template_name = ltrim( $template_name, '/' );
 
 		// Check child theme first
@@ -79,20 +77,19 @@ function dpa_locate_template( $template_names, $load = false, $require_once = tr
 		} elseif ( file_exists( trailingslashit( $parent_theme ) . $template_name ) ) {
 			$located = trailingslashit( $parent_theme ) . $template_name;
 			break;
-
-		// Check theme compatibility last
-		} elseif ( file_exists( trailingslashit( $fallback_theme ) . $template_name ) ) {
-			$located = trailingslashit( $fallback_theme ) . $template_name;
-			break;
-
-		// 3rd-party plugins can use this to load custom templates for their component if desired
-		} elseif ( file_exists( trailingslashit( $fallback_theme ) . $template_name ) ) {
-			$located = trailingslashit( $fallback_theme ) . $template_name;
-			break;
 		}
 	}
 
-	// Check function arguments to see if we need to $load this template
+	// Check theme compatibility last if no template is found in the current theme
+	if ( empty( $located ) ) {
+		foreach ( (array) $template_names as $template_name ) {
+			if ( file_exists( trailingslashit( $fallback_theme ) . $template_name ) ) {
+				$located = trailingslashit( $fallback_theme ) . $template_name;
+				break;
+			}
+		}
+	}
+
 	if ( ( true == $load ) && ! empty( $located ) )
 		load_template( $located, $require_once );
 
