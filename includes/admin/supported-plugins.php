@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 /**
  * Set up the Supported Plugins admin page before any output is sent. Register contextual help and screen options for this page.
  *
- * @since 3.0
+ * @since Achievements (3.0)
  * @todo WordPress - find a way to hide "Plugin Information" from the screen option panel. Setting empty title doesn't render metabox.
  */
 function dpa_supported_plugins_on_load() {
@@ -48,7 +48,7 @@ function dpa_supported_plugins_on_load() {
  * Returns the filter choice of the Supported Plugins Detail screen 
  *
  * @return string Name of filter (either 0, 1, or 'all')
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_supported_plugins_get_filter() {
 	$allowed_filters = array( '0', '1', 'all' );
@@ -61,7 +61,7 @@ function dpa_supported_plugins_get_filter() {
  * Returns the name of the Supported Plugins screen view
  *
  * @return string Name of view (either detail, grid, or list)
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_supported_plugins_get_view() {
 	$allowed_views = array( 'detail', 'grid', 'list' );
@@ -74,7 +74,7 @@ function dpa_supported_plugins_get_view() {
  * Returns the name of the plugin displayed on the Supported Plugins detail view
  *
  * @return string Name of plugin
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_supported_plugins_get_plugin() {
 	$view = ! empty( $_GET['plugin'] ) ? $_GET['plugin'] : 'buddypress';
@@ -84,7 +84,7 @@ function dpa_supported_plugins_get_plugin() {
 /**
  * Supported Plugins admin screen
  *
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_supported_plugins() {
 	// Get current view of the Supported Plugins screen
@@ -261,7 +261,7 @@ function dpa_supported_plugins_detail() {
  *
  * Lists view consists of a table, with one row to a plugin.
  *
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_supported_plugins_list() {
 	// Get current filter and view of the Supported Plugins screen
@@ -420,7 +420,7 @@ function dpa_supported_plugins_list() {
  *
  * Grid view consists of rows and columns of large logos of plugins.
  *
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_supported_plugins_grid() {
 	// Get current filter of the Supported Plugins screen
@@ -454,7 +454,7 @@ function dpa_supported_plugins_grid() {
 /**
  * The metabox for the "select a plugin" dropdown box on the Supported Plugins grid view.
  *
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_supported_plugins_mb_switcher() {
 	// Get current plugin
@@ -490,7 +490,7 @@ function dpa_supported_plugins_mb_switcher() {
 /**
  * The metabox for the "plugin info" dropdown box on the Supported Plugins Detail view.
  * Shows: installed/not install status, contributors, description, wporg link
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_supported_plugins_mb_info() {
 	// Get current plugin
@@ -577,7 +577,7 @@ function dpa_supported_plugins_mb_info() {
  *
  * @access private
  * @return array
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function _dpa_supported_plugin_get_queryargs() {
 	return array( 'filter', 'plugin', 'view', );
@@ -589,7 +589,7 @@ function _dpa_supported_plugin_get_queryargs() {
  * @access private
  * @param string $plugin Plugin directory slug
  * @return bool
- * @since 3.0
+ * @since Achievements (3.0)
  * @todo Use is_plugin_active() to add an "activate" status in a future release
  */
 function _dpa_is_plugin_installed( $plugin ) {

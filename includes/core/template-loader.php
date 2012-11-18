@@ -19,7 +19,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  * @param string $template Optional.
  * @return string The path to the template file that is being used
  * @see dpa_template_include_theme_compat()
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_template_include_theme_supports( $template = '' ) {
 	// Single achievement
@@ -27,10 +27,15 @@ function dpa_template_include_theme_supports( $template = '' ) {
 
 	// Achievement archive
 	elseif ( dpa_is_achievement_archive() && ( $new_template = dpa_get_achievement_archive_template() ) ) :
+
+	// User achievements page
+	elseif ( dpa_is_single_user_achievements() && ( $new_template = dpa_get_achievement_author_archive_template() ) ) :
+
 	endif;
 
 	// If template file exists
 	if ( ! empty( $new_template ) ) {
+
 		// Override the WordPress template with an Achievements template
 		$template = $new_template;
 
@@ -45,7 +50,7 @@ function dpa_template_include_theme_supports( $template = '' ) {
  * Attempt to load a custom Achievements functions file, similar to a theme's functions.php file.
  *
  * @global string $pagenow
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_load_theme_functions() {
 	global $pagenow;
@@ -63,7 +68,7 @@ function dpa_load_theme_functions() {
  * Get the single achievement template
  *
  * @return string Path to template file
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_get_single_achievement_template() {
 	$templates = array(
@@ -77,7 +82,7 @@ function dpa_get_single_achievement_template() {
  * Get the achievement archive template
  *
  * @return string Path to template file
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_get_achievement_archive_template() {
 	$templates = array(
@@ -97,7 +102,7 @@ function dpa_get_achievement_archive_template() {
  * The other options are there to let enterprising theme developers really make Achievements sing.
  *
  * @return string Path to template file
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_get_theme_compat_templates() {
 	$templates = array(

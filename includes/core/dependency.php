@@ -21,7 +21,7 @@
 /**
  * Runs on plugin activation
  *
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_activation() {
 	do_action( 'dpa_activation' );
@@ -30,7 +30,7 @@ function dpa_activation() {
 /**
  * Runs on plugin deactivation
  *
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_deactivation() {
 	do_action( 'dpa_deactivation' );
@@ -39,7 +39,7 @@ function dpa_deactivation() {
 /**
  * Runs when uninstalling the plugin
  *
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_uninstall() {
 	do_action( 'dpa_uninstall' );
@@ -53,7 +53,7 @@ function dpa_uninstall() {
 /**
  * Main action responsible for constants, globals, and includes
  *
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_loaded() {
 	do_action( 'dpa_loaded' );
@@ -62,7 +62,7 @@ function dpa_loaded() {
 /**
  * Set up constants
  *
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_constants() {
 	do_action( 'dpa_constants' );
@@ -71,7 +71,7 @@ function dpa_constants() {
 /**
  * Set up globals BEFORE includes
  *
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_bootstrap_globals() {
 	do_action( 'dpa_bootstrap_globals' );
@@ -80,7 +80,7 @@ function dpa_bootstrap_globals() {
 /**
  * Include files
  *
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_includes() {
 	do_action( 'dpa_includes' );
@@ -89,7 +89,7 @@ function dpa_includes() {
 /**
  * Set up globals AFTER includes
  *
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_setup_globals() {
 	do_action( 'dpa_setup_globals' );
@@ -98,7 +98,7 @@ function dpa_setup_globals() {
 /**
  * Initialise any code after everything has been loaded
  *
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_init() {
 	do_action( 'dpa_init' );
@@ -107,7 +107,7 @@ function dpa_init() {
 /** 
  * Register any objects before anything is initialised.
  * 
- * @since 3.0
+ * @since Achievements (3.0)
  */ 
 function dpa_register() { 
 	do_action( 'dpa_register' );
@@ -116,7 +116,7 @@ function dpa_register() {
 /**
  * Initialise widgets
  *
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_widgets_init() {
 	do_action( 'dpa_widgets_init' );
@@ -125,7 +125,7 @@ function dpa_widgets_init() {
 /**
  * Setup the currently logged-in user
  *
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_setup_current_user() {
 	do_action( 'dpa_setup_current_user' );
@@ -138,7 +138,7 @@ function dpa_setup_current_user() {
 /**
  * Load translations for current language
  *
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_load_textdomain() {
 	do_action( 'dpa_load_textdomain' );
@@ -147,7 +147,7 @@ function dpa_load_textdomain() {
 /**
  * Sets up the theme directory
  *
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_register_theme_directory() {
 	do_action( 'dpa_register_theme_directory' );
@@ -156,7 +156,7 @@ function dpa_register_theme_directory() {
 /**
  * Set up the post types
  *
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_register_post_types() {
 	do_action( 'dpa_register_post_types' );
@@ -165,7 +165,7 @@ function dpa_register_post_types() {
 /**
  * Set up the post statuses
  *
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_register_post_statuses() {
 	do_action( 'dpa_register_post_statuses' );
@@ -174,7 +174,7 @@ function dpa_register_post_statuses() {
 /**
  * Register the built-in taxonomies
  *
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_register_taxonomies() {
 	do_action( 'dpa_register_taxonomies' );
@@ -183,7 +183,7 @@ function dpa_register_taxonomies() {
 /**
  * Register custom endpoints
  *
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_register_endpoints() {
 	do_action( 'dpa_register_endpoints' );
@@ -192,7 +192,7 @@ function dpa_register_endpoints() {
 /**
  * Register the Achievements shortcodes
  *
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_register_shortcodes() {
 	do_action( 'dpa_register_shortcodes' );
@@ -201,7 +201,7 @@ function dpa_register_shortcodes() {
 /**
  * Enqueue CSS and JS
  *
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_enqueue_scripts() {
 	do_action( 'dpa_enqueue_scripts' );
@@ -210,7 +210,7 @@ function dpa_enqueue_scripts() {
 /**
  * Everything's loaded and ready to go!
  *
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_ready() {
 	do_action( 'dpa_ready' );
@@ -225,7 +225,7 @@ function dpa_ready() {
  * The main action used for redirecting Achievements theme actions that are not
  * permitted by the current_user.
  *
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_template_redirect() {
 	do_action( 'dpa_template_redirect' );
@@ -239,7 +239,7 @@ function dpa_template_redirect() {
 /**
  * The main action used for executing code before the theme has been setup
  *
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_register_theme_packages() {
 	do_action( 'dpa_register_theme_packages' );
@@ -248,7 +248,7 @@ function dpa_register_theme_packages() {
 /**
  * The main action used for executing code before the theme has been setup
  *
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_setup_theme() {
 	do_action( 'dpa_setup_theme' );
@@ -257,7 +257,7 @@ function dpa_setup_theme() {
 /**
  * The main action used for executing code after the theme has been setup
  *
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_after_setup_theme() {
 	do_action( 'dpa_after_setup_theme' );
@@ -268,7 +268,7 @@ function dpa_after_setup_theme() {
  *
  * @param string $locale Optional
  * @param string $domain Optionl
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_plugin_locale( $locale = '', $domain = '' ) {
 	return apply_filters( 'dpa_plugin_locale', $locale, $domain );
@@ -282,7 +282,7 @@ function dpa_plugin_locale( $locale = '', $domain = '' ) {
 /**
  * Piggy back filter for WordPress' "request" filter
  *
- * @since 3.0
+ * @since Achievements (3.0)
  * @param array $query_vars Optional
  * @return array
  */
@@ -293,7 +293,7 @@ function dpa_request( $query_vars = array() ) {
 /**
  * The main filter used for theme compatibility and displaying custom Achievements theme files.
  *
- * @since 3.0
+ * @since Achievements (3.0)
  * @param string $template
  * @return string Template file to use
  */
@@ -304,7 +304,7 @@ function dpa_template_include( $template = '' ) {
 /**
  * Generate Achievements-specific rewrite rules
  *
- * @since 3.0
+ * @since Achievements (3.0)
  * @param WP_Rewrite $wp_rewrite
  */
 function dpa_generate_rewrite_rules( $wp_rewrite ) {
@@ -314,7 +314,7 @@ function dpa_generate_rewrite_rules( $wp_rewrite ) {
 /**
  * Filter the allowed themes list for Achievements-specific themes
  *
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_allowed_themes( $themes ) {
 	return apply_filters( 'dpa_allowed_themes', $themes );

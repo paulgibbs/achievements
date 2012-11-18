@@ -104,7 +104,7 @@ function dpa_achievement_metabox( $post ) {
  *
  * @param int $achievement_id
  * @return int Post ID to save
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_achievement_metabox_save( $achievement_id ) {
 	// Bail if doing an autosave
@@ -168,7 +168,7 @@ function dpa_achievement_metabox_save( $achievement_id ) {
  *
  * @param array $columns
  * @return array
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_achievement_posts_columns( $columns ) {
 	$columns = array(
@@ -187,7 +187,7 @@ function dpa_achievement_posts_columns( $columns ) {
  *
  * @param string $column
  * @param int $post_id
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_achievement_custom_column( $column, $post_id ) {
 	if ( 'karma' == $column ) {
@@ -205,7 +205,7 @@ function dpa_achievement_custom_column( $column, $post_id ) {
  *
  * @param array $columns
  * @return array
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_achievement_sortable_columns( $columns ) {
 	$columns['karma']            = 'karma';
@@ -217,7 +217,7 @@ function dpa_achievement_sortable_columns( $columns ) {
 /**
  * Contextual help for the new/edit achievement CPT screen
  *
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_achievement_new_contextual_help() {
 	// Bail out if we're not on the right screen
@@ -273,7 +273,7 @@ function dpa_achievement_new_contextual_help() {
 /**
  * Contextual help for the achievement CPT index screen
  *
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_achievement_index_contextual_help() {
 	// Bail out if we're not on the right screen

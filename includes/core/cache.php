@@ -21,7 +21,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  * @param int|array $ids Single or list of term IDs
  * @param string $taxonomy Taxonomy
  * @see dpa_register_events()
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_clear_events_tax_cache( $ids, $taxonomy ) {
 	if ( dpa_get_event_tax_id() != $taxonomy )

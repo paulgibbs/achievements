@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 /**
  * Extends Achievements to support actions from BuddyStream.
  *
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_init_buddystream_extension() {
 	achievements()->extensions->buddystream = new DPA_BuddyStream_Extension;
@@ -27,7 +27,7 @@ add_action( 'dpa_ready', 'dpa_init_buddystream_extension' );
 /**
  * Extension to add BuddyStream support to Achievements
  *
- * @since 3.0
+ * @since Achievements (3.0)
  */
 class DPA_BuddyStream_Extension extends DPA_Extension {
 	/**
@@ -35,7 +35,7 @@ class DPA_BuddyStream_Extension extends DPA_Extension {
 	 *
 	 * Sets up extension properties. See class phpdoc for details.
 	 *
-	 * @since 3.0
+	 * @since Achievements (3.0)
 	 */
 	public function __construct() {
 		$this->actions = array(

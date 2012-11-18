@@ -22,7 +22,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  *
  * @param string $older_date Unix timestamp from which the difference begins.
  * @param bool|string $newer_date Optional. Unix timestamp from which the difference ends. False for current time.
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_time_since( $older_date, $newer_date = false ) {
 	echo dpa_get_time_since( $older_date, $newer_date = false );
@@ -33,7 +33,7 @@ function dpa_time_since( $older_date, $newer_date = false ) {
 	 * @param string $older_date Unix timestamp from which the difference begins.
 	 * @param bool|string $newer_date Optional. Unix timestamp from which the difference ends. False for current time.
 	 * @return string Formatted time
-	 * @since 3.0
+	 * @since Achievements (3.0)
 	 */
 	function dpa_get_time_since( $older_date, $newer_date = false ) {		
 		// Setup the strings
@@ -138,7 +138,7 @@ function dpa_time_since( $older_date, $newer_date = false ) {
  * @param string $code Unique code for the error message
  * @param string $message Translated error message
  * @param string $data Any additional data passed with the error message
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_add_error( $code = '', $message = '', $data = '' ) {
 	achievements()->errors->add( $code, $message, $data );
@@ -147,7 +147,7 @@ function dpa_add_error( $code = '', $message = '', $data = '' ) {
 /**
  * Check if error messages exist in queue
  *
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_has_errors() {
 	$has_errors = achievements()->errors->get_error_codes() ? true : false; 
@@ -163,7 +163,7 @@ function dpa_has_errors() {
 /**
  * Output the Achievements version
  *
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_version() {
 	echo dpa_get_version();
@@ -171,7 +171,7 @@ function dpa_version() {
 	/**
 	 * Return the Achievements version
 	 *
-	 * @since 3.0
+	 * @since Achievements (3.0)
 	 * @return string The Achievements version
 	 */
 	function dpa_get_version() {
@@ -189,7 +189,7 @@ function dpa_db_version() {
 	/**
 	 * Return the Achievements database version
 	 *
-	 * @since 3.0
+	 * @since Achievements (3.0)
 	 * @return string The Achievements version
 	 */
 	function dpa_get_db_version() {
@@ -199,7 +199,7 @@ function dpa_db_version() {
 /**
  * Output the Achievements database version directly from the database
  *
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_db_version_raw() {
 	echo dpa_get_db_version_raw();
@@ -208,7 +208,7 @@ function dpa_db_version_raw() {
 	 * Return the Achievements database version directly from the database
 	 *
 	 * @return string The current Achievements version
-	 * @since 3.0
+	 * @since Achievements (3.0)
 	 */
 	function dpa_get_db_version_raw() {
 		return get_option( '_dpa_db_version', '' );
@@ -224,7 +224,7 @@ function dpa_db_version_raw() {
  *
  * @global WP_Query $wp_query
  * @return int Current page number
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_get_paged() {
 	global $wp_query;
@@ -249,7 +249,7 @@ function dpa_get_paged() {
 /**
  * Delete a site's rewrite rules so that they are automatically rebuilt on subsequent page load.
  *
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_delete_rewrite_rules() {
 	delete_option( 'rewrite_rules' );
@@ -267,7 +267,7 @@ function dpa_delete_rewrite_rules() {
  * @param array $defaults Array that serves as the defaults.
  * @param string $filter_key String to key the filters from
  * @return array Merged user defined values with defaults.
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_parse_args( $args, $defaults = '', $filter_key = '' ) {
 	// Setup a temporary array from $args
@@ -297,7 +297,7 @@ function dpa_parse_args( $args, $defaults = '', $filter_key = '' ) {
  * Used to guess if page exists at requested path
  *
  * @param string $path Optional
- * @since 3.0
+ * @since Achievements (3.0)
  * @return mixed False if no page, Page object if true
  */
 function dpa_get_page_by_path( $path = '' ) {
@@ -324,7 +324,7 @@ function dpa_get_page_by_path( $path = '' ) {
  * @param WP_Query $object
  * @return string
  * @see http://core.trac.wordpress.org/ticket/13927/
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_query_post_parent__in( $where, $object = null ) {
 	global $wp, $wpdb;

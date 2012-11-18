@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 /**
  * Extends Achievements to support actions from BuddyPress ScholarPress Courseware.
  *
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_init_scholarpress_extension() {
 	achievements()->extensions->bpscholarpresscourseware = new DPA_BPScholarPressCourseware_Extension;
@@ -27,7 +27,7 @@ add_action( 'dpa_ready', 'dpa_init_scholarpress_extension' );
 /**
  * Extension to add BuddyPress ScholarPress Courseware support to Achievements
  *
- * @since 3.0
+ * @since Achievements (3.0)
  */
 class DPA_BPScholarPressCourseware_Extension extends DPA_Extension {
 	/**
@@ -35,7 +35,7 @@ class DPA_BPScholarPressCourseware_Extension extends DPA_Extension {
 	 *
 	 * Sets up extension properties. See class phpdoc for details.
 	 *
-	 * @since 3.0
+	 * @since Achievements (3.0)
 	 */
 	public function __construct() {
 		$this->actions = array(
@@ -96,7 +96,7 @@ class DPA_BPScholarPressCourseware_Extension extends DPA_Extension {
 	 * @param string $action_name
 	 * @param array $action_func_args The action's arguments from func_get_args().
 	 * @return int|false New user ID or false to skip any further processing
-	 * @since 3.0
+	 * @since Achievements (3.0)
 	 */
 	public function event_user_id( $user_id, $action_name, $action_func_args ) {
 		// Only deal with events added by this extension.

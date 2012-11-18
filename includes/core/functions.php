@@ -40,7 +40,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 /**
  * Check if any of the plugin extensions need to be set up or updated
  *
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_maybe_update_extensions() {
 	// Only do things if the user is active (logged in and not a spammer) and in wp-admin
@@ -98,7 +98,7 @@ function dpa_maybe_update_extensions() {
  * have to worry too much. For multisite with the network-wide option enabled, we store the events
  * in a global cache object to avoid a call to switch_to_blog.
  *
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_register_events() {
 	// Only do things if the user is active (logged in and not a spammer)
@@ -155,7 +155,7 @@ function dpa_register_events() {
  * @param string $name Action name
  * @param array $func_args Optional; action's arguments, from func_get_args().
  * @see dpa_register_events()
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_handle_event() {
 	// Look at the current_filter to find out what action has occured

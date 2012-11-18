@@ -62,7 +62,7 @@ add_action( 'dpa_new_site', 'dpa_create_initial_content', 6 );
  * @param string $path
  * @param int $site_id
  * @param array() $meta
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_new_site( $blog_id, $user_id, $domain, $path, $site_id, $meta ) {
 	// If we're running network wide, it doesn't matter that we've created a new blog.
@@ -88,7 +88,7 @@ function dpa_new_site( $blog_id, $user_id, $domain, $path, $site_id, $meta ) {
 /**
  * Piggy back admin_init action
  *
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_admin_init() {
 	do_action( 'dpa_admin_init' );
@@ -97,7 +97,7 @@ function dpa_admin_init() {
 /**
  * Piggy back admin_menu action
  *
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_admin_menu() {
 	do_action( 'dpa_admin_menu' );
@@ -106,7 +106,7 @@ function dpa_admin_menu() {
 /**
  * Piggy back admin_head action
  *
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_admin_head() {
 	do_action( 'dpa_admin_head' );

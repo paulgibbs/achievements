@@ -22,7 +22,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  *
  * @param array|string $args All the arguments supported by {@link WP_Query}, and some more.
  * @return bool Returns true if the query has any results to loop over
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_has_progress( $args = array() ) {
 	$defaults = array(
@@ -50,7 +50,7 @@ function dpa_has_progress( $args = array() ) {
 /**
  * Whether there are more achievement progresses available in the loop. Is progresses a word?
  *
- * @since 3.0
+ * @since Achievements (3.0)
  * @return bool True if posts are in the loop
  */
 function dpa_progress() {
@@ -60,7 +60,7 @@ function dpa_progress() {
 /**
  * Iterate the post index in the loop. Retrieves the next post, sets up the post, sets the 'in the loop' property to true.
  *
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_the_progress() {
 	return achievements()->progress_query->the_post();
@@ -71,7 +71,7 @@ function dpa_the_progress() {
  *
  * @param int $progress_id Optional
  * @see dpa_get_achievement_id()
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_progress_id( $progress_id = 0 ) {
 	echo dpa_get_progress_id( $progress_id );
@@ -81,7 +81,7 @@ function dpa_progress_id( $progress_id = 0 ) {
 	 *
 	 * @param int $progress_id Optional
 	 * @return int The achievement progress ID
-	 * @since 3.0
+	 * @since Achievements (3.0)
 	 */
 	function dpa_get_progress_id( $progress_id = 0 ) {
 		// Easy empty checking
@@ -102,7 +102,7 @@ function dpa_progress_id( $progress_id = 0 ) {
  * Output the user ID of the person who made this achievement progress
  *
  * @param int $progress_id Optional. Progress ID
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_progress_author_id( $progress_id = 0 ) {
 	echo dpa_get_progress_author_id( $progress_id );
@@ -112,7 +112,7 @@ function dpa_progress_author_id( $progress_id = 0 ) {
 	 *
 	 * @param int $progress_id Optional. Progress ID
 	 * @return int User ID
-	 * @since 3.0
+	 * @since Achievements (3.0)
 	 */
 	function dpa_get_progress_author_id( $progress_id = 0 ) {
 		$progress_id = dpa_get_progress_id( $progress_id );
@@ -127,7 +127,7 @@ function dpa_progress_author_id( $progress_id = 0 ) {
  * @param int $progress_id Optional. Progress ID.
  * @param bool $humanise Optional. Humanise output using time_since. Defaults to true.
  * @param bool $gmt Optional. Use GMT.
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_progress_date( $progress_id = 0, $humanise = true, $gmt = false ) {
 	echo dpa_get_progress_date( $progress_id, $humanise, $gmt );
@@ -139,7 +139,7 @@ function dpa_progress_date( $progress_id = 0, $humanise = true, $gmt = false ) {
 	 * @param bool $humanise Optional. Humanise output using time_since. Defaults to true.
 	 * @param bool $gmt Optional. Use GMT.
 	 * @return string
-	 * @since 3.0
+	 * @since Achievements (3.0)
 	 */
 	function dpa_get_progress_date( $progress_id = 0, $humanise = true, $gmt = false ) {
 		$progress_id = dpa_get_progress_id( $progress_id );
@@ -165,7 +165,7 @@ function dpa_progress_date( $progress_id = 0, $humanise = true, $gmt = false ) {
  * Output the avatar link of the user who the achievement progress belongs to.
  *
  * @param array $args See dpa_get_user_avatar_link() documentation.
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_progress_user_avatar( $args = array() ) {
 	echo dpa_get_progress_user_avatar( $args );
@@ -175,7 +175,7 @@ function dpa_progress_user_avatar( $args = array() ) {
 	 *
 	 * @param array $args See dpa_get_user_avatar_link() documentation.
 	 * @return string
-	 * @since 3.0
+	 * @since Achievements (3.0)
 	 */
 	function dpa_get_progress_user_avatar( $args = array() ) {
 		$defaults = array(
@@ -198,7 +198,7 @@ function dpa_progress_user_avatar( $args = array() ) {
  * Output a link to the profile of the user who the achievement progress belongs to.
  *
  * @param array $args See dpa_get_user_avatar_link() documentation.
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_progress_user_link( $args = array() ) {
 	echo dpa_get_progress_user_link( $args );
@@ -208,7 +208,7 @@ function dpa_progress_user_link( $args = array() ) {
 	 *
 	 * @param array $args See dpa_get_user_avatar_link() documentation.
 	 * @return string
-	 * @since 3.0
+	 * @since Achievements (3.0)
 	 */
 	function dpa_get_progress_user_link( $args = array() ) {
 		$defaults = array(
@@ -231,7 +231,7 @@ function dpa_progress_user_link( $args = array() ) {
  * Output the row class of an achievement progress object
  *
  * @param int $progress_id Optional. Progress ID
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_progress_class( $progress_id = 0 ) {
 	echo dpa_get_progress_class( $progress_id );
@@ -241,7 +241,7 @@ function dpa_progress_class( $progress_id = 0 ) {
 	 *
 	 * @param int $progress_id Optional. Progress ID
 	 * @return string Row class of an achievement progress object
-	 * @since 3.0
+	 * @since Achievements (3.0)
 	 */
 	function dpa_get_progress_class( $progress_id = 0 ) {
 		$progress_id = dpa_get_progress_id( $progress_id );
@@ -281,7 +281,7 @@ function dpa_progress_class( $progress_id = 0 ) {
 /**
  * Output the pagination count
  *
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_progress_pagination_count() {
 	echo dpa_get_progress_pagination_count();
@@ -290,7 +290,7 @@ function dpa_progress_pagination_count() {
 	 * Return the pagination count
 	 *
 	 * @return string Progress pagination count
-	 * @since 3.0
+	 * @since Achievements (3.0)
 	 */
 	function dpa_get_progress_pagination_count() {
 		if ( empty( achievements()->progress_query ) )

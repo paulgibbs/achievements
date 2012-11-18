@@ -45,7 +45,7 @@ if ( ! class_exists( 'Achievements' ) ) :
 /**
  * Main Achievements class
  *
- * @since 3.0
+ * @since Achievements (3.0)
  */
 final class Achievements {
 	/**
@@ -106,7 +106,7 @@ final class Achievements {
 	 *
 	 * @return Achievements The one true Achievements
 	 * @see achievements()
-	 * @since 3.0
+	 * @since Achievements (3.0)
 	 * @staticvar Achievements $instance
 	 */
 	public static function instance() {
@@ -125,42 +125,42 @@ final class Achievements {
 	/**
 	 * A dummy constructor to prevent Achievements from being loaded more than once.
 	 *
-	 * @since 3.0
+	 * @since Achievements (3.0)
 	 */
 	private function __construct() {}
 
 	/**
 	 * A dummy magic method to prevent Achievements from being cloned
 	 *
-	 * @since 3.0
+	 * @since Achievements (3.0)
 	 */
 	public function __clone() { _doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'dpa' ), '3.0' ); }
 
 	/**
 	 * A dummy magic method to prevent Achievements from being unserialised
 	 *
-	 * @since 3.0
+	 * @since Achievements (3.0)
 	 */
 	public function __wakeup() { _doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'dpa' ), '3.0' ); }
 
 	/**
 	 * Magic method for checking the existence of a certain custom field
 	 *
-	 * @since 3.0
+	 * @since Achievements (3.0)
 	 */
 	public function __isset( $key ) { return isset( $this->data[$key] ); }
 
 	/**
 	 * Magic method for getting Achievements variables
 	 *
-	 * @since 3.0
+	 * @since Achievements (3.0)
 	 */
 	public function __get( $key ) { return isset( $this->data[$key] ) ? $this->data[$key] : null; }
 
 	/**
 	 * Magic method for setting Achievements variables
 	 *
-	 * @since 3.0
+	 * @since Achievements (3.0)
 	 */
 	public function __set( $key, $value ) { $this->data[$key] = $value; }
 
@@ -170,7 +170,7 @@ final class Achievements {
 	/**
 	 * Set up global variables
 	 *
-	 * @since 3.0
+	 * @since Achievements (3.0)
 	 */
 	private function setup_globals() {
 		// Versions
@@ -246,7 +246,7 @@ final class Achievements {
 	/**
 	 * Include required files
 	 *
-	 * @since 3.0
+	 * @since Achievements (3.0)
 	 */
 	private function includes() {
 		/**
@@ -328,7 +328,7 @@ final class Achievements {
 	/**
 	 * Set up the default hooks and actions
 	 *
-	 * @since 3.0
+	 * @since Achievements (3.0)
 	 */
 	private function setup_actions() {
 		// Plugin activation and deactivation hooks
@@ -364,7 +364,7 @@ final class Achievements {
 	/**
 	 * Define constants
 	 *
-	 * @since 3.0
+	 * @since Achievements (3.0)
 	 */
 	public function constants() {
 		// If multisite and running network-wide, we switch_to_blog to this site to store/fetch achievement data
@@ -381,7 +381,7 @@ final class Achievements {
 	 * will be removed on Achievements updates. If you're creating custom
 	 * translation files, please use the global language folder.
 	 *
-	 * @since 3.0
+	 * @since Achievements (3.0)
 	 */
 	public function load_textdomain() {
 		// Traditional WordPress plugin locale filter
@@ -404,7 +404,7 @@ final class Achievements {
 	/**
 	 * Register endpoints
 	 *
-	 * @since 3.0
+	 * @since Achievements (3.0)
 	 * @todo Use the 'template_include' action to conditionally switch the 'achievements' endpoint to a custom template
 	 */
 	public function register_endpoints() {
@@ -414,7 +414,7 @@ final class Achievements {
 	/**
 	 * Set up the post types for: achievement, achievement_progress
 	 *
-	 * @since 3.0
+	 * @since Achievements (3.0)
 	 */
 	public function register_post_types() {
 		$cpt = $labels = $rewrite = $supports = array();
@@ -509,7 +509,7 @@ final class Achievements {
 	/**
 	 * Register the post statuses used by Achievements
 	 *
-	 * @since 3.0
+	 * @since Achievements (3.0)
 	 */
 	public function register_post_statuses() {
 		// Locked
@@ -542,7 +542,7 @@ final class Achievements {
 	/**
 	 * Register the achievement event taxonomy
 	 *
-	 * @since 3.0
+	 * @since Achievements (3.0)
 	 */
 	public function register_taxonomies() {
 		$labels = $tax = array();
@@ -587,7 +587,7 @@ final class Achievements {
 	 * Sets up the Achievements theme directory to use in WordPress
 	 *
 	 * @return bool True on success, false on failure
-	 * @since 3.0
+	 * @since Achievements (3.0)
 	 */
 	public function register_theme_directory() {
 		return register_theme_directory( $this->themes_dir );
@@ -600,7 +600,7 @@ final class Achievements {
 	 * folders, it's fine to hardcode these here. If at a later date we need to
 	 * automate this, an API will need to be built.
 	 *
-	 * @since 3.0
+	 * @since Achievements (3.0)
 	 */
 	public function register_theme_packages() {
 		dpa_register_theme_package( array(
@@ -615,7 +615,7 @@ final class Achievements {
 	/**
 	 * Register Achievements' shortcodes
 	 *
-	 * @since 3.0
+	 * @since Achievements (3.0)
 	 */
 	public function register_shortcodes() {
 		$this->shortcodes = new DPA_Shortcodes();
@@ -626,7 +626,7 @@ final class Achievements {
 	 *
 	 * Do not call this before the 'init' action has started.
 	 *
-	 * @since 3.0
+	 * @since Achievements (3.0)
 	 */
 	public function setup_current_user() {
 		$this->current_user = &wp_get_current_user();
@@ -635,7 +635,7 @@ final class Achievements {
 	/**
 	 * Setup the default Achievements theme compatability location.
 	 *
-	 * @since 3.0
+	 * @since Achievements (3.0)
 	 */
 	public function setup_theme() {
 		// Bail if something already has this under control

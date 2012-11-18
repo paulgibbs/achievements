@@ -24,7 +24,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  *
  * This is only intended to be extended and is included here as a basic guide for future Theme Packs to use.
  *
- * @since 3.0
+ * @since Achievements (3.0)
  */
 class DPA_Theme_Compat {
 	/**
@@ -45,7 +45,7 @@ class DPA_Theme_Compat {
 	 * Pass the $properties to the object on creation.
 	 *
 	 * @param array $properties
-	 * @since 3.0
+	 * @since Achievements (3.0)
 	 */
 	public function __construct( array $properties = array() ) {
 		$this->_data = $properties;
@@ -57,7 +57,7 @@ class DPA_Theme_Compat {
 	 * @param string $property
 	 * @param mixed $value
 	 * @return mixed
-	 * @since 3.0
+	 * @since Achievements (3.0)
 	 */
 	public function __set( $property, $value ) {
 		return $this->_data[$property] = $value;
@@ -68,7 +68,7 @@ class DPA_Theme_Compat {
 	 *
 	 * @param string $property
 	 * @return mixed
-	 * @since 3.0
+	 * @since Achievements (3.0)
 	 */
 	public function __get( $property ) {
 		return array_key_exists( $property, $this->_data ) ? $this->_data[$property] : '';
@@ -79,7 +79,7 @@ class DPA_Theme_Compat {
  * Setup the default theme compat theme
  *
  * @param string $theme Optional
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_setup_theme_compat( $theme = '' ) {
 	// Make sure theme package is available, set to default if not
@@ -97,7 +97,7 @@ function dpa_setup_theme_compat( $theme = '' ) {
  * default and include their own Achievements compatability layers for their themes.
  *
  * @return string
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_get_theme_compat_id() {
 	return apply_filters( 'dpa_get_theme_compat_id', achievements()->theme_compat->theme->id );
@@ -110,7 +110,7 @@ function dpa_get_theme_compat_id() {
  * default and include their own Achievements compatability layers for their themes.
  *
  * @return string
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_get_theme_compat_name() {
 	return apply_filters( 'dpa_get_theme_compat_name', achievements()->theme_compat->theme->name );
@@ -123,7 +123,7 @@ function dpa_get_theme_compat_name() {
  * default and include their own Achievements compatability layers for their themes.
  *
  * @return string
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_get_theme_compat_version() {
 	return apply_filters( 'dpa_get_theme_compat_version', achievements()->theme_compat->theme->version );
@@ -136,7 +136,7 @@ function dpa_get_theme_compat_version() {
  * default and include their own Achievements compatability layers for their themes.
  *
  * @return string
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_get_theme_compat_dir() {
 	return apply_filters( 'dpa_get_theme_compat_dir', achievements()->theme_compat->theme->dir );
@@ -149,7 +149,7 @@ function dpa_get_theme_compat_dir() {
  * default and include their own Achievements compatability layers for their themes.
  *
  * @return string
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_get_theme_compat_url() {
 	return apply_filters( 'dpa_get_theme_compat_url', achievements()->theme_compat->theme->url );
@@ -158,7 +158,7 @@ function dpa_get_theme_compat_url() {
 /**
  * Gets true/false if page is currently inside theme compatibility
  *
- * @since 3.0
+ * @since Achievements (3.0)
  * @return bool
  */
 function dpa_is_theme_compat_active() {
@@ -171,7 +171,7 @@ function dpa_is_theme_compat_active() {
 /**
  * Set if page is currently inside theme compatibility
  *
- * @since 3.0
+ * @since Achievements (3.0)
  * @param bool $set Optional. Defaults to true.
  */
 function dpa_set_theme_compat_active( $set = true ) {
@@ -186,7 +186,7 @@ function dpa_set_theme_compat_active( $set = true ) {
  *
  * @param array $templates Optional
  * @return array Returns $templates
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_set_theme_compat_templates( $templates = array() ) {
 	achievements()->theme_compat->templates = $templates;
@@ -202,7 +202,7 @@ function dpa_set_theme_compat_templates( $templates = array() ) {
  *
  * @param string $template Optional
  * @return string Returns $template
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_set_theme_compat_template( $template = '' ) {
 	achievements()->theme_compat->template = $template;
@@ -218,7 +218,7 @@ function dpa_set_theme_compat_template( $template = '' ) {
  *
  * @param string $template Optional
  * @return string Returns $template
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_set_theme_compat_original_template( $template = '' ) {
 	achievements()->theme_compat->original_template = $template;
@@ -232,7 +232,7 @@ function dpa_set_theme_compat_original_template( $template = '' ) {
  *
  * @param string $template Optional
  * @return bool
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_is_theme_compat_original_template( $template = '' ) {
 	if ( empty( achievements()->theme_compat->original_template ) )
@@ -246,7 +246,7 @@ function dpa_is_theme_compat_original_template( $template = '' ) {
  *
  * @param array|DPA_Theme_Compat $theme Optional. Accept an array to create a DPA_Theme_Compat object from, or an actual object.
  * @param bool $override Optional. Defaults to true. If false, and a package with the same ID is already registered, then don't override it.
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_register_theme_package( $theme = array(), $override = true ) {
 	// Create new DPA_Theme_Compat object from the $theme argument
@@ -269,7 +269,7 @@ function dpa_register_theme_package( $theme = array(), $override = true ) {
  * @global WP_Query $wp_query
  * @global object $post
  * @param array $args Optional
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_theme_compat_reset_post( $args = array() ) {
 	global $wp_query, $post;
@@ -396,7 +396,7 @@ function dpa_theme_compat_reset_post( $args = array() ) {
  * Reset main query vars and filter 'the_content' to output an Achievements template part as needed.
  *
  * @param string $template Optional
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_template_include_theme_compat( $template = '' ) {
 	/**
@@ -476,7 +476,7 @@ function dpa_template_include_theme_compat( $template = '' ) {
  *
  * @param string $content Optional
  * @return type
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_replace_the_content( $content = '' ) {
 	// Bail if not inside the main query loop
@@ -563,7 +563,7 @@ function dpa_replace_the_content( $content = '' ) {
  * @global unknown $wp_rewrite
  * @param string $redirect_url Redirect url
  * @return bool|string False if it's an achievement archive or post, and on the first page of pagination, otherwise the redirect url.
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_redirect_canonical( $redirect_url ) {
 	global $wp_rewrite;
@@ -599,7 +599,7 @@ function dpa_redirect_canonical( $redirect_url ) {
  * @global WP_Filter $wp_filter
  * @param string $tag
  * @param int $priority Optional
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_remove_all_filters( $tag, $priority = 0 ) {
 	global $merged_filters, $wp_filter;
@@ -645,7 +645,7 @@ function dpa_remove_all_filters( $tag, $priority = 0 ) {
  * @global WP_Filter $wp_filter
  * @param string $tag
  * @param int $priority
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_restore_all_filters( $tag, $priority = false ) {
 	global $merged_filters, $wp_filter;

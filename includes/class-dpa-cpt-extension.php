@@ -37,7 +37,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  *
  * Simples.
  *
- * @since 3.0
+ * @since Achievements (3.0)
  */
 abstract class DPA_CPT_Extension extends DPA_Extension {
 	/**
@@ -45,14 +45,14 @@ abstract class DPA_CPT_Extension extends DPA_Extension {
 	 *
 	 * @see DPA_CPT_Extension::event_name();
 	 * @see DPA_Extension::get_generic_cpt_actions();
-	 * @since 3.0
+	 * @since Achievements (3.0)
 	 */
 	protected $generic_cpt_actions = array();
 
 	/**
 	 * Constructor
 	 *
-	 * @since 3.0
+	 * @since Achievements (3.0)
 	 */
 	public function __construct() {
 		add_filter( 'dpa_filter_events',     array( $this, 'get_generic_cpt_actions' ), 1,  1 );
@@ -64,7 +64,7 @@ abstract class DPA_CPT_Extension extends DPA_Extension {
 	 *
 	 * @param array $events
 	 * @return array
- 	 * @since 3.0
+ 	 * @since Achievements (3.0)
  	 */
  	public function get_generic_cpt_actions( $events ) {
  		return array_merge( $events, $this->generic_cpt_actions );
@@ -79,7 +79,7 @@ abstract class DPA_CPT_Extension extends DPA_Extension {
 	 * @param string $name Action name
 	 * @param array $func_args Optional; action's arguments, from func_get_args().
 	 * @return string|bool Action name or false to skip any further processing
-	 * @since 3.0
+	 * @since Achievements (3.0)
 	 */
 	abstract function event_name( $event_name, $func_args );
 
@@ -97,7 +97,7 @@ abstract class DPA_CPT_Extension extends DPA_Extension {
 	 * @param string $event_name Name of the event
 	 * @param array  $func_args  Arguments that were passed to the action
 	 * @return int New user ID
-	 * @since 3.0
+	 * @since Achievements (3.0)
 	 */
 	public function get_post_author( $user_id, $event_name, $func_args ) {
 		$post = $func_args[0];

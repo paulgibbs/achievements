@@ -13,11 +13,11 @@ if ( ! class_exists( 'DPA_Shortcodes' ) ) :
 /**
  * Achievements shortcode class
  *
- * @since 3.0
+ * @since Achievements (3.0)
  */
 class DPA_Shortcodes {
 	/**
-	 * @since 3.0
+	 * @since Achievements (3.0)
 	 * @var array Shortcode => function
 	 */
 	public $codes = array();
@@ -25,7 +25,7 @@ class DPA_Shortcodes {
 	/**
 	 * Constructor
 	 *
-	 * @since 3.0
+	 * @since Achievements (3.0)
 	 */
 	public function __construct() {
 		$this->setup_globals();
@@ -35,7 +35,7 @@ class DPA_Shortcodes {
 	/**
 	 * Shortcode globals
 	 *
-	 * @since 3.0
+	 * @since Achievements (3.0)
 	 */
 	private function setup_globals() {
 		// Setup the shortcodes
@@ -51,7 +51,7 @@ class DPA_Shortcodes {
 	/**
 	 * Register Achievements' shortcodes
 	 *
-	 * @since 3.0
+	 * @since Achievements (3.0)
 	 */
 	private function add_shortcodes() {
 		// Loop through and add the shortcodes
@@ -62,7 +62,7 @@ class DPA_Shortcodes {
 	/**
 	 * Unset some globals in the achievements() object that hold query related info
 	 *
-	 * @since 3.0
+	 * @since Achievements (3.0)
 	 */
 	private function unset_globals() {
 		// Unset global queries
@@ -89,7 +89,7 @@ class DPA_Shortcodes {
 	 * in the correct location in the_content() instead of when it's created.
 	 *
 	 * @param string $query_name Optional
-	 * @since 3.0
+	 * @since Achievements (3.0)
 	 */
 	private function start( $query_name = '' ) {
 		// Set query name
@@ -106,7 +106,7 @@ class DPA_Shortcodes {
 	 * Return the contents of the output buffer and flush its contents.
 	 *
 	 * @return string Contents of output buffer.
-	 * @since 3.0
+	 * @since Achievements (3.0)
 	 */
 	private function end() {
 		// Get contents of the output buffer
@@ -136,7 +136,7 @@ class DPA_Shortcodes {
 	 * and return to ensure that post/page contents are displayed first.
 	 *
 	 * @return string
-	 * @since 3.0
+	 * @since Achievements (3.0)
 	 */
 	public function display_achievements_index() {
 		// Unset globals
@@ -158,7 +158,7 @@ class DPA_Shortcodes {
 	 * @param array $attr
 	 * @param string $content Optional
 	 * @return string
-	 * @since 3.0
+	 * @since Achievements (3.0)
 	 */
 	public function display_achievement( $attr, $content = '' ) {
 		// Sanity check required info
@@ -194,7 +194,7 @@ class DPA_Shortcodes {
 	 * Display a breadcrumb
 	 *
 	 * @return string
-	 * @since 3.0
+	 * @since Achievements (3.0)
 	 */
 	public function display_breadcrumb() {
 		// Unset globals

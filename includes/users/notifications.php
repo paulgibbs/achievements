@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  * @param object $achievement_obj The Achievement object to send a notification for.
  * @param int $user_id ID of the user who unlocked the achievement.
  * @param int $progress_id The Progress object's ID.
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_send_notification( $achievement_obj, $user_id, $progress_id ) {
 	// Let other plugins easily bypass sending notifications.
@@ -32,7 +32,7 @@ function dpa_send_notification( $achievement_obj, $user_id, $progress_id ) {
 /**
  * Print any notifications for the current user to the page footer.
  * 
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_print_notifications() {
 	// If user's not logged in or inside the WordPress Admin, bail out.
@@ -79,7 +79,7 @@ function dpa_print_notifications() {
  *
  * @param int $user_id int Optional. The ID for the user.
  * @param int $post_id int Optional. The post ID of the achievement to clear the notification for.
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_new_notification( $user_id = 0, $post_id = 0 ) {
 	// Default to current user
@@ -110,7 +110,7 @@ function dpa_new_notification( $user_id = 0, $post_id = 0 ) {
  *
  * @param int $post_id int Optional. The post ID of the achievement to clear the notification for.
  * @param int $user_id int Optional. The ID for the user.
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_clear_notification( $post_id = 0, $user_id = 0 ) {
 	// Default to current user

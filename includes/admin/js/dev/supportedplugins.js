@@ -12,7 +12,7 @@
  * critera.
  *
  * @param object event
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_update_filters(event) {
 	event.preventDefault();

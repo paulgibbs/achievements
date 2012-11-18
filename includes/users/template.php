@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  * Output the avatar link of a user
  *
  * @param array $args See dpa_get_user_avatar_link() documentation.
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_user_avatar_link( $args = array() ) {
 	echo dpa_get_user_avatar_link( $args );
@@ -26,7 +26,7 @@ function dpa_user_avatar_link( $args = array() ) {
 	 *  - string $type What type of link to return; either "avatar", "name", or "both".
 	 *  - int $user_id The ID for the user.
 	 * @return string
-	 * @since 3.0
+	 * @since Achievements (3.0)
 	 */
 	function dpa_get_user_avatar_link( $args = array() ) {
 		$defaults = array(

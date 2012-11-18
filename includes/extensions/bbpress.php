@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 /**
  * Extends Achievements to support actions from bbPress
  *
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_init_bbpress_extension() {
 	achievements()->extensions->bbpress = new DPA_bbPress_Extension;
@@ -27,7 +27,7 @@ add_action( 'dpa_ready', 'dpa_init_bbpress_extension' );
 /**
  * Extension to add bbPress support to Achievements
  *
- * @since 3.0
+ * @since Achievements (3.0)
  */
 class DPA_bbPress_Extension extends DPA_CPT_Extension {
 	/**
@@ -35,7 +35,7 @@ class DPA_bbPress_Extension extends DPA_CPT_Extension {
 	 *
 	 * Sets up extension properties. See class phpdoc for details.
 	 *
-	 * @since 3.0
+	 * @since Achievements (3.0)
 	 */
 	public function __construct() {
 		$this->actions = array(
@@ -109,7 +109,7 @@ class DPA_bbPress_Extension extends DPA_CPT_Extension {
 	 * @param string $name Action name
 	 * @param array $func_args Optional; action's arguments, from func_get_args().
 	 * @return string|bool Action name or false to skip any further processing
-	 * @since 3.0
+	 * @since Achievements (3.0)
 	 */
 	function event_name( $event_name, $func_args ) {
 		// Check we're dealing with the right type of event
@@ -142,7 +142,7 @@ class DPA_bbPress_Extension extends DPA_CPT_Extension {
 	 * @param string $action_name
 	 * @param array $action_func_args The action's arguments from func_get_args().
 	 * @return int|false New user ID or false to skip any further processing
-	 * @since 3.0
+	 * @since Achievements (3.0)
 	 */
 	public function event_user_id( $user_id, $action_name, $action_func_args ) {
 		// Only deal with events added by this extension.

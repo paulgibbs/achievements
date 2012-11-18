@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  * 
  * @param int $user_id Optional. The user ID to check
  * @return bool True if public, false if not
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_is_user_active( $user_id = 0 ) {
 	// Default to current user
@@ -43,7 +43,7 @@ function dpa_is_user_active( $user_id = 0 ) {
  *
  * @param int|WP_User $user_id int Optional. The ID for the user, or a WP_User object.
  * @return bool True if spammer, False if not.
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_is_user_spammer( $user_id = 0 ) {
 	// Default to current user
@@ -85,7 +85,7 @@ function dpa_is_user_spammer( $user_id = 0 ) {
  * Mark a user's stuff as spam (or just delete it) when the user is marked as spam
  *
  * @param int $user_id Optional. User ID to spam.
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_make_spam_user( $user_id = 0 ) {
 	// Bail if no user ID
@@ -103,7 +103,7 @@ function dpa_make_spam_user( $user_id = 0 ) {
  * Mark a user's stuff as ham when the user is marked as not a spammer
  *
  * @param int $user_id Optional. User ID to unspam.
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_make_ham_user( $user_id = 0 ) {
 	// Bail if no user ID
@@ -122,7 +122,7 @@ function dpa_make_ham_user( $user_id = 0 ) {
  *
  * @param int|WP_User $user_id int Optional. The ID for the user, or a WP_User object.
  * @return bool True if deleted, False if not.
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_is_user_deleted( $user_id = 0 ) {
 	// Default to current user

@@ -25,7 +25,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  *
  * @param array|string $args All the arguments supported by {@link WP_Query}, and some more.
  * @return bool Returns true if the query has any results to loop over
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_has_achievements( $args = array() ) {
 	// If multisite and running network-wide, switch_to_blog to the data store site
@@ -169,7 +169,7 @@ function dpa_has_achievements( $args = array() ) {
  * Whether there are more achievements available in the loop
  *
  * @return bool True if posts are in the loop
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_achievements() {
 	$have_posts = achievements()->achievement_query->have_posts();
@@ -190,7 +190,7 @@ function dpa_achievements() {
  * Iterate the post index in the loop. Retrieves the next post, sets up the post, sets the 'in the loop' property to true.
  *
  * @return bool
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_the_achievement() {
 	return achievements()->achievement_query->the_post();
@@ -200,7 +200,7 @@ function dpa_the_achievement() {
  * Retrieve the ID of the current item in the achievement loop.
  *
  * @return int
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_get_the_achievement_ID() {
 	return achievements()->achievement_query->post->ID;
@@ -210,7 +210,7 @@ function dpa_get_the_achievement_ID() {
  * Output the achievement archive title
  *
  * @param string $title Optional. Default text to use as title
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_achievement_archive_title( $title = '' ) {
 	echo dpa_get_achievement_archive_title( $title );
@@ -220,7 +220,7 @@ function dpa_achievement_archive_title( $title = '' ) {
 	 *
 	 * @param string $title Optional. Default text to use as title
 	 * @return string The achievement archive title
-	 * @since 3.0
+	 * @since Achievements (3.0)
 	 */
 	function dpa_get_achievement_archive_title( $title = '' ) {
 		// If no title was passed
@@ -246,7 +246,7 @@ function dpa_achievement_archive_title( $title = '' ) {
  *
  * @param int $achievement_id Optional. Achievement ID
  * @see dpa_get_achievement_title()
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_achievement_title( $achievement_id = 0 ) {
 	echo dpa_get_achievement_title( $achievement_id );
@@ -256,7 +256,7 @@ function dpa_achievement_title( $achievement_id = 0 ) {
 	 *
 	 * @param int $achievement_id Optional. Achievement ID to get title of.
 	 * @return string Title of achievement
-	 * @since 3.0
+	 * @since Achievements (3.0)
 	 */
 	function dpa_get_achievement_title( $achievement_id = 0 ) {
 		$achievement_id = dpa_get_achievement_ID( $achievement_id );
@@ -270,7 +270,7 @@ function dpa_achievement_title( $achievement_id = 0 ) {
  *
  * @param int $achievement_id Optional. Achievement ID
  * @param string $redirect_to Optional
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_achievement_permalink( $achievement_id = 0, $redirect_to = '' ) {
 	echo dpa_get_achievement_permalink( $achievement_id, $redirect_to );
@@ -281,7 +281,7 @@ function dpa_achievement_permalink( $achievement_id = 0, $redirect_to = '' ) {
 	 * @param int $achievement_id Optional. Achievement ID
 	 * @param string $redirect_to Optional
 	 * @return string
-	 * @since 3.0
+	 * @since Achievements (3.0)
 	 */
 	function dpa_get_achievement_permalink( $achievement_id = 0, $redirect_to = '' ) {
 		$achievement_id = dpa_get_achievement_id( $achievement_id );
@@ -302,7 +302,7 @@ function dpa_achievement_permalink( $achievement_id = 0, $redirect_to = '' ) {
  *
  * @param int $achievement_id Optional
  * @see dpa_get_achievement_id()
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_achievement_id( $achievement_id = 0 ) {
 	echo dpa_get_achievement_id( $achievement_id );
@@ -313,7 +313,7 @@ function dpa_achievement_id( $achievement_id = 0 ) {
 	 * @global WP_Query $wp_query
 	 * @param int $achievement_id Optional
 	 * @return int The achievement ID
-	 * @since 3.0
+	 * @since Achievements (3.0)
 	 */
 	function dpa_get_achievement_id( $achievement_id = 0 ) {
 		global $wp_query;
@@ -344,7 +344,7 @@ function dpa_achievement_id( $achievement_id = 0 ) {
  * Output the author ID of the achievement
  *
  * @param int $achievement_id Optional. Achievement ID
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_achievement_author_id( $achievement_id = 0 ) {
 	echo dpa_get_achievement_author_id( $achievement_id );
@@ -354,7 +354,7 @@ function dpa_achievement_author_id( $achievement_id = 0 ) {
 	 *
 	 * @param int $achievement_id Optional. Achievement ID
 	 * @return int User ID
-	 * @since 3.0
+	 * @since Achievements (3.0)
 	 */
 	function dpa_get_achievement_author_id( $achievement_id = 0 ) {
 		$achievement_id = dpa_get_achievement_id( $achievement_id );
@@ -371,7 +371,7 @@ function dpa_achievement_author_id( $achievement_id = 0 ) {
  * @param string $more_link_text Optional. Content for when there is more text.
  * @param bool $stripteaser Optional. Strip teaser content before the more text. Default is false.
  * @param int $achievement_id Optional. Achievement ID
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_achievement_content( $more_link_text = null, $stripteaser = false, $achievement_id = 0 ) {
 	$content = dpa_get_achievement_content( $more_link_text, $stripteaser, $achievement_id );
@@ -388,7 +388,7 @@ function dpa_achievement_content( $more_link_text = null, $stripteaser = false, 
 	 * @param bool $stripteaser Optional. Strip teaser content before the more text. Default is false.
 	 * @param int $achievement_id Optional. Achievement ID
 	 * @return string Content of the achievement post
-	 * @since 3.0
+	 * @since Achievements (3.0)
 	 */
 	function dpa_get_achievement_content( $more_link_text = null, $stripteaser = false, $achievement_id = 0 ) {
 		global $more, $page, $pages, $multipage, $preview;
@@ -442,7 +442,7 @@ function dpa_achievement_content( $more_link_text = null, $stripteaser = false, 
  * Output the points value of the achievement.
  *
  * @param int $achievement_id Optional. Achievement ID
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_achievement_points( $achievement_id = 0 ) {
 	echo number_format_i18n( dpa_get_achievement_points( $achievement_id ) );
@@ -452,7 +452,7 @@ function dpa_achievement_points( $achievement_id = 0 ) {
 	 *
 	 * @param int $achievement_id Optional. Achievement ID
 	 * @return int
-	 * @since 3.0
+	 * @since Achievements (3.0)
 	 */
 	function dpa_get_achievement_points( $achievement_id = 0 ) {
 		$achievement_id = dpa_get_achievement_id( $achievement_id );
@@ -466,7 +466,7 @@ function dpa_achievement_points( $achievement_id = 0 ) {
  * The target is the number of times that an achievement's events must occur before the achievement is unlocked.
  *
  * @param int $achievement_id Optional. Achievement ID
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_achievement_target( $achievement_id = 0 ) {
 	echo number_format_i18n( dpa_get_achievement_target( $achievement_id ) );
@@ -477,7 +477,7 @@ function dpa_achievement_target( $achievement_id = 0 ) {
 	 *
 	 * @param int $achievement_id Optional. Achievement ID
 	 * @return int
-	 * @since 3.0
+	 * @since Achievements (3.0)
 	 */
 	function dpa_get_achievement_target( $achievement_id = 0 ) {
 		$achievement_id = dpa_get_achievement_id( $achievement_id );
@@ -491,7 +491,7 @@ function dpa_achievement_target( $achievement_id = 0 ) {
  *
  * @param int $achievement_id Optional. Achievement ID
  * @param int $length Optional. Length of the excerpt. Defaults to 200 letters
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_achievement_excerpt( $achievement_id = 0, $length = 200 ) {
 	echo dpa_get_achievement_excerpt( $achievement_id, $length );
@@ -502,7 +502,7 @@ function dpa_achievement_excerpt( $achievement_id = 0, $length = 200 ) {
 	 * @param int $achievement_id Optional. Achievement ID.
 	 * @param int $length Optional. Length of the excerpt. Defaults to 200 letters
 	 * @return string Achievement excerpt
-	 * @since 3.0
+	 * @since Achievements (3.0)
 	 * @todo Handle multibyte characters when generating an excerpt
 	 * @todo Don't cut off part of a word; go to the nearest space
 	 */
@@ -541,7 +541,7 @@ function dpa_achievement_excerpt( $achievement_id = 0, $length = 200 ) {
  * @param int $achievement_id Optional. Achievement ID.
  * @param bool $humanise Optional. Humanise output using time_since. Defaults to false.
  * @param bool $gmt Optional. Use GMT.
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_achievement_post_date( $achievement_id = 0, $humanise = false, $gmt = false ) {
 	echo dpa_get_achievement_post_date( $achievement_id, $humanise, $gmt );
@@ -553,7 +553,7 @@ function dpa_achievement_post_date( $achievement_id = 0, $humanise = false, $gmt
 	 * @param bool $humanise Optional. Humanise output using time_since. Defaults to false.
 	 * @param bool $gmt Optional. Use GMT.
 	 * @return string
-	 * @since 3.0
+	 * @since Achievements (3.0)
 	 */
 	function dpa_get_achievement_post_date( $achievement_id = 0, $humanise = false, $gmt = false ) {
 		$achievement_id = dpa_get_achievement_id( $achievement_id );
@@ -580,7 +580,7 @@ function dpa_achievement_post_date( $achievement_id = 0, $humanise = false, $gmt
  * number of public and hidden achievements.
  *
  * @param array $args Optional. Arguments passed to alter output
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_achievements_index_description( $args = '' ) {
 	echo dpa_get_achievements_index_description( $args );
@@ -595,7 +595,7 @@ function dpa_achievements_index_description( $args = '' ) {
 	 *  - after: After the text
 	 *  - size: Size of the avatar
 	 * @return string Fancy description
-	 * @since 3.0
+	 * @since Achievements (3.0)
 	 */
 	function dpa_get_achievements_index_description( $args = '' ) {
 		$defaults = array(
@@ -651,7 +651,7 @@ function dpa_achievements_index_description( $args = '' ) {
  * Output the row class of an achievement
  *
  * @param int $achievement_id Optional. Achievement ID
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_achievement_class( $achievement_id = 0 ) {
 	echo dpa_get_achievement_class( $achievement_id );
@@ -661,7 +661,7 @@ function dpa_achievement_class( $achievement_id = 0 ) {
 	 *
 	 * @param int $achievement_id Optional. Achievement ID
 	 * @return string Row class of an achievement
-	 * @since 3.0
+	 * @since Achievements (3.0)
 	 */
 	function dpa_get_achievement_class( $achievement_id = 0 ) {
 		$achievement_id = dpa_get_achievement_id( $achievement_id );
@@ -692,7 +692,7 @@ function dpa_achievement_class( $achievement_id = 0 ) {
 /**
  * Displays achievement notices
  *
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_achievement_notices() {
 	// Bail if not viewing an achievement
@@ -718,7 +718,7 @@ function dpa_achievement_notices() {
 /**
  * Output the pagination count
  *
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_achievement_pagination_count() {
 	echo dpa_get_achievement_pagination_count();
@@ -727,7 +727,7 @@ function dpa_achievement_pagination_count() {
 	 * Return the pagination count
 	 *
 	 * @return string Achievement pagination count
-	 * @since 3.0
+	 * @since Achievements (3.0)
 	 */
 	function dpa_get_achievement_pagination_count() {
 		if ( empty( achievements()->achievement_query ) )
@@ -755,7 +755,7 @@ function dpa_achievement_pagination_count() {
 /**
  * Output pagination links
  *
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_achievement_pagination_links() {
 	echo dpa_get_achievement_pagination_links();
@@ -764,7 +764,7 @@ function dpa_achievement_pagination_links() {
 	 * Return pagination links
 	 *
 	 * @return string Pagination links
-	 * @since 3.0
+	 * @since Achievements (3.0)
 	 */
 	function dpa_get_achievement_pagination_links() {
 		if ( empty( achievements()->achievement_query ) )

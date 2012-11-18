@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  * Get the default user options and their values
  *
  * @return array
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_get_default_user_options() {
 	return apply_filters( 'dpa_get_default_user_options', array(
@@ -29,7 +29,7 @@ function dpa_get_default_user_options() {
  * This is destructive, so existing Achievements user options will be overridden.
  *
  * @param int $user_id Optional; defaults to current user
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_add_user_options( $user_id = 0 ) {
 	// Default to current user
@@ -58,7 +58,7 @@ function dpa_add_user_options( $user_id = 0 ) {
  * This is destructive, so existing Achievements user options will be destroyed.
  *
  * @param int $user_id Optional; defaults to current user
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_delete_user_options( $user_id = 0 ) {
 	// Default to current user
@@ -83,7 +83,7 @@ function dpa_delete_user_options( $user_id = 0 ) {
  * Add filters to each Achievement option and allow them to be overloaded from
  * inside the achievements()->options array.
  *
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_setup_user_option_filters() {
 	// Add filters to each Achievements option
@@ -98,7 +98,7 @@ function dpa_setup_user_option_filters() {
  * Filter default options and allow them to be overloaded from inside the
  * achievements()->user_options array.
  *
- * @since 3.0
+ * @since Achievements (3.0)
  * @param bool $value Optional. Fallback value if none found (default is false).
  * @param string $option Optional. Option name
  * @param WP_User $user Optional. User to get option for
@@ -118,7 +118,7 @@ function dpa_filter_get_user_option( $value = false, $option = '', $user = null 
  * @param int $user_id Optional. User ID to update. Optional, defaults to current logged in user.
  * @param int $new_value Optional.  The new value.
  * @return bool False if no user or failure, true if successful
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_update_user_unlocked_count( $user_id = 0, $new_value = 0 ) {
 	// Default to current user
@@ -140,7 +140,7 @@ function dpa_update_user_unlocked_count( $user_id = 0, $new_value = 0 ) {
  * Output the total of how many achievements that this user has unlocked
  *
  * @param int $user_id Optional. User ID to retrieve value for
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_user_unlocked_count( $user_id = 0 ) {
 	echo number_format_i18n( dpa_get_user_unlocked_count( $user_id ) );
@@ -151,7 +151,7 @@ function dpa_user_unlocked_count( $user_id = 0 ) {
 	 *
 	 * @param int $user_id Optional. User ID to retrieve value for
 	 * @return mixed False if no user, option value otherwise.
-	 * @since 3.0
+	 * @since Achievements (3.0)
 	 */
 	function dpa_get_user_unlocked_count( $user_id = 0 ) {
 		// Default to current user
@@ -177,7 +177,7 @@ function dpa_user_unlocked_count( $user_id = 0 ) {
  * @param int $new_value Optional. The new value
  * @param int $user_id User ID to update. Optional, defaults to current logged in user.
  * @return bool False if no user or failure, true if successful
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_update_user_points( $new_value = 0, $user_id = 0 ) {
 	// Default to current user
@@ -199,7 +199,7 @@ function dpa_update_user_points( $new_value = 0, $user_id = 0 ) {
  * Output the user's points total
  *
  * @param int $user_id Optional. User ID to retrieve value for
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_user_points( $user_id = 0 ) {
 	echo number_format_i18n( dpa_get_user_points( $user_id ) );
@@ -210,7 +210,7 @@ function dpa_user_points( $user_id = 0 ) {
 	 *
 	 * @param int $user_id Optional. User ID to retrieve value for
 	 * @return mixed False if no user, option value otherwise.
-	 * @since 3.0
+	 * @since Achievements (3.0)
 	 */
 	function dpa_get_user_points( $user_id = 0 ) {
 		// Default to current user
@@ -236,7 +236,7 @@ function dpa_user_points( $user_id = 0 ) {
  * @param array $new_value Optional. The new value
  * @param int $user_id User ID to update. Optional, defaults to current logged in user.
  * @return bool False if no user or failure, true if successful
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_update_user_notifications( $new_value = array(), $user_id = 0 ) {
 	// Default to current user
@@ -259,7 +259,7 @@ function dpa_update_user_notifications( $new_value = array(), $user_id = 0 ) {
  *
  * @param int $user_id Optional. User ID to retrieve value for
  * @return array
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_get_user_notifications( $user_id = 0 ) {
 	// Default to current user

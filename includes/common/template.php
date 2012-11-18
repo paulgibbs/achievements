@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  * Ouput the achievements post type URL
  * 
  * @param string $path Additional path with leading slash
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_achievements_url( $path = '/' ) {
 	echo dpa_get_achievements_url( $path );
@@ -26,7 +26,7 @@ function dpa_achievements_url( $path = '/' ) {
 	 * Return the achievements post type URL
 	 * 
 	 * @param string $path Additional path with leading slash
-	 * @since 3.0
+	 * @since Achievements (3.0)
 	 */
 	function dpa_get_achievements_url( $path = '/' ) {
 		return home_url( dpa_get_root_slug() . $path );
@@ -40,7 +40,7 @@ function dpa_achievements_url( $path = '/' ) {
 /**
  * Add our custom head action to wp_head
  *
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_head() {
 	do_action( 'dpa_head' );
@@ -49,7 +49,7 @@ function dpa_head() {
 /**
  * Add our custom head action to wp_head
  *
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_footer() {
 	do_action( 'dpa_footer' );
@@ -65,7 +65,7 @@ function dpa_footer() {
  *
  * @param int $post_id Optional. Possible post_id to check
  * @return bool True if it's an achievement page, false if not
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_is_achievement( $post_id = 0 ) {
 	$retval = false;
@@ -81,7 +81,7 @@ function dpa_is_achievement( $post_id = 0 ) {
  * Check if we are viewing an achievement post type archive page.
  *
  * @return bool
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_is_achievement_archive() {
 	$retval = false;
@@ -97,7 +97,7 @@ function dpa_is_achievement_archive() {
  * Viewing a single achievement page
  *
  * @return bool
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_is_single_achievement() {
 	$retval = false;
@@ -114,7 +114,7 @@ function dpa_is_single_achievement() {
  *
  * @param mixed $the_post Optional. Post object or post ID.
  * @return bool
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_is_custom_post_type( $the_post = false ) {
 	$retval = false;
@@ -132,7 +132,7 @@ function dpa_is_custom_post_type( $the_post = false ) {
  * @param array $wp_classes
  * @param array $custom_classes Optional
  * @return array Body Classes
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_body_class( $wp_classes, $custom_classes = array() ) {
 	$achievements_classes = array();
@@ -164,7 +164,7 @@ function dpa_body_class( $wp_classes, $custom_classes = array() ) {
  * Use the above is_() functions to return if in any Achievements page
  *
  * @return bool In an Achievements page
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function is_achievements() {
 	$retval = false;
@@ -193,7 +193,7 @@ function is_achievements() {
  *
  * @param string $request Name of $_REQUEST to look for
  * @param string $input_type Type of input. Optional. Default: text. Accepts: textarea|password|select|radio|checkbox
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_sanitise_val( $request, $input_type = 'text' ) {
 	echo dpa_get_sanitise_val( $request, $input_type );
@@ -207,7 +207,7 @@ function dpa_sanitise_val( $request, $input_type = 'text' ) {
 	 * @param string $request Name of $_REQUEST to look for
 	 * @param string $input_type Type of input. Optional. Default: text. Accepts: textarea|password|select|radio|checkbox
 	 * @return string Sanitised value ready for screen display
-	 * @since 3.0
+	 * @since Achievements (3.0)
 	 */
 	function dpa_get_sanitise_val( $request, $input_type = 'text' ) {
 		// Check that requested variable exists
@@ -249,7 +249,7 @@ function dpa_sanitise_val( $request, $input_type = 'text' ) {
  *
  * @param string $name
  * @return bool True if match, false if not
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_is_query_name( $name )  {
 	return (bool) ( dpa_get_query_name() == $name );
@@ -259,7 +259,7 @@ function dpa_is_query_name( $name )  {
  * Get the '_dpa_query_name' setting
  *
  * @return string To return the query var value
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_get_query_name() {
 	return get_query_var( '_dpa_query_name' );
@@ -269,7 +269,7 @@ function dpa_get_query_name() {
  * Set the '_dpa_query_name' setting to $name
  *
  * @param string $name What to set the query var to
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_set_query_name( $name = '' )  {
 	set_query_var( '_dpa_query_name', $name );
@@ -278,7 +278,7 @@ function dpa_set_query_name( $name = '' )  {
 /**
  * Used to clear the '_dpa_query_name' setting
  *
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_reset_query_name() {
 	dpa_set_query_name();
@@ -294,7 +294,7 @@ function dpa_reset_query_name() {
  *
  * @param array $args Optional. See dpa_get_breadcrumb()
  * @see dpa_get_breadcrumb()
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_title_breadcrumb( $args = array() ) {
 	echo dpa_get_breadcrumb( $args );
@@ -304,7 +304,7 @@ function dpa_title_breadcrumb( $args = array() ) {
  * Output a breadcrumb
  *
  * @param array $args Optional. See dpa_get_breadcrumb()
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_breadcrumb( $args = array() ) {
 	echo dpa_get_breadcrumb( $args );
@@ -314,7 +314,7 @@ function dpa_breadcrumb( $args = array() ) {
 	 *
 	 * @param array $args Optional.
 	 * @return string Breadcrumbs
-	 * @since 3.0
+	 * @since Achievements (3.0)
 	 * @todo Achievements - phpDoc for $args. Contribute back to bbPress.
 	 */
 	function dpa_get_breadcrumb( $args = array() ) {
@@ -530,7 +530,7 @@ function dpa_breadcrumb( $args = array() ) {
 /**
  * Display possible errors & messages inside a template file
  *
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_template_notices() {
 	// Bail if no notices or errors
@@ -589,7 +589,7 @@ function dpa_template_notices() {
  * @param string $sep Optional, default is '&raquo;'. How to separate each part within the page title.
  * @param string $seplocation Optional. Direction to display title, 'right'.
  * @return string The title
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_title( $title = '', $sep = '&raquo;', $seplocation = '' ) {
 	// Store original title to compare

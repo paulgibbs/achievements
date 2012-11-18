@@ -24,14 +24,14 @@ if ( ! class_exists( 'DPA_Default' ) ) :
  *
  * See @link DPA_Theme_Compat() for more.
  *
- * @since 3.0
+ * @since Achievements (3.0)
  */
 class DPA_Default extends DPA_Theme_Compat {
 
 	/**
 	 * Constructor
 	 *
-	 * @since 3.0
+	 * @since Achievements (3.0)
 	 */
 	public function __construct() {
 		$this->setup_globals();
@@ -41,7 +41,7 @@ class DPA_Default extends DPA_Theme_Compat {
 	/**
 	 * Sets up global variables
 	 *
-	 * @since 3.0
+	 * @since Achievements (3.0)
 	 */
 	private function setup_globals() {
 		$this->id      = 'default';
@@ -54,7 +54,7 @@ class DPA_Default extends DPA_Theme_Compat {
 	/**
 	 * Sets up the theme hooks
 	 *
-	 * @since 3.0
+	 * @since Achievements (3.0)
 	 */
 	private function setup_actions() {
 		// Template pack
@@ -74,7 +74,7 @@ class DPA_Default extends DPA_Theme_Compat {
 	/**
 	 * Load the theme CSS
 	 *
-	 * @since 3.0
+	 * @since Achievements (3.0)
 	 * @todo LTR CSS
 	 */
 	public function enqueue_styles() {
@@ -107,7 +107,7 @@ class DPA_Default extends DPA_Theme_Compat {
 	/**
 	 * Load the CSS for notifications
 	 *
-	 * @since 3.0
+	 * @since Achievements (3.0)
 	 * @todo LTR CSS
 	 */
 	public function enqueue_notifications_style() {
@@ -141,7 +141,7 @@ class DPA_Default extends DPA_Theme_Compat {
 	/**
 	 * Enqueue the required Javascript files
 	 *
-	 * @since 3.0
+	 * @since Achievements (3.0)
 	 */
 	public function enqueue_scripts() {
 		$notifications = dpa_get_user_notifications();

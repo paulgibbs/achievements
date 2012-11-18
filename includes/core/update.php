@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  * If there is no raw DB version, this is the first installation
  *
  * @return bool True if update, False if not
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_is_install() {
 	return ! dpa_get_db_version_raw();
@@ -24,7 +24,7 @@ function dpa_is_install() {
  * Compare the Achievements version to the DB version to determine if updating
  *
  * @return bool True if update, False if not
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_is_update() {
 	return (bool) ( (int) dpa_get_db_version_raw() < (int) dpa_get_db_version() );
@@ -35,7 +35,7 @@ function dpa_is_update() {
  *
  * @param string $basename Optional
  * @return bool True if activating Achievements, false if not
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_is_activation( $basename = '' ) {
 	$action = false;
@@ -72,7 +72,7 @@ function dpa_is_activation( $basename = '' ) {
  *
  * @param string $basename Optional
  * @return bool True if deactivating Achievements, false if not
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_is_deactivation( $basename = '' ) {
 	$action = false;
@@ -107,7 +107,7 @@ function dpa_is_deactivation( $basename = '' ) {
 /**
  * Update Achievements to the latest version
  *
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_version_bump() {
 	$db_version = dpa_get_db_version();
@@ -117,7 +117,7 @@ function dpa_version_bump() {
 /**
  * Set up Achievements' updater
  *
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_setup_updater() {
 	// Bail if no update needed
@@ -135,7 +135,7 @@ function dpa_setup_updater() {
  * This is most-often used when the data schema changes, but should also be used
  * to correct issues with Achievements meta-data silently on software update.
  *
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_version_updater() {
 	// Get the raw database version
@@ -154,7 +154,7 @@ function dpa_version_updater() {
  * Create initial content on plugin activation or on a new site (in multisite).
  *
  * @param array $args Array of arguments to override default values
- * @since 3.0
+ * @since Achievements (3.0)
  * @todo This. Add a 'hello world' achievement.
  */
 function dpa_create_initial_content( $args = array() ) {

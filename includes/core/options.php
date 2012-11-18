@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  * Get the default site options and their values
  *
  * @return array Option names and values
- * @since 3.0
+ * @since Achievements (3.0)
  * @todo When dpa_get_default_options() are updated and multisite and network-wide are enabled, copy values to site options.
  */
 function dpa_get_default_options() {
@@ -50,7 +50,7 @@ function dpa_get_default_options() {
  * This is only called when the plugin is activated and is non-destructive,
  * so existing settings will not be overridden.
  *
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_add_options() {
 	$options = dpa_get_default_options();
@@ -69,7 +69,7 @@ function dpa_add_options() {
  * Hooked to dpa_uninstall, it is only called when the plugin is uninstalled.
  * This is destructive, so existing settings will be destroyed.
  *
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_delete_options() {
 	// Delete default options
@@ -84,7 +84,7 @@ function dpa_delete_options() {
  * Add filters to each Achievements option and allow them to be overloaded
  * from inside the achievements()->options array.
  * 
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_setup_option_filters() {
 	// Add filters to each option
@@ -101,7 +101,7 @@ function dpa_setup_option_filters() {
  *
  * @param string $value
  * @return mixed
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_pre_get_option( $value = '' ) {
 	// Get the name of the current filter so we can manipulate it, and remove the filter prefix
@@ -124,7 +124,7 @@ function dpa_pre_get_option( $value = '' ) {
  *
  * @param string $default Optional. Default value 'default'
  * @return string ID of the subtheme
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_get_theme_package_id( $default = 'default' ) {
 	return apply_filters( 'dpa_get_theme_package_id', get_option( '_dpa_theme_package_id', $default ) );
@@ -138,7 +138,7 @@ function dpa_get_theme_package_id( $default = 'default' ) {
  * Return the achievements per page setting
  *
  * @return int
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_get_achievements_per_page() {
 	$default = 15;
@@ -158,7 +158,7 @@ function dpa_get_achievements_per_page() {
  * Return the achievements per RSS page setting
  *
  * @return int
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_get_achievements_per_rss_page() {
 	$default = 25;
@@ -178,7 +178,7 @@ function dpa_get_achievements_per_rss_page() {
  * Return the progresses per page setting
  *
  * @return int
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_get_progresses_per_page() {
 	$default = 15;
@@ -198,7 +198,7 @@ function dpa_get_progresses_per_page() {
  * Return the progresses per RSS page setting
  *
  * @return int
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_get_progresses_per_rss_page() {
 	$default = 25;
@@ -223,7 +223,7 @@ function dpa_get_progresses_per_rss_page() {
  * Checks if the plugin across entire network, rather than on a specific site (for multisite)
  *
  * @return true
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_is_running_networkwide() {
 	return (bool) apply_filters( 'dpa_is_running_networkwide', (bool) get_site_option( '_dpa_run_networkwide', false ) );
@@ -238,7 +238,7 @@ function dpa_is_running_networkwide() {
  * Return the root slug
  *
  * @return string
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_get_root_slug( $default = 'achievements' ) {
 	return apply_filters( 'dpa_get_root_slug', get_option( '_dpa_root_slug', $default ) );
@@ -250,7 +250,7 @@ function dpa_get_root_slug( $default = 'achievements' ) {
  * This is just a wrapper function for dpa_get_root_slug() right now.
  *
  * @return string
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_get_achievement_slug() {
 	return apply_filters( 'dpa_get_achievement_slug', dpa_get_root_slug() );
@@ -268,7 +268,7 @@ function dpa_get_achievement_slug() {
  * The format is ['my_plugin' => '1.0']
  *
  * @return array
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_get_extension_versions() {
 	// If running network-wide, use the site options table
@@ -286,7 +286,7 @@ function dpa_get_extension_versions() {
  * @param array $new_value
  * @return array
  * @see dpa_get_extension_versions()
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_update_extension_versions( $new_value ) {
 	// If running network-wide, use the site options table
@@ -305,7 +305,7 @@ function dpa_update_extension_versions( $new_value ) {
  * Return the ID of the last unlocked achievement
  *
  * @return int
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_stats_get_last_achievement_id() {
 	$id = get_option( '_dpa_stats_last_achievement_id', 0 );
@@ -317,7 +317,7 @@ function dpa_stats_get_last_achievement_id() {
  * Return the ID of the user who unlocked the last achievement
  *
  * @return int
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_stats_get_last_achievement_user_id() {
 	$user_id = get_option( '_dpa_stats_last_achievement_user_id', 0 );
@@ -329,7 +329,7 @@ function dpa_stats_get_last_achievement_user_id() {
  * Set the ID of the last unlocked achievement
  *
  * @param int $achievement_id
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_stats_update_last_achievement_id( $achievement_id ) {
 	$achievement_id = apply_filters( 'dpa_stats_update_last_achievement_id', $achievement_id );
@@ -341,7 +341,7 @@ function dpa_stats_update_last_achievement_id( $achievement_id ) {
  * Set the ID of the user who unlocked the last achievement
  *
  * @param int $user_id
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_stats_update_last_achievement_user_id( $user_id ) {
 	$user_id = apply_filters( 'dpa_stats_update_last_achievement_user_id', $user_id );

@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 /**
  * Extends Achievements to support actions from BuddyPress.
  *
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_init_buddypress_extension() {
 	achievements()->extensions->buddypress = new DPA_BuddyPress_Extension;
@@ -28,7 +28,7 @@ add_action( 'dpa_ready', 'dpa_init_buddypress_extension' );
  * This function is hooked to the "bp_init" action from BuddyPress.
  * We use it to record that BuddyPress is active on the site.
  *
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_bp_loaded() {
 	achievements()->extensions->buddypress->set_bp_loaded( true );
@@ -37,13 +37,13 @@ function dpa_bp_loaded() {
 /**
  * Extension to add BuddyPress support to Achievements
  *
- * @since 3.0
+ * @since Achievements (3.0)
  */
 class DPA_BuddyPress_Extension extends DPA_Extension {
 	/**
 	 * Is BuddyPress loaded?
 	 *
-	 * @since 3.0
+	 * @since Achievements (3.0)
 	 */
 	protected $bp_loaded = false;
 
@@ -52,7 +52,7 @@ class DPA_BuddyPress_Extension extends DPA_Extension {
 	 *
 	 * Sets up extension properties. See class phpdoc for details.
 	 *
-	 * @since 3.0
+	 * @since Achievements (3.0)
 	 */
 	public function __construct() {
 		$this->actions = array(
@@ -120,7 +120,7 @@ class DPA_BuddyPress_Extension extends DPA_Extension {
 	 * @param string $action_name
 	 * @param array $action_func_args The action's arguments from func_get_args().
 	 * @return int|false New user ID or false to skip any further processing
-	 * @since 3.0
+	 * @since Achievements (3.0)
 	 */
 	public function event_user_id( $user_id, $action_name, $action_func_args ) {
 		// Only deal with events added by this extension.
@@ -147,7 +147,7 @@ class DPA_BuddyPress_Extension extends DPA_Extension {
 	 * Sets the bp_loaded property if BuddyPress is loaded.
 	 *
 	 * @param bool $bp_is_loaded
-	 * @since 3.0
+	 * @since Achievements (3.0)
 	 */
 	public function set_bp_loaded( $bp_is_loaded ) {
 		$this->bp_loaded = $bp_is_loaded;
@@ -156,7 +156,7 @@ class DPA_BuddyPress_Extension extends DPA_Extension {
 	/**
 	 * Returns true if BuddyPress is loaded.
 	 *
-	 * @since 3.0
+	 * @since Achievements (3.0)
 	 */
 	public function is_bp_loaded() {
 		return $this->bp_loaded;

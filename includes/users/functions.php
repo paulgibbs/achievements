@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  * @param object $achievement_obj The Achievement object to send a notification for.
  * @param int $user_id ID of the user who unlocked the achievement.
  * @param int $progress_id The Progress object's ID.
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_send_points( $achievement_obj, $user_id, $progress_id ) {
 	// Let other plugins easily bypass sending points.

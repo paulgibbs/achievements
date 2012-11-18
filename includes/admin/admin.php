@@ -13,7 +13,7 @@ if ( ! class_exists( 'DPA_Admin' ) ) :
 /**
  * Loads Achievements admin area thing
  *
- * @since 3.0
+ * @since Achievements (3.0)
  */
 class DPA_Admin {
 	// Paths
@@ -47,7 +47,7 @@ class DPA_Admin {
 	/**
 	 * The main Achievements admin loader
 	 *
-	 * @since 3.0
+	 * @since Achievements (3.0)
 	 */
 	public function __construct() {
 		$this->setup_globals();
@@ -58,7 +58,7 @@ class DPA_Admin {
 	/**
 	 * Set up the admin hooks, actions and filters
 	 *
-	 * @since 3.0
+	 * @since Achievements (3.0)
 	 */
 	private function setup_actions() {
 
@@ -107,7 +107,7 @@ class DPA_Admin {
 	/**
 	 * Include required files
 	 *
-	 * @since 3.0
+	 * @since Achievements (3.0)
 	 */
 	private function includes() {
 		require( $this->admin_dir . 'functions.php'         );
@@ -117,7 +117,7 @@ class DPA_Admin {
 	/**
 	 * Set admin globals
 	 *
-	 * @since 3.0
+	 * @since Achievements (3.0)
 	 */
 	private function setup_globals() {
 		$this->admin_dir      = trailingslashit( achievements()->includes_dir . 'admin'  ); // Admin path
@@ -130,7 +130,7 @@ class DPA_Admin {
 	/**
 	 * Add wp-admin menus
 	 *
-	 * @since 3.0
+	 * @since Achievements (3.0)
 	 */
 	public function admin_menus() {
 		// "Supported Plugins" menu
@@ -161,7 +161,7 @@ class DPA_Admin {
 	/**
 	 * Hook into early actions to register contextual help and screen options
 	 *
-	 * @since 3.0
+	 * @since Achievements (3.0)
 	 */
 	public function screen_options() {
 		// Only load up styles if we're on an Achievements admin screen
@@ -176,7 +176,7 @@ class DPA_Admin {
 	/**
 	 * Enqueue CSS for our custom admin screens
 	 *
-	 * @since 3.0
+	 * @since Achievements (3.0)
 	 */
 	public function enqueue_styles() {
 		// Only load up styles if we're on an Achievements admin screen
@@ -191,7 +191,7 @@ class DPA_Admin {
 	/**
 	 * Enqueue JS for our custom admin screens
 	 *
-	 * @since 3.0
+	 * @since Achievements (3.0)
 	 */
 	public function enqueue_scripts() {
 		// Only load up scripts if we're on an Achievements admin screen
@@ -212,7 +212,7 @@ class DPA_Admin {
 	/**
 	 * Register the settings
 	 *
-	 * @since 3.0
+	 * @since Achievements (3.0)
 	 */
 	public function register_admin_settings() {
 		// Only do stuff if we're on an Achievements admin screen
@@ -269,7 +269,7 @@ class DPA_Admin {
 	 * Is the current screen part of Achievements? e.g. a post type screen.
 	 *
 	 * @return bool True if this is an Achievements admin screen
-	 * @since 3.0
+	 * @since Achievements (3.0)
 	 */
 	public static function is_admin_screen() {
 		$result = false;
@@ -285,7 +285,7 @@ endif; // class_exists check
 /**
  * Set up Achievements' Admin
  *
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_admin() {
 	achievements()->admin = new DPA_Admin();

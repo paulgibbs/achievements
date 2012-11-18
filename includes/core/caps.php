@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  *
  * This is called on plugin activation.
  *
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_add_caps() {
 	global $wp_roles;
@@ -43,7 +43,7 @@ function dpa_add_caps() {
  *
  * This is called on plugin deactivation.
  *
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_remove_caps() {
 	global $wp_roles;
@@ -75,7 +75,7 @@ function dpa_remove_caps() {
  * @param int $user_id User id
  * @param mixed $args Arguments
  * @return array Actual capabilities for meta capability
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_map_meta_caps( $caps, $cap, $user_id, $args ) {
 	switch ( $cap ) {
@@ -177,7 +177,7 @@ function dpa_map_meta_caps( $caps, $cap, $user_id, $args ) {
  * Return achievement post type capabilities (mapped to meta caps)
  *
  * @return array achievement post type capabilities
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_get_achievement_caps() {
 	$caps = array(
@@ -196,7 +196,7 @@ function dpa_get_achievement_caps() {
  * Return achievement_progress post type capabilities (mapped to meta caps)
  *
  * @return array achievement_progress post type capabilities
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_get_achievement_progress_caps() {
 	$caps = array(
@@ -215,7 +215,7 @@ function dpa_get_achievement_progress_caps() {
  * Return achievement action capabilities (mapped to meta caps)
  *
  * @return array Topic tag capabilities
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_get_event_caps() {
 	$caps = array(
@@ -232,7 +232,7 @@ function dpa_get_event_caps() {
 /**
  * Returns an array of capabilities based on the role that is being requested.
  *
- * @since 3.0
+ * @since Achievements (3.0)
  *
  * @param string $role Optional. Defaults to The role to load caps for
  * @return array Capabilities for $role
@@ -316,7 +316,7 @@ function dpa_get_caps_for_role( $role = '' ) {
  * can be used during the dpa_register_post_types action.
  *
  * @return bool
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_current_user_can_see( $component = '' ) {
 	$retval = false;

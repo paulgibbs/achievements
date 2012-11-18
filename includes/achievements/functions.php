@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 /**
  * Output the unique id of the custom post type for achievement
  *
- * @since 3.0
+ * @since Achievements (3.0)
  * @uses dpa_get_achievement_post_type() To get the achievement post type
  */
 function dpa_achievement_post_type() {
@@ -22,7 +22,7 @@ function dpa_achievement_post_type() {
 	 * Return the unique id of the custom post type for achievement
 	 *
 	 * @return string The unique post type id
-	 * @since 3.0
+	 * @since Achievements (3.0)
 	 */
 	function dpa_get_achievement_post_type() {
 		return apply_filters( 'dpa_get_achievement_post_type', achievements()->achievement_post_type );
@@ -31,7 +31,7 @@ function dpa_achievement_post_type() {
 /**
  * Output the id of the authors achievements endpoint
  *
- * @since 3.0
+ * @since Achievements (3.0)
  * @uses dpa_get_authors_endpoint() To get the authors achievements endpoint
  */
 function dpa_authors_endpoint() {
@@ -41,7 +41,7 @@ function dpa_authors_endpoint() {
 	 * Return the id of the authors achievements endpoint
 	 *
 	 * @return string The endpoint
-	 * @since 3.0
+	 * @since Achievements (3.0)
 	 */
 	function dpa_get_authors_endpoint() {
 		return apply_filters( 'dpa_get_authors_endpoint', achievements()->authors_endpoint );
@@ -61,7 +61,7 @@ function dpa_get_event_tax_id() {
  * Return the total count of the number of achievements
  *
  * @return int Total achievement count
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_get_total_achievement_count() {
 	$counts = wp_count_posts( dpa_get_achievement_post_type() );
@@ -74,7 +74,7 @@ function dpa_get_total_achievement_count() {
  * @param object $achievement_obj The Achievement object.
  * @param int $user_id ID of the user who unlocked the achievement.
  * @param int $progress_id The Progress object's ID.
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_update_achievement_stats( $achievement_obj, $user_id, $progress_id ) {
 	// Update the 'last unlocked achievement' stats
@@ -92,7 +92,7 @@ function dpa_update_achievement_stats( $achievement_obj, $user_id, $progress_id 
  * show a list of all events grouped by the extension which provides them.
  *
  * @return array
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_get_all_events_details() {
 	$temp_events = array();
@@ -131,7 +131,7 @@ function dpa_get_all_events_details() {
  * It is used to clean up after an achievement that is being deleted.
  *
  * @param int $post_id Optional; post ID that is being deleted.
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_before_achievement_deleted( $post_id = 0 ) {
 	$post_id = dpa_get_achievement_id( $post_id );

@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 /**
  * Extends Achievements to support actions from WP e-Commerce.
  *
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_init_wpecommerce_extension() {
 	achievements()->extensions->wp_ecommerce = new DPA_WPeCommerce_Extension;
@@ -27,7 +27,7 @@ add_action( 'dpa_ready', 'dpa_init_wpecommerce_extension' );
 /**
  * Extension to add WordPress e-Commerce support to Achievements
  *
- * @since 3.0
+ * @since Achievements (3.0)
  */
 class DPA_WPeCommerce_Extension extends DPA_Extension {
 	/**
@@ -35,7 +35,7 @@ class DPA_WPeCommerce_Extension extends DPA_Extension {
 	 *
 	 * Sets up extension properties. See class phpdoc for details.
 	 *
-	 * @since 3.0
+	 * @since Achievements (3.0)
 	 */
 	public function __construct() {
 		$this->actions = array(

@@ -19,7 +19,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  * @param string $slug The slug name for the generic template.
  * @param string $name Optional. The name of the specialised template.
  * @return string
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_get_template_part( $slug, $name = null ) {
 	do_action( 'get_template_part_' . $slug, $slug, $name );
@@ -48,7 +48,7 @@ function dpa_get_template_part( $slug, $name = null ) {
  * @param bool $load Optional. If true the template file will be loaded if it is found.
  * @param bool $require_once Optional. Whether to require_once or require. Default true. Has no effect if $load is false.
  * @return string The template filename if one is located.
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_locate_template( $template_names, $load = false, $require_once = true ) {
 	$child_theme    = get_stylesheet_directory(); 
@@ -107,7 +107,7 @@ function dpa_locate_template( $template_names, $load = false, $require_once = tr
  * @param string $type Filename without extension.
  * @param array $templates An optional list of template candidates
  * @return string Full path to file.
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_get_query_template( $type, $templates = array() ) {
 	// Only allow a-z0-9 characters in file names
@@ -133,7 +133,7 @@ function dpa_get_query_template( $type, $templates = array() ) {
  *
  * @param array $templates Optional. Templates we are looking for
  * @return array Possible subfolders to look in
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_get_template_locations( $templates = array() ) {
 	$locations = array(
@@ -149,7 +149,7 @@ function dpa_get_template_locations( $templates = array() ) {
  *
  * @param array Optionall. $templates
  * @return array() 
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_add_template_locations( $templates = array() ) {
 	$retval = array();
@@ -169,7 +169,7 @@ function dpa_add_template_locations( $templates = array() ) {
  * Add checks for Achievements conditions to parse_query action
  *
  * @param WP_Query $posts_query
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_parse_query( $posts_query ) {
 }
