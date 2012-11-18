@@ -409,7 +409,6 @@ function dpa_template_include_theme_compat( $template = '' ) {
 
 	// Achievements archive
 	if ( dpa_is_achievement_archive() ) {
-		// Reset post
 		dpa_theme_compat_reset_post( array(
 			'comment_status' => 'closed',
 			'ID'             => 0,
@@ -424,7 +423,6 @@ function dpa_template_include_theme_compat( $template = '' ) {
 
 	// Single Achievement
 	} elseif ( dpa_is_single_achievement() ) {
-		// Reset post
 		dpa_theme_compat_reset_post( array(
 			'comment_status' => 'closed',
 			'ID'             => dpa_get_achievement_id(),
@@ -434,6 +432,20 @@ function dpa_template_include_theme_compat( $template = '' ) {
 			'post_date'      => 0,
 			'post_status'    => 'publish',
 			'post_title'     => dpa_get_achievement_title(),
+			'post_type'      => dpa_get_achievement_post_type(),
+		) );
+
+	// Single user's achievements template
+	} elseif ( dpa_is_single_user_achievements() ) {
+		dpa_theme_compat_reset_post( array(
+			'comment_status' => 'closed',
+			'ID'             => 0,
+			'is_archive'     => true,
+			'post_author'    => 0,
+			'post_content'   => '',
+			'post_date'      => 0,
+			'post_status'    => 'publish',
+			'post_title'     => dpa_get_achievement_archive_title(),
 			'post_type'      => dpa_get_achievement_post_type(),
 		) );
 	}
@@ -525,7 +537,7 @@ function dpa_replace_the_content( $content = '' ) {
 		}
 
 	// Single achievement post
-	} else {
+	} elseif ( dpa_is_single_achievement() ) {
 
 		// Check the post_type
 		switch ( get_post_type() ) {
@@ -535,6 +547,10 @@ function dpa_replace_the_content( $content = '' ) {
 				$new_content = achievements()->shortcodes->display_achievement( array( 'id' => get_the_ID() ) );
 				break;
 		}
+
+	// Single user's achievements template
+	} elseif ( dpa_is_single_user_achievements() ) {
+		$new_content = achievements()->shortcodes->display_user_achievements();
 	}
 
 	// Juggle the content around and try to prevent unsightly comments

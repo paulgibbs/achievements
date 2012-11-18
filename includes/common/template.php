@@ -94,7 +94,7 @@ function dpa_is_achievement_archive() {
 }
 
 /**
- * Viewing a single achievement page
+ * Check if we are viewing a single achievement page
  *
  * @return bool
  * @since Achievements (3.0)
@@ -107,6 +107,22 @@ function dpa_is_single_achievement() {
 		$retval = true;
 
 	return (bool) apply_filters( 'dpa_is_single_achievement', $retval );
+}
+
+/**
+ * Check if we are viewing a user's achievements page.
+ *
+ * @global WP_Query $wp_query
+ * @return bool
+ * @since 3.0
+ */
+function dpa_is_single_user_achievements() {
+	global $wp_query;
+
+	// Author page and our 'achievements' endpoint
+	$retval = is_author() && isset( $wp_query->query_vars[dpa_get_authors_endpoint()] );
+
+	return (bool) apply_filters( 'dpa_is_single_user_achievements', $retval );
 }
 
 /**

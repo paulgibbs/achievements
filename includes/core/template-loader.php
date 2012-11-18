@@ -29,7 +29,7 @@ function dpa_template_include_theme_supports( $template = '' ) {
 	elseif ( dpa_is_achievement_archive() && ( $new_template = dpa_get_achievement_archive_template() ) ) :
 
 	// User achievements page
-	elseif ( dpa_is_single_user_achievements() && ( $new_template = dpa_get_achievement_author_archive_template() ) ) :
+	elseif ( dpa_is_single_user_achievements() && ( $new_template = dpa_get_single_user_achievements_template() ) ) :
 
 	endif;
 
@@ -90,6 +90,24 @@ function dpa_get_achievement_archive_template() {
 	);
 
 	return dpa_get_query_template( 'achievement_archive', $templates );
+}
+
+/**
+ * Get a single user's achievements template
+ * 
+ * @return string Path to template file
+ * @since Achievements (3.0)
+ */
+function dpa_get_single_user_achievements_template() {
+	$author = get_queried_object();
+
+	$templates = array(
+		"author-achievements-{$author->user_nicename}.php",
+		"author-achievements-{$author->ID}.php",
+		'author-achievements.php',
+	);
+
+	return dpa_get_query_template( 'single_user_achievements', $templates );
 }
 
 /**

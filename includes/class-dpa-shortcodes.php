@@ -139,7 +139,6 @@ class DPA_Shortcodes {
 	 * @since Achievements (3.0)
 	 */
 	public function display_achievements_index() {
-		// Unset globals
 		$this->unset_globals();
 
 		// Start output buffer
@@ -180,6 +179,25 @@ class DPA_Shortcodes {
 		$post = get_post( $achievement_id );
 		if ( ! empty( $post ) && 'publish' == $post->post_status && current_user_can( 'read_achievement', $achievement_id ) )
 			dpa_get_template_part( 'content-single-achievement' );
+
+		// Return contents of output buffer
+		return $this->end();
+	}
+
+	/**
+	 * For the current author, display an index of all their unlocked achievements
+	 * in an output buffer and return to ensure that post/page contents are displayed first.
+	 *
+	 * @return string
+	 * @since Achievements (3.0)
+	 */
+	public function display_user_achievements() {
+		$this->unset_globals();
+
+		// Start output buffer
+		$this->start( 'dpa_single_user_achievements' );
+
+		dpa_get_template_part( 'content-author-achievements' );
 
 		// Return contents of output buffer
 		return $this->end();
