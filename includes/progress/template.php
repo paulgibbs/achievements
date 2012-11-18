@@ -254,6 +254,10 @@ function dpa_progress_class( $progress_id = 0 ) {
 		else
 			$classes[] = 'dpa-single-progress';
 
+		// Does this progress belong to the logged in user?
+		if ( is_user_logged_in() && wp_get_current_user()->ID == dpa_get_progress_author_id( $progress_id ) )
+			$classes[] = 'logged-in-user';
+
 		$classes[] = 'user-id-' . dpa_get_progress_author_id( $progress_id );
 		$classes   = get_post_class( array_filter( $classes ), $progress_id );
 		$classes   = apply_filters( 'dpa_get_progress_class', $classes, $progress_id );
