@@ -34,6 +34,9 @@ function dpa_has_achievements( $args = array() ) {
 
 	$default_post_parent = dpa_is_single_achievement() ? dpa_get_achievement_id() : 'any';
 
+	// On single user achievement page, default to only showing unlocked achievements
+	$default_progress_status = dpa_is_single_user_achievements() ? array( dpa_get_unlocked_status_id() ) : array( dpa_get_locked_status_id(), dpa_get_unlocked_status_id() );
+
 	$defaults = array(
 		// Standard WP_Query params
 		'order'                 => 'ASC',                                                // 'ASC', 'DESC
@@ -44,16 +47,15 @@ function dpa_has_achievements( $args = array() ) {
 		'post_status'           => 'publish',                                            // Published (active) achievements only
 		'post_type'             => dpa_get_achievement_post_type(),                      // Only retrieve achievement posts
 		'posts_per_page'        => dpa_get_achievements_per_page(),                      // Achievements per page
+		'ach_progress_status'   => $default_progress_status,
 		's'                     => ! empty( $_REQUEST['dpa'] ) ? $_REQUEST['dpa'] : '',  // Achievements search @todo Is this implemented correctly?
 
 		// Achievements params
-		'ach_event'             => '',                                                   // Load achievements for a specific event
+ 		'ach_event'             => '',                                                   // Load achievements for a specific event
 		'ach_populate_progress' => true,                                                 // Progress post type: populate user(s) progress for the results. See function's phpdoc for full description.
-		'ach_progress_status'   => array(                                                // Progress post type: get posts in the locked / unlocked status by default.
-		                             dpa_get_locked_status_id(),
-		                             dpa_get_unlocked_status_id(),
-		                           ),
 	);
+
+	// Progress post type: get posts in the locked / unlocked status by default.
 	$args              = dpa_parse_args( $args, $defaults, 'has_achievements' );
 	$progress_user_ids = false;
 
@@ -74,7 +76,10 @@ function dpa_has_achievements( $args = array() ) {
 
 	// Populate user(s) progress for the results.
 	if ( ! empty( $args['ach_populate_progress'] ) ) {
-		if ( true === $args['ach_populate_progress'] && is_user_logged_in() ) {
+		if ( true === $args['ach_populate_progress'] && dpa_is_single_user_achievements() ) {
+			$progress_user_ids = get_the_author_meta( 'ID' );
+
+		} elseif ( true === $args['ach_populate_progress'] && is_user_logged_in() ) {
 			$progress_user_ids = achievements()->current_user->ID;
 
 		} elseif ( is_string( $args['ach_populate_progress'] ) && 'all' === $args['ach_populate_progress'] ) {
