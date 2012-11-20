@@ -15,12 +15,11 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  * Most of the values that $args can accept are documented in {@link WP_Query}. The custom
  * values added by Achievements are as follows:
  *
- * $ach_event             - string         - Loads achievements for a specific event. Matches a slug from the dpa_event tax. Default is empty.
- * $ach_populate_progress - bool|array|int - Populate a user/users' progress for the results.
- *                                         - bool: True - uses the logged in user (default). False - don't fetch progress.
- *                                         - int: pass a user ID (single user).
- *                                         - array: array of integers (multiple users' IDs).
- * $ach_progress_status   - array          - array: Post status IDs for the Progress post type.
+ * $ach_event             - string   - Loads achievements for a specific event. Matches a slug from the dpa_event tax. Default is empty.
+ * $ach_populate_progress - bool|int - Populate a user/users' progress for the results.
+ *                                   - bool: True - uses the logged in user (default). False - don't fetch progress.
+ *                                   - int: pass a user ID (single user).
+ * $ach_progress_status   - array    - array: Post status IDs for the Progress post type.
  *
  * @param array|string $args All the arguments supported by {@link WP_Query}, and some more.
  * @return bool Returns true if the query has any results to loop over
@@ -49,12 +48,11 @@ function dpa_has_achievements( $args = array() ) {
 
 		// Achievements params
  		'ach_event'             => '',                                                   // Load achievements for a specific event
-		'ach_populate_progress' => true,                                                 // Progress post type: populate user(s) progress for the results.
+		'ach_populate_progress' => true,                                                 // Progress post type: populate user progress for the results.
 	);
 
 	// Progress post type: get posts in the locked / unlocked status by default.
-	$args              = dpa_parse_args( $args, $defaults, 'has_achievements' );
-	$progress_user_ids = false;
+	$args = dpa_parse_args( $args, $defaults, 'has_achievements' );
 
 	// Extract the query variables
 	extract( $args );
@@ -71,17 +69,20 @@ function dpa_has_achievements( $args = array() ) {
 		);
 	}
 
-	// Populate user(s) progress for the results.
-	if ( ! empty( $args['ach_populate_progress'] ) ) {
-		if ( true === $args['ach_populate_progress'] && dpa_is_single_user_achievements() ) {
-			$progress_user_ids = get_the_author_meta( 'ID' );
+	// User to popular progress for
+	$progress_user_ids = false;
 
-		} elseif ( true === $args['ach_populate_progress'] && is_user_logged_in() ) {
-			$progress_user_ids = achievements()->current_user->ID;
+	if ( isset( $args['ach_populate_progress'] ) ) {
+		if ( true === $args['ach_populate_progress'] ) {
+			if ( dpa_is_single_user_achievements() ) {
+				$progress_user_ids = get_the_author_meta( 'ID' );
+
+			} elseif ( is_user_logged_in() ) {
+				$progress_user_ids = achievements()->current_user->ID;
+			}
 
 		} else {
-			$progress_user_ids = wp_parse_id_list( (array) $args['ach_populate_progress'] );
-			$progress_user_ids = implode( ',', $progress_user_ids );
+			$progress_user_ids = (int) $args['ach_populate_progress'];
 		}
 	}
 
