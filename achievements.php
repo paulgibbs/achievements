@@ -184,8 +184,8 @@ final class Achievements {
 		$this->plugin_url = apply_filters( 'dpa_plugin_dir_url',  plugin_dir_url ( $this->file ) );
 
 		// Paths - theme compatibility packs
-		$this->themes_dir = apply_filters( 'dpa_themes_dir', trailingslashit( $this->plugin_dir . 'theme-compat' ) );
-		$this->themes_url = apply_filters( 'dpa_themes_url', trailingslashit( $this->plugin_url . 'theme-compat' ) );
+		$this->themes_dir = apply_filters( 'dpa_themes_dir', trailingslashit( $this->plugin_dir . 'templates' ) );
+		$this->themes_url = apply_filters( 'dpa_themes_url', trailingslashit( $this->plugin_url . 'templates' ) );
 
 		// Paths - languages
 		$this->lang_dir = apply_filters( 'dpa_lang_dir', trailingslashit( $this->plugin_dir . 'languages' ) );
@@ -349,7 +349,7 @@ final class Achievements {
 			'register_taxonomies',       // Register taxonomies (dpa_event)
 			'register_shortcodes',       // Register shortcodes
 			'register_theme_directory',  // Register the theme directory (themes)
-			'register_theme_packages',   // Register bundled theme packages (theme-compat)
+			'register_theme_packages',   // Register bundled theme packages (templates)
 			'setup_current_user',        // Set up currently logged in user
 			'setup_theme',               // Setup the default theme compat
 		);
@@ -596,7 +596,7 @@ final class Achievements {
 	/**
 	 * Register bundled theme packages
 	 *
-	 * Note that since we currently have complete control over the /theme-compat/
+	 * Note that since we currently have complete control over the /templates/
 	 * folders, it's fine to hardcode these here. If at a later date we need to
 	 * automate this, an API will need to be built.
 	 *

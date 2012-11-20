@@ -42,7 +42,7 @@ function dpa_get_template_part( $slug, $name = null ) {
  *
  * Searches in the child theme before the parent theme so that themes which
  * inherit from a parent theme can just overload one file. If the template is
- * not found in either of those, it looks in the theme-compat folder last.
+ * not found in either of those, it looks in the templates folder last.
  *
  * @param string|array $template_names Template file(s) to search for, in order.
  * @param bool $load Optional. If true the template file will be loaded if it is found.
@@ -100,7 +100,7 @@ function dpa_locate_template( $template_names, $load = false, $require_once = tr
  * Retrieve path to a template
  *
  * Used to quickly retrieve the path of a template without including the file
- * extension. It will also check the parent theme and theme-compat theme with
+ * extension. It will also check the parent theme and templates theme with
  * the use of {@link dpa_locate_template()}. Allows for more generic template
  * locations without the use of the other get_*_template() functions.
  *

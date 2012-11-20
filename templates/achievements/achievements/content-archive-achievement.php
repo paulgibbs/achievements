@@ -4,6 +4,7 @@
  *
  * @package Achievements
  * @subpackage ThemeCompatibility
+ *
  */
 ?>
 

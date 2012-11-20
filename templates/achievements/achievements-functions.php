@@ -47,8 +47,8 @@ class DPA_Default extends DPA_Theme_Compat {
 		$this->id      = 'default';
 		$this->name    = __( 'Achievements Default', 'dpa' );
 		$this->version = dpa_get_version();
-		$this->dir     = trailingslashit( achievements()->plugin_dir . 'theme-compat' );
-		$this->url     = trailingslashit( achievements()->plugin_url . 'theme-compat' );
+		$this->dir     = trailingslashit( achievements()->plugin_dir . 'templates' );
+		$this->url     = trailingslashit( achievements()->plugin_url . 'templates' );
 	}
 
 	/**
