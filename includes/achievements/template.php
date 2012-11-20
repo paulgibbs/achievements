@@ -15,13 +15,12 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  * Most of the values that $args can accept are documented in {@link WP_Query}. The custom
  * values added by Achievements are as follows:
  *
- * $ach_event             - string                - Loads achievements for a specific event. Matches a slug from the dpa_event tax. Default is empty.
- * $ach_populate_progress - bool|array|int|string - Populate a user/users' progress for the results.
- *                                                - bool: True - uses the logged in user (default). False - don't fetch progress.
- *                                                - int: pass a user ID (single user).
- *                                                - array: array of integers (multiple users' IDs).
- *                                                - string: "all" (get all users), or a comma-separated list of user IDs (multiple users).
- * $ach_progress_status   - array                 - array: Post status IDs for the Progress post type.
+ * $ach_event             - string         - Loads achievements for a specific event. Matches a slug from the dpa_event tax. Default is empty.
+ * $ach_populate_progress - bool|array|int - Populate a user/users' progress for the results.
+ *                                         - bool: True - uses the logged in user (default). False - don't fetch progress.
+ *                                         - int: pass a user ID (single user).
+ *                                         - array: array of integers (multiple users' IDs).
+ * $ach_progress_status   - array          - array: Post status IDs for the Progress post type.
  *
  * @param array|string $args All the arguments supported by {@link WP_Query}, and some more.
  * @return bool Returns true if the query has any results to loop over
@@ -32,9 +31,7 @@ function dpa_has_achievements( $args = array() ) {
 	if ( is_multisite() && dpa_is_running_networkwide() )
 		switch_to_blog( DPA_DATA_STORE );
 
-	$default_post_parent = dpa_is_single_achievement() ? dpa_get_achievement_id() : 'any';
-
-	// On single user achievement page, default to only showing unlocked achievements
+	$default_post_parent     = dpa_is_single_achievement()       ? dpa_get_achievement_id()              : 'any';	
 	$default_progress_status = dpa_is_single_user_achievements() ? array( dpa_get_unlocked_status_id() ) : array( dpa_get_locked_status_id(), dpa_get_unlocked_status_id() );
 
 	$defaults = array(
@@ -47,12 +44,12 @@ function dpa_has_achievements( $args = array() ) {
 		'post_status'           => 'publish',                                            // Published (active) achievements only
 		'post_type'             => dpa_get_achievement_post_type(),                      // Only retrieve achievement posts
 		'posts_per_page'        => dpa_get_achievements_per_page(),                      // Achievements per page
-		'ach_progress_status'   => $default_progress_status,
+		'ach_progress_status'   => $default_progress_status,                             // On single user achievement page, default to only showing unlocked achievements
 		's'                     => ! empty( $_REQUEST['dpa'] ) ? $_REQUEST['dpa'] : '',  // Achievements search @todo Is this implemented correctly?
 
 		// Achievements params
  		'ach_event'             => '',                                                   // Load achievements for a specific event
-		'ach_populate_progress' => true,                                                 // Progress post type: populate user(s) progress for the results. See function's phpdoc for full description.
+		'ach_populate_progress' => true,                                                 // Progress post type: populate user(s) progress for the results.
 	);
 
 	// Progress post type: get posts in the locked / unlocked status by default.
@@ -81,9 +78,6 @@ function dpa_has_achievements( $args = array() ) {
 
 		} elseif ( true === $args['ach_populate_progress'] && is_user_logged_in() ) {
 			$progress_user_ids = achievements()->current_user->ID;
-
-		} elseif ( is_string( $args['ach_populate_progress'] ) && 'all' === $args['ach_populate_progress'] ) {
-			$progress_user_ids = false;
 
 		} else {
 			$progress_user_ids = wp_parse_id_list( (array) $args['ach_populate_progress'] );
