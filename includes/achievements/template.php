@@ -48,7 +48,7 @@ function dpa_has_achievements( $args = array() ) {
 
 		// Achievements params
  		'ach_event'             => '',                                                   // Load achievements for a specific event
-		'ach_populate_progress' => true,                                                 // Progress post type: populate user progress for the results.
+		'ach_populate_progress' => false,                                                // Progress post type: populate user progress for the results.
 	);
 
 	// Progress post type: get posts in the locked / unlocked status by default.
