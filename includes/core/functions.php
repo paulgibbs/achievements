@@ -152,8 +152,6 @@ function dpa_register_events() {
 /**
  * Implements the Achievement actions and unlocks if criteria met.
  *
- * @param string $name Action name
- * @param array $func_args Optional; action's arguments, from func_get_args().
  * @see dpa_register_events()
  * @since Achievements (3.0)
  */

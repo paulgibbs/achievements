@@ -261,6 +261,7 @@ abstract class DPA_Extension {
 	 * {@link self::get_version}. If the extension reports a higher version number,
 	 * then this method will be called.
 	 *
+	 * @param string $current_version
 	 * @since Achievements (3.0)
 	 */
 	public function do_update( $current_version ) {}

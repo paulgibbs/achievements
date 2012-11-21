@@ -76,7 +76,7 @@ abstract class DPA_CPT_Extension extends DPA_Extension {
 	 * Returning a value different from $event_name will make Achievements think that
 	 * it was the action that was originally triggered.
 	 *
-	 * @param string $name Action name
+	 * @param string $event_name Action name
 	 * @param array $func_args Optional; action's arguments, from func_get_args().
 	 * @return string|bool Action name or false to skip any further processing
 	 * @since Achievements (3.0)

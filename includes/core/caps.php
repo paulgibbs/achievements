@@ -106,7 +106,6 @@ function dpa_map_meta_caps( $caps, $cap, $user_id, $args ) {
 
 			break;
 
-		// @todo Do I need "publish_achievement" and "publish_achievement_progress" here?
 
 		// Editing
 		case 'edit_achievements'           :
@@ -315,6 +314,7 @@ function dpa_get_caps_for_role( $role = '' ) {
  * This function is in core/caps.php rather than in /admin/ so that it
  * can be used during the dpa_register_post_types action.
  *
+ * @param string $component Optional; defaults to no value. Component to check UI visibility for.
  * @return bool
  * @since Achievements (3.0)
  */

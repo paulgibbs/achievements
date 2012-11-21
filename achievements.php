@@ -146,6 +146,7 @@ final class Achievements {
 	/**
 	 * Magic method for checking the existence of a certain custom field
 	 *
+	 * @param string $key
 	 * @since Achievements (3.0)
 	 */
 	public function __isset( $key ) { return isset( $this->data[$key] ); }
@@ -153,6 +154,7 @@ final class Achievements {
 	/**
 	 * Magic method for getting Achievements variables
 	 *
+	 * @param string $key
 	 * @since Achievements (3.0)
 	 */
 	public function __get( $key ) { return isset( $this->data[$key] ) ? $this->data[$key] : null; }
@@ -160,6 +162,8 @@ final class Achievements {
 	/**
 	 * Magic method for setting Achievements variables
 	 *
+	 * @param string $key
+	 * @param mixed $value
 	 * @since Achievements (3.0)
 	 */
 	public function __set( $key, $value ) { $this->data[$key] = $value; }
@@ -405,7 +409,6 @@ final class Achievements {
 	 * Register endpoints
 	 *
 	 * @since Achievements (3.0)
-	 * @todo Use the 'template_include' action to conditionally switch the 'achievements' endpoint to a custom template
 	 */
 	public function register_endpoints() {
 		add_rewrite_endpoint( dpa_get_authors_endpoint(), EP_AUTHORS );  // /authors/paul/[achievements]

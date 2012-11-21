@@ -280,7 +280,7 @@ function dpa_supported_plugins_list() {
 	//	uasort( $extensions, create_function( '$a, $b', 'return strnatcasecmp($a->rating, $b->rating);' ) );
 
 	// Sort by plugin status (installed, not installed)
-	// @todo Achievements - reimplement this for 3.0
+	// @todo Reimplement this for a future release
 	//elseif ( ! empty( $_GET['order'] ) && 'status' == $_GET['order'] )
 	//	uasort( $extensions, create_function( '$a, $b', 'return strnatcasecmp($a->install_status["status"], $b->install_status["status"]);' ) );
 

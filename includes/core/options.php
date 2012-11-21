@@ -237,6 +237,7 @@ function dpa_is_running_networkwide() {
 /**
  * Return the root slug
  *
+ * @param string $default Optional; defaults to 'achievements'.
  * @return string
  * @since Achievements (3.0)
  */

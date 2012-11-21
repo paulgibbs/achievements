@@ -106,7 +106,7 @@ class DPA_bbPress_Extension extends DPA_CPT_Extension {
 	/**
 	 * Filters the event name which is currently being processed
 	 *
-	 * @param string $name Action name
+	 * @param string $event_name Action name
 	 * @param array $func_args Optional; action's arguments, from func_get_args().
 	 * @return string|bool Action name or false to skip any further processing
 	 * @since Achievements (3.0)

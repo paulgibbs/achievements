@@ -699,7 +699,6 @@ function dpa_achievement_notices() {
 	if ( ! dpa_is_single_achievement() )
 		return;
 
-	// @todo Maybe add "locked"/"unlocked" achievement notices here
 	$notice_text = '';
 
 	// Filter notice text and bail if empty
