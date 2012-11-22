@@ -169,7 +169,7 @@ function dpa_has_achievements( $args = array() ) {
  * Whether there are more achievements available in the loop
  *
  * @return bool True if posts are in the loop
- * @since Achievements (3.0)
+ * @since Achievements (2.0)
  */
 function dpa_achievements() {
 	$have_posts = achievements()->achievement_query->have_posts();

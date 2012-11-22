@@ -98,7 +98,7 @@ function dpa_setup_globals() {
 /**
  * Initialise any code after everything has been loaded
  *
- * @since Achievements (3.0)
+ * @since Achievements (2.0)
  */
 function dpa_init() {
 	do_action( 'dpa_init' );
