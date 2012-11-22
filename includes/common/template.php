@@ -114,7 +114,7 @@ function dpa_is_single_achievement() {
  *
  * @global WP_Query $wp_query
  * @return bool
- * @since 3.0
+ * @since Achievements (3.0)
  */
 function dpa_is_single_user_achievements() {
 	global $wp_query;

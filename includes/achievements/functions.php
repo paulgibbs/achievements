@@ -50,7 +50,7 @@ function dpa_authors_endpoint() {
 /**
  * Return the event taxonomy ID
  *
- * @since 3..0
+ * @since Achievements (3.0)
  * @return string
  */
 function dpa_get_event_tax_id() {

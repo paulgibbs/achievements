@@ -243,7 +243,7 @@ function dpa_handle_event() {
  * @param string  $skip_validation  Optional. Set to "skip_validation" to skip Achievement validation (unlock achievement regardless of criteria).
  * @param object  $progress_obj     Optional. The Progress post object. Defaults to Progress object in the Progress loop.
  * @param object  $achievement_obj  Optional. The Achievement post object to maybe_unlock. Defaults to current object in Achievement loop.
- * @since 2.0
+ * @since Achievements (2.0)
  */
 function dpa_maybe_unlock_achievement( $user_id, $skip_validation = '', $progress_obj = null, $achievement_obj = null ) {
 	// Only proceed if the specified user is active (logged in and not a spammer)

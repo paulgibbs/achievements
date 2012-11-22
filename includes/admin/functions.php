@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  *
  * Also enqueues required JavaScript and CSS.
  *
- * @since 1.0
+ * @since Achievements (1.0)
  */
 function dpa_admin_setup_metaboxes() {
 	// Load metaboxes and on-save handler
@@ -39,7 +39,7 @@ function dpa_admin_setup_metaboxes() {
  * Contains fields to set the karma points, pick between action/event, and the list of events.
  *
  * @param WP_Post $post The post being added or edited
- * @since 1.0
+ * @since Achievements (1.0)
  */
 function dpa_achievement_metabox( $post ) {
 	// Get all events grouped by the extension which provided them
