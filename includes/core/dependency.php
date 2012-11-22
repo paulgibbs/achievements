@@ -89,7 +89,7 @@ function dpa_includes() {
 /**
  * Set up globals AFTER includes
  *
- * @since Achievements (3.0)
+ * @since Achievements (1.0)
  */
 function dpa_setup_globals() {
 	do_action( 'dpa_setup_globals' );
@@ -138,7 +138,7 @@ function dpa_setup_current_user() {
 /**
  * Load translations for current language
  *
- * @since Achievements (3.0)
+ * @since Achievements (1.0)
  */
 function dpa_load_textdomain() {
 	do_action( 'dpa_load_textdomain' );

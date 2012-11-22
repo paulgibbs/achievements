@@ -23,7 +23,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  *
  * @param array|string $args All the arguments supported by {@link WP_Query}, and some more.
  * @return bool Returns true if the query has any results to loop over
- * @since Achievements (3.0)
+ * @since Achievements (1.0)
  */
 function dpa_has_achievements( $args = array() ) {
 	// If multisite and running network-wide, switch_to_blog to the data store site
@@ -190,7 +190,7 @@ function dpa_achievements() {
  * Iterate the post index in the loop. Retrieves the next post, sets up the post, sets the 'in the loop' property to true.
  *
  * @return bool
- * @since Achievements (3.0)
+ * @since Achievements (1.0)
  */
 function dpa_the_achievement() {
 	return achievements()->achievement_query->the_post();
@@ -302,7 +302,7 @@ function dpa_achievement_permalink( $achievement_id = 0, $redirect_to = '' ) {
  *
  * @param int $achievement_id Optional
  * @see dpa_get_achievement_id()
- * @since Achievements (3.0)
+ * @since Achievements (1.0)
  */
 function dpa_achievement_id( $achievement_id = 0 ) {
 	echo dpa_get_achievement_id( $achievement_id );
@@ -313,7 +313,7 @@ function dpa_achievement_id( $achievement_id = 0 ) {
 	 * @global WP_Query $wp_query
 	 * @param int $achievement_id Optional
 	 * @return int The achievement ID
-	 * @since Achievements (3.0)
+	 * @since Achievements (1.0)
 	 */
 	function dpa_get_achievement_id( $achievement_id = 0 ) {
 		global $wp_query;
@@ -442,7 +442,7 @@ function dpa_achievement_content( $more_link_text = null, $stripteaser = false, 
  * Output the points value of the achievement.
  *
  * @param int $achievement_id Optional. Achievement ID
- * @since Achievements (3.0)
+ * @since Achievements (1.0)
  */
 function dpa_achievement_points( $achievement_id = 0 ) {
 	echo number_format_i18n( dpa_get_achievement_points( $achievement_id ) );

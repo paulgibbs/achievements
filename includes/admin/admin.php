@@ -227,7 +227,7 @@ class DPA_Admin {
 	 * Add 'User Points' box to Edit User page
 	 *
 	 * @param object $user
-	 * @since Achievements (1.0)
+	 * @since Achievements (3.0)
 	 */
 	public function add_profile_fields( $user ) {
 	?>
@@ -248,7 +248,7 @@ class DPA_Admin {
 	 * Update the user's 'User Points' meta information when the Edit User page has been saved.
 	 *
 	 * @param int $user_id
-	 * @since Achievements (1.0)
+	 * @since Achievements (3.0)
 	 */
 	public function save_profile_fields( $user_id ) {
 		// Check current user has the appropriate capability to edit edit $user_id's profile.

@@ -121,7 +121,7 @@ function dpa_supported_plugins() {
 /**
  * Common toolbar header for supported plugins header screen
  *
- * @since Achievements (1.0)
+ * @since Achievements (3.0)
  */
 function dpa_supported_plugins_header() {
 	// Get current filter and view of the Supported Plugins screen
@@ -161,7 +161,7 @@ function dpa_supported_plugins_header() {
  * and an RSS feed from the author's site. There is a list box on the side
  * of the screen to choose between different plugins.
  *
- * @since Achievements (1.0)
+ * @since Achievements (3.0)
  */
 function dpa_supported_plugins_detail() {
 	// Get plugin to display
