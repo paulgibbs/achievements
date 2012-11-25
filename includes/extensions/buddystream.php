@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  * @since Achievements (3.0)
  */
 function dpa_init_buddystream_extension() {
-	achievements()->extensions->buddystream = new DPA_BuddyStream_Extension;
+	achievements()->extensions->buddystream = new DPA_Buddy_Stream_Extension;
 
 	// Tell the world that the BuddyStream extension is ready
 	do_action( 'dpa_init_buddystream_extension' );
@@ -29,7 +29,7 @@ add_action( 'dpa_ready', 'dpa_init_buddystream_extension' );
  *
  * @since Achievements (3.0)
  */
-class DPA_BuddyStream_Extension extends DPA_Extension {
+class DPA_Buddy_Stream_Extension extends DPA_Extension {
 	/**
 	 * Constructor
 	 *

@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  * @since Achievements (3.0)
  */
 function dpa_init_inviteanyone_extension() {
-	achievements()->extensions->invite_anyone = new DPA_InviteAnyone_Extension;
+	achievements()->extensions->invite_anyone = new DPA_Invite_Anyone_Extension;
 
 	// Tell the world that the Invite Anyone extension is ready
 	do_action( 'dpa_init_inviteanyone_extension' );
@@ -29,7 +29,7 @@ add_action( 'dpa_ready', 'dpa_init_inviteanyone_extension' );
  *
  * @since Achievements (3.0)
  */
-class DPA_InviteAnyone_Extension extends DPA_Extension {
+class DPA_Invite_Anyone_Extension extends DPA_Extension {
 	/**
 	 * Constructor
 	 *

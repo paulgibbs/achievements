@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  * @since Achievements (3.0)
  */
 function dpa_init_wpecommerce_extension() {
-	achievements()->extensions->wp_ecommerce = new DPA_WPeCommerce_Extension;
+	achievements()->extensions->wp_ecommerce = new DPA_WP_e_Commerce_Extension;
 
 	// Tell the world that the WP e-Commerce extension is ready
 	do_action( 'dpa_init_wpecommerce_extension' );
@@ -29,7 +29,7 @@ add_action( 'dpa_ready', 'dpa_init_wpecommerce_extension' );
  *
  * @since Achievements (3.0)
  */
-class DPA_WPeCommerce_Extension extends DPA_Extension {
+class DPA_WP_e_Commerce_Extension extends DPA_Extension {
 	/**
 	 * Constructor
 	 *

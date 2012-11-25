@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  * @since Achievements (3.0)
  */
 function dpa_init_bbpress_extension() {
-	achievements()->extensions->bbpress = new DPA_bbPress_Extension;
+	achievements()->extensions->bbpress = new DPA_bbPress_Forum_Extension;
 
 	// Tell the world that the bbPress extension is ready
 	do_action( 'dpa_init_bbpress_extension' );
@@ -29,7 +29,7 @@ add_action( 'dpa_ready', 'dpa_init_bbpress_extension' );
  *
  * @since Achievements (3.0)
  */
-class DPA_bbPress_Extension extends DPA_CPT_Extension {
+class DPA_bbPress_Forum_Extension extends DPA_CPT_Extension {
 	/**
 	 * Constructor
 	 *
