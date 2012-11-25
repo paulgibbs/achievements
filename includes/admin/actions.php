@@ -38,7 +38,7 @@ add_action( 'dpa_admin_init', 'dpa_setup_updater',           999 );
 //add_action( 'dpa_admin_init', 'dpa_register_admin_settings'     );
 
 // Initialize the admin area
-add_action( 'dpa_init', 'dpa_admin' );
+add_action( 'dpa_init', 'dpa_admin_setup' );
 
 // Activation
 add_action( 'dpa_activation', 'dpa_add_caps',             2 );

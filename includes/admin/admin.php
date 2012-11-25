@@ -287,6 +287,6 @@ endif; // class_exists check
  *
  * @since Achievements (3.0)
  */
-function dpa_admin() {
+function dpa_admin_setup() {
 	achievements()->admin = new DPA_Admin();
 }

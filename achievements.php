@@ -658,7 +658,7 @@ final class Achievements {
  *
  * @return Achievements The one true Achievements instance
  */
-function achievements() {
+function achievements_instance() {
 	return Achievements::instance();
 }
 
@@ -673,7 +673,7 @@ if ( defined( 'DPA_LATE_LOAD' ) ) {
 
 // This makes it go up to 11
 } else {
-	achievements();
+	achievements_instance();
 }
 
 endif; // class_exists check
