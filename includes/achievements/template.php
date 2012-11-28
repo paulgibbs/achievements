@@ -69,6 +69,9 @@ function dpa_has_achievements( $args = array() ) {
 		);
 	}
 
+	// Run the query
+	achievements()->achievement_query = new WP_Query( $args );
+
 	// User to popular progress for
 	$progress_user_ids = false;
 
@@ -85,9 +88,6 @@ function dpa_has_achievements( $args = array() ) {
 			$progress_user_ids = (int) $args['ach_populate_progress'];
 		}
 	}
-
-	// Run the query
-	achievements()->achievement_query = new WP_Query( $args );
 
 	// If no limit to posts per page, set it to the current post_count
 	if ( -1 == $posts_per_page )
