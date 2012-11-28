@@ -25,14 +25,18 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  * @since Achievements (3.0)
  */
 function dpa_has_progress( $args = array() ) {
+	// If multisite and running network-wide, switch_to_blog to the data store site
+	if ( is_multisite() && dpa_is_running_networkwide() )
+		switch_to_blog( DPA_DATA_STORE );
+
 	$defaults = array(
-		'max_num_pages'  => false,                         // Maximum number of pages to show
-		'order'          => 'DESC',                        // 'ASC', 'DESC
-		'orderby'        => 'date',                        // 'meta_value', 'author', 'date', 'title', 'modified', 'parent', rand'
-		'paged'          => dpa_get_paged(),               // Page number
-		'post_status'    => dpa_get_unlocked_status_id(),  // Get posts in the unlocked status by default.
-		'post_type'      => dpa_get_progress_post_type(),  // Only retrieve progress posts
-		's'              => '',                            // No search
+		'max_num_pages' => false,                         // Maximum number of pages to show
+		'order'         => 'DESC',                        // 'ASC', 'DESC
+		'orderby'       => 'date',                        // 'meta_value', 'author', 'date', 'title', 'modified', 'parent', rand'
+		'paged'         => dpa_get_paged(),               // Page number
+		'post_status'   => dpa_get_unlocked_status_id(),  // Get posts in the unlocked status by default.
+		'post_type'     => dpa_get_progress_post_type(),  // Only retrieve progress posts
+		's'             => '',                            // No search
 
 
 		// Conditional defaults
@@ -45,11 +49,31 @@ function dpa_has_progress( $args = array() ) {
 
 		// If on a single achievement page, don't paginate progresses.
 		'posts_per_page' => dpa_is_single_achievement() ? -1 : dpa_get_progresses_per_page(),
+
+		// If on a user's achievements page, fetch the achievements if we haven't got them already
+		'ach_populate_achievements' => dpa_is_single_user_achievements() && empty( achievements()->progress_query ),
 	);
+
 	$args = dpa_parse_args( $args, $defaults, 'has_progress' );
+
+	// Extract the query variables
+	extract( $args );
 
 	// Run the query
 	achievements()->progress_query = new WP_Query( $args );
+
+	// If on a user's achievements page, we need to fetch the achievements
+	if ( $args['ach_populate_achievements'] && achievements()->progress_query->have_posts() ) {
+		$achievement_ids = wp_list_pluck( (array) achievements()->progress_query->posts, 'parent_post' );
+
+		$achievement_args = array(
+			'post__in'       => $achievement_ids,  // Only get achievements that relate to the progressses we've got.
+			'posts_per_page' => -1,                // No pagination
+		);
+
+		// Run the query
+		dpa_has_achievements( $achievement_args );
+	}
 
 	return apply_filters( 'dpa_has_progress', achievements()->progress_query->have_posts() );
 }
@@ -61,7 +85,18 @@ function dpa_has_progress( $args = array() ) {
  * @return bool True if posts are in the loop
  */
 function dpa_progress() {
-	return achievements()->progress_query->have_posts();
+	$have_posts = achievements()->progress_query->have_posts();
+
+	// Reset the post data when finished
+	if ( empty( $have_posts ) ) {
+		wp_reset_postdata();
+
+		// If multisite and running network-wide, undo the switch_to_blog
+		if ( is_multisite() && dpa_is_running_networkwide() )
+			restore_current_blog();
+	}
+
+	return $have_posts;
 }
 
 /**
