@@ -486,13 +486,17 @@ function dpa_template_include_theme_compat( $template = '' ) {
  * normally be handled by Achievements, but proper single page templates do not
  * exist in the currently active theme.
  *
+ * Note that we do *not* currently use is_main_query() here. This is because so
+ * many existing themes either use query_posts() or fail to use wp_reset_query()
+ * when running queries before the main loop, causing theme compat to fail.
+ * 
  * @param string $content Optional
  * @return type
  * @since Achievements (3.0)
  */
 function dpa_replace_the_content( $content = '' ) {
-	// Bail if not inside the main query loop
-	if ( ! in_the_loop() || ! is_main_query() )
+	// Bail if not inside the  query loop
+	if ( ! in_the_loop() )
 			return $content;
 
 	// Bail if shortcodes are unset somehow
