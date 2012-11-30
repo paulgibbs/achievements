@@ -15,11 +15,11 @@
 
 		<?php do_action( 'dpa_template_before_achievement_thumbnail' ); ?>
 
-			<?php if ( has_post_thumbnail() ) : ?>
+		<?php if ( has_post_thumbnail() ) : ?>
 
-				<?php the_post_thumbnail( 'medium', array( 'class' => 'attachment-medium dpa-single-achievement-thumbnail' ) ); ?>
+			<?php the_post_thumbnail( 'medium', array( 'class' => 'attachment-medium dpa-single-achievement-thumbnail' ) ); ?>
 
-			<?php endif; ?>
+		<?php endif; ?>
 
 
 		<?php do_action( 'dpa_template_before_achievement_content' ); ?>
