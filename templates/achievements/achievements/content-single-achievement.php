@@ -33,10 +33,6 @@
 
 			<?php dpa_get_template_part( 'loop-progresses' ); ?>
 
-		<?php else : ?>
-
-			<?php dpa_get_template_part( 'feedback-no-progresses' ); ?>
-
 		<?php endif; ?>
 
 	</div><!-- #dpa-achievement-<?php dpa_achievement_id(); ?> -->
