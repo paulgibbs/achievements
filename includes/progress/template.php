@@ -64,7 +64,7 @@ function dpa_has_progress( $args = array() ) {
 
 	// If on a user's achievements page, we need to fetch the achievements
 	if ( $args['ach_populate_achievements'] && achievements()->progress_query->have_posts() ) {
-		$achievement_ids = wp_list_pluck( (array) achievements()->progress_query->posts, 'parent_post' );
+		$achievement_ids = wp_list_pluck( (array) achievements()->progress_query->posts, 'post_parent' );
 
 		$achievement_args = array(
 			'post__in'       => $achievement_ids,  // Only get achievements that relate to the progressses we've got.
