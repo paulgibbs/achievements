@@ -106,9 +106,9 @@ function dpa_get_single_user_achievements_template() {
 	$author = get_queried_object();
 
 	$templates = array(
-		"author-achievements-{$author->user_nicename}.php",
-		"author-achievements-{$author->ID}.php",
-		'author-achievements.php',
+		"author-achievement-{$author->user_nicename}.php",
+		"author-achievement-{$author->ID}.php",
+		'author-achievement.php',
 	);
 
 	return dpa_get_query_template( 'single_user_achievements', $templates );
