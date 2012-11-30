@@ -226,8 +226,9 @@ function dpa_handle_event() {
 		}
 	}
 
-	unset( achievements()->achievement_query );
-	unset( achievements()->progress_query    );
+	unset( achievements()->achievement_query, achievements()->progress_query );
+	achievements()->achievement_query = new stdClass();
+	achievements()->progress_query    = new stdClass();
 
 	// Everything's done. Let other plugins do things.
 	do_action( 'dpa_after_handle_event', $event_name, $func_args, $user_id, $args );

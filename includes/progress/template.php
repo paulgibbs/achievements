@@ -51,7 +51,7 @@ function dpa_has_progress( $args = array() ) {
 		'posts_per_page' => dpa_is_single_achievement() ? -1 : dpa_get_progresses_per_page(),
 
 		// If on a user's achievements page, fetch the achievements if we haven't got them already
-		'ach_populate_achievements' => dpa_is_single_user_achievements() && empty( achievements()->progress_query ),
+		'ach_populate_achievements' => dpa_is_single_user_achievements() && ! is_a( achievements()->achievement_query, 'WP_Query' ),
 	);
 
 	$args = dpa_parse_args( $args, $defaults, 'has_progress' );
@@ -335,7 +335,7 @@ function dpa_progress_pagination_count() {
 	 * @since Achievements (3.0)
 	 */
 	function dpa_get_progress_pagination_count() {
-		if ( empty( achievements()->progress_query ) )
+		if ( ! is_a( achievements()->progress_query, 'WP_Query' ) )
 			return;
 
 		// Set pagination values

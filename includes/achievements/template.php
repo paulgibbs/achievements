@@ -729,7 +729,7 @@ function dpa_achievement_pagination_count() {
 	 * @since Achievements (3.0)
 	 */
 	function dpa_get_achievement_pagination_count() {
-		if ( empty( achievements()->achievement_query ) )
+		if ( ! is_a( achievements()->achievement_query, 'WP_Query' ) )
 			return;
 
 		// Set pagination values
@@ -766,7 +766,7 @@ function dpa_achievement_pagination_links() {
 	 * @since Achievements (3.0)
 	 */
 	function dpa_get_achievement_pagination_links() {
-		if ( empty( achievements()->achievement_query ) )
+		if ( ! is_a( achievements()->achievement_query, 'WP_Query' ) )
 			return;
 
 		return apply_filters( 'dpa_get_achievement_pagination_links', achievements()->achievement_query->pagination_links );
