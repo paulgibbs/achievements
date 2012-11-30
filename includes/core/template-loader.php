@@ -55,6 +55,10 @@ function dpa_template_include_theme_supports( $template = '' ) {
 function dpa_load_theme_functions() {
 	global $pagenow;
 
+	// If Achievements is being deactivated, do not load any more files
+	if ( dpa_is_deactivation() )
+		return;
+
 	if ( ! defined( 'WP_INSTALLING' ) || ( ! empty( $pagenow ) && ( 'wp-activate.php' !== $pagenow ) ) )
 		dpa_locate_template( 'achievements-functions.php', true );
 }
