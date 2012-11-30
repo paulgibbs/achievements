@@ -64,10 +64,6 @@ class DPA_Default extends DPA_Theme_Compat {
 		// Notifications
 		add_action( 'dpa_enqueue_scripts', array( $this, 'enqueue_notifications_style' ) );
 
-		// Breadcrumb
-		add_action( 'dpa_template_before_achievements_index', 'dpa_breadcrumb' );
-		add_action( 'dpa_template_before_single_achievement', 'dpa_breadcrumb' );
-
 		do_action_ref_array( 'dpa_theme_compat_actions', array( &$this ) );
 	}
 
