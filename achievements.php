@@ -41,13 +41,13 @@ along with this program.  If not, see http://www.gnu.org/licenses/.
 // Exit if accessed directly
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-if ( ! class_exists( 'Achievements' ) ) :
+if ( ! class_exists( 'DPA_Achievements_Loader' ) ) :
 /**
  * Main Achievements class
  *
  * @since Achievements (3.0)
  */
-final class Achievements {
+final class DPA_Achievements_Loader {
 	/**
 	 * Achievements uses many variables, most of which can be filtered to customize
 	 * the way that it works. To prevent unauthorized access these variables
@@ -104,14 +104,14 @@ final class Achievements {
 	 * Insures that only one instance of Achievements exists in memory at any one
 	 * time. Also prevents needing to define globals all over the place.
 	 *
-	 * @return Achievements The one true Achievements
+	 * @return DPA_Achievements_Loader The one true Achievements
 	 * @see achievements()
 	 * @since Achievements (3.0)
 	 * @staticvar Achievements $instance
 	 */
 	public static function instance() {
 		if ( ! isset( self::$instance ) ) {
-			self::$instance = new Achievements;
+			self::$instance = new DPA_Achievements_Loader;
 			self::$instance->setup_globals();
 			self::$instance->includes();
 			self::$instance->setup_actions();
@@ -656,10 +656,10 @@ final class Achievements {
  * Use this function like you would a global variable, except without needing
  * to declare the global.
  *
- * @return Achievements The one true Achievements instance
+ * @return DPA_Achievements_Loader The one true Achievements instance
  */
-function achievements_instance() {
-	return Achievements::instance();
+function achievements() {
+	return DPA_Achievements_Loader::instance();
 }
 
 /**
@@ -673,7 +673,7 @@ if ( defined( 'DPA_LATE_LOAD' ) ) {
 
 // This makes it go up to 11
 } else {
-	achievements_instance();
+	achievements();
 }
 
 endif; // class_exists check
