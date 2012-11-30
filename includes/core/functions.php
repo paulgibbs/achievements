@@ -226,7 +226,6 @@ function dpa_handle_event() {
 		}
 	}
 
-	unset( achievements()->achievement_query, achievements()->progress_query );
 	achievements()->achievement_query = new stdClass();
 	achievements()->progress_query    = new stdClass();
 
