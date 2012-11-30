@@ -75,6 +75,10 @@ function dpa_has_progress( $args = array() ) {
 		dpa_has_achievements( $achievement_args );
 	}
 
+	// If multisite and running network-wide, undo the switch_to_blog
+	if ( is_multisite() && dpa_is_running_networkwide() )
+		restore_current_blog();
+
 	return apply_filters( 'dpa_has_progress', achievements()->progress_query->have_posts() );
 }
 
@@ -88,13 +92,8 @@ function dpa_progress() {
 	$have_posts = achievements()->progress_query->have_posts();
 
 	// Reset the post data when finished
-	if ( empty( $have_posts ) ) {
+	if ( empty( $have_posts ) )
 		wp_reset_postdata();
-
-		// If multisite and running network-wide, undo the switch_to_blog
-		if ( is_multisite() && dpa_is_running_networkwide() )
-			restore_current_blog();
-	}
 
 	return $have_posts;
 }
