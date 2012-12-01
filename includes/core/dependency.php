@@ -310,13 +310,3 @@ function dpa_template_include( $template = '' ) {
 function dpa_generate_rewrite_rules( $wp_rewrite ) {
 	do_action_ref_array( 'dpa_generate_rewrite_rules', array( &$wp_rewrite ) );
 }
-
-/**
- * Filter the allowed themes list for Achievements-specific themes
- *
- * @param array $themes
- * @since Achievements (3.0)
- */
-function dpa_allowed_themes( $themes ) {
-	return apply_filters( 'dpa_allowed_themes', $themes );
-}

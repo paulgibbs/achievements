@@ -29,7 +29,6 @@ add_filter( 'template_include',        'dpa_template_include',   10    );
 add_filter( 'wp_title',                'dpa_title',              10, 3 );
 add_filter( 'body_class',              'dpa_body_class',         10, 2 );
 add_filter( 'map_meta_cap',            'dpa_map_meta_caps',      10, 4 );
-add_filter( 'allowed_themes',          'dpa_allowed_themes',     10    );
 add_filter( 'redirect_canonical',      'dpa_redirect_canonical', 10    );
 add_filter( 'plugin_locale',           'dpa_plugin_locale',      10, 2 );
 
@@ -63,5 +62,4 @@ add_filter( 'dpa_template_include', 'dpa_template_include_theme_supports', 2, 1 
 add_filter( 'dpa_template_include', 'dpa_template_include_theme_compat',   4, 2 );
 
 // Run all template parts through additional template locations
-//add_filter( 'dpa_locate_template',   'dpa_add_template_locations' );
 add_filter( 'dpa_get_template_part', 'dpa_add_template_locations' );
