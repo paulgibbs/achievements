@@ -197,7 +197,7 @@ class DPA_Shortcodes {
 		// Start output buffer
 		$this->start( 'dpa_single_user_achievements' );
 
-		dpa_get_template_part( 'content-author-achievements' );
+		dpa_get_template_part( 'content-author-achievement' );
 
 		// Return contents of output buffer
 		return $this->end();
