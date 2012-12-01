@@ -228,7 +228,6 @@ final class DPA_Achievements_Loader {
 		$this->domain             = 'dpa';                                                        // Unique identifier for retrieving translated strings
 		$this->errors             = new WP_Error();                                               // Errors
 		$this->extensions         = new stdClass();                                               // Other plugins add data here
-		$this->minimum_capability = apply_filters( 'dpa_minimum_capability', 'manage_options' );  // Required capability to access most admin screens
 
 		// Add to global cache groups
 		wp_cache_add_global_groups( 'achievements' );

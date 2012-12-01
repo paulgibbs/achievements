@@ -333,7 +333,8 @@ function dpa_current_user_can_see( $component = '' ) {
 		// Admin setions
 
 		default :  // Anything else
-			$retval = current_user_can( achievements()->minimum_capability );
+			// @todo Use DPA_Admin->minimum_capability
+			$retval = current_user_can( 'manage_options' );
 			break;
 	}
 

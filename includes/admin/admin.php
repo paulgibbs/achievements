@@ -44,6 +44,14 @@ class DPA_Admin {
 	public $javascript_url = '';
 
 
+	// Capability
+
+	/**
+	 * @var bool Minimum capability to access Settings
+	 */
+	public $minimum_capability = 'manage_options';
+
+
 	/**
 	 * The main Achievements admin loader
 	 *
@@ -138,7 +146,7 @@ class DPA_Admin {
 			'edit.php?post_type=achievement',
 			__( 'Achievements &mdash; Supported Plugins', 'dpa' ),
 			__( 'Supported Plugins', 'dpa' ),
-			achievements()->minimum_capability,
+			$this->minimum_capability,
 			'achievements-plugins',
 			'dpa_supported_plugins'
 		);
