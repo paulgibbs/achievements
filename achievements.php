@@ -344,16 +344,16 @@ final class DPA_Achievements_Loader {
 
 		// Add the core actions
 		$actions = array(
-			'constants',                 // Define constants
-			'load_textdomain',           // Load textdomain
-			'register_endpoints',        // Register endpoints (achievements)
-			'register_post_statuses',    // Register post statuses (dpa_progress: locked, unlocked)
+			'setup_theme',               // Setup the default theme compat
+			'setup_current_user',        // Set up currently logged in user
 			'register_post_types',       // Register post types (achievement, dpa_progress)
+			'register_post_statuses',    // Register post statuses (dpa_progress: locked, unlocked)
 			'register_taxonomies',       // Register taxonomies (dpa_event)
 			'register_shortcodes',       // Register shortcodes
 			'register_theme_packages',   // Register bundled theme packages (templates)
-			'setup_current_user',        // Set up currently logged in user
-			'setup_theme',               // Setup the default theme compat
+			'load_textdomain',           // Load textdomain
+			'constants',                 // Define constants
+			'register_endpoints',        // Register endpoints (achievements)
 		);
 
 		foreach( $actions as $class_action )
