@@ -43,7 +43,7 @@ function dpa_user_avatar_link( $args = array() ) {
 
 		// Assemble some link bits
 		$user_link = array();
-		$user_url  = get_author_posts_url( $user_id );
+		$user_url  = user_trailingslashit( trailingslashit( get_author_posts_url( $user_id) ) . dpa_get_authors_endpoint() );
 
 		// Get avatar
 		if ( 'avatar' == $type || 'both' == $type )
