@@ -32,6 +32,7 @@ add_action( 'set_current_user',       'dpa_setup_current_user',     10 );
 add_action( 'setup_theme',            'dpa_setup_theme',            10 );
 add_action( 'after_setup_theme',      'dpa_after_setup_theme',      10 );
 add_action( 'template_redirect',      'dpa_template_redirect',      10 );
+add_action( 'admin_bar_menu',         'dpa_admin_bar_menu',         10 );
 
 /**
  * dpa_loaded - Attached to 'plugins_loaded' above

@@ -208,6 +208,15 @@ function dpa_enqueue_scripts() {
 }
 
 /**
+ * Add Toolbar support
+ *
+ * @since Achievements (3.0)
+ */
+function dpa_admin_bar_menu() {
+	do_action( 'dpa_admin_bar_menu' );
+}
+
+/**
  * Everything's loaded and ready to go!
  *
  * @since Achievements (3.0)
