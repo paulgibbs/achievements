@@ -53,9 +53,8 @@ add_action( 'dpa_loaded', 'dpa_load_textdomain',           16 );
  *
  * Attach various initialisation actions to the init action.
  */
-add_action( 'dpa_init', 'dpa_register',         0   );
-//add_action( 'dpa_init', 'dpa_add_rewrite_tags', 20  );
-add_action( 'dpa_init', 'dpa_ready',            999 );
+add_action( 'dpa_init', 'dpa_register', 0   );
+add_action( 'dpa_init', 'dpa_ready',    999 );
 
 /**
  * dpa_register - Attached to 'init' above on 0 priority
