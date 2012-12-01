@@ -354,6 +354,7 @@ final class DPA_Achievements_Loader {
 			'load_textdomain',           // Load textdomain
 			'constants',                 // Define constants
 			'register_endpoints',        // Register endpoints (achievements)
+			'admin_bar_menu',            // Register custom menu items (My Achievements)
 		);
 
 		foreach( $actions as $class_action )
@@ -610,6 +611,26 @@ final class DPA_Achievements_Loader {
 	 */
 	public function register_shortcodes() {
 		$this->shortcodes = new DPA_Shortcodes();
+	}
+
+	/**
+	 * Register custom menu items
+	 *
+	 * @global WP_Admin_Bar $wp_admin_bar
+	 * @since Achievements (3.0)
+	 */
+	public function admin_bar_menu() {
+		global $wp_admin_bar;
+
+		if ( ! dpa_is_user_active() )
+			return;
+
+		$wp_admin_bar->add_node( array(
+			'href'   => user_trailingslashit( trailingslashit( get_author_posts_url( get_current_user_id() ) ) . dpa_get_authors_endpoint() ),
+			'id'     => 'dpa_my_achievements',
+			'parent' => 'user-actions',
+			'title'  => _x( 'Achievements', '"My Achievements" menu item in the toolbar', 'dpa' ),
+		) );
 	}
 
 	/**
