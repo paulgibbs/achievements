@@ -145,15 +145,6 @@ function dpa_load_textdomain() {
 }
 
 /**
- * Sets up the theme directory
- *
- * @since Achievements (3.0)
- */
-function dpa_register_theme_directory() {
-	do_action( 'dpa_register_theme_directory' );
-}
-
-/**
  * Set up the post types
  *
  * @since Achievements (3.0)

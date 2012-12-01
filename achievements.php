@@ -352,7 +352,6 @@ final class DPA_Achievements_Loader {
 			'register_post_types',       // Register post types (achievement, dpa_progress)
 			'register_taxonomies',       // Register taxonomies (dpa_event)
 			'register_shortcodes',       // Register shortcodes
-			'register_theme_directory',  // Register the theme directory (themes)
 			'register_theme_packages',   // Register bundled theme packages (templates)
 			'setup_current_user',        // Set up currently logged in user
 			'setup_theme',               // Setup the default theme compat
@@ -584,16 +583,6 @@ final class DPA_Achievements_Loader {
 			dpa_get_achievement_post_type(), // The achievement post type
 			$tax
 		);
-	}
-
-	/**
-	 * Sets up the Achievements theme directory to use in WordPress
-	 *
-	 * @return bool True on success, false on failure
-	 * @since Achievements (3.0)
-	 */
-	public function register_theme_directory() {
-		return register_theme_directory( $this->themes_dir );
 	}
 
 	/**

@@ -45,9 +45,8 @@ add_action( 'dpa_loaded', 'dpa_includes',                  6  );
 add_action( 'dpa_loaded', 'dpa_setup_globals',             8  );
 add_action( 'dpa_loaded', 'dpa_setup_option_filters',      10 );
 add_action( 'dpa_loaded', 'dpa_setup_user_option_filters', 12 );
-//add_action( 'dpa_loaded', 'dpa_register_theme_directory',  14 );
-add_action( 'dpa_loaded', 'dpa_register_theme_packages',   16 );
-add_action( 'dpa_loaded', 'dpa_load_textdomain',           18 );
+add_action( 'dpa_loaded', 'dpa_register_theme_packages',   14 );
+add_action( 'dpa_loaded', 'dpa_load_textdomain',           16 );
 
 /**
  * dpa_init - Attached to 'init' above
