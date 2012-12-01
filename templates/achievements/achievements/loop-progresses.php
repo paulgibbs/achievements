@@ -9,7 +9,7 @@
 
 <?php do_action( 'dpa_template_before_progress_loop_block' ); ?>
 
-<h3 class="dpa-single-progress-loop-heading"><?php _e( 'Unlocked By', 'dpa' ); ?></h3>
+<h1 class="dpa-single-progress-loop-heading"><?php _e( 'Unlocked By', 'dpa' ); ?></h1>
 
 <?php do_action( 'dpa_template_before_progress_loop' ); ?>
 
