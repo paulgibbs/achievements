@@ -238,8 +238,7 @@ final class DPA_Achievements_Loader {
 		 * up a pre_option filter which loads from achievements()->options if an option
 		 * has been set there. This saves a lot of conditionals throughout the plugin.
 		 */
-
-		if ( is_multisite() && (bool) get_site_option( '_dpa_run_networkwide', false ) ) {
+		if ( is_multisite() && dpa_is_running_networkwide() ) {
 			$options = dpa_get_default_options();
 			foreach ( $options as $option_name => $option_value )
 				achievements()->options[$option_name] = get_site_option( $option_name );
@@ -658,6 +657,19 @@ final class DPA_Achievements_Loader {
 		dpa_setup_theme_compat( dpa_get_theme_package_id() );
 	}
 }
+
+/**
+ * Checks if the plugin across entire network, rather than on a specific site (for multisite)
+ *
+ * Needs to be in scope for DPA_Achievements_Loader::setup_globals(), so it's not in core/options.php
+ *
+ * @return true
+ * @since Achievements (3.0)
+ */
+function dpa_is_running_networkwide() {
+	return (bool) apply_filters( 'dpa_is_running_networkwide', is_plugin_active_for_network( achievements()->basename ) );
+}
+
 
 /**
  * The main function responsible for returning the one true Achievements instance.

@@ -219,16 +219,6 @@ function dpa_get_progresses_per_rss_page() {
  * Boolean functions (aka is this thing on?)
  */
 
-/**
- * Checks if the plugin across entire network, rather than on a specific site (for multisite)
- *
- * @return true
- * @since Achievements (3.0)
- */
-function dpa_is_running_networkwide() {
-	return (bool) apply_filters( 'dpa_is_running_networkwide', (bool) get_site_option( '_dpa_run_networkwide', false ) );
-}
-
 
 /**
  * Slug functions
