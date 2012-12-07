@@ -107,6 +107,9 @@ class DPA_Default extends DPA_Theme_Compat {
 	 * @todo LTR CSS
 	 */
 	public function enqueue_notifications_style() {
+		if ( ! dpa_is_user_active() )
+			return;
+
 		// If we don't have any notifications to show, bail out
 		$notifications = dpa_get_user_notifications();
 		if ( empty( $notifications ) )
