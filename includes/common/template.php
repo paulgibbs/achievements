@@ -455,7 +455,7 @@ function dpa_breadcrumb( $args = array() ) {
 		 */
 
 		// Get post ancestors
-		if ( is_page() || is_single() )
+		if ( is_singular() )
 			$ancestors = array_reverse( get_post_ancestors( get_the_ID() ) );
 
 		// Do we want to include a link to home?
