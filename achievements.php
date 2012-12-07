@@ -375,13 +375,7 @@ final class DPA_Achievements_Loader {
 	}
 
 	/**
-	 * Load the translation file for current language. Checks the languages
-	 * folder inside the Achievements plugin first, and then the default WordPress
-	 * languages folder.
-	 *
-	 * Note that custom translation files inside the Achievements plugin folder
-	 * will be removed on Achievements updates. If you're creating custom
-	 * translation files, please use the global language folder.
+	 * Load the translation file for current language. Checks the default WordPress languages folder.
 	 *
 	 * @since Achievements (3.0)
 	 */
@@ -390,17 +384,11 @@ final class DPA_Achievements_Loader {
 		$locale = apply_filters( 'plugin_locale',  get_locale(), $this->domain );
 		$mofile = sprintf( '%1$s-%2$s.mo', $this->domain, $locale );
 
-		// Setup paths to current locale file
-		$mofile_local  = $this->lang_dir . $mofile;
-		$mofile_global = WP_LANG_DIR . '/achievements/' . $mofile;
+		// Look in global /wp-content/languages/plugins/achievements/ folder
+		$mofile_global = WP_LANG_DIR . '/plugins/achievements/' . $mofile;
 
-		// Look in global /wp-content/languages/achievements/ folder
 		if ( file_exists( $mofile_global ) )
 			load_textdomain( $this->domain, $mofile_global );
-
-		// Look in local /wp-content/plugins/achievements/languages/ folder
-		elseif ( file_exists( $mofile_local ) )
-			load_textdomain( $this->domain, $mofile_local );
 	}
 
 	/**
