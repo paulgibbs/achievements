@@ -192,6 +192,10 @@ function dpa_handle_event() {
 	if ( ! dpa_is_user_active( $user_id ) )
 		return;
 
+	// Only proceed if the specified user can create progress posts
+	if ( ! user_can( $user_id, 'publish_achievement_progresses' ) )
+		return;
+
 	// Find achievements that are associated with the $event_name taxonomy
 	$args = array(
 		'ach_event'             => $event_name,  // Get posts in the event taxonomy matching the event name
@@ -248,6 +252,10 @@ function dpa_handle_event() {
 function dpa_maybe_unlock_achievement( $user_id, $skip_validation = '', $progress_obj = null, $achievement_obj = null ) {
 	// Only proceed if the specified user is active (logged in and not a spammer)
 	if ( ! dpa_is_user_active( $user_id ) )
+		return;
+
+	// Only proceed if the specified user can create progress posts
+	if ( ! user_can( $user_id, 'publish_achievement_progresses' ) )
 		return;
 
 	// Default to current object in the achievement loop
