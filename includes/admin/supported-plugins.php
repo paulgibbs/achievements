@@ -223,7 +223,11 @@ function dpa_supported_plugins_detail() {
 							$date    = strtotime( strip_tags( $item->get_date() ) );
 							$date    = gmdate( get_option( 'date_format' ), $date );
 
-							$author  = convert_chars( wptexturize( strip_tags( $item->get_author()->get_name() ) ) );
+							if ( null !== $item->get_author() )
+								$author = convert_chars( wptexturize( strip_tags( $item->get_author()->get_name() ) ) );
+							else
+								$author = '';
+
 							$excerpt = convert_chars( wptexturize( wp_kses_data( $excerpt ) ) );
 							$title   = convert_chars( wptexturize( strip_tags( $item->get_title() ) ) );
 							$url     = strip_tags( $item->get_permalink() );
@@ -232,8 +236,10 @@ function dpa_supported_plugins_detail() {
 							$content .= '<li>';
 							$content .= sprintf( '<h4><a href="%1$s">%2$s</a></h4>', esc_attr( esc_url( $url ) ), esc_html( $title ) );
 
-							// translators: "By AUTHOR, DATE".
-							$content .= sprintf( __( '<p>By %1$s, %2$s</p>' ), $author, $date );
+							if ( ! empty( $author ) ) {
+								// translators: "By AUTHOR, DATE".
+								$content .= sprintf( __( '<p>By %1$s, %2$s</p>' ), $author, $date );
+							}
 
 							$content .= sprintf( '<p>%1$s</p>', $excerpt );
 							$content .= '</li>';
