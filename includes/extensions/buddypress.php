@@ -70,7 +70,6 @@ class DPA_BuddyPress_Extension extends DPA_Extension {
 			'groups_create_group'              => __( 'The user creates a group.', 'dpa' ),
 			'groups_delete_group'              => __( 'The user deletes a group.', 'dpa' ),
 			'groups_demoted_member'            => __( 'The user demotes a group member from moderator or administrator status.', 'dpa' ),
-			'groups_demote_member'             => __( 'The user is demoted from being a moderator or an administrator in a group.', 'dpa' ),
 			'groups_invite_user'               => __( 'The user invites someone to join a group.', 'dpa' ),
 			'groups_join_group'                => __( 'The user joins a group.', 'dpa' ),
 			'groups_leave_group'               => __( 'The user leaves a group.', 'dpa' ),
