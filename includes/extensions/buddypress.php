@@ -67,7 +67,7 @@ class DPA_BuddyPress_Extension extends DPA_Extension {
 			'friends_friendship_rejected'      => __( 'The user rejects a friendship request from someone.', 'dpa' ),
 			'friends_friendship_requested'     => __( 'The user sends a friendship request to someone.', 'dpa' ),
 			'groups_banned_member'             => __( 'The user bans a member from a group.', 'dpa' ),
-			'groups_created_group'             => __( 'The user creates a group.', 'dpa' ),
+			'groups_create_group'              => __( 'The user creates a group.', 'dpa' ),
 			'groups_delete_group'              => __( 'The user deletes a group.', 'dpa' ),
 			'groups_demoted_member'            => __( 'The user demotes a group member from moderator or administrator status.', 'dpa' ),
 			'groups_demote_member'             => __( 'The user is demoted from being a moderator or an administrator in a group.', 'dpa' ),
