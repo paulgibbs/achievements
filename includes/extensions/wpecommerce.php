@@ -40,7 +40,7 @@ class DPA_WP_e_Commerce_Extension extends DPA_Extension {
 	public function __construct() {
 		$this->actions = array(
 			'wpsc_activate_subscription' => __( 'The user sets up a PayPal Subscription', 'dpa' ),
-			'wpsc_confirm_checkout'      => __( 'The user completes checkout', 'dpa' ),
+			'wpsc_payment_successful'    => __( 'The user completes checkout', 'dpa' ),
 		);
 
 		$this->contributors = array(
