@@ -40,7 +40,6 @@ class DPA_BuddyPress_Courseware_Extension extends DPA_Extension {
 	public function __construct() {
 		$this->actions = array(
 			'courseware_new_teacher_added'   => __( 'The user is added as a teacher', 'dpa' ),
-			'courseware_new_teacher_removed' => __( 'The user is removed as a teacher', 'dpa' ),
 			'courseware_grade_added'         => __( 'A grade is given to the user', 'dpa' ),
 			'courseware_grade_updated'       => __( "A user&rsquo;s grade is updated", 'dpa' ),
 			'courseware_assignment_added'    => __( 'The user creates a new assignment', 'dpa' ),
