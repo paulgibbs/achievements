@@ -32,9 +32,6 @@ add_filter( 'map_meta_cap',            'dpa_map_meta_caps',      10, 4 );
 add_filter( 'redirect_canonical',      'dpa_redirect_canonical', 10    );
 add_filter( 'plugin_locale',           'dpa_plugin_locale',      10, 2 );
 
-// Add post_parent__in to posts_where
-add_filter( 'posts_where', 'dpa_query_post_parent__in', 10, 2 );
-
 // Run filters on achievement->post_content
 add_filter( 'dpa_get_achievement_content', 'wptexturize',       10 );
 add_filter( 'dpa_get_achievement_content', 'capital_P_dangit',  12 );
