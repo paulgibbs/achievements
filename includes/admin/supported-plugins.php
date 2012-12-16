@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  * Set up the Supported Plugins admin page before any output is sent. Register contextual help and screen options for this page.
  *
  * @since Achievements (3.0)
- * @todo WordPress - find a way to hide "Plugin Information" from the screen option panel. Setting empty title doesn't render metabox.
+ * @todo WordPress - find a way to hide "Plugin Information" and "Supported Features" from the screen option panel. Setting empty title doesn't render metabox.
  */
 function dpa_supported_plugins_on_load() {
 	// Help panel - overview text
@@ -42,6 +42,7 @@ function dpa_supported_plugins_on_load() {
 
 	// Detail view - metaboxes
 	add_meta_box( 'dpa-supported-plugins-info', __( 'Plugin Information', 'dpa' ), 'dpa_supported_plugins_mb_info', 'dpa_achievement_page_achievements-plugins', 'side', 'core' );
+	add_meta_box( 'dpa-supported-plugins-features', __( 'Supported Features', 'dpa' ), 'dpa_supported_features_mb_info', 'dpa_achievement_page_achievements-plugins', 'side', 'core' );
 }
 
 /**
@@ -195,7 +196,7 @@ function dpa_supported_plugins_detail() {
 
 			<div class="<?php echo esc_attr( $class ); ?>">
 				<div class="plugin-title">
-					<h3><?php echo esc_html( convert_chars( wptexturize( $extension->get_name() ) ) ); ?></h3>
+					<h3><?php echo convert_chars( wptexturize( $extension->get_name() ) ); ?></h3>
 					<a class="socialite twitter" href="http://twitter.com/share" data-text="<?php echo esc_attr( convert_chars( wptexturize( $extension->get_name() ) ) ); ?>" data-related="pgibbs" data-url="<?php echo esc_attr( $extension->get_wporg_url() ); ?>" target="_blank"><?php _e( 'Share on Twitter', 'dpa' ); ?></a>
 					<a class="socialite googleplus" href="<?php echo esc_attr( esc_url( 'https://plus.google.com/share?url=' . urlencode( $extension->get_wporg_url() ) ) ); ?>" data-size="medium" data-href="<?php echo esc_attr( $extension->get_wporg_url() ); ?>" target="_blank"><?php _e( 'Share on Google', 'dpa' ); ?></a>
 				</div><!-- .plugin-title -->
@@ -348,7 +349,7 @@ function dpa_supported_plugins_list() {
 					</td>
 
 					<td class="name">
-						<?php echo esc_html( $plugin_name ); ?>
+						<?php echo $plugin_name; ?>
 					</td>
 
 					<?php /* <!-- <td class="rating">
@@ -494,8 +495,43 @@ function dpa_supported_plugins_mb_switcher() {
 }
 
 /**
+ *
+ *
+ * @since Achievements (3.0)
+ */
+function dpa_supported_features_mb_info() {
+	// Get current plugin
+	$plugin = dpa_supported_plugins_get_plugin();
+
+	// Get supported plugins
+	$extensions = achievements()->extensions;
+
+	foreach ( $extensions as $extension ) :
+		// Extensions must inherit the DPA_Extension class
+		if ( ! is_a( $extension, 'DPA_Extension' ) )
+			continue;
+
+		// Only show details for the current $plugin
+		if ( $plugin != $extension->get_id() )
+			continue;
+?>
+
+		<dl>
+			<?php foreach ( $extension->get_actions() as $action_name => $action_description ) : ?>
+				<dt><?php echo convert_chars( wptexturize( $action_name ) ); ?></dt>
+				<dd><?php echo convert_chars( wptexturize( $action_description ) ); ?></dd>
+			<?php endforeach; ?>
+		</dl>
+
+<?php
+	break;
+	endforeach;
+}
+
+/**
  * The metabox for the "plugin info" dropdown box on the Supported Plugins Detail view.
  * Shows: installed/not install status, contributors, description, wporg link
+ *
  * @since Achievements (3.0)
  */
 function dpa_supported_plugins_mb_info() {
