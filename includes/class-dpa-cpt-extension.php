@@ -50,16 +50,6 @@ abstract class DPA_CPT_Extension extends DPA_Extension {
 	protected $generic_cpt_actions = array();
 
 	/**
-	 * Constructor
-	 *
-	 * @since Achievements (3.0)
-	 */
-	public function __construct() {
-		add_filter( 'dpa_filter_events',     array( $this, 'get_generic_cpt_actions' ), 1,  1 );
-		add_filter( 'dpa_handle_event_name', array( $this, 'event_name'              ), 10, 2 );
-	}
-
-	/**
 	 * Add generic post type actions to the list of events that Achievements will listen for.
 	 *
 	 * @param array $events

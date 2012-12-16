@@ -69,10 +69,9 @@ class DPA_WordPress_Extension extends DPA_CPT_Extension {
 		$this->version         = 1;
 		$this->wporg_url       = 'http://wordpress.org/about/';
 
-		// Filter the user ID
-		add_filter( 'dpa_handle_event_user_id', array( $this, 'event_user_id' ),   10, 3 );
-
-		parent::__construct();
+		add_filter( 'dpa_filter_events',        array( $this, 'get_generic_cpt_actions' ), 1,  1 );
+		add_filter( 'dpa_handle_event_name',    array( $this, 'event_name'              ), 10, 2 );
+		add_filter( 'dpa_handle_event_user_id', array( $this, 'event_user_id'           ), 10, 3 );
 	}
 
 	/**
