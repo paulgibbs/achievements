@@ -84,12 +84,7 @@ class DPA_WordPress_Extension extends DPA_CPT_Extension {
 	 */
 	function event_name( $event_name, $func_args ) {
 		// Check we're dealing with the right type of event
-		if ( ! in_array( $event_name, array(
-			'draft_to_publish',
-			'future_to_publish',
-			'pending_to_publish',
-			'private_to_publish',
-		) ) )
+		if ( ! in_array( $event_name, $this->generic_cpt_actions ) )
 			return $event_name;
 
 		// Only switch the event name for Posts
