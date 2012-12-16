@@ -41,7 +41,7 @@ class DPA_Shortcodes {
 		// Setup the shortcodes
 		$this->codes = apply_filters( 'dpa_shortcodes', array(
 			// Achievements index
-			'dpa-achievements-index'  => array( $this, 'display_achievements_index' ),
+			'dpa-achievements-index' => array( $this, 'display_achievements_index' ),
 
 			// Specific achievement - pass an 'id' attribute
 			'dpa-single-achievement' => array( $this, 'display_achievement' ),
