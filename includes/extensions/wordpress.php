@@ -46,10 +46,11 @@ class DPA_WordPress_Extension extends DPA_CPT_Extension {
 		);
 
 		$this->generic_cpt_actions = array(
- 			'draft_to_publish',
- 			'future_to_publish',
- 			'pending_to_publish',
- 			'private_to_publish',
+			'draft_to_publish',
+			'future_to_publish',
+			'new_to_publish',
+			'pending_to_publish',
+			'private_to_publish',
 		);
 
 		$this->contributors = array(
