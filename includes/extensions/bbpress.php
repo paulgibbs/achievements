@@ -81,11 +81,11 @@ class DPA_bbPress_Forum_Extension extends DPA_CPT_Extension {
 		);
 
 		$this->generic_cpt_actions = array(
- 			'draft_to_publish',
- 			'future_to_publish',
- 			'pending_to_publish',
- 			'private_to_publish',
- 			'spam_to_publish',
+			'draft_to_publish',
+			'future_to_publish',
+			'new_to_publish',
+			'pending_to_publish',
+			'private_to_publish',
 		);
 
 		$this->description     = __( 'bbPress is forum software, made the WordPress way.', 'dpa' );
