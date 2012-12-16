@@ -617,7 +617,7 @@ function dpa_title( $title = '', $sep = '&raquo;', $seplocation = '' ) {
 
 	// Single achievement page
 	elseif ( dpa_is_single_achievement() )
-		$title = sprintf( __( 'Achievement: %s', 'dpa' ), dpa_get_achievement_title() );
+		$title = apply_filters( 'dpa_title_single_prefix', sprintf( __( 'Achievement: %s', 'dpa' ), dpa_get_achievement_title() ) );
 
 
 	// Filter the raw title
