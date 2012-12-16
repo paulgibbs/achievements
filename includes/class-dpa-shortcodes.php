@@ -164,6 +164,9 @@ class DPA_Shortcodes {
 		if ( ! empty( $content ) || ( empty( $attr['id'] ) || ! is_numeric( $attr['id'] ) ) )
 			return $content;
 
+		// Unset globals
+		$this->unset_globals();
+
 		// Set passed attribute to $achievement_id for clarity
 		$achievement_id = achievements()->current_achievement_id = $attr['id'];
 
@@ -171,11 +174,17 @@ class DPA_Shortcodes {
 		if ( ! dpa_is_achievement( $achievement_id ) )
 			return $content;
 
+		// If not in theme compat, reset necessary achievement_query attributes for achievements loop to function
+		if ( ! dpa_is_theme_compat_active() ) {
+			achievements()->achievement_query->query_vars['post_type'] = dpa_get_achievement_post_type();
+			achievements()->achievement_query->in_the_loop             = true;
+			achievements()->achievement_query->post                    = get_post( $achievement_id );
+		}
+
 		// Start output buffer
 		$this->start( 'dpa_single_achievement' );
 
 		// Check achievement caps
-		// @todo Compare this to bbPress' display_forum() and port missing functions
 		$post = get_post( $achievement_id );
 		if ( ! empty( $post ) && 'publish' == $post->post_status && current_user_can( 'read_achievement', $achievement_id ) )
 			dpa_get_template_part( 'content-single-achievement' );
