@@ -674,7 +674,6 @@ function dpa_achievement_class( $achievement_id = 0 ) {
 			$classes[] = 'dpa-single-achievement';
 
 		$classes[] = 'user-id-' . dpa_get_achievement_author_id( $achievement_id );
-		$classes   = get_post_class( array_filter( $classes ), $achievement_id );
 		$classes   = apply_filters( 'dpa_get_achievement_class', $classes, $achievement_id );
 
 		// Remove hentry as Achievements isn't hAtom compliant.

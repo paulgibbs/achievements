@@ -300,7 +300,6 @@ function dpa_progress_class( $progress_id = 0 ) {
 			$classes[] = 'logged-in-user';
 
 		$classes[] = 'user-id-' . dpa_get_progress_author_id( $progress_id );
-		$classes   = get_post_class( array_filter( $classes ), $progress_id );
 		$classes   = apply_filters( 'dpa_get_progress_class', $classes, $progress_id );
 
 		// Remove hentry as Achievements isn't hAtom compliant.
