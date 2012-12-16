@@ -45,6 +45,9 @@ class DPA_Shortcodes {
 
 			// Specific achievement - pass an 'id' attribute
 			'dpa-single-achievement' => array( $this, 'display_achievement' ),
+
+			// Misc
+			'dpa-breadcrumb'         => array( $this, 'display_breadcrumb' ),
 		) );
 	}
 
