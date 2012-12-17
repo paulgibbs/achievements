@@ -13,15 +13,6 @@
 
 	<div id="dpa-achievement-<?php dpa_achievement_id(); ?>" <?php dpa_achievement_class(); ?>>
 
-		<?php do_action( 'dpa_template_before_achievement_thumbnail' ); ?>
-
-		<?php if ( has_post_thumbnail() ) : ?>
-
-			<?php the_post_thumbnail( 'medium', array( 'class' => 'attachment-medium dpa-single-achievement-thumbnail' ) ); ?>
-
-		<?php endif; ?>
-
-
 		<?php do_action( 'dpa_template_before_achievement_content' ); ?>
 
 		<?php dpa_achievement_content(); ?>
