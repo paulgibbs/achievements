@@ -625,7 +625,7 @@ function dpa_achievements_index_description( $args = '' ) {
 
 					// Combine all the things to build the output text
 					$retstr = sprintf(
-						__( 'This site contains %1$s, and the last unlocked was <a href="%2$s">%3$s</a> by %4$s.', 'dpa' ),
+						__( 'This site has %1$s, and the last unlocked was <a href="%2$s">%3$s</a> by %4$s.', 'dpa' ),
 						$achievement_text,
 						get_permalink( $achievement->ID ),
 						$achievement->post_title,
@@ -640,7 +640,7 @@ function dpa_achievements_index_description( $args = '' ) {
 
 		// If we haven't set a more specific description, fall back to the default.
 		if ( ! isset( $retstr ) )
-			$retstr = sprintf( __( 'This site contains %1$s.', 'dpa' ), $achievement_text );
+			$retstr = sprintf( __( 'This site has %1$s.', 'dpa' ), $achievement_text );
 
 		$retstr = $before . $retstr . $after;
 		return apply_filters( 'dpa_get_achievements_index_description', $retstr, $args );
