@@ -7,7 +7,7 @@
  */
 ?>
 
-<li id="xxxdpa-progress-<?php dpa_progress_id(); ?>" <?php dpa_progress_class(); ?>>
+<li id="dpa-progress-<?php dpa_progress_id(); ?>" <?php dpa_progress_class(); ?>>
 
 	<?php do_action( 'dpa_template_in_progress_loop_early' ); ?>
 
