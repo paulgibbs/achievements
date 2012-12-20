@@ -399,14 +399,6 @@ function dpa_theme_compat_reset_post( $args = array() ) {
  * @since Achievements (3.0)
  */
 function dpa_template_include_theme_compat( $template = '' ) {
-	/**
-	 * Bail if the template already matches an Achievements template. This includes
-	 * archive-* and single-* WordPress post_type matches (allowing themes to use the
-	 * expected format) as well as all other Achievements-specific template files.
-	 */
-	if ( ! empty( achievements()->theme_compat->achievements_template ) )
-		return $template;
-
 	// Achievements archive
 	if ( dpa_is_achievement_archive() ) {
 		dpa_theme_compat_reset_post( array(
@@ -449,6 +441,14 @@ function dpa_template_include_theme_compat( $template = '' ) {
 			'post_type'      => dpa_get_achievement_post_type(),
 		) );
 	}
+
+	/**
+	 * Bail if the template already matches an Achievements template. This includes
+	 * archive-* and single-* WordPress post_type matches (allowing themes to use the
+	 * expected format) as well as all other Achievements-specific template files.
+	 */
+	if ( ! empty( achievements()->theme_compat->achievements_template ) )
+		return $template;
 
 	/**
 	 * If we are relying on Achievements' built-in theme compatibility to load
