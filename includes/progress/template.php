@@ -190,7 +190,7 @@ function dpa_progress_date( $progress_id = 0, $humanise = true, $gmt = false ) {
 			$gmt    = ! empty( $gmt ) ? 'G' : 'U';
 			$date   = get_post_time( $gmt, $progress_id );
 			$time   = false; // For filter below
-			$result = dpa_time_since( $date );
+			$result = dpa_get_time_since( $date );
 
 		// August 22, 2012 at 5:55 pm
 		} else {
