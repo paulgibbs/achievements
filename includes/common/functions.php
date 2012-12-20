@@ -25,7 +25,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  * @since Achievements (3.0)
  */
 function dpa_time_since( $older_date, $newer_date = false ) {
-	echo dpa_get_time_since( $older_date, $newer_date = false );
+	echo dpa_get_time_since( $older_date, $newer_date );
 }
 	/**
 	 * Return formatted time to display human readable time difference.
