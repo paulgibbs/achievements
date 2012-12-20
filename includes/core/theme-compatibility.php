@@ -94,7 +94,7 @@ function dpa_setup_theme_compat( $theme = '' ) {
  * Gets the ID of the Achievements compatible theme used in the event of the
  * currently active WordPress theme not explicitly supporting Achievements.
  * This can be filtered or set manually. Tricky theme authors can override the
- * default and include their own Achievements compatability layers for their themes.
+ * default and include their own Achievements compatibility layers for their themes.
  *
  * @return string
  * @since Achievements (3.0)
@@ -107,7 +107,7 @@ function dpa_get_theme_compat_id() {
  * Gets the name of the Achievements compatible theme used in the event of the
  * currently active WordPress theme not explicitly supporting Achievements.
  * This can be filtered or set manually. Tricky theme authors can override the
- * default and include their own Achievements compatability layers for their themes.
+ * default and include their own Achievements compatibility layers for their themes.
  *
  * @return string
  * @since Achievements (3.0)
@@ -120,7 +120,7 @@ function dpa_get_theme_compat_name() {
  * Gets the version of the Achievements compatible theme used in the event of the
  * currently active WordPress theme not explicitly supporting Achievements.
  * This can be filtered or set manually. Tricky theme authors can override the
- * default and include their own Achievements compatability layers for their themes.
+ * default and include their own Achievements compatibility layers for their themes.
  *
  * @return string
  * @since Achievements (3.0)
@@ -133,7 +133,7 @@ function dpa_get_theme_compat_version() {
  * Gets the directory path to the Achievements compatible theme used in the event of the
  * currently active WordPress theme not explicitly supporting Achievements.
  * This can be filtered or set manually. Tricky theme authors can override the
- * default and include their own Achievements compatability layers for their themes.
+ * default and include their own Achievements compatibility layers for their themes.
  *
  * @return string
  * @since Achievements (3.0)
@@ -146,7 +146,7 @@ function dpa_get_theme_compat_dir() {
  * Gets the URL to the Achievements compatible theme used in the event of the
  * currently active WordPress theme not explicitly supporting Achievements.
  * This can be filtered or set manually. Tricky theme authors can override the
- * default and include their own Achievements compatability layers for their themes.
+ * default and include their own Achievements compatibility layers for their themes.
  *
  * @return string
  * @since Achievements (3.0)

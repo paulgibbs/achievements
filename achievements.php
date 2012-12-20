@@ -631,7 +631,7 @@ final class DPA_Achievements_Loader {
 	}
 
 	/**
-	 * Setup the default Achievements theme compatability location.
+	 * Setup the default Achievements theme compatibility location.
 	 *
 	 * @since Achievements (3.0)
 	 */
