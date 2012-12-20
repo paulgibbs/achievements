@@ -16,7 +16,7 @@ Description: Achievements gives your BuddyPress community fresh impetus by promo
 Version: 3
 Requires at least: 3.5
 Tested up to: 3.5
-License: General Public License version 3
+License: GPLv3
 Author: Paul Gibbs
 Author URI: http://byotos.com/
 Domain Path: /languages/
