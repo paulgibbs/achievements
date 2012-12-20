@@ -19,7 +19,7 @@ Tested up to: 3.5
 License: GPLv3
 Author: Paul Gibbs
 Author URI: http://byotos.com/
-Domain Path: /languages/
+Domain Path: ../../languages/plugins/achievements/
 Text Domain: dpa
 
 "Achievements"
