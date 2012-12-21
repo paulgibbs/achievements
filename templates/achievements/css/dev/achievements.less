@@ -98,8 +98,35 @@ div.dpa-breadcrumb p { margin-bottom: @themeCompatMargin; } // Specifity require
  * Pagination
  */
 
-.dpa-pagination-count {	float: left; }   // @todo RTL
-.dpa-pagination-links { float: right; }  // @todo RTL
+.dpa-pagination-count { float: left; }  // @todo RTL
+
+.dpa-pagination-links {
+	display: inline;
+	float: right;  // @todo RTL
+	list-style: none;
+
+	a,
+	span.current {
+		border: 1px solid @themeCompatSubtleBorder;
+		display: block;
+		float: left;   // @todo RTL
+		margin-left: @themeCompatMargin/2;
+		padding: 0 @themeCompatMargin/2;
+	}
+
+	span.dots {
+		display: block;
+		float: left;  // @todo RTL
+		margin-left: @themeCompatMargin/2;
+	}
+
+	a:focus,
+	a:hover {
+		background: @themeCompatSubtleBorder;
+		opacity: 0.8;
+	}
+
+}
 
 .dpa-pagination {
 	float: right;  // @todo RTL
