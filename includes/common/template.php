@@ -423,7 +423,7 @@ function dpa_breadcrumb( $args = array() ) {
 			'after'           => '</p></div>',
 
 			// Separator
-			'sep'             => _x( '&rsaquo;', 'HTML entity for right single angle quotes', 'dpa' ),
+			'sep'             => is_rtl() ? _x( '&lsaquo;', 'HTML entity for left single angle quotes', 'dpa' ) : _x( '&rsaquo;', 'HTML entity for right single angle quotes', 'dpa' ),
 			'pad_sep'         => 1,
 			'sep_before'      => '<span class="dpa-breadcrumb-sep">',
 			'sep_after'       => '</span>',
@@ -531,6 +531,10 @@ function dpa_breadcrumb( $args = array() ) {
 		// Filter the separator and breadcrumb
 		$sep    = apply_filters( 'dpa_breadcrumb_separator', $sep    );
 		$crumbs = apply_filters( 'dpa_breadcrumbs',          $crumbs );
+
+		// If right-to-left, reverse the crumb order
+		if ( is_rtl() )
+			$crumbs = array_reverse( $crumbs );
 
 		// Build the trail
 		$trail = ! empty( $crumbs ) ? ( $before . $crumb_before . implode( $sep . $crumb_after . $crumb_before , $crumbs ) . $crumb_after . $after ) : '';
