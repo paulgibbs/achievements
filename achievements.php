@@ -168,6 +168,15 @@ final class DPA_Achievements_Loader {
 	 */
 	public function __set( $key, $value ) { $this->data[$key] = $value; }
 
+	/**
+	 * Magic method for unsetting Achievements variables
+	 *
+	 * @param string $key
+	 * @param mixed $value
+	 * @since Achievements (3.0)
+	 */
+	public function __unset( $key ) { if ( isset( $this->data[$key] ) ) unset( $this->data[$key] ); }
+
 
 	// Private methods
 
