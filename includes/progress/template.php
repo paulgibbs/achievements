@@ -187,8 +187,8 @@ function dpa_progress_date( $progress_id = 0, $humanise = true, $gmt = false ) {
 		
 		// 4 days, 4 hours ago
 		if ( $humanise ) {
-			$gmt    = ! empty( $gmt ) ? 'G' : 'U';
-			$date   = get_post_time( $gmt, $progress_id );
+			$gmt_s  = ! empty( $gmt ) ? 'G' : 'U';
+			$date   = get_post_time( $gmt_s, $gmt, $progress_id );
 			$time   = false; // For filter below
 			$result = dpa_get_time_since( $date );
 
