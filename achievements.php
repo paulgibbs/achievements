@@ -49,11 +49,12 @@ if ( ! class_exists( 'DPA_Achievements_Loader' ) ) :
  */
 final class DPA_Achievements_Loader {
 	/**
-	 * Achievements uses many variables, most of which can be filtered to customize
-	 * the way that it works. To prevent unauthorized access these variables
-	 * are stored in a private array that is magically updated using PHP 5.2+
-	 * methods. This is to prevent third party plugins from tampering with
-	 * essential information indirectly, which could cause issues later.
+	 * Achievements uses many variables, several of which can be filtered to
+	 * customise the way it operates. Most of these variables are stored in a
+	 * private array that gets updated with the help of PHP magic methods.
+	 *
+	 * This is a precautionary measure to avoid potential errors produced by
+	 * unanticipated direct manipulation of bbPress's run-time data.
 	 *
 	 * @see Achievements::setup_globals()
 	 * @var array
