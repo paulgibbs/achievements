@@ -5,6 +5,9 @@
  * @package Achievements
  * @subpackage ThemeCompatibility
  */
+
+// Exit if accessed directly
+if ( ! defined( 'ABSPATH' ) ) exit;
 ?>
 
 <li id="dpa-progress-<?php dpa_progress_id(); ?>" <?php dpa_progress_class(); ?>>

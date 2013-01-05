@@ -6,6 +6,9 @@
  * @subpackage ThemeCompatibility
  *
  */
+
+// Exit if accessed directly
+if ( ! defined( 'ABSPATH' ) ) exit;
 ?>
 
 <div id="dpa-achievements">

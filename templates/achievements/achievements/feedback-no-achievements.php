@@ -5,6 +5,9 @@
  * @package Achievements
  * @subpackage ThemeCompatibility
  */
+
+// Exit if accessed directly
+if ( ! defined( 'ABSPATH' ) ) exit;
 ?>
 
 <div class="dpa-template-notice">

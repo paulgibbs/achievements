@@ -5,6 +5,9 @@
  * @package Achievements
  * @subpackage ThemeCompatibility
  */
+
+// Exit if accessed directly
+if ( ! defined( 'ABSPATH' ) ) exit;
 ?>
 
 <?php do_action( 'dpa_template_before_progress_loop_block' ); ?>

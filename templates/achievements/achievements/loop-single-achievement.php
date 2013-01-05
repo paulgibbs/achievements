@@ -5,6 +5,9 @@
  * @package Achievements
  * @subpackage ThemeCompatibility
  */
+
+// Exit if accessed directly
+if ( ! defined( 'ABSPATH' ) ) exit;
 ?>
 
 <tr id="dpa-achievement-<?php dpa_achievement_id(); ?>" <?php dpa_achievement_class(); ?>>
