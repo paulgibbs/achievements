@@ -38,6 +38,7 @@ class DPA_Shortcodes {
 	 * @since Achievements (3.0)
 	 */
 	private function setup_globals() {
+
 		// Setup the shortcodes
 		$this->codes = apply_filters( 'dpa_shortcodes', array(
 			// Achievements index
@@ -57,7 +58,6 @@ class DPA_Shortcodes {
 	 * @since Achievements (3.0)
 	 */
 	private function add_shortcodes() {
-		// Loop through and add the shortcodes
 		foreach( (array) $this->codes as $code => $function )
 			add_shortcode( $code, $function );
 	}
@@ -75,7 +75,7 @@ class DPA_Shortcodes {
 		// Unset global IDs
 		achievements()->current_achievement_id = 0;
 
-		// Reset the post data
+		// Reset the post data globals
 		wp_reset_postdata();
 	}
 
@@ -95,7 +95,6 @@ class DPA_Shortcodes {
 	 * @since Achievements (3.0)
 	 */
 	private function start( $query_name = '' ) {
-		// Set query name
 		dpa_set_query_name( $query_name );
 
 		// Remove 'dpa_replace_the_content' filter to prevent infinite loops
@@ -108,20 +107,18 @@ class DPA_Shortcodes {
 	/**
 	 * Return the contents of the output buffer and flush its contents.
 	 *
-	 * @return string Contents of output buffer.
+	 * @return string Contents of output buffer
 	 * @since Achievements (3.0)
 	 */
 	private function end() {
 		// Get contents of the output buffer
 		$output = ob_get_contents();
 
-		// Unset globals
 		$this->unset_globals();
 
 		// Flush the output buffer
 		ob_end_clean();
 
-		// Reset the query name
 		dpa_reset_query_name();
 
 		// Add 'dpa_replace_the_content' filter back (@see $this::start())
@@ -138,7 +135,7 @@ class DPA_Shortcodes {
 	 * Display an index of all achievement posts in an output buffer
 	 * and return to ensure that post/page contents are displayed first.
 	 *
-	 * @return string
+	 * @return string Contents of output buffer
 	 * @since Achievements (3.0)
 	 */
 	public function display_achievements_index() {
@@ -149,7 +146,6 @@ class DPA_Shortcodes {
 
 		dpa_get_template_part( 'content-archive-achievement' );
 
-		// Return contents of output buffer
 		return $this->end();
 	}
 
@@ -159,7 +155,7 @@ class DPA_Shortcodes {
 	 *
 	 * @param array $attr
 	 * @param string $content Optional
-	 * @return string
+	 * @return string Contents of output buffer
 	 * @since Achievements (3.0)
 	 */
 	public function display_achievement( $attr, $content = '' ) {
@@ -167,7 +163,6 @@ class DPA_Shortcodes {
 		if ( ! empty( $content ) || ( empty( $attr['id'] ) || ! is_numeric( $attr['id'] ) ) )
 			return $content;
 
-		// Unset globals
 		$this->unset_globals();
 
 		// Set passed attribute to $achievement_id for clarity
@@ -192,7 +187,6 @@ class DPA_Shortcodes {
 		if ( ! empty( $post ) && 'publish' == $post->post_status && current_user_can( 'read_achievement', $achievement_id ) )
 			dpa_get_template_part( 'content-single-achievement' );
 
-		// Return contents of output buffer
 		return $this->end();
 	}
 
@@ -200,7 +194,7 @@ class DPA_Shortcodes {
 	 * For the current author, display an index of all their unlocked achievements
 	 * in an output buffer and return to ensure that post/page contents are displayed first.
 	 *
-	 * @return string
+	 * @return string Contents of output buffer
 	 * @since Achievements (3.0)
 	 */
 	public function display_user_achievements() {
@@ -211,7 +205,6 @@ class DPA_Shortcodes {
 
 		dpa_get_template_part( 'content-author-achievement' );
 
-		// Return contents of output buffer
 		return $this->end();
 	}
 
@@ -223,20 +216,17 @@ class DPA_Shortcodes {
 	/**
 	 * Display a breadcrumb
 	 *
-	 * @return string
+	 * @return string Contents of output buffer
 	 * @since Achievements (3.0)
 	 */
 	public function display_breadcrumb() {
-		// Unset globals
 		$this->unset_globals();
 
 		// Start output buffer
 		$this->start();
 
-		// Output breadcrumb
 		dpa_breadcrumb();
 
-		// Return contents of output buffer
 		return $this->end();
 	}
 }
