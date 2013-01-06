@@ -23,7 +23,7 @@ function dpa_user_avatar_link( $args = array() ) {
 	 *
 	 * @param array $args This function supports these arguments:
 	 *  - int $size If we're showing an avatar, set it to this size
-	 *  - string $type What type of link to return; either "avatar", "name", or "both".
+	 *  - string $type What type of link to return; either "avatar", "name", or "both", or "url".
 	 *  - int $user_id The ID for the user.
 	 * @return string
 	 * @since Achievements (3.0)
@@ -53,8 +53,14 @@ function dpa_user_avatar_link( $args = array() ) {
 		if ( 'avatar' != $type )
 			$user_link[] = sprintf( '<a href="%1$s">%2$s</a>', esc_url( $user_url ), get_the_author_meta( 'display_name', $user_id ) );
 
-		// Piece together the link parts and return
-		$user_link = join( '&nbsp;', $user_link );
+		// Maybe return user URL only
+		if ( 'url' == $type ) {
+			$user_link = $user_url;
+
+		// Otherwise piece together the link parts and return
+		} else {
+			$user_link = join( '&nbsp;', $user_link );
+		}
 
 		return apply_filters( 'dpa_get_user_avatar_link', $user_link, $args );
 	}
