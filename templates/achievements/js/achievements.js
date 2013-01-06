@@ -1,1 +1,5 @@
-/*! http://wordpress.org/extend/plugins/achievements/ */(function(e){e(document).ready(function(){e("#dpa-notifications").on("click.achievements",".close",function(){e(this).parent().remove()})})})(jQuery);
+/*! http://wordpress.org/extend/plugins/achievements/ */
+(function($) {
+
+$(document).ready(function() {
+})(jQuery);
