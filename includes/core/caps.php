@@ -273,12 +273,15 @@ function dpa_get_caps_for_role( $role = '' ) {
 				'delete_achievements',
 				'edit_achievements',
 				'publish_achievements',
+				'read_private_achievements',
 
 				// Achievement progress caps
 				'delete_achievement_progresses',
 				'delete_others_achievement_progresses',
 				'edit_achievement_progresses',
+				'edit_others_achievement_progresses',
 				'publish_achievement_progresses',
+				'read_private_achievement_progresses',
 
 				// Event tax caps
 				'assign_achievement_events',
