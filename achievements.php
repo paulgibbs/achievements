@@ -23,7 +23,7 @@ Domain Path: ../../languages/plugins/achievements/
 Text Domain: dpa
 
 "Achievements"
-Copyright (C) 2009-12 Paul Gibbs
+Copyright (C) 2009-13 Paul Gibbs
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License version 3 as published by
