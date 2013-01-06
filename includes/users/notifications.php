@@ -36,7 +36,7 @@ function dpa_send_notification( $achievement_obj, $user_id, $progress_id ) {
  */
 function dpa_print_notifications() {
 	// If user's not active or is inside the WordPress Admin, bail out.
-	if ( ! dpa_is_user_active() || is_admin() )
+	if ( ! dpa_is_user_active() || is_admin() || is_404() )
 		return;
 
 	// Get current notifications

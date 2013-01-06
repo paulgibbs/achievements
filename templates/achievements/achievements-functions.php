@@ -108,7 +108,7 @@ class DPA_Default extends DPA_Theme_Compat {
 	 */
 	public function enqueue_notifications_style() {
 		// If user's not active or is inside the WordPress Admin, bail out.
-		if ( ! dpa_is_user_active() || is_admin() )
+		if ( ! dpa_is_user_active() || is_admin() || is_404() )
 			return;
 
 		// If we don't have any notifications to show, bail out
