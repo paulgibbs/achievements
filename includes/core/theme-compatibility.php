@@ -554,6 +554,11 @@ function dpa_replace_the_content( $content = '' ) {
 
 	// Single user's achievements template
 	} elseif ( dpa_is_single_user_achievements() ) {
+
+		// Clear pending notifications when visiting your user achievement page
+		if ( dpa_is_user_active() && get_current_user_id() == get_queried_object()->ID )
+			dpa_update_user_notifications();
+
 		$new_content = achievements()->shortcodes->display_user_achievements();
 	}
 
