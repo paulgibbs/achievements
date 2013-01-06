@@ -675,6 +675,7 @@ function dpa_is_running_networkwide() {
  * to declare the global.
  *
  * @return DPA_Achievements_Loader The one true Achievements instance
+ * @since Achievements (3.0)
  */
 function achievements() {
 	return DPA_Achievements_Loader::instance();
