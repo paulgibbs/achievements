@@ -662,11 +662,56 @@ final class DPA_Achievements_Loader {
  *
  * @return true
  * @since Achievements (3.0)
+ * @todo Review if is_plugin_active_for_network() not being available on Network Activation is a WP core bug.
  */
 function dpa_is_running_networkwide() {
-	return (bool) apply_filters( 'dpa_is_running_networkwide', is_plugin_active_for_network( achievements()->basename ) );
+	$retval = false;
+
+	if ( is_multisite() ) {
+		$plugins = get_site_option( 'active_sitewide_plugins' );
+		if ( isset( $plugins[achievements()->basename] ) )
+			$retval = true;
+	}
+
+	return (bool) apply_filters( 'dpa_is_running_networkwide', $retval );
 }
 
+/**
+ * Get the default site options and their values
+ *
+ * Needs to be in scope for DPA_Achievements_Loader::setup_globals(), so it's not in core/options.php
+ *
+ * @return array Option names and values
+ * @since Achievements (3.0)
+ * @todo When dpa_get_default_options() are updated and multisite and network-wide are enabled, copy values to site options.
+ */
+function dpa_get_default_options() {
+	$options = array(
+		// DB version
+		'_dpa_db_version' => achievements()->db_version,        // Initial DB version
+
+		// Settings
+		'_dpa_theme_package_id' => 'default',                   // The ID for the current theme package.
+
+		// Achievement post type
+		'_dpa_achievements_per_page'     => 15,                 // Achievements per page
+		'_dpa_achievements_per_rss_page' => 25,                 // Achievements per RSS page
+		'_dpa_root_slug'                 => 'achievements',     // Achievements archive slug
+
+		// Progress post type
+		'_dpa_progresses_per_page'     => 15,                   // Progresses per page
+		'_dpa_progresses_per_rss_page' => 25,                   // Progresses per RSS page
+
+		// Extension support
+		'_dpa_extension_versions' => array(),                   // Version numbers for the plugin extensions
+
+		// Stats
+		'_dpa_stats_last_achievement_id'      => 0,             // ID of the last unlocked achievement
+		'_dpa_stats_last_achievement_user_id' => 0,             // ID of the user who unlocked the last achievement
+	);
+
+	return apply_filters( 'dpa_get_default_options', $options );
+}
 
 /**
  * The main function responsible for returning the one true Achievements instance.
