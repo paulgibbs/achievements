@@ -35,15 +35,15 @@ function dpa_send_notification( $achievement_obj, $user_id, $progress_id ) {
  * @since Achievements (3.0)
  */
 function dpa_print_notifications() {
-	// If user's not logged in or inside the WordPress Admin, bail out.
-	if ( ! is_user_logged_in() || is_admin() )
+	// If user's not active or is inside the WordPress Admin, bail out.
+	if ( ! dpa_is_user_active() || is_admin() )
 		return;
 
 	// Get current notifications
 	$achievements = array();
 	$notifications = dpa_get_user_notifications();
 
-	// If we're viewing an achievement, don't show a notification for it
+	// If we're viewing an achievement, clear the notification
 	if ( ! empty( $notifications ) && dpa_is_single_achievement() && isset( $notifications[get_the_ID()] ) ) {
 		unset( $notifications[get_the_ID()] );
 
@@ -51,27 +51,11 @@ function dpa_print_notifications() {
 		dpa_update_user_notifications( $notifications );
 	}
 
-	// Allow other plugins to filters the notifications before we display then
-	$notifications = apply_filters( 'dpa_print_notifications', $notifications );
+	if ( empty( $notifications ) )
+		return;
 
-	// Check we actually have notifications to display
-	if ( ! empty( $notifications ) ) :
-		echo '<div id="dpa-notifications" aria-live="polite">';
-
-		foreach ( $notifications as $achievement_id => $n_message ) :
-			$n_message = apply_filters( 'dpa_get_achievement_title', $n_message, $achievement_id );
-			$n_url     = esc_url( home_url() . '/?p=' . $achievement_id );
-	?>
-
-		<div class="dpa-notification-message">
-			<a class="close" title="<?php esc_attr_e( 'Hide notifications', 'dpa' ); ?>" alt="<?php esc_attr_e( 'Hide notifications', 'dpa' ); ?>"><?php /* translators: click the "X" to close the panel - like on Windows computers. */ _e( 'x', 'dpa' ); ?></a>
-			<p><?php printf( __( '<span>You&rsquo;ve unlocked an achievement!</span> <a href="%1$s">%2$s</a>', 'dpa' ), $n_url, $n_message ); ?></p>
-		</div>
-
-	<?php
-		endforeach;
-		echo '</div>';
-	endif;
+	// Display notifications
+	echo achievements()->shortcodes->display_feedback_achievement_unlocked();
 }
 
 /**
@@ -97,8 +81,8 @@ function dpa_new_notification( $user_id = 0, $post_id = 0 ) {
 	// Get existing notifications
 	$notifications = dpa_get_user_notifications( $user_id );
 
-	// Add the new notification: key = post ID, value = name of the achievement.
-	$notifications[$post_id] = get_post( $post_id )->post_title;
+	// Add the new notification: key = post ID, value = not used (for backpat reasons during 3.0 beta releases).
+	$notifications[$post_id] = '';
 	dpa_update_user_notifications( $notifications, $user_id );
 
 	// Tell other plugins that we've just created a new notification

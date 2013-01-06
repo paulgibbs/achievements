@@ -229,5 +229,22 @@ class DPA_Shortcodes {
 
 		return $this->end();
 	}
+
+	/**
+	 * Display the "achievement unlocked" feedback template
+	 *
+	 * @return string Contents of output buffer
+	 * @since Achievements (3.0)
+	 */
+	public function display_feedback_achievement_unlocked() {
+		$this->unset_globals();
+
+		// Start output buffer
+		$this->start();
+
+		dpa_get_template_part( 'feedback-achievement-unlocked' );
+
+		return $this->end();
+	}
 }
 endif;  // class_exists

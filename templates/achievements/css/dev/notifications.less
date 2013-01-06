@@ -9,58 +9,64 @@
 @import "../../../../includes/admin/css/dev/utility.less";
 @import "variables.less";
 
-.dpaSlideDown-keyframes-translateY(-50px);
-#dpa-notifications {
-	.animation-slidedown();
+#dpa-notifications-wrapper {
+	background: @notificationsBackgroundColour;
+	height: 100%;
 	left: 0;
 	position: fixed;
-	right: 0;
 	top: 0;
-	.translate(0, -50px);
-	z-index: 999999;  // Notifications are on top of the WP Toolbar
+	width: 100%;
+	z-index: 200;
+}
 
-	a {
-		border-bottom: 1px solid;
-		color: @notificationsLinkColour;
-		text-decoration: none;
-		font-weight: bold;
-	}
+#dpa-notifications {
+	.border-radius(@noticeBorderRadius);
+	.box-shadow(0px 0px @themeCompatMargin*2 rgba(0, 0, 0, 0.6));
+	background: @notificationsForegroundColour;
+	left: 18%;
+	min-height: 60%;
+	position: fixed;
+	top: 18%;
+	width: 64%;
+	z-index: 300;
+
+	.dpa-achievement-unlocked-thumbnail {	.border-radius(100rem);	}
+	> div { margin: @notificationsMarginV @notificationsMarginH; }
+
 	p {
-		margin: 0;
-		margin-bottom: 0 !important;
+		line-height: 1.5;
+		text-align: center;
 	}
-	span { font-weight: bold; }
 
-	.dpa-notification-message {
-		background-color: @notificationsGradientBottom;
-		background-repeat: repeat-x;
-		background-image: -khtml-gradient(linear, left top, left bottom, from(@notificationsGradientTop), to(@notificationsGradientBottom));
-		background-image: -moz-linear-gradient(top, @notificationsGradientTop, @notificationsGradientBottom);
-		background-image: -ms-linear-gradient(top, @notificationsGradientTop, @notificationsGradientBottom);
-		background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, @notificationsGradientTop), color-stop(100%, @notificationsGradientBottom));
-		background-image: -webkit-linear-gradient(top, @notificationsGradientTop, @notificationsGradientBottom);
-		background-image: -o-linear-gradient(top, @notificationsGradientTop, @notificationsGradientBottom);
-		background-image: linear-gradient(top, @notificationsGradientTop, @notificationsGradientBottom);
-		filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='@notificationsGradientTop', endColorstr='@notificationsGradientBottom', GradientType=0);
-	  border: 1px solid @notificationsBorderColour;
-	  font-size: larger;
-	  padding: @themeCompatMargin*0.6 @themeCompatMargin;
-	  position: relative;
-
-		.close {
-			font-family: Arial, sans-serif; 
-			float: right;
-			color: @notificationsHighlightColour;
-			font-size: large;
-			font-weight: bold;
-			.opacity(50);
-
-		  &:hover {
-				border-bottom: 0;
-				color: @notificationsHighlightColour;
-				cursor: pointer;
-				.opacity(100);
-			}
-		}
+	img {
+		display: block;
+		margin: 0 auto @themeCompatMargin*2;
 	}
+
+	h1 {
+		font-size: @notificationsLargeFontSizePx;
+		font-size: @notificationsLargeFontSizeRem;
+		font-weight: 300;
+		margin-bottom: @themeCompatMargin*2;
+		text-align: center;
+		text-transform: uppercase;
+	}
+
+	h2 {
+		font-size: @notificationsLargeFontSizePx;
+		font-size: @notificationsLargeFontSizeRem;
+		margin-bottom: @themeCompatMargin;
+		text-align: center;
+	}
+}
+
+.dpa-notification-cta {
+	.border-radius(@noticeBorderRadius);
+	background: @notificationsCTAColour;
+	color: @notificationsForegroundColour;
+	display: block;
+	margin: @themeCompatMargin*2 0;
+	padding: @themeCompatMargin*2 0;
+	text-align: center;
+	text-decoration: none;
 }
