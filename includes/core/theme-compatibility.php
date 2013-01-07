@@ -698,8 +698,7 @@ function dpa_restore_all_filters( $tag, $priority = false ) {
 		}
 	}
 
-	// Check merged filters
-	if ( isset( $achievements()->filters->merged_filters[$tag] ) ) {
+	if ( isset( achievements()->filters->merged_filters[$tag] ) ) {
 
 		// Restore filter
 		$merged_filters[$tag] = achievements()->filters->merged_filters[$tag];
