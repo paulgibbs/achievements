@@ -617,7 +617,7 @@ function dpa_achievements_index_description( $args = '' ) {
 
 			// Check user ID is still valid
 			$user = get_userdata( $recent_user_id );
-			if ( ! empty( $user ) && ! dpa_is_user_deleted( $user ) && dpa_is_user_active( $user ) ) {
+			if ( ! empty( $user ) && dpa_is_user_active( $user ) ) {
 
 				// Check achievement ID is valid
 				$achievement = get_post( $recent_achievement_id );
