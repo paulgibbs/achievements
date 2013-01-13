@@ -628,7 +628,7 @@ function dpa_achievements_index_description( $args = '' ) {
 						__( 'This site has %1$s, and the last unlocked was <a href="%2$s">%3$s</a> by %4$s.', 'dpa' ),
 						$achievement_text,
 						get_permalink( $achievement->ID ),
-						$achievement->post_title,
+						apply_filters( 'dpa_get_achievement_title', $achievement->post_title, $achievement->ID ),
 						dpa_get_user_avatar_link( array(
 							'size'    => $size,
 							'user_id' => $user->ID,
