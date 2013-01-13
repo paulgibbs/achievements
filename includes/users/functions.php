@@ -53,6 +53,9 @@ function dpa_update_user_stats( $achievement_obj, $user_id, $progress_id ) {
 	// Update user's unlocked count
 	dpa_update_user_unlocked_count( $user_id, $new_unlock_count );
 
+	// Store the ID of the unlocked achievement for this user
+	dpa_update_user_last_unlocked( $user_id, $achievement_obj->ID );
+
 	// Allow other things to happen after the user's stats have been updated
 	do_action( 'dpa_update_user_stats', $achievement_obj, $user_id, $progress_id, $new_unlock_count );
 }

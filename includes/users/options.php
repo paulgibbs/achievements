@@ -17,6 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  */
 function dpa_get_default_user_options() {
 	return apply_filters( 'dpa_get_default_user_options', array(
+		'_dpa_last_unlocked'  => 0,        // ID of the last achievement this user unlocked (per site or network)
 		'_dpa_unlocked_count' => 0,        // How many achievements this user has unlocked (per site or network)
 		'_dpa_points'         => 0,        // How many points this user has (per site or network)
 		'_dpa_notifications'  => array(),  // User notifications (per site or network)
@@ -111,6 +112,11 @@ function dpa_filter_get_user_option( $value = false, $option = '', $user = null 
 
 	return $value;
 }
+
+
+/**
+ * _dpa_unlocked_count option - user's unlocked achievements count
+ */
 
 /**
  * Update a user's unlocked achievement count
@@ -277,3 +283,62 @@ function dpa_get_user_notifications( $user_id = 0 ) {
 
 	return (array) apply_filters( 'dpa_get_user_notifications', $value, $user_id );
 }
+
+
+/**
+ * _dpa_last_unlocked option - ID of user's last unlocked achievement
+ */
+
+/**
+ * Update the ID of the last achievement this user unlocked
+ *
+ * @param int $user_id Optional. User ID to update. Optional, defaults to current logged in user.
+ * @param int $new_value Optional. The new value.
+ * @return bool False if no user or failure, true if successful
+ * @since Achievements (3.0)
+ */
+function dpa_update_user_last_unlocked( $user_id = 0, $new_value = 0 ) {
+	// Default to current user
+	if ( empty( $user_id ) && is_user_logged_in() )
+		$user_id = get_current_user_id();
+
+	// No user, bail out
+	if ( empty( $user_id ) )
+		return false;
+
+	// As Achievements can run independently (as well as sitewide) on a multisite, decide where to store the user option
+	$store_global = is_multisite() && dpa_is_running_networkwide();
+
+	$new_value = apply_filters( 'dpa_update_user_last_unlocked', $new_value, $user_id );
+	return update_user_option( $user_id, '_dpa_last_unlocked', $new_value, $store_global );
+}
+
+/**
+ * Output the ID of the last achievement this user unlocked
+ *
+ * @param int $user_id Optional. User ID to retrieve value for
+ * @since Achievements (3.0)
+ */
+function dpa_user_last_unlocked( $user_id = 0 ) {
+	echo number_format_i18n( dpa_get_user_last_unlocked( $user_id ) );
+}
+
+	/**
+	 * Return the ID of the last achievement this user unlocked
+	 *
+	 * @param int $user_id Optional. User ID to retrieve value for
+	 * @return mixed False if no user, option value otherwise.
+	 * @since Achievements (3.0)
+	 */
+	function dpa_get_user_last_unlocked( $user_id = 0 ) {
+		// Default to current user
+		if ( empty( $user_id ) && is_user_logged_in() )
+			$user_id = get_current_user_id();
+
+		// No user, bail out
+		if ( empty( $user_id ) )
+			return false;
+
+		$value = get_user_option( '_dpa_last_unlocked', $user_id );
+		return apply_filters( 'dpa_get_user_last_unlocked', $value, $user_id );
+	}
