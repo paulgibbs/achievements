@@ -69,7 +69,7 @@ function dpa_get_total_achievement_count() {
 }
 
 /**
- * When an achievement is unlocked, update various stats.
+ * When an achievement is unlocked, update various stats relating to the achievement.
  *
  * @param object $achievement_obj The Achievement object.
  * @param int $user_id ID of the user who unlocked the achievement.
