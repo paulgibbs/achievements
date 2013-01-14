@@ -118,8 +118,19 @@ class DPA_Admin {
 	 * @since Achievements (3.0)
 	 */
 	private function includes() {
+		if ( ! class_exists( 'WP_List_Table' ) )
+			require( ABSPATH . 'wp-admin/includes/class-wp-list-table.php' );
+
+		if ( ! class_exists( 'WP_Users_List_Table' ) )
+			require( ABSPATH . 'wp-admin/includes/class-wp-users-list-table.php' );
+
+		// Supported plugins screen
 		require( $this->admin_dir . 'functions.php'         );
-		require( $this->admin_dir . 'supported-plugins.php' );  // Supported plugins screen
+		require( $this->admin_dir . 'supported-plugins.php' );
+
+		// Users screen
+		require( $this->admin_dir . 'class-dpa-users-list-table.php' );
+		require( $this->admin_dir . 'users.php'                      );
 	}
 
 	/**
@@ -141,8 +152,20 @@ class DPA_Admin {
 	 * @since Achievements (3.0)
 	 */
 	public function admin_menus() {
+		$hooks = array();
+
+		// "Users" menu
+		$hooks[] = add_submenu_page(
+			'edit.php?post_type=achievement',
+			__( 'Achievements &mdash; Users', 'dpa' ),
+			_x( 'Users', 'admin menu title', 'dpa' ),
+			$this->minimum_capability,
+			'achievements-users',
+			'dpa_admin_screen_users'
+		);
+
 		// "Supported Plugins" menu
-		$hook = add_submenu_page(
+		$hooks[] = add_submenu_page(
 			'edit.php?post_type=achievement',
 			__( 'Achievements &mdash; Supported Plugins', 'dpa' ),
 			__( 'Supported Plugins', 'dpa' ),
@@ -151,19 +174,21 @@ class DPA_Admin {
 			'dpa_supported_plugins'
 		);
 
-		// Hook into early actions to register custom CSS and JS
-		add_action( "admin_print_styles-$hook",  array( $this, 'enqueue_styles'  ) );
-		add_action( "admin_print_scripts-$hook", array( $this, 'enqueue_scripts' ) );
+		foreach( $hooks as $hook ) {
 
-		// Hook into early actions to register contextual help and screen options
-		add_action( "load-$hook",                array( $this, 'screen_options' ) );
+			// Hook into early actions to register custom CSS and JS
+			add_action( "admin_print_styles-$hook",  array( $this, 'enqueue_styles'  ) );
+			add_action( "admin_print_scripts-$hook", array( $this, 'enqueue_scripts' ) );
+
+			// Hook into early actions to register contextual help and screen options
+			add_action( "load-$hook",                array( $this, 'screen_options' ) );
+		}
 
 		// Add/save custom profile field on the edit user screen
 		add_action( 'edit_user_profile',         array( $this, 'add_profile_fields'  ) );
 		add_action( 'show_user_profile',         array( $this, 'add_profile_fields'  ) );
 		add_action( 'edit_user_profile_update',  array( $this, 'save_profile_fields' ) );
 		add_action( 'personal_options_update',   array( $this, 'save_profile_fields' ) );
-
 	}
 
 	/**
@@ -179,6 +204,8 @@ class DPA_Admin {
 		// "Supported Plugins" screen
 		if ( 'achievements-plugins' == $_GET['page'] )
 			dpa_supported_plugins_on_load();
+		elseif ( 'achievements-users' == $_GET['page'] )
+			dpa_admin_screen_users_on_load();
 	}
 
 	/**
@@ -194,6 +221,10 @@ class DPA_Admin {
 		// "Supported Plugins" screen
 		if ( 'achievements-plugins' == $_GET['page'] )
 			wp_enqueue_style( 'dpa_admin_css', trailingslashit( $this->css_url ) . 'supportedplugins.css', array(), '20120722' );
+
+		// Achievements "users" screen
+		elseif ( 'achievements-users' == $_GET['page'] )
+			wp_enqueue_style( 'dpa_admin_users_css', trailingslashit( $this->css_url ) . 'users.css', array(), '20130113' );
 	}
 
 	/**
