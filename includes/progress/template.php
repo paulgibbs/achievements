@@ -18,8 +18,6 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 /**
  * The Progress post type loop.
  *
- * Only for use inside a dpa_has_achievements() template loop.
- *
  * @param array|string $args All the arguments supported by {@link WP_Query}, and some more.
  * @return bool Returns true if the query has any results to loop over
  * @since Achievements (3.0)
@@ -32,7 +30,7 @@ function dpa_has_progress( $args = array() ) {
 	$defaults = array(
 		'max_num_pages' => false,                         // Maximum number of pages to show
 		'order'         => 'DESC',                        // 'ASC', 'DESC
-		'orderby'       => 'date',                        // 'meta_value', 'author', 'date', 'title', 'modified', 'parent', rand'
+		'orderby'       => 'date',                        // 'meta_value', 'author', 'date', 'title', 'modified', 'parent', 'rand'
 		'paged'         => dpa_get_paged(),               // Page number
 		'post_status'   => dpa_get_unlocked_status_id(),  // Get posts in the unlocked status by default.
 		'post_type'     => dpa_get_progress_post_type(),  // Only retrieve progress posts
@@ -55,8 +53,6 @@ function dpa_has_progress( $args = array() ) {
 	);
 
 	$args = dpa_parse_args( $args, $defaults, 'has_progress' );
-
-	// Extract the query variables
 	extract( $args );
 
 	// Run the query

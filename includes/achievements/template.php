@@ -53,8 +53,6 @@ function dpa_has_achievements( $args = array() ) {
 
 	// Progress post type: get posts in the locked / unlocked status by default.
 	$args = dpa_parse_args( $args, $defaults, 'has_achievements' );
-
-	// Extract the query variables
 	extract( $args );
 
 	// Load achievements for a specific event
