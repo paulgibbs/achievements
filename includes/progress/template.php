@@ -40,7 +40,7 @@ function dpa_has_progress( $args = array() ) {
 		// Conditional defaults
 
 		// If on a user's achievements page, use that author's user ID.
-		'author'         => dpa_is_single_user_achievements() ? get_the_author_meta( 'ID' ) : null,
+		'author'         => dpa_is_single_user_achievements() ? get_queried_object()->ID : null,
 
 		// If on single achievement page, use that post's ID. 
 		'post_parent'    => dpa_is_single_achievement() ? dpa_get_achievement_id() : null,
