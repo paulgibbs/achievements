@@ -158,7 +158,8 @@ class DPA_Users_List_Table extends WP_Users_List_Table {
 	 */
 	function get_sortable_columns() {
 		return array(
-			'username' => 'login',
+			'dpa_achievements' => 'dpa_points',
+			'username'         => 'login',
 		);
 	}
 
