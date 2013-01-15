@@ -625,7 +625,7 @@ final class DPA_Achievements_Loader {
 			'href'   => user_trailingslashit( trailingslashit( get_author_posts_url( get_current_user_id() ) ) . dpa_get_authors_endpoint() ),
 			'id'     => 'dpa_my_achievements',
 			'parent' => 'user-actions',
-			'title'  => _x( 'Achievements', '"My Achievements" menu item in the toolbar', 'dpa' ),
+			'title'  => _x( 'My Achievements', 'Menu item in the toolbar', 'dpa' ),
 		) );
 	}
 
