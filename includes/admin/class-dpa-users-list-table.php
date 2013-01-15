@@ -168,67 +168,67 @@ class DPA_Users_List_Table extends WP_Users_List_Table {
 	 * @since Achievements (3.0)
 	 */
 	function display_rows() {
-		foreach ( $this->items as $item )
-			$this->single_row( $item );
+		foreach ( $this->items as $user )
+			$this->single_row( $user );
 	}
 
 	/**
 	 * Generates content for a single row of the table
 	 *
-	 * @param object $item The current item
+	 * @param WP_User $user The current item
 	 * @since Achievements (3.0)
 	 */
-	function single_row( $item ) {
+	function single_row( $user ) {
 		static $row_class = '';
 		$row_class = ( $row_class == '' ) ? ' class="alternate"' : '';
 
 		echo '<tr' . $row_class . '>';
-		echo $this->single_row_columns( $item );
+		echo $this->single_row_columns( $user );
 		echo '</tr>';
 	}
 
 	/**
 	 * Username column
 	 *
-	 * @param array $item A singular item (one full row)
+	 * @param WP_User $user A singular item (one full row)
 	 * @see WP_List_Table::single_row_columns()
 	 * @since Achievements (3.0)
 	 */
-	function column_username( $item ) {
-		$avatar = get_avatar( $item->ID, 32 );
-		$url    = user_trailingslashit( trailingslashit( get_author_posts_url( $item->ID ) ) . dpa_get_authors_endpoint() );
+	function column_username( $user ) {
+		$avatar = get_avatar( $user->ID, 32 );
+		$url    = user_trailingslashit( trailingslashit( get_author_posts_url( $user->ID ) ) . dpa_get_authors_endpoint() );
 
-		printf( '%1$s <strong><a href="%2$s">%3$s</a></strong>', $avatar, esc_url( $url ), $item->user_login );
+		printf( '%1$s <strong><a href="%2$s">%3$s</a></strong>', $avatar, esc_url( $url ), $user->user_login );
 	}
 
 	/**
 	 * Unlock count column
 	 *
-	 * @param array $item A singular item (one full row)
+	 * @param WP_User $user A singular item (one full row)
 	 * @see WP_List_Table::single_row_columns()
 	 * @since Achievements (3.0)
 	 */
-	function column_dpa_achievements( $item ) {
-		dpa_user_unlocked_count( $item->ID );
+	function column_dpa_achievements( $user ) {
+		dpa_user_unlocked_count( $user->ID );
 	}
 
 	/**
 	 * Last unlocked achievement column
 	 *
-	 * @param array $item A singular item (one full row)
+	 * @param WP_User $user A singular item (one full row)
 	 * @see WP_List_Table::single_row_columns()
 	 * @since Achievements (3.0)
 	 */
-	function column_dpa_last_id( $item ) {
+	function column_dpa_last_id( $user ) {
 		$output = true;
 
 		// Get this user's most recent unlocked achievement
-		$achievement_id = dpa_get_user_last_unlocked( $item->ID );
+		$achievement_id = dpa_get_user_last_unlocked( $user->ID );
 		if ( empty( $achievement_id ) )
 			$output = false;
 
 		// Check user ID is valid
-		if ( $output && ! dpa_is_user_active( $item->ID ) )
+		if ( $output && ! dpa_is_user_active( $user->ID ) )
 			$output = false;
 
 		// Check achievement is still valid
@@ -253,11 +253,11 @@ class DPA_Users_List_Table extends WP_Users_List_Table {
 	/**
 	 * Actions column
 	 *
-	 * @param array $item A singular item (one full row)
+	 * @param WP_User $user A singular item (one full row)
 	 * @see WP_List_Table::single_row_columns()
 	 * @since Achievements (3.0)
 	 */
-	function column_dpa_actions( $item ) {
-		printf( '<a href="%1$s">%2$s</a>', get_edit_user_link( $item->ID ) , __( 'Edit', 'dpa' ) );
+	function column_dpa_actions( $user ) {
+		printf( '<a href="%1$s">%2$s</a>', get_edit_user_link( $user->ID ) , __( 'Edit', 'dpa' ) );
 	}
 }
