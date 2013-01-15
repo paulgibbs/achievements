@@ -250,7 +250,6 @@ class DPA_Users_List_Table extends WP_Users_List_Table {
 		}
 	}
 
-
 	/**
 	 * Actions column
 	 *
@@ -259,6 +258,6 @@ class DPA_Users_List_Table extends WP_Users_List_Table {
 	 * @since Achievements (3.0)
 	 */
 	function column_dpa_actions( $item ) {
-		echo '<a href="#">Edit</a>';
+		printf( '<a href="%1$s">%2$s</a>', get_edit_user_link( $item->ID ) , __( 'Edit', 'dpa' ) );
 	}
 }
