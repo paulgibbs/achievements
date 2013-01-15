@@ -11,5 +11,15 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 ?>
 
 <div class="dpa-template-notice">
-	<p><?php _e( 'This is somewhat embarrassing, isn&rsquo;t it? No achievements were found.', 'dpa' ); ?></p>
+
+	<?php if ( dpa_is_single_user_achievements() ) : ?>
+
+		<p><?php printf( __( '%1$s hasn&rsquo;t unlocked any achievements.', 'dpa' ), get_the_author_meta( 'display_name', get_queried_object()->ID ) ); ?>
+
+	<?php else : ?>
+
+		<p><?php _e( 'This is somewhat embarrassing, isn&rsquo;t it? No achievements were found.', 'dpa' ); ?></p>
+
+	<?php endif ?>
+
 </div>
