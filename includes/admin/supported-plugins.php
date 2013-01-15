@@ -16,6 +16,10 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  * @todo WordPress - find a way to hide "Plugin Information" and "Supported Features" from the screen option panel. Setting empty title doesn't render metabox.
  */
 function dpa_supported_plugins_on_load() {
+
+	// Call an action for plugins to hook in early
+	do_action( 'dpa_supported_plugins_on_load' );
+
 	// Help panel - overview text
 	get_current_screen()->add_help_tab( array(
 		'id'      => 'dpa-supported-plugins-overview',
