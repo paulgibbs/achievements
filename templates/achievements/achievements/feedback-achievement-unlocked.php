@@ -19,9 +19,10 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  */
 function dpa_feedback_achievement_unlock_wrapper() {
 	$notifications = get_posts( array(
-		'numberposts' => 1,
-		'post_type'   => dpa_get_achievement_post_type(),
-		'post__in'    => array_keys( dpa_get_user_notifications() ),
+		'numberposts'      => 1,
+		'post_type'        => dpa_get_achievement_post_type(),
+		'post__in'         => array_keys( dpa_get_user_notifications() ),
+		'suppress_filters' => false,
 	) );
 
 	$user_profile_url = dpa_get_user_avatar_link( array(
