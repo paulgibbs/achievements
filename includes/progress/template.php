@@ -350,3 +350,24 @@ function dpa_progress_pagination_count() {
 
 		return apply_filters( 'dpa_get_progress_pagination_count', $retstr );
 	}
+
+/**
+ * Has the current achievement in the progress loop been unlocked by the current user?
+ * 
+ * The "current" user refers to the user in the dpa_has_achievements() loop, which is not necessarily
+ * the currently-logged in user.
+ *
+ * @param int $achievement_id Optional. Achievement ID to check.
+ * @return bool True if achievement has been unlocked
+ * @since Achievements (3.0)
+ */
+function dpa_is_achievement_unlocked( $achievement_id = 0 ) {
+	$achievement_id = dpa_get_achievement_id( $achievement_id );
+
+	// Look in the progress posts and match the achievement against a post_parent
+	$progress = wp_filter_object_list( achievements()->progress_query->posts, array( 'post_parent' => $achievement_id ) );
+	$progress = array_shift( $progress );
+
+	$retval = ( ! empty( $progress ) && dpa_get_unlocked_status_id() == $progress->post_status );
+	return apply_filters( 'dpa_is_achievement_unlocked', $retval, $achievement_id, $progress ); 
+}
