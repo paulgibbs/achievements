@@ -263,7 +263,7 @@ function dpa_maybe_unlock_achievement( $user_id, $skip_validation = '', $progres
 		$achievement_obj = achievements()->achievement_query->post;
 
 	// Default to progress object in the progress loop
-	if ( empty( $progress_obj ) ) {
+	if ( empty( $progress_obj ) && ! empty( achievements()->progress_query->posts ) ) {
 		$progress_obj = wp_filter_object_list( achievements()->progress_query->posts, array( 'post_parent' => $achievement_obj->ID ) );
 		$progress_obj = array_shift( $progress_obj );
 	}
@@ -286,18 +286,19 @@ function dpa_maybe_unlock_achievement( $user_id, $skip_validation = '', $progres
 	if ( ! empty( $progress_obj->ID ) )
 		$progress_args['ID'] = $progress_obj->ID;
 
-	// If the achievement does not have a target set, this is an award achievement, so bail out.
+	// If the achievement does not have a target set, this is an award achievement.
 	$achievement_target = dpa_get_achievement_target( $achievement_obj->ID );
-	if ( ! $achievement_target  )
-		return;
+	if ( $achievement_target ) {
 
-	// Increment progress count
-	$progress_args['post_content'] = apply_filters( 'dpa_maybe_unlock_achievement_progress_increment', 1 );
-	if ( ! empty( $progress_obj ) )
-		$progress_args['post_content'] = (int) $progress_args['post_content'] + (int) $progress_obj->post_content;
+		// Increment progress count
+		$progress_args['post_content'] = apply_filters( 'dpa_maybe_unlock_achievement_progress_increment', 1 );
+
+		if ( ! empty( $progress_obj ) )
+			$progress_args['post_content'] = (int) $progress_args['post_content'] + (int) $progress_obj->post_content;
+	}
 
 	// Does the progress count now meet the achievement target?
-	if ( 'skip_validation' === $skip_validation || (int) $progress_args['post_content'] >= $achievement_target ) {
+	if ( 'skip_validation' === $skip_validation || ( $achievement_target && (int) $progress_args['post_content'] >= $achievement_target ) ) {
 
 		// Yes. Unlock achievement.
 		$progress_args['post_status'] = dpa_get_unlocked_status_id();
