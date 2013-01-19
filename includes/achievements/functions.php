@@ -151,9 +151,9 @@ function dpa_before_achievement_deleted( $post_id = 0 ) {
 		'suppress_filters' => true,
 	) );
 
-	if ( ! empty( $progress ) )
-		foreach ( $progress->posts as $post ) 
-			wp_delete_post( $post->ID, true );
+	if ( empty( $progress ) )
+		return;
 
-	wp_reset_postdata();
+	foreach ( $progress->posts as $post ) 
+		wp_delete_post( $post->ID, true );
 }
