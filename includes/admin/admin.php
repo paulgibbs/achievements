@@ -312,8 +312,11 @@ class DPA_Admin {
 	 * @since Achievements (3.0)
 	 */
 	public function save_profile_fields( $user_id ) {
-		if ( ! isset( $_POST['dpa_achievements'] ) || ! isset( $_POST['dpa_user_achievements'] ) || ! is_super_admin() )
+		if ( ! isset( $_POST['dpa_achievements'] ) || ! is_super_admin() )
 			return;
+
+		if ( ! isset( $_POST['dpa_user_achievements'] ) )
+			$_POST['dpa_user_achievements'] = array();
 
 		// If multisite and running network-wide, switch_to_blog to the data store site
 		if ( is_multisite() && dpa_is_running_networkwide() )
@@ -321,28 +324,41 @@ class DPA_Admin {
 
 
 		// Get unlocked achievements
-		$old_unlocked_achievements = dpa_get_progress( array(
+		$unlocked_achievements = dpa_get_progress( array(
 			'author'      => $user_id,
-			'fields'      => 'id=>parent',
 			'post_status' => dpa_get_unlocked_status_id(),
 		) );
 
-		$old_unlocked_achievements = array_values( $old_unlocked_achievements );
+		$old_unlocked_achievements = wp_list_pluck( $unlocked_achievements, 'post_parent' );
 		$new_unlocked_achievements = array_filter( wp_parse_id_list( $_POST['dpa_user_achievements'] ) );
 
 		// Figure out which achievements to add or remove
 		$achievements_to_add    = array_diff( $new_unlocked_achievements, $old_unlocked_achievements );
 		$achievements_to_remove = array_diff( $old_unlocked_achievements, $new_unlocked_achievements );
 
-		// Remove achievements :(
-		foreach ( $achievements_to_remove as $achievement_id )
-			dpa_delete_achievement_progress( $achievement_id, $user_id );
 
-		// Decrease user unlocked count
-		$unlock_count = dpa_get_user_unlocked_count( $user_id ) - count( $achievements_to_remove );
-		dpa_update_user_unlocked_count( $user_id, $unlock_count );
+		// Remove achievements :(
+		if ( ! empty( $achievements_to_remove ) ) {
+			foreach ( $achievements_to_remove as $achievement_id )
+				dpa_delete_achievement_progress( $achievement_id, $user_id );
+
+			// Decrease user unlocked count
+			$unlock_count = dpa_get_user_unlocked_count( $user_id ) - count( $achievements_to_remove );
+			dpa_update_user_unlocked_count( $user_id, $unlock_count );
+		}
+
 
 		// Award achievements! :D
+		if ( ! empty( $achievements_to_add ) ) {
+			$new_achievements = dpa_get_achievements( array(
+				'post__in'       => $achievements_to_add,
+				'posts_per_page' => count( $achievements_to_add ),
+			) );
+
+			foreach ( $new_achievements as &$achievement )
+				dpa_maybe_unlock_achievement( $user_id, 'skip_validation', array(), $achievement );
+		}
+
 
 		// Finally, update user's points
 		dpa_update_user_points( (int) $_POST['dpa_achievements'], $user_id );
