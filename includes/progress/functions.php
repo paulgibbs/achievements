@@ -89,21 +89,17 @@ function dpa_delete_achievement_progress( $achievement_id, $user_id ) {
 	if ( empty( $achievement_id ) || ! dpa_is_achievement( $achievement_id ) )
 		return;
 
-	do_action( 'dpa_before_delete_achievement_progress', $achievement_id, $user_id, $progress_id  );
-
-	dpa_has_progress( array(
-		'ach_populate_achievements' => true,
-		'author'                    => $user_id,
-		'posts_per_page'            => -1,
+	$progress_id = dpa_get_progress( array(
+		'author'      => $user_id,
+		'fields'      => 'ids',
+		'post_parent' => $achievement_id,
 	) );
 
-	// Look in the progress posts and match against a post_parent that is the same as the desired achievement
-	$progress = wp_filter_object_list( achievements()->progress_query->posts, array( 'post_parent' => $achievement_id ) );
-	$progress = array_shift( $progress );
-
-	if ( empty( $progress ) )
+	if ( ! $progress_id )
 		return;
 
-	$progress_id = apply_filters( 'dpa_delete_achievement_progress', $progress->ID, $achievement_id, $user_id );
+	$progress_id = apply_filters( 'dpa_delete_achievement_progress', $progress_id, $achievement_id, $user_id );
+	do_action( 'dpa_before_delete_achievement_progress', $progress_id, $achievement_id, $user_id  );
+
 	wp_delete_post( $progress_id, true );
 }
