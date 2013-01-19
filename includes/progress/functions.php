@@ -25,6 +25,11 @@ function dpa_get_progress( $args = array() ) {
 		'orderby'        => 'date',                        // 'meta_value', 'author', 'date', 'title', 'modified', 'parent', 'rand'
 		'post_type'      => dpa_get_progress_post_type(),  // Only retrieve progress posts
 		'posts_per_page' => -1,                            // Progresses per page
+
+		'post_status'    => array(                         // Locked/unlocked post statuses
+			dpa_get_locked_status_id(),
+			dpa_get_unlocked_status_id(),
+		),
 	);
 
 	$args     = dpa_parse_args( $args, $defaults, 'get_progress' );
