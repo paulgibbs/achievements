@@ -10,6 +10,30 @@
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 /**
+ * Retrieves a list of progress posts matching criteria
+ *
+ * @param array|string $args All the arguments supported by {@link WP_Query}, and some more.
+ * @return array Posts
+ * @since Achievements (3.0)
+ */
+function dpa_get_progress( $args = array() ) {
+
+	$defaults = array(
+		// Standard WP_Query params
+		'no_found_rows'  => true,                          // Disable SQL_CALC_FOUND_ROWS (used for pagination queries)
+		'order'          => 'DESC',                        // 'ASC', 'DESC
+		'orderby'        => 'date',                        // 'meta_value', 'author', 'date', 'title', 'modified', 'parent', 'rand'
+		'post_type'      => dpa_get_progress_post_type(),  // Only retrieve progress posts
+		'posts_per_page' => -1,                            // Progresses per page
+	);
+
+	$args     = dpa_parse_args( $args, $defaults, 'get_progress' );
+	$progress = new WP_Query;
+
+	return apply_filters( 'dpa_get_progress', $progress->query( $args ), $args );
+}
+
+/**
  * Output the unique id of the custom post type for achievement_progress
  *
  * @since Achievements (3.0)
