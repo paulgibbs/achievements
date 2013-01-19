@@ -263,48 +263,94 @@ class DPA_Admin {
 	}
 
 	/**
-	 * Add 'User Points' box to Edit User page
+	 * Add the 'User Points' box to Edit User page, and a list of the user's current achievements.
 	 *
 	 * @param object $user
 	 * @since Achievements (3.0)
 	 */
 	public function add_profile_fields( $user ) {
-		// Check current user has the appropriate capability to edit $user_id's profile.
-		if ( ! current_user_can( 'edit_user', $user->ID ) )
+		if ( ! is_super_admin() )
 			return;
 	?>
 
-		<h3><?php _e( 'Achievements', 'dpa' ); ?></h3>
+		<h3><?php _e( 'Achievements Settings', 'dpa' ); ?></h3>
 		<table class="form-table">
 			<tr>
 				<th><label for="dpa_achievements"><?php _ex( 'Total Points', "User&rsquo;s total points from unlocked Achievements", 'dpa' ); ?></label></th>
 				<td><input type="number" name="dpa_achievements" id="dpa_achievements" value="<?php echo esc_attr( dpa_get_user_points( $user->ID ) ); ?>" class="regular-text" />
 				</td>
 			</tr>
+
+			<?php if ( dpa_has_achievements( array( 'ach_populate_progress' => $user->ID, 'ach_progress_status' => dpa_get_unlocked_status_id(), 'posts_per_page' => -1, ) ) ) : ?>
+				<tr>
+					<th scope="row"><?php _e( 'Unlocked Achievements', 'dpa' ); ?></th>
+					<td>
+						<fieldset>
+							<legend class="screen-reader-text"><?php _e( 'Assign or remove achievements from this user', 'dpa' ); ?></legend>
+
+							<?php while ( dpa_achievements() ) : ?>
+								<?php dpa_the_achievement(); ?>
+
+								<label><input type="checkbox" name="dpa_user_achievements[]" value="<?php echo esc_attr( dpa_get_the_achievement_ID() ); ?>" <?php checked( dpa_is_achievement_unlocked(), true ); ?>> <?php dpa_achievement_title(); ?></label><br>
+							<?php endwhile; ?>
+
+						</fieldset>
+					</td>
+				</tr>
+			<?php endif; ?>
+
 		</table>
 
 	<?php
 	}
 
 	/**
-	 * Update the user's 'User Points' meta information when the Edit User page has been saved.
+	 * Update the user's 'User Points' meta information when the Edit User page has been saved,
+	 * and modify the user's current achievements as appropriate.
 	 *
 	 * @param int $user_id
 	 * @since Achievements (3.0)
 	 */
 	public function save_profile_fields( $user_id ) {
-		// Check current user has the appropriate capability to edit edit $user_id's profile.
-		if ( ! current_user_can( 'edit_user', $user_id ) )
+		if ( ! isset( $_POST['dpa_achievements'] ) || ! isset( $_POST['dpa_user_achievements'] ) || ! is_super_admin() )
 			return;
 
-		// Sanity checks
-		if ( ! isset( $_POST['dpa_achievements'] ) )
-			return;
+		// If multisite and running network-wide, switch_to_blog to the data store site
+		if ( is_multisite() && dpa_is_running_networkwide() )
+			switch_to_blog( DPA_DATA_STORE );
 
-		$points = (int) $_POST['dpa_achievements'];
 
-		// Update user's points
-		dpa_update_user_points( $points, $user_id );
+		// Get unlocked achievements
+		$old_unlocked_achievements = dpa_get_progress( array(
+			'author'      => $user_id,
+			'fields'      => 'id=>parent',
+			'post_status' => dpa_get_unlocked_status_id(),
+		) );
+
+		$old_unlocked_achievements = array_values( $old_unlocked_achievements );
+		$new_unlocked_achievements = array_filter( wp_parse_id_list( $_POST['dpa_user_achievements'] ) );
+
+		// Figure out which achievements to add or remove
+		$achievements_to_add    = array_diff( $new_unlocked_achievements, $old_unlocked_achievements );
+		$achievements_to_remove = array_diff( $old_unlocked_achievements, $new_unlocked_achievements );
+
+		// Remove achievements :(
+		foreach ( $achievements_to_remove as $achievement_id )
+			dpa_delete_achievement_progress( $achievement_id, $user_id );
+
+		// Decrease user unlocked count
+		$unlock_count = dpa_get_user_unlocked_count( $user_id ) - count( $achievements_to_remove );
+		dpa_update_user_unlocked_count( $user_id, $unlock_count );
+
+		// Award achievements! :D
+
+		// Finally, update user's points
+		dpa_update_user_points( (int) $_POST['dpa_achievements'], $user_id );
+
+
+		// If multisite and running network-wide, undo the switch_to_blog
+		if ( is_multisite() && dpa_is_running_networkwide() )
+			restore_current_blog();
 	}
 
 	/**
