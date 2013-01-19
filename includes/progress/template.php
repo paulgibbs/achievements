@@ -53,7 +53,6 @@ function dpa_has_progress( $args = array() ) {
 	);
 
 	$args = dpa_parse_args( $args, $defaults, 'has_progress' );
-	extract( $args );
 
 	// Run the query
 	achievements()->progress_query = new WP_Query( $args );
