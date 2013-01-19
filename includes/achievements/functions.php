@@ -10,6 +10,51 @@
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 /**
+ * Retrieves a list of achievement posts matching criteria
+ *
+ * Most of the values that $args can accept are documented in {@link WP_Query}. The custom values added by Achievements are as follows:
+ * $ach_event - string - Loads achievements for a specific event. Matches a slug from the dpa_event tax. Default is empty.
+ *
+ * @param array|string $args All the arguments supported by {@link WP_Query}, and some more.
+ * @return array Posts
+ * @since Achievements (3.0)
+ */
+function dpa_get_achievements( $args = array() ) {
+
+	$defaults = array(
+		// Standard WP_Query params
+		'ignore_sticky_posts' => true,
+		'no_found_rows'       => true,                             // Disable SQL_CALC_FOUND_ROWS (used for pagination queries)
+		'order'               => 'ASC',                            // 'ASC', 'DESC
+		'orderby'             => 'title',                          // 'meta_value', 'author', 'date', 'title', 'modified', 'parent', rand'
+		'post_type'           => dpa_get_achievement_post_type(),  // Only retrieve achievement posts
+		'posts_per_page'      => -1,                               // Achievements per page
+
+		// Achievements params
+ 		'ach_event'           => '',                               // Load achievements for a specific event
+	);
+
+	// Load achievements for a specific event
+	if ( ! empty( $args['ach_event'] ) ) {
+
+		$args['tax_query'] = array(
+			array(
+				'field'    => 'slug',
+				'taxonomy' => dpa_get_event_tax_id(),
+				'terms'    => $args['ach_event'],
+			)
+		);
+
+		unset( $args['ach_event'] );
+	}
+
+	$args         = dpa_parse_args( $args, $defaults, 'get_achievements' );
+	$achievements = new WP_Query;
+
+	return apply_filters( 'dpa_get_achievements', $achievements->query( $args ), $args );
+}
+
+/**
  * Output the unique id of the custom post type for achievement
  *
  * @since Achievements (3.0)
