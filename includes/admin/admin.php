@@ -323,6 +323,9 @@ class DPA_Admin {
 			switch_to_blog( DPA_DATA_STORE );
 
 
+		// Update user's points
+		dpa_update_user_points( (int) $_POST['dpa_achievements'], $user_id );
+
 		// Get unlocked achievements
 		$unlocked_achievements = dpa_get_progress( array(
 			'author'      => $user_id,
@@ -358,10 +361,6 @@ class DPA_Admin {
 			foreach ( $new_achievements as &$achievement )
 				dpa_maybe_unlock_achievement( $user_id, 'skip_validation', array(), $achievement );
 		}
-
-
-		// Finally, update user's points
-		dpa_update_user_points( (int) $_POST['dpa_achievements'], $user_id );
 
 
 		// If multisite and running network-wide, undo the switch_to_blog
