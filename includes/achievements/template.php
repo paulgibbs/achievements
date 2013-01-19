@@ -15,11 +15,11 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  * Most of the values that $args can accept are documented in {@link WP_Query}. The custom
  * values added by Achievements are as follows:
  *
- * $ach_event             - string   - Loads achievements for a specific event. Matches a slug from the dpa_event tax. Default is empty.
- * $ach_populate_progress - bool|int - Populate a user/users' progress for the results.
- *                                   - bool: True - uses the logged in user (default). False - don't fetch progress.
- *                                   - int: pass a user ID (single user).
- * $ach_progress_status   - array    - array: Post status IDs for the Progress post type.
+ * 'ach_event'             - string   - Loads achievements for a specific event. Matches a slug from the dpa_event tax. Default is empty.
+ * 'ach_populate_progress' - bool|int - Populate a user/users' progress for the results.
+ *                                    - bool: True - uses the logged in user (default). False - don't fetch progress.
+ *                                    - int: pass a user ID (single user).
+ * 'ach_progress_status'   - array    - array: Post status IDs for the Progress post type.
  *
  * @param array|string $args All the arguments supported by {@link WP_Query}, and some more.
  * @return bool Returns true if the query has any results to loop over
@@ -51,10 +51,6 @@ function dpa_has_achievements( $args = array() ) {
 		'ach_populate_progress' => false,                                                // Progress post type: populate user progress for the results.
 	);
 
-	// Progress post type: get posts in the locked / unlocked status by default.
-	$args = dpa_parse_args( $args, $defaults, 'has_achievements' );
-	extract( $args );
-
 	// Load achievements for a specific event
 	if ( ! empty( $args['ach_event'] ) ) {
 
@@ -65,7 +61,12 @@ function dpa_has_achievements( $args = array() ) {
 				'terms'    => $args['ach_event'],
 			)
 		);
+
+		unset( $args['ach_event'] );
 	}
+
+	$args = dpa_parse_args( $args, $defaults, 'has_achievements' );
+	extract( $args );
 
 	// Run the query
 	achievements()->achievement_query = new WP_Query( $args );
@@ -150,7 +151,7 @@ function dpa_has_achievements( $args = array() ) {
 		// Args for progress query
 		$progress_args = array(
 			'author'         => $progress_user_ids,            // Posts belonging to these author(s)
-			'no_found_rows'  => true,                          // Disable SQL_CALC_FOUND_ROWS
+			'no_found_rows'  => true,                          // Disable SQL_CALC_FOUND_ROWS (used for pagination queries)
 			'post_parent'    => $progress_post_ids,            // Fetch progress posts with parent_id matching these
 			'post_status'    => $args['ach_progress_status'],  // Get posts in these post statuses
 			'posts_per_page' => -1,                            // No pagination
