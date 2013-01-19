@@ -269,6 +269,9 @@ class DPA_Admin {
 	 * @since Achievements (3.0)
 	 */
 	public function add_profile_fields( $user ) {
+		// Check current user has the appropriate capability to edit $user_id's profile.
+		if ( ! current_user_can( 'edit_user', $user->ID ) )
+			return;
 	?>
 
 		<h3><?php _e( 'Achievements', 'dpa' ); ?></h3>
