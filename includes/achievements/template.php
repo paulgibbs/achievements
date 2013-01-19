@@ -364,76 +364,29 @@ function dpa_achievement_author_id( $achievement_id = 0 ) {
 /**
  * Output the content of the achievement
  *
- * Based on wpcore's the_content();
- *
- * @param string $more_link_text Optional. Content for when there is more text.
- * @param bool $stripteaser Optional. Strip teaser content before the more text. Default is false.
  * @param int $achievement_id Optional. Achievement ID
  * @since Achievements (3.0)
  */
-function dpa_achievement_content( $more_link_text = null, $stripteaser = false, $achievement_id = 0 ) {
-	$content = dpa_get_achievement_content( $more_link_text, $stripteaser, $achievement_id );
-	$content = apply_filters( 'dpa_get_achievement_content', $content );
-	$content = str_replace( ']]>', ']]&gt;', $content );
-	echo $content;
+function dpa_achievement_content( $achievement_id = 0 ) {
+	echo dpa_get_achievement_content( $achievement_id );
 }
 	/**
 	 * Return the content of the achievement
 	 *
-	 * Based on wpcore's get_the_content(); excuse the bad formatting.
-	 *
-	 * @param string $more_link_text Optional. Content for when there is more text.
-	 * @param bool $stripteaser Optional. Strip teaser content before the more text. Default is false.
 	 * @param int $achievement_id Optional. Achievement ID
 	 * @return string Content of the achievement post
 	 * @since Achievements (3.0)
 	 */
-	function dpa_get_achievement_content( $more_link_text = null, $stripteaser = false, $achievement_id = 0 ) {
-		global $more, $page, $pages, $multipage, $preview;
-
-		// Achievements: we're not using the $post global, because it may not always be set.
+	function dpa_get_achievement_content( $achievement_id = 0 ) {
 		$achievement_id = dpa_get_achievement_id( $achievement_id );
-		$post           = get_post( $achievement_id );
 
-		if ( null === $more_link_text )
-			$more_link_text = __( '(more...)', 'dpa' );
+		// Check if password is required
+		if ( post_password_required( $achievement_id ) )
+			return get_the_password_form();
 
-		$output    = '';
-		$hasTeaser = false;
+		$content = get_post_field( 'post_content', $achievement_id );
 
-		if ( $page > count($pages) ) // if the requested page doesn't exist
-			$page = count($pages); // give them the highest numbered page that DOES exist
-
-		$content = $pages[$page-1];
-		if ( preg_match('/<!--more(.*?)?-->/', $content, $matches) ) {
-			$content = explode($matches[0], $content, 2);
-			if ( !empty($matches[1]) && !empty($more_link_text) )
-				$more_link_text = strip_tags(wp_kses_no_null(trim($matches[1])));
-
-			$hasTeaser = true;
-		} else {
-			$content = array($content);
-		}
-		if ( (false !== strpos($post->post_content, '<!--noteaser-->') && ((!$multipage) || ($page==1))) )
-			$stripteaser = true;
-		$teaser = $content[0];
-		if ( $more && $stripteaser && $hasTeaser )
-			$teaser = '';
-		$output .= $teaser;
-		if ( count($content) > 1 ) {
-			if ( $more ) {
-				$output .= '<span id="more-' . $post->ID . '"></span>' . $content[1];
-			} else {
-				if ( ! empty($more_link_text) )
-					$output .= apply_filters( 'dpa_get_achievement_content_more_link', ' <a href="' . esc_attr( dpa_get_achievement_permalink( $achievement_id ) ) . "#more-{$post->ID}\" class=\"more-link\">$more_link_text</a>", $more_link_text );
-				$output = force_balance_tags($output);
-			}
-
-		}
-		if ( $preview ) // preview fix for javascript bug with foreign languages
-			$output =	preg_replace_callback('/\%u([0-9A-F]{4})/', '_convert_urlencoded_to_entities', $output);
-
-		return $output;
+		return apply_filters( 'dpa_get_achievement_content', $content, $achievement_id );
 	}
 
 /**
