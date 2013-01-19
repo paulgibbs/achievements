@@ -95,10 +95,10 @@ function dpa_delete_achievement_progress( $achievement_id, $user_id ) {
 		'post_parent' => $achievement_id,
 	) );
 
-	if ( ! $progress_id )
+	if ( empty( $progress_id ) )
 		return;
 
-	$progress_id = apply_filters( 'dpa_delete_achievement_progress', $progress_id, $achievement_id, $user_id );
+	$progress_id = apply_filters( 'dpa_delete_achievement_progress', array_pop( $progress_id ), $achievement_id, $user_id );
 	do_action( 'dpa_before_delete_achievement_progress', $progress_id, $achievement_id, $user_id );
 
 	wp_delete_post( $progress_id, true );
