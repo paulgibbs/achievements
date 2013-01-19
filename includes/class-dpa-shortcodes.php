@@ -166,7 +166,7 @@ class DPA_Shortcodes {
 		$this->unset_globals();
 
 		// Set passed attribute to $achievement_id for clarity
-		$achievement_id = achievements()->current_achievement_id = $attr['id'];
+		$achievement_id = achievements()->current_achievement_id = (int) $attr['id'];
 
 		// Bail if ID passed is not an achievement
 		if ( ! dpa_is_achievement( $achievement_id ) )
