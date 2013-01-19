@@ -74,10 +74,6 @@ class DPA_Default extends DPA_Theme_Compat {
 	 * @todo LTR CSS
 	 */
 	public function enqueue_styles() {
-		// Only load on Achievements pages
-		if ( ! is_achievements() )
-			return;
-
 		$file = 'css/achievements.css';
 
 		// Check child theme
