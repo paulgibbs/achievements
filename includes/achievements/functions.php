@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  * Retrieves a list of achievement posts matching criteria
  *
  * Most of the values that $args can accept are documented in {@link WP_Query}. The custom values added by Achievements are as follows:
- * $ach_event - string - Loads achievements for a specific event. Matches a slug from the dpa_event tax. Default is empty.
+ * 'ach_event' - string - Loads achievements for a specific event. Matches a slug from the dpa_event tax. Default is empty.
  *
  * @param array|string $args All the arguments supported by {@link WP_Query}, and some more.
  * @return array Posts
