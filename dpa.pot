@@ -1,0 +1,1249 @@
+# Copyright (C) 2013 Achievements
+# This file is distributed under the same license as the Achievements package.
+msgid ""
+msgstr ""
+"Project-Id-Version: Achievements 3\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/achievements\n"
+"POT-Creation-Date: 2013-01-20 20:21:53+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2013-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+
+#: achievements.php:138 achievements.php:145
+msgid "Cheatin&#8217; huh?"
+msgstr ""
+
+#: achievements.php:422
+msgctxt "achievement"
+msgid "Add New"
+msgstr ""
+
+#: achievements.php:423
+msgid "Add New Achievement"
+msgstr ""
+
+#: achievements.php:424
+msgid "All Achievements"
+msgstr ""
+
+#: achievements.php:425
+msgctxt "achievement"
+msgid "Edit"
+msgstr ""
+
+#: achievements.php:426
+msgid "Edit Achievement"
+msgstr ""
+
+#. #-#-#-#-#  achievements.pot (Achievements 3)  #-#-#-#-#
+#. Plugin Name of the plugin/theme
+#: achievements.php:427 achievements.php:428
+#: includes/admin/class-dpa-users-list-table.php:149
+#: includes/admin/functions.php:24
+msgid "Achievements"
+msgstr ""
+
+#: achievements.php:429
+msgid "New Achievement"
+msgstr ""
+
+#: achievements.php:430
+msgid "No achievements found."
+msgstr ""
+
+#: achievements.php:431
+msgid "No achievements found in Trash."
+msgstr ""
+
+#: achievements.php:432
+msgid "Search Achievements"
+msgstr ""
+
+#: achievements.php:433
+msgid "Achievement"
+msgstr ""
+
+#: achievements.php:434 achievements.php:435
+msgid "View Achievement"
+msgstr ""
+
+#: achievements.php:464
+msgctxt "Achievement post type description"
+msgid "Achievements types (e.g. new post, new site, new user)"
+msgstr ""
+
+#: achievements.php:485
+msgctxt "Achievement Progress post type description"
+msgid ""
+"Achievement Progress (e.g. unlocked achievements for a user, progress on an "
+"achievement for a user)"
+msgstr ""
+
+#: achievements.php:517
+msgctxt "achievement"
+msgid "Locked"
+msgstr ""
+
+#: achievements.php:518
+msgctxt "dpa"
+msgid "Locked <span class=\"count\">(%s)</span>"
+msgid_plural "Locked <span class=\"count\">(%s)</span>"
+msgstr[0] ""
+msgstr[1] ""
+
+#: achievements.php:530
+msgctxt "achievement"
+msgid "Unlocked"
+msgstr ""
+
+#: achievements.php:531
+msgctxt "dpa"
+msgid "Unlocked <span class=\"count\">(%s)</span>"
+msgid_plural "Unlocked <span class=\"count\">(%s)</span>"
+msgstr[0] ""
+msgstr[1] ""
+
+#: achievements.php:550
+msgid "Add New Event"
+msgstr ""
+
+#: achievements.php:551
+msgid "All"
+msgstr ""
+
+#: achievements.php:552
+msgid "Edit Event"
+msgstr ""
+
+#: achievements.php:553
+msgctxt "event taxonomy general name"
+msgid "Events"
+msgstr ""
+
+#: achievements.php:554
+msgid "New Event Name"
+msgstr ""
+
+#: achievements.php:555
+msgid "Popular Events"
+msgstr ""
+
+#: achievements.php:556
+msgid "Search Events"
+msgstr ""
+
+#: achievements.php:557
+msgctxt "event taxonomy singular name"
+msgid "Event"
+msgstr ""
+
+#: achievements.php:558
+msgid "Update Event"
+msgstr ""
+
+#: achievements.php:559
+msgid "View Event"
+msgstr ""
+
+#: achievements.php:596 templates/achievements/achievements-functions.php:48
+msgid "Achievements Default"
+msgstr ""
+
+#: achievements.php:628
+msgctxt "Menu item in the toolbar"
+msgid "My Achievements"
+msgstr ""
+
+#. translators: first param is post permalink, second param is the "more" text.
+#: includes/achievements/template.php:478
+msgid "&hellip; (<a href=\"%1$s\">%2$s</a>)"
+msgstr ""
+
+#: includes/achievements/template.php:480
+msgctxt "Excerpt - click here to see more of the post"
+msgid "more"
+msgstr ""
+
+#: includes/achievements/template.php:523 includes/progress/template.php:194
+msgctxt "[date] at [time]"
+msgid "%1$s at %2$s"
+msgstr ""
+
+#: includes/achievements/template.php:562
+msgid "%s achievement"
+msgid_plural "%s achievements"
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/achievements/template.php:580
+msgid ""
+"This site has %1$s, and the last unlocked was <a href=\"%2$s\">%3$s</a> by "
+"%4$s."
+msgstr ""
+
+#: includes/achievements/template.php:595
+msgid "This site has %1$s."
+msgstr ""
+
+#: includes/achievements/template.php:694
+msgid "Viewing %1$s achievement"
+msgid_plural "Viewing %1$s achievements"
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/achievements/template.php:698
+msgid "Viewing achievement %2$s (of %4$s total)"
+msgid_plural "Viewing %1$s achievements - %2$s through %3$s (of %4$s total)"
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/admin/admin.php:160
+msgid "Achievements &mdash; Users"
+msgstr ""
+
+#: includes/admin/admin.php:161 includes/admin/users.php:77
+msgctxt "admin menu title"
+msgid "Users"
+msgstr ""
+
+#: includes/admin/admin.php:170
+msgid "Achievements &mdash; Supported Plugins"
+msgstr ""
+
+#: includes/admin/admin.php:171 includes/admin/supported-plugins.php:101
+msgid "Supported Plugins"
+msgstr ""
+
+#: includes/admin/admin.php:276
+msgid "Achievements Settings"
+msgstr ""
+
+#: includes/admin/admin.php:279
+msgctxt "User&rsquo;s total points from unlocked Achievements"
+msgid "Total Points"
+msgstr ""
+
+#: includes/admin/admin.php:286
+msgid "Unlocked Achievements"
+msgstr ""
+
+#: includes/admin/admin.php:289
+msgid "Assign or remove achievements from this user"
+msgstr ""
+
+#: includes/admin/class-dpa-users-list-table.php:81
+msgctxt "admin screen, types of users"
+msgid "All <span class=\"count\">(%s)</span>"
+msgid_plural "All <span class=\"count\">(%s)</span>"
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: User role name with count
+#: includes/admin/class-dpa-users-list-table.php:99
+msgid "%1$s <span class=\"count\">(%2$s)</span>"
+msgstr ""
+
+#: includes/admin/class-dpa-users-list-table.php:146
+msgid "Username"
+msgstr ""
+
+#: includes/admin/class-dpa-users-list-table.php:147
+msgid "Last Achievement"
+msgstr ""
+
+#: includes/admin/class-dpa-users-list-table.php:148
+msgid "Actions"
+msgstr ""
+
+#: includes/admin/class-dpa-users-list-table.php:262
+msgid "Edit"
+msgstr ""
+
+#: includes/admin/functions.php:63
+msgid "Karma points:"
+msgstr ""
+
+#: includes/admin/functions.php:68
+msgctxt "type of achievement"
+msgid "Type:"
+msgstr ""
+
+#: includes/admin/functions.php:69
+msgctxt "type of achievement"
+msgid "&nbsp;Award"
+msgstr ""
+
+#: includes/admin/functions.php:70
+msgctxt "type of achievement"
+msgid "&nbsp;Event"
+msgstr ""
+
+#: includes/admin/functions.php:72
+msgid ""
+"An <em>award</em> is given by a site admin, whereas an <em>event</em> is "
+"unlocked automatically when its criteria have been met."
+msgstr ""
+
+#: includes/admin/functions.php:74
+msgid "Press here to pick events"
+msgstr ""
+
+#: includes/admin/functions.php:91
+msgctxt ""
+"Number of times an achievement&#8217;s events need to repeat before the "
+"achievement is awarded"
+msgid "Events repeat:"
+msgstr ""
+
+#: includes/admin/functions.php:94
+msgid ""
+"Number of times the events need to repeat before the achievement is awarded."
+msgstr ""
+
+#: includes/admin/functions.php:176
+msgid "Title"
+msgstr ""
+
+#: includes/admin/functions.php:177
+msgctxt "Type of the achievement; award or badge"
+msgid "Type"
+msgstr ""
+
+#: includes/admin/functions.php:178
+msgid "Karma Points"
+msgstr ""
+
+#: includes/admin/functions.php:179
+msgid "Date"
+msgstr ""
+
+#: includes/admin/functions.php:198
+msgid "Award"
+msgstr ""
+
+#: includes/admin/functions.php:198
+msgid "Event"
+msgstr ""
+
+#: includes/admin/functions.php:228
+msgid ""
+"The title field and the big achievement Editing Area are fixed in place, but "
+"you can reposition all the other boxes using drag and drop, and can minimize "
+"or expand them by clicking the title bar of each box. Use the Screen Options "
+"tab to hide or reveal more boxes (Featured Image, Achievements, Slug) or to "
+"choose a 1- or 2-column layout for this screen."
+msgstr ""
+
+#: includes/admin/functions.php:232
+msgid "Customizing This Display"
+msgstr ""
+
+#: includes/admin/functions.php:236
+msgid ""
+"<strong>Title</strong> - Enter a title for your achievement. After you enter "
+"a title, you&#8217;ll see the permalink below, which you can edit."
+msgstr ""
+
+#: includes/admin/functions.php:237
+msgid ""
+"<strong>Achievement editor</strong> - Enter the text for your achievement. "
+"There are two modes of editing: Visual and Text. Choose the mode by clicking "
+"on the appropriate tab. Visual mode gives you a WYSIWYG editor. Click the "
+"last icon in the row to get a second row of controls. The Text mode allows "
+"you to enter HTML along with your achievement text. Line breaks will be "
+"converted to paragraphs automatically. You can insert media files by "
+"clicking the icons above the achievement editor and following the "
+"directions. You can go to the distraction-free writing screen via the "
+"Fullscreen icon in Visual mode (second to last in the top row) or the "
+"Fullscreen button in Text mode (last in the row). Once there, you can make "
+"buttons visible by hovering over the top area. Exit Fullscreen back to the "
+"regular achievement editor."
+msgstr ""
+
+#: includes/admin/functions.php:241
+msgid "Title and Achievement Editor"
+msgstr ""
+
+#: includes/admin/functions.php:245
+msgid ""
+"You can upload and insert media (images, audio, documents, etc.) by clicking "
+"the Add Media button. You can select from the images and files already "
+"uploaded to the Media Library, or upload new media to add to your "
+"achievement. To create an image gallery, select the images to add and click "
+"the “Create a new gallery” button."
+msgstr ""
+
+#: includes/admin/functions.php:247
+msgid ""
+"You can also embed media from many popular websites including Twitter, "
+"YouTube, Flickr and others by pasting the media URL on its own line into the "
+"content of your post/page. Please refer to the WordPress Codex to <a href="
+"\"%s\">learn more about embeds</a>."
+msgstr ""
+
+#: includes/admin/functions.php:251
+msgid "Inserting Media"
+msgstr ""
+
+#: includes/admin/functions.php:255
+msgid ""
+"Several boxes on this screen contain settings for how your achievement will "
+"be published, including:"
+msgstr ""
+
+#: includes/admin/functions.php:256
+msgid ""
+"<strong>Publish</strong> - You can set the terms of publishing your "
+"achievement in the Publish box. For Status, Visibility, and Publish "
+"(immediately), click on the Edit link to reveal more options. Visibility "
+"includes options for password-protecting an achievement&#8217;s page or "
+"setting the achievement to not appear in lists on your site). Publish "
+"(immediately) allows you to set a future or past date and time, so you can "
+"schedule an achievement to be published in the future."
+msgstr ""
+
+#: includes/admin/functions.php:258
+msgid ""
+"<strong>Featured Image</strong> - This allows you to associate an image with "
+"your achievement without inserting it into the big achievement Editing Area."
+msgstr ""
+
+#: includes/admin/functions.php:262
+msgid "Publish Settings"
+msgstr ""
+
+#: includes/admin/functions.php:266
+msgid ""
+"<strong>Karma points</strong> - set the number of points (called karma) "
+"given to a user when they unlock an achievement."
+msgstr ""
+
+#: includes/admin/functions.php:267
+msgid ""
+"<strong>Type</strong> - there are two types of achievement, Award and Event. "
+"An Award is given by a site admin, whereas an Event is unlocked "
+"automatically when its criteria have been met."
+msgstr ""
+
+#: includes/admin/functions.php:268
+msgid ""
+"<strong>Event Achievements</strong> - this field appears when you create an "
+"Event achievement. Use the dropdown box to choose the events that you want "
+"to trigger this achievement."
+msgstr ""
+
+#: includes/admin/functions.php:269
+msgid ""
+"<strong>Events repeat</strong> - for Event achievements, set the number of "
+"times the events need to occur before the achievement is awarded."
+msgstr ""
+
+#: includes/admin/functions.php:273
+msgid "Achievements Box"
+msgstr ""
+
+#: includes/admin/functions.php:278 includes/admin/functions.php:329
+#: includes/admin/supported-plugins.php:42 includes/admin/users.php:50
+msgid "For more information:"
+msgstr ""
+
+#: includes/admin/functions.php:279 includes/admin/functions.php:330
+#: includes/admin/supported-plugins.php:43 includes/admin/users.php:51
+msgid "Achievements Website"
+msgstr ""
+
+#: includes/admin/functions.php:280 includes/admin/functions.php:331
+#: includes/admin/supported-plugins.php:44 includes/admin/users.php:52
+msgid "Support Forums"
+msgstr ""
+
+#: includes/admin/functions.php:297 includes/admin/supported-plugins.php:26
+#: includes/admin/users.php:30
+msgid "Overview"
+msgstr ""
+
+#: includes/admin/functions.php:299
+msgid ""
+"This screen provides access to all of your achievements. You can customize "
+"the display of this screen to suit your workflow."
+msgstr ""
+
+#: includes/admin/functions.php:304 includes/admin/users.php:39
+msgid "Screen Content"
+msgstr ""
+
+#: includes/admin/functions.php:306 includes/admin/users.php:41
+msgid ""
+"You can customize the display of this screen&#8217;s contents in a number of "
+"ways:"
+msgstr ""
+
+#: includes/admin/functions.php:308
+msgid ""
+"You can hide/display columns based on your needs and decide how many "
+"achievements to list per screen using the Screen Options tab."
+msgstr ""
+
+#: includes/admin/functions.php:309
+msgid ""
+"You can filter the list of achievements by achievement status using the text "
+"links in the upper left to show All, Published, Draft, or Trashed "
+"achievements. The default view is to show all achievements."
+msgstr ""
+
+#: includes/admin/functions.php:310
+msgid ""
+"You can view achievements in a simple title list or with an excerpt. Choose "
+"the view you prefer by clicking on the icons at the top of the list on the "
+"right."
+msgstr ""
+
+#: includes/admin/functions.php:311
+msgid ""
+"You can refine the list to show only achievements from a specific month by "
+"using the dropdown menus above the posts list. Click the Filter button after "
+"making your selection."
+msgstr ""
+
+#: includes/admin/functions.php:317
+msgid "Available Actions"
+msgstr ""
+
+#: includes/admin/functions.php:319
+msgid ""
+"Hovering over a row in the achievements list will display action links that "
+"allow you to manage your achievement. You can perform the following actions:"
+msgstr ""
+
+#: includes/admin/functions.php:321
+msgid ""
+"<strong>Edit</strong> takes you to the editing screen for that achievement. "
+"You can also reach that screen by clicking on the achievement title."
+msgstr ""
+
+#: includes/admin/functions.php:322
+msgid ""
+"<strong>Quick Edit</strong> provides inline access to the metadata of your "
+"achievement, allowing you to update achievement details without leaving this "
+"screen."
+msgstr ""
+
+#: includes/admin/functions.php:323
+msgid ""
+"<strong>Trash</strong> removes your achievement from this list and places it "
+"in the trash, from which you can permanently delete it."
+msgstr ""
+
+#: includes/admin/functions.php:324
+msgid ""
+"<strong>Preview</strong> will show you what your draft achievement will look "
+"like if you publish it. View will take you to your live site to view the "
+"achievement. Which link is available depends on your achievement&#8217;s "
+"status."
+msgstr ""
+
+#: includes/admin/supported-plugins.php:28
+msgid ""
+"Learn about and discover the plugins which are supported by Achievements. "
+"This screen allows you to customize your view in three main ways; Detail "
+"view, List view, and Grid view. A powerful search box and filter gives you "
+"even more control to see exactly what you want."
+msgstr ""
+
+#: includes/admin/supported-plugins.php:34
+msgid "Views"
+msgstr ""
+
+#: includes/admin/supported-plugins.php:36
+msgid ""
+"<strong>Grid view</strong> displays high-quality artwork of each plugin, "
+"showing you at a glance the plugins supported by Achievements."
+msgstr ""
+
+#: includes/admin/supported-plugins.php:37
+msgid ""
+"<strong>List view</strong> drills down into each plugin, showing you its "
+"authors and whether you already have the plugin installed."
+msgstr ""
+
+#: includes/admin/supported-plugins.php:38
+msgid ""
+"<strong>Detail view</strong> goes even further, showing you which features "
+"of the plugin are supported and the latest news about the plugin."
+msgstr ""
+
+#: includes/admin/supported-plugins.php:48
+msgid "Plugin Information"
+msgstr ""
+
+#: includes/admin/supported-plugins.php:49
+msgid "Supported Features"
+msgstr ""
+
+#: includes/admin/supported-plugins.php:143
+msgid "Search for a plugin..."
+msgstr ""
+
+#: includes/admin/supported-plugins.php:146
+msgid "All Plugins"
+msgstr ""
+
+#: includes/admin/supported-plugins.php:147
+msgid "Available Plugins"
+msgstr ""
+
+#: includes/admin/supported-plugins.php:148
+msgid "Installed Plugins"
+msgstr ""
+
+#: includes/admin/supported-plugins.php:152
+msgid "Grid view"
+msgstr ""
+
+#: includes/admin/supported-plugins.php:153
+msgid "List view"
+msgstr ""
+
+#: includes/admin/supported-plugins.php:154
+msgid "Detail view"
+msgstr ""
+
+#: includes/admin/supported-plugins.php:204
+msgid "Share on Twitter"
+msgstr ""
+
+#: includes/admin/supported-plugins.php:205
+msgid "Share on Google"
+msgstr ""
+
+#: includes/admin/supported-plugins.php:209
+msgid "Latest News"
+msgstr ""
+
+#: includes/admin/supported-plugins.php:221
+msgctxt ""
+"ellipsis character at end of post excerpt to show text has been truncated"
+msgid "&hellip;"
+msgstr ""
+
+#. translators: "By AUTHOR, DATE".
+#: includes/admin/supported-plugins.php:246
+msgid "<p>By %1$s, %2$s</p>"
+msgstr ""
+
+#: includes/admin/supported-plugins.php:255
+msgid "No news found."
+msgstr ""
+
+#: includes/admin/supported-plugins.php:310
+msgid ""
+"This table lists all of the plugins that Achievements has support for. For "
+"each plugin it shows a banner, who contributed to its development, and "
+"whether your site has the plugin installed or not."
+msgstr ""
+
+#: includes/admin/supported-plugins.php:314
+#: includes/admin/supported-plugins.php:324
+msgid "Plugin"
+msgstr ""
+
+#: includes/admin/supported-plugins.php:315
+#: includes/admin/supported-plugins.php:325
+msgid "Rating"
+msgstr ""
+
+#: includes/admin/supported-plugins.php:316
+#: includes/admin/supported-plugins.php:326
+msgid "Status"
+msgstr ""
+
+#: includes/admin/supported-plugins.php:317
+#: includes/admin/supported-plugins.php:327
+msgid "Authors"
+msgstr ""
+
+#: includes/admin/supported-plugins.php:373
+msgctxt "A plugin is installed"
+msgid "Ready"
+msgstr ""
+
+#: includes/admin/supported-plugins.php:382
+#: includes/admin/supported-plugins.php:398
+msgctxt "A plugin is not installed"
+msgid "Not installed"
+msgstr ""
+
+#: includes/admin/supported-plugins.php:567
+msgctxt "A plugin is installed"
+msgid "Status: Ready"
+msgstr ""
+
+#: includes/admin/supported-plugins.php:575
+msgctxt "A plugin is not installed"
+msgid "Install Plugin"
+msgstr ""
+
+#: includes/admin/supported-plugins.php:591
+msgctxt "A plugin is not installed"
+msgid "Status: Not installed"
+msgstr ""
+
+#: includes/admin/supported-plugins.php:597
+msgid "More Info"
+msgstr ""
+
+#: includes/admin/users.php:32
+msgid ""
+"This screen lists all the users on your site who are eligble to unlock "
+"achievements."
+msgstr ""
+
+#: includes/admin/users.php:33
+msgid ""
+"Each user has one of five defined roles as set by the site admin: Site "
+"Administrator, Editor, Author, Contributor, or Subscriber. Users with roles "
+"other than Administrator will see fewer options in the dashboard navigation "
+"when they are logged in, based on their role."
+msgstr ""
+
+#: includes/admin/users.php:43
+msgid ""
+"You can assign and remove achievements from a user by using the links in the "
+"Actions column."
+msgstr ""
+
+#: includes/admin/users.php:44
+msgid ""
+"You can filter the list of users by User Role using the text links in the "
+"upper left to show All, Administrator, Editor, Author, Contributor, or "
+"Subscriber. The default view is to show all users. Unused User Roles are not "
+"listed."
+msgstr ""
+
+#: includes/admin/users.php:45
+msgid ""
+"You can hide/display columns based on your needs using the Screen Options "
+"tab."
+msgstr ""
+
+#: includes/admin/users.php:80
+msgctxt "admin screen search results heading"
+msgid "Search results for &#8220;%s&#8221;"
+msgstr ""
+
+#: includes/admin/users.php:93
+msgid "Search all Users"
+msgstr ""
+
+#: includes/common/functions.php:40
+msgctxt "time"
+msgid "sometime"
+msgstr ""
+
+#: includes/common/functions.php:41
+msgctxt "time"
+msgid "right now"
+msgstr ""
+
+#: includes/common/functions.php:42
+msgctxt "time"
+msgid "%s ago"
+msgstr ""
+
+#: includes/common/functions.php:46
+msgid "year"
+msgstr ""
+
+#: includes/common/functions.php:46
+msgid "years"
+msgstr ""
+
+#: includes/common/functions.php:47
+msgid "month"
+msgstr ""
+
+#: includes/common/functions.php:47
+msgid "months"
+msgstr ""
+
+#: includes/common/functions.php:48
+msgid "week"
+msgstr ""
+
+#: includes/common/functions.php:48
+msgid "weeks"
+msgstr ""
+
+#: includes/common/functions.php:49
+msgid "day"
+msgstr ""
+
+#: includes/common/functions.php:49
+msgid "days"
+msgstr ""
+
+#: includes/common/functions.php:50
+msgid "hour"
+msgstr ""
+
+#: includes/common/functions.php:50
+msgid "hours"
+msgstr ""
+
+#: includes/common/functions.php:51
+msgid "minute"
+msgstr ""
+
+#: includes/common/functions.php:51
+msgid "minutes"
+msgstr ""
+
+#: includes/common/functions.php:52
+msgid "second"
+msgstr ""
+
+#: includes/common/functions.php:52
+msgid "seconds"
+msgstr ""
+
+#: includes/common/functions.php:111
+msgctxt "Separator in time since"
+msgid ","
+msgstr ""
+
+#: includes/common/template.php:362
+msgctxt "Home screen of the website"
+msgid "Home"
+msgstr ""
+
+#: includes/common/template.php:426
+msgctxt "HTML entity for left single angle quotes"
+msgid "&lsaquo;"
+msgstr ""
+
+#: includes/common/template.php:426
+msgctxt "HTML entity for right single angle quotes"
+msgid "&rsaquo;"
+msgstr ""
+
+#: includes/common/template.php:624
+msgid "Achievement: %s"
+msgstr ""
+
+#: includes/core/theme-compatibility.php:440
+msgctxt "possesive noun"
+msgid "%s's achievements"
+msgstr ""
+
+#: includes/extensions/bbpress.php:43
+msgid "A forum is permanently deleted by the user"
+msgstr ""
+
+#: includes/extensions/bbpress.php:44
+msgid "A forum&#8217;s settings are changed by the user"
+msgstr ""
+
+#: includes/extensions/bbpress.php:45
+msgid "The user creates a new forum"
+msgstr ""
+
+#: includes/extensions/bbpress.php:46
+msgid "The user puts a forum into the trash"
+msgstr ""
+
+#: includes/extensions/bbpress.php:47
+msgid "The user restores a forum from the trash"
+msgstr ""
+
+#: includes/extensions/bbpress.php:50
+msgid "The user closes a topic."
+msgstr ""
+
+#: includes/extensions/bbpress.php:51
+msgid "Separate topics are merged together by a user"
+msgstr ""
+
+#: includes/extensions/bbpress.php:52
+msgid "The user opens a topic for new replies"
+msgstr ""
+
+#: includes/extensions/bbpress.php:53
+msgid "An existing topic is split into seperate threads by a user"
+msgstr ""
+
+#: includes/extensions/bbpress.php:56
+msgid "The user permanently deletes a topic"
+msgstr ""
+
+#: includes/extensions/bbpress.php:57
+msgid "The user marks a topic as a sticky"
+msgstr ""
+
+#: includes/extensions/bbpress.php:58
+msgid "The user trashes a topic"
+msgstr ""
+
+#: includes/extensions/bbpress.php:59
+msgid "The user unstickies a topic"
+msgstr ""
+
+#: includes/extensions/bbpress.php:60
+msgid "The user restores a topic from the trash"
+msgstr ""
+
+#: includes/extensions/bbpress.php:61
+msgid "The user creates a new topic."
+msgstr ""
+
+#: includes/extensions/bbpress.php:64
+msgid "The user permanently deletes a reply"
+msgstr ""
+
+#: includes/extensions/bbpress.php:65
+msgid "The user trashes a reply"
+msgstr ""
+
+#: includes/extensions/bbpress.php:66
+msgid "The user restores a reply from the trash"
+msgstr ""
+
+#: includes/extensions/bbpress.php:67
+msgid "The user replies to a topic."
+msgstr ""
+
+#: includes/extensions/bbpress.php:91
+msgid "bbPress is forum software, made the WordPress way."
+msgstr ""
+
+#: includes/extensions/bbpress.php:94
+msgid "bbPress"
+msgstr ""
+
+#: includes/extensions/buddypress.php:59
+msgid "The user marks an item in an activity stream as a favourite."
+msgstr ""
+
+#: includes/extensions/buddypress.php:60
+msgid "The user replies to an item in an activity stream."
+msgstr ""
+
+#: includes/extensions/buddypress.php:61
+msgid "The user writes an activity update message."
+msgstr ""
+
+#: includes/extensions/buddypress.php:62
+msgid "The user un-favourites an item in their activity stream."
+msgstr ""
+
+#: includes/extensions/buddypress.php:63
+msgid "A new user activates their account on your website."
+msgstr ""
+
+#: includes/extensions/buddypress.php:64
+msgid "The user writes a message in a group&#8217;s activity stream."
+msgstr ""
+
+#: includes/extensions/buddypress.php:65
+msgid "The user accepts a friendship request from someone."
+msgstr ""
+
+#: includes/extensions/buddypress.php:66
+msgid "The user cancels a friendship."
+msgstr ""
+
+#: includes/extensions/buddypress.php:67
+msgid "The user rejects a friendship request from someone."
+msgstr ""
+
+#: includes/extensions/buddypress.php:68
+msgid "The user sends a friendship request to someone."
+msgstr ""
+
+#: includes/extensions/buddypress.php:69
+msgid "The user bans a member from a group."
+msgstr ""
+
+#: includes/extensions/buddypress.php:70
+msgid "The user creates a group."
+msgstr ""
+
+#: includes/extensions/buddypress.php:71
+msgid "The user deletes a group."
+msgstr ""
+
+#: includes/extensions/buddypress.php:72
+msgid "The user demotes a group member from moderator or administrator status."
+msgstr ""
+
+#: includes/extensions/buddypress.php:73
+msgid "The user invites someone to join a group."
+msgstr ""
+
+#: includes/extensions/buddypress.php:74
+msgid "The user joins a group."
+msgstr ""
+
+#: includes/extensions/buddypress.php:75
+msgid "The user leaves a group."
+msgstr ""
+
+#: includes/extensions/buddypress.php:76
+msgid "The user is promoted to a moderator or an administrator in a group."
+msgstr ""
+
+#: includes/extensions/buddypress.php:77
+msgid "The user promotes a group member to moderator or administrator status."
+msgstr ""
+
+#: includes/extensions/buddypress.php:78
+msgid "The user unbans a member from a group."
+msgstr ""
+
+#: includes/extensions/buddypress.php:79
+msgid "The user deletes a private message."
+msgstr ""
+
+#: includes/extensions/buddypress.php:80
+msgid "The user sends a new private message or replies to an existing one."
+msgstr ""
+
+#: includes/extensions/buddypress.php:81
+msgid "The user changes their profile&#8217;s avatar."
+msgstr ""
+
+#: includes/extensions/buddypress.php:82
+msgid "The user updates their profile information."
+msgstr ""
+
+#: includes/extensions/buddypress.php:103
+msgid ""
+"Social networking in a box. Build a social network for your company, school, "
+"sports team or niche community."
+msgstr ""
+
+#: includes/extensions/buddypress.php:106
+msgid "BuddyPress"
+msgstr ""
+
+#: includes/extensions/buddystream.php:42
+msgid "The user connects their Facebook account to BuddyStream."
+msgstr ""
+
+#: includes/extensions/buddystream.php:43
+msgid "The user connects their Flickr account to BuddyStream."
+msgstr ""
+
+#: includes/extensions/buddystream.php:44
+msgid "The user connects their Last.fm account to BuddyStream."
+msgstr ""
+
+#: includes/extensions/buddystream.php:45
+msgid "The user connects their Twitter account to BuddyStream."
+msgstr ""
+
+#: includes/extensions/buddystream.php:46
+msgid "The user connects their YouTube account to BuddyStream."
+msgstr ""
+
+#: includes/extensions/buddystream.php:57
+msgid ""
+"BuddyStream is a BuddyPress plugin that will synchronize all of your "
+"favorite Social Networks to the BuddyPress activity stream."
+msgstr ""
+
+#: includes/extensions/buddystream.php:60
+msgid "BuddyStream"
+msgstr ""
+
+#: includes/extensions/inviteanyone.php:42
+msgid "A new user activates their account."
+msgstr ""
+
+#: includes/extensions/inviteanyone.php:43
+msgid "The user invites someone else to join the site."
+msgstr ""
+
+#: includes/extensions/inviteanyone.php:59
+msgid "Makes BuddyPress&rsquo;s invitation features more powerful."
+msgstr ""
+
+#: includes/extensions/inviteanyone.php:62
+msgid "Invite Anyone"
+msgstr ""
+
+#: includes/extensions/scholarpress.php:42
+msgid "The user is added as a teacher"
+msgstr ""
+
+#: includes/extensions/scholarpress.php:43
+msgid "A grade is given to the user"
+msgstr ""
+
+#: includes/extensions/scholarpress.php:44
+msgid "A user&rsquo;s grade is updated"
+msgstr ""
+
+#: includes/extensions/scholarpress.php:45
+msgid "The user creates a new assignment"
+msgstr ""
+
+#: includes/extensions/scholarpress.php:46
+msgid "The user creates a new lecture"
+msgstr ""
+
+#: includes/extensions/scholarpress.php:47
+msgid "The user adds a response to an assignment"
+msgstr ""
+
+#: includes/extensions/scholarpress.php:48
+msgid "The user creates a new schedule"
+msgstr ""
+
+#: includes/extensions/scholarpress.php:79
+msgid "A Learning Management System for BuddyPress."
+msgstr ""
+
+#: includes/extensions/scholarpress.php:82
+msgid "BuddyPress Courseware"
+msgstr ""
+
+#: includes/extensions/wordpress.php:42
+msgid "A comment is written by the user."
+msgstr ""
+
+#: includes/extensions/wordpress.php:43
+msgid "The user publishes a blog post."
+msgstr ""
+
+#: includes/extensions/wordpress.php:44
+msgid "A new site is created by the user (multi-site only)."
+msgstr ""
+
+#: includes/extensions/wordpress.php:45
+msgid "The user trashes a blog post."
+msgstr ""
+
+#: includes/extensions/wordpress.php:64
+msgid ""
+"WordPress started in 2003 with a single bit of code to enhance the "
+"typography of everyday writing and with fewer users than you can count on "
+"your fingers and toes. Since then it has grown to be the largest self-hosted "
+"blogging tool in the world, used on millions of sites and seen by tens of "
+"millions of people every day."
+msgstr ""
+
+#: includes/extensions/wordpress.php:67
+msgid "WordPress"
+msgstr ""
+
+#: includes/extensions/wpecommerce.php:42
+msgid "The user sets up a PayPal Subscription"
+msgstr ""
+
+#: includes/extensions/wpecommerce.php:43
+msgid "The user completes checkout"
+msgstr ""
+
+#: includes/extensions/wpecommerce.php:69
+msgid ""
+"WP e-Commerce is a free WordPress Shopping Cart Plugin that lets customers "
+"buy your products, services and digital downloads online."
+msgstr ""
+
+#: includes/extensions/wpecommerce.php:72
+msgid "WP e-Commerce"
+msgstr ""
+
+#: includes/progress/template.php:347
+msgid "Viewing achievement progress %2$s (of %4$s total)"
+msgid_plural ""
+"Viewing %1$s achievements&rsquo; progress - %2$s through %3$s (of %4$s total)"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/achievements/achievements/feedback-achievement-unlocked.php:43
+msgctxt "Twitter message: achievement name, site name"
+msgid "I've unlocked the \"%1$s\" achievement on %2$s!"
+msgstr ""
+
+#: templates/achievements/achievements/feedback-achievement-unlocked.php:49
+msgid "Achievement Unlocked"
+msgstr ""
+
+#: templates/achievements/achievements/feedback-achievement-unlocked.php:59
+msgid "Hey, you've unlocked the &#8220;%s&#8221; achievement. Congratulations!"
+msgstr ""
+
+#: templates/achievements/achievements/feedback-achievement-unlocked.php:63
+msgid "Celebrate and share with your friends on %1$s and %2$s."
+msgstr ""
+
+#: templates/achievements/achievements/feedback-achievement-unlocked.php:64
+msgid "Facebook"
+msgstr ""
+
+#: templates/achievements/achievements/feedback-achievement-unlocked.php:65
+msgid "Twitter"
+msgstr ""
+
+#: templates/achievements/achievements/feedback-achievement-unlocked.php:69
+msgid "See your other achievements"
+msgstr ""
+
+#: templates/achievements/achievements/feedback-no-achievements.php:17
+msgid "%1$s hasn&rsquo;t unlocked any achievements."
+msgstr ""
+
+#: templates/achievements/achievements/feedback-no-achievements.php:21
+msgid ""
+"This is somewhat embarrassing, isn&rsquo;t it? No achievements were found."
+msgstr ""
+
+#: templates/achievements/achievements/loop-achievements.php:16
+msgid ""
+"All of the available achievements with the name, avatar, and karma points "
+"for each."
+msgstr ""
+
+#: templates/achievements/achievements/loop-achievements.php:21
+#: templates/achievements/achievements/loop-achievements.php:31
+msgctxt "column header for list of achievements"
+msgid "Achievement Name"
+msgstr ""
+
+#: templates/achievements/achievements/loop-achievements.php:22
+#: templates/achievements/achievements/loop-achievements.php:32
+msgctxt "column header for list of achievements"
+msgid "Karma"
+msgstr ""
+
+#: templates/achievements/achievements/loop-achievements.php:23
+#: templates/achievements/achievements/loop-achievements.php:33
+msgctxt "column header for list of achievements"
+msgid "Description"
+msgstr ""
+
+#: templates/achievements/achievements/loop-progresses.php:15
+msgid "Unlocked By"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "http://achievementsapp.com/"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid ""
+"Achievements gamifies your WordPress site with challenges, badges, and "
+"points."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "Paul Gibbs"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "http://byotos.com/"
+msgstr ""
