@@ -46,6 +46,15 @@ For information, support, and developer documentation, visit [achievementsapp.co
 = 3.0 =
 * IMPORTANT: Read http://achievementsapp.com/upgrading-from-old-versions/ before upgrading.
 
+== Screenshots ==
+
+1. Achievement notification
+2. List of user's unlocked achievements
+3. List of all available achievements
+4. Admin management screen showing a list of all achievements
+5. Crop of part of the "Supported Plugins" admin screen
+6. Crop of another part of the "Support Plugins" admin screen
+
 == License ==
 "Achievements"
 Copyright (C) 2009-13 Paul Gibbs
