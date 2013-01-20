@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 	<?php do_action( 'dpa_template_before_author_achievements' ); ?>
 
-	<?php if ( dpa_has_progress() ) : ?>
+	<?php if ( dpa_has_progress() && ! empty( achievements()->achievement_query->posts ) ) : ?>
 
 		<?php dpa_get_template_part( 'pagination-achievements' ); ?>
 
