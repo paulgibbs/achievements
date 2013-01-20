@@ -18,12 +18,14 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  * @todo Support multiple unlocked notifications at the same time.
  */
 function dpa_feedback_achievement_unlock_wrapper() {
-	$notifications = get_posts( array(
-		'numberposts'      => 1,
-		'post_type'        => dpa_get_achievement_post_type(),
-		'post__in'         => array_keys( dpa_get_user_notifications() ),
-		'suppress_filters' => false,
+	$notifications = dpa_get_achievements( array(
+		'numberposts' => 1,
+		'post__in'    => array_keys( dpa_get_user_notifications() ),
 	) );
+
+	// It's possible for the usermeta to reference posts that have been deleted or are in the trash, so check here.
+	if ( empty( $notifications ) )
+		return;
 
 	$user_profile_url = dpa_get_user_avatar_link( array(
 		'type'    => 'url',
