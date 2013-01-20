@@ -353,13 +353,32 @@ class DPA_Admin {
 
 		// Award achievements! :D
 		if ( ! empty( $achievements_to_add ) ) {
+
+			// Get achievements to add
 			$new_achievements = dpa_get_achievements( array(
 				'post__in'       => $achievements_to_add,
 				'posts_per_page' => count( $achievements_to_add ),
 			) );
 
-			foreach ( $new_achievements as &$achievement )
-				dpa_maybe_unlock_achievement( $user_id, 'skip_validation', array(), $achievement );
+			// Get any still-locked progress for this user
+			$existing_progress = dpa_get_progress( array(
+				'author'      => $user_id,
+				'post_status' => dpa_get_locked_status_id(),
+			) );
+
+			foreach ( $new_achievements as $achievement_obj ) {
+				$progress_obj = array();
+
+				// If we have current progress, pass that to dpa_maybe_unlock_achievement().
+				foreach ( $existing_progress as $progress ) {
+					if ( $achievement_obj->ID === $progress->post_parent ) {
+						$progress_obj = $progress;
+						break;
+					}
+				}
+
+				dpa_maybe_unlock_achievement( $user_id, 'skip_validation', $progress_obj, $achievement_obj );
+			}
 		}
 
 
