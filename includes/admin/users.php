@@ -29,7 +29,7 @@ function dpa_admin_screen_users_on_load() {
 		'id'      => 'dpa-supported-plugins-overview',
 		'title'   => __( 'Overview', 'dpa' ),
 		'content' =>
-			'<p>' . __( 'This screen lists all the users for your site who are eligble to unlock achievements.', 'dpa' ) . '</p>' .
+			'<p>' . __( 'This screen lists all the users on your site who are eligble to unlock achievements.', 'dpa' ) . '</p>' .
 			'<p>' . __( 'Each user has one of five defined roles as set by the site admin: Site Administrator, Editor, Author, Contributor, or Subscriber. Users with roles other than Administrator will see fewer options in the dashboard navigation when they are logged in, based on their role.', 'dpa' ) . '</p>'
 	) );
 

@@ -234,7 +234,7 @@ function dpa_achievement_new_contextual_help() {
 	) );
 
 	$title_and_editor  = '<p>' . __( '<strong>Title</strong> - Enter a title for your achievement. After you enter a title, you&#8217;ll see the permalink below, which you can edit.', 'dpa' ) . '</p>';
-	$title_and_editor .= '<p>' . __( '<strong>Post editor</strong> - Enter the text for your achievement. There are two modes of editing: Visual and Text. Choose the mode by clicking on the appropriate tab. Visual mode gives you a WYSIWYG editor. Click the last icon in the row to get a second row of controls. The Text mode allows you to enter HTML along with your achievement text. Line breaks will be converted to paragraphs automatically. You can insert media files by clicking the icons above the achievement editor and following the directions. You can go to the distraction-free writing screen via the Fullscreen icon in Visual mode (second to last in the top row) or the Fullscreen button in Text mode (last in the row). Once there, you can make buttons visible by hovering over the top area. Exit Fullscreen back to the regular achievement editor.', 'dpa' ) . '</p>';
+	$title_and_editor .= '<p>' . __( '<strong>Achievement editor</strong> - Enter the text for your achievement. There are two modes of editing: Visual and Text. Choose the mode by clicking on the appropriate tab. Visual mode gives you a WYSIWYG editor. Click the last icon in the row to get a second row of controls. The Text mode allows you to enter HTML along with your achievement text. Line breaks will be converted to paragraphs automatically. You can insert media files by clicking the icons above the achievement editor and following the directions. You can go to the distraction-free writing screen via the Fullscreen icon in Visual mode (second to last in the top row) or the Fullscreen button in Text mode (last in the row). Once there, you can make buttons visible by hovering over the top area. Exit Fullscreen back to the regular achievement editor.', 'dpa' ) . '</p>';
 
 	get_current_screen()->add_help_tab( array(
 		'id'      => 'title-post-editor',
@@ -242,13 +242,24 @@ function dpa_achievement_new_contextual_help() {
 		'content' => $title_and_editor,
 	) );
 
-	$publish_box = '<p>' . __( "<strong>Publish</strong> - You can set the terms of publishing your achievement in the Publish box. For Status, Visibility, and Publish (immediately), click on the Edit link to reveal more options. Visibility includes options for password-protecting an achievement&#8217;s page or setting the achievement to not appear in lists on your site). Publish (immediately) allows you to set a future or past date and time, so you can schedule an achievement to be published in the future.", 'dpa' ) . '</p>';
+	$inserting_media  = '<p>' . __( 'You can upload and insert media (images, audio, documents, etc.) by clicking the Add Media button. You can select from the images and files already uploaded to the Media Library, or upload new media to add to your achievement. To create an image gallery, select the images to add and click the “Create a new gallery” button.', 'dpa' ) . '</p>';
 
-	$publish_box .= '<p>' . __( '<strong>Featured Image</strong> - This allows you to associate an image with your achievement without inserting it into the big achievement Editing Area.', 'dpa' ) . '</p>';
+	$inserting_media .= '<p>' . sprintf( __( 'You can also embed media from many popular websites including Twitter, YouTube, Flickr and others by pasting the media URL on its own line into the content of your post/page. Please refer to the WordPress Codex to <a href="%s">learn more about embeds</a>.', 'dpa' ), esc_url( 'http://codex.wordpress.org/Embeds' ) ) . '</p>';
+
+	get_current_screen()->add_help_tab( array(
+		'id'      => 'inserting-media',
+		'title'   => __( 'Inserting Media', 'dpa' ),
+		'content' => $inserting_media,
+	) );
+
+	$publish_box  = '<p>' . __( 'Several boxes on this screen contain settings for how your achievement will be published, including:', 'dpa' ) . '</p>';
+	$publish_box .= '<ul><li><p>' . __( "<strong>Publish</strong> - You can set the terms of publishing your achievement in the Publish box. For Status, Visibility, and Publish (immediately), click on the Edit link to reveal more options. Visibility includes options for password-protecting an achievement&#8217;s page or setting the achievement to not appear in lists on your site). Publish (immediately) allows you to set a future or past date and time, so you can schedule an achievement to be published in the future.", 'dpa' ) . '</p></li>';
+
+	$publish_box .= '<li><p>' . __( '<strong>Featured Image</strong> - This allows you to associate an image with your achievement without inserting it into the big achievement Editing Area.', 'dpa' ) . '</p></li></ul>';
 
 	get_current_screen()->add_help_tab( array(
 		'id'      => 'publish-box',
-		'title'   => __( 'Publish Box', 'dpa' ),
+		'title'   => __( 'Publish Settings', 'dpa' ),
 		'content' => $publish_box,
 	) );
 
@@ -307,9 +318,10 @@ function dpa_achievement_index_contextual_help() {
 	'content' =>
 		'<p>' . __( 'Hovering over a row in the achievements list will display action links that allow you to manage your achievement. You can perform the following actions:', 'dpa' ) . '</p>' .
 		'<ul>' .
-			'<li>' . __( '<strong>Edit</strong> takes you to the editing screen for that post. You can also reach that screen by clicking on the post title.', 'dpa' ) . '</li>' .
-			'<li>' . __( '<strong>Trash</strong> removes your post from this list and places it in the trash, from which you can permanently delete it.', 'dpa' ) . '</li>' .
-			'<li>' . __( '<strong>Preview</strong> will show you what your draft achievement will look like if you publish it. View will take you to your live site to view the post. Which link is available depends on your achievement&#8217;s status.', 'dpa' ) . '</li>' .
+			'<li>' . __( '<strong>Edit</strong> takes you to the editing screen for that achievement. You can also reach that screen by clicking on the achievement title.', 'dpa' ) . '</li>' .
+			'<li>' . __( '<strong>Quick Edit</strong> provides inline access to the metadata of your achievement, allowing you to update achievement details without leaving this screen.', 'dpa' ) . '</li>' .
+			'<li>' . __( '<strong>Trash</strong> removes your achievement from this list and places it in the trash, from which you can permanently delete it.', 'dpa' ) . '</li>' .
+			'<li>' . __( '<strong>Preview</strong> will show you what your draft achievement will look like if you publish it. View will take you to your live site to view the achievement. Which link is available depends on your achievement&#8217;s status.', 'dpa' ) . '</li>' .
 		'</ul>'
 	) );
 
