@@ -16,7 +16,7 @@ Achievements gamifies your WordPress site with challenges, badges, and points. B
 
 Simply by activating Achievements, any standard WordPress theme is suddenly capable of having achievements and tracking user progress; everything works out of the box. Achievements integrates seamlessly with your existing WordPress theme.
 
-The plugin supports many of your favourite WordPress plugins, including [bbPress](http://wordpress.org/extend/plugins/bbpress/), [BuddyPress](http://wordpress.org/extend/plugins/buddypress/), [coursewa.re](http://wordpress.org/extend/plugins/buddypress-courseware/), and [WP e-Commerce](http://wordpress.org/extend/plugins/wp-e-commerce/). For example, have you ever wanted to give your community members points when they contribute to a discussion, or buy items from your store? Now you can.
+This plugin supports many of your favourite WordPress plugins, including [bbPress](http://wordpress.org/extend/plugins/bbpress/), [BuddyPress](http://wordpress.org/extend/plugins/buddypress/), [coursewa.re](http://wordpress.org/extend/plugins/buddypress-courseware/), and [WP e-Commerce](http://wordpress.org/extend/plugins/wp-e-commerce/). For example, have you ever wanted to give your community members points when they contribute to a discussion, or buy items from your store? Now you can.
 
 For information, support, and developer documentation, visit [achievementsapp.com](http://achievementsapp.com/).
 
@@ -44,7 +44,7 @@ For information, support, and developer documentation, visit [achievementsapp.co
 
 == Upgrade Notice ==
 = 3.0 =
-* IMPORTANT: Please see DJPAULTODO_THIS_SITE_OR_ELSE before upgrading.
+* IMPORTANT: Read http://achievementsapp.com/upgrading-from-old-versions/ before upgrading.
 
 == License ==
 "Achievements"
