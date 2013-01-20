@@ -1,13 +1,53 @@
 === Achievements for WordPress ===
+Contributors: DJPaul
+Tags: achievements, badges, challenges, gaming, points, rewards
+Requires at least: 3.5
+Tested up to: 3.5.1
+Stable tag: 3
+License: GPLv3
+License URI: http://www.gnu.org/licenses/gpl-3.0.html
+Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=P3K7Z7NHWZ5CL&lc=GB&item_name=B%2eY%2eO%2eT%2eO%2eS%20%2d%20BuddyPress%20plugins&currency_code=GBP&bn=PP%2dDon
+
 Achievements gamifies your WordPress site with challenges, badges, and points.
 
-[Download the plugin from WordPress.org](http://wordpress.org/extend/plugins/achievements).
-For more information on the contents of this beta release, go to the [Updates page on achievementsapp.com](http://achievementsapp.com/updates/).
+== Description ==
 
-Have you found a bug, or have a feature request? If you have a Github account, please report issues [here](https://github.com/paulgibbs/achievements/issues). Otherwise, send an email to: paul at byotos.com.
+Achievements gamifies your WordPress site with challenges, badges, and points. Badges and points are the funnest way to reward and encourage members of your community to participate. Leaderboards and rankings bring friendly competition to your community.
+
+Simply by activating Achievements, any standard WordPress theme is suddenly capable of having achievements and tracking user progress; everything works out of the box. Achievements integrates seamlessly with your existing WordPress theme.
+
+The plugin supports many of your favourite WordPress plugins, including [bbPress](http://wordpress.org/extend/plugins/bbpress/), [BuddyPress](http://wordpress.org/extend/plugins/buddypress/), [coursewa.re](http://wordpress.org/extend/plugins/buddypress-courseware/), and [WP e-Commerce](http://wordpress.org/extend/plugins/wp-e-commerce/). For example, have you ever wanted to give your community members points when they contribute to a discussion, or buy items from your store? Now you can.
+
+For information, support, and developer documentation, visit [achievementsapp.com](http://achievementsapp.com/).
+
+[vimeo http://vimeo.com/56058144]
+
+== Changelog ==
+= 3.0 =
+* Massive new version; everything's new.
+* Achievements 3 no longer requires BuddyPress.
+* Visit [achievementsapp.com](http://achievementsapp.com/) for more information.
+
+= Pre-3.0 =
+* The historical release history has been moved to a better place.
+
+== Installation ==
+1. Install via WordPress Plugins administration page.
+1. Activate the plugin.
+
+To get started, in your WordPress admin area, explore the "Achievements" menu in the main navigation.
+
+Note: in multisite, activating the plugin "network-wide" will give your entire network one shared instance of achievements. If you want each site to run their own achievements and have them be totally seperate, activate the plugin on individual sites.
+
+== Frequently Asked Questions ==
+For information, support, and developer documentation, visit [achievementsapp.com](http://achievementsapp.com/).
+
+== Upgrade Notice ==
+= 3.0 =
+* IMPORTANT: Please see DJPAULTODO_THIS_SITE_OR_ELSE before upgrading.
 
 == License ==
-"Achievements for BuddyPress"
+"Achievements"
 Copyright (C) 2009-13 Paul Gibbs
 
 This program is free software: you can redistribute it and/or modify
@@ -24,7 +64,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 == Acknowledgements ==
-Achievements is distributed under GPLv3, but uses some components from other sources:
+Achievements is distributed under GPLv3, but we've used some components from other sources:
 
 * /admin/images/select_arrow.gif, and some CSS styling, taken from "Formalize CSS" http://formalize.me/, under the MIT License (http://www.opensource.org/licenses/mit-license.php).
 * Some CSS styling taken from "Twitter Bootstrap" http://twitter.github.com/bootstrap/ under the Apache License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0.html).
