@@ -75,8 +75,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 == Acknowledgements ==
 Achievements is distributed under GPLv3, but we've used some components from other sources:
 
-* /admin/images/select_arrow.gif, and some CSS styling, taken from "Formalize CSS" http://formalize.me/, under the MIT License (http://www.opensource.org/licenses/mit-license.php).
-* Some CSS styling taken from "Twitter Bootstrap" http://twitter.github.com/bootstrap/ under the Apache License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0.html).
-* Uses the jquery-tablesorter-min.js library from "tablesorter" http://tablesorter.com/ under the MIT License (http://www.opensource.org/licenses/mit-license.php).
-* Uses socialite-min.js from "Socialite" https://github.com/dbushell/Socialite/ under the MIT License (http://www.opensource.org/licenses/mit-license.php).
-* Uses the "Chosen" jQuery library https://github.com/harvesthq/chosen under the MIT License (http://harvesthq.github.com/chosen/).
+* /admin/images/select_arrow.gif, and some CSS styling, taken from "Formalize CSS" <http://formalize.me/>, under the MIT License (<http://www.opensource.org/licenses/mit-license.php>).
+* Some CSS styling taken from "Twitter Bootstrap" <http://twitter.github.com/bootstrap/> under the Apache License, Version 2.0 (<http://www.apache.org/licenses/LICENSE-2.0.html>).
+* Uses the jquery-tablesorter-min.js library from "tablesorter" <http://tablesorter.com/> under the MIT License (<http://www.opensource.org/licenses/mit-license.php>).
+* Uses socialite-min.js from "Socialite" <https://github.com/dbushell/Socialite/> under the MIT License (<http://www.opensource.org/licenses/mit-license.php>).
+* Uses the "Chosen" jQuery library <https://github.com/harvesthq/chosen> under the MIT License (<http://harvesthq.github.com/chosen/>).
