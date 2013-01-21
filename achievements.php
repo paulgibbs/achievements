@@ -2,11 +2,11 @@
 /**
  * Batman begins
  *
+ * Plugin structure is based on bbPress and BuddyPress, because they're awesome. Borrowed with love.
+ *
  * @author Paul Gibbs <paul@byotos.com>
  * @package Achievements
  * @subpackage Loader
- *
- * Plugin structure is based on bbPress and BuddyPress, because they're awesome. Borrowed with love.
  */
 
 /*
@@ -173,7 +173,6 @@ final class DPA_Achievements_Loader {
 	 * Magic method for unsetting Achievements variables
 	 *
 	 * @param string $key
-	 * @param mixed $value
 	 * @since Achievements (3.0)
 	 */
 	public function __unset( $key ) { if ( isset( $this->data[$key] ) ) unset( $this->data[$key] ); }
@@ -683,7 +682,6 @@ function dpa_is_running_networkwide() {
  *
  * @return array Option names and values
  * @since Achievements (3.0)
- * @todo When dpa_get_default_options() are updated and multisite and network-wide are enabled, copy values to site options.
  */
 function dpa_get_default_options() {
 	$options = array(

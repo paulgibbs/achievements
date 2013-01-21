@@ -499,7 +499,7 @@ function dpa_supported_plugins_mb_switcher() {
 }
 
 /**
- *
+ * The Supported Features metabox lists details of the actions that this extension provides support for.
  *
  * @since Achievements (3.0)
  */

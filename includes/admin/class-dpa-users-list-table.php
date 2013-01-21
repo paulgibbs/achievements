@@ -19,6 +19,7 @@ class DPA_Users_List_Table extends WP_Users_List_Table {
 	/**
 	 * Constructor
 	 * 
+	 * @param array $args An associative array with information about the current table
 	 * @since Achievements (3.0)
 	 */
 	function __construct( $args = array() ) {
