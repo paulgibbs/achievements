@@ -532,10 +532,6 @@ function dpa_breadcrumb( $args = array() ) {
 		$sep    = apply_filters( 'dpa_breadcrumb_separator', $sep    );
 		$crumbs = apply_filters( 'dpa_breadcrumbs',          $crumbs );
 
-		// If right-to-left, reverse the crumb order
-		if ( is_rtl() )
-			$crumbs = array_reverse( $crumbs );
-
 		// Build the trail
 		$trail = ! empty( $crumbs ) ? ( $before . $crumb_before . implode( $sep . $crumb_after . $crumb_before , $crumbs ) . $crumb_after . $after ) : '';
 
