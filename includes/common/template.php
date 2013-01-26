@@ -161,7 +161,11 @@ function dpa_body_class( $wp_classes, $custom_classes = array() ) {
 	if ( dpa_is_single_achievement() )
 		$achievements_classes[] = dpa_get_achievement_post_type();
 
-	//* Clean up **************************************************************/
+	// Does the user have any pending notifications?
+	if ( dpa_user_has_notifications() )
+		$achievements_classes[] = 'achievement-notifications';
+
+	// Clean up
 
 	// Add achievements class if we are on an Achievements page
 	if ( ! empty( $achievements_classes ) )
