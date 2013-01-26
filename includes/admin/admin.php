@@ -218,13 +218,15 @@ class DPA_Admin {
 		if ( ! DPA_Admin::is_admin_screen() )
 			return;
 
+		$rtl = is_rtl() ? '-rtl' : '';
+
 		// "Supported Plugins" screen
 		if ( 'achievements-plugins' == $_GET['page'] )
-			wp_enqueue_style( 'dpa_admin_css', trailingslashit( $this->css_url ) . 'supportedplugins.css', array(), '20120722' );
+			wp_enqueue_style( 'dpa_admin_css', trailingslashit( $this->css_url ) . "supportedplugins{$rtl}.css", array(), '20120722' );
 
 		// Achievements "users" screen
 		elseif ( 'achievements-users' == $_GET['page'] )
-			wp_enqueue_style( 'dpa_admin_users_css', trailingslashit( $this->css_url ) . 'users.css', array(), '20130113' );
+			wp_enqueue_style( 'dpa_admin_users_css', trailingslashit( $this->css_url ) . "users{$rtl}.css", array(), '20130113' );
 	}
 
 	/**

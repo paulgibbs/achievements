@@ -75,7 +75,8 @@ class DPA_Default extends DPA_Theme_Compat {
 	 * @todo LTR CSS
 	 */
 	public function enqueue_styles() {
-		$file = 'css/achievements.css';
+		$rtl  = is_rtl() ? '-rtl' : '';
+		$file = "css/achievements{$rtl}.css";
 
 		// Check child theme
 		if ( file_exists( trailingslashit( get_stylesheet_directory() ) . $file ) ) {
@@ -108,7 +109,8 @@ class DPA_Default extends DPA_Theme_Compat {
 		if ( ! dpa_is_user_active() || is_admin() || is_404() || ! dpa_user_has_notifications() )
 			return;
 
-		$file = 'css/notifications.css';
+		$rtl  = is_rtl() ? '-rtl' : '';
+		$file = "css/notifications{$rtl}.css";
 
 		// Check child theme
 		if ( file_exists( trailingslashit( get_stylesheet_directory() ) . $file ) ) {

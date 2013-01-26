@@ -29,8 +29,9 @@ function dpa_admin_setup_metaboxes() {
 	wp_enqueue_script( 'dpa_chosen_js', trailingslashit( achievements()->admin->javascript_url ) . 'chosen-jquery-min.js', array( 'jquery' ), '20121006' );
 
 	// General styles for the post type admin screen.
+	$rtl = is_rtl() ? '-rtl' : '';
 	wp_enqueue_script( 'dpa_admin_js', trailingslashit( achievements()->admin->javascript_url ) . 'achievements-min.js', array( 'jquery', 'dpa_chosen_js' ), '20121006' );
-	wp_enqueue_style( 'dpa_admin_css', trailingslashit( achievements()->admin->css_url ) . 'achievements.css', array(), '20121006' );
+	wp_enqueue_style( 'dpa_admin_css', trailingslashit( achievements()->admin->css_url ) . "achievements{$rtl}.css", array(), '20121006' );
 }
 
 /**
