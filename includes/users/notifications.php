@@ -30,17 +30,27 @@ function dpa_send_notification( $achievement_obj, $user_id, $progress_id ) {
 }
 
 /**
+ * Does the user have any pending notifications?
+ * 
+ * @since Achievements (3.1)
+ */
+function dpa_user_has_notifications() {
+	$notifications = dpa_get_user_notifications();
+	return apply_filters( 'dpa_user_has_notifications', ! empty( $notifications ) );
+}
+
+/**
  * Print any notifications for the current user to the page footer.
  * 
  * @since Achievements (3.0)
  */
 function dpa_print_notifications() {
 	// If user's not active or is inside the WordPress Admin, bail out.
-	if ( ! dpa_is_user_active() || is_admin() || is_404() )
+	if ( ! dpa_is_user_active() || is_admin() || is_404() || ! dpa_user_has_notifications() )
 		return;
 
 	// Get current notifications
-	$achievements = array();
+	$achievements  = array();
 	$notifications = dpa_get_user_notifications();
 
 	// If we're viewing an achievement, clear the notification

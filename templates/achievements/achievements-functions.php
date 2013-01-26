@@ -104,12 +104,7 @@ class DPA_Default extends DPA_Theme_Compat {
 	 */
 	public function enqueue_notifications_style() {
 		// If user's not active or is inside the WordPress Admin, bail out.
-		if ( ! dpa_is_user_active() || is_admin() || is_404() )
-			return;
-
-		// If we don't have any notifications to show, bail out
-		$notifications = dpa_get_user_notifications();
-		if ( empty( $notifications ) )
+		if ( ! dpa_is_user_active() || is_admin() || is_404() || ! dpa_user_has_notifications() )
 			return;
 
 		$file = 'css/notifications.css';
@@ -140,10 +135,9 @@ class DPA_Default extends DPA_Theme_Compat {
 	 * @since Achievements (3.0)
 	 */
 	public function enqueue_scripts() {
-		$notifications = dpa_get_user_notifications();
 
 		// Only load on Achievements pages, or when we have notifications to show
-		if ( ! is_achievements() && empty( $notifications ) )
+		if ( ! is_achievements() && ! dpa_user_has_notifications() )
 			return;
 
 		$file = 'js/achievements.js';
