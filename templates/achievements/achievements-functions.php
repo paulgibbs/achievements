@@ -136,8 +136,8 @@ class DPA_Default extends DPA_Theme_Compat {
 	 */
 	public function enqueue_scripts() {
 
-		// Only load on Achievements pages, or when we have notifications to show
-		if ( ! is_achievements() && ! dpa_user_has_notifications() )
+		// Only load on Achievements pages
+		if ( ! is_achievements() )
 			return;
 
 		$file = 'js/achievements.js';
