@@ -1,0 +1,1 @@
+/*! http://wordpress.org/extend/plugins/achievements/ */(function(e){e(document).ready(function(){e("body.achievement-notifications").click(function(){e("#dpa-notifications-wrapper").remove()});e("#dpa-notifications").click(function(e){e.stopPropagation()})})})(jQuery);

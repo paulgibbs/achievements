@@ -62,7 +62,8 @@ class DPA_Default extends DPA_Theme_Compat {
 		//add_action( 'dpa_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
 
 		// Notifications
-		add_action( 'dpa_enqueue_scripts', array( $this, 'enqueue_notifications_style' ) );
+		add_action( 'dpa_enqueue_scripts', array( $this, 'enqueue_notifications_style'  ) );
+		add_action( 'dpa_enqueue_scripts', array( $this, 'enqueue_notifications_script' ) );
 
 		do_action_ref_array( 'dpa_theme_compat_actions', array( &$this ) );
 	}
@@ -127,6 +128,39 @@ class DPA_Default extends DPA_Theme_Compat {
 
 		// Enqueue the stylesheet
 		wp_enqueue_style( $handle, $location . $file, array(), $this->version, 'screen' );
+	}
+
+	/**
+	 * Load the JS for notifications
+	 *
+	 * @since Achievements (3.1)
+	 */
+	public function enqueue_notifications_script() {
+
+		// If user's not active or is inside the WordPress Admin, bail out.
+		if ( ! dpa_is_user_active() || is_admin() || is_404() || ! dpa_user_has_notifications() )
+			return;
+
+		$file = 'js/notifications.js';
+
+		// Check child theme
+		if ( file_exists( trailingslashit( get_stylesheet_directory() ) . $file ) ) {
+			$location = trailingslashit( get_stylesheet_directory_uri() );
+			$handle   = 'dpa-child-notifications-javascript';
+
+		// Check parent theme
+		} elseif ( file_exists( trailingslashit( get_template_directory() ) . $file ) ) {
+			$location = trailingslashit( get_template_directory_uri() );
+			$handle   = 'dpa-parent-notifications-javascript';
+
+		// Achievements theme compatibility
+		} else {
+			$location = trailingslashit( $this->url ) . 'achievements/';
+			$handle   = 'dpa-default-notifications-javascript';
+		}
+
+		// Enqueue the stylesheet
+		wp_enqueue_script( $handle, $location . $file, array( 'jquery' ), $this->version, 'screen', true );
 	}
 
 	/**
