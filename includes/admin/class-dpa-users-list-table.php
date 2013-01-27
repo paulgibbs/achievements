@@ -35,7 +35,7 @@ class DPA_Users_List_Table extends WP_Users_List_Table {
 	 * Get an array of all the columns on the page
 	 *
 	 * @return array
-	 * @since BuddyPress (1.6)
+	 * @since Achievements (3.0)
 	 */
 	function get_column_info() {
 		$this->_column_headers = array(

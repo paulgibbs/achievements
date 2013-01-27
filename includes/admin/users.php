@@ -58,7 +58,7 @@ function dpa_admin_screen_users_on_load() {
  *
  * @global DPA_Users_List_Table $dpa_users_list_table Activity screen list table
  * @global string $plugin_page
- * @since Achievements (3.)
+ * @since Achievements (3.0)
  */
 function dpa_admin_screen_users() {
 	global $dpa_users_list_table, $plugin_page;
