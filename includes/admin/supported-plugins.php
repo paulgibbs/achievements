@@ -284,7 +284,7 @@ function dpa_supported_plugins_list() {
 	$page_url = add_query_arg( 'filter', $filter, $page_url );
 
 	// Get supported plugins
-	$extensions = achievements()->extensions;
+	$extensions = (array) achievements()->extensions;
 
 	// Sort list of plugins by rating
 	//if ( ! empty( $_GET['order'] ) && 'rating' == $_GET['order'] )
@@ -297,8 +297,8 @@ function dpa_supported_plugins_list() {
 
 	// Sort alphabetically
 	//else
-	$extensions_array = (array) $extensions;
-	uasort( $extensions_array, create_function( '$a, $b', 'return strnatcasecmp($a->get_name(), $b->get_name());' ) );
+	uasort( $extensions, create_function( '$a, $b', 'return strnatcasecmp($a->get_name(), $b->get_name());' ) );
+	$extensions = (object) $extensions;
 
 	// Build URL for non-javascript table sorting
 	$redirect_to = remove_query_arg( _dpa_supported_plugin_get_queryargs(), self_admin_url( 'edit.php?post_type=achievement&page=achievements-plugins' ) );
@@ -438,7 +438,9 @@ function dpa_supported_plugins_grid() {
 	$filter = dpa_supported_plugins_get_filter();
 
 	// Get supported plugins
-	$extensions = achievements()->extensions;
+	$extensions = (array) achievements()->extensions;
+	uasort( $extensions, create_function( '$a, $b', 'return strnatcasecmp($a->get_name(), $b->get_name());' ) );
+	$extensions = (object) $extensions;
 
 	echo '<div class="wrapper"><div>';
 	foreach ( $extensions as $extension ) {
@@ -475,7 +477,9 @@ function dpa_supported_plugins_mb_switcher() {
 	echo '<select id="dpa-details-plugins">';
 
 	// Get supported plugins
-	$extensions = achievements()->extensions;
+	$extensions = (array) achievements()->extensions;
+	uasort( $extensions, create_function( '$a, $b', 'return strnatcasecmp($a->get_name(), $b->get_name());' ) );
+	$extensions = (object) $extensions;
 
 	foreach ( $extensions as $extension ) {
 		// Extensions must inherit the DPA_Extension class
