@@ -46,7 +46,7 @@ class DPA_Shortcodes {
 			'dpa-achievements-index'      => array( $this, 'display_achievements_index' ),
 
 			// User achievement index
-			'dpa-user-achievements-index' => array( $this, 'display_user_achievements' );
+			'dpa-user-achievements-index' => array( $this, 'display_user_achievements' ),
 
 			// Specific achievement - pass an 'id' attribute
 			'dpa-single-achievement'      => array( $this, 'display_achievement' ),
