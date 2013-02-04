@@ -403,7 +403,7 @@ function dpa_achievement_points( $achievement_id = 0 ) {
 	 *
 	 * @param int $achievement_id Optional. Achievement ID
 	 * @return int
-	 * @since Achievements (3.0)
+	 * @since Achievements (2.0)
 	 */
 	function dpa_get_achievement_points( $achievement_id = 0 ) {
 		$achievement_id = dpa_get_achievement_id( $achievement_id );
