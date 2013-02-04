@@ -53,7 +53,7 @@ class DPA_Shortcodes {
 
 			// Misc
 			'dpa-breadcrumb'              => array( $this, 'display_breadcrumb' ),
-			'dpa-unlock-notice'           => array( $this, 'display_feedback_achievement_unlocked' );
+			'dpa-unlock-notice'           => array( $this, 'display_feedback_achievement_unlocked' ),
 		) );
 	}
 
