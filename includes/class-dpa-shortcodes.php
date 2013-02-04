@@ -41,14 +41,19 @@ class DPA_Shortcodes {
 
 		// Setup the shortcodes
 		$this->codes = apply_filters( 'dpa_shortcodes', array(
+
 			// Achievements index
-			'dpa-achievements-index' => array( $this, 'display_achievements_index' ),
+			'dpa-achievements-index'      => array( $this, 'display_achievements_index' ),
+
+			// User achievement index
+			'dpa-user-achievements-index' => array( $this, 'display_user_achievements' );
 
 			// Specific achievement - pass an 'id' attribute
-			'dpa-single-achievement' => array( $this, 'display_achievement' ),
+			'dpa-single-achievement'      => array( $this, 'display_achievement' ),
 
 			// Misc
-			'dpa-breadcrumb'         => array( $this, 'display_breadcrumb' ),
+			'dpa-breadcrumb'              => array( $this, 'display_breadcrumb' ),
+			'dpa-unlock-notice'           => array( $this, 'display_feedback_achievement_unlocked' );
 		) );
 	}
 
