@@ -110,7 +110,7 @@ class DPA_WordPress_Extension extends DPA_CPT_Extension {
 	 */
 	public function event_user_id( $user_id, $action_name, $action_func_args ) {
 		// Only deal with events added by this extension.
-		if ( ! in_array( $action_name, array( 'comment_post', 'draft_to_publish', ) ) )
+		if ( ! in_array( $action_name, array( 'comment_post', 'wordpress_draft_to_publish', ) ) )
 			return $user_id;
 
 		// New comment, check that the author isn't anonymous
@@ -126,7 +126,7 @@ class DPA_WordPress_Extension extends DPA_CPT_Extension {
 			return $comment->user_id;
 
 		// New post, get the post author
-		} elseif ( 'draft_to_publish' == $action_name && 'post' == $action_func_args[0]->post_type ) {
+		} elseif ( 'wordpress_draft_to_publish' == $action_name && 'post' == $action_func_args[0]->post_type ) {
 			return $this->get_post_author( $user_id, $action_name, $action_func_args );
 		}
 	}
