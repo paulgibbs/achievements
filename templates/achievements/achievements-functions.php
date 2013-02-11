@@ -90,12 +90,12 @@ class DPA_Default extends DPA_Theme_Compat {
 
 		// Achievements theme compatibility
 		} else {
-			$location = trailingslashit( $this->url ) . 'achievements/';
+			$location = trailingslashit( dpa_get_theme_compat_url() ) . 'achievements/';
 			$handle   = 'dpa-default-achievements';
 		}
 
 		// Enqueue the stylesheet
-		wp_enqueue_style( $handle, $location . $file, array(), $this->version, 'screen' );
+		wp_enqueue_style( $handle, $location . $file, array(), dpa_get_theme_compat_version(), 'screen' );
 	}
 
 	/**
@@ -105,6 +105,7 @@ class DPA_Default extends DPA_Theme_Compat {
 	 * @todo LTR CSS
 	 */
 	public function enqueue_notifications_style() {
+
 		// If user's not active or is inside the WordPress Admin, bail out.
 		if ( ! dpa_is_user_active() || is_admin() || is_404() || ! dpa_user_has_notifications() )
 			return;
@@ -124,12 +125,12 @@ class DPA_Default extends DPA_Theme_Compat {
 
 		// Achievements theme compatibility
 		} else {
-			$location = trailingslashit( $this->url ) . 'achievements/';
+			$location = trailingslashit( dpa_get_theme_compat_url() ) . 'achievements/';
 			$handle   = 'dpa-default-notifications';
 		}
 
 		// Enqueue the stylesheet
-		wp_enqueue_style( $handle, $location . $file, array(), $this->version, 'screen' );
+		wp_enqueue_style( $handle, $location . $file, array(), dpa_get_theme_compat_version(), 'screen' );
 	}
 
 	/**
@@ -157,12 +158,12 @@ class DPA_Default extends DPA_Theme_Compat {
 
 		// Achievements theme compatibility
 		} else {
-			$location = trailingslashit( $this->url ) . 'achievements/';
+			$location = trailingslashit( dpa_get_theme_compat_url() ) . 'achievements/';
 			$handle   = 'dpa-default-notifications-javascript';
 		}
 
 		// Enqueue the stylesheet
-		wp_enqueue_script( $handle, $location . $file, array( 'jquery' ), $this->version, 'screen', true );
+		wp_enqueue_script( $handle, $location . $file, array( 'jquery' ), dpa_get_theme_compat_version(), 'screen', true );
 	}
 
 	/**
@@ -190,12 +191,12 @@ class DPA_Default extends DPA_Theme_Compat {
 
 		// Achievements theme compatibility
 		} else {
-			$location = trailingslashit( $this->url ) . 'achievements/';
+			$location = trailingslashit( dpa_get_theme_compat_url() ) . 'achievements/';
 			$handle   = 'dpa-default-javascript';
 		}
 
 		// Enqueue the stylesheet
-		wp_enqueue_script( $handle, $location . $file, array( 'jquery' ), $this->version, 'screen', true );
+		wp_enqueue_script( $handle, $location . $file, array( 'jquery' ), dpa_get_theme_compat_version(), 'screen', true );
 	}
 }  // class_exists
 
