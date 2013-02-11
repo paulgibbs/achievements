@@ -19,9 +19,13 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  */
 if ( ! function_exists( 'dpa_feedback_achievement_unlock_wrapper' ) ) :
 function dpa_feedback_achievement_unlock_wrapper() {
+	$post_ids = dpa_get_user_notifications();
+	if ( empty( $post_ids ) )
+		return;
+
 	$notifications = dpa_get_achievements( array(
 		'numberposts' => 1,
-		'post__in'    => array_keys( dpa_get_user_notifications() ),
+		'post__in'    => array_keys( $post_ids ),
 	) );
 
 	// It's possible for the usermeta to reference posts that have been deleted or are in the trash, so check here.
