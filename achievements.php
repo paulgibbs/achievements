@@ -594,8 +594,8 @@ final class DPA_Achievements_Loader {
 			'id'      => 'default',
 			'name'    => __( 'Achievements Default', 'dpa' ),
 			'version' => dpa_get_version(),
-			'dir'     => trailingslashit( $this->themes_dir . '/achievements' ),
-			'url'     => trailingslashit( $this->themes_url . '/achievements' )
+			'dir'     => trailingslashit( $this->themes_dir . 'achievements' ),
+			'url'     => trailingslashit( $this->themes_url . 'achievements' )
 		) );
 	}
 
