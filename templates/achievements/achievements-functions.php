@@ -90,7 +90,7 @@ class DPA_Default extends DPA_Theme_Compat {
 
 		// Achievements theme compatibility
 		} else {
-			$location = trailingslashit( dpa_get_theme_compat_url() ) . 'achievements/';
+			$location = trailingslashit( dpa_get_theme_compat_url() );
 			$handle   = 'dpa-default-achievements';
 		}
 
@@ -126,7 +126,7 @@ class DPA_Default extends DPA_Theme_Compat {
 
 		// Achievements theme compatibility
 		} else {
-			$location = trailingslashit( dpa_get_theme_compat_url() ) . 'achievements/';
+			$location = trailingslashit( dpa_get_theme_compat_url() );
 			$handle   = 'dpa-default-notifications';
 		}
 
@@ -160,7 +160,7 @@ class DPA_Default extends DPA_Theme_Compat {
 
 		// Achievements theme compatibility
 		} else {
-			$location = trailingslashit( dpa_get_theme_compat_url() ) . 'achievements/';
+			$location = trailingslashit( dpa_get_theme_compat_url() );
 			$handle   = 'dpa-default-notifications-javascript';
 		}
 
@@ -193,7 +193,7 @@ class DPA_Default extends DPA_Theme_Compat {
 
 		// Achievements theme compatibility
 		} else {
-			$location = trailingslashit( dpa_get_theme_compat_url() ) . 'achievements/';
+			$location = trailingslashit( dpa_get_theme_compat_url() );
 			$handle   = 'dpa-default-javascript';
 		}
 
