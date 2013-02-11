@@ -17,6 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  * @todo It is not ideal to get the DB information in this template; and as such, this function has no actions as everything here's liable to change.
  * @todo Support multiple unlocked notifications at the same time.
  */
+if ( ! function_exists( 'dpa_feedback_achievement_unlock_wrapper' ) ) :
 function dpa_feedback_achievement_unlock_wrapper() {
 	$notifications = dpa_get_achievements( array(
 		'numberposts' => 1,
@@ -76,5 +77,6 @@ function dpa_feedback_achievement_unlock_wrapper() {
 </div><!-- #dpa-notifications-wrapper -->
 
 <?php
-}  // function dpa_feedback_achievement_unlock_wrapper()
+}
+endif;
 dpa_feedback_achievement_unlock_wrapper();
