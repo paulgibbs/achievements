@@ -199,6 +199,4 @@ class DPA_Default extends DPA_Theme_Compat {
 		wp_enqueue_script( $handle, $location . $file, array( 'jquery' ), dpa_get_theme_compat_version(), 'screen', true );
 	}
 }  // class_exists
-
-new DPA_Default();
 endif;

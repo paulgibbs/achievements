@@ -59,8 +59,12 @@ function dpa_load_theme_functions() {
 	if ( dpa_is_deactivation() )
 		return;
 
-	if ( ! defined( 'WP_INSTALLING' ) || ( ! empty( $pagenow ) && ( 'wp-activate.php' !== $pagenow ) ) )
+	if ( ! defined( 'WP_INSTALLING' ) || ( ! empty( $pagenow ) && ( 'wp-activate.php' !== $pagenow ) ) ) {
 		dpa_locate_template( 'achievements-functions.php', true );
+
+		if ( class_exists( 'DPA_Default' ) )
+			achievements()->theme_functions = new DPA_Default();
+	}
 }
 
 
