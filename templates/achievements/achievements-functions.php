@@ -101,13 +101,14 @@ class DPA_Default extends DPA_Theme_Compat {
 	/**
 	 * Load the CSS for notifications
 	 *
+	 * @param bool $skip_notifications_check Optional (false). If true, always enqueue styles.
 	 * @since Achievements (3.0)
 	 * @todo LTR CSS
 	 */
-	public function enqueue_notifications_style() {
+	public function enqueue_notifications_style( $skip_notifications_check = false ) {
 
 		// If user's not active or is inside the WordPress Admin, bail out.
-		if ( ! dpa_is_user_active() || is_admin() || is_404() || ! dpa_user_has_notifications() )
+		if ( ! dpa_is_user_active() || is_admin() || is_404() || ( ! $skip_notifications_check && ! dpa_user_has_notifications() ) )
 			return;
 
 		$rtl  = is_rtl() ? '-rtl' : '';
@@ -136,12 +137,13 @@ class DPA_Default extends DPA_Theme_Compat {
 	/**
 	 * Load the JS for notifications
 	 *
+	 * @param bool $skip_notifications_check Optional (false). If true, always enqueue styles.
 	 * @since Achievements (3.1)
 	 */
-	public function enqueue_notifications_script() {
+	public function enqueue_notifications_script( $skip_notifications_check = false ) {
 
 		// If user's not active or is inside the WordPress Admin, bail out.
-		if ( ! dpa_is_user_active() || is_admin() || is_404() || ! dpa_user_has_notifications() )
+		if ( ! dpa_is_user_active() || is_admin() || is_404() || ( ! $skip_notifications_check && ! dpa_user_has_notifications() ) )
 			return;
 
 		$file = 'js/notifications.js';

@@ -242,6 +242,11 @@ class DPA_Shortcodes {
 	 * @since Achievements (3.0)
 	 */
 	public function display_feedback_achievement_unlocked() {
+
+		// Style and script
+		achievements()->theme_functions->enqueue_notifications_style( true );
+		achievements()->theme_functions->enqueue_notifications_script( true );
+
 		$this->unset_globals();
 
 		// Start output buffer
