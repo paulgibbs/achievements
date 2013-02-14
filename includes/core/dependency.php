@@ -264,6 +264,21 @@ function dpa_after_setup_theme() {
 }
 
 /**
+ * The main action used for handling theme-side POST requests
+ *
+ * @since Achievements (3.1)
+ */
+function dpa_post_request() {
+	if ( 'POST' !== strtoupper( $_SERVER['REQUEST_METHOD'] ) )
+		return;
+
+	if ( empty( $_POST['action'] ) )
+		return;
+
+	do_action( 'dpa_post_request', $_POST['action'] );
+}
+
+/**
  * Filter the plugin locale and domain.
  *
  * @param string $locale Optional

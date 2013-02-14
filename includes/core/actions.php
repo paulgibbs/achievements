@@ -99,3 +99,6 @@ add_action( 'dpa_footer',             'dpa_print_notifications'             );
 
 // Before delete achievement
 add_action( 'delete_post', 'dpa_before_achievement_deleted' );
+
+// POST handler
+add_action( 'dpa_template_redirect', 'dpa_post_request', 10 );
