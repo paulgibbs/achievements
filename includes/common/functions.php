@@ -298,6 +298,7 @@ function dpa_parse_args( $args, $defaults = '', $filter_key = '' ) {
  *
  * @param string $path Optional
  * @since Achievements (3.0)
+ * @todo Do I need to worry about the plugin running sitewide in multisite?
  * @return mixed False if no page, Page object if true
  */
 function dpa_get_page_by_path( $path = '' ) {
@@ -307,10 +308,57 @@ function dpa_get_page_by_path( $path = '' ) {
 	if ( ! empty( $path ) ) {
 
 		// Pretty permalinks are on so path might exist
-		// @todo Achievements - do I need to worry about the plugin running sitewide in multisite?
 		if ( get_option( 'permalink_structure' ) )
 			$retval = get_page_by_path( $path );
 	}
 
 	return apply_filters( 'dpa_get_page_by_path', $retval, $path );
+}
+
+/**
+ * Return the unescaped redirect_to request value
+ *
+ * @return string The URL to redirect to, if set
+ * @since Achievements (3.1)
+ */
+function dpa_get_redirect_to() {
+	$retval = ! empty( $_REQUEST['redirect_to'] ) ? $_REQUEST['redirect_to'] : '';
+	return apply_filters( 'dpa_get_redirect_to', $retval );
+}
+
+
+/**
+ * Nonces
+ */
+
+/**
+ * Makes sure the user requested an action from another page on this site.
+ *
+ * To avoid security exploits within the theme.
+ *
+ * @param string $action Optional. Action nonce
+ * @param string $query_arg Optional (defaults to _wpnonce). Where to look for nonce in $_REQUEST
+ * @see https://bbpress.trac.wordpress.org/ticket/1863 for the background of the bbPress version of the function
+ * @since Achievements (3.1)
+ * @todo Support port number for non-multisite.
+ */
+function dpa_verify_nonce_request( $action = '', $query_arg = '_wpnonce' ) {
+
+	// Parse home_url() into pieces to remove query strings, strange characters, and other funny things that plugins might to do to it.
+	$parsed_home   = parse_url( home_url( '/', ( is_ssl() ? 'https://' : 'http://' ) ) );
+	$home_url      = trim( strtolower( $parsed_home['scheme'] . '://' . $parsed_home['host'] . $parsed_home['path'] ), '/' );
+
+	// Build the currently requested URL
+	$scheme        = is_ssl() ? 'https://' : 'http://';
+	$requested_url = apply_filters( 'dpa_verify_nonce_request_url', strtolower( $scheme . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] ) );
+
+	// Check the nonce
+	$result = isset( $_REQUEST[$query_arg] ) ? wp_verify_nonce( $_REQUEST[$query_arg], $action ) : false;
+
+	// Did the nonce check fail?
+	if ( empty( $result ) || empty( $action ) || ( strpos( $requested_url, $home_url ) !== 0 ) )
+		$result = false;
+
+	do_action( 'dpa_verify_nonce_request', $action, $result );
+	return $result;
 }
