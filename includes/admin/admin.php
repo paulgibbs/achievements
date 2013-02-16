@@ -371,7 +371,7 @@ class DPA_Admin {
 			foreach ( $new_achievements as $achievement_obj ) {
 				$progress_obj = array();
 
-				// If we have current progress, pass that to dpa_maybe_unlock_achievement().
+				// If we have existing progress, pass that to dpa_maybe_unlock_achievement().
 				foreach ( $existing_progress as $progress ) {
 					if ( $achievement_obj->ID === $progress->post_parent ) {
 						$progress_obj = $progress;
