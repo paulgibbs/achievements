@@ -304,7 +304,7 @@ final class DPA_Achievements_Loader {
 		 */
 		require( $this->includes_dir . 'common/functions.php'  );
 		require( $this->includes_dir . 'common/template.php'   );
-		//require( $this->includes_dir . 'common/widgets.php'    );
+		require( $this->includes_dir . 'common/widgets.php'    );
 
 		require( $this->includes_dir . 'achievements/functions.php' );
 		require( $this->includes_dir . 'achievements/template.php'  );

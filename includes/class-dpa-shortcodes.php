@@ -51,6 +51,9 @@ class DPA_Shortcodes {
 			// Specific achievement - pass an 'id' attribute
 			'dpa-single-achievement'      => array( $this, 'display_achievement' ),
 
+			// Widgets
+			'dpa-redeem-achievement-form' => array( $this, 'display_redeem_achievement_form' ),
+
 			// Misc
 			'dpa-breadcrumb'              => array( $this, 'display_breadcrumb' ),
 			'dpa-unlock-notice'           => array( $this, 'display_feedback_achievement_unlocked' ),
@@ -131,6 +134,7 @@ class DPA_Shortcodes {
 
 		return $output;
 	}
+
 
 	/**
 	 * Achievement shortcodes
@@ -215,11 +219,33 @@ class DPA_Shortcodes {
 
 
 	/**
+	 * Widget shortcodes
+	 */
+
+	/**
+	 * Display the redeem achievements widget in an output buffer and return to ensure that post/page
+	 * contents are displayed first.
+	 *
+	 * @return string Contents of output buffer
+	 * @since Achievements (3.1)
+	 */
+	public function display_redeem_achievement_form() {
+		$this->unset_globals();
+
+		// Start output buffer
+		$this->start();
+
+		dpa_get_template_part( 'form-redeem-code' );
+
+		return $this->end();
+	}
+
+	/**
 	 * Other templates
 	 */
 
 	/**
-	 * Display a breadcrumb
+	 * Display a breadcrumb in an output buffer and return to ensure that post/page contents are displayed first.
 	 *
 	 * @return string Contents of output buffer
 	 * @since Achievements (3.0)

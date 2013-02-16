@@ -202,3 +202,74 @@ function dpa_before_achievement_deleted( $post_id = 0 ) {
 	foreach ( $progress->posts as $post ) 
 		wp_delete_post( $post->ID, true );
 }
+
+/**
+ * Handles the redeem achievement form submission.
+ * 
+ * Finds any achievements with the specific redemption code, and if the user hasn't already unlocked
+ * that achievement, it's awarded to the user.
+ *
+ * @param string $action Optional. If 'dpa-redeem-achievement', handle the form submission.
+ * @since Achievements (3.1)
+ */
+function dpa_form_redeem_achievement( $action = '' ) {
+	if ( 'dpa-redeem-achievement' !== $action || ! dpa_is_user_active() )
+		return;
+
+	// Check required form values are present
+	$redemption_code = isset( $_POST['dpa_code'] ) ? strip_tags( $_POST['dpa_code'] ) : '';
+	$redemption_code = apply_filters( 'dpa_form_redeem_achievement_code', $redemption_code );
+
+	if ( empty( $redemption_code ) || ! dpa_verify_nonce_request( 'dpa-redeem-achievement' ) )
+		return;
+
+	// If multisite and running network-wide, switch_to_blog to the data store site
+	if ( is_multisite() && dpa_is_running_networkwide() )
+		switch_to_blog( DPA_DATA_STORE );
+
+	// Find achievements that match the same redemption code
+	$achievements = dpa_get_achievements( array(
+		'meta_key'   => '_dpa_redemption_code',
+		'meta_value' => $redemption_code,
+	) );
+
+	// Bail out early if no achievements found
+	if ( empty( $achievements ) ) {
+		dpa_add_error( 'dpa_redeem_achievement_nonce', __( 'That code was invalid. Try again!', 'dpa' ) );
+
+		// If multisite and running network-wide, undo the switch_to_blog
+		if ( is_multisite() && dpa_is_running_networkwide() )
+			restore_current_blog();
+
+		return;
+	}
+
+	$existing_progress = dpa_get_progress( array(
+		'author' => get_current_user_id(),
+	) );
+
+	foreach ( $achievements as $achievement_obj ) {
+		$progress_obj = array();
+
+		// If we have existing progress, pass that to dpa_maybe_unlock_achievement().
+		foreach ( $existing_progress as $progress ) {
+			if ( $achievement_obj->ID === $progress->post_parent ) {
+
+				// If the user has already unlocked this achievement, don't give it to them again.
+				if ( dpa_get_unlocked_status_id() == $progress->post_status )
+					$progress_obj = false;
+				else
+					$progress_obj = $progress;
+	
+				break;
+			}
+		}
+
+		if ( false !== $progress_obj )
+			dpa_maybe_unlock_achievement( get_current_user_id(), 'skip_validation', $progress_obj, $achievement_obj );
+	}
+
+	// If multisite and running network-wide, undo the switch_to_blog
+	if ( is_multisite() && dpa_is_running_networkwide() )
+		restore_current_blog();
+}

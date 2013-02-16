@@ -82,6 +82,9 @@ add_action( 'bp_init', 'dpa_bp_loaded' );
 // Try to load the achievements-functions.php file from the active theme
 add_action( 'dpa_after_setup_theme', 'dpa_load_theme_functions', 10 );
 
+// Widgets
+add_action( 'dpa_widgets_init', array( 'DPA_Redeem_Achievements_Widget', 'register_widget' ), 10 );
+
 // Template - Head, foot, errors and messages
 add_action( 'dpa_head',             'dpa_achievement_notices' );
 add_action( 'dpa_template_notices', 'dpa_template_notices'    );
@@ -102,3 +105,6 @@ add_action( 'delete_post', 'dpa_before_achievement_deleted' );
 
 // POST handler
 add_action( 'dpa_template_redirect', 'dpa_post_request', 10 );
+
+// Theme-side POST requests
+add_action( 'dpa_post_request', 'dpa_form_redeem_achievement', 10 );

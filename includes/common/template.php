@@ -653,3 +653,21 @@ function dpa_title( $title = '', $sep = '&raquo;', $seplocation = '' ) {
 	// Filter and return
 	return apply_filters( 'dpa_title', $title, $sep, $seplocation );
 }
+
+
+/**
+ * Forms
+ */
+
+/**
+ * Output the required hidden form fields for redeeming an achievement
+ *
+ * @since Achievements (3.1)
+ */
+function dpa_redeem_achievement_form_fields() {
+?>
+
+	<input type="hidden" name="dpa_action" id="dpa_post_action" value="dpa-redeem-achievement" />
+	<?php wp_nonce_field( 'dpa-redeem-achievement' );
+
+}
