@@ -269,13 +269,13 @@ function dpa_after_setup_theme() {
  * @since Achievements (3.1)
  */
 function dpa_post_request() {
-	if ( 'POST' !== strtoupper( $_SERVER['REQUEST_METHOD'] ) )
+	if ( 'POST' !== strtoupper( $_SERVER['REQUEST_METHOD'] ) || defined( 'DOING_AJAX' ) && DOING_AJAX )
 		return;
 
-	if ( empty( $_POST['action'] ) )
+	if ( empty( $_POST['dpa_action'] ) )
 		return;
 
-	do_action( 'dpa_post_request', $_POST['action'] );
+	do_action( 'dpa_post_request', $_POST['dpa_action'] );
 }
 
 /**
