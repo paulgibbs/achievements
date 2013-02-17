@@ -51,6 +51,7 @@ function dpa_achievement_metabox( $post ) {
 	$existing_target = dpa_get_achievement_target( $post->ID );
 	$existing_events = wp_get_post_terms( $post->ID, dpa_get_event_tax_id(), array( 'fields' => 'ids', ) );
 	$existing_type   = ( empty( $existing_events ) && ! empty( $_GET['action'] ) && 'edit' == $_GET['action'] ) ? 'award' : 'event';
+	$existing_code   = dpa_get_achievement_redemption_code( $post->ID );
 
 	// Ensure sane defaults
 	if ( empty( $existing_points ) )
@@ -60,12 +61,12 @@ function dpa_achievement_metabox( $post ) {
 		$existing_target = 1;
 ?>
 
-	<div class="misc-pub-section">
+	<div class="misc-pub-section dpa-karma">
 		<label for="dpa-points"><?php _e( 'Karma points:', 'dpa' ); ?></label>
 		<input type="number" name="dpa_points" id="dpa-points" value="<?php echo esc_attr( $existing_points ); ?>" />
 	</div>
 
-	<div class="misc-pub-section">
+	<div class="misc-pub-section dpa-type">
 		<label for="dpa_type"><?php _ex( 'Type:', 'type of achievement', 'dpa' ); ?></label>
 		<input type="radio" name="dpa_type" id="dpa-type-award" value="award" <?php checked( $existing_type, 'award' ); ?>><?php _ex( '&nbsp;Award', 'type of achievement', 'dpa' ); ?></input>
 		<input type="radio" name="dpa_type" id="dpa-type-event" value="event" <?php checked( $existing_type, 'event' ); ?>><?php _ex( '&nbsp;Event', 'type of achievement', 'dpa' ); ?></input>
@@ -93,6 +94,13 @@ function dpa_achievement_metabox( $post ) {
 		<input type="number" name="dpa_target" id="dpa-target" min="1" value="<?php echo esc_attr( $existing_target ); ?>" />
 
 		<p class="hint"><?php _e( "Number of times the events need to repeat before the achievement is awarded.", 'dpa' ); ?></p>
+	</div>
+
+	<div class="misc-pub-section dpa-redemption-code">
+		<label for="dpa-code"><?php _e( 'Redemption code:', 'dpa' ); ?></label>
+		<input id="dpa-code" value="<?php echo esc_attr( $existing_code ); ?>" name="dpa_code" type="text" />
+
+		<p class="hint"><?php _e( "Users can enter this code into the Redemption widget to unlock the achievement.", 'dpa' ); ?></p>
 	</div>
 
 	<?php
@@ -140,6 +148,10 @@ function dpa_achievement_metabox_save( $achievement_id ) {
 		else
 			$type = 'award';
 	}
+
+	// Redemption code
+	$redemption_code = isset( $_POST['dpa_code'] ) ? strip_tags( stripslashes( $_POST['dpa_code'] ) ) : '';
+	update_post_meta( $achievement_id, '_dpa_redemption_code', $redemption_code );
 
 	// Event repeats count target
 	$frequency = ! empty( $_POST['dpa_target'] ) ? (int) $_POST['dpa_target'] : 1;
@@ -266,8 +278,9 @@ function dpa_achievement_new_contextual_help() {
 
 	$achievements_box  = '<p>' . __( '<strong>Karma points</strong> - set the number of points (called karma) given to a user when they unlock an achievement.', 'dpa' ) . '</p>';
 	$achievements_box .= '<p>' . __( '<strong>Type</strong> - there are two types of achievement, Award and Event. An Award is given by a site admin, whereas an Event is unlocked automatically when its criteria have been met.', 'dpa' ) . '</p>';
-	$achievements_box .= '<p>' . __( '<strong>Event Achievements</strong> - this field appears when you create an Event achievement. Use the dropdown box to choose the events that you want to trigger this achievement.', 'dpa' ) . '</p>';
+	$achievements_box .= '<p>' . __( '<strong>Event achievements</strong> - this field appears when you create an Event achievement. Use the dropdown box to choose the events that you want to trigger this achievement.', 'dpa' ) . '</p>';
 	$achievements_box .= '<p>' . __( '<strong>Events repeat</strong> - for Event achievements, set the number of times the events need to occur before the achievement is awarded.', 'dpa' ) . '</p>';
+	$achievements_box .= '<p>' . __( '<strong>Redemption code</strong> - users can enter this code into the Redemption widget to unlock the achievement.', 'dpa' ) . '</p>';
 
 	get_current_screen()->add_help_tab( array(
 		'id'      => 'achievement-box',

@@ -217,7 +217,7 @@ function dpa_form_redeem_achievement( $action = '' ) {
 		return;
 
 	// Check required form values are present
-	$redemption_code = isset( $_POST['dpa_code'] ) ? strip_tags( $_POST['dpa_code'] ) : '';
+	$redemption_code = isset( $_POST['dpa_code'] ) ? strip_tags( stripslashes( $_POST['dpa_code'] ) ) : '';
 	$redemption_code = apply_filters( 'dpa_form_redeem_achievement_code', $redemption_code );
 
 	if ( empty( $redemption_code ) || ! dpa_verify_nonce_request( 'dpa-redeem-achievement' ) )

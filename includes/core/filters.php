@@ -54,9 +54,6 @@ add_filter( 'dpa_get_achievement_excerpt', 'wpautop',            22 );
 add_filter( 'dpa_get_achievement_excerpt', 'shortcode_unautop',  24 );
 add_filter( 'dpa_get_achievement_excerpt', 'strip_shortcodes',   26 );
 
-// Filter redeem achievement code
-add_filter( 'dpa_form_redeem_achievement_code', 'wp_filter_kses' );
-
 /**
  * Template Compatibility
  *
