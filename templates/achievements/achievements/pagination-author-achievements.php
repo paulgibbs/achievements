@@ -18,12 +18,6 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 		<?php dpa_progress_pagination_count(); ?>
 
 	</div>
-
-	<div class="dpa-pagination-links">
-
-		<?php dpa_progress_pagination_links(); ?>
-
-	</div>
 </div>
 
 <?php do_action( 'dpa_template_after_author_pagination_loop' ); ?>
