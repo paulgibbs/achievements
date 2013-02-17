@@ -269,7 +269,7 @@ function dpa_after_setup_theme() {
  * @since Achievements (3.1)
  */
 function dpa_post_request() {
-	if ( 'POST' !== strtoupper( $_SERVER['REQUEST_METHOD'] ) || defined( 'DOING_AJAX' ) && DOING_AJAX )
+	if ( 'POST' !== strtoupper( $_SERVER['REQUEST_METHOD'] ) || defined( 'DOING_AJAX' ) && DOING_AJAX || is_admin() )
 		return;
 
 	if ( empty( $_POST['dpa_action'] ) )
