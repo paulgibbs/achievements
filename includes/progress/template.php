@@ -57,6 +57,62 @@ function dpa_has_progress( $args = array() ) {
 	// Run the query
 	achievements()->progress_query = new WP_Query( $args );
 
+	// If no limit to posts per page, set it to the current post_count
+	if ( -1 == $args['posts_per_page'] )
+		$args['posts_per_page'] = achievements()->progress_query->post_count;
+
+	// Add pagination values to query object
+	achievements()->progress_query->posts_per_page = $args['posts_per_page'];
+	achievements()->progress_query->paged          = $args['paged'];
+
+	// Only add pagination if query returned results
+	if ( ( (int) achievements()->progress_query->post_count || (int) achievements()->progress_query->found_posts ) && (int) achievements()->progress_query->posts_per_page ) {
+
+		// Limit the number of achievements shown based on maximum allowed pages
+		if ( ( ! empty( $args['max_num_pages'] ) ) && achievements()->progress_query->found_posts > achievements()->progress_query->max_num_pages * achievements()->progress_query->post_count )
+			achievements()->progress_query->found_posts = achievements()->progress_query->max_num_pages * achievements()->progress_query->post_count;
+
+		// If pretty permalinks are enabled, make our pagination pretty
+		if ( $GLOBALS['wp_rewrite']->using_permalinks() ) {
+
+			// Page or single post
+			if ( is_page() || is_single() )
+				$base = get_permalink();
+
+			// User achievements page
+			elseif ( dpa_is_single_user_achievements() )
+				$base = user_trailingslashit( trailingslashit( get_author_posts_url( $args['author'] ) ) . dpa_get_authors_endpoint() );
+
+			// Default
+			else
+				$base = get_permalink( $args['post_parent'] );
+
+			// Use pagination base
+			$base = trailingslashit( $base ) . user_trailingslashit( $GLOBALS['wp_rewrite']->pagination_base . '/%#%/' );
+
+		// Unpretty pagination
+		} else {
+			$base = add_query_arg( 'paged', '%#%' );
+		}
+
+		// Pagination settings with filter
+		$progress_pagination = apply_filters( 'dpa_progress_pagination', array(
+			'base'      => $base,
+			'current'   => (int) achievements()->progress_query->paged,
+			'format'    => '',
+			'mid_size'  => 1,
+			'next_text' => '&rarr;',
+			'prev_text' => '&larr;',
+			'total'     => ( $args['posts_per_page'] == achievements()->progress_query->found_posts ) ? 1 : ceil( (int) achievements()->progress_query->found_posts / (int) $args['posts_per_page'] ),
+		) );
+
+		// Add pagination to query object
+		achievements()->progress_query->pagination_links = paginate_links( $progress_pagination );
+
+		// Remove first page from pagination
+		achievements()->progress_query->pagination_links = str_replace( $GLOBALS['wp_rewrite']->pagination_base . "/1/'", "'", achievements()->progress_query->pagination_links );
+	}
+
 	// If on a user's achievements page, we need to fetch the achievements
 	if ( $args['ach_populate_achievements'] && achievements()->progress_query->have_posts() ) {
 		$achievement_ids = wp_list_pluck( (array) achievements()->progress_query->posts, 'post_parent' );
@@ -308,6 +364,27 @@ function dpa_progress_class( $progress_id = 0 ) {
 		return $retval;
 	}
 
+/**
+ * Has the current achievement in the progress loop been unlocked by the current user?
+ * 
+ * The "current" user refers to the user in the dpa_has_achievements() loop, which is not necessarily
+ * the currently-logged in user.
+ *
+ * @param int $achievement_id Optional. Achievement ID to check.
+ * @return bool True if achievement has been unlocked
+ * @since Achievements (3.0)
+ */
+function dpa_is_achievement_unlocked( $achievement_id = 0 ) {
+	$achievement_id = dpa_get_achievement_id( $achievement_id );
+
+	// Look in the progress posts and match the achievement against a post_parent
+	$progress = wp_filter_object_list( achievements()->progress_query->posts, array( 'post_parent' => $achievement_id ) );
+	$progress = array_shift( $progress );
+
+	$retval = ( ! empty( $progress ) && dpa_get_unlocked_status_id() == $progress->post_status );
+	return apply_filters( 'dpa_is_achievement_unlocked', $retval, $achievement_id, $progress ); 
+}
+
 
 /**
  * Achievement Progress pagination
@@ -351,22 +428,22 @@ function dpa_progress_pagination_count() {
 	}
 
 /**
- * Has the current achievement in the progress loop been unlocked by the current user?
- * 
- * The "current" user refers to the user in the dpa_has_achievements() loop, which is not necessarily
- * the currently-logged in user.
+ * Output pagination links
  *
- * @param int $achievement_id Optional. Achievement ID to check.
- * @return bool True if achievement has been unlocked
- * @since Achievements (3.0)
+ * @since Achievements (3.1)
  */
-function dpa_is_achievement_unlocked( $achievement_id = 0 ) {
-	$achievement_id = dpa_get_achievement_id( $achievement_id );
-
-	// Look in the progress posts and match the achievement against a post_parent
-	$progress = wp_filter_object_list( achievements()->progress_query->posts, array( 'post_parent' => $achievement_id ) );
-	$progress = array_shift( $progress );
-
-	$retval = ( ! empty( $progress ) && dpa_get_unlocked_status_id() == $progress->post_status );
-	return apply_filters( 'dpa_is_achievement_unlocked', $retval, $achievement_id, $progress ); 
+function dpa_progress_pagination_links() {
+	echo dpa_get_progress_pagination_links();
 }
+	/**
+	 * Return pagination links
+	 *
+	 * @return string Pagination links
+	 * @since Achievements (3.1)
+	 */
+	function dpa_get_progress_pagination_links() {
+		if ( ! is_a( achievements()->progress_query, 'WP_Query' ) )
+			return;
+
+		return apply_filters( 'dpa_get_progress_pagination_links', achievements()->progress_query->pagination_links );
+	}
