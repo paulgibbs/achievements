@@ -439,7 +439,7 @@ final class DPA_Achievements_Loader {
 			'ep_mask'    => 0,                           // EP_ROOT - removes comment-page rewrite rules
 			'feed'       => false,                       // Remove feed rewrite rules
 			'feeds'      => false,                       // Remove feed rewrite rules (this is what the parameter ought to be)
-			'pages'      => false,
+			'pages'      => true,
 			'slug'       => dpa_get_root_slug(),
 			'with_front' => false,
 		);
