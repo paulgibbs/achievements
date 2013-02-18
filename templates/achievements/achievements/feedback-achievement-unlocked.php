@@ -9,6 +9,7 @@
 // Exit if accessed directly
 if ( ! defined( 'ABSPATH' ) ) exit;
 
+if ( ! function_exists( 'dpa_feedback_achievement_unlock_wrapper' ) ) :
 /**
  * Wrapper function used when displaying the "achievement unlocked" feedback template.
  * This is used to avoid polluting global scope with variables.
@@ -17,7 +18,6 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  * @todo It is not ideal to get the DB information in this template; and as such, this function has no actions as everything here's liable to change.
  * @todo Support multiple unlocked notifications at the same time.
  */
-if ( ! function_exists( 'dpa_feedback_achievement_unlock_wrapper' ) ) :
 function dpa_feedback_achievement_unlock_wrapper() {
 	$post_ids = dpa_get_user_notifications();
 	if ( empty( $post_ids ) )

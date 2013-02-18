@@ -47,6 +47,8 @@ class DPA_Redeem_Achievements_Widget extends WP_Widget {
 	/**
 	 * Displays the output
 	 *
+	 * @param array $args
+	 * @param array $instance
 	 * @since Achievements (3.1)
 	 */
 	public function widget( $args, $instance ) {
