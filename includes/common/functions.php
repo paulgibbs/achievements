@@ -214,6 +214,15 @@ function dpa_db_version_raw() {
 		return get_option( '_dpa_db_version', '' );
 	}
 
+/**
+ * Returns true if WP_DEBUG is set.
+ *
+ * @return bool
+ * @since Achievements (3.2)
+ */
+function dpa_is_developer_mode() {
+	return apply_filters( 'dpa_is_developer_mode', defined( 'WP_DEBUG' ) && WP_DEBUG );
+}
 
 /**
  * Queries

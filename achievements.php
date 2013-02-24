@@ -568,7 +568,7 @@ final class DPA_Achievements_Loader {
 			'rewrite'               => false,
 			'show_in_nav_menus'     => false,
 			'show_tagcloud'         => false,
-			'show_ui'               => false,
+			'show_ui'               => dpa_is_developer_mode(),
 			'update_count_callback' => '_update_post_term_count',
 		) );
 
