@@ -541,8 +541,8 @@ function dpa_achievement_post_date( $achievement_id = 0, $humanise = false, $gmt
 
 		// August 22, 2012 at 5:55 pm
 		} else {
-			$date   = get_post_time( get_option( 'date_format' ), $gmt, $achievement_id );
-			$time   = get_post_time( get_option( 'time_format' ), $gmt, $achievement_id );
+			$date   = get_post_time( get_option( 'date_format' ), $gmt, $achievement_id, true );
+			$time   = get_post_time( get_option( 'time_format' ), $gmt, $achievement_id, true );
 			$result = sprintf( _x( '%1$s at %2$s', '[date] at [time]', 'dpa' ), $date, $time );
 		}
 
