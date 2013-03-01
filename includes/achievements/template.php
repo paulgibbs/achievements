@@ -491,8 +491,14 @@ function dpa_achievement_excerpt( $achievement_id = 0, $length = 200 ) {
 
 		// Check the length of the excerpt
 		$excerpt = trim( strip_tags( $excerpt ) );
-		if ( ! empty( $length ) && strlen( $excerpt ) > $length ) {
 
+		// Multibyte support
+		if ( function_exists( 'mb_strlen' ) )
+			$excerpt_length = mb_strlen( $excerpt );
+		else
+			$excerpt_length = strlen( $excerpt );
+
+		if ( ! empty( $length ) && ( $excerpt_length > $length ) ) {
 			// Trim the excerpt
 			$excerpt = substr( $excerpt, 0, $length - 1 );
 

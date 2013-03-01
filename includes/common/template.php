@@ -525,8 +525,14 @@ function dpa_breadcrumb( $args = array() ) {
 			$sep = $sep_before . $sep . $sep_after;
 
 		// Pad the separator
-		if ( ! empty( $pad_sep ) )
+		if ( ! empty( $pad_sep ) ) {
 			$sep = str_pad( $sep, strlen( $sep ) + ( (int) $pad_sep * 2 ), ' ', STR_PAD_BOTH );
+
+			if ( function_exists( 'mb_strlen' ) )
+				$sep = str_pad( $sep, mb_strlen( $sep ) + ( (int) $r['pad_sep'] * 2 ), ' ', STR_PAD_BOTH );
+			else
+				$sep = str_pad( $sep, strlen( $sep ) + ( (int) $r['pad_sep'] * 2 ), ' ', STR_PAD_BOTH );
+		}
 
 		/**
 		 * And -- eventually -- we're done.
