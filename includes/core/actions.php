@@ -82,8 +82,9 @@ add_action( 'dpa_ready', 'dpa_register_events',         20 );
  * We use bp_activation to flush the permalinks after BuddyPress has been activated because
  * we'll move the "my achievements" pages away from the author permalinks into BP user profiles.
  */
-add_action( 'bp_activation', 'dpa_delete_rewrite_rules' );
-add_action( 'bp_loaded',     'dpa_bp_loaded'            );
+add_action( 'bp_activation',   'dpa_delete_rewrite_rules' );
+add_action( 'bp_deactivation', 'dpa_delete_rewrite_rules' );
+add_action( 'bp_loaded',       'dpa_bp_loaded'            );
 
 // Try to load the achievements-functions.php file from the active theme
 add_action( 'dpa_after_setup_theme', 'dpa_load_theme_functions', 10 );
