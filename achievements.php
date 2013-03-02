@@ -406,6 +406,11 @@ final class DPA_Achievements_Loader {
 	 * @since Achievements (3.0)
 	 */
 	public function register_endpoints() {
+
+		// If we're integrating into BP user profiles, bail out.
+		if ( dpa_maybe_use_bp_profiles() )
+			return;
+
 		add_rewrite_endpoint( dpa_get_authors_endpoint(), EP_AUTHORS );  // /authors/paul/[achievements]
 	}
 
@@ -621,8 +626,14 @@ final class DPA_Achievements_Loader {
 		if ( ! dpa_is_user_active() )
 			return;
 
+		// If we're integrating into BP user profiles, bail out.
+		if ( dpa_maybe_use_bp_profiles() )
+			$url = '#';  // TODO
+		else
+			$url = user_trailingslashit( trailingslashit( get_author_posts_url( get_current_user_id() ) ) . dpa_get_authors_endpoint() );
+
 		$wp_admin_bar->add_node( array(
-			'href'   => user_trailingslashit( trailingslashit( get_author_posts_url( get_current_user_id() ) ) . dpa_get_authors_endpoint() ),
+			'href'   => $url,
 			'id'     => 'dpa_my_achievements',
 			'parent' => 'user-actions',
 			'title'  => _x( 'My Achievements', 'Menu item in the toolbar', 'dpa' ),
