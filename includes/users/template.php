@@ -43,7 +43,11 @@ function dpa_user_avatar_link( $args = array() ) {
 
 		// Assemble some link bits
 		$user_link = array();
-		$user_url  = user_trailingslashit( trailingslashit( get_author_posts_url( $user_id) ) . dpa_get_authors_endpoint() );
+
+		if ( dpa_integrate_into_buddypress () )
+			$user_url = '#';  // @TODO
+		else
+			$user_url = user_trailingslashit( trailingslashit( get_author_posts_url( $user_id) ) . dpa_get_authors_endpoint() );
 
 		// Get avatar
 		if ( 'avatar' == $type || 'both' == $type )

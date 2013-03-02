@@ -197,7 +197,7 @@ class DPA_Users_List_Table extends WP_Users_List_Table {
 	 */
 	function column_username( $user ) {
 		$avatar = get_avatar( $user->ID, 32 );
-		$url    = user_trailingslashit( trailingslashit( get_author_posts_url( $user->ID ) ) . dpa_get_authors_endpoint() );
+		$url    = dpa_get_user_avatar_link( array( 'type' => 'url', 'user_id' => $user->ID ) );
 
 		printf( '%1$s <strong><a href="%2$s">%3$s</a></strong>', $avatar, esc_url( $url ), $user->user_login );
 	}

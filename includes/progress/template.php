@@ -83,7 +83,7 @@ function dpa_has_progress( $args = array() ) {
 
 			// User achievements page
 			elseif ( dpa_is_single_user_achievements() )
-				$base = user_trailingslashit( trailingslashit( get_author_posts_url( $args['author'] ) ) . dpa_get_authors_endpoint() );
+				$base = dpa_get_user_avatar_link( array( 'type' => 'url', 'user_id' => $user->ID ) );
 
 			// Default
 			else

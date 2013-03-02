@@ -628,14 +628,8 @@ final class DPA_Achievements_Loader {
 		if ( ! dpa_is_user_active() )
 			return;
 
-		// If we're integrating into BP user profiles, bail out.
-		if ( dpa_integrate_into_buddypress() )
-			$url = '#';  // TODO
-		else
-			$url = user_trailingslashit( trailingslashit( get_author_posts_url( get_current_user_id() ) ) . dpa_get_authors_endpoint() );
-
 		$wp_admin_bar->add_node( array(
-			'href'   => $url,
+			'href'   => dpa_get_user_avatar_link( 'type=url' ),
 			'id'     => 'dpa_my_achievements',
 			'parent' => 'user-actions',
 			'title'  => _x( 'My Achievements', 'Menu item in the toolbar', 'dpa' ),
