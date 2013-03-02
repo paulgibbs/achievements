@@ -54,7 +54,7 @@ final class DPA_Achievements_Loader {
 	 * private array that gets updated with the help of PHP magic methods.
 	 *
 	 * This is a precautionary measure to avoid potential errors produced by
-	 * unanticipated direct manipulation of bbPress's run-time data.
+	 * unanticipated direct manipulation of Achievements' run-time data.
 	 *
 	 * @see Achievements::setup_globals()
 	 * @var array
