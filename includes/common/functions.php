@@ -225,8 +225,8 @@ function dpa_db_version_raw() {
  * @return
  * @since Achievements (3.2)
  */
-function dpa_maybe_use_bp_profiles() {
-	return apply_filters( 'dpa_maybe_use_bp_profiles', achievements()->use_bp_profiles );
+function dpa_integrate_into_buddypress() {
+	return apply_filters( 'dpa_integrate_into_buddypress', achievements()->integrate_into_buddypress );
 }
 
 

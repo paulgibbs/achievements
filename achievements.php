@@ -234,10 +234,12 @@ final class DPA_Achievements_Loader {
 		$this->current_user   = new stdClass();  // Currently logged in user
 
 		// Other stuff
-		$this->domain          = 'dpa';            // Unique identifier for retrieving translated strings
-		$this->errors          = new WP_Error();   // Errors
-		$this->extensions      = new stdClass();   // Other plugins add data here
-		$this->use_bp_profiles = false;            // Use BuddyPress profiles for screens like "my achievements"
+		$this->domain     = 'dpa';            // Unique identifier for retrieving translated strings
+		$this->errors     = new WP_Error();   // Errors
+		$this->extensions = new stdClass();   // Other plugins add data here
+		
+		// Deep integration with other plugins
+		$this->integrate_into_buddypress = false;  // Use BuddyPress profiles for screens like "my achievements"
 
 		// Add to global cache groups
 		wp_cache_add_global_groups( 'achievements' );
@@ -408,7 +410,7 @@ final class DPA_Achievements_Loader {
 	public function register_endpoints() {
 
 		// If we're integrating into BP user profiles, bail out.
-		if ( dpa_maybe_use_bp_profiles() )
+		if ( dpa_integrate_into_buddypress() )
 			return;
 
 		add_rewrite_endpoint( dpa_get_authors_endpoint(), EP_AUTHORS );  // /authors/paul/[achievements]
@@ -627,7 +629,7 @@ final class DPA_Achievements_Loader {
 			return;
 
 		// If we're integrating into BP user profiles, bail out.
-		if ( dpa_maybe_use_bp_profiles() )
+		if ( dpa_integrate_into_buddypress() )
 			$url = '#';  // TODO
 		else
 			$url = user_trailingslashit( trailingslashit( get_author_posts_url( get_current_user_id() ) ) . dpa_get_authors_endpoint() );

@@ -31,7 +31,7 @@ add_action( 'dpa_ready', 'dpa_init_buddypress_extension' );
  * @since Achievements (3.0)
  */
 function dpa_bp_loaded() {
-	achievements()->use_bp_profiles = bp_is_active( 'xprofile' );
+	achievements()->integrate_into_buddypress = bp_is_active( 'xprofile' );
 }
 
 /**
