@@ -24,14 +24,14 @@ function dpa_init_buddypress_extension() {
 }
 add_action( 'dpa_ready', 'dpa_init_buddypress_extension' );
 
-/**
- * This function is hooked to the "bp_init" action from BuddyPress.
+ /**
+ * This function is hooked to the "bp_loaded" action from BuddyPress.
  * We use it to record that BuddyPress is active on the site.
  *
  * @since Achievements (3.0)
  */
 function dpa_bp_loaded() {
-	achievements()->extensions->buddypress->set_bp_loaded( true );
+	achievements()->use_bp_profiles = bp_is_active( 'xprofile' );
 }
 
 /**
@@ -40,12 +40,6 @@ function dpa_bp_loaded() {
  * @since Achievements (3.0)
  */
 class DPA_BuddyPress_Extension extends DPA_Extension {
-	/**
-	 * Is BuddyPress loaded?
-	 *
-	 * @since Achievements (3.0)
-	 */
-	protected $bp_loaded = false;
 
 	/**
 	 * Constructor
@@ -143,21 +137,25 @@ class DPA_BuddyPress_Extension extends DPA_Extension {
 	}
 
 	/**
-	 * Sets the bp_loaded property if BuddyPress is loaded.
+	 * Sets the bp_loaded property if BuddyPress is loaded (DEPRECATED).
 	 *
+	 * @deprecated Achievements (3.2)
 	 * @param bool $bp_is_loaded
 	 * @since Achievements (3.0)
 	 */
 	public function set_bp_loaded( $bp_is_loaded ) {
-		$this->bp_loaded = $bp_is_loaded;
+		_deprecated_function( __FUNCTION__, 'Achievements (3.2)' );
 	}
 
 	/**
-	 * Returns true if BuddyPress is loaded.
+	 * Returns true if BuddyPress is loaded (DEPRECATED).
 	 *
+	 * @deprecated Achievements (3.2)
+	 * @return bool
 	 * @since Achievements (3.0)
 	 */
 	public function is_bp_loaded() {
-		return $this->bp_loaded;
+		_deprecated_function( __FUNCTION__, 'Achievements (3.2)' );
+		return false;
 	}
 }

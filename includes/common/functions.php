@@ -214,6 +214,22 @@ function dpa_db_version_raw() {
 		return get_option( '_dpa_db_version', '' );
 	}
 
+
+/**
+ * Assorted "ifs" and "maybe do something" functions.
+ */
+
+/**
+ * Tells Achievements whether to integrate with BuddyPress' profile component or not.
+ *
+ * @return
+ * @since Achievements (3.2)
+ */
+function dpa_maybe_use_bp_profiles() {
+	return apply_filters( 'dpa_maybe_use_bp_profiles', achievements()->use_bp_profiles );
+}
+
+
 /**
  * Returns true if WP_DEBUG is set.
  *
@@ -223,6 +239,7 @@ function dpa_db_version_raw() {
 function dpa_is_developer_mode() {
 	return apply_filters( 'dpa_is_developer_mode', defined( 'WP_DEBUG' ) && WP_DEBUG );
 }
+
 
 /**
  * Queries

@@ -234,9 +234,10 @@ final class DPA_Achievements_Loader {
 		$this->current_user   = new stdClass();  // Currently logged in user
 
 		// Other stuff
-		$this->domain             = 'dpa';                                                        // Unique identifier for retrieving translated strings
-		$this->errors             = new WP_Error();                                               // Errors
-		$this->extensions         = new stdClass();                                               // Other plugins add data here
+		$this->domain          = 'dpa';            // Unique identifier for retrieving translated strings
+		$this->errors          = new WP_Error();   // Errors
+		$this->extensions      = new stdClass();   // Other plugins add data here
+		$this->use_bp_profiles = false;            // Use BuddyPress profiles for screens like "my achievements"
 
 		// Add to global cache groups
 		wp_cache_add_global_groups( 'achievements' );
