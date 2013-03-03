@@ -395,8 +395,8 @@ final class DPA_Achievements_Loader {
 		$locale = apply_filters( 'plugin_locale',  get_locale(), $this->domain );
 		$mofile = sprintf( '%1$s-%2$s.mo', $this->domain, $locale );
 
-		// Look in global /wp-content/languages/plugins/achievements/ folder
-		$mofile_global = WP_LANG_DIR . '/plugins/achievements/' . $mofile;
+		// Look in global /wp-content/languages/plugins/ folder
+		$mofile_global = WP_LANG_DIR . '/plugins/' . $mofile;
 
 		if ( file_exists( $mofile_global ) )
 			load_textdomain( $this->domain, $mofile_global );
