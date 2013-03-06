@@ -491,6 +491,10 @@ function dpa_breadcrumb( $args = array() ) {
 				// Parents
 				$parent = get_post( $parent_id );
 
+				// Skip parent if empty or error
+				if ( empty( $parent ) || is_wp_error( $parent ) )
+					continue;
+
 				// Switch through post_type to ensure correct filters are applied
 				switch ( $parent->post_type ) {
 					// Achievement
