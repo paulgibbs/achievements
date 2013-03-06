@@ -631,21 +631,23 @@ function dpa_achievements_index_description( $args = '' ) {
  * Output the row class of an achievement
  *
  * @param int $achievement_id Optional. Achievement ID
+ * @param array $classes Optional. Extra classes you can pass when calling this function 
  * @since Achievements (3.0)
  */
-function dpa_achievement_class( $achievement_id = 0 ) {
-	echo dpa_get_achievement_class( $achievement_id );
+function dpa_achievement_class( $achievement_id = 0, $classes = array() ) {
+	echo dpa_get_achievement_class( $achievement_id, $classes );
 }
 	/**
 	 * Return the row class of an achievement
 	 *
 	 * @param int $achievement_id Optional. Achievement ID
+	 * @param array $classes Optional. Extra classes you can pass when calling this function 
 	 * @return string Row class of an achievement
 	 * @since Achievements (3.0)
 	 */
-	function dpa_get_achievement_class( $achievement_id = 0 ) {
+	function dpa_get_achievement_class( $achievement_id = 0, $classes = array() ) {
 		$achievement_id = dpa_get_achievement_id( $achievement_id );
-		$classes        = array();
+		$classes        = (array) $classes;
 		$count          = isset( achievements()->achievement_query->current_post ) ? achievements()->achievement_query->current_post : 1;
 
 		// If we've only one post in the loop, don't both with odd and even.

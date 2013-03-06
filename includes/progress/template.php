@@ -325,21 +325,23 @@ function dpa_progress_user_link( $args = array() ) {
  * Output the row class of an achievement progress object
  *
  * @param int $progress_id Optional. Progress ID
+ * @param array $classes Optional. Extra classes you can pass when calling this function 
  * @since Achievements (3.0)
  */
-function dpa_progress_class( $progress_id = 0 ) {
-	echo dpa_get_progress_class( $progress_id );
+function dpa_progress_class( $progress_id = 0, $classes = array() ) {
+	echo dpa_get_progress_class( $progress_id, $classes );
 }
 	/**
 	 * Return the row class of an achievement progress object
 	 *
 	 * @param int $progress_id Optional. Progress ID
+	 * @param array $classes Optional. Extra classes you can pass when calling this function 
 	 * @return string Row class of an achievement progress object
 	 * @since Achievements (3.0)
 	 */
-	function dpa_get_progress_class( $progress_id = 0 ) {
-		$progress_id = dpa_get_progress_id( $progress_id );
-		$classes     = array();
+	function dpa_get_progress_class( $progress_id = 0, $classes = array() ) {
+		$progress_id = dpa_get_progress_id( $progress_id, $classes );
+		$classes     = (array) $classes;
 		$count       = isset( achievements()->progress_query->current_post ) ? achievements()->progress_query->current_post : 1;
 
 		// If we've only one post in the loop, don't both with odd and even.
