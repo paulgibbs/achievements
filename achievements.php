@@ -667,7 +667,7 @@ final class DPA_Achievements_Loader {
  *
  * Needs to be in scope for DPA_Achievements_Loader::setup_globals(), so it's not in core/options.php
  *
- * @return true
+ * @return bool
  * @since Achievements (3.0)
  * @todo Review if is_plugin_active_for_network() not being available on Network Activation is a WP core bug.
  */
