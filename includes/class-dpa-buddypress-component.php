@@ -1,8 +1,9 @@
 <?php
 /**
- * Achievements' BuddyPress integration
+ * Achievements' BuddyPress integration -- integrates into members and activity components.
  *
  * Achievements and BuddyPress are designed to connect together seamlessly and this makes that happen.
+ * Everything in this file requires BuddyPress.
  *
  * @package Achievements
  * @subpackage BuddyPressClasses
@@ -14,6 +15,8 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 if ( ! class_exists( 'DPA_BuddyPress_Component' ) ) :
 /**
  * Loads achievements component for BuddyPress
+ *
+ * This class requires BuddyPress.
  *
  * @since Achievements (3.2)
  */
@@ -31,28 +34,13 @@ class DPA_BuddyPress_Component extends BP_Component {
 			BP_PLUGIN_DIR
 		);
 
-		$this->includes();
-		$this->setup_globals();
-		$this->setup_actions();
+		// If BP's activity componet is active, we should integrate with it.
+//		if ( bp_is_active( 'activity' ) )
+	//		$this->activity();
 	}
 
 	/**
-	 * Include BuddyPress classes and functions
-	 *
-	 * @since Achievements (3.2)
-	 */
-	public function includes() {
-
-		// Members modifications
-		//require( bbpress()->includes_dir . 'extend/buddypress/members.php' );
-
-		// BuddyPress Activity Extension class
-		//if ( bp_is_active( 'activity' ) )
-		//	require( bbpress()->includes_dir . 'extend/buddypress/activity.php' );
-	}
-
-	/**
-	 * Setup globals
+	 * Set up the component's global variables
 	 *
 	 * @since Achievements (3.2)
 	 */
@@ -65,31 +53,9 @@ class DPA_BuddyPress_Component extends BP_Component {
 	}
 
 	/**
-	 * Setup the actions
-	 *
-	 * @since Achievements (3.2)
-	 * @link http://bbpress.trac.wordpress.org/ticket/2176
-	 */
-	public function setup_actions() {
-		//add_action( 'bp_init', array( $this, 'setup_components' ), 7 );
-		parent::setup_actions();
-	}
-
-	/**
-	 * Instantiate classes for BuddyPress integration
-	 *
-	 * @since Achievements (3.2)
-	 */
-	public function setup_components() {
-		bbpress()->extend->buddypress->members = new BBP_BuddyPress_Members;
-
-		// Create new activity class
-		if ( bp_is_active( 'activity' ) )
-			bbpress()->extend->buddypress->activity = new BBP_BuddyPress_Activity;
-	}
-
-	/**
-	 * Setup BuddyBar navigation
+	 * Set up the component's URLs in the BP navigation object and the BuddyBar.
+	 * 
+	 * This does not add any items to the WP Toolbar.
 	 *
 	 * @since Achievements (3.2)
 	 */
@@ -101,15 +67,15 @@ class DPA_BuddyPress_Component extends BP_Component {
 
 		// Add to the main navigation
 		$main_nav = array(
-			'default_subnav_slug' => '',
+			'default_subnav_slug' => 'all',
 			'item_css_id'         => $this->id,
 			'name'                => __( 'Achievements', 'dpa' ),
-			'position'            => 90,
-			'screen_function'     => 'bbp_member_forums_screen_topics',
+			'position'            => 100,
+			'screen_function'     => 'dpa_bp_members_my_achievements',
 			'slug'                => $this->slug,
 		);
 
-		// Determine user to use
+		// Determine user to use for the link
 		if ( bp_displayed_user_id() )
 			$user_domain = bp_displayed_user_domain();
 		elseif ( bp_loggedin_user_domain() )
@@ -117,45 +83,18 @@ class DPA_BuddyPress_Component extends BP_Component {
 		else
 			return;
 
-		// Favorite topics
+		// Add to the user navigation -- "my achievements"
 		$sub_nav = array(
-			'item_css_id'     => 'achievements',
-			'name'            => _x( 'All', 'all achievements', 'bbpress' ),
+			'item_css_id'     => "{$this->id}-all",
+			'name'            => __( 'My Achievements', 'dpa' ),
 			'parent_slug'     => $this->slug,
 			'parent_url'      => trailingslashit( $user_domain . $this->slug ),
 			'position'        => 20,
-			'screen_function' => 'bbp_member_forums_screen_topics',
-			'slug'            => '',
+			'screen_function' => 'dpa_bp_members_my_achievements',
+			'slug'            => 'all',
 		);
 
 		parent::setup_nav( $main_nav, $sub_nav );
-	}
-
-	/**
-	 * Sets up the title for pages and <title>
-	 *
-	 * @since Achievements (3.2)
-	 */
-	public function setup_title() {
-		/*$bp = buddypress();
-
-		// Adjust title based on view
-		if ( bp_is_forums_component() ) {
-
-			if ( bp_is_my_profile() ) {
-				$bp->bp_options_title = __( 'Forums', 'bbpress' );
-
-			} elseif ( bp_is_user() ) {
-				$bp->bp_options_avatar = bp_core_fetch_avatar( array(
-					'item_id' => bp_displayed_user_id(),
-					'type'    => 'thumb'
-				) );
-
-				$bp->bp_options_title = bp_get_displayed_user_fullname();
-			}
-		}
-*/
-		parent::setup_title();
 	}
 }
 endif;
