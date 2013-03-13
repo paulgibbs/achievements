@@ -42,7 +42,7 @@ class DPA_BuddyPress_Component extends BP_Component {
 	/**
 	 * Set up the component's global variables
 	 *
-	 * @param string|array $args
+	 * @param string|array $args Optional (not used in this function).
 	 * @since Achievements (3.2)
 	 */
 	public function setup_globals( $args = '' ) {
@@ -58,8 +58,8 @@ class DPA_BuddyPress_Component extends BP_Component {
 	 * 
 	 * This does not add any items to the WP Toolbar.
 	 *
-	 * @param string|array $main_nav
-	 * @param string|array $sub_nav
+	 * @param string|array $main_nav Optional (not used in this function).
+	 * @param string|array $sub_nav Optional (not used in this function).
 	 * @since Achievements (3.2)
 	 */
 	public function setup_nav( $main_nav = '', $sub_nav = '' ) {
