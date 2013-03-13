@@ -84,7 +84,7 @@ add_action( 'dpa_ready', 'dpa_register_events',         20 );
  */
 add_action( 'bp_activation',   'dpa_delete_rewrite_rules' );
 add_action( 'bp_deactivation', 'dpa_delete_rewrite_rules' );
-add_action( 'bp_loaded',       'dpa_bp_loaded'            );
+add_action( 'bp_include',      'dpa_bp_loaded'            );
 
 // Try to load the achievements-functions.php file from the active theme
 add_action( 'dpa_after_setup_theme', 'dpa_load_theme_functions', 10 );

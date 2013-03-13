@@ -301,6 +301,7 @@ final class DPA_Achievements_Loader {
 		require( $this->includes_dir . 'extensions/wordpress.php'    );
 		require( $this->includes_dir . 'extensions/wpecommerce.php'  );
 
+		require( $this->includes_dir . 'buddypress/functions.php'    );
 
 		/**
 		 * Components

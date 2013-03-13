@@ -119,8 +119,14 @@ function dpa_is_single_achievement() {
 function dpa_is_single_user_achievements() {
 	global $wp_query;
 
-	// Author page and our 'achievements' endpoint
-	$retval = is_author() && isset( $wp_query->query_vars[dpa_get_authors_endpoint()] );
+	// Using BuddyPress user profiles
+	if ( dpa_integrate_into_buddypress() ) {
+		$retval = bp_is_user();  // DJPAULTODO: also check if user is on the achievements tab
+
+	// Using WordPress' author page and the 'achievements' endpoint
+	} else {
+		$retval = is_author() && isset( $wp_query->query_vars[dpa_get_authors_endpoint()] );
+	}
 
 	return (bool) apply_filters( 'dpa_is_single_user_achievements', $retval );
 }

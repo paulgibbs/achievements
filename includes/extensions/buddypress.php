@@ -24,16 +24,6 @@ function dpa_init_buddypress_extension() {
 }
 add_action( 'dpa_ready', 'dpa_init_buddypress_extension' );
 
- /**
- * This function is hooked to the "bp_loaded" action from BuddyPress.
- * We use it to record that BuddyPress is active on the site.
- *
- * @since Achievements (3.0)
- */
-function dpa_bp_loaded() {
-	achievements()->integrate_into_buddypress = bp_is_active( 'xprofile' );
-}
-
 /**
  * Extension to add BuddyPress support to Achievements
  *
