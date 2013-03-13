@@ -77,7 +77,7 @@ function dpa_has_achievements( $args = array() ) {
 	if ( isset( $args['ach_populate_progress'] ) ) {
 		if ( true === $args['ach_populate_progress'] ) {
 			if ( dpa_is_single_user_achievements() ) {
-				$progress_user_ids = get_queried_object()->ID;
+				$progress_user_ids = dpa_get_displayed_user_id();
 
 			} elseif ( is_user_logged_in() ) {
 				$progress_user_ids = achievements()->current_user->ID;

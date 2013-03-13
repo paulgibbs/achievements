@@ -59,3 +59,23 @@ function dpa_update_user_stats( $achievement_obj, $user_id, $progress_id ) {
 	// Allow other things to happen after the user's stats have been updated
 	do_action( 'dpa_update_user_stats', $achievement_obj, $user_id, $progress_id, $new_unlock_count );
 }
+
+/**
+ * Return the user ID whose profile we are in.
+ * 
+ * If BP integration is enabled, this will return bp_displayed_user_id().
+ * If BP integration is not enabled, this will return get_queried_object()->ID.
+ * 
+ * This function should be used in conjunction with dpa_is_single_user_achievements().
+ * 
+ * @return int|false Returns user ID; if we aren't looking at a user's profile, return false.
+ * @since Achievements (3.2)
+ */
+function dpa_get_displayed_user_id() {
+	$retval = get_queried_object()->ID;
+
+	if ( dpa_integrate_into_buddypress() && function_exists( 'bp_displayed_user_id' ) )
+		$retval = bp_displayed_user_id();
+
+	return apply_filters( 'dpa_get_displayed_user_id', $retval );
+}

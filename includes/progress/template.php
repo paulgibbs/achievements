@@ -40,7 +40,7 @@ function dpa_has_progress( $args = array() ) {
 		// Conditional defaults
 
 		// If on a user's achievements page, use that author's user ID.
-		'author'         => dpa_is_single_user_achievements() ? get_queried_object()->ID : null,
+		'author'         => dpa_is_single_user_achievements() ? dpa_get_displayed_user_id() : null,
 
 		// If on single achievement page, use that post's ID. 
 		'post_parent'    => dpa_is_single_achievement() ? dpa_get_achievement_id() : null,
@@ -83,7 +83,7 @@ function dpa_has_progress( $args = array() ) {
 
 			// User achievements page
 			elseif ( dpa_is_single_user_achievements() )
-				$base = dpa_get_user_avatar_link( array( 'type' => 'url', 'user_id' => get_queried_object()->ID ) );
+				$base = dpa_get_user_avatar_link( array( 'type' => 'url', 'user_id' => dpa_get_displayed_user_id() ) );
 
 			// Default
 			else

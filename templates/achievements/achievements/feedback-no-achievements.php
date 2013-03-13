@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 	<?php if ( dpa_is_single_user_achievements() ) : ?>
 
-		<p><?php printf( __( '%1$s hasn&rsquo;t unlocked any achievements.', 'dpa' ), get_the_author_meta( 'display_name', get_queried_object()->ID ) ); ?>
+		<p><?php printf( __( '%1$s hasn&rsquo;t unlocked any achievements.', 'dpa' ), get_the_author_meta( 'display_name', dpa_get_displayed_user_id() ) ); ?>
 
 	<?php else : ?>
 
