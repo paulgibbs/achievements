@@ -44,8 +44,8 @@ function dpa_user_avatar_link( $args = array() ) {
 		// Assemble some link bits
 		$user_link = array();
 
-		if ( dpa_integrate_into_buddypress () )
-			$user_url = '#';  // @TODO
+		if ( dpa_integrate_into_buddypress() )
+			$user_url = user_trailingslashit( bp_core_get_user_domain( $user_id ) . dpa_get_authors_endpoint() );
 		else
 			$user_url = user_trailingslashit( trailingslashit( get_author_posts_url( $user_id) ) . dpa_get_authors_endpoint() );
 
