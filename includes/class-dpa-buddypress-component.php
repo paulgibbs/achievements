@@ -99,5 +99,27 @@ class DPA_BuddyPress_Component extends BP_Component {
 
 		parent::setup_nav( $main_nav, $sub_nav );
 	}
+
+	/**
+	 * Add an "achievements" item to the Toolbar "profile" submenu (which is added by BuddyPress).
+	 *
+	 * @param string|array $wp_admin_menus Optional (not used in this function).
+	 * @since Achievements (3.2)
+	 */
+	public function setup_admin_bar( $wp_admin_nav = '' ) {
+		$wp_admin_nav = array();
+
+		// Add "achievements" menu under "profile"
+		if ( is_user_logged_in() ) {
+			$wp_admin_nav[] = array(
+				'href'   => dpa_get_user_avatar_link( array( 'type' => 'url' ) ),
+				'id'     => 'my-account-' . $this->id . '-edit',
+				'parent' => 'my-account-xprofile',
+				'title'  => __( 'Achievements', 'dpa' ),
+			);
+		}
+
+		parent::setup_admin_bar( $wp_admin_nav );
+	}
 }
 endif;
