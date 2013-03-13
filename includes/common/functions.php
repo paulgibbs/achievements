@@ -278,6 +278,9 @@ function dpa_get_paged() {
  *
  * This is done because we move the "my achievements" pages away from the author permalinks into the
  * BP user profiles (or vice-versa) depending on the new state of the plugin.
+ *
+ * @param string $plugin_basename PHP's basename() of the plugin file which is being (de-)activated.
+ * @since Achievements (3.2)
  */
 function dpa_check_buddypress_is_active( $plugin_basename ) {
 	if ( strpos( 'buddypress/bp-loader.php', $plugin_basename ) === false )
