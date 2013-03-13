@@ -117,14 +117,14 @@ function dpa_is_single_achievement() {
  * @since Achievements (3.0)
  */
 function dpa_is_single_user_achievements() {
-	global $wp_query;
 
 	// Using BuddyPress user profiles
 	if ( dpa_integrate_into_buddypress() ) {
-		$retval = bp_is_user();  // DJPAULTODO: also check if user is on the achievements tab
+		$retval = bp_is_user() && bp_is_current_component( 'achievements' ) && bp_is_current_action( 'all' );
 
 	// Using WordPress' author page and the 'achievements' endpoint
 	} else {
+		global $wp_query;
 		$retval = is_author() && isset( $wp_query->query_vars[dpa_get_authors_endpoint()] );
 	}
 
