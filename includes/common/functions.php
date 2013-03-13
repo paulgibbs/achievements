@@ -273,6 +273,21 @@ function dpa_get_paged() {
 }
 
 /**
+ * Hooked to both activated_plugin and deactivated_plugin, this function detects when BuddyPress has
+ * been (de-)activated, and flushes the rewrite rules.
+ *
+ * This is done because we move the "my achievements" pages away from the author permalinks into the
+ * BP user profiles (or vice-versa) depending on the new state of the plugin.
+ */
+function dpa_check_buddypress_is_active( $plugin_basename ) {
+	if ( strpos( 'buddypress/bp-loader.php', $plugin_basename ) === false )
+		return;
+
+	// Ah hah! Caught you red-handed.
+	dpa_delete_rewrite_rules();
+}
+
+/**
  * Delete a site's rewrite rules so that they are automatically rebuilt on subsequent page load.
  *
  * @since Achievements (3.0)
