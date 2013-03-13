@@ -91,7 +91,7 @@ class DPA_BuddyPress_Component extends BP_Component {
 			'item_css_id'     => "{$this->id}-all",
 			'name'            => __( 'My Achievements', 'dpa' ),
 			'parent_slug'     => $this->slug,
-			'parent_url'      => trailingslashit( $user_domain . $this->slug ),
+			'parent_url'      => dpa_get_user_avatar_link( array( 'type' => 'url' ) ),
 			'position'        => 20,
 			'screen_function' => 'dpa_bp_members_my_achievements',
 			'slug'            => 'all',
