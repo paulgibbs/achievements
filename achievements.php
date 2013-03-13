@@ -231,7 +231,7 @@ final class DPA_Achievements_Loader {
 		$this->filters      = new stdClass();  // Used when adding/removing filters
 
 		// Users
-		$this->current_user   = new stdClass();  // Currently logged in user
+		$this->current_user   = new stdClass();  // Currently logged in user -- @todo Is this redundant?
 
 		// Other stuff
 		$this->domain     = 'dpa';            // Unique identifier for retrieving translated strings
