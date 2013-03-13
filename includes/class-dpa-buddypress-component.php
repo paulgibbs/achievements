@@ -42,9 +42,10 @@ class DPA_BuddyPress_Component extends BP_Component {
 	/**
 	 * Set up the component's global variables
 	 *
+	 * @param string|array $args
 	 * @since Achievements (3.2)
 	 */
-	public function setup_globals() {
+	public function setup_globals( $args = '' ) {
 		parent::setup_globals( array(
 			'has_directory' => true,
 			'root_slug'     => dpa_get_achievement_slug(),
@@ -57,9 +58,11 @@ class DPA_BuddyPress_Component extends BP_Component {
 	 * 
 	 * This does not add any items to the WP Toolbar.
 	 *
+	 * @param string|array $main_nav
+	 * @param string|array $sub_nav
 	 * @since Achievements (3.2)
 	 */
-	public function setup_nav() {
+	public function setup_nav( $main_nav = '', $sub_nav = '' ) {
 
 		// Stop if there is no user displayed or logged in
 		if ( ! is_user_logged_in() && ! bp_displayed_user_id() )
