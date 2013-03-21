@@ -82,7 +82,18 @@ function dpa_supported_plugins_get_view() {
  * @since Achievements (3.0)
  */
 function dpa_supported_plugins_get_plugin() {
-	$view = ! empty( $_GET['plugin'] ) ? $_GET['plugin'] : 'buddypress';
+	$valid_extensions = array();
+
+	// Get list of supported plugins
+	$extensions = (array) achievements()->extensions;
+	foreach ( $extensions as $extension ) {
+		$valid_extensions[] = sanitize_html_class( $extension->get_id() );
+	}
+
+	$view = 'buddypress';
+	if ( ! empty( $_GET['plugin'] ) && in_array( $_GET['plugin'], $valid_extensions ) )
+		$view = $_GET['plugin'];
+
 	return apply_filters( 'dpa_supported_plugins_get_plugin', $view );
 }
 
