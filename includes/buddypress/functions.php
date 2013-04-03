@@ -9,20 +9,18 @@
 // Exit if accessed directly
 if ( ! defined( 'ABSPATH' ) ) exit;
 
- /**
+/**
  * This function is hooked to the "bp_include" action from BuddyPress.
- * We use it to record that BuddyPress is active on the site, and include other files
- * that are dependant on BuddyPress being present.
+ * We use it to record that BuddyPress is active on the site, and include other files that are dependant on BuddyPress being present.
  *
- * This function requires BuddyPress.
+ * Achievements integration requires the xProfile component to be active.
+ * Activity stream integration is optional and requires that the Activity component is active.
  *
  * @since Achievements (3.0)
  */
 function dpa_bp_loaded() {
-	achievements()->integrate_into_buddypress = bp_is_active( 'xprofile' );
-
-	// Bail if in maintenance mode
-	if ( ! buddypress() || buddypress()->maintenance_mode )
+	achievements()->integrate_into_buddypress = buddypress() && ! buddypress()->maintenance_mode && bp_is_active( 'xprofile' );
+	if ( ! achievements()->integrate_into_buddypress )
 		return;
 
 	// Load Achievements component for BuddyPress

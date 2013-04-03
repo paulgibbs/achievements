@@ -33,10 +33,6 @@ class DPA_BuddyPress_Component extends BP_Component {
 			__( 'Achievements', 'dpa' ),
 			BP_PLUGIN_DIR
 		);
-
-		// If BP's activity componet is active, we should integrate with it.
-//		if ( bp_is_active( 'activity' ) )
-	//		$this->activity();
 	}
 
 	/**
@@ -54,7 +50,31 @@ class DPA_BuddyPress_Component extends BP_Component {
 	}
 
 	/**
-	 * Set up the component's URLs in the BP navigation object and the BuddyBar.
+	 * Hook into BuddyPress actions for further integration
+	 *
+	 * @since Achievements (3.2)
+	 * @see https://bbpress.trac.wordpress.org/ticket/2176
+	 */
+	public function setup_actions() {
+		add_action( 'bp_init', array( $this, 'init_components' ), 7 );
+		parent::setup_actions();
+	}
+
+	/**
+	 * Integrate Achievements into the BuddyPress Activity component.
+	 *
+	 * @since Achievements (3.2)
+	 */
+	public function init_components() {
+		if ( ! bp_is_active( 'activity' ) )
+			return;
+
+		require( achievements()->includes_dir . 'class-dpa-buddypress-activity.php' );
+		achievements()->extensions->buddypress_activity = new DPA_BuddyPress_Activity;
+	}
+
+	/**
+	 * Integrate Achievements into the BuddyBar (and the user's nav menu)
 	 * 
 	 * This does not add any items to the WP Toolbar.
 	 *
