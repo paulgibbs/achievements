@@ -2,9 +2,9 @@
 # This file is distributed under the same license as the Achievements package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Achievements 3.1\n"
+"Project-Id-Version: Achievements 3.2\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/achievements\n"
-"POT-Creation-Date: 2013-02-17 22:20:59+00:00\n"
+"POT-Creation-Date: 2013-04-05 14:05:52+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -16,143 +16,146 @@ msgstr ""
 msgid "Cheatin&#8217; huh?"
 msgstr ""
 
-#: achievements.php:421
+#: achievements.php:430
 msgctxt "achievement"
 msgid "Add New"
 msgstr ""
 
-#: achievements.php:422
+#: achievements.php:431
 msgid "Add New Achievement"
 msgstr ""
 
-#: achievements.php:423
+#: achievements.php:432
 msgid "All Achievements"
 msgstr ""
 
-#: achievements.php:424
+#: achievements.php:433
 msgctxt "achievement"
 msgid "Edit"
 msgstr ""
 
-#: achievements.php:425
+#: achievements.php:434
 msgid "Edit Achievement"
 msgstr ""
 
-#. #-#-#-#-#  achievements.pot (Achievements 3.1)  #-#-#-#-#
+#. #-#-#-#-#  dpa.pot (Achievements 3.2)  #-#-#-#-#
 #. Plugin Name of the plugin/theme
-#: achievements.php:426 achievements.php:427
+#: achievements.php:435 achievements.php:436
 #: includes/admin/class-dpa-users-list-table.php:150
 #: includes/admin/functions.php:24
+#: includes/class-dpa-buddypress-component.php:33
+#: includes/class-dpa-buddypress-component.php:95
+#: includes/class-dpa-buddypress-component.php:138
 msgid "Achievements"
 msgstr ""
 
-#: achievements.php:428
+#: achievements.php:437
 msgid "New Achievement"
 msgstr ""
 
-#: achievements.php:429
+#: achievements.php:438
 msgid "No achievements found."
 msgstr ""
 
-#: achievements.php:430
+#: achievements.php:439
 msgid "No achievements found in Trash."
 msgstr ""
 
-#: achievements.php:431
+#: achievements.php:440
 msgid "Search Achievements"
 msgstr ""
 
-#: achievements.php:432
+#: achievements.php:441
 msgid "Achievement"
 msgstr ""
 
-#: achievements.php:433 achievements.php:434
+#: achievements.php:442 achievements.php:443
 msgid "View Achievement"
 msgstr ""
 
-#: achievements.php:463
+#: achievements.php:472
 msgctxt "Achievement post type description"
 msgid "Achievements types (e.g. new post, new site, new user)"
 msgstr ""
 
-#: achievements.php:484
+#: achievements.php:493
 msgctxt "Achievement Progress post type description"
 msgid ""
 "Achievement Progress (e.g. unlocked achievements for a user, progress on an "
 "achievement for a user)"
 msgstr ""
 
-#: achievements.php:516
+#: achievements.php:525
 msgctxt "achievement"
 msgid "Locked"
 msgstr ""
 
-#: achievements.php:517
+#: achievements.php:526
 msgctxt "dpa"
 msgid "Locked <span class=\"count\">(%s)</span>"
 msgid_plural "Locked <span class=\"count\">(%s)</span>"
 msgstr[0] ""
 msgstr[1] ""
 
-#: achievements.php:529
+#: achievements.php:538
 msgctxt "achievement"
 msgid "Unlocked"
 msgstr ""
 
-#: achievements.php:530
+#: achievements.php:539
 msgctxt "dpa"
 msgid "Unlocked <span class=\"count\">(%s)</span>"
 msgid_plural "Unlocked <span class=\"count\">(%s)</span>"
 msgstr[0] ""
 msgstr[1] ""
 
-#: achievements.php:549
+#: achievements.php:558
 msgid "Add New Event"
 msgstr ""
 
-#: achievements.php:550
+#: achievements.php:559
 msgid "All"
 msgstr ""
 
-#: achievements.php:551
+#: achievements.php:560
 msgid "Edit Event"
 msgstr ""
 
-#: achievements.php:552
+#: achievements.php:561
 msgctxt "event taxonomy general name"
 msgid "Events"
 msgstr ""
 
-#: achievements.php:553
+#: achievements.php:562
 msgid "New Event Name"
 msgstr ""
 
-#: achievements.php:554
+#: achievements.php:563
 msgid "Popular Events"
 msgstr ""
 
-#: achievements.php:555
+#: achievements.php:564
 msgid "Search Events"
 msgstr ""
 
-#: achievements.php:556
+#: achievements.php:565
 msgctxt "event taxonomy singular name"
 msgid "Event"
 msgstr ""
 
-#: achievements.php:557
+#: achievements.php:566
 msgid "Update Event"
 msgstr ""
 
-#: achievements.php:558
+#: achievements.php:567
 msgid "View Event"
 msgstr ""
 
-#: achievements.php:595 templates/achievements/achievements-functions.php:48
+#: achievements.php:604 templates/achievements/achievements-functions.php:48
 msgid "Achievements Default"
 msgstr ""
 
-#: achievements.php:627
+#: achievements.php:636
 msgctxt "Menu item in the toolbar"
 msgid "My Achievements"
 msgstr ""
@@ -162,43 +165,43 @@ msgid "That code was invalid. Try again!"
 msgstr ""
 
 #. translators: first param is post permalink, second param is the "more" text.
-#: includes/achievements/template.php:501
+#: includes/achievements/template.php:507
 msgid "&hellip; (<a href=\"%1$s\">%2$s</a>)"
 msgstr ""
 
-#: includes/achievements/template.php:503
+#: includes/achievements/template.php:509
 msgctxt "Excerpt - click here to see more of the post"
 msgid "more"
 msgstr ""
 
-#: includes/achievements/template.php:546 includes/progress/template.php:252
+#: includes/achievements/template.php:552 includes/progress/template.php:252
 msgctxt "[date] at [time]"
 msgid "%1$s at %2$s"
 msgstr ""
 
-#: includes/achievements/template.php:585
+#: includes/achievements/template.php:591
 msgid "%s achievement"
 msgid_plural "%s achievements"
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/achievements/template.php:603
+#: includes/achievements/template.php:609
 msgid ""
 "This site has %1$s, and the last unlocked was <a href=\"%2$s\">%3$s</a> by "
 "%4$s."
 msgstr ""
 
-#: includes/achievements/template.php:618
+#: includes/achievements/template.php:624
 msgid "This site has %1$s."
 msgstr ""
 
-#: includes/achievements/template.php:717
+#: includes/achievements/template.php:725
 msgid "Viewing %1$s achievement"
 msgid_plural "Viewing %1$s achievements"
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/achievements/template.php:721
+#: includes/achievements/template.php:729
 msgid "Viewing achievement %2$s (of %4$s total)"
 msgid_plural "Viewing %1$s achievements - %2$s through %3$s (of %4$s total)"
 msgstr[0] ""
@@ -217,7 +220,7 @@ msgstr ""
 msgid "Achievements &mdash; Supported Plugins"
 msgstr ""
 
-#: includes/admin/admin.php:171 includes/admin/supported-plugins.php:101
+#: includes/admin/admin.php:171 includes/admin/supported-plugins.php:112
 msgid "Supported Plugins"
 msgstr ""
 
@@ -603,115 +606,115 @@ msgstr ""
 msgid "Supported Features"
 msgstr ""
 
-#: includes/admin/supported-plugins.php:143
+#: includes/admin/supported-plugins.php:154
 msgid "Search for a plugin..."
 msgstr ""
 
-#: includes/admin/supported-plugins.php:146
+#: includes/admin/supported-plugins.php:157
 msgid "All Plugins"
 msgstr ""
 
-#: includes/admin/supported-plugins.php:147
+#: includes/admin/supported-plugins.php:158
 msgid "Available Plugins"
 msgstr ""
 
-#: includes/admin/supported-plugins.php:148
+#: includes/admin/supported-plugins.php:159
 msgid "Installed Plugins"
 msgstr ""
 
-#: includes/admin/supported-plugins.php:152
+#: includes/admin/supported-plugins.php:163
 msgid "Grid view"
 msgstr ""
 
-#: includes/admin/supported-plugins.php:153
+#: includes/admin/supported-plugins.php:164
 msgid "List view"
 msgstr ""
 
-#: includes/admin/supported-plugins.php:154
+#: includes/admin/supported-plugins.php:165
 msgid "Detail view"
 msgstr ""
 
-#: includes/admin/supported-plugins.php:204
+#: includes/admin/supported-plugins.php:215
 msgid "Share on Twitter"
 msgstr ""
 
-#: includes/admin/supported-plugins.php:205
+#: includes/admin/supported-plugins.php:216
 msgid "Share on Google"
 msgstr ""
 
-#: includes/admin/supported-plugins.php:209
+#: includes/admin/supported-plugins.php:220
 msgid "Latest News"
 msgstr ""
 
-#: includes/admin/supported-plugins.php:221
+#: includes/admin/supported-plugins.php:232
 msgctxt ""
 "ellipsis character at end of post excerpt to show text has been truncated"
 msgid "&hellip;"
 msgstr ""
 
 #. translators: "By AUTHOR, DATE".
-#: includes/admin/supported-plugins.php:246
+#: includes/admin/supported-plugins.php:257
 msgid "<p>By %1$s, %2$s</p>"
 msgstr ""
 
-#: includes/admin/supported-plugins.php:255
+#: includes/admin/supported-plugins.php:266
 msgid "No news found."
 msgstr ""
 
-#: includes/admin/supported-plugins.php:310
+#: includes/admin/supported-plugins.php:321
 msgid ""
 "This table lists all of the plugins that Achievements has support for. For "
 "each plugin it shows a banner, who contributed to its development, and "
 "whether your site has the plugin installed or not."
 msgstr ""
 
-#: includes/admin/supported-plugins.php:314
-#: includes/admin/supported-plugins.php:324
+#: includes/admin/supported-plugins.php:325
+#: includes/admin/supported-plugins.php:335
 msgid "Plugin"
 msgstr ""
 
-#: includes/admin/supported-plugins.php:315
-#: includes/admin/supported-plugins.php:325
+#: includes/admin/supported-plugins.php:326
+#: includes/admin/supported-plugins.php:336
 msgid "Rating"
 msgstr ""
 
-#: includes/admin/supported-plugins.php:316
-#: includes/admin/supported-plugins.php:326
+#: includes/admin/supported-plugins.php:327
+#: includes/admin/supported-plugins.php:337
 msgid "Status"
 msgstr ""
 
-#: includes/admin/supported-plugins.php:317
-#: includes/admin/supported-plugins.php:327
+#: includes/admin/supported-plugins.php:328
+#: includes/admin/supported-plugins.php:338
 msgid "Authors"
 msgstr ""
 
-#: includes/admin/supported-plugins.php:373
+#: includes/admin/supported-plugins.php:384
 msgctxt "A plugin is installed"
 msgid "Ready"
 msgstr ""
 
-#: includes/admin/supported-plugins.php:382
-#: includes/admin/supported-plugins.php:398
+#: includes/admin/supported-plugins.php:393
+#: includes/admin/supported-plugins.php:409
 msgctxt "A plugin is not installed"
 msgid "Not installed"
 msgstr ""
 
-#: includes/admin/supported-plugins.php:571
+#: includes/admin/supported-plugins.php:582
 msgctxt "A plugin is installed"
 msgid "Status: Ready"
 msgstr ""
 
-#: includes/admin/supported-plugins.php:579
+#: includes/admin/supported-plugins.php:590
 msgctxt "A plugin is not installed"
 msgid "Install Plugin"
 msgstr ""
 
-#: includes/admin/supported-plugins.php:595
+#: includes/admin/supported-plugins.php:606
 msgctxt "A plugin is not installed"
 msgid "Status: Not installed"
 msgstr ""
 
-#: includes/admin/supported-plugins.php:601
+#: includes/admin/supported-plugins.php:612
 msgid "More Info"
 msgstr ""
 
@@ -756,6 +759,23 @@ msgstr ""
 
 #: includes/admin/users.php:93
 msgid "Search all Users"
+msgstr ""
+
+#: includes/class-dpa-buddypress-activity.php:89
+msgid "Unlocked achievements"
+msgstr ""
+
+#: includes/class-dpa-buddypress-activity.php:145
+msgctxt "Unlocked achievements filter label"
+msgid "Achievements"
+msgstr ""
+
+#: includes/class-dpa-buddypress-activity.php:170
+msgid "%1$s unlocked the achievement: %2$s"
+msgstr ""
+
+#: includes/class-dpa-buddypress-component.php:112
+msgid "My Achievements"
 msgstr ""
 
 #: includes/common/functions.php:40
@@ -834,22 +854,22 @@ msgctxt "Separator in time since"
 msgid ","
 msgstr ""
 
-#: includes/common/template.php:366
+#: includes/common/template.php:372
 msgctxt "Home screen of the website"
 msgid "Home"
 msgstr ""
 
-#: includes/common/template.php:430
+#: includes/common/template.php:436
 msgctxt "HTML entity for left single angle quotes"
 msgid "&lsaquo;"
 msgstr ""
 
-#: includes/common/template.php:430
+#: includes/common/template.php:436
 msgctxt "HTML entity for right single angle quotes"
 msgid "&rsaquo;"
 msgstr ""
 
-#: includes/common/template.php:624
+#: includes/common/template.php:640
 msgid "Achievement: %s"
 msgstr ""
 
@@ -861,11 +881,11 @@ msgstr ""
 msgid "(Achievements) Redemption"
 msgstr ""
 
-#: includes/common/widgets.php:55 includes/common/widgets.php:88
+#: includes/common/widgets.php:57 includes/common/widgets.php:90
 msgid "Redeem achievement"
 msgstr ""
 
-#: includes/common/widgets.php:92
+#: includes/common/widgets.php:94
 msgid "Title:"
 msgstr ""
 
@@ -958,109 +978,109 @@ msgstr ""
 msgid "bbPress"
 msgstr ""
 
-#: includes/extensions/buddypress.php:59
+#: includes/extensions/buddypress.php:43
 msgid "The user marks an item in an activity stream as a favourite."
 msgstr ""
 
-#: includes/extensions/buddypress.php:60
+#: includes/extensions/buddypress.php:44
 msgid "The user replies to an item in an activity stream."
 msgstr ""
 
-#: includes/extensions/buddypress.php:61
+#: includes/extensions/buddypress.php:45
 msgid "The user writes an activity update message."
 msgstr ""
 
-#: includes/extensions/buddypress.php:62
+#: includes/extensions/buddypress.php:46
 msgid "The user un-favourites an item in their activity stream."
 msgstr ""
 
-#: includes/extensions/buddypress.php:63
+#: includes/extensions/buddypress.php:47
 msgid "A new user activates their account on your website."
 msgstr ""
 
-#: includes/extensions/buddypress.php:64
+#: includes/extensions/buddypress.php:48
 msgid "The user writes a message in a group&#8217;s activity stream."
 msgstr ""
 
-#: includes/extensions/buddypress.php:65
+#: includes/extensions/buddypress.php:49
 msgid "The user accepts a friendship request from someone."
 msgstr ""
 
-#: includes/extensions/buddypress.php:66
+#: includes/extensions/buddypress.php:50
 msgid "The user cancels a friendship."
 msgstr ""
 
-#: includes/extensions/buddypress.php:67
+#: includes/extensions/buddypress.php:51
 msgid "The user rejects a friendship request from someone."
 msgstr ""
 
-#: includes/extensions/buddypress.php:68
+#: includes/extensions/buddypress.php:52
 msgid "The user sends a friendship request to someone."
 msgstr ""
 
-#: includes/extensions/buddypress.php:69
+#: includes/extensions/buddypress.php:53
 msgid "The user bans a member from a group."
 msgstr ""
 
-#: includes/extensions/buddypress.php:70
+#: includes/extensions/buddypress.php:54
 msgid "The user creates a group."
 msgstr ""
 
-#: includes/extensions/buddypress.php:71
+#: includes/extensions/buddypress.php:55
 msgid "The user deletes a group."
 msgstr ""
 
-#: includes/extensions/buddypress.php:72
+#: includes/extensions/buddypress.php:56
 msgid "The user demotes a group member from moderator or administrator status."
 msgstr ""
 
-#: includes/extensions/buddypress.php:73
+#: includes/extensions/buddypress.php:57
 msgid "The user invites someone to join a group."
 msgstr ""
 
-#: includes/extensions/buddypress.php:74
+#: includes/extensions/buddypress.php:58
 msgid "The user joins a group."
 msgstr ""
 
-#: includes/extensions/buddypress.php:75
+#: includes/extensions/buddypress.php:59
 msgid "The user leaves a group."
 msgstr ""
 
-#: includes/extensions/buddypress.php:76
+#: includes/extensions/buddypress.php:60
 msgid "The user is promoted to a moderator or an administrator in a group."
 msgstr ""
 
-#: includes/extensions/buddypress.php:77
+#: includes/extensions/buddypress.php:61
 msgid "The user promotes a group member to moderator or administrator status."
 msgstr ""
 
-#: includes/extensions/buddypress.php:78
+#: includes/extensions/buddypress.php:62
 msgid "The user unbans a member from a group."
 msgstr ""
 
-#: includes/extensions/buddypress.php:79
+#: includes/extensions/buddypress.php:63
 msgid "The user deletes a private message."
 msgstr ""
 
-#: includes/extensions/buddypress.php:80
+#: includes/extensions/buddypress.php:64
 msgid "The user sends a new private message or replies to an existing one."
 msgstr ""
 
-#: includes/extensions/buddypress.php:81
+#: includes/extensions/buddypress.php:65
 msgid "The user changes their profile&#8217;s avatar."
 msgstr ""
 
-#: includes/extensions/buddypress.php:82
+#: includes/extensions/buddypress.php:66
 msgid "The user updates their profile information."
 msgstr ""
 
-#: includes/extensions/buddypress.php:103
+#: includes/extensions/buddypress.php:87
 msgid ""
 "Social networking in a box. Build a social network for your company, school, "
 "sports team or niche community."
 msgstr ""
 
-#: includes/extensions/buddypress.php:106
+#: includes/extensions/buddypress.php:90
 msgid "BuddyPress"
 msgstr ""
 
@@ -1193,7 +1213,7 @@ msgstr ""
 msgid "WP e-Commerce"
 msgstr ""
 
-#: includes/progress/template.php:426
+#: includes/progress/template.php:428
 msgid "Viewing achievement progress %2$s (of %4$s total)"
 msgid_plural ""
 "Viewing %1$s achievements&rsquo; progress - %2$s through %3$s (of %4$s total)"
