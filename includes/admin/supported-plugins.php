@@ -86,7 +86,11 @@ function dpa_supported_plugins_get_plugin() {
 
 	// Get list of supported plugins
 	$extensions = (array) achievements()->extensions;
+
 	foreach ( $extensions as $extension ) {
+		if ( ! is_a( $extension, 'DPA_Extension' ) )
+			continue;
+
 		$valid_extensions[] = sanitize_html_class( $extension->get_id() );
 	}
 
@@ -295,7 +299,13 @@ function dpa_supported_plugins_list() {
 	$page_url = add_query_arg( 'filter', $filter, $page_url );
 
 	// Get supported plugins
-	$extensions = (array) achievements()->extensions;
+	$extensions = array();
+	foreach ( (array) achievements()->extensions as $extension ) {
+		if ( ! is_a( $extension, 'DPA_Extension' ) )
+			continue;
+
+		$extensions[] = $extension;
+	}
 
 	// Sort list of plugins by rating
 	//if ( ! empty( $_GET['order'] ) && 'rating' == $_GET['order'] )
@@ -449,7 +459,14 @@ function dpa_supported_plugins_grid() {
 	$filter = dpa_supported_plugins_get_filter();
 
 	// Get supported plugins
-	$extensions = (array) achievements()->extensions;
+	$extensions = array();
+	foreach ( (array) achievements()->extensions as $extension ) {
+		if ( ! is_a( $extension, 'DPA_Extension' ) )
+			continue;
+
+		$extensions[] = $extension;
+	}
+
 	uasort( $extensions, create_function( '$a, $b', 'return strnatcasecmp($a->get_name(), $b->get_name());' ) );
 	$extensions = (object) $extensions;
 
@@ -488,7 +505,14 @@ function dpa_supported_plugins_mb_switcher() {
 	echo '<select id="dpa-details-plugins">';
 
 	// Get supported plugins
-	$extensions = (array) achievements()->extensions;
+	$extensions = array();
+	foreach ( (array) achievements()->extensions as $extension ) {
+		if ( ! is_a( $extension, 'DPA_Extension' ) )
+			continue;
+
+		$extensions[] = $extension;
+	}
+
 	uasort( $extensions, create_function( '$a, $b', 'return strnatcasecmp($a->get_name(), $b->get_name());' ) );
 	$extensions = (object) $extensions;
 
