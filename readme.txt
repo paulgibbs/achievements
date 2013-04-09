@@ -3,7 +3,7 @@ Contributors: DJPaul
 Tags: achievements, badges, challenges, gaming, points, rewards
 Requires at least: 3.6
 Tested up to: 3.6
-Stable tag: 3.2
+Stable tag: 3.2.1
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=P3K7Z7NHWZ5CL&lc=GB&item_name=B%2eY%2eO%2eT%2eO%2eS%20%2d%20BuddyPress%20plugins&currency_code=GBP&bn=PP%2dDon
@@ -23,6 +23,9 @@ For information, support, and developer documentation, visit [achievementsapp.co
 [vimeo http://vimeo.com/56058144]
 
 == Changelog ==
+= 3.2.1 =
+* Fix error when accessing Supported Plugins screen while BuddyPress is active
+
 = 3.2 =
 * NEW FEATURE: Full integration with BuddyPress User Profiles and the Activity stream!
 * Localisation improvements and fixes; mo files are now loaded from wp-content/languages/plugins/achievements/??-dpa.mo
@@ -55,6 +58,9 @@ Note: in multisite, activating the plugin "network-wide" will give your entire n
 For information, support, and developer documentation, visit [achievementsapp.com](http://achievementsapp.com/).
 
 == Upgrade Notice ==
+= 3.2.1 =
+* Fixes error when accessing Supported Plugins screen while BuddyPress is active
+
 = 3.2 =
 * NEW FEATURE: Full integration with BuddyPress User Profiles and the Activity Stream!
 
