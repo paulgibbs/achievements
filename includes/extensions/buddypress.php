@@ -82,6 +82,11 @@ class DPA_BuddyPress_Extension extends DPA_Extension {
 				'gravatar_url' => 'http://www.gravatar.com/avatar/9cf7c4541a582729a5fc7ae484786c0c',
 				'profile_url'  => 'http://profiles.wordpress.org/boonebgorges/',
 			),
+			array(
+				'name'         => 'Raymond Hoh',
+				'gravatar_url' => 'http://www.gravatar.com/avatar/3bfa556a62b5bfac1012b6ba5f42ebfa',
+				'profile_url'  => 'http://profiles.wordpress.org/r-a-y/',
+			),
 		);
 
 		$this->description     = __( 'Social networking in a box. Build a social network for your company, school, sports team or niche community.', 'dpa' );
