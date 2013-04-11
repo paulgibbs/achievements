@@ -455,6 +455,7 @@ final class DPA_Achievements_Loader {
 		// CPT supports
 		$supports['achievement'] = array(
 			'editor',
+			'excerpt',
 			'revisions',
 			'thumbnail',
 			'title',
