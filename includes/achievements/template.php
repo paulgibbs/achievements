@@ -482,7 +482,7 @@ function dpa_achievement_excerpt( $achievement_id = 0, $length = 200 ) {
 	 */
 	function dpa_get_achievement_excerpt( $achievement_id = 0, $length = 200 ) {
 		$achievement_id = dpa_get_achievement_id( $achievement_id );
-		$excerpt        = get_post_field( $achievement_id, 'post_excerpt' );
+		$excerpt        = get_post_field( 'post_excerpt', $achievement_id );
 		$length         = (int) $length;
 
 		// If you don't specify an excerpt when creating an achievement, we'll use the post content.
