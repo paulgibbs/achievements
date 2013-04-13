@@ -177,7 +177,6 @@ class DPA_BuddyPress_Activity {
 			'item_id'           => $achievement->ID,
 			'hide_sitewide'     => false,
 			'primary_link'      => $achievement_permalink,
-			'recorded_time'     => get_post_time( 'Y-m-d H:i:s', true, $achievement->ID ),
 			'type'              => $this->achievement_unlocked,
 			'user_id'           => $user_id,
 		);
