@@ -27,7 +27,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 add_filter( 'request',                 'dpa_request',            10    );
 add_filter( 'template_include',        'dpa_template_include',   10    );
 add_filter( 'wp_title',                'dpa_title',              10, 3 );
-add_filter( 'body_class',              'dpa_body_class',         10, 2 );
+add_filter( 'body_class',              'dpa_body_class',         12, 2 );
 add_filter( 'map_meta_cap',            'dpa_map_meta_caps',      10, 4 );
 add_filter( 'redirect_canonical',      'dpa_redirect_canonical', 10    );
 add_filter( 'plugin_locale',           'dpa_plugin_locale',      10, 2 );
