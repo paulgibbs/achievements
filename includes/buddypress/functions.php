@@ -19,7 +19,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  * @since Achievements (3.0)
  */
 function dpa_bp_loaded() {
-	achievements()->integrate_into_buddypress = buddypress() && ! buddypress()->maintenance_mode && bp_is_active( 'xprofile' );
+	achievements()->integrate_into_buddypress = function_exists( 'buddypress' ) && buddypress() && ! buddypress()->maintenance_mode && bp_is_active( 'xprofile' );
 	if ( ! achievements()->integrate_into_buddypress )
 		return;
 
