@@ -207,6 +207,10 @@ function dpa_handle_event() {
 		's'                     => '',           // Stop sneaky people running searches on this query
 	);
 
+	// If multisite and running network-wide, switch_to_blog to the data store site
+	if ( is_multisite() && dpa_is_running_networkwide() )
+		switch_to_blog( DPA_DATA_STORE );
+
 	// Loop through achievements found
 	if ( dpa_has_achievements( $args ) ) {
 
@@ -229,6 +233,10 @@ function dpa_handle_event() {
 				dpa_maybe_unlock_achievement( $user_id, false, $progress );
 		}
 	}
+
+	// If multisite and running network-wide, undo the switch_to_blog
+	if ( is_multisite() && dpa_is_running_networkwide() )
+		restore_current_blog();
 
 	achievements()->achievement_query = new stdClass();
 	achievements()->progress_query    = new stdClass();

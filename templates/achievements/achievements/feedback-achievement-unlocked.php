@@ -23,14 +23,24 @@ function dpa_feedback_achievement_unlock_wrapper() {
 	if ( empty( $post_ids ) )
 		return;
 
+	// If multisite and running network-wide, switch_to_blog to the data store site
+	if ( is_multisite() && dpa_is_running_networkwide() )
+		switch_to_blog( DPA_DATA_STORE );
+
 	$notifications = dpa_get_achievements( array(
 		'numberposts' => 1,
 		'post__in'    => array_keys( $post_ids ),
 	) );
 
 	// It's possible for the usermeta to reference posts that have been deleted or are in the trash, so check here.
-	if ( empty( $notifications ) )
+	if ( empty( $notifications ) ) {
+
+		// If multisite and running network-wide, undo the switch_to_blog
+		if ( is_multisite() && dpa_is_running_networkwide() )
+			restore_current_blog();
+
 		return;
+	}
 
 	$user_profile_url = dpa_get_user_avatar_link( array(
 		'type'    => 'url',
@@ -81,6 +91,9 @@ function dpa_feedback_achievement_unlock_wrapper() {
 </div><!-- #dpa-notifications-wrapper -->
 
 <?php
+	// If multisite and running network-wide, undo the switch_to_blog
+	if ( is_multisite() && dpa_is_running_networkwide() )
+		restore_current_blog();
 }
 endif;
 dpa_feedback_achievement_unlock_wrapper();
