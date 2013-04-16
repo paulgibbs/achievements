@@ -364,13 +364,13 @@ add_image_size('dpa-achievement-admin-list-thumb', 50, 50, false);
  */
  function dpa_achievements_admin_thumbnail($columns)
 {
-	$column_position = 2; //choose what position you want the categories to be added
+	$column_position = 2; //choose what position you want the categories to be added.
 	$columns_first = array_slice($columns, 0, $column_position - 1, true );
 	$columns_last = array_slice($columns, $column_position - 1, null, true );
 	$columns = array_merge
 	(
 		$columns_first,
-		array('dpa_achievement_thumb' => __('Badge')),
+		array('dpa_achievement_thumb' => __('Badge')), //change this to whatever you want to title the column.
 		$columns_last
 	);
 
