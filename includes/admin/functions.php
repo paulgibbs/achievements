@@ -194,7 +194,7 @@ function dpa_achievement_metabox_save( $achievement_id ) {
 function dpa_achievement_posts_columns( $columns ) {
 	$columns = array(
 		'cb'               	=> '<input type="checkbox" />',
-		'dpa_achievement_thumb' => __('Badge')
+		'dpa_achievement_thumb' => __('Badge', 'dpa'),
 		'title'            	=> __( 'Title', 'dpa' ),
 		'achievement_type' 	=> _x( 'Type', 'Type of the achievement; award or badge', 'dpa' ),
 		'karma'            	=> __( 'Karma Points', 'dpa' ),
