@@ -382,13 +382,8 @@ final class DPA_Achievements_Loader {
 	 */
 	public function constants() {
 		// If multisite and running network-wide, we switch_to_blog to this site to store/fetch achievement data
-		if ( ! defined( 'DPA_DATA_STORE' ) ) {
-
-			if ( defined( 'BP_ROOT_BLOG' ) )
-				define( 'DPA_DATA_STORE', BP_ROOT_BLOG );
-			else
-				define( 'DPA_DATA_STORE', 1 );
-		}
+		if ( ! defined( 'DPA_DATA_STORE' ) )
+			define( 'DPA_DATA_STORE', 1 );
 	}
 
 	/**
