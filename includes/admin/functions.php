@@ -370,7 +370,7 @@ add_image_size('dpa-achievement-admin-list-thumb', 50, 50, false);
 	$columns = array_merge
 	(
 		$columns_first,
-		array('dpa_achievement_thumb' => __('Badge')),
+		array('dpa_achievement_thumb' => __('Featured')),
 		$columns_last
 	);
 
