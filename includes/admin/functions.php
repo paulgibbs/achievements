@@ -12,6 +12,14 @@
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 /**
+ * Set thumbnail size for achievements in admin page.
+ *
+ * @since Achievements (3.2.2)
+ * @author Mike Bronner <mike.bronner@gmail.com>
+ */
+add_image_size('dpa-achievement-admin-list-thumb', 39, 39, false); //change width and height to what works best
+
+/**
  * Sets up metaboxes for the achievement post type admin screen.
  * This is a callback function which is invoked by register_post_type().
  *
@@ -185,11 +193,12 @@ function dpa_achievement_metabox_save( $achievement_id ) {
  */
 function dpa_achievement_posts_columns( $columns ) {
 	$columns = array(
-		'cb'               => '<input type="checkbox" />',
-		'title'            => __( 'Title', 'dpa' ),
-		'achievement_type' => _x( 'Type', 'Type of the achievement; award or badge', 'dpa' ),
-		'karma'            => __( 'Karma Points', 'dpa' ),
-		'date'             => __( 'Date', 'dpa' ),
+		'cb'               	=> '<input type="checkbox" />',
+		'dpa_achievement_thumb' => __('Badge')
+		'title'            	=> __( 'Title', 'dpa' ),
+		'achievement_type' 	=> _x( 'Type', 'Type of the achievement; award or badge', 'dpa' ),
+		'karma'            	=> __( 'Karma Points', 'dpa' ),
+		'date'             	=> __( 'Date', 'dpa' ),
 	);
 
 	return apply_filters( 'dpa_achievements_posts_columns', $columns );
@@ -203,13 +212,22 @@ function dpa_achievement_posts_columns( $columns ) {
  * @since Achievements (3.0)
  */
 function dpa_achievement_custom_column( $column, $post_id ) {
-	if ( 'karma' == $column ) {
-		dpa_achievement_points( $post_id );
-
-	} elseif ( 'achievement_type' == $column ) {
-		$existing_events = wp_get_post_terms( $post_id, dpa_get_event_tax_id(), array( 'fields' => 'ids', ) );
-		$existing_type   = empty( $existing_events ) ? __( 'Award', 'dpa' ) : __( 'Event', 'dpa' );
-		echo $existing_type;
+	switch ($column)
+	{
+		case 'karma':
+			dpa_achievement_points( $post_id );
+			break;
+		case 'achievement_type':
+			$existing_events = wp_get_post_terms( $post_id, dpa_get_event_tax_id(), array( 'fields' => 'ids', ) );
+			$existing_type   = empty( $existing_events ) ? __( 'Award', 'dpa' ) : __( 'Event', 'dpa' );
+			echo $existing_type;
+			break;
+		case 'dpa_achievement_thumb':
+			if (function_exists('the_post_thumbnail'))
+			{
+				echo the_post_thumbnail( 'dpa-achievement-admin-list-thumb' );
+			}
+		break;
 	}
 }
 
@@ -345,74 +363,3 @@ function dpa_achievement_index_contextual_help() {
 		'<p><a href="http://wordpress.org/support/plugin/achievements/" target="_blank">' . __( 'Support Forums', 'dpa' ) . '</a></p>'
 	);
 }
-
-/**
- * Set thumbnail size for achievements in admin page.
- *
- * @since Achievements (3.2.2)
- * @author Mike Bronner <mike.bronner@gmail.com>
- */
-add_image_size('dpa-achievement-admin-list-thumb', 39, 39, false); //change width and height to what works best
-
-/**
- * Configures the column order and headers.
- *
- * @param array $columns
- * @since Achievements (3.2.2)
- * @author Mike Bronner <mike.bronner@gmail.com>
- */
- function dpa_achievements_admin_thumbnail($columns)
-{
-	$column_position = 2; //choose what position you want the categories to be added.
-	$columns_first = array_slice($columns, 0, $column_position - 1, true );
-	$columns_last = array_slice($columns, $column_position - 1, null, true );
-	$columns = array_merge
-	(
-		$columns_first,
-		array('dpa_achievement_thumb' => __('Badge')), //change this to whatever you want to title the column.
-		$columns_last
-	);
-
-	return $columns;
-}
-
-/**
- * Register filter for function achievements_admin_thumbnail().
- *
- * @since Achievements (3.2.2)
- * @author Mike Bronner <mike.bronner@gmail.com>
- */
-add_filter('manage_edit-achievement_columns', 'dpa_achievements_admin_thumbnail');
-
-/**
- * Handles the content of the thumbnail column.
- *
- * @param array $column
- * @param int $id
- * @since Achievements (3.2.2)
- * @author Mike Bronner <mike.bronner@gmail.com>
- */
-function dpa_achievement_admin_thumbnail_column($column, $id)
-{
-	switch ($column)
-	{
-		case 'dpa_achievement_thumb':
-			if (function_exists('the_post_thumbnail'))
-			{
-				echo the_post_thumbnail( 'dpa-achievement-admin-list-thumb' );
-			}
-			else
-			{
-				echo "Thumbnails not supported.";
-			}
-		break;
-	}
-}
-
-/**
- * Register action for function dpa_achievement_admin_thumbnail_column().
- *
- * @since Achievements (3.2.2)
- * @author Mike Bronner <mike.bronner@gmail.com>
- */
-add_action('manage_posts_custom_column', 'dpa_achievement_admin_thumbnail_column', 5, 2);
