@@ -352,8 +352,8 @@ function dpa_achievement_index_contextual_help() {
  * @since Achievements (3.2.2)
  * @author Mike Bronner <mike.bronner@gmail.com>
  */
-add_image_size('achievement-admin-list-thumb', 50, 50, false);
-	
+add_image_size('dpa-achievement-admin-list-thumb', 50, 50, false);
+
 
 /**
  * Configures the column order and headers.
@@ -362,7 +362,7 @@ add_image_size('achievement-admin-list-thumb', 50, 50, false);
  * @since Achievements (3.2.2)
  * @author Mike Bronner <mike.bronner@gmail.com>
  */
- function achievements_admin_thumbnail($columns)
+ function dpa_achievements_admin_thumbnail($columns)
 {
 	$column_position = 2; //choose what position you want the categories to be added
 	$columns_first = array_slice($columns, 0, $column_position - 1, true );
@@ -383,8 +383,8 @@ add_image_size('achievement-admin-list-thumb', 50, 50, false);
  * @since Achievements (3.2.2)
  * @author Mike Bronner <mike.bronner@gmail.com>
  */
-add_filter('manage_edit-achievement_columns', 'achievements_admin_thumbnail');
-	
+add_filter('manage_edit-achievement_columns', 'dpa_achievements_admin_thumbnail');
+
 /**
  * Handles the content of the thumbnail column.
  *
@@ -400,7 +400,7 @@ function dpa_achievement_admin_thumbnail_column($column, $id)
 		case 'dpa_achievement_thumb':
 			if (function_exists('the_post_thumbnail'))
 			{
-				echo the_post_thumbnail( 'achievement-admin-list-thumb' );
+				echo the_post_thumbnail( 'dpa-achievement-admin-list-thumb' );
 			}
 			else
 			{
@@ -416,4 +416,4 @@ function dpa_achievement_admin_thumbnail_column($column, $id)
  * @since Achievements (3.2.2)
  * @author Mike Bronner <mike.bronner@gmail.com>
  */
-add_action('manage_posts_custom_column', 'achievement_admin_thumbnail_column', 5, 2);
+add_action('manage_posts_custom_column', 'dpa_achievement_admin_thumbnail_column', 5, 2);
