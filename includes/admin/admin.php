@@ -74,6 +74,11 @@ class DPA_Admin {
 		if ( dpa_is_deactivation() )
 			return;
 
+		// If the plugin's been activated network-wide, only load the admin stuff on the DPA_DATA_STORE site
+		if ( is_multisite() && dpa_is_running_networkwide() && get_current_blog_id() != DPA_DATA_STORE )
+			return;
+
+
 		// General Actions
 
 		// Add menu item to settings menu
