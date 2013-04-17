@@ -414,6 +414,10 @@ final class DPA_Achievements_Loader {
 		if ( dpa_integrate_into_buddypress() )
 			return;
 
+		// If the plugin's been activated network-wide, only register the endpoint on the DPA_DATA_STORE site
+		if ( is_multisite() && dpa_is_running_networkwide() && get_current_blog_id() != DPA_DATA_STORE )
+			return;
+
 		add_rewrite_endpoint( dpa_get_authors_endpoint(), EP_AUTHORS );  // /authors/paul/[achievements]
 	}
 
