@@ -390,6 +390,41 @@ function dpa_achievement_content( $achievement_id = 0 ) {
 	}
 
 /**
+ * Output the chosen achievement badge for the user
+ *
+ * @param int $achievement_user_id Required. User ID of the user to fetch the badge for.
+ * @param string $size Optional.
+ * @see dpa_get_achievement_badge()
+ * @since Achievements 3.2.2
+ * @author Mike Bronner <mike.bronner@gmail.com>
+ */
+function dpa_achievement_badge( $achievement_user_id, $size = 'thumbnail' )
+{
+	echo dpa_get_achievement_badge( $achievement_user_id, $size );
+}
+
+/**
+ * Output the chosen achievement badge for the user
+ *
+ * @param int $achievement_user_id Required. User ID of the user to fetch the badge for.
+ * @param string $size Optional.
+ * @since Achievements 3.2.2
+ * @author Mike Bronner <mike.bronner@gmail.com>
+ */
+function dpa_get_achievement_badge($achievement_user_id, $size = 'thumbnail')
+{
+	$achievement_id = get_user_option( '_dpa_user_achievement_badge', $achievement_user_id);
+	if (!$achievement_id)
+	{
+		$latest_achievement = dpa_get_progress(array("author"=>$achievement_user_id, "status"=>"dpa_unlocked", "orderby"=>"post_date, ID", "order"=>"DESC"));
+		$achievement_id = $latest_achievement[0]->post_parent;
+	}
+	$image = get_the_post_thumbnail($achievement_id, $size, array("title"=>dpa_get_achievement_title($achievement_id)));
+
+	return apply_filters('dpa_get_achievement_badge', $image, $achievement_id);
+}
+
+/**
  * Output the points value of the achievement.
  *
  * @param int $achievement_id Optional. Achievement ID
