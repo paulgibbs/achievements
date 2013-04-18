@@ -270,39 +270,111 @@ class DPA_Admin {
 	 * @param object $user
 	 * @since Achievements (3.0)
 	 */
-	public function add_profile_fields( $user ) {
-		if ( ! is_super_admin() )
-			return;
-	?>
-
-		<h3><?php _e( 'Achievements Settings', 'dpa' ); ?></h3>
+	public function add_profile_fields( $user )
+	{
+		$uses_categories = function_exists(register_achievements_custom_taxonomy);
+?>
+		<h3><?php _e( 'Achievements Settings', 'dpa' ); ?>test</h3>
 		<table class="form-table">
 			<tr>
 				<th><label for="dpa_achievements"><?php _ex( 'Total Points', "User&rsquo;s total points from unlocked Achievements", 'dpa' ); ?></label></th>
-				<td><input type="number" name="dpa_achievements" id="dpa_achievements" value="<?php echo esc_attr( dpa_get_user_points( $user->ID ) ); ?>" class="regular-text" />
+				<td><?php
+		if (is_super_admin())
+		{
+			?><input type="number" name="dpa_achievements" id="dpa_achievements" value="<?php
+		}
+		echo esc_attr( (int)dpa_get_user_points( $user->ID ) );
+		if (is_super_admin())
+		{
+			?>" class="regular-text" /><?php
+		}
+?>
 				</td>
 			</tr>
+<?php
+		if ( dpa_has_achievements( array( 'ach_populate_progress' => $user->ID, 'ach_progress_status' => dpa_get_unlocked_status_id(), 'posts_per_page' => -1, "orderby"=>"konb_term_relationships.term_taxonomy_id",) ) )
+		{
+?>
+			<tr>
+				<th scope="row"><?php _e( 'Unlocked Achievements', 'dpa' ); ?></th>
+				<td>
+					<span class="description"><?php
+			if (is_super_admin())
+			{
+				_e('Award achievements through checking the appropriate checkboxes.', 'dpa') . " ";
+			}
+			_e('Use the radio button to choose your badge.', 'dpa'); ?></span>
+					<fieldset>
+						<legend class="screen-reader-text"><?php _e( 'Assign or remove achievements from this user', 'dpa' ); ?></legend>
+<?php
+			$previous_achievment_category = "";
+			while ( dpa_achievements() )
+			{
+				dpa_the_achievement();
+				if ($uses_categories)
+				{
+					$current_category = "";
+					$categories = get_the_terms($post_id, 'dpa_achievement_category');
+					foreach($categories as $category)
+					{
+						if (strlen($current_category) > 0)
+						{
+							$current_category .= ", ";
+						}
+						$current_category .= $category->name;
+					}
+					
+			
+					if ($current_category != $previous_achievment_category)
+					{
+						if ($previous_achievment_category != "")
+						{
+?>
+						<br />
+<?php
+						}
+						$previous_achievment_category = $current_category;
+?>
 
-			<?php if ( dpa_has_achievements( array( 'ach_populate_progress' => $user->ID, 'ach_progress_status' => dpa_get_unlocked_status_id(), 'posts_per_page' => -1, ) ) ) : ?>
-				<tr>
-					<th scope="row"><?php _e( 'Unlocked Achievements', 'dpa' ); ?></th>
-					<td>
-						<fieldset>
-							<legend class="screen-reader-text"><?php _e( 'Assign or remove achievements from this user', 'dpa' ); ?></legend>
+						<strong><?php echo $current_category; ?>:</strong><br />
+<?php
+					}
+				}
+				if (dpa_is_achievement_unlocked() || is_super_admin())
+				{
+					if (!is_super_admin())
+					{
+?>
+						<label>
+<?php					
+					}
+?>
+						<input type="radio" name="dpa_user_achievement_badge" id="dpa_achievement_badge_<?php echo dpa_get_the_achievement_ID(); ?>" value="<?php echo esc_attr( dpa_get_the_achievement_ID() ); ?>" <?php disabled( !dpa_is_achievement_unlocked(), true ); ?> <?php checked((int)get_user_option( '_dpa_user_achievement_badge', $user->ID ), (int)dpa_get_the_achievement_ID()); ?> title="<?php _ex( 'Set Profile Badge', "Select unlocked achievement as profile badge.", 'dpa' ); ?>" />
+<?php
+					if (is_super_admin())
+					{
+?>
+						<label>
+							<input type="checkbox" name="dpa_user_achievements[]" value="<?php echo esc_attr( dpa_get_the_achievement_ID() ); ?>" <?php checked( dpa_is_achievement_unlocked(), true ); ?> onchange="document.getElementById('dpa_achievement_badge_<?php echo dpa_get_the_achievement_ID(); ?>').disabled = !this.checked; if (document.getElementById('dpa_achievement_badge_<?php echo dpa_get_the_achievement_ID(); ?>').disabled) {document.getElementById('dpa_achievement_badge_<?php echo dpa_get_the_achievement_ID(); ?>').checked = false;}">
+<?php
+					}
+?>
+							<?php dpa_achievement_title(); ?>
+						</label>
+						<br />
+<?php
+				}
+			}
+?>
 
-							<?php while ( dpa_achievements() ) : ?>
-								<?php dpa_the_achievement(); ?>
-
-								<label><input type="checkbox" name="dpa_user_achievements[]" value="<?php echo esc_attr( dpa_get_the_achievement_ID() ); ?>" <?php checked( dpa_is_achievement_unlocked(), true ); ?>> <?php dpa_achievement_title(); ?></label><br>
-							<?php endwhile; ?>
-
-						</fieldset>
-					</td>
-				</tr>
-			<?php endif; ?>
-
+					</fieldset>
+				</td>
+			</tr>
+<?php
+		}
+?>
 		</table>
-
+<?php
 	<?php
 	}
 
@@ -319,11 +391,23 @@ class DPA_Admin {
 
 		if ( ! isset( $_POST['dpa_user_achievements'] ) )
 			$_POST['dpa_user_achievements'] = array();
+		if ( empty( $user_id ) && is_user_logged_in() )
+		{
+			$user_id = get_current_user_id();
+		}
+		if ( empty( $user_id ) ) {return false;}
 
 		// If multisite and running network-wide, switch_to_blog to the data store site
 		if ( is_multisite() && dpa_is_running_networkwide() )
 			switch_to_blog( DPA_DATA_STORE );
 
+		if ( current_user_can( 'edit_user', $user_id ) )
+		{
+			// As Achievements can run independently (as well as sitewide) on a multisite, decide where to store the user option
+			$store_global = is_multisite() && dpa_is_running_networkwide();
+			$new_value = apply_filters( 'dpa_update_user_points', $_POST['dpa_user_achievement_badge'], $user_id );
+			update_user_option( $user_id, '_dpa_user_achievement_badge', $new_value, $store_global );
+		}
 
 		// Update user's points
 		dpa_update_user_points( (int) $_POST['dpa_achievements'], $user_id );
