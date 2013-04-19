@@ -273,3 +273,74 @@ function dpa_form_redeem_achievement( $action = '' ) {
 	if ( is_multisite() && dpa_is_running_networkwide() )
 		restore_current_blog();
 }
+
+/**
+ * Returns either the ranking for the current user (single row result) or for all users (limited to the current page, if not overriden).
+ * 
+ *
+ * @param bool $show_current_user Optional. If true will get the ranking for the current user only. Default is false.
+ * @param int $offset Optional. If set, will start the query from a given offset record. Default is to use normal pagination offset.
+ * @param int $posts_per_page Optional. If set, will change the number of records returned per page. Default is Wordpress default value.
+ * 
+ * @return array. Two-dimensional array is returned, array["restults"] holds search results, while array["total_number_of_pages"] holds the max number of pages which can be used for pagination links.
+ * @since Achievements (3.2.2)
+ * @author Mike Bronner <mike.bronner@gmail.com>
+ */
+function dpa_get_leaderboard_rankings($show_current_user = false, $offset = null, $posts_per_page = null)
+{
+	global $wpdb;
+	
+	if ($show_current_user)
+	{
+		get_currentuserinfo();
+	}
+	if (null === $posts_per_page)
+	{
+		$posts_per_page = intval(get_query_var('posts_per_page'));
+	}
+	$db_prefix = $wpdb->base_prefix;
+    $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
+    $posts_per_page = intval(get_query_var('posts_per_page'));
+    if (null === $offset)
+    {
+	    $offset = ($paged - 1) * $posts_per_page;
+	}
+	$leaderboard_query = "SELECT SQL_CALC_FOUND_ROWS
+				person.*
+				,nick.meta_value AS nickname
+				,SUM(karma.meta_value) AS total_karma
+				,FIND_IN_SET(karma.meta_value, (SELECT  GROUP_CONCAT(DISTINCT ranking.meta_value ORDER BY ranking.meta_value  DESC) FROM konb_usermeta AS ranking WHERE ranking.meta_key = 'konb__dpa_points')) as rank
+			FROM " . $db_prefix . "users AS person
+			LEFT JOIN " . $db_prefix . "usermeta as nick
+				ON person.id = nick.user_id
+				AND nick.meta_key = 'nickname'
+			LEFT JOIN " . $db_prefix . "usermeta as karma
+				ON person.id = karma.user_id
+				AND karma.meta_key = '" . $db_prefix . "_dpa_points'
+		WHERE 1 = 1";
+	if ($show_current_user)
+	{
+		$leaderboard_query .= "
+			AND ID = " . $current_user->ID;
+	}
+	$leaderboard_query .= "
+		GROUP BY nick.meta_value
+			,person.ID
+		ORDER BY total_karma DESC
+			,person.user_registered ASC";
+	if ($show_current_user)
+	{
+		$leaderboard_query .= "
+		LIMIT 0, 1;";
+	}
+	else
+	{
+		$leaderboard_query .= "
+		LIMIT " . $offset . ", " . $posts_per_page . ";";
+	}
+	$leaderboard["results"] = $wpdb->get_results($wpdb->prepare($leaderboard_query, null));
+	$sql_posts_total = $wpdb->get_var( "SELECT FOUND_ROWS();" );
+    $leaderboard["total_number_of_pages"] = ceil($sql_posts_total / $posts_per_page);
+
+    return $leaderboard;
+}
