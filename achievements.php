@@ -470,43 +470,27 @@ final class DPA_Achievements_Loader {
 
 		// CPT filter
 		$cpt['achievement'] = apply_filters( 'dpa_register_post_type_achievement', array(
-			'can_export'           => true,
 			'capabilities'         => dpa_get_achievement_caps(),
 			'capability_type'      => array( 'achievement', 'achievements' ),
 			'delete_with_user'     => false,
 			'description'          => _x( 'Achievements types (e.g. new post, new site, new user)', 'Achievement post type description', 'dpa' ),
-			'exclude_from_search'  => false,
 			'has_archive'          => true,
-			'hierarchical'         => false,
 			'labels'               => $labels['achievement'],
 			'public'               => true,
-			'publicly_queryable'   => true,
-			'query_var'            => true,
 			'rewrite'              => $rewrite['achievement'],
 			'register_meta_box_cb' => 'dpa_admin_setup_metaboxes',
-			'show_in_admin_bar'    => true,
 			'show_in_menu'         => true,
-			'show_in_nav_menus'    => true,
 			'show_ui'              => dpa_current_user_can_see( dpa_get_achievement_post_type() ),
 			'supports'             => $supports['achievement'],
 		) );
 		$cpt['achievement_progress'] = apply_filters( 'dpa_register_post_type_achievement_progress', array(
-			'can_export'          => true,
 			'capabilities'        => dpa_get_achievement_progress_caps(),
 			'capability_type'     => array( 'achievement_progress', 'achievement_progresses' ),
 			'delete_with_user'    => true,
 			'description'         => _x( 'Achievement Progress (e.g. unlocked achievements for a user, progress on an achievement for a user)', 'Achievement Progress post type description', 'dpa' ),
-			'exclude_from_search' => true,
-			'has_archive'         => false,
-			'hierarchical'        => false,
 			'public'              => false,
-			'publicly_queryable'  => false,
 			'query_var'           => false,
 			'rewrite'             => false,
-			'show_in_admin_bar'   => false,
-			'show_in_menu'        => false,
-			'show_in_nav_menus'   => false,
-			'show_ui'             => false,
 			'supports'            => $supports['achievement_progress'],
 		) );
 
