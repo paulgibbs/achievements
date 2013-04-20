@@ -429,6 +429,19 @@ final class DPA_Achievements_Loader {
 	public function register_post_types() {
 		$cpt = $labels = $rewrite = $supports = array();
 
+		/**
+		 * If the plugin's been activated network-wide, only allow the normal access and behaviour on the DPA_DATA_STORE site.
+		 * This prevents the admin controls showing up on the wrong site's wp-admin, as well as the overhead of unused rewrite rules.
+		 *
+		 * The problem with this is that the post type needs to be registered all on sites in a multisite all the time, otherwise
+		 * achievements can't be awarded. See _update_blog_date_on_post_publish() which tries to create (in our case) a
+		 * "dpa-progress" post.
+		 *
+		 * The solution to this is $post_type_is_public. If it's false, the post type is registered, but it's hidden from the admin,
+		 * isn't publicly queryable, doesn't create rewrite rules, and so on. If it's set to true, the post type behaves as normal.
+		 */
+		$post_type_is_public = ( is_multisite() && dpa_is_running_networkwide() && get_current_blog_id() != DPA_DATA_STORE ) ? false : true;
+
 		// CPT labels
 		$labels['achievement'] = array(
 			'add_new'            => _x( 'Add New', 'achievement',          'dpa' ),
@@ -474,12 +487,12 @@ final class DPA_Achievements_Loader {
 			'capability_type'      => array( 'achievement', 'achievements' ),
 			'delete_with_user'     => false,
 			'description'          => _x( 'Achievements types (e.g. new post, new site, new user)', 'Achievement post type description', 'dpa' ),
-			'has_archive'          => true,
+			'has_archive'          => $post_type_is_public,
 			'labels'               => $labels['achievement'],
-			'public'               => true,
+			'public'               => $post_type_is_public,
 			'rewrite'              => $rewrite['achievement'],
 			'register_meta_box_cb' => 'dpa_admin_setup_metaboxes',
-			'show_in_menu'         => true,
+			'show_in_menu'         => $post_type_is_public,
 			'show_ui'              => dpa_current_user_can_see( dpa_get_achievement_post_type() ),
 			'supports'             => $supports['achievement'],
 		) );
