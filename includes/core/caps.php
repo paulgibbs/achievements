@@ -83,7 +83,9 @@ function dpa_map_meta_caps( $caps, $cap, $user_id, $args ) {
 		// Reading
 		case 'read_achievement'          :
 		case 'read_achievement_progress' :
-			if ( $post = get_post( $args[0] ) ) {
+			$post = get_post( $args[0] );
+			if ( ! empty( $post ) ) {
+
 				$caps      = array();
 				$post_type = get_post_type_object( $post->post_type );
 
