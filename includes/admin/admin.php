@@ -349,12 +349,22 @@ class DPA_Admin {
 
 		// Remove achievements :(
 		if ( ! empty( $achievements_to_remove ) ) {
-			foreach ( $achievements_to_remove as $achievement_id )
+			$notifications = dpa_get_user_notifications( $user_id );
+
+			foreach ( $achievements_to_remove as $achievement_id ) {
 				dpa_delete_achievement_progress( $achievement_id, $user_id );
+
+				// Check this achievement isn't in the user's pending notifications
+				if ( isset( $notifications[$achievement_id] ) )
+					unset( $notifications[$achievement_id]);
+			}
 
 			// Decrease user unlocked count
 			$unlock_count = dpa_get_user_unlocked_count( $user_id ) - count( $achievements_to_remove );
 			dpa_update_user_unlocked_count( $user_id, $unlock_count );
+
+			// Update the user's notifications in case we cleared any above
+			dpa_update_user_notifications( $notifications, $user_id );
 		}
 
 
