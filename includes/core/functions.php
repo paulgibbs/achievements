@@ -43,6 +43,11 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  * @since Achievements (3.0)
  */
 function dpa_maybe_update_extensions() {
+
+	// If Achievements is being deactivated, bail out
+	if ( dpa_is_deactivation( achievements()->basename ) )
+		return;
+
 	// Only do things if the user is active (logged in and not a spammer) and in wp-admin
 	if ( ! dpa_is_user_active() || ! is_admin() )
 		return;
@@ -101,6 +106,11 @@ function dpa_maybe_update_extensions() {
  * @since Achievements (3.0)
  */
 function dpa_register_events() {
+
+	// If Achievements is being deactivated, bail out
+	if ( dpa_is_deactivation( achievements()->basename ) )
+		return;
+
 	// Only do things if the user is active (logged in and not a spammer)
 	if ( ! dpa_is_user_active() )
 		return;
