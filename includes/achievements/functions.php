@@ -309,7 +309,7 @@ function dpa_get_leaderboard_rankings($show_current_user = false, $offset = null
 				person.*
 				,nick.meta_value AS nickname
 				,SUM(karma.meta_value) AS total_karma
-				,FIND_IN_SET(karma.meta_value, (SELECT  GROUP_CONCAT(DISTINCT ranking.meta_value ORDER BY ranking.meta_value  DESC) FROM " . $db_prefix . "usermeta AS ranking WHERE ranking.meta_key = '" . $db_prefix . "_dpa_points')) as rank
+				,FIND_IN_SET(karma.meta_value, (SELECT  GROUP_CONCAT(DISTINCT ranking.meta_value ORDER BY CONVERT(ranking.meta_value, SIGNED) DESC) FROM " . $db_prefix . "usermeta AS ranking WHERE ranking.meta_key = '" . $db_prefix . "_dpa_points')) as rank
 			FROM " . $db_prefix . "users AS person
 			LEFT JOIN " . $db_prefix . "usermeta as nick
 				ON person.id = nick.user_id
