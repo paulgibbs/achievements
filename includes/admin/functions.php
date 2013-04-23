@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  * @since Achievements (3.2.2)
  * @author Mike Bronner <mike.bronner@gmail.com>
  */
-add_image_size('dpa-thumb', 39, 39, false); //change width and height to what works best
+add_image_size( 'dpa-thumb', 32, 32 );
 
 /**
  * Sets up metaboxes for the achievement post type admin screen.
@@ -194,7 +194,7 @@ function dpa_achievement_metabox_save( $achievement_id ) {
 function dpa_achievement_posts_columns( $columns ) {
 	$columns = array(
 		'cb'               => '<input type="checkbox" />',
-		'dpa_thumb'        => __( 'Featured Image', 'dpa' ),
+		'dpa_thumb'        => _x( 'Image', 'Featured Image column title', 'dpa' ),
 		'title'            => __( 'Title', 'dpa' ),
 		'achievement_type' => _x( 'Type', 'Type of the achievement; award or badge', 'dpa' ),
 		'karma'            => __( 'Karma Points', 'dpa' ),

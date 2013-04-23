@@ -186,14 +186,17 @@ class DPA_Admin {
 			add_action( "admin_print_scripts-$hook", array( $this, 'enqueue_scripts' ) );
 
 			// Hook into early actions to register contextual help and screen options
-			add_action( "load-$hook",                array( $this, 'screen_options' ) );
+			add_action( "load-$hook", array( $this, 'screen_options' ) );
 		}
 
+		// Actions for the edit.php?post_type=achievement index screen
+		add_action( 'load-edit.php', array( $this, 'enqueue_index_styles' ) );
+
 		// Add/save custom profile field on the edit user screen
-		add_action( 'edit_user_profile',         array( $this, 'add_profile_fields'  ) );
-		add_action( 'show_user_profile',         array( $this, 'add_profile_fields'  ) );
-		add_action( 'edit_user_profile_update',  array( $this, 'save_profile_fields' ) );
-		add_action( 'personal_options_update',   array( $this, 'save_profile_fields' ) );
+		add_action( 'edit_user_profile',        array( $this, 'add_profile_fields'  ) );
+		add_action( 'show_user_profile',        array( $this, 'add_profile_fields'  ) );
+		add_action( 'edit_user_profile_update', array( $this, 'save_profile_fields' ) );
+		add_action( 'personal_options_update',  array( $this, 'save_profile_fields' ) );
 	}
 
 	/**
@@ -232,6 +235,20 @@ class DPA_Admin {
 		// Achievements "users" screen
 		elseif ( 'achievements-users' == $_GET['page'] )
 			wp_enqueue_style( 'dpa_admin_users_css', trailingslashit( $this->css_url ) . "users{$rtl}.css", array(), '20130113' );
+	}
+
+	/**
+	 * Enqueue CSS for the edit.php?post_type=achievement index screen
+	 *
+	 * @since Achievements (3.3)
+	 */
+	public function enqueue_index_styles() {
+
+		// Only load up styles if we're on an Achievements admin screen
+		if ( ! DPA_Admin::is_admin_screen() )
+			return;
+
+		wp_enqueue_style( 'dpa_admin_index_css', trailingslashit( $this->css_url ) . 'admin-editindex.css', array(), '20130423' );
 	}
 
 	/**
