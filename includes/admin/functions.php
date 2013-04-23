@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  * @since Achievements (3.2.2)
  * @author Mike Bronner <mike.bronner@gmail.com>
  */
-add_image_size('dpa-achievement-admin-list-thumb', 39, 39, false); //change width and height to what works best
+add_image_size('dpa-thumb', 39, 39, false); //change width and height to what works best
 
 /**
  * Sets up metaboxes for the achievement post type admin screen.
@@ -193,12 +193,12 @@ function dpa_achievement_metabox_save( $achievement_id ) {
  */
 function dpa_achievement_posts_columns( $columns ) {
 	$columns = array(
-		'cb'               	=> '<input type="checkbox" />',
-		'dpa_achievement_thumb' => __('Badge', 'dpa'),
-		'title'            	=> __( 'Title', 'dpa' ),
-		'achievement_type' 	=> _x( 'Type', 'Type of the achievement; award or badge', 'dpa' ),
-		'karma'            	=> __( 'Karma Points', 'dpa' ),
-		'date'             	=> __( 'Date', 'dpa' ),
+		'cb'               => '<input type="checkbox" />',
+		'dpa_thumb'        => __( 'Badge', 'dpa' ),
+		'title'            => __( 'Title', 'dpa' ),
+		'achievement_type' => _x( 'Type', 'Type of the achievement; award or badge', 'dpa' ),
+		'karma'            => __( 'Karma Points', 'dpa' ),
+		'date'             => __( 'Date', 'dpa' ),
 	);
 
 	return apply_filters( 'dpa_achievements_posts_columns', $columns );
@@ -212,22 +212,16 @@ function dpa_achievement_posts_columns( $columns ) {
  * @since Achievements (3.0)
  */
 function dpa_achievement_custom_column( $column, $post_id ) {
-	switch ($column)
-	{
-		case 'karma':
-			dpa_achievement_points( $post_id );
-			break;
-		case 'achievement_type':
-			$existing_events = wp_get_post_terms( $post_id, dpa_get_event_tax_id(), array( 'fields' => 'ids', ) );
-			$existing_type   = empty( $existing_events ) ? __( 'Award', 'dpa' ) : __( 'Event', 'dpa' );
-			echo $existing_type;
-			break;
-		case 'dpa_achievement_thumb':
-			if (function_exists('the_post_thumbnail'))
-			{
-				echo the_post_thumbnail( 'dpa-achievement-admin-list-thumb' );
-			}
-		break;
+	if ( 'karma' == $column ) {
+		dpa_achievement_points( $post_id );
+
+	} elseif ( 'achievement_type' == $column ) {
+		$existing_events = wp_get_post_terms( $post_id, dpa_get_event_tax_id(), array( 'fields' => 'ids', ) );
+		$existing_type   = empty( $existing_events ) ? __( 'Award', 'dpa' ) : __( 'Event', 'dpa' );
+		echo $existing_type;
+
+	} elseif ( 'dpa_thumb' == $column ) {
+			echo the_post_thumbnail( 'dpa-thumb' );
 	}
 }
 
