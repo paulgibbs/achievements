@@ -221,7 +221,7 @@ function dpa_achievement_custom_column( $column, $post_id ) {
 		echo $existing_type;
 
 	} elseif ( 'dpa_thumb' == $column ) {
-			echo the_post_thumbnail( 'dpa-thumb' );
+			the_post_thumbnail( 'dpa-thumb' );
 	}
 }
 
