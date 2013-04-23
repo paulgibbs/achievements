@@ -110,6 +110,9 @@ class DPA_Admin {
 		add_action( 'load-post-new.php',                        'dpa_achievement_new_contextual_help' );
 		add_action( 'load-post.php',                            'dpa_achievement_new_contextual_help' );
 
+		// Add thumbnail size for the edit.php?post_type=achievement index screen
+		add_image_size( 'dpa-thumb', 32, 32 );
+
 
 		// Dependencies
 

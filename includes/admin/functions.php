@@ -12,14 +12,6 @@
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 /**
- * Set thumbnail size for achievements in admin page.
- *
- * @since Achievements (3.2.2)
- * @author Mike Bronner <mike.bronner@gmail.com>
- */
-add_image_size( 'dpa-thumb', 32, 32 );
-
-/**
  * Sets up metaboxes for the achievement post type admin screen.
  * This is a callback function which is invoked by register_post_type().
  *
