@@ -116,16 +116,17 @@ function dpa_has_progress( $args = array() ) {
 	}
 
 	// If on a user's achievements page, we need to fetch the achievements
-	if ( $args['ach_populate_achievements'] && achievements()->progress_query->have_posts() ) {
+	if ( $args['ach_populate_achievements'] && achievements()->progress_query->have_posts() )
+	{
 		$achievement_ids = wp_list_pluck( (array) achievements()->progress_query->posts, 'post_parent' );
-
-		$achievement_args = array(
-			'post__in'       => $achievement_ids,  // Only get achievements that relate to the progressses we've got.
-			'posts_per_page' => -1,                // No pagination
+		$achievement_args = array
+		(
+			'post__in'			=> $achievement_ids,	// Only get achievements that relate to the progressses we've got.
+			'posts_per_page'	=> -1,					// No pagination
+			'orderby'			=> $args['orderby'],	//add orderby fields to make sure achievements display in the same order as the progress items
+			'order'				=> $args['order'],		//add order criterium to make sure achievements are ordered in the same fashion as progress items
 		);
-
-		// Run the query
-		dpa_has_achievements( $achievement_args );
+		dpa_has_achievements( $achievement_args );		// Run the query
 	}
 
 	// If multisite and running network-wide, undo the switch_to_blog
