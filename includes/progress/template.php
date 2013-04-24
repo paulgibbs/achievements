@@ -125,7 +125,6 @@ function dpa_has_progress( $args = array() ) {
 			'post__in'       => $achievement_ids, // Only get achievements that relate to the progressses we've got.
 			'posts_per_page' => -1,               // No pagination
 		);
-		$achievement_args = dpa_parse_args( $args_filters, $achievement_args, 'has_achievement' );
 		dpa_has_achievements( $achievement_args );		// Run the query
 	}
 
