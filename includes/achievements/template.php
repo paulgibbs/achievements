@@ -80,7 +80,7 @@ function dpa_has_achievements( $args = array() ) {
 				$progress_user_ids = dpa_get_displayed_user_id();
 
 			} elseif ( is_user_logged_in() ) {
-				$progress_user_ids = achievements()->current_user->ID;
+				$progress_user_ids = get_current_user_id();
 			}
 
 		} else {
