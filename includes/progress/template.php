@@ -116,15 +116,14 @@ function dpa_has_progress( $args = array() ) {
 	}
 
 	// If on a user's achievements page, we need to fetch the achievements
-	if ( $args['ach_populate_achievements'] && achievements()->progress_query->have_posts() )
-	{
+	if ( $args['ach_populate_achievements'] && achievements()->progress_query->have_posts() ) {
 		$achievement_ids = wp_list_pluck( (array) achievements()->progress_query->posts, 'post_parent' );
-		$achievement_args = array
-		(
-			'post__in'			=> $achievement_ids,	// Only get achievements that relate to the progressses we've got.
-			'posts_per_page'	=> -1,					// No pagination
-			'orderby'			=> $args['orderby'],	//add orderby fields to make sure achievements display in the same order as the progress items
-			'order'				=> $args['order'],		//add order criterium to make sure achievements are ordered in the same fashion as progress items
+
+		$achievement_args = array(
+			'order'          => $args['order'],   // Add order criterium to make sure achievements are ordered in the same fashion as progress items
+			'orderby'        => $args['orderby'], // Add orderby fields to make sure achievements display in the same order as the progress items
+			'post__in'       => $achievement_ids, // Only get achievements that relate to the progressses we've got.
+			'posts_per_page' => -1,               // No pagination
 		);
 		$achievement_args = dpa_parse_args( $args_filters, $achievement_args, 'has_achievement' );
 		dpa_has_achievements( $achievement_args );		// Run the query
