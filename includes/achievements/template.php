@@ -756,29 +756,28 @@ function dpa_achievement_pagination_links() {
 /**
  * Output the featured image of the achievement
  *
- * @param int $achievement_id Optional. Achievement ID
- * @param string $size Optional. Can be one of: post-thumbnail, thumbnail, medium, large or full
- * @see dpa_get_achievement_title()
- * @since Achievements 3.2.2
  * @author Mike Bronner <mike.bronner@gmail.com>
+ * @param int $achievement_id Optional. Achievement ID
+ * @param string $size Optional. Can be one of: post-thumbnail*, thumbnail, medium, large, full.
+ * @see dpa_get_achievement_title()
+ * @since Achievements (3.3)
  */
-function dpa_achievement_image($achievement_id = 0, $size = 'post-thumbnail')
-{
-	echo dpa_get_achievement_image($achievement_id, $size);
+function dpa_achievement_image( $achievement_id = 0, $size = 'post-thumbnail' ) {
+	echo dpa_get_achievement_image( $achievement_id, $size );
 }
 
 /**
  * Output the featured image of the achievement
  *
- * @param int $achievement_id Optional. Achievement ID
- * @param string $size Optional. Can be one of: post-thumbnail, thumbnail, medium, large or full
- * @since Achievements 3.2.2
  * @author Mike Bronner <mike.bronner@gmail.com>
+ * @param int $achievement_id Optional. Achievement ID
+ * @param string $size Optional. Can be one of: post-thumbnail*, thumbnail, medium, large, full.
+ * @return string HTML <img> tag
+ * @since Achievements (3.3)
  */
-function dpa_get_achievement_image($achievement_id = 0, $size = 'post-thumbnail')
-{
-	$achievement_id = dpa_get_achievement_ID($achievement_id);
-	$image          = get_the_post_thumbnail($achievement_id, $size, array("title"=>dpa_get_achievement_title($achievement_id)));
+function dpa_get_achievement_image( $achievement_id = 0, $size = 'post-thumbnail' ) {
+	$achievement_id = dpa_get_achievement_id( $achievement_id );
+	$image          = get_the_post_thumbnail( $achievement_id, $size, array( 'title' => dpa_get_achievement_title( $achievement_id ) ) );
 
-	return apply_filters('dpa_get_achievement_image', $image, $achievement_id);
+	return apply_filters( 'dpa_get_achievement_image', $image, $achievement_id );
 }
