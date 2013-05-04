@@ -83,15 +83,30 @@ function dpa_map_meta_caps( $caps, $cap, $user_id, $args ) {
 		// Reading
 		case 'read_achievement'          :
 		case 'read_achievement_progress' :
-			if ( $post = get_post( $args[0] ) ) {
+			$post = get_post( $args[0] );
+			if ( ! empty( $post ) ) {
+
 				$caps      = array();
 				$post_type = get_post_type_object( $post->post_type );
 
+				// Public post
 				if ( 'publish' == $post->post_status )
 					$caps[] = 'read';
+
+				// User is author so allow read
+				elseif ( (int) $user_id == (int) $post->post_author )
+					$caps = 'read';
+
 				else
 					$caps[] = $post_type->cap->read_private_posts;
 			}
+
+			break;
+
+		case 'read_achievements':
+			// Add do_not_allow cap if user is spam or deleted
+			if ( ! dpa_is_user_active( $user_id ) )
+				$caps = array( 'do_not_allow' );		
 
 			break;
 
@@ -184,6 +199,7 @@ function dpa_get_achievement_caps() {
 		'edit_posts'          => 'edit_achievements',
 		'edit_others_posts'   => 'edit_others_achievements',
 		'publish_posts'       => 'publish_achievements',
+		'read_posts'          => 'read_achievements',
 		'read_private_posts'  => 'read_private_achievements',
 	);
 
@@ -248,6 +264,7 @@ function dpa_get_caps_for_role( $role = '' ) {
 				'edit_others_achievements',
 				'publish_achievements',
 				'read_private_achievements',
+				'read_achievements',
 
 				// Achievement progress caps
 				'delete_achievement_progresses',
@@ -274,6 +291,7 @@ function dpa_get_caps_for_role( $role = '' ) {
 				'edit_achievements',
 				'publish_achievements',
 				'read_private_achievements',
+				'read_achievements',
 
 				// Achievement progress caps
 				'delete_achievement_progresses',
@@ -298,6 +316,7 @@ function dpa_get_caps_for_role( $role = '' ) {
 				'delete_achievement_progresses',
 				'edit_achievement_progresses',
 				'publish_achievement_progresses',
+				'read_achievements',
 			);
 
 			break;

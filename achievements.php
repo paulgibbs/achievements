@@ -13,13 +13,13 @@
 Plugin Name: Achievements
 Plugin URI: http://achievementsapp.com/
 Description: Achievements gamifies your WordPress site with challenges, badges, and points.
-Version: 3.2.2
+Version: 3.2.3
 Requires at least: 3.5.1
 Tested up to: 3.6
 License: GPLv3
 Author: Paul Gibbs
 Author URI: http://byotos.com/
-Domain Path: ../../languages/plugins/achievements/
+Domain Path: ../../languages/plugins/
 Text Domain: dpa
 
 "Achievements"
@@ -62,13 +62,6 @@ final class DPA_Achievements_Loader {
 	private $data;
 
 	/**
-	 * Current user
-	 *
-	 * @var stdClass|WP_User Empty when not logged in; WP_User object when logged in. (By ref)
-	 */
-	public $current_user;
-
-	/**
 	 * Other plugins append data here. Used to store information about the supported plugin
 	 * and a list of its actions that you want to support.
 	 *
@@ -77,11 +70,6 @@ final class DPA_Achievements_Loader {
 	 * @var stdClass
 	 */
 	public $extensions;
-
-	/**
-	 * @var array Achievement views
-	 */
-	public $views        = array();
 
 	/**
 	 * @var array Overloads get_option()
@@ -217,9 +205,6 @@ final class DPA_Achievements_Loader {
 		$this->locked_status_id   = apply_filters( 'dpa_locked_post_status',   'dpa_locked'   );
 		$this->unlocked_status_id = apply_filters( 'dpa_unlocked_post_status', 'dpa_unlocked' );
 
-		// Other identifiers
-		$this->view_id = apply_filters( 'dpa_view_id', 'dpa_view' );
-
 		// Queries
 		$this->current_achievement_id = 0;  // Current achievement ID
 
@@ -229,9 +214,6 @@ final class DPA_Achievements_Loader {
 		// Theme compat
 		$this->theme_compat = new stdClass();  // Base theme compatibility class
 		$this->filters      = new stdClass();  // Used when adding/removing filters
-
-		// Users
-		$this->current_user   = new stdClass();  // Currently logged in user -- @todo Is this redundant?
 
 		// Other stuff
 		$this->domain     = 'dpa';            // Unique identifier for retrieving translated strings
@@ -356,7 +338,6 @@ final class DPA_Achievements_Loader {
 		// Add the core actions
 		$actions = array(
 			'setup_theme',               // Setup the default theme compat
-			'setup_current_user',        // Set up currently logged in user
 			'register_post_types',       // Register post types (achievement, dpa_progress)
 			'register_post_statuses',    // Register post statuses (dpa_progress: locked, unlocked)
 			'register_taxonomies',       // Register taxonomies (dpa_event)
@@ -414,6 +395,10 @@ final class DPA_Achievements_Loader {
 		if ( dpa_integrate_into_buddypress() )
 			return;
 
+		// If the plugin's been activated network-wide, only register the endpoint on the DPA_DATA_STORE site
+		if ( is_multisite() && dpa_is_running_networkwide() && get_current_blog_id() != DPA_DATA_STORE )
+			return;
+
 		add_rewrite_endpoint( dpa_get_authors_endpoint(), EP_AUTHORS );  // /authors/paul/[achievements]
 	}
 
@@ -424,6 +409,19 @@ final class DPA_Achievements_Loader {
 	 */
 	public function register_post_types() {
 		$cpt = $labels = $rewrite = $supports = array();
+
+		/**
+		 * If the plugin's been activated network-wide, only allow the normal access and behaviour on the DPA_DATA_STORE site.
+		 * This prevents the admin controls showing up on the wrong site's wp-admin, as well as the overhead of unused rewrite rules.
+		 *
+		 * The problem with this is that the post type needs to be registered all on sites in a multisite all the time, otherwise
+		 * achievements can't be awarded. See _update_blog_date_on_post_publish() which tries to create (in our case) a
+		 * "dpa-progress" post.
+		 *
+		 * The solution to this is $post_type_is_public. If it's false, the post type is registered, but it's hidden from the admin,
+		 * isn't publicly queryable, doesn't create rewrite rules, and so on. If it's set to true, the post type behaves as normal.
+		 */
+		$post_type_is_public = ( is_multisite() && dpa_is_running_networkwide() && get_current_blog_id() != DPA_DATA_STORE ) ? false : true;
 
 		// CPT labels
 		$labels['achievement'] = array(
@@ -466,44 +464,28 @@ final class DPA_Achievements_Loader {
 
 		// CPT filter
 		$cpt['achievement'] = apply_filters( 'dpa_register_post_type_achievement', array(
-			'can_export'           => true,
 			'capabilities'         => dpa_get_achievement_caps(),
 			'capability_type'      => array( 'achievement', 'achievements' ),
 			'delete_with_user'     => false,
 			'description'          => _x( 'Achievements types (e.g. new post, new site, new user)', 'Achievement post type description', 'dpa' ),
-			'exclude_from_search'  => false,
-			'has_archive'          => true,
-			'hierarchical'         => false,
+			'has_archive'          => $post_type_is_public,
 			'labels'               => $labels['achievement'],
-			'public'               => true,
-			'publicly_queryable'   => true,
-			'query_var'            => true,
+			'public'               => $post_type_is_public,
 			'rewrite'              => $rewrite['achievement'],
 			'register_meta_box_cb' => 'dpa_admin_setup_metaboxes',
-			'show_in_admin_bar'    => true,
-			'show_in_menu'         => true,
-			'show_in_nav_menus'    => true,
+			'show_in_menu'         => $post_type_is_public,
 			'show_ui'              => dpa_current_user_can_see( dpa_get_achievement_post_type() ),
 			'supports'             => $supports['achievement'],
 			'taxonomies'		=> array('dpa_achievement_category'),
 		) );
 		$cpt['achievement_progress'] = apply_filters( 'dpa_register_post_type_achievement_progress', array(
-			'can_export'          => true,
 			'capabilities'        => dpa_get_achievement_progress_caps(),
 			'capability_type'     => array( 'achievement_progress', 'achievement_progresses' ),
 			'delete_with_user'    => true,
 			'description'         => _x( 'Achievement Progress (e.g. unlocked achievements for a user, progress on an achievement for a user)', 'Achievement Progress post type description', 'dpa' ),
-			'exclude_from_search' => true,
-			'has_archive'         => false,
-			'hierarchical'        => false,
 			'public'              => false,
-			'publicly_queryable'  => false,
 			'query_var'           => false,
 			'rewrite'             => false,
-			'show_in_admin_bar'   => false,
-			'show_in_menu'        => false,
-			'show_in_nav_menus'   => false,
-			'show_ui'             => false,
 			'supports'            => $supports['achievement_progress'],
 			'taxonomies'		=> array('dpa_achievement_category'),
 		) );
@@ -663,17 +645,6 @@ final class DPA_Achievements_Loader {
 			'parent' => 'user-actions',
 			'title'  => _x( 'My Achievements', 'Menu item in the toolbar', 'dpa' ),
 		) );
-	}
-
-	/**
-	 * Set up the currently logged in user.
-	 *
-	 * Do not call this before the 'init' action has started.
-	 *
-	 * @since Achievements (3.0)
-	 */
-	public function setup_current_user() {
-		$this->current_user = &wp_get_current_user();
 	}
 
 	/**

@@ -80,7 +80,7 @@ function dpa_has_achievements( $args = array() ) {
 				$progress_user_ids = dpa_get_displayed_user_id();
 
 			} elseif ( is_user_logged_in() ) {
-				$progress_user_ids = achievements()->current_user->ID;
+				$progress_user_ids = get_current_user_id();
 			}
 
 		} else {
@@ -669,6 +669,37 @@ function dpa_achievement_class( $achievement_id = 0, $classes = array() ) {
 		$retval = 'class="' . join( ' ', $classes ) . '"';
 		return $retval;
 	}
+
+/**
+ * Output the featured image of the achievement
+ *
+ * @author Mike Bronner <mike.bronner@gmail.com>
+ * @param int $achievement_id Optional. Achievement ID
+ * @param string $size Optional. Can be one of: post-thumbnail*, thumbnail, medium, large, full.
+ * @param string|array $attr Optional. Query string or array of attributes; see get_the_post_thumbnail().
+ * @see dpa_get_achievement_title()
+ * @since Achievements (3.3)
+ */
+function dpa_achievement_image( $achievement_id = 0, $size = 'post-thumbnail', $attr = '' ) {
+	echo dpa_get_achievement_image( $achievement_id, $size );
+}
+
+/**
+ * Output the featured image of the achievement
+ *
+ * @author Mike Bronner <mike.bronner@gmail.com>
+ * @param int $achievement_id Optional. Achievement ID
+ * @param string $size Optional. Can be one of: post-thumbnail*, thumbnail, medium, large, full.
+ * @param string|array $attr Optional. Query string or array of attributes; see get_the_post_thumbnail().
+ * @return string HTML <img> tag
+ * @since Achievements (3.3)
+ */
+function dpa_get_achievement_image( $achievement_id = 0, $size = 'post-thumbnail', $attr = '' ) {
+	$achievement_id = dpa_get_achievement_id( $achievement_id );
+	$image          = get_the_post_thumbnail( $achievement_id, $size, $attr );
+
+	return apply_filters( 'dpa_get_achievement_image', $image, $achievement_id, $size, $attr );
+}
 
 /**
  * Displays achievement notices

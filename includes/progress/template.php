@@ -120,8 +120,10 @@ function dpa_has_progress( $args = array() ) {
 		$achievement_ids = wp_list_pluck( (array) achievements()->progress_query->posts, 'post_parent' );
 
 		$achievement_args = array(
-			'post__in'       => $achievement_ids,  // Only get achievements that relate to the progressses we've got.
-			'posts_per_page' => -1,                // No pagination
+			'order'          => $args['order'],   // Add order criterium to make sure achievements are ordered in the same fashion as progress items
+			'orderby'        => $args['orderby'], // Add orderby fields to make sure achievements display in the same order as the progress items
+			'post__in'       => $achievement_ids, // Only get achievements that relate to the progressses we've got.
+			'posts_per_page' => -1,               // No pagination
 		);
 
 		// Run the query

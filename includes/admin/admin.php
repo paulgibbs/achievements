@@ -74,6 +74,11 @@ class DPA_Admin {
 		if ( dpa_is_deactivation() )
 			return;
 
+		// If the plugin's been activated network-wide, only load the admin stuff on the DPA_DATA_STORE site
+		if ( is_multisite() && dpa_is_running_networkwide() && get_current_blog_id() != DPA_DATA_STORE )
+			return;
+
+
 		// General Actions
 
 		// Add menu item to settings menu
@@ -104,6 +109,9 @@ class DPA_Admin {
 		add_action( 'load-edit.php',                            'dpa_achievement_index_contextual_help' );
 		add_action( 'load-post-new.php',                        'dpa_achievement_new_contextual_help' );
 		add_action( 'load-post.php',                            'dpa_achievement_new_contextual_help' );
+
+		// Add thumbnail size for the edit.php?post_type=achievement index screen
+		add_image_size( 'dpa-thumb', 32, 32 );
 
 
 		// Dependencies
@@ -181,14 +189,17 @@ class DPA_Admin {
 			add_action( "admin_print_scripts-$hook", array( $this, 'enqueue_scripts' ) );
 
 			// Hook into early actions to register contextual help and screen options
-			add_action( "load-$hook",                array( $this, 'screen_options' ) );
+			add_action( "load-$hook", array( $this, 'screen_options' ) );
 		}
 
+		// Actions for the edit.php?post_type=achievement index screen
+		add_action( 'load-edit.php', array( $this, 'enqueue_index_styles' ) );
+
 		// Add/save custom profile field on the edit user screen
-		add_action( 'edit_user_profile',         array( $this, 'add_profile_fields'  ) );
-		add_action( 'show_user_profile',         array( $this, 'add_profile_fields'  ) );
-		add_action( 'edit_user_profile_update',  array( $this, 'save_profile_fields' ) );
-		add_action( 'personal_options_update',   array( $this, 'save_profile_fields' ) );
+		add_action( 'edit_user_profile',        array( $this, 'add_profile_fields'  ) );
+		add_action( 'show_user_profile',        array( $this, 'add_profile_fields'  ) );
+		add_action( 'edit_user_profile_update', array( $this, 'save_profile_fields' ) );
+		add_action( 'personal_options_update',  array( $this, 'save_profile_fields' ) );
 	}
 
 	/**
@@ -227,6 +238,20 @@ class DPA_Admin {
 		// Achievements "users" screen
 		elseif ( 'achievements-users' == $_GET['page'] )
 			wp_enqueue_style( 'dpa_admin_users_css', trailingslashit( $this->css_url ) . "users{$rtl}.css", array(), '20130113' );
+	}
+
+	/**
+	 * Enqueue CSS for the edit.php?post_type=achievement index screen
+	 *
+	 * @since Achievements (3.3)
+	 */
+	public function enqueue_index_styles() {
+
+		// Only load up styles if we're on an Achievements admin screen
+		if ( ! DPA_Admin::is_admin_screen() )
+			return;
+
+		wp_enqueue_style( 'dpa_admin_index_css', trailingslashit( $this->css_url ) . 'admin-editindex.css', array(), '20130423' );
 	}
 
 	/**
@@ -415,12 +440,22 @@ class DPA_Admin {
 
 		// Remove achievements :(
 		if ( ! empty( $achievements_to_remove ) ) {
-			foreach ( $achievements_to_remove as $achievement_id )
+			$notifications = dpa_get_user_notifications( $user_id );
+
+			foreach ( $achievements_to_remove as $achievement_id ) {
 				dpa_delete_achievement_progress( $achievement_id, $user_id );
+
+				// Check this achievement isn't in the user's pending notifications
+				if ( isset( $notifications[$achievement_id] ) )
+					unset( $notifications[$achievement_id]);
+			}
 
 			// Decrease user unlocked count
 			$unlock_count = dpa_get_user_unlocked_count( $user_id ) - count( $achievements_to_remove );
 			dpa_update_user_unlocked_count( $user_id, $unlock_count );
+
+			// Update the user's notifications in case we cleared any above
+			dpa_update_user_notifications( $notifications, $user_id );
 		}
 
 

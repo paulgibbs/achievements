@@ -191,10 +191,7 @@ class DPA_Shortcodes {
 		// Start output buffer
 		$this->start( 'dpa_single_achievement' );
 
-		// Check achievement caps
-		$post = get_post( $achievement_id );
-		if ( ! empty( $post ) && 'publish' == $post->post_status && current_user_can( 'read_achievement', $achievement_id ) )
-			dpa_get_template_part( 'content-single-achievement' );
+		dpa_get_template_part( 'content-single-achievement' );
 
 		return $this->end();
 	}
