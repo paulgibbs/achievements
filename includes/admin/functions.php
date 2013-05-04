@@ -204,7 +204,6 @@ function dpa_achievement_posts_columns( $columns ) {
  * @param int $post_id
  * @since Achievements (3.0)
  */
-<<<<<<< HEAD
 function dpa_achievement_custom_column($column, $post_id)
 {
 	switch($column)
@@ -220,19 +219,6 @@ function dpa_achievement_custom_column($column, $post_id)
 		case "achievement_category":
 			echo get_the_term_list( $post->ID, 'dpa_achievement_category', '', ', ', '' );
 			break;
-=======
-function dpa_achievement_custom_column( $column, $post_id ) {
-	if ( 'karma' == $column ) {
-		dpa_achievement_points( $post_id );
-
-	} elseif ( 'achievement_type' == $column ) {
-		$existing_events = wp_get_post_terms( $post_id, dpa_get_event_tax_id(), array( 'fields' => 'ids', ) );
-		$existing_type   = empty( $existing_events ) ? __( 'Award', 'dpa' ) : __( 'Event', 'dpa' );
-		echo $existing_type;
-
-	} elseif ( 'dpa_thumb' == $column ) {
-			the_post_thumbnail( 'dpa-thumb' );
->>>>>>> master
 	}
 }
 
