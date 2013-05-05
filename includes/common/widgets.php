@@ -286,7 +286,7 @@ class DPA_Available_Achievements_Widget extends WP_Widget {
 			?>
 
 				<li>
-					<a href="<?php dpa_achievement_permalink(); ?>"><?php echo get_the_post_thumbnail( $post->ID, 'dpa-thumb', array( 'alt' => dpa_get_achievement_title( $post->ID ) ) ); ?></a>
+					<a href="<?php dpa_achievement_permalink( $post->ID ); ?>"><?php echo get_the_post_thumbnail( $post->ID, 'dpa-thumb', array( 'alt' => dpa_get_achievement_title( $post->ID ) ) ); ?></a>
 				</li>
 
 			<?php
