@@ -162,7 +162,7 @@ class DPA_Featured_Achievement_Widget extends WP_Widget {
 		?>
 
 				<?php if ( has_post_thumbnail() ) : ?>
-					<a href="<?php dpa_achievement_permalink( $settings['post_id'] ); ?>"><?php the_post_thumbnail( 'thumbnail' ); ?></a>
+					<a href="<?php dpa_achievement_permalink( $settings['post_id'] ); ?>"><?php the_post_thumbnail( 'thumbnail', array( 'alt' => dpa_get_achievement_title() ) ); ?></a>
 				<?php endif; ?>
 
 				<?php dpa_achievement_excerpt( $settings['post_id'] ); ?>
