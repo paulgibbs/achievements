@@ -347,6 +347,7 @@ final class DPA_Achievements_Loader {
 			'constants',                 // Define constants
 			'register_endpoints',        // Register endpoints (achievements)
 			'admin_bar_menu',            // Register custom menu items (My Achievements)
+			'register_image_sizes',      // Add custom image sizes
 		);
 
 		foreach( $actions as $class_action )
@@ -632,6 +633,15 @@ final class DPA_Achievements_Loader {
 
 		// Setup the theme package to use for compatibility
 		dpa_setup_theme_compat( dpa_get_theme_package_id() );
+	}
+
+	/**
+	 * Add custom image sizes for image cropping
+	 *
+	 * @since Achievements (3.3)
+	 */
+	public function register_image_sizes() {
+		add_image_size( 'dpa-thumb', 32, 32 );
 	}
 }
 

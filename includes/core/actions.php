@@ -67,6 +67,7 @@ add_action( 'dpa_register', 'dpa_register_post_statuses', 4  );
 add_action( 'dpa_register', 'dpa_register_taxonomies',    6  );
 add_action( 'dpa_register', 'dpa_register_endpoints',     8  );
 add_action( 'dpa_register', 'dpa_register_shortcodes',    10 );
+add_action( 'dpa_register', 'dpa_register_image_sizes',   12 );
 
 /**
  * dpa_ready - Attached to 'dpa_init' above
