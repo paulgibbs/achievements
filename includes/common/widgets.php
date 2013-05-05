@@ -141,39 +141,33 @@ class DPA_Featured_Achievement_Widget extends WP_Widget {
 		$settings            = $this->parse_settings( $instance );
 		$settings['post_id'] = (int) apply_filters( 'dpa_featured_achievement_post_id', $settings['post_id'], $instance, $this->id_base );
 
-		// Get the post
-		$widget_query = new WP_Query( array(
-			'nopaging'    => true,
-			'numberposts' => 1,
-			'p'           => $settings['post_id'],
-			'post_status' => 'publish',
-			'post_type'   => dpa_get_achievement_post_type(),
+		// Get the specified achievement
+		$achievement = get_posts( array(
+			'numberposts'      => 1,
+			'no_found_rows'    => true,
+			'p'                => $settings['post_id'],
+			'post_status'      => 'publish',
+			'post_type'        => dpa_get_achievement_post_type(),
+			'suppress_filters' => false,
 		) );
 
-		// Bail if post doesn't exist
-		if ( ! $widget_query->have_posts() )
+		// Bail if it doesn't exist
+		if ( empty( $achievement ) )
 			return;
 
-		echo $args['before_widget'];
+		$achievement = array_shift( $achievement );
 
+		echo $args['before_widget'];
 		echo $args['before_title'];
-		dpa_achievement_title( $settings['post_id'] );
+		dpa_achievement_title( $achievement->ID );
 		echo $args['after_title'];
 
-		while ( $widget_query->have_posts() ) : $widget_query->the_post();
-		?>
 
-				<?php if ( has_post_thumbnail() ) : ?>
-					<a href="<?php dpa_achievement_permalink( $settings['post_id'] ); ?>"><?php the_post_thumbnail( 'thumbnail', array( 'alt' => dpa_get_achievement_title() ) ); ?></a>
-				<?php endif; ?>
+			<a href="<?php dpa_achievement_permalink( $achievement->ID ); ?>"><?php echo get_the_post_thumbnail( $achievement->ID, 'thumbnail', array( 'alt' => dpa_get_achievement_title( $achievement->ID ) ) ); ?></a>
+		<?php endif;
 
-				<?php dpa_achievement_excerpt( $settings['post_id'] ); ?>
-
-		<?php
-		endwhile;
-
+		dpa_achievement_excerpt( $settings['post_id'] );
 		echo $args['after_widget'];
-		wp_reset_postdata();
 	}
 
 	/**
