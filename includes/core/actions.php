@@ -87,7 +87,8 @@ add_action( 'bp_include',         'dpa_bp_loaded'                  );
 add_action( 'dpa_after_setup_theme', 'dpa_load_theme_functions', 10 );
 
 // Widgets
-add_action( 'dpa_widgets_init', array( 'DPA_Redeem_Achievements_Widget', 'register_widget' ), 10 );
+add_action( 'dpa_widgets_init', array( 'DPA_Redeem_Achievements_Widget',  'register_widget' ), 10 );
+add_action( 'dpa_widgets_init', array( 'DPA_Featured_Achievement_Widget', 'register_widget' ), 10 );
 
 // Template - Head, foot, errors and messages
 add_action( 'dpa_head',             'dpa_achievement_notices' );

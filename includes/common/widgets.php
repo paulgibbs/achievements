@@ -29,7 +29,7 @@ class DPA_Redeem_Achievements_Widget extends WP_Widget {
 	public function __construct() {
 		$widget_ops = apply_filters( 'dpa_redeem_achievements_widget_options', array(
 			'classname'   => 'widget_dpa_redeem_achievements',
-			'description' => __( 'Allow users to redeem achievements by typing in a code.', 'dpa' )
+			'description' => __( 'Users can redeem achievements entering a code.', 'dpa' )
 		) );
 
 		parent::__construct( false, __( '(Achievements) Redemption', 'dpa' ), $widget_ops );
@@ -67,7 +67,7 @@ class DPA_Redeem_Achievements_Widget extends WP_Widget {
 	}
 
 	/**
-	 * Update the topic widget options
+	 * Update the widget options
 	 *
 	 * @param array $new_instance The new instance options
 	 * @param array $old_instance The old instance options
@@ -81,7 +81,7 @@ class DPA_Redeem_Achievements_Widget extends WP_Widget {
 	}
 
 	/**
-	 * Output the topic widget options form
+	 * Output the widget options form
 	 *
 	 * @param $instance Instance
 	 * @since Achievements (3.1)
@@ -97,5 +97,125 @@ class DPA_Redeem_Achievements_Widget extends WP_Widget {
 		</p>
 
 		<?php
+	}
+}
+
+/**
+ * Featured Achievement widget
+ *
+ * @since Achievements (3.3)
+ */
+class DPA_Featured_Achievement_Widget extends WP_Widget {
+
+	/**
+	 * Featured Achievement widget
+	 *
+	 * @since Achievements (3.3)
+	 */
+	function __construct() {
+		$widget_ops = apply_filters( 'dpa_featured_achievement_widget_options', array(
+			'classname'   => 'widget_dpa_featured_achievement',
+			'description' => __( 'Display details of a single achievement.', 'dpa' ),
+		) );
+
+		parent::__construct( false, __( '(Achievements) Featured Achievement', 'dpa' ), $widget_ops );
+	}
+
+	/**
+	 * Register the widget
+	 *
+	 * @since Achievements (3.3)
+	 */
+	static public function register_widget() {
+		register_widget( 'DPA_Featured_Achievement_Widget' );
+	}
+
+	/**
+	 * Displays the output
+	 *
+	 * @param array $args
+	 * @param array $instance
+	 * @since Achievements (3.3)
+	 */
+	public function widget( $args, $instance ) {
+		$settings            = $this->parse_settings( $instance );
+		$settings['post_id'] = (int) apply_filters( 'dpa_featured_achievement_post_id', $settings['post_id'], $instance, $this->id_base );
+
+		// Get the post
+		$widget_query = new WP_Query( array(
+			'p'           => $settings['post_id'],
+			'post_status' => 'publish',
+			'post_type'   => dpa_get_achievement_post_type(),
+		) );
+
+		// Bail if post doesn't exist
+		if ( ! $widget_query->have_posts() )
+			return;
+
+		echo $args['before_widget'];
+
+		echo $args['before_title'];
+		dpa_achievement_title( $settings['post_id'] );
+		echo $args['after_title'];
+
+		while ( $widget_query->have_posts() ) : $widget_query->the_post();
+		?>
+
+				<?php if ( has_post_thumbnail() ) : ?>
+					<a href="<?php dpa_achievement_permalink( $settings['post_id'] ); ?>"><?php the_post_thumbnail( 'thumbnail' ); ?></a>
+				<?php endif; ?>
+
+				<?php dpa_achievement_excerpt( $settings['post_id'] ); ?>
+
+		<?php
+		endwhile;
+
+		echo $args['after_widget'];
+		wp_reset_postdata();
+	}
+
+	/**
+	 * Update the forum widget options
+	 *
+	 * @param array $new_instance The new instance options
+	 * @param array $old_instance The old instance options
+	 * @since Achievements (3.3)
+	 */
+	public function update( $new_instance, $old_instance ) {
+		$instance            = $old_instance;
+		$instance['post_id'] = (int) $new_instance['post_id'];
+
+		return $instance;
+	}
+
+	/**
+	 * Output the widget options form
+	 *
+	 * @param array $instance The instance of the widget.
+	 * @since Achievements (3.3)
+	 */
+	public function form( $instance ) {
+		$settings = $this->parse_settings( $instance );
+		?>
+
+		<p>
+			<label for="<?php echo $this->get_field_id( 'post_id' ); ?>"><?php _e( 'Achievement ID:', 'dpa' ); ?>
+				<input class="widefat" id="<?php echo $this->get_field_id( 'post_id' ); ?>" name="<?php echo $this->get_field_name( 'post_id' ); ?>" type="text" value="<?php echo esc_attr( $settings['post_id'] ); ?>" />
+			</label>
+		</p>
+
+		<?php
+	}
+
+	/**
+	 * Merge the widget settings into defaults array.
+	 *
+	 * @param array $instance Optional; the instance of the widget.
+	 * @since Achievements (3.3)
+	 */
+	public function parse_settings( $instance = array() ) {
+		return dpa_parse_args( $instance, array(
+			'post_id' => 0,
+		), 'featured_achievement_widget_settings' );
 	}
 }
