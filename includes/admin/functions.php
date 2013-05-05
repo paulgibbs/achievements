@@ -189,6 +189,7 @@ function dpa_achievement_posts_columns( $columns ) {
 		'dpa_thumb'        => _x( 'Image', 'Featured Image column title', 'dpa' ),
 		'title'            => __( 'Title', 'dpa' ),
 		'achievement_type' => _x( 'Type', 'Type of the achievement; award or badge', 'dpa' ),
+		'categories'       => __( 'Categories', 'dpa' ),
 		'karma'            => __( 'Karma Points', 'dpa' ),
 		'date'             => __( 'Date', 'dpa' ),
 	);

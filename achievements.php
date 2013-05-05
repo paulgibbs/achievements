@@ -477,6 +477,7 @@ final class DPA_Achievements_Loader {
 			'show_in_menu'         => $post_type_is_public,
 			'show_ui'              => dpa_current_user_can_see( dpa_get_achievement_post_type() ),
 			'supports'             => $supports['achievement'],
+			'taxonomies'           => array( 'category' ),
 		) );
 		$cpt['achievement_progress'] = apply_filters( 'dpa_register_post_type_achievement_progress', array(
 			'capabilities'        => dpa_get_achievement_progress_caps(),
