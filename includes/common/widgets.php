@@ -143,8 +143,8 @@ class DPA_Featured_Achievement_Widget extends WP_Widget {
 
 		// Get the specified achievement
 		$achievement = get_posts( array(
-			'numberposts'      => 1,
 			'no_found_rows'    => true,
+			'numberposts'      => 1,
 			'p'                => $settings['post_id'],
 			'post_status'      => 'publish',
 			'post_type'        => dpa_get_achievement_post_type(),
