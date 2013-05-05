@@ -477,6 +477,7 @@ final class DPA_Achievements_Loader {
 			'show_in_menu'         => $post_type_is_public,
 			'show_ui'              => dpa_current_user_can_see( dpa_get_achievement_post_type() ),
 			'supports'             => $supports['achievement'],
+			'taxonomies'		=> array('dpa_achievement_category'),
 		) );
 		$cpt['achievement_progress'] = apply_filters( 'dpa_register_post_type_achievement_progress', array(
 			'capabilities'        => dpa_get_achievement_progress_caps(),
@@ -487,6 +488,7 @@ final class DPA_Achievements_Loader {
 			'query_var'           => false,
 			'rewrite'             => false,
 			'supports'            => $supports['achievement_progress'],
+			'taxonomies'		=> array('dpa_achievement_category'),
 		) );
 
 		// Register Achievement post type
@@ -571,6 +573,31 @@ final class DPA_Achievements_Loader {
 			dpa_get_achievement_post_type(), // The achievement post type
 			$tax
 		);
+		
+		//Achievement Category taxonomy labels
+		$labels = array
+		(
+			'name'              => _x( 'Achievement Categories', 'taxonomy general name' ),
+			'singular_name'     => _x( 'Achievement Category', 'taxonomy singular name' ),
+			'search_items'      => __( 'Search Achievement Categories' ),
+			'all_items'         => __( 'All Achievement Categories' ),
+			'parent_item'       => __( 'Parent Achievement Category' ),
+			'parent_item_colon' => __( 'Parent Achievement Category:' ),
+			'edit_item'         => __( 'Edit Achievement Category' ), 
+			'update_item'       => __( 'Update Achievement Category' ),
+			'add_new_item'      => __( 'Add New Achievement Category' ),
+			'new_item_name'     => __( 'New Achievement Category' ),
+			'menu_name'         => __( 'Categories' ),
+		);
+		//Achievement Category taxonomy action filters
+		$args = array(
+			'labels' => $labels,
+			'hierarchical' => true,
+			'show_admin_column'	=> true,
+			'show_ui' => true,
+		);
+		//Register Achievement Category taxonomies
+		register_taxonomy('dpa_achievement_category', array(dpa_get_achievement_post_type(), dpa_get_progress_post_type()), $args );
 	}
 
 	/**

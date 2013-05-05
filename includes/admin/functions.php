@@ -188,6 +188,7 @@ function dpa_achievement_posts_columns( $columns ) {
 		'cb'               => '<input type="checkbox" />',
 		'dpa_thumb'        => _x( 'Image', 'Featured Image column title', 'dpa' ),
 		'title'            => __( 'Title', 'dpa' ),
+		'achievement_category' => _x('Category', 'Achievement category', 'dpa'),
 		'achievement_type' => _x( 'Type', 'Type of the achievement; award or badge', 'dpa' ),
 		'karma'            => __( 'Karma Points', 'dpa' ),
 		'date'             => __( 'Date', 'dpa' ),
@@ -203,17 +204,21 @@ function dpa_achievement_posts_columns( $columns ) {
  * @param int $post_id
  * @since Achievements (3.0)
  */
-function dpa_achievement_custom_column( $column, $post_id ) {
-	if ( 'karma' == $column ) {
-		dpa_achievement_points( $post_id );
-
-	} elseif ( 'achievement_type' == $column ) {
-		$existing_events = wp_get_post_terms( $post_id, dpa_get_event_tax_id(), array( 'fields' => 'ids', ) );
-		$existing_type   = empty( $existing_events ) ? __( 'Award', 'dpa' ) : __( 'Event', 'dpa' );
-		echo $existing_type;
-
-	} elseif ( 'dpa_thumb' == $column ) {
-			the_post_thumbnail( 'dpa-thumb' );
+function dpa_achievement_custom_column($column, $post_id)
+{
+	switch($column)
+	{
+		case "karma":
+			dpa_achievement_points( $post_id );
+			break;
+		case "achievement_type":
+			$existing_events = wp_get_post_terms( $post_id, dpa_get_event_tax_id(), array( 'fields' => 'ids', ) );
+			$existing_type   = empty( $existing_events ) ? __( 'Award', 'dpa' ) : __( 'Event', 'dpa' );
+			echo $existing_type;
+			break;
+		case "achievement_category":
+			echo get_the_term_list( $post->ID, 'dpa_achievement_category', '', ', ', '' );
+			break;
 	}
 }
 
@@ -224,9 +229,11 @@ function dpa_achievement_custom_column( $column, $post_id ) {
  * @return array
  * @since Achievements (3.0)
  */
-function dpa_achievement_sortable_columns( $columns ) {
-	$columns['karma']            = 'karma';
-	$columns['achievement_type'] = 'achievement_type';
+function dpa_achievement_sortable_columns( $columns )
+{
+	$columns['karma']			= 'karma';
+	$columns['achievement_type']		= 'achievement_type';
+	$columns['achievement_category']	= 'dpa_achievement_category';
 
 	return apply_filters( 'dpa_achievement_sortable_columns', $columns );
 }
