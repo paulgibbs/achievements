@@ -195,6 +195,9 @@ class DPA_Admin {
 		add_action( 'show_user_profile',        array( $this, 'add_profile_fields'  ) );
 		add_action( 'edit_user_profile_update', array( $this, 'save_profile_fields' ) );
 		add_action( 'personal_options_update',  array( $this, 'save_profile_fields' ) );
+
+		// Remove the "categories" submenu from inside the achievement post type menu
+		remove_submenu_page( 'edit.php?post_type=' . dpa_get_achievement_post_type(), 'edit-tags.php?taxonomy=category&amp;post_type=' . dpa_get_achievement_post_type() );
 	}
 
 	/**
