@@ -285,6 +285,7 @@ final class DPA_Achievements_Loader {
 
 		require( $this->includes_dir . 'buddypress/functions.php'    );
 
+
 		/**
 		 * Components
 		 */
@@ -319,6 +320,13 @@ final class DPA_Achievements_Loader {
 			require( $this->includes_dir . 'admin/admin.php'   );
 			require( $this->includes_dir . 'admin/actions.php' );
 		}
+
+
+		/**
+		 * WP-CLI
+		 */
+		if ( defined( 'WP_CLI' ) && WP_CLI )
+			require( $this->includes_dir . 'class-dpa-wpcli-command.php' );
 	}
 
 	/**
