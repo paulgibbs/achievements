@@ -7,7 +7,7 @@
  * @package Achievements
  * @subpackage WPCLI
  */
-class DPA_WPCLI_Command extends WP_CLI_Command {
+class DPA_WPCLI_Achievements_Command extends WP_CLI_Command {
 
 	/**
 	 * Names of database columns that we'll retrieve
@@ -45,4 +45,4 @@ class DPA_WPCLI_Command extends WP_CLI_Command {
 	}
 }
 
-WP_CLI::add_command( 'achievements', 'DPA_WPCLI_Command' );
+WP_CLI::add_command( 'achievements', 'DPA_WPCLI_Achievements_Command' );

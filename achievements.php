@@ -326,7 +326,7 @@ final class DPA_Achievements_Loader {
 		 * WP-CLI
 		 */
 		if ( defined( 'WP_CLI' ) && WP_CLI )
-			require( $this->includes_dir . 'class-dpa-wpcli-command.php' );
+			require( $this->includes_dir . 'class-dpa-wpcli-achievements-command.php' );
 	}
 
 	/**
