@@ -36,7 +36,7 @@ class DPA_WPCLI_Achievements_Command extends WP_CLI_Command {
 		$assoc_args = array_merge( $defaults, $assoc_args );
 
 		// Get the posts
-		$posts = $wpdb->get_results( $wpdb->prepare( "SELECT ID, post_title FROM {$wpdb->posts} WHERE post_type = %s AND post_status = %s ORDER BY post_date DESC", dpa_get_achievement_post_type(), 'publish' ) );
+		$posts = $wpdb->get_results( $wpdb->prepare( "SELECT ID, post_title FROM {$wpdb->posts} WHERE post_type = %s AND post_status = %s ORDER BY post_title ASC", dpa_get_achievement_post_type(), 'publish' ) );
 
 		if ( empty( $posts ) )
 			WP_CLI::error( 'No published achievements found.' );
