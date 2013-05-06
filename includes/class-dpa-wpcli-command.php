@@ -31,7 +31,6 @@ class DPA_WPCLI_Command extends WP_CLI_Command {
 		global $wpdb;
 
 		$defaults = array(
-			'filter' => '',
 			'format' => 'table',
 		);
 		$assoc_args = array_merge( $defaults, $assoc_args );
