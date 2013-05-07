@@ -275,6 +275,8 @@ final class DPA_Achievements_Loader {
 		/**
 		 * Plugin extensions
 		 */
+		//We need this so that is_active_plugin is registered when we check for active plugins
+		include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 		require( $this->includes_dir . 'extensions/bbpress.php'      );
 		require( $this->includes_dir . 'extensions/buddypress.php'   );
 		require( $this->includes_dir . 'extensions/buddystream.php'  );
