@@ -38,13 +38,15 @@ class DPA_Buddy_Stream_Extension extends DPA_Extension {
 	 * @since Achievements (3.0)
 	 */
 	public function __construct() {
-		$this->actions = array(
-			'buddystream_facebook_activated' => __( 'The user connects their Facebook account to BuddyStream.', 'dpa' ),
-			'buddystream_flickr_activated'   => __( 'The user connects their Flickr account to BuddyStream.', 'dpa' ),
-			'buddystream_lastfm_activated'   => __( 'The user connects their Last.fm account to BuddyStream.', 'dpa' ),
-			'buddystream_twitter_activated'  => __( 'The user connects their Twitter account to BuddyStream.', 'dpa' ),
-			'buddystream_youtube_activated'  => __( 'The user connects their YouTube account to BuddyStream.', 'dpa' ),
-		);
+		if ( is_plugin_active( 'buddystream/buddystream.php' ) || ( 'achievements-plugins' == $_GET['page'] )) {
+			$this->actions = array(
+				'buddystream_facebook_activated' => __( 'The user connects their Facebook account to BuddyStream.', 'dpa' ),
+				'buddystream_flickr_activated'   => __( 'The user connects their Flickr account to BuddyStream.', 'dpa' ),
+				'buddystream_lastfm_activated'   => __( 'The user connects their Last.fm account to BuddyStream.', 'dpa' ),
+				'buddystream_twitter_activated'  => __( 'The user connects their Twitter account to BuddyStream.', 'dpa' ),
+				'buddystream_youtube_activated'  => __( 'The user connects their YouTube account to BuddyStream.', 'dpa' ),
+			);
+		}
 
 		$this->contributors = array(
 			array(
