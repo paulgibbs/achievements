@@ -38,10 +38,12 @@ class DPA_WP_e_Commerce_Extension extends DPA_Extension {
 	 * @since Achievements (3.0)
 	 */
 	public function __construct() {
-		$this->actions = array(
-			'wpsc_activate_subscription' => __( 'The user sets up a PayPal Subscription', 'dpa' ),
-			'wpsc_payment_successful'    => __( 'The user completes checkout', 'dpa' ),
-		);
+		if ( is_plugin_active( 'wp-e-commerce/wp-shopping-cart.php' ) || ( 'achievements-plugins' == $_GET['page'] )) {
+			$this->actions = array(
+				'wpsc_activate_subscription' => __( 'The user sets up a PayPal Subscription', 'dpa' ),
+				'wpsc_payment_successful'    => __( 'The user completes checkout', 'dpa' ),
+			);
+		}
 
 		$this->contributors = array(
 			array(
