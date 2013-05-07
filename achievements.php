@@ -275,13 +275,16 @@ final class DPA_Achievements_Loader {
 		/**
 		 * Plugin extensions
 		 */
-		require( $this->includes_dir . 'extensions/bbpress.php'      );
-		require( $this->includes_dir . 'extensions/buddypress.php'   );
-		require( $this->includes_dir . 'extensions/buddystream.php'  );
-		require( $this->includes_dir . 'extensions/inviteanyone.php' );
-		require( $this->includes_dir . 'extensions/scholarpress.php' );
+
+		//Not sure if there is a better way to include this Paul? Without it you'll get a "Call to undefined function is_plugin_active()" error
+		include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
+		if ( is_plugin_active( 'bbpress/bbpress.php' ) ) require( $this->includes_dir . 'extensions/bbpress.php'      );
+		if ( is_plugin_active( 'buddypress/bp-loader.php' ) ) require( $this->includes_dir . 'extensions/buddypress.php'   );
+		if ( is_plugin_active( 'buddystream/buddystream.php' ) ) require( $this->includes_dir . 'extensions/buddystream.php'  );
+		if ( is_plugin_active( 'invite-anyone/invite-anyone.php' ) ) require( $this->includes_dir . 'extensions/inviteanyone.php' );
+		if ( is_plugin_active( 'buddypress-courseware/courseware.php' ) ) require( $this->includes_dir . 'extensions/scholarpress.php' );
 		require( $this->includes_dir . 'extensions/wordpress.php'    );
-		require( $this->includes_dir . 'extensions/wpecommerce.php'  );
+		if ( is_plugin_active( 'wp-e-commerce/wp-shopping-cart.php' ) ) require( $this->includes_dir . 'extensions/wpecommerce.php'  );
 
 		require( $this->includes_dir . 'buddypress/functions.php'    );
 
