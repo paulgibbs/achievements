@@ -38,15 +38,17 @@ class DPA_BuddyPress_Courseware_Extension extends DPA_Extension {
 	 * @since Achievements (3.0)
 	 */
 	public function __construct() {
-		$this->actions = array(
-			'courseware_new_teacher_added'   => __( 'The user is added as a teacher', 'dpa' ),
-			'courseware_grade_added'         => __( 'A grade is given to the user', 'dpa' ),
-			'courseware_grade_updated'       => __( "A user&rsquo;s grade is updated", 'dpa' ),
-			'courseware_assignment_added'    => __( 'The user creates a new assignment', 'dpa' ),
-			'courseware_lecture_added'       => __( 'The user creates a new lecture', 'dpa' ),
-			'courseware_response_added'      => __( 'The user adds a response to an assignment', 'dpa' ),
-			'courseware_schedule_activity'   => __( 'The user creates a new schedule', 'dpa' ),
-		);
+		if ( is_plugin_active( 'buddypress-courseware/courseware.php' ) || ( 'achievements-plugins' == $_GET['page'] )) {
+			$this->actions = array(
+				'courseware_new_teacher_added'   => __( 'The user is added as a teacher', 'dpa' ),
+				'courseware_grade_added'         => __( 'A grade is given to the user', 'dpa' ),
+				'courseware_grade_updated'       => __( "A user&rsquo;s grade is updated", 'dpa' ),
+				'courseware_assignment_added'    => __( 'The user creates a new assignment', 'dpa' ),
+				'courseware_lecture_added'       => __( 'The user creates a new lecture', 'dpa' ),
+				'courseware_response_added'      => __( 'The user adds a response to an assignment', 'dpa' ),
+				'courseware_schedule_activity'   => __( 'The user creates a new schedule', 'dpa' ),
+			);
+		}
 
 		$this->contributors = array(
 			array(
