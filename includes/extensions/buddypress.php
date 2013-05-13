@@ -39,7 +39,7 @@ class DPA_BuddyPress_Extension extends DPA_Extension {
 	 * @since Achievements (3.0)
 	 */
 	public function __construct() {
-		if ( is_plugin_active( 'buddypress/bp-loader.php' ) || ( 'achievements-plugins' == $_GET['page'] )) {
+		if ( is_plugin_active( 'buddypress/bp-loader.php' ) || ( is_admin() && isset( $_GET['page'] ) && ( 'achievements-plugins' == $_GET['page'] ) ) ) {
 			$this->actions = array(
 				'bp_activity_add_user_favorite'    => __( 'The user marks an item in an activity stream as a favourite.', 'dpa' ),
 				'bp_activity_comment_posted'       => __( 'The user replies to an item in an activity stream.', 'dpa' ),
