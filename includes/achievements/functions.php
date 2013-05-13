@@ -380,7 +380,7 @@ function dpa_leaderboard_data($fields, $protectedfields, $data)
 						$html .= '<td>' . $row->rank . '</td>';
 						break;
 					case "profile_picture":
-						$html .= '<td>' . get_avatar($row->ID, 39) . '</td>';
+						$html .= '<td>' . get_avatar($row->id, 39) . '</td>';
 						break;
 					case "bbpress_profile_link":
 						$html .= '<td><a href="/forums/users/' . $row->user_nicename . '">' . $row->display_name . '</a></td>';
@@ -389,7 +389,7 @@ function dpa_leaderboard_data($fields, $protectedfields, $data)
 						$html .= '<td>' . $row->total_karma . '</td>';
 						break;
 					case "user_id":
-						$html .= '<td>' . $row->ID . '</td>';
+						$html .= '<td>' . $row->id . '</td>';
 						break;
 					case "user_login":
 						$html .= '<td>' . $row->user_login . '</td>';
