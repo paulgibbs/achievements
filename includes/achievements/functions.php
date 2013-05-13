@@ -273,3 +273,277 @@ function dpa_form_redeem_achievement( $action = '' ) {
 	if ( is_multisite() && dpa_is_running_networkwide() )
 		restore_current_blog();
 }
+
+/**
+ * Returns either the ranking for the current user (single row result) or for all users (limited to the current page, if not overriden).
+ * 
+ *
+ * @param bool $show_current_user Optional. If true will get the ranking for the current user only. Default is false.
+ * @param int $offset Optional. If set, will start the query from a given offset record. Default is to use normal pagination offset.
+ * @param int $posts_per_page Optional. If set, will change the number of records returned per page. Default is Wordpress default value.
+ * 
+ * @return array. Two-dimensional array is returned, array["restults"] holds search results, while array["total_number_of_pages"] holds the max number of pages which can be used for pagination links.
+ * @since Achievements (3.3)
+ * @author Mike Bronner <mike.bronner@gmail.com>
+ */
+function dpa_get_leaderboard_rankings($current_user_id = null, $offset = null, $posts_per_page = null)
+{
+	global $wpdb;
+
+	if (null === $posts_per_page)
+	{
+		$posts_per_page = intval(get_query_var('posts_per_page'));
+	}
+	$db_prefix = $wpdb->base_prefix;
+    $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
+    $posts_per_page = intval(get_query_var('posts_per_page'));
+    if (null === $offset)
+    {
+	    $offset = ($paged - 1) * $posts_per_page;
+	}
+	$leaderboard_query = "SELECT SQL_CALC_FOUND_ROWS
+				person.id
+				,person.user_login
+				,person.user_nicename
+				,person.user_email
+				,person.user_url
+				,person.user_registered
+				,person.user_status
+				,person.display_name
+				, fname.meta_value AS user_firstname 
+				, lname.meta_value AS user_lastname 
+				,nick.meta_value AS nickname 
+				,descr.meta_value AS user_description 
+				,capab.meta_value AS wp_capabilities 
+				,karma.meta_value AS total_karma 
+				,FIND_IN_SET(karma.meta_value, (SELECT  GROUP_CONCAT(DISTINCT ranking.meta_value ORDER BY ranking.meta_value  DESC) FROM " . $db_prefix . "usermeta AS ranking WHERE ranking.meta_key = '" . $db_prefix . "_dpa_points')) as rank
+			FROM " . $db_prefix . "users AS person
+			LEFT JOIN " . $db_prefix . "usermeta as fname 
+				ON person.id = fname.user_id 
+				AND fname.meta_key = 'first_name' 
+			LEFT JOIN " . $db_prefix . "usermeta as lname 
+				ON person.id = lname.user_id 
+				AND lname.meta_key = 'last_name' 
+			LEFT JOIN " . $db_prefix . "usermeta as nick 
+				ON person.id = nick.user_id 
+				AND nick.meta_key = 'nickname' 
+			LEFT JOIN " . $db_prefix . "usermeta as descr 
+				ON person.id = descr.user_id 
+				AND descr.meta_key = 'description' 
+			LEFT JOIN " . $db_prefix . "usermeta as capab 
+				ON person.id = capab.user_id 
+				AND capab.meta_key = '" . $db_prefix . "capabilities' 
+			LEFT JOIN " . $db_prefix . "usermeta as karma
+				ON person.id = karma.user_id
+				AND karma.meta_key = '" . $db_prefix . "_dpa_points'
+		WHERE 1 = 1";
+	if ($current_user_id)
+	{
+		$leaderboard_query .= "
+			AND ID = " . $current_user_id;
+	}
+	$leaderboard_query .= "
+		ORDER BY total_karma DESC
+			,person.user_registered ASC";
+	if ($current_user_id)
+	{
+		$leaderboard_query .= "
+		LIMIT 0, 1;";
+	}
+	else
+	{
+		$leaderboard_query .= "
+		LIMIT " . $offset . ", " . $posts_per_page . ";";
+	}
+	$leaderboard["results"] = $wpdb->get_results($wpdb->prepare($leaderboard_query, null));
+	$sql_posts_total = $wpdb->get_var( "SELECT FOUND_ROWS();" );
+    $leaderboard["total_number_of_pages"] = ceil($sql_posts_total / $posts_per_page);
+
+    return $leaderboard;
+}
+
+/**
+ * Processes leaderboard query results and returns an HTML Table according to shortcode attributes.
+ *
+ * @param array $fields Required. Array of fields to be used in the creation of the leaderboard.
+ * @param string $protectedfields Optional. Comma-separated string of fields to only be shown if the viewer is logged in.
+ * @param object $data Required. Contains leaderboard query results.
+ * 
+ * @return string. Returns the HTML of the table rows of the leaderboard.
+ * @since Achievements (3.3)
+ * @author Mike Bronner <mike.bronner@gmail.com>
+ */
+function dpa_leaderboard_data($fields, $protectedfields = '', $data)
+{
+	$html = '';
+	foreach ($data["results"] as $row)
+	{
+		$html .= '<tr>';
+		for ($i=0; $i<count($fields); $i++)
+		{
+			if (((strpos($protectedfields, $fields[$i]) > 0)
+					&& is_user_logged_in())
+				|| (strpos($protectedfields, $fields[$i]) === false))
+			{
+				switch ($fields[$i])
+				{
+					case "rank":
+						$html .= '<td>' . $row->rank . '</td>';
+						break;
+					case "profile_picture":
+						$html .= '<td>' . get_avatar($row->id, 39) . '</td>';
+						break;
+					case "bbpress_profile_link":
+						$html .= '<td><a href="/forums/users/' . $row->user_nicename . '">' . $row->display_name . '</a></td>';
+						break;
+					case "karma":
+						$html .= '<td>' . $row->total_karma . '</td>';
+						break;
+					case "user_id":
+						$html .= '<td>' . $row->id . '</td>';
+						break;
+					case "user_login":
+						$html .= '<td>' . $row->user_login . '</td>';
+						break;
+					case "user_nicename":
+						$html .= '<td>' . $row->user_nicename . '</td>';
+						break;
+					case "user_email":
+						$html .= '<td>' . $row->user_email . '</td>';
+						break;
+					case "user_url":
+						$html .= '<td>' . $row->user_url . '</td>';
+						break;
+					case "user_registered":
+						$html .= '<td>' . $row->user_registered . '</td>';
+						break;
+					case "user_status":
+						$html .= '<td>' . $row->user_status . '</td>';
+						break;
+					case "display_name":
+						$html .= '<td>' . $row->display_name . '</td>';
+						break;
+					case "user_firstname":
+						$html .= '<td>' . $row->user_firstname . '</td>';
+						break;
+					case "user_lastname":
+						$html .= '<td>' . $row->user_lastname . '</td>';
+						break;
+					case "nickname":
+						$html .= '<td>' . $row->nickname . '</td>';
+						break;
+					case "user_description":
+						$html .= '<td>' . $row->user_description . '</td>';
+						break;
+					case "wp_capabilities":
+						$matches = null;
+						$matches_html = "";
+						preg_match_all('/"([^"]+)"/', $row->wp_capabilities, $matches);
+						for ($j=0; $j<count($matches[1]); $j++)
+						{
+							if (strpos($matches[1][$j], "bbp_") === false)
+							{
+								if (strlen($matches_html) > 0)
+								{
+									$matches_html .= ", ";
+								}
+								$matches_html .= ucfirst(strtolower($matches[1][$j]));
+							}
+						}
+						if (strlen($matches_html) == 0)
+						{
+							$matches_html = "&nbsp;";
+						}
+						$html .= '<td>' . $matches_html . '</td>';
+						break;
+				}
+			}
+		}
+		$html .= '</tr>';
+	}
+	
+	return $html;
+}
+
+/**
+ * Processes leaderboard shortcode and user-provided attributes.
+ *
+ * @param array $attr Optional. Attributes passed in from shortcode.
+ * 
+ * @return string. Returns the HTML-formatted leaderboard.
+ * @since Achievements (3.3)
+ * @author Mike Bronner <mike.bronner@gmail.com>
+ */
+function dpa_get_leaderboard($attr)
+{
+	extract(
+		shortcode_atts(
+			array(
+				'fields' => 'rank,profile_picture,bbpress_profile_link,wp_capabilities,karma,user_email,user_registered',
+				'titles' => 'Rank,Avatar,Name,Authority,Points,Email,Member Since',
+				'protectedfields' => 'user_email,user_registered',
+				'width' => '100%',
+				'showcurrentuser' => 'true',
+			),
+			$attr
+		)
+	);
+	$fields = split(',', $fields);
+	$titles = split(',', $titles);
+	$html_blankrow = '<tr class="blank">';
+    $html = '
+<table id="roster" width="' . $width . '">
+	<tr>';
+	for ($i=0; $i<count($titles); $i++)
+	{
+		$html_blankrow .= '<td>&nbsp;</td>';
+		if (((strpos($protectedfields, $fields[$i]) > 0)
+				&& is_user_logged_in())
+			|| (strpos($protectedfields, $fields[$i]) === false))
+		{
+			$html .= '<th>' . $titles[$i] . '</th>';
+		}
+	}
+	$html .= '</tr>';
+	$html_blankrow .= '</tr>';
+	if (($showcurrentuser == 'true') && is_user_logged_in())
+	{
+		$current_user = wp_get_current_user();
+		$current_user_html = dpa_leaderboard_data($fields, $protectedfields, dpa_get_leaderboard_rankings($current_user->ID));
+		if (strlen($current_user_html) > 0)
+		{
+			$html .= $current_user_html;
+			$html .= $html_blankrow;
+		}
+	}
+	$html .= dpa_leaderboard_data($fields, $protectedfields, dpa_get_leaderboard_rankings());
+	$html .= '</table>';
+
+	return $html;
+}
+
+/**
+ * Shortcode used to create leaderboard.
+ * 
+ * Possible 'fields' Attributes: rank, profile_picture, bbpress_profile_link, karma, user_id, user_login, user_nicename, user_email,
+ *	user_url, user_registered, user_status, display_name, user_firstname, user_lastname, nickname, user_description, wp_capabilities
+ * Default 'fields' Attribute, if not specified: 'rank,profile_picture,bbpress_profile_link,wp_capabilities,karma,user_email,user_registered'
+ * 
+ * 'titles' Attribute: comma-separated list of titles you wish to use for the selected fields. The order must be the same as the 'fields' attributes.
+ * Default 'titles' Attribute, if not specified: 'Rank,Avatar,Name,Authority,Points,Email,Member Since'
+ * 
+ * 'protectedfields' Attribute: comma-separated list of fields you only want visible to logged-in users.
+ * Default 'protectedfields' Attribute, if not specified: 'user_email,user_registered'
+ * 
+ * 'width' Attribute': specify width, either in pixel (without 'px') or as percentage (with '%').
+ * Default 'width' Attribute, if not specified: '100%'
+ * 
+ * 'showcurrentuser' Attribute: Shows the current user's record above the leaderboard, to make it easy for users to read their stats
+ * 	without paging through the entire leaderboard. This only works if a user is logged in. Possible values are 'true' or 'false'.
+ * Default 'showcurrentuser' Attribute, if not specified: 'true';
+ * 
+ * @since Achievements (3.3)
+ * @author Mike Bronner <mike.bronner@gmail.com>
+ */
+add_shortcode('dpa_leaderboard', 'dpa_get_leaderboard');
+
