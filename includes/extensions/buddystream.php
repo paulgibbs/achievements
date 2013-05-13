@@ -38,7 +38,7 @@ class DPA_Buddy_Stream_Extension extends DPA_Extension {
 	 * @since Achievements (3.0)
 	 */
 	public function __construct() {
-		if ( is_plugin_active( 'buddystream/buddystream.php' ) || ( 'achievements-plugins' == $_GET['page'] )) {
+		if ( is_plugin_active( 'buddystream/buddystream.php' ) || ( is_admin() && isset( $_GET['page'] ) && ( 'achievements-plugins' == $_GET['page'] ) ) ) {
 			$this->actions = array(
 				'buddystream_facebook_activated' => __( 'The user connects their Facebook account to BuddyStream.', 'dpa' ),
 				'buddystream_flickr_activated'   => __( 'The user connects their Flickr account to BuddyStream.', 'dpa' ),
