@@ -286,14 +286,10 @@ function dpa_form_redeem_achievement( $action = '' ) {
  * @since Achievements (3.2.2)
  * @author Mike Bronner <mike.bronner@gmail.com>
  */
-function dpa_get_leaderboard_rankings($show_current_user = false, $offset = null, $posts_per_page = null)
+function dpa_get_leaderboard_rankings($current_user_id = null, $offset = null, $posts_per_page = null)
 {
 	global $wpdb;
-	
-	if ($show_current_user)
-	{
-		get_currentuserinfo();
-	}
+
 	if (null === $posts_per_page)
 	{
 		$posts_per_page = intval(get_query_var('posts_per_page'));
@@ -306,27 +302,50 @@ function dpa_get_leaderboard_rankings($show_current_user = false, $offset = null
 	    $offset = ($paged - 1) * $posts_per_page;
 	}
 	$leaderboard_query = "SELECT SQL_CALC_FOUND_ROWS
-				person.*
-				,nick.meta_value AS nickname
-				,karma.meta_value AS total_karma
-				,FIND_IN_SET(karma.meta_value, (SELECT  GROUP_CONCAT(DISTINCT ranking.meta_value ORDER BY CONVERT(ranking.meta_value, SIGNED) DESC) FROM " . $db_prefix . "usermeta AS ranking WHERE ranking.meta_key = '" . $db_prefix . "_dpa_points')) as rank
+				person.id
+				,person.user_login
+				,person.user_nicename
+				,person.user_email
+				,person.user_url
+				,person.user_registered
+				,person.user_status
+				,person.display_name
+				, fname.meta_value AS user_firstname 
+				, lname.meta_value AS user_lastname 
+				,nick.meta_value AS nickname 
+				,descr.meta_value AS user_description 
+				,capab.meta_value AS wp_capabilities 
+				,karma.meta_value AS total_karma 
+				,FIND_IN_SET(karma.meta_value, (SELECT  GROUP_CONCAT(DISTINCT ranking.meta_value ORDER BY ranking.meta_value  DESC) FROM " . $db_prefix . "usermeta AS ranking WHERE ranking.meta_key = '" . $db_prefix . "_dpa_points')) as rank
 			FROM " . $db_prefix . "users AS person
-			LEFT JOIN " . $db_prefix . "usermeta as nick
-				ON person.id = nick.user_id
-				AND nick.meta_key = 'nickname'
+			LEFT JOIN " . $db_prefix . "usermeta as fname 
+				ON person.id = fname.user_id 
+				AND fname.meta_key = 'first_name' 
+			LEFT JOIN " . $db_prefix . "usermeta as lname 
+				ON person.id = lname.user_id 
+				AND lname.meta_key = 'last_name' 
+			LEFT JOIN " . $db_prefix . "usermeta as nick 
+				ON person.id = nick.user_id 
+				AND nick.meta_key = 'nickname' 
+			LEFT JOIN " . $db_prefix . "usermeta as descr 
+				ON person.id = descr.user_id 
+				AND descr.meta_key = 'description' 
+			LEFT JOIN " . $db_prefix . "usermeta as capab 
+				ON person.id = capab.user_id 
+				AND capab.meta_key = '" . $db_prefix . "capabilities' 
 			LEFT JOIN " . $db_prefix . "usermeta as karma
 				ON person.id = karma.user_id
 				AND karma.meta_key = '" . $db_prefix . "_dpa_points'
 		WHERE 1 = 1";
-	if ($show_current_user)
+	if ($current_user_id)
 	{
 		$leaderboard_query .= "
-			AND ID = " . $current_user->ID;
+			AND ID = " . $current_user_id;
 	}
 	$leaderboard_query .= "
 		ORDER BY total_karma DESC
 			,person.user_registered ASC";
-	if ($show_current_user)
+	if ($current_user_id)
 	{
 		$leaderboard_query .= "
 		LIMIT 0, 1;";
@@ -342,3 +361,145 @@ function dpa_get_leaderboard_rankings($show_current_user = false, $offset = null
 
     return $leaderboard;
 }
+
+function dpa_leaderboard_data($fields, $protectedfields, $data)
+{
+	$html = '';
+	foreach ($data["results"] as $row)
+	{
+		$html .= '<tr>';
+		for ($i=0; $i<count($fields); $i++)
+		{
+			if (((strpos($protectedfields, $fields[$i]) > 0)
+					&& is_user_logged_in())
+				|| (strpos($protectedfields, $fields[$i]) === false))
+			{
+				switch ($fields[$i])
+				{
+					case "rank":
+						$html .= '<td>' . $row->rank . '</td>';
+						break;
+					case "profile_picture":
+						$html .= '<td>' . get_avatar($row->ID, 39) . '</td>';
+						break;
+					case "bbpress_profile_link":
+						$html .= '<td><a href="/forums/users/' . $row->user_nicename . '">' . $row->display_name . '</a></td>';
+						break;
+					case "karma":
+						$html .= '<td>' . $row->total_karma . '</td>';
+						break;
+					case "user_id":
+						$html .= '<td>' . $row->ID . '</td>';
+						break;
+					case "user_login":
+						$html .= '<td>' . $row->user_login . '</td>';
+						break;
+					case "user_nicename":
+						$html .= '<td>' . $row->user_nicename . '</td>';
+						break;
+					case "user_email":
+						$html .= '<td>' . $row->user_email . '</td>';
+						break;
+					case "user_url":
+						$html .= '<td>' . $row->user_url . '</td>';
+						break;
+					case "user_registered":
+						$html .= '<td>' . $row->user_registered . '</td>';
+						break;
+					case "user_status":
+						$html .= '<td>' . $row->user_status . '</td>';
+						break;
+					case "display_name":
+						$html .= '<td>' . $row->display_name . '</td>';
+						break;
+					case "user_firstname":
+						$html .= '<td>' . $row->user_firstname . '</td>';
+						break;
+					case "user_lastname":
+						$html .= '<td>' . $row->user_lastname . '</td>';
+						break;
+					case "nickname":
+						$html .= '<td>' . $row->nickname . '</td>';
+						break;
+					case "user_description":
+						$html .= '<td>' . $row->user_description . '</td>';
+						break;
+					case "wp_capabilities":
+						$matches = null;
+						$matches_html = "";
+						preg_match_all('/"([^"]+)"/', $row->wp_capabilities, $matches);
+						for ($j=0; $j<count($matches[1]); $j++)
+						{
+							if (strpos($matches[1][$j], "bbp_") === false)
+							{
+								if (strlen($matches_html) > 0)
+								{
+									$matches_html .= ", ";
+								}
+								$matches_html .= ucfirst(strtolower($matches[1][$j]));
+							}
+						}
+						if (strlen($matches_html) == 0)
+						{
+							$matches_html = "&nbsp;";
+						}
+						$html .= '<td>' . $matches_html . '</td>';
+						break;
+				}
+			}
+		}
+		$html .= '</tr>';
+	}
+	
+	return $html;
+}
+
+function dpa_get_leaderboard($attr)
+{
+	extract(
+		shortcode_atts(
+			array(
+				'fields' => 'rank,profile_picture,bbpress_profile_link,wp_capabilities,karma,user_email,user_registered',
+				'titles' => 'Rank,Avatar,Name,Authority,Points,Email,Member Since',
+				'protectedfields' => 'user_email,user_registered',
+				'width' => '100%',
+				'showcurrentuser' => 'true',
+			),
+			$attr
+		)
+	);
+	$fields = split(',', $fields);
+	$titles = split(',', $titles);
+	$html_blankrow = '<tr class="blank">';
+    $html = '
+<table id="roster" width="' . $width . '">
+	<tr>';
+	for ($i=0; $i<count($titles); $i++)
+	{
+		$html_blankrow .= '<td>&nbsp;</td>';
+		if (((strpos($protectedfields, $fields[$i]) > 0)
+				&& is_user_logged_in())
+			|| (strpos($protectedfields, $fields[$i]) === false))
+		{
+			$html .= '<th>' . $titles[$i] . '</th>';
+		}
+	}
+	$html .= '</tr>';
+	$html_blankrow .= '</tr>';
+	if (($showcurrentuser == 'true') && is_user_logged_in())
+	{
+		$current_user = wp_get_current_user();
+		$current_user_html = dpa_leaderboard_data($fields, $protectedfields, dpa_get_leaderboard_rankings($current_user->ID));
+		if (strlen($current_user_html) > 0)
+		{
+			$html .= $current_user_html;
+			$html .= $html_blankrow;
+		}
+	}
+	$html .= dpa_leaderboard_data($fields, $protectedfields, dpa_get_leaderboard_rankings());
+	$html .= '</table>';
+
+	return $html;
+}
+add_shortcode('dpa_leaderboard', 'dpa_get_leaderboard');
+
