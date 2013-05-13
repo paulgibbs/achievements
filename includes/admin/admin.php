@@ -110,11 +110,6 @@ class DPA_Admin {
 		add_action( 'load-post-new.php',                        'dpa_achievement_new_contextual_help' );
 		add_action( 'load-post.php',                            'dpa_achievement_new_contextual_help' );
 
-		// Add thumbnail size for the edit.php?post_type=achievement index screen
-		add_image_size( 'dpa-thumb', 32, 32 );
-
-
-		// Dependencies
 
 		// Allow plugins to modify these actions
 		do_action_ref_array( 'dpa_admin_loaded', array( &$this ) );
@@ -200,6 +195,9 @@ class DPA_Admin {
 		add_action( 'show_user_profile',        array( $this, 'add_profile_fields'  ) );
 		add_action( 'edit_user_profile_update', array( $this, 'save_profile_fields' ) );
 		add_action( 'personal_options_update',  array( $this, 'save_profile_fields' ) );
+
+		// Remove the "categories" submenu from inside the achievement post type menu
+		remove_submenu_page( 'edit.php?post_type=' . dpa_get_achievement_post_type(), 'edit-tags.php?taxonomy=category&amp;post_type=' . dpa_get_achievement_post_type() );
 	}
 
 	/**

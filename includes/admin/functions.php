@@ -21,7 +21,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  */
 function dpa_admin_setup_metaboxes() {
 	// Load metaboxes and on-save handler
-	add_meta_box( 'dpa-mb', __( 'Achievements', 'dpa' ), 'dpa_achievement_metabox', dpa_get_achievement_post_type(), 'side', 'default' );
+	add_meta_box( 'dpa-mb', __( 'Achievements', 'dpa' ), 'dpa_achievement_metabox', dpa_get_achievement_post_type(), 'side', 'high' );
 	remove_meta_box( 'tagsdiv-dpa_event', dpa_get_achievement_post_type(), 'side' );
 
 	// Chosen is a JavaScript plugin that makes long, unwieldy select boxes much more user-friendly.
@@ -189,6 +189,7 @@ function dpa_achievement_posts_columns( $columns ) {
 		'dpa_thumb'        => _x( 'Image', 'Featured Image column title', 'dpa' ),
 		'title'            => __( 'Title', 'dpa' ),
 		'achievement_type' => _x( 'Type', 'Type of the achievement; award or badge', 'dpa' ),
+		'categories'       => __( 'Categories', 'dpa' ),
 		'karma'            => __( 'Karma Points', 'dpa' ),
 		'date'             => __( 'Date', 'dpa' ),
 	);

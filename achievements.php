@@ -13,7 +13,7 @@
 Plugin Name: Achievements
 Plugin URI: http://achievementsapp.com/
 Description: Achievements gamifies your WordPress site with challenges, badges, and points.
-Version: 3.2.3
+Version: 3.3
 Requires at least: 3.5.1
 Tested up to: 3.6
 License: GPLv3
@@ -175,7 +175,7 @@ final class DPA_Achievements_Loader {
 	 */
 	private function setup_globals() {
 		// Versions
-		$this->version    = 3.0;
+		$this->version    = 3.3;
 		$this->db_version = 300;
 
 		// Paths - plugin
@@ -285,6 +285,7 @@ final class DPA_Achievements_Loader {
 
 		require( $this->includes_dir . 'buddypress/functions.php'    );
 
+
 		/**
 		 * Components
 		 */
@@ -319,6 +320,15 @@ final class DPA_Achievements_Loader {
 			require( $this->includes_dir . 'admin/admin.php'   );
 			require( $this->includes_dir . 'admin/actions.php' );
 		}
+
+
+		/**
+		 * WP-CLI
+		 */
+		if ( defined( 'WP_CLI' ) && WP_CLI ) {
+			require( $this->includes_dir . 'class-dpa-wpcli-achievements-command.php' );
+			require( $this->includes_dir . 'class-dpa-wpcli-achievements-users-command.php' );
+		}
 	}
 
 	/**
@@ -347,6 +357,7 @@ final class DPA_Achievements_Loader {
 			'constants',                 // Define constants
 			'register_endpoints',        // Register endpoints (achievements)
 			'admin_bar_menu',            // Register custom menu items (My Achievements)
+			'register_image_sizes',      // Add custom image sizes
 		);
 
 		foreach( $actions as $class_action )
@@ -476,6 +487,7 @@ final class DPA_Achievements_Loader {
 			'show_in_menu'         => $post_type_is_public,
 			'show_ui'              => dpa_current_user_can_see( dpa_get_achievement_post_type() ),
 			'supports'             => $supports['achievement'],
+			'taxonomies'           => array( 'category' ),
 		) );
 		$cpt['achievement_progress'] = apply_filters( 'dpa_register_post_type_achievement_progress', array(
 			'capabilities'        => dpa_get_achievement_progress_caps(),
@@ -632,6 +644,15 @@ final class DPA_Achievements_Loader {
 
 		// Setup the theme package to use for compatibility
 		dpa_setup_theme_compat( dpa_get_theme_package_id() );
+	}
+
+	/**
+	 * Add custom image sizes for image cropping
+	 *
+	 * @since Achievements (3.3)
+	 */
+	public function register_image_sizes() {
+		add_image_size( 'dpa-thumb', 32, 32 );
 	}
 }
 

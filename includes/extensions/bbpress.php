@@ -78,6 +78,11 @@ class DPA_bbPress_Forum_Extension extends DPA_CPT_Extension {
 				'gravatar_url' => 'http://www.gravatar.com/avatar/81ec16063d89b162d55efe72165c105f',
 				'profile_url'  => 'http://profiles.wordpress.org/johnjamesjacoby/',
 			),
+			array(
+				'name'         => 'Jennifer M. Dodd',
+				'gravatar_url' => 'http://www.gravatar.com/avatar/6a7c997edea340616bcc6d0fe03f65dd',
+				'profile_url'  => 'http://profiles.wordpress.org/jmdodd/',
+			),
 		);
 
 		$this->generic_cpt_actions = array(

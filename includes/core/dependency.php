@@ -208,6 +208,15 @@ function dpa_admin_bar_menu() {
 }
 
 /**
+ * Add custom image sizes for cropping
+ *
+ * @since Achievements (3.3)
+ */
+function dpa_register_image_sizes() {
+	do_action( 'dpa_register_image_sizes' );
+}
+
+/**
  * Everything's loaded and ready to go!
  *
  * @since Achievements (3.0)
