@@ -38,7 +38,7 @@ class DPA_bbPress_Forum_Extension extends DPA_CPT_Extension {
 	 * @since Achievements (3.0)
 	 */
 	public function __construct() {
-		if ( is_plugin_active( 'bbpress/bbpress.php' ) || ( 'achievements-plugins' == $_GET['page'] )) {
+		if ( is_plugin_active( 'bbpress/bbpress.php' ) || ( is_admin() && isset( $_GET['page'] ) && ( 'achievements-plugins' == $_GET['page'] ) ) ) {
 			$this->actions = array(
 				// Forum
 				'bbp_deleted_forum'   => __( 'A forum is permanently deleted by the user', 'dpa' ),
