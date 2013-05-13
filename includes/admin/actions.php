@@ -65,9 +65,6 @@ add_action( 'dpa_new_site', 'dpa_create_initial_content', 6 );
  * @since Achievements (3.0)
  */
 function dpa_new_site( $blog_id, $user_id, $domain, $path, $site_id, $meta ) {
-	// If we're running network wide, it doesn't matter that we've created a new blog.
-	if ( is_multisite() && dpa_is_running_networkwide() )
-		return;
 
 	// Bail if plugin has not been network activated 
 	if ( ! is_plugin_active_for_network( achievements()->basename ) ) 

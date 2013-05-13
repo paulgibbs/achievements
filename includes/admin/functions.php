@@ -186,6 +186,7 @@ function dpa_achievement_metabox_save( $achievement_id ) {
 function dpa_achievement_posts_columns( $columns ) {
 	$columns = array(
 		'cb'               => '<input type="checkbox" />',
+		'dpa_thumb'        => _x( 'Image', 'Featured Image column title', 'dpa' ),
 		'title'            => __( 'Title', 'dpa' ),
 		'achievement_type' => _x( 'Type', 'Type of the achievement; award or badge', 'dpa' ),
 		'karma'            => __( 'Karma Points', 'dpa' ),
@@ -210,6 +211,9 @@ function dpa_achievement_custom_column( $column, $post_id ) {
 		$existing_events = wp_get_post_terms( $post_id, dpa_get_event_tax_id(), array( 'fields' => 'ids', ) );
 		$existing_type   = empty( $existing_events ) ? __( 'Award', 'dpa' ) : __( 'Event', 'dpa' );
 		echo $existing_type;
+
+	} elseif ( 'dpa_thumb' == $column ) {
+			the_post_thumbnail( 'dpa-thumb' );
 	}
 }
 
