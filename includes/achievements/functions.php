@@ -283,7 +283,7 @@ function dpa_form_redeem_achievement( $action = '' ) {
  * @param int $posts_per_page Optional. If set, will change the number of records returned per page. Default is Wordpress default value.
  * 
  * @return array. Two-dimensional array is returned, array["restults"] holds search results, while array["total_number_of_pages"] holds the max number of pages which can be used for pagination links.
- * @since Achievements (3.2.2)
+ * @since Achievements (3.3)
  * @author Mike Bronner <mike.bronner@gmail.com>
  */
 function dpa_get_leaderboard_rankings($current_user_id = null, $offset = null, $posts_per_page = null)
@@ -362,7 +362,18 @@ function dpa_get_leaderboard_rankings($current_user_id = null, $offset = null, $
     return $leaderboard;
 }
 
-function dpa_leaderboard_data($fields, $protectedfields, $data)
+/**
+ * Processes leaderboard query results and returns an HTML Table according to shortcode attributes.
+ *
+ * @param array $fields Required. Array of fields to be used in the creation of the leaderboard.
+ * @param string $protectedfields Optional. Comma-separated string of fields to only be shown if the viewer is logged in.
+ * @param object $data Required. Contains leaderboard query results.
+ * 
+ * @return string. Returns the HTML of the table rows of the leaderboard.
+ * @since Achievements (3.3)
+ * @author Mike Bronner <mike.bronner@gmail.com>
+ */
+function dpa_leaderboard_data($fields, $protectedfields = '', $data)
 {
 	$html = '';
 	foreach ($data["results"] as $row)
@@ -454,6 +465,15 @@ function dpa_leaderboard_data($fields, $protectedfields, $data)
 	return $html;
 }
 
+/**
+ * Processes leaderboard shortcode and user-provided attributes.
+ *
+ * @param array $attr Optional. Attributes passed in from shortcode.
+ * 
+ * @return string. Returns the HTML-formatted leaderboard.
+ * @since Achievements (3.3)
+ * @author Mike Bronner <mike.bronner@gmail.com>
+ */
 function dpa_get_leaderboard($attr)
 {
 	extract(
@@ -501,5 +521,29 @@ function dpa_get_leaderboard($attr)
 
 	return $html;
 }
+
+/**
+ * Shortcode used to create leaderboard.
+ * 
+ * Possible 'fields' Attributes: rank, profile_picture, bbpress_profile_link, karma, user_id, user_login, user_nicename, user_email,
+ *	user_url, user_registered, user_status, display_name, user_firstname, user_lastname, nickname, user_description, wp_capabilities
+ * Default 'fields' Attribute, if not specified: 'rank,profile_picture,bbpress_profile_link,wp_capabilities,karma,user_email,user_registered'
+ * 
+ * 'titles' Attribute: comma-separated list of titles you wish to use for the selected fields. The order must be the same as the 'fields' attributes.
+ * Default 'titles' Attribute, if not specified: 'Rank,Avatar,Name,Authority,Points,Email,Member Since'
+ * 
+ * 'protectedfields' Attribute: comma-separated list of fields you only want visible to logged-in users.
+ * Default 'protectedfields' Attribute, if not specified: 'user_email,user_registered'
+ * 
+ * 'width' Attribute': specify width, either in pixel (without 'px') or as percentage (with '%').
+ * Default 'width' Attribute, if not specified: '100%'
+ * 
+ * 'showcurrentuser' Attribute: Shows the current user's record above the leaderboard, to make it easy for users to read their stats
+ * 	without paging through the entire leaderboard. This only works if a user is logged in. Possible values are 'true' or 'false'.
+ * Default 'showcurrentuser' Attribute, if not specified: 'true';
+ * 
+ * @since Achievements (3.3)
+ * @author Mike Bronner <mike.bronner@gmail.com>
+ */
 add_shortcode('dpa_leaderboard', 'dpa_get_leaderboard');
 
