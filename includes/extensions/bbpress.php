@@ -17,8 +17,8 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  * @since Achievements (3.0)
  */
 function dpa_init_bbpress_extension() {
-	achievements()->extensions->bbpress = new DPA_bbPress_Forum_Extension;
 
+	achievements()->extensions->bbpress = new DPA_bbPress_Forum_Extension;
 	// Tell the world that the bbPress extension is ready
 	do_action( 'dpa_init_bbpress_extension' );
 }
@@ -38,35 +38,36 @@ class DPA_bbPress_Forum_Extension extends DPA_CPT_Extension {
 	 * @since Achievements (3.0)
 	 */
 	public function __construct() {
-		$this->actions = array(
-			// Forum
-			'bbp_deleted_forum'   => __( 'A forum is permanently deleted by the user', 'dpa' ),
-			'bbp_edit_forum'      => __( "A forum&#8217;s settings are changed by the user", 'dpa' ),
-			'bbp_new_forum'       => __( 'The user creates a new forum', 'dpa' ),
-			'bbp_trashed_forum'   => __( 'The user puts a forum into the trash', 'dpa' ),
-			'bbp_untrashed_forum' => __( 'The user restores a forum from the trash', 'dpa' ),
+		if ( is_plugin_active( 'bbpress/bbpress.php' ) || ( is_admin() && isset( $_GET['page'] ) && ( 'achievements-plugins' == $_GET['page'] ) ) ) {
+			$this->actions = array(
+				// Forum
+				'bbp_deleted_forum'   => __( 'A forum is permanently deleted by the user', 'dpa' ),
+				'bbp_edit_forum'      => __( "A forum&#8217;s settings are changed by the user", 'dpa' ),
+				'bbp_new_forum'       => __( 'The user creates a new forum', 'dpa' ),
+				'bbp_trashed_forum'   => __( 'The user puts a forum into the trash', 'dpa' ),
+				'bbp_untrashed_forum' => __( 'The user restores a forum from the trash', 'dpa' ),
 
-			// Topic management
-			'bbp_closed_topic'     => __( 'The user closes a topic.', 'dpa' ),
-			'bbp_merged_topic'     => __( 'Separate topics are merged together by a user', 'dpa' ),
-			'bbp_opened_topic'     => __( 'The user opens a topic for new replies', 'dpa' ),
-			'bbp_post_split_topic' => __( 'An existing topic is split into seperate threads by a user', 'dpa' ),
+				// Topic management
+				'bbp_closed_topic'     => __( 'The user closes a topic.', 'dpa' ),
+				'bbp_merged_topic'     => __( 'Separate topics are merged together by a user', 'dpa' ),
+				'bbp_opened_topic'     => __( 'The user opens a topic for new replies', 'dpa' ),
+				'bbp_post_split_topic' => __( 'An existing topic is split into seperate threads by a user', 'dpa' ),
 
-			// Topic
-			'bbp_deleted_topic'              => __( 'The user permanently deletes a topic', 'dpa' ),
-			'bbp_sticked_topic'              => __( 'The user marks a topic as a sticky', 'dpa' ),
-			'bbp_trashed_topic'              => __( 'The user trashes a topic', 'dpa' ),
-			'bbp_unsticked_topic'            => __( 'The user unstickies a topic', 'dpa' ),
-			'bbp_untrashed_topic'            => __( 'The user restores a topic from the trash', 'dpa' ),
-			'bbpress_topic_draft_to_publish' => __( 'The user creates a new topic.', 'dpa' ),
+				// Topic
+				'bbp_deleted_topic'              => __( 'The user permanently deletes a topic', 'dpa' ),
+				'bbp_sticked_topic'              => __( 'The user marks a topic as a sticky', 'dpa' ),
+				'bbp_trashed_topic'              => __( 'The user trashes a topic', 'dpa' ),
+				'bbp_unsticked_topic'            => __( 'The user unstickies a topic', 'dpa' ),
+				'bbp_untrashed_topic'            => __( 'The user restores a topic from the trash', 'dpa' ),
+				'bbpress_topic_draft_to_publish' => __( 'The user creates a new topic.', 'dpa' ),
 
-			// Reply
-			'bbp_deleted_reply'              => __( 'The user permanently deletes a reply', 'dpa' ),
-			'bbp_trashed_reply'              => __( 'The user trashes a reply', 'dpa' ),
-			'bbp_untrashed_reply'            => __( 'The user restores a reply from the trash', 'dpa' ),
-			'bbpress_reply_draft_to_publish' => __( 'The user replies to a topic.', 'dpa' ),
-		);
-
+				// Reply
+				'bbp_deleted_reply'              => __( 'The user permanently deletes a reply', 'dpa' ),
+				'bbp_trashed_reply'              => __( 'The user trashes a reply', 'dpa' ),
+				'bbp_untrashed_reply'            => __( 'The user restores a reply from the trash', 'dpa' ),
+				'bbpress_reply_draft_to_publish' => __( 'The user replies to a topic.', 'dpa' ),
+			);
+		}
 		$this->contributors = array(
 			array(
 				'name'         => 'Matt',
