@@ -38,7 +38,7 @@ class DPA_Invite_Anyone_Extension extends DPA_Extension {
 	 * @since Achievements (3.0)
 	 */
 	public function __construct() {
-		if ( is_plugin_active( 'invite-anyone/invite-anyone.php' ) || ( 'achievements-plugins' == $_GET['page'] )) {
+		if ( is_plugin_active( 'invite-anyone/invite-anyone.php' ) || ( is_admin() && isset( $_GET['page'] ) && ( 'achievements-plugins' == $_GET['page'] ) ) ) {
 			$this->actions = array(
 				'accepted_email_invite' => __( 'A new user activates their account.', 'dpa' ),
 				'sent_email_invite'     => __( 'The user invites someone else to join the site.', 'dpa' ),
