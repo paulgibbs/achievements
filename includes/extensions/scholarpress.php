@@ -38,7 +38,7 @@ class DPA_BuddyPress_Courseware_Extension extends DPA_Extension {
 	 * @since Achievements (3.0)
 	 */
 	public function __construct() {
-		if ( is_plugin_active( 'buddypress-courseware/courseware.php' ) || ( 'achievements-plugins' == $_GET['page'] )) {
+		if ( is_plugin_active( 'buddypress-courseware/courseware.php' ) || ( is_admin() && isset( $_GET['page'] ) && ( 'achievements-plugins' == $_GET['page'] ) ) ) {
 			$this->actions = array(
 				'courseware_new_teacher_added'   => __( 'The user is added as a teacher', 'dpa' ),
 				'courseware_grade_added'         => __( 'A grade is given to the user', 'dpa' ),
