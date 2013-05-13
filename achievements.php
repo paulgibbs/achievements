@@ -74,7 +74,7 @@ final class DPA_Achievements_Loader {
 	/**
 	 * @var array Overloads get_option()
 	 */
-	public $options      = array(); 
+	public $options      = array();
 
 	/**
 	 * @var array Overloads get_user_meta()
@@ -191,9 +191,9 @@ final class DPA_Achievements_Loader {
 		// Paths - languages
 		$this->lang_dir = apply_filters( 'dpa_lang_dir', trailingslashit( $this->plugin_dir . 'languages' ) );
 
-		// Includes 
-		$this->includes_dir = apply_filters( 'dpa_includes_dir', trailingslashit( $this->plugin_dir . 'includes' ) ); 
-		$this->includes_url = apply_filters( 'dpa_includes_url', trailingslashit( $this->plugin_url . 'includes' ) ); 
+		// Includes
+		$this->includes_dir = apply_filters( 'dpa_includes_dir', trailingslashit( $this->plugin_dir . 'includes' ) );
+		$this->includes_url = apply_filters( 'dpa_includes_url', trailingslashit( $this->plugin_url . 'includes' ) );
 
 		// Post type/endpoint/taxonomy identifiers
 		$this->achievement_post_type          = apply_filters( 'dpa_achievement_post_type',          'achievement'  );
@@ -219,7 +219,7 @@ final class DPA_Achievements_Loader {
 		$this->domain     = 'dpa';            // Unique identifier for retrieving translated strings
 		$this->errors     = new WP_Error();   // Errors
 		$this->extensions = new stdClass();   // Other plugins add data here
-		
+
 		// Deep integration with other plugins
 		$this->integrate_into_buddypress = false;  // Use BuddyPress profiles for screens like "my achievements"
 
@@ -275,6 +275,8 @@ final class DPA_Achievements_Loader {
 		/**
 		 * Plugin extensions
 		 */
+		//We need this so that is_active_plugin is registered when we check for active plugins
+		include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 		require( $this->includes_dir . 'extensions/bbpress.php'      );
 		require( $this->includes_dir . 'extensions/buddypress.php'   );
 		require( $this->includes_dir . 'extensions/buddystream.php'  );
