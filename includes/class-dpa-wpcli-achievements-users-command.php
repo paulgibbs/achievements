@@ -25,16 +25,18 @@ class DPA_WPCLI_Achievements_Users_Command extends WP_CLI_Command {
 	 *
 	 * @since Achievements (3.3)
 	 * @subcommand list
-	 * @synopsis <user_id> [--format=<table|csv|json>]
+	 * @synopsis --user=<id|login> [--format=<table|csv|json>]
 	 */
 	public function _list( $args, $assoc_args ) {
 		global $wpdb;
 
-		$defaults   = array( 'format' => 'table' );
+		$defaults = array( 
+			'format' => 'table',
+			'user'   => 0,
+		);
 		$assoc_args = array_merge( $defaults, $assoc_args );
 
-		$user_id = ! empty( $args[0] ) ? (int) $args[0] : 0;
-		if ( ! $user_id || ! $user = get_userdata( $user_id ) )
+		if ( ! $assoc_args['user_id'] || ! $user = get_userdata( $assoc_args['user_id'] ) )
 			WP_CLI::error( 'Invalid User ID specified.' );
 
 		// Get the progress for this user
