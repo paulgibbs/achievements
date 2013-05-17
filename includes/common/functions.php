@@ -313,7 +313,7 @@ function dpa_delete_rewrite_rules() {
  * @return array Merged user defined values with defaults.
  * @since Achievements (3.0)
  */
-function dpa_parse_args( $args, $defaults = '', $filter_key = '' ) {
+function dpa_parse_args( $args, $defaults = array(), $filter_key = '' ) {
 	// Setup a temporary array from $args
 	if ( is_object( $args ) )
 		$r = get_object_vars( $args );
@@ -327,7 +327,7 @@ function dpa_parse_args( $args, $defaults = '', $filter_key = '' ) {
 		$r = apply_filters( 'dpa_before_' . $filter_key . '_parse_args', $r );
 
 	// Parse
-	if ( is_array( $defaults ) )
+	if ( is_array( $defaults ) && ! empty( $defaults ) )
 		$r = array_merge( $defaults, $r );
 
 	// Aggressively filter the args after the parse
