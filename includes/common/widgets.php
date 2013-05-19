@@ -268,11 +268,12 @@ class DPA_Available_Achievements_Widget extends WP_Widget {
 
 		// Get the posts
 		$achievements = get_posts( array(
-			'no_found_rows' => true,
-			'numberposts'   => $settings['limit'],
-			'post_status'   => 'publish',
-			'post_type'     => dpa_get_achievement_post_type(),
-			'suppress_filters' => false,
+			'ignore_sticky_posts' => true,
+			'no_found_rows'       => true,
+			'numberposts'         => $settings['limit'],
+			'post_status'         => 'publish',
+			'post_type'           => dpa_get_achievement_post_type(),
+			'suppress_filters'    => false,
 		) );
 
 		// Bail if no posts
