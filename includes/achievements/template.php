@@ -35,6 +35,7 @@ function dpa_has_achievements( $args = array() ) {
 
 	$defaults = array(
 		// Standard WP_Query params
+		'ignore_sticky_posts'   => true,                                                 // Ignored sticky posts
 		'order'                 => 'ASC',                                                // 'ASC', 'DESC
 		'orderby'               => 'title',                                              // 'meta_value', 'author', 'date', 'title', 'modified', 'parent', rand'
 		'max_num_pages'         => false,                                                // Maximum number of pages to show

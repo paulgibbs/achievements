@@ -28,13 +28,14 @@ function dpa_has_progress( $args = array() ) {
 		switch_to_blog( DPA_DATA_STORE );
 
 	$defaults = array(
-		'max_num_pages' => false,                         // Maximum number of pages to show
-		'order'         => 'DESC',                        // 'ASC', 'DESC
-		'orderby'       => 'date',                        // 'meta_value', 'author', 'date', 'title', 'modified', 'parent', 'rand'
-		'paged'         => dpa_get_paged(),               // Page number
-		'post_status'   => dpa_get_unlocked_status_id(),  // Get posts in the unlocked status by default.
-		'post_type'     => dpa_get_progress_post_type(),  // Only retrieve progress posts
-		's'             => '',                            // No search
+		'ignore_sticky_posts' => true,                          // Ignored sticky posts
+		'max_num_pages'       => false,                         // Maximum number of pages to show
+		'order'               => 'DESC',                        // 'ASC', 'DESC
+		'orderby'             => 'date',                        // 'meta_value', 'author', 'date', 'title', 'modified', 'parent', 'rand'
+		'paged'               => dpa_get_paged(),               // Page number
+		'post_status'         => dpa_get_unlocked_status_id(),  // Get posts in the unlocked status by default.
+		'post_type'           => dpa_get_progress_post_type(),  // Only retrieve progress posts
+		's'                   => '',                            // No search
 
 
 		// Conditional defaults
