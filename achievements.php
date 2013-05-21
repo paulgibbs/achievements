@@ -393,8 +393,7 @@ final class DPA_Achievements_Loader {
 		// Look in global /wp-content/languages/plugins/ folder
 		$mofile_global = WP_LANG_DIR . '/plugins/' . $mofile;
 
-		if ( file_exists( $mofile_global ) )
-			load_textdomain( $this->domain, $mofile_global );
+		load_textdomain( $this->domain, $mofile_global );
 	}
 
 	/**
