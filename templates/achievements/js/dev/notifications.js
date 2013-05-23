@@ -1,4 +1,4 @@
-/*! http://wordpress.org/extend/plugins/achievements/ */
+/*! http://wordpress.org/plugins/achievements/ */
 (function($){
 $(document).ready(function() {
 

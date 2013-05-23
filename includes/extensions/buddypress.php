@@ -98,7 +98,7 @@ class DPA_BuddyPress_Extension extends DPA_Extension {
 		$this->rss_url         = 'http://buddypress.org/blog/feed/';
 		$this->small_image_url = trailingslashit( achievements()->includes_url ) . 'admin/images/buddypress-small.png';
 		$this->version         = 1;
-		$this->wporg_url       = 'http://wordpress.org/extend/plugins/buddypress/';
+		$this->wporg_url       = 'http://wordpress.org/plugins/buddypress/';
 
 		add_filter( 'dpa_handle_event_user_id', array( $this, 'event_user_id' ), 10, 3 );
 	}

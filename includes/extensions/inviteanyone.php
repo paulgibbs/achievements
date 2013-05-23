@@ -65,7 +65,7 @@ class DPA_Invite_Anyone_Extension extends DPA_Extension {
 		$this->rss_url         = 'http://teleogistic.net/feed/';
 		$this->small_image_url = trailingslashit( achievements()->includes_url ) . 'admin/images/invite-anyone-small.jpg';
 		$this->version         = 1;
-		$this->wporg_url       = 'http://wordpress.org/extend/plugins/invite-anyone/';
+		$this->wporg_url       = 'http://wordpress.org/plugins/invite-anyone/';
 
 		add_filter( 'dpa_handle_event_user_id', array( $this, 'event_user_id' ), 10, 3 );
 	}
