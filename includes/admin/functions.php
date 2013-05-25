@@ -121,7 +121,7 @@ function dpa_achievement_metabox_save( $achievement_id ) {
 		return $achievement_id;
 
 	// Bail if not a post request
-	if ( 'POST' != strtoupper( $_SERVER['REQUEST_METHOD'] ) )
+	if ( ! isset( $_SERVER['REQUEST_METHOD'] ) || 'POST' != strtoupper( $_SERVER['REQUEST_METHOD'] ) )
 		return $achievement_id;
 
 	// Bail if not saving an achievement post type
