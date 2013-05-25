@@ -116,4 +116,6 @@ function dpa_delete_achievement_progress( $achievement_id, $user_id ) {
 
 	// Decrease user unlocked count
 	dpa_update_user_unlocked_count( $user_id, dpa_get_user_unlocked_count( $user_id ) - 1 );
+
+	do_action( 'dpa_after_delete_achievement_progress', $progress_id, $achievement_id, $user_id );
 }
