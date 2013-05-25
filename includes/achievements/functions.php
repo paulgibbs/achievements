@@ -272,3 +272,31 @@ function dpa_form_redeem_achievement( $action = '' ) {
 	if ( is_multisite() && dpa_is_running_networkwide() )
 		restore_current_blog();
 }
+
+/**
+ * Has a specific user unlocked a specific achievement?
+ *
+ * @param int $user_id
+ * @param int $achievement_id
+ * @return bool True if user has unlocked the achievement
+ * @since Achievements (3.4) 
+ */
+function dpa_has_user_unlocked_achievement( $user_id, $achievement_id ) {
+
+	if ( ! dpa_is_user_active( $user_id ) )
+		return false;
+
+	// Try to fetched an unlocked progress item for this user pair/achievement pair
+	$progress = get_posts( array(
+		'fields'           => 'ids',
+		'no_found_rows'    => true,
+		'nopaging'         => true,
+		'numberposts'      => 1,
+		'post_parent'      => dpa_get_achievement_id( $achievement_id ),
+		'post_status'      => dpa_get_unlocked_status_id(),
+		'post_type'        => dpa_get_progress_post_type(),
+		'suppress_filters' => false,
+	) );
+
+	return apply_filters( 'dpa_has_user_unlocked_achievement', ! empty( $progress ), $progress, $user_id, $achievement_id );
+}
