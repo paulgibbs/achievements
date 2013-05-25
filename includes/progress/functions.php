@@ -90,9 +90,12 @@ function dpa_delete_achievement_progress( $achievement_id, $user_id ) {
 		return;
 
 	$progress_id = dpa_get_progress( array(
-		'author'      => $user_id,
-		'fields'      => 'ids',
-		'post_parent' => $achievement_id,
+		'author'        => $user_id,
+		'fields'        => 'ids',
+		'no_found_rows' => true,
+		'nopaging'      => true,
+		'numberposts'   => 1,
+		'post_parent'   => $achievement_id,
 	) );
 
 	if ( empty( $progress_id ) )
