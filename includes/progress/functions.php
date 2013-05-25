@@ -117,5 +117,12 @@ function dpa_delete_achievement_progress( $achievement_id, $user_id ) {
 	// Decrease user unlocked count
 	dpa_update_user_unlocked_count( $user_id, dpa_get_user_unlocked_count( $user_id ) - 1 );
 
+	/**
+	 * If the progress was linked to an achievement that is the same achievement that is stored in
+	 * this user's "last unlocked" meta, then clear the "last unlocked" meta, too.
+	 */
+	if ( (int) dpa_get_user_last_unlocked( $user_id ) === $achievement_id )
+		dpa_update_user_last_unlocked( $user_id, 0 );
+
 	do_action( 'dpa_after_delete_achievement_progress', $progress_id, $achievement_id, $user_id );
 }
