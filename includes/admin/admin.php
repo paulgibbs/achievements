@@ -367,10 +367,6 @@ class DPA_Admin {
 
 			foreach ( $achievements_to_remove as $achievement_id )
 				dpa_delete_achievement_progress( $achievement_id, $user_id );
-
-			// Decrease user unlocked count
-			$unlock_count = dpa_get_user_unlocked_count( $user_id ) - count( $achievements_to_remove );
-			dpa_update_user_unlocked_count( $user_id, $unlock_count );
 		}
 
 

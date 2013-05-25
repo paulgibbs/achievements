@@ -113,4 +113,7 @@ function dpa_delete_achievement_progress( $achievement_id, $user_id ) {
 
 	// Update the user's notifications in case we cleared any above
 	dpa_update_user_notifications( $notifications, $user_id );
+
+	// Decrease user unlocked count
+	dpa_update_user_unlocked_count( $user_id, dpa_get_user_unlocked_count( $user_id ) - 1 );
 }
