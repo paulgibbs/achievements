@@ -187,8 +187,8 @@ function dpa_before_achievement_deleted( $post_id = 0 ) {
 
 	// An achievement is being permanently deleted, so any related Progress posts have to go, too.
 	$progress = new WP_Query( array(
-		'posts_per_page'   => -1,
 		'fields'         => 'id=>parent',
+		'nopaging'       => true,
 		'post_parent'    => $post_id,
 		'post_status'    => array( dpa_get_locked_status_id(), dpa_get_unlocked_status_id() ),
 		'post_type'      => dpa_get_progress_post_type(),
