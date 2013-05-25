@@ -291,7 +291,7 @@ function dpa_has_user_unlocked_achievement( $user_id, $achievement_id ) {
 		return false;
 
 	// Try to fetched an unlocked progress item for this user pair/achievement pair
-	$progress_id = dpa_get_progress( array(
+	$progress = dpa_get_progress( array(
 		'author'        => $user_id,
 		'fields'        => 'ids',
 		'no_found_rows' => true,
