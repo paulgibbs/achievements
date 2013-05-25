@@ -25,14 +25,13 @@ class DPA_WPCLI_Achievements_Users_Command extends WP_CLI_Command {
 	 *
 	 * @since Achievements (3.3)
 	 * @subcommand list
-	 * @synopsis --user=<id|login> [--format=<table|csv|json>]
+	 * @synopsis --user_id=<id> [--format=<table|csv|json>]
 	 */
 	public function _list( $args, $assoc_args ) {
 		global $wpdb;
 
 		$defaults = array( 
 			'format' => 'table',
-			'user'   => 0,
 		);
 		$assoc_args = array_merge( $defaults, $assoc_args );
 
@@ -54,6 +53,51 @@ class DPA_WPCLI_Achievements_Users_Command extends WP_CLI_Command {
 
 		WP_CLI::success( sprintf( '%d achievements have been unlocked by User ID %d:', $achievement_count, $user->ID ) );
 		\WP_CLI\utils\format_items( $assoc_args['format'], $this->fields, $posts );
+	}
+
+	/**
+	 * Remove an unlocked achievement from a user
+	 *
+	 * @since Achievements (3.4)
+	 * @synopsis --user_id=<id> --achievement=<postname>
+	 */
+	public function remove( $args, $assoc_args ) {
+
+		if ( ! $assoc_args['user_id'] || ! $user = get_userdata( $assoc_args['user_id'] ) )
+			WP_CLI::error( 'Invalid User ID specified.' );
+
+		// Get the achievement ID
+		$achievement_id = $this->_get_achievement_id_by_post_name( $assoc_args['achievement'] );
+		if ( ! $achievement_id )
+			WP_CLI::error( sprintf( 'Achievement ID not found for post_name: %1$s', $achievement_id ) );
+
+		if ( dpa_has_user_unlocked_achievement( $assoc_args['user_id'], $achievement_id ) ) {
+			dpa_delete_achievement_progress( $achievement_id, $assoc_args['user_id'] );
+
+			WP_CLI::success( sprintf( 'Achievement ID %1$s has been revoked from User ID %2$s', $achievement_id, $assoc_args['user_id'] ) );
+		} else {
+			WP_CLI::warning( sprintf( 'User ID %1$s has not unlocked achievement ID %2$s', $assoc_args['user_id'], $achievement_id ) );
+		}
+	}
+
+
+	/**
+	 * Helper methods for the CLI commands to avoid code duplication
+	 */
+
+	/**
+	 * Get an achievement's ID from the specified $post_name.
+	 *
+	 * @param string $post_name
+	 * @return int Achievement ID
+	 * @since Achievements (3.4)
+	 */
+	protected function _get_achievement_id_by_post_name( $post_name ) {
+		global $wpdb;
+
+		return $wpdb->get_var( $wpdb->prepare( "SELECT ID FROM {$wpdb->posts} WHERE post_type = %s AND post_name = %s LIMIT 1", dpa_get_achievement_post_type(), $post_name ) );
+
+		return $achievement_id;
 	}
 }
 
