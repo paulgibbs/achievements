@@ -102,4 +102,12 @@ function dpa_delete_achievement_progress( $achievement_id, $user_id ) {
 	do_action( 'dpa_before_delete_achievement_progress', $progress_id, $achievement_id, $user_id );
 
 	wp_delete_post( $progress_id, true );
+
+	// Check that the delete achievement isn't in the user's pending notifications
+	$notifications = dpa_get_user_notifications( $user_id );
+	if ( isset( $notifications[$achievement_id] ) )
+		unset( $notifications[$achievement_id]);
+
+	// Update the user's notifications in case we cleared any above
+	dpa_update_user_notifications( $notifications, $user_id );
 }
