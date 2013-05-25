@@ -84,14 +84,8 @@ class DPA_Admin {
 		// Add menu item to settings menu
 		add_action( 'dpa_admin_menu',                           array( $this, 'admin_menus'             ) );
 
-		// Add some general styling to the admin area
-		//add_action( 'dpa_admin_head',                         array( $this, 'admin_head'              ) );
-
 		// Add settings
 		add_action( 'dpa_register_admin_settings',              array( $this, 'register_admin_settings' ) );
-
-		// Add menu item to settings menu
-		//add_action( 'dpa_activation',                         array( $this, 'new_install'             ) );
 
 		// Column headers
 		add_filter( 'manage_achievement_posts_columns',         'dpa_achievement_posts_columns' );
@@ -109,6 +103,9 @@ class DPA_Admin {
 		add_action( 'load-edit.php',                            'dpa_achievement_index_contextual_help' );
 		add_action( 'load-post-new.php',                        'dpa_achievement_new_contextual_help' );
 		add_action( 'load-post.php',                            'dpa_achievement_new_contextual_help' );
+
+		// Messages
+		add_filter( 'post_updated_messages',                    'dpa_achievement_feedback_messages' );
 
 
 		// Allow plugins to modify these actions

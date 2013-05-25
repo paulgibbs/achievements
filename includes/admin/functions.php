@@ -350,3 +350,64 @@ function dpa_achievement_index_contextual_help() {
 		'<p><a href="http://wordpress.org/support/plugin/achievements/" target="_blank">' . __( 'Support Forums', 'dpa' ) . '</a></p>'
 	);
 }
+
+/**
+ * Custom user feedback messages for achievement post type
+ *
+ * @param array $messages
+ * @return array
+ * @since Achievements (3.4)
+ */
+function dpa_achievement_feedback_messages( $messages ) {
+	global $post;
+
+	// Bail out if we're not on the right screen
+	if ( dpa_get_achievement_post_type() != get_current_screen()->post_type )
+		return;
+
+	$achievement_url = dpa_get_achievement_permalink( $post );
+	$post_date       = sanitize_post_field( 'post_date', $post->post_date, $post->ID, 'raw' );
+
+	$messages[dpa_get_achievement_post_type()] = array(
+		0 =>  '', // Left empty on purpose
+
+		// Updated
+		1 =>  sprintf( __( 'Achievement updated. <a href="%s">View achievement</a>', 'dpa' ), $achievement_url ),
+
+		// Custom field updated
+		2 => __( 'Custom field updated.', 'dpa' ),
+
+		// Custom field deleted
+		3 => __( 'Custom field deleted.', 'dpa' ),
+
+		// Achievement updated
+		4 => __( 'Achievement updated.', 'dpa' ),
+
+		// Restored from revision
+		// translators: %s: date and time of the revision
+		5 => isset( $_GET['revision'] )
+				 ? sprintf( __( 'Achievement restored to revision from %s', 'dpa' ), wp_post_revision_title( (int) $_GET['revision'], false ) )
+				 : false,
+
+		// Achievement created
+		6 => sprintf( __( 'Achievement created. <a href="%s">View achievement</a>', 'dpa' ), $achievement_url ),
+
+		// Achievement saved
+		7 => __( 'Achievement saved.', 'dpa' ),
+
+		// Achievement submitted
+		8 => sprintf( __( 'Achievement submitted. <a target="_blank" href="%s">Preview achievement</a>', 'dpa' ), esc_url( add_query_arg( 'preview', 'true', $achievement_url ) ) ),
+
+		// Achievement scheduled
+		9 => sprintf( __( 'Achievement scheduled for: <strong>%1$s</strong>. <a target="_blank" href="%2$s">Preview achievement</a>', 'dpa' ),
+				// translators: Publish box date format, see http://php.net/date
+				date_i18n( __( 'M j, Y @ G:i', 'dpa' ),
+				strtotime( $post_date ) ),
+				$achievement_url ),
+
+		// Achievement draft updated
+		10 => sprintf( __( 'Achievement draft updated. <a target="_blank" href="%s">Preview topic</a>', 'dpa' ), esc_url( add_query_arg( 'preview', 'true', $achievement_url ) ) ),
+	);
+
+	return $messages;
+}
