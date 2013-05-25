@@ -61,7 +61,7 @@ class DPA_WPCLI_Achievements_Users_Command extends WP_CLI_Command {
 	 * @since Achievements (3.4)
 	 * @synopsis --user_id=<id> --achievement=<postname>
 	 */
-	public function remove( $args, $assoc_args ) {
+	public function revoke( $args, $assoc_args ) {
 
 		if ( ! $assoc_args['user_id'] || ! $user = get_userdata( $assoc_args['user_id'] ) )
 			WP_CLI::error( 'Invalid User ID specified.' );
