@@ -286,16 +286,19 @@ function dpa_has_user_unlocked_achievement( $user_id, $achievement_id ) {
 	if ( ! dpa_is_user_active( $user_id ) )
 		return false;
 
+	$achievement_id = dpa_get_achievement_id( $achievement_id );
+	if ( empty( $achievement_id ) || ! dpa_is_achievement( $achievement_id ) )
+		return false;
+
 	// Try to fetched an unlocked progress item for this user pair/achievement pair
-	$progress = get_posts( array(
-		'fields'           => 'ids',
-		'no_found_rows'    => true,
-		'nopaging'         => true,
-		'numberposts'      => 1,
-		'post_parent'      => dpa_get_achievement_id( $achievement_id ),
-		'post_status'      => dpa_get_unlocked_status_id(),
-		'post_type'        => dpa_get_progress_post_type(),
-		'suppress_filters' => false,
+	$progress_id = dpa_get_progress( array(
+		'author'        => $user_id,
+		'fields'        => 'ids',
+		'no_found_rows' => true,
+		'nopaging'      => true,
+		'numberposts'   => 1,
+		'post_parent'   => $achievement_id,
+		'post_status'   => dpa_get_unlocked_status_id(),
 	) );
 
 	return apply_filters( 'dpa_has_user_unlocked_achievement', ! empty( $progress ), $progress, $user_id, $achievement_id );
