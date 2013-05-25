@@ -48,6 +48,7 @@ class DPA_WPCLI_Achievements_Users_Command extends WP_CLI_Command {
 
 		// Get the achievements
 		$posts = $wpdb->get_results( $wpdb->prepare( "SELECT ID, post_title FROM {$wpdb->posts} WHERE ID in ({$achievement_ids}) AND post_type = %s AND post_status = %s ORDER BY post_title ASC", dpa_get_achievement_post_type(), 'publish' ) );
+
 		if ( empty( $posts ) )
 			WP_CLI::error( sprintf( "No achievements unlocked by User ID %d have been found. This shouldn't happen.", $user->ID ) );
 
