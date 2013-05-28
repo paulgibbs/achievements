@@ -45,7 +45,7 @@ function dpa_add_user_options( $user_id = 0 ) {
 	$store_global = is_multisite() && dpa_is_running_networkwide();
 
 	// Add default options
-	foreach ( dpa_get_default_user_options() as $key => $value )
+	foreach ( array_keys( dpa_get_default_user_options() ) as $key => $value )
 		update_user_option( $user_id, $key, $value, $store_global );
 
 	// Allow previously activated plugins to append their own user options.
@@ -71,7 +71,7 @@ function dpa_delete_user_options( $user_id = 0 ) {
 		return;
 
 	// Delete default options (both per site and per network)
-	foreach ( dpa_get_default_user_options() as $key => $value ) {
+	foreach ( array_keys( dpa_get_default_user_options() ) as $key => $value ) {
 		delete_user_option( $user_id, $key, false );
 		delete_user_option( $user_id, $key, true );
 	}
@@ -88,7 +88,7 @@ function dpa_delete_user_options( $user_id = 0 ) {
  */
 function dpa_setup_user_option_filters() {
 	// Add filters to each Achievements option
-	foreach ( dpa_get_default_user_options() as $key => $value )
+	foreach ( array_keys( dpa_get_default_user_options() ) as $key => $value )
 		add_filter( 'get_user_option_' . $key, 'dpa_filter_get_user_option', 10, 3 );
 
 	// Allow previously activated plugins to append their own options.
