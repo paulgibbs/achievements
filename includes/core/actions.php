@@ -84,6 +84,9 @@ add_action( 'activated_plugin',   'dpa_check_buddypress_is_active' );
 add_action( 'deactivated_plugin', 'dpa_check_buddypress_is_active' );
 add_action( 'bp_include',         'dpa_bp_loaded'                  );
 
+// add_theme_support for post thumbnails. Intentionally hooked late to after_setup_theme to allow theme's functions.php to run first.
+add_action( 'after_setup_theme', 'dpa_add_post_thumbnail_support', 100 );
+
 // Try to load the achievements-functions.php file from the active theme
 add_action( 'dpa_after_setup_theme', 'dpa_load_theme_functions', 10 );
 

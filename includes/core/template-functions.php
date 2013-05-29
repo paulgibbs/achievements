@@ -173,3 +173,22 @@ function dpa_add_template_locations( $templates = array() ) {
  */
 function dpa_parse_query( $posts_query ) {
 }
+
+/**
+ * Make sure WordPress supports post thumbnails for the achievements post type
+ *
+ * @link https://core.trac.wordpress.org/ticket/21912
+ * @since Achievements (3.4)
+ */
+function dpa_add_post_thumbnail_support() {
+	$old_support = get_theme_support( 'post-thumbnails' );
+
+	// If the theme is already supporting post-thumbnails for all post types, don't change anything.
+	if ( $old_support === true )
+		return;
+
+	if ( ! is_array( $old_support ) )
+		$old_support = array( $old_support );
+
+	add_theme_support( 'post-thumbnails', array_merge( $old_support, (array) dpa_get_achievement_post_type() ) );
+}
