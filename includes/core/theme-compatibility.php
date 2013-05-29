@@ -468,11 +468,12 @@ function dpa_template_include_theme_compat( $template = '' ) {
 	 * possible templates, or 'dpa_achievements_template' to override the result.
 	 */
 	if ( dpa_is_theme_compat_active() ) {
-		// Remove all filters from the_content
-		dpa_remove_all_filters( 'the_content' );
 
-		// Add a filter on the_content late, which we will later remove
-		add_filter( 'the_content', 'dpa_replace_the_content' );
+		// Hook to the beginning of the main post loop to remove all filters from the_content as late as possible. 
+		add_action( 'loop_start', 'dpa_theme_compat_main_loop_start',  9999 );
+
+		// Hook to the end of the main post loop to restore all filters to 
+		add_action( 'loop_end',   'dpa_theme_compat_main_loop_end',   -9999 );
 
 		// Find the appropriate template file
 		$template = dpa_get_theme_compat_templates();
@@ -489,13 +490,15 @@ function dpa_template_include_theme_compat( $template = '' ) {
  * Note that we do *not* currently use is_main_query() here. This is because so
  * many existing themes either use query_posts() or fail to use wp_reset_query()
  * when running queries before the main loop, causing theme compat to fail.
+ * We do use in_the_loop() though, so we can narrow the scope down to the actual
+ * main page content area.
  * 
  * @param string $content Optional
  * @return type
  * @since Achievements (3.0)
  */
 function dpa_replace_the_content( $content = '' ) {
-	// Bail if not inside the  query loop
+	// Bail if not inside the query loop
 	if ( ! in_the_loop() )
 			return $content;
 
@@ -576,6 +579,37 @@ function dpa_replace_the_content( $content = '' ) {
 	// Return possibly hi-jacked content
 	return $content;
 }
+
+/**
+ * Helper function to conditionally toggle the_content filters in the main query loop. Aids with theme compatibility.
+ *
+ * @since Achievements (3.4)
+ */
+function dpa_theme_compat_main_loop_start() { 
+
+	// Bail if not the main query 
+	if ( ! in_the_loop() ) 
+		return; 
+
+	// Remove all of the filters from the_content, and replace the content
+	dpa_remove_all_filters( 'the_content' ); 
+	add_filter( 'the_content', 'dpa_replace_the_content' ); 
+} 
+
+/** 
+ * Helper function to conditionally toggle the_content filters in the main query loop. Aids with theme compatibility. 
+ * 
+ * @since Achievements (3.4)
+ */ 
+function dpa_theme_compat_main_loop_end() { 
+
+	// Bail if not the main query 
+	if ( ! in_the_loop() ) 
+	return; 
+
+	// Put all the filters back 
+	dpa_restore_all_filters( 'the_content' ); 
+} 
 
 
 /**
