@@ -33,17 +33,34 @@ function dpa_template_include_theme_supports( $template = '' ) {
 
 	endif;
 
-	// If template file exists
-	if ( ! empty( $new_template ) ) {
-
-		// Override the WordPress template with an Achievements template
-		$template = $new_template;
-
-		// See dpa_template_include_theme_compat()
-		achievements()->theme_compat->achievements_template = true;
-	}
+	// An Achievements template file was located, so override the WordPress template, and use it to switch off Achievements' theme compatibility.
+	if ( ! empty( $new_template ) )
+		$template = dpa_set_template_included( $new_template );
 
 	return apply_filters( 'dpa_template_include_theme_supports', $template );
+}
+
+/**
+ * Set the included template
+ *
+ * @param string|bool $template Template to load. Optional, defaults to false.
+ * @return mixed False if empty. String of template name if template included.
+ * @since Achievements (3.4)
+ */
+function dpa_set_template_included( $template = false ) {
+	achievements()->theme_compat->achievements_template = $template;
+
+	return achievements()->theme_compat->achievements_template;
+}
+
+/**
+* Is an Achievements template being included?
+*
+* @return bool
+* @since Achievements (3.4)
+*/
+function dpa_is_template_included() {
+	return apply_filters( 'dpa_is_template_included', ! empty( achievements()->theme_compat->achievements_template ) );
 }
 
 /**

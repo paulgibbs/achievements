@@ -274,44 +274,12 @@ function dpa_register_theme_package( $theme = array(), $override = true ) {
 function dpa_theme_compat_reset_post( $args = array() ) {
 	global $wp_query, $post;
 
-	// Default arguments
-	$defaults = array(
-		'comment_count'         => 0,
-		'comment_status'        => 'closed',
-		'guid'                  => '',
-		'ID'                    => -9999,
-		'menu_order'            => 0,
-		'pinged'                => '',
-		'ping_status'           => '',
-		'post_author'           => 0,
-		'post_content'          => '',
-		'post_content_filtered' => '',
-		'post_date'             => 0,
-		'post_date_gmt'         => 0,
-		'post_excerpt'          => '',
-		'post_mime_type'        => '',
-		'post_modified'         => 0,
-		'post_modified_gmt'     => 0,
-		'post_name'             => '',
-		'post_parent'           => 0,
-		'post_password'         => '',
-		'post_status'           => 'publish',
-		'post_title'            => '',
-		'post_type'             => 'page',
-		'to_ping'               => '',
-
-		'is_404'                => false,
-		'is_archive'            => false,
-		'is_page'               => false,
-		'is_single'             => false,
-		'is_tax'                => false,
-	);
-
 	// Switch defaults if post is set
 	if ( isset( $wp_query->post ) ) {
-		$defaults = array(
+		$dummy = dpa_parse_args( $args, array(
 			'comment_count'         => $wp_query->post->comment_count,
 			'comment_status'        => $wp_query->post->comment_status,
+			'filter'                => $wp_query->post->filter,
 			'guid'                  => $wp_query->post->guid,
 			'ID'                    => $wp_query->post->ID,
 			'menu_order'            => $wp_query->post->menu_order,
@@ -339,57 +307,66 @@ function dpa_theme_compat_reset_post( $args = array() ) {
 			'is_page'               => false,
 			'is_single'             => false,
 			'is_tax'                => false,
-		);
+		), 'theme_compat_reset_post' );
+
+	} else {
+		$dummy = dpa_parse_args( $args, array(
+			'comment_count'         => 0,
+			'comment_status'        => 'closed',
+			'filter'                => 'raw',
+			'ID'                    => -9999,
+			'guid'                  => '',
+			'menu_order'            => 0,
+			'pinged'                => '',
+			'ping_status'           => '',
+			'post_author'           => 0,
+			'post_content'          => '',
+			'post_content_filtered' => '',
+			'post_date'             => 0,
+			'post_date_gmt'         => 0,
+			'post_excerpt'          => '',
+			'post_mime_type'        => '',
+			'post_modified'         => 0,
+			'post_modified_gmt'     => 0,
+			'post_name'             => '',
+			'post_parent'           => 0,
+			'post_password'         => '',
+			'post_status'           => 'publish',
+			'post_title'            => '',
+			'post_type'             => 'page',
+			'to_ping'               => '',
+
+			'is_404'                => false,
+			'is_archive'            => false,
+			'is_page'               => false,
+			'is_single'             => false,
+			'is_tax'                => false,
+		), 'theme_compat_reset_post' );
 	}
-	$dummy = dpa_parse_args( $args, $defaults, 'theme_compat_reset_post' );
 
-	// Clear out the post related globals
-	unset( $wp_query->posts );
-	unset( $wp_query->post  );
-	unset( $post            );
-
-	// Setup the dummy post object
-	$wp_query->post                        = new stdClass();
-	$wp_query->post->comment_count         = $dummy['comment_count'];
-	$wp_query->post->comment_status        = $dummy['comment_status'];
-	$wp_query->post->guid                  = $dummy['guid'];
-	$wp_query->post->ID                    = $dummy['ID'];
-	$wp_query->post->menu_order            = $dummy['menu_order'];
-	$wp_query->post->pinged                = $dummy['pinged'];
-	$wp_query->post->ping_status           = $dummy['ping_status'];
-	$wp_query->post->post_author           = $dummy['post_author'];
-	$wp_query->post->post_content          = $dummy['post_content'];
-	$wp_query->post->post_content_filtered = $dummy['post_content_filtered'];
-	$wp_query->post->post_date             = $dummy['post_date'];
-	$wp_query->post->post_date_gmt         = $dummy['post_date_gmt'];
-	$wp_query->post->post_excerpt          = $dummy['post_excerpt'];
-	$wp_query->post->post_mime_type        = $dummy['post_mime_type'];
-	$wp_query->post->post_modified         = $dummy['post_modified'];
-	$wp_query->post->post_modified_gmt     = $dummy['post_modified_gmt'];
-	$wp_query->post->post_name             = $dummy['post_name'];
-	$wp_query->post->post_parent           = $dummy['post_parent'];
-	$wp_query->post->post_password         = $dummy['post_password'];
-	$wp_query->post->post_title            = $dummy['post_title'];
-	$wp_query->post->post_type             = $dummy['post_type'];
-	$wp_query->post->to_ping               = $dummy['to_ping'];
-	$wp_query->post->post_status           = $dummy['post_status'];
+	// Bail if dummy post is empty
+	if ( empty( $dummy ) )
+		return;
 
 	// Set the $post global
-	$post = $wp_query->post;
+	$post = new WP_Post( (object) $dummy );
 
-	// Setup the dummy post loop
-	$wp_query->posts[0] = $wp_query->post;
+	// Copy the new post global into the main $wp_query
+	$wp_query->post  = $post;
+	$wp_query->posts = array( $post );
 
 	// Prevent comments form from appearing
 	$wp_query->post_count = 1;
 	$wp_query->is_404     = $dummy['is_404'];
-	$wp_query->is_archive = $dummy['is_archive'];
 	$wp_query->is_page    = $dummy['is_page'];
 	$wp_query->is_single  = $dummy['is_single'];
+	$wp_query->is_archive = $dummy['is_archive'];
 	$wp_query->is_tax     = $dummy['is_tax'];
 
+	unset( $dummy );
+
 	// If we are resetting a post, we are in theme compat
-	dpa_set_theme_compat_active();
+	dpa_set_theme_compat_active( true );
 }
 
 /**
@@ -447,7 +424,7 @@ function dpa_template_include_theme_compat( $template = '' ) {
 	 * archive-* and single-* WordPress post_type matches (allowing themes to use the
 	 * expected format) as well as all other Achievements-specific template files.
 	 */
-	if ( ! empty( achievements()->theme_compat->achievements_template ) )
+	if ( dpa_is_template_included() ) {
 		return $template;
 
 	/**
@@ -467,16 +444,13 @@ function dpa_template_include_theme_compat( $template = '' ) {
 	 * Hook into the 'dpa_get_achievements_template' to override the array of
 	 * possible templates, or 'dpa_achievements_template' to override the result.
 	 */
-	if ( dpa_is_theme_compat_active() ) {
+	} elseif ( dpa_is_theme_compat_active() ) {
+
+		$template = dpa_get_theme_compat_templates(); 
 
 		// Hook to the beginning of the main post loop to remove all filters from the_content as late as possible. 
 		add_action( 'loop_start', 'dpa_theme_compat_main_loop_start',  9999 );
-
-		// Hook to the end of the main post loop to restore all filters to 
 		add_action( 'loop_end',   'dpa_theme_compat_main_loop_end',   -9999 );
-
-		// Find the appropriate template file
-		$template = dpa_get_theme_compat_templates();
 	}
 
 	return apply_filters( 'dpa_template_include_theme_compat', $template );
@@ -498,8 +472,9 @@ function dpa_template_include_theme_compat( $template = '' ) {
  * @since Achievements (3.0)
  */
 function dpa_replace_the_content( $content = '' ) {
-	// Bail if not inside the query loop
-	if ( ! in_the_loop() )
+
+	// Bail if not the main loop where theme compat is happening 
+	if ( ! dpa_do_theme_compat() ) 
 			return $content;
 
 	// Bail if shortcodes are unset somehow
@@ -507,6 +482,10 @@ function dpa_replace_the_content( $content = '' ) {
 		return $content;
 
 	$new_content = '';
+
+	// Set theme compat to false early, to avoid recursion from nested calls to the_content() that execute before theme compat has unhooked itself.
+	dpa_set_theme_compat_active( false ); 
+
 
 	/**
 	 * Use shortcode API to display template parts because they are
@@ -587,8 +566,8 @@ function dpa_replace_the_content( $content = '' ) {
  */
 function dpa_theme_compat_main_loop_start() { 
 
-	// Bail if not the main query 
-	if ( ! in_the_loop() ) 
+	// Bail if not the main loop where theme compat is happening 
+	if ( ! dpa_do_theme_compat() ) 
 		return; 
 
 	// Remove all of the filters from the_content, and replace the content
@@ -603,8 +582,8 @@ function dpa_theme_compat_main_loop_start() {
  */ 
 function dpa_theme_compat_main_loop_end() { 
 
-	// Bail if not the main query 
-	if ( ! in_the_loop() ) 
+	// Bail if not the main loop where theme compat is happening 
+	if ( ! dpa_do_theme_compat() ) 
 	return; 
 
 	// Put all the filters back 
@@ -615,6 +594,17 @@ function dpa_theme_compat_main_loop_end() {
 /**
  * Helpers
  */
+
+/** 
+ * Are we replacing the_content ?
+ * 
+ * @since Achievevements (3.4)
+ * @return bool 
+ */ 
+function bbp_do_theme_compat() {
+	$retval = ! bbp_is_template_included() && in_the_loop() && bbp_is_theme_compat_active();
+	return apply_filters( 'dpa_do_theme_compat', (bool) $retval );
+}
 
 /**
  * Remove the canonical redirect to allow pretty pagination
