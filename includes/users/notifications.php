@@ -53,19 +53,16 @@ function dpa_print_notifications() {
 	$achievements  = array();
 	$notifications = dpa_get_user_notifications();
 
-	// If we're viewing an achievement, clear the notification
-	if ( ! empty( $notifications ) && dpa_is_single_achievement() && isset( $notifications[get_the_ID()] ) ) {
-		unset( $notifications[get_the_ID()] );
-
-		// Save the user's notifications
-		dpa_update_user_notifications( $notifications );
-	}
-
 	if ( empty( $notifications ) )
 		return;
 
 	// Display notifications
 	echo achievements()->shortcodes->display_feedback_achievement_unlocked();
+
+	// Clear the notifications
+	foreach ( $notifications as $id => $value ) {
+		dpa_clear_notification( $id );
+	}
 }
 
 /**
