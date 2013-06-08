@@ -277,15 +277,16 @@ final class DPA_Achievements_Loader {
 		 */
 		//We need this so that is_active_plugin is registered when we check for active plugins
 		include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
-		require( $this->includes_dir . 'extensions/bbpress.php'      );
-		require( $this->includes_dir . 'extensions/buddypress.php'   );
-		require( $this->includes_dir . 'extensions/buddystream.php'  );
-		require( $this->includes_dir . 'extensions/inviteanyone.php' );
-		require( $this->includes_dir . 'extensions/scholarpress.php' );
-		require( $this->includes_dir . 'extensions/wordpress.php'    );
-		require( $this->includes_dir . 'extensions/wpecommerce.php'  );
+		require( $this->includes_dir . 'extensions/bbpress.php'       );
+		require( $this->includes_dir . 'extensions/buddypress.php'    );
+		require( $this->includes_dir . 'extensions/buddystream.php'   );
+		require( $this->includes_dir . 'extensions/inviteanyone.php'  );
+		require( $this->includes_dir . 'extensions/scholarpress.php'  );
+		require( $this->includes_dir . 'extensions/wordpress.php'     );
+		require( $this->includes_dir . 'extensions/wpecommerce.php'   );
+		require( $this->includes_dir . 'extensions/wppostratings.php' );
 
-		require( $this->includes_dir . 'buddypress/functions.php'    );
+		require( $this->includes_dir . 'buddypress/functions.php'     );
 
 
 		/**
