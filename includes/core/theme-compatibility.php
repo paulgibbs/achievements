@@ -550,8 +550,8 @@ function dpa_replace_the_content( $content = '' ) {
  * @since Achievevements (3.4)
  * @return bool 
  */ 
-function bbp_do_theme_compat() {
-	$retval = ! bbp_is_template_included() && in_the_loop() && bbp_is_theme_compat_active();
+function dpa_do_theme_compat() {
+	$retval = ! dpa_is_template_included() && in_the_loop() && dpa_is_theme_compat_active();
 	return apply_filters( 'dpa_do_theme_compat', (bool) $retval );
 }
 
