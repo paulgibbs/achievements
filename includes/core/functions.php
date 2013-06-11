@@ -212,7 +212,7 @@ function dpa_handle_event() {
 		'ach_populate_progress' => $user_id,     // Fetch Progress posts for this user ID
 		'no_found_rows'         => true,         // Disable SQL_CALC_FOUND_ROWS
 		'nopaging'              => true,         // No pagination
-		'post_status'           => 'publish',    // We only want active achievements
+		'post_status'           => 'any',        // We only want published/private achievements, but need to compensate (see below)
 		'posts_per_page'        => -1,           // No pagination
 		's'                     => '',           // Stop sneaky people running searches on this query
 	);
@@ -226,6 +226,12 @@ function dpa_handle_event() {
 
 		while ( dpa_achievements() ) {
 			dpa_the_achievement();
+
+			// Check that the post status is published or privately published
+			// We need to check this here to work around WP_Query not
+			// constructing the query correctly with private
+			if ( ! in_array( $GLOBALS['post']->post_status, array( 'publish', 'private' ) ) )
+				continue;
 
 			// Let other plugins do things before we maybe_unlock_achievement
 			do_action( 'dpa_handle_event', $event_name, $func_args, $user_id, $args );
