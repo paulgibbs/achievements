@@ -30,6 +30,7 @@ function dpa_feedback_achievement_unlock_wrapper() {
 	$notifications = dpa_get_achievements( array(
 		'numberposts' => 1,
 		'post__in'    => array_keys( $post_ids ),
+		'post_status' => 'any',
 	) );
 
 	// It's possible for the usermeta to reference posts that have been deleted or are in the trash, so check here.
