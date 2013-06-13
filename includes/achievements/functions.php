@@ -303,3 +303,38 @@ function dpa_has_user_unlocked_achievement( $user_id, $achievement_id ) {
 
 	return apply_filters( 'dpa_has_user_unlocked_achievement', ! empty( $progress ), $progress, $user_id, $achievement_id );
 }
+
+/**
+ * Updates the dpa_event taxonomy's term count.
+ *
+ * Mostly a copy of WordPress core's _update_post_term_count() function, but updated to work for Private posts.
+ *
+ * @param array $terms List of term taxonomy IDs
+ * @param object $taxonomy Current taxonomy object of terms
+ * @since Achievements (3.4)
+ */
+function dpa_update_event_term_count( $terms, $taxonomy ) {
+	global $wpdb;
+
+	$object_types = (array) $taxonomy->object_type;
+
+	foreach ( $object_types as &$object_type )
+		list( $object_type ) = explode( ':', $object_type );
+
+	$object_types = array_unique( $object_types );
+
+	if ( $object_types )
+		$object_types = esc_sql( array_filter( $object_types, 'post_type_exists' ) );
+
+	foreach ( (array) $terms as $term ) {
+		$count = 0;
+
+		if ( $object_types ) {
+			$count += (int) $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM $wpdb->term_relationships, $wpdb->posts WHERE $wpdb->posts.ID = $wpdb->term_relationships.object_id AND post_status IN ('publish', 'private') AND post_type IN ('" . implode( "', '", $object_types ) . "') AND term_taxonomy_id = %d", $term ) );
+		}
+
+		do_action( 'edit_term_taxonomy', $term, $taxonomy );
+		$wpdb->update( $wpdb->term_taxonomy, compact( 'count' ), array( 'term_taxonomy_id' => $term ) );
+		do_action( 'edited_term_taxonomy', $term, $taxonomy );
+	}
+}

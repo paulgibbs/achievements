@@ -575,7 +575,7 @@ final class DPA_Achievements_Loader {
 			'show_in_nav_menus'     => false,
 			'show_tagcloud'         => false,
 			'show_ui'               => dpa_is_developer_mode(),
-			'update_count_callback' => '_update_post_term_count',
+			'update_count_callback' => 'dpa_update_event_term_count',
 		) );
 
 		// Register the achievement event taxonomy
