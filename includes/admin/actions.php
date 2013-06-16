@@ -35,7 +35,8 @@ add_action( 'wpmu_new_blog',     'dpa_new_site',                10, 6 );
 
 // Hook on to admin_init
 add_action( 'dpa_admin_init', 'dpa_setup_updater',           999 );
-//add_action( 'dpa_admin_init', 'dpa_register_admin_settings'     );
+add_action( 'dpa_admin_init', 'dpa_do_activation_redirect',  1   );
+//add_action( 'dpa_admin_init', 'dpa_register_admin_settings'      );
 
 // Initialize the admin area
 add_action( 'dpa_init', 'dpa_admin_setup' );

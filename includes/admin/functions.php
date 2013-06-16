@@ -411,3 +411,30 @@ function dpa_achievement_feedback_messages( $messages ) {
 
 	return $messages;
 }
+
+/**
+ * Redirect user to Achievements' "What's New" page on activation
+ *
+ * @since Achievements (3.4)
+ */
+function dpa_do_activation_redirect() {
+
+	// Bail if no activation redirect
+	if ( ! get_transient( '_dpa_activation_redirect' ) )
+		return;
+
+	delete_transient( '_dpa_activation_redirect' );
+
+	// Bail if activating from network, or bulk.
+	if ( isset( $_GET['activate-multi'] ) )
+		return;
+
+	$query_args = array( 'page' => 'achievements-about' );
+
+	if ( get_transient( '_dpa_is_new_install' ) ) {
+		$query_args['is_new_install'] = '1';
+		delete_transient( '_dpa_is_new_install' );
+	}
+
+	wp_safe_redirect( add_query_arg( $query_args, admin_url( 'index.php' ) ) );
+}

@@ -158,3 +158,22 @@ function dpa_version_updater() {
  */
 function dpa_create_initial_content( $args = array() ) {
 }
+
+/**
+ * Redirect user to Achievements's "What's New" page on activation
+ *
+ * @since Achievements (3.4)
+ */
+function dpa_add_activation_redirect() {
+
+	// Bail if activating from network, or bulk.
+	if ( isset( $_GET['activate-multi'] ) )
+		return;
+
+	// Record that this is a new installation, so we show the right welcome message
+	if ( dpa_is_install() )
+		set_transient( '_dpa_is_new_install', true, 30 );
+
+	// Add the transient to redirect
+	set_transient( '_dpa_activation_redirect', true, 30 );
+}

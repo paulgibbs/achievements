@@ -154,6 +154,16 @@ class DPA_Admin {
 	public function admin_menus() {
 		$hooks = array();
 
+		// About
+		add_dashboard_page(
+			__( 'Welcome to Achievements', 'dpa' ),
+			__( 'Welcome to Achievements', 'dpa' ),
+			$this->minimum_capability,
+			'achievements-about',
+			array( $this, 'about_screen' )
+		);
+		remove_submenu_page( 'index.php', 'achievements-about' );
+
 		// "Users" menu
 		$hooks[] = add_submenu_page(
 			'edit.php?post_type=achievement',
@@ -419,6 +429,93 @@ class DPA_Admin {
 			$result = true;
 
 		return true;
+	}
+
+	/**
+	 * Output the about screen
+	 *
+	 * @since Achievements (3.4)
+	 */
+	public function about_screen() {
+		$is_new_install          = ! empty( $_GET['is_new_install'] );
+		list( $display_version ) = explode( '-', dpa_get_version() );
+	?>
+
+		<div class="wrap about-wrap">
+			<h1><?php _e( 'Welcome to Achievements', 'dpa' ); ?></h1>
+			<div class="about-text">
+				<?php if ( $is_new_install ) : ?>
+					<?php printf( __( 'Achievements %s is our safest, fastest, and most feature-packed version ever!', 'dpa' ), $display_version ); ?>
+				<?php else : ?>
+					<?php printf( __( 'Thank you for updating! Achievements %s is our safest, fastest, and most feature-packed version ever!', 'dpa' ), $display_version ); ?>
+				<?php endif; ?>
+			</div>
+
+			<h2 class="nav-tab-wrapper">
+				<a class="nav-tab nav-tab-active" href="<?php echo esc_url( bp_get_admin_url( add_query_arg( array( 'page' => 'achievements-about' ), 'index.php' ) ) ); ?>">
+					<?php _e( 'What&#8217;s New', 'dpa' ); ?>
+				</a>
+			</h2>
+
+			<?php if ( $is_new_install ) : ?>
+			<h3><?php _e( 'Getting Started', 'dpa' ); ?></h3>
+
+				<div class="feature-section">
+					<h4><?php _e( 'Your Default Setup', 'dpa' ); ?></h4>
+					<p><?php _e( 'TODO', 'dpa' ); ?><p>
+
+					<h4><?php _e( 'Community and Support', 'dpa' ); ?></h4>
+					<p><?php _e( 'TODO', 'dpa' ) ?></p>
+				</div>
+
+			<?php endif; ?>
+
+			<div class="changelog">
+				<h3><?php _e( 'Leaderboards', 'dpa' ); ?></h3>
+
+				<div class="feature-section">
+					<h4><?php _e( 'Todo', 'dpa' ); ?></h4>
+					<p><?php //DJPAULTODO: leaderboard text ?></p>
+				</div>
+			</div>
+
+			<div class="changelog">
+				<h3><?php _e( 'WP-PostRatings', 'dpa' ); ?></h3>
+
+				<div class="feature-section">
+					<h4><?php _e( "Adds an AJAX rating system for your posts and pages", 'dpa' ); ?>
+					<p><?php //DJPAULTODO: postratings text ?></p>
+				</div>
+			</div>
+
+			<div class="changelog">
+				<h3><?php _e( 'Hidden Achievements', 'dpa' ); ?></h3>
+
+				<div class="feature-section">
+					<h4><?php _e( 'Todo', 'dpa' ); ?></h4>
+					<p><?php //DJPAULTODO: hidden achievement text ?></p>
+				</div>
+			</div>
+
+
+			<div class="changelog">
+				<h3><?php _e( 'Under the Bonnet', 'dpa' ); ?></h3>
+
+				<div class="feature-section three-col">
+					<div>
+						<h4><?php _e( 'WP-CLI', 'dpa' ); ?></h4>
+						<p><?php printf( __( 'Achievements supports <a href="%s">WP-CLI</a>, so you can easily manage the plugin from the command-line.', 'dpa' ), 'http://wp-cli.org/' ); ?></p>
+					</div>
+
+					<div>
+						<h4><?php _e( 'Theme Compatibility Improvements', 'dpa' ); ?></h4>
+						<p><?php _e( 'Achievements has the latest theme compatibility code, fresh from BuddyPress 1.7+.', 'dpa' ); ?></p>
+					</div>
+			</div>
+
+		</div>
+
+		<?php
 	}
 }
 endif; // class_exists check

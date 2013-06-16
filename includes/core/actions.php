@@ -118,3 +118,6 @@ add_action( 'dpa_template_redirect', 'dpa_post_request', 10 );
 
 // Theme-side POST requests
 add_action( 'dpa_post_request', 'dpa_form_redeem_achievement', 10 );
+
+// Activation redirect
+add_action( 'dpa_activation', 'dpa_add_activation_redirect' );
