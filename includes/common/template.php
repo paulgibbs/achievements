@@ -120,7 +120,7 @@ function dpa_is_single_user_achievements() {
 
 	// Using BuddyPress user profiles
 	if ( dpa_integrate_into_buddypress() ) {
-		$retval = bp_is_user() && bp_is_current_component( 'achievements' ) && bp_is_current_action( 'all' );
+		$retval = bp_is_user() && bp_is_current_component( dpa_get_authors_endpoint() ) && bp_is_current_action( 'all' );
 
 	// Using WordPress' author page and the 'achievements' endpoint
 	} else {
