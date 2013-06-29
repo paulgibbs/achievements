@@ -90,7 +90,7 @@ function dpa_has_achievements( $args = array() ) {
 	}
 
 	// If no limit to posts per page, set it to the current post_count
-	if ( -1 == $posts_per_page )
+	if ( -1 === $posts_per_page )
 		$posts_per_page = achievements()->achievement_query->post_count;
 
 	// Add pagination values to query object
@@ -603,7 +603,7 @@ function dpa_achievements_index_description( $args = '' ) {
 
 				// Check achievement ID is valid
 				$achievement = get_post( $recent_achievement_id );
-				if ( ! empty( $achievement ) && 'publish' == $achievement->post_status ) {
+				if ( ! empty( $achievement ) && 'publish' === $achievement->post_status ) {
 
 					// Combine all the things to build the output text
 					$retstr = sprintf(
@@ -662,7 +662,7 @@ function dpa_achievement_class( $achievement_id = 0, $classes = array() ) {
 
 		// Remove hentry as Achievements isn't hAtom compliant.
 		foreach ( $classes as &$class ) {
-			if ( 'hentry' == $class )
+			if ( 'hentry' === $class )
 				$class = '';
 		}
 		$classes = array_merge( $classes, array() );

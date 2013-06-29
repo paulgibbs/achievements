@@ -90,7 +90,7 @@ function dpa_locate_template( $template_names, $load = false, $require_once = tr
 		}
 	}
 
-	if ( ( true == $load ) && ! empty( $located ) )
+	if ( ( true === $load ) && ! empty( $located ) )
 		load_template( $located, $require_once );
 
 	return $located;

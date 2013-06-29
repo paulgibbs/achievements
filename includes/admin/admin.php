@@ -75,7 +75,7 @@ class DPA_Admin {
 			return;
 
 		// If the plugin's been activated network-wide, only load the admin stuff on the DPA_DATA_STORE site
-		if ( is_multisite() && dpa_is_running_networkwide() && get_current_blog_id() != DPA_DATA_STORE )
+		if ( is_multisite() && dpa_is_running_networkwide() && get_current_blog_id() !== DPA_DATA_STORE )
 			return;
 
 
@@ -218,9 +218,9 @@ class DPA_Admin {
 			return;
 
 		// "Supported Plugins" screen
-		if ( 'achievements-plugins' == $_GET['page'] )
+		if ( 'achievements-plugins' === $_GET['page'] )
 			dpa_supported_plugins_on_load();
-		elseif ( 'achievements-users' == $_GET['page'] )
+		elseif ( 'achievements-users' === $_GET['page'] )
 			dpa_admin_screen_users_on_load();
 	}
 
@@ -237,11 +237,11 @@ class DPA_Admin {
 		$rtl = is_rtl() ? '-rtl' : '';
 
 		// "Supported Plugins" screen
-		if ( 'achievements-plugins' == $_GET['page'] )
+		if ( 'achievements-plugins' === $_GET['page'] )
 			wp_enqueue_style( 'dpa_admin_css', trailingslashit( $this->css_url ) . "supportedplugins{$rtl}.css", array(), '20120722' );
 
 		// Achievements "users" screen
-		elseif ( 'achievements-users' == $_GET['page'] )
+		elseif ( 'achievements-users' === $_GET['page'] )
 			wp_enqueue_style( 'dpa_admin_users_css', trailingslashit( $this->css_url ) . "users{$rtl}.css", array(), '20130113' );
 	}
 
@@ -270,7 +270,7 @@ class DPA_Admin {
 			return;
 
 		// "Supported Plugins" screen
-		if ( 'achievements-plugins' == $_GET['page'] ) {
+		if ( 'achievements-plugins' === $_GET['page'] ) {
 			wp_enqueue_script( 'dpa_socialite',   trailingslashit( $this->javascript_url ) . 'socialite-min.js',          array(), '20120722', true );
 			wp_enqueue_script( 'tablesorter_js',  trailingslashit( $this->javascript_url ) . 'jquery-tablesorter-min.js', array( 'jquery' ), '20120722', true );
 			wp_enqueue_script( 'dpa_sp_admin_js', trailingslashit( $this->javascript_url ) . 'supportedplugins-min.js',   array( 'jquery', 'dpa_socialite', 'dashboard', 'postbox' ), '20120722', true );
@@ -425,7 +425,7 @@ class DPA_Admin {
 	public static function is_admin_screen() {
 		$result = false;
 
-		if ( ! empty( $_GET['post_type'] ) && 'achievement' == $_GET['post_type'] )
+		if ( ! empty( $_GET['post_type'] ) && 'achievement' === $_GET['post_type'] )
 			$result = true;
 
 		return true;

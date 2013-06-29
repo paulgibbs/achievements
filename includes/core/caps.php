@@ -90,11 +90,11 @@ function dpa_map_meta_caps( $caps, $cap, $user_id, $args ) {
 				$post_type = get_post_type_object( $post->post_type );
 
 				// Public post
-				if ( 'publish' == $post->post_status )
+				if ( 'publish' === $post->post_status )
 					$caps[] = 'read';
 
 				// User is author so allow read
-				elseif ( (int) $user_id == (int) $post->post_author )
+				elseif ( (int) $user_id === (int) $post->post_author )
 					$caps = 'read';
 
 				else
@@ -144,7 +144,7 @@ function dpa_map_meta_caps( $caps, $cap, $user_id, $args ) {
 					$caps[] = 'do_not_allow';
 
 				// User is author so allow edit
-				} elseif ( (int) $user_id == (int) $_post->post_author ) {
+				} elseif ( (int) $user_id === (int) $_post->post_author ) {
 					$caps[] = $post_type->cap->edit_posts;
 
 				// Unknown, so map to edit_others_posts
@@ -171,7 +171,7 @@ function dpa_map_meta_caps( $caps, $cap, $user_id, $args ) {
 					$caps[] = 'do_not_allow';
 
 				// User is author so allow to delete
-				} elseif ( (int) $user_id == (int) $_post->post_author ) {
+				} elseif ( (int) $user_id === (int) $_post->post_author ) {
 					$caps[] = $post_type->cap->delete_posts;
 
 				// Unknown so map to delete_others_posts

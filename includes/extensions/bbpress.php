@@ -122,11 +122,11 @@ class DPA_bbPress_Forum_Extension extends DPA_CPT_Extension {
 			return $event_name;
 
 		// Switch the event name for Replies
-		if ( 'reply' == $func_args[0]->post_type )
+		if ( 'reply' === $func_args[0]->post_type )
 			return 'bbpress_reply_draft_to_publish';
 
 		// Switch the event name for Topics
-		elseif ( 'topic' == $func_args[0]->post_type )
+		elseif ( 'topic' === $func_args[0]->post_type )
 			return 'bbpress_topic_draft_to_publish';
 
 		// The event is a generic post type action which isn't handled by this extension. Bail out.

@@ -65,7 +65,7 @@ function dpa_user_avatar_link( $args = array() ) {
 			 * I think this solution might result in a wrong link in multi-network configuration, or if the main site has been set
 			 * to something non-default, but these are edge-cases for now.
 			 */
-			if ( is_multisite() && ! is_subdomain_install() && dpa_is_running_networkwide() && DPA_DATA_STORE == 1 && ! empty( $GLOBALS['_wp_switched_stack'] ) ) {
+			if ( is_multisite() && ! is_subdomain_install() && dpa_is_running_networkwide() && DPA_DATA_STORE === 1 && ! empty( $GLOBALS['_wp_switched_stack'] ) ) {
 				$last_element = count( $GLOBALS['_wp_switched_stack'] ) - 1;
 
 				if ( isset( $GLOBALS['_wp_switched_stack'][$last_element] ) && $GLOBALS['_wp_switched_stack'][$last_element] != 1 )
@@ -74,15 +74,15 @@ function dpa_user_avatar_link( $args = array() ) {
 		}
 
 		// Get avatar
-		if ( 'avatar' == $type || 'both' == $type )
+		if ( 'avatar' === $type || 'both' === $type )
 			$user_link[] = sprintf( '<a href="%1$s">%2$s</a>', esc_url( $user_url ), get_avatar( $user_id, $size ) );
 
 		// Get display name
-		if ( 'avatar' != $type )
+		if ( 'avatar' !== $type )
 			$user_link[] = sprintf( '<a href="%1$s">%2$s</a>', esc_url( $user_url ), get_the_author_meta( 'display_name', $user_id ) );
 
 		// Maybe return user URL only
-		if ( 'url' == $type ) {
+		if ( 'url' === $type ) {
 			$user_link = $user_url;
 
 		// Otherwise piece together the link parts and return

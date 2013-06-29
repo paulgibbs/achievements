@@ -50,7 +50,7 @@ function dpa_achievement_metabox( $post ) {
 	$existing_points = dpa_get_achievement_points( $post->ID );
 	$existing_target = dpa_get_achievement_target( $post->ID );
 	$existing_events = wp_get_post_terms( $post->ID, dpa_get_event_tax_id(), array( 'fields' => 'ids', ) );
-	$existing_type   = ( empty( $existing_events ) && ! empty( $_GET['action'] ) && 'edit' == $_GET['action'] ) ? 'award' : 'event';
+	$existing_type   = ( empty( $existing_events ) && ! empty( $_GET['action'] ) && 'edit' === $_GET['action'] ) ? 'award' : 'event';
 	$existing_code   = dpa_get_achievement_redemption_code( $post->ID );
 
 	// Ensure sane defaults
@@ -121,11 +121,11 @@ function dpa_achievement_metabox_save( $achievement_id ) {
 		return $achievement_id;
 
 	// Bail if not a post request
-	if ( ! isset( $_SERVER['REQUEST_METHOD'] ) || 'POST' != strtoupper( $_SERVER['REQUEST_METHOD'] ) )
+	if ( ! isset( $_SERVER['REQUEST_METHOD'] ) || 'POST' !== strtoupper( $_SERVER['REQUEST_METHOD'] ) )
 		return $achievement_id;
 
 	// Bail if not saving an achievement post type
-	if ( dpa_get_achievement_post_type() != get_post_type( $achievement_id ) )
+	if ( dpa_get_achievement_post_type() !== get_post_type( $achievement_id ) )
 		return $achievement_id;
 
 	// Nonce check
@@ -143,7 +143,7 @@ function dpa_achievement_metabox_save( $achievement_id ) {
 	// Type
 	$type = 'award';
 	if ( ! empty( $_POST['dpa_type'] ) ) {
-		if ( 'event' == $_POST['dpa_type'] )
+		if ( 'event' === $_POST['dpa_type'] )
 			$type = 'event';
 		else
 			$type = 'award';
@@ -160,7 +160,7 @@ function dpa_achievement_metabox_save( $achievement_id ) {
 
 	// Events
 	$events = array();
-	if ( 'event' == $type && ! empty( $_POST['dpa_event'] ) ) {
+	if ( 'event' === $type && ! empty( $_POST['dpa_event'] ) ) {
 		$events = wp_parse_id_list( $_POST['dpa_event'] );
 		update_post_meta( $achievement_id, '_dpa_target', $frequency );
 
@@ -205,15 +205,15 @@ function dpa_achievement_posts_columns( $columns ) {
  * @since Achievements (3.0)
  */
 function dpa_achievement_custom_column( $column, $post_id ) {
-	if ( 'karma' == $column ) {
+	if ( 'karma' === $column ) {
 		dpa_achievement_points( $post_id );
 
-	} elseif ( 'achievement_type' == $column ) {
+	} elseif ( 'achievement_type' === $column ) {
 		$existing_events = wp_get_post_terms( $post_id, dpa_get_event_tax_id(), array( 'fields' => 'ids', ) );
 		$existing_type   = empty( $existing_events ) ? __( 'Award', 'dpa' ) : __( 'Event', 'dpa' );
 		echo $existing_type;
 
-	} elseif ( 'dpa_thumb' == $column ) {
+	} elseif ( 'dpa_thumb' === $column ) {
 			the_post_thumbnail( 'dpa-thumb' );
 	}
 }
@@ -239,7 +239,7 @@ function dpa_achievement_sortable_columns( $columns ) {
  */
 function dpa_achievement_new_contextual_help() {
 	// Bail out if we're not on the right screen
-	if ( dpa_get_achievement_post_type() != get_current_screen()->post_type )
+	if ( dpa_get_achievement_post_type() !== get_current_screen()->post_type )
 		return;
 
 	// Most of this was copied from wpcore
@@ -307,7 +307,7 @@ function dpa_achievement_new_contextual_help() {
  */
 function dpa_achievement_index_contextual_help() {
 	// Bail out if we're not on the right screen
-	if ( dpa_get_achievement_post_type() != get_current_screen()->post_type )
+	if ( dpa_get_achievement_post_type() !== get_current_screen()->post_type )
 		return;
 
 	// Most of this was copied from wpcore
@@ -362,7 +362,7 @@ function dpa_achievement_feedback_messages( $messages ) {
 	global $post;
 
 	// Bail out if we're not on the right screen
-	if ( dpa_get_achievement_post_type() != get_current_screen()->post_type )
+	if ( dpa_get_achievement_post_type() !== get_current_screen()->post_type )
 		return;
 
 	$achievement_url = dpa_get_achievement_permalink( $post );

@@ -117,15 +117,15 @@ class DPA_BuddyPress_Extension extends DPA_Extension {
 			return $user_id;
 
 		// A new user activates their account on your website
-		if ( 'bp_core_activated_user' == $action_name ) {
+		if ( 'bp_core_activated_user' === $action_name ) {
 			$user_id = $action_func_args[0];
 
 		// The user is demoted from being a moderator or an administrator in a group
-		} elseif ( 'groups_demote_member' == $action_name ) {
+		} elseif ( 'groups_demote_member' === $action_name ) {
 			$user_id = $action_func_args[1];
 
 		// The user is promoted to a moderator or an administrator in a group
-		} elseif ( 'groups_promote_member' == $action_name ) {
+		} elseif ( 'groups_promote_member' === $action_name ) {
 			$user_id = $action_func_args[1];
 		}
 

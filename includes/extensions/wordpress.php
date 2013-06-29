@@ -89,7 +89,7 @@ class DPA_WordPress_Extension extends DPA_CPT_Extension {
 			return $event_name;
 
 		// Only switch the event name for Posts
-		if ( 'post' == $func_args[0]->post_type )
+		if ( 'post' === $func_args[0]->post_type )
 			return 'wordpress_draft_to_publish';
 
 		// The event is a generic post type action which isn't handled by this extension. Bail out.
@@ -114,19 +114,19 @@ class DPA_WordPress_Extension extends DPA_CPT_Extension {
 			return $user_id;
 
 		// New comment, check that the author isn't anonymous
-		if ( 'comment_post' == $action_name ) {
+		if ( 'comment_post' === $action_name ) {
 			if ( ( ! $comment = get_comment( $action_func_args[0] ) ) || ! $comment->user_id )
 				return $user_id;
 
 			// Bail if comment isn't approved
-			if ( 1 != $action_func_args[1]  )
+			if ( 1 !== (int) $action_func_args[1]  )
 				return false;
 
 			// Return comment author ID
 			return $comment->user_id;
 
 		// New post, get the post author
-		} elseif ( 'wordpress_draft_to_publish' == $action_name && 'post' == $action_func_args[0]->post_type ) {
+		} elseif ( 'wordpress_draft_to_publish' === $action_name && 'post' === $action_func_args[0]->post_type ) {
 			return $this->get_post_author( $user_id, $action_name, $action_func_args );
 		}
 	}

@@ -24,7 +24,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  * @since Achievements (3.0)
  */
 function dpa_clear_events_tax_cache( $ids, $taxonomy ) {
-	if ( dpa_get_event_tax_id() != $taxonomy )
+	if ( dpa_get_event_tax_id() !== $taxonomy )
 		return;
 
 	// If multisite and running network-wide, clear the registered events cache for the events taxonomy.

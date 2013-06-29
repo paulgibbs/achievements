@@ -40,9 +40,9 @@ function dpa_is_update() {
 function dpa_is_activation( $basename = '' ) {
 	$action = false;
 
-	if ( ! empty( $_REQUEST['action'] ) && '-1' != $_REQUEST['action'] )
+	if ( ! empty( $_REQUEST['action'] ) && '-1' !== $_REQUEST['action'] )
 		$action = $_REQUEST['action'];
-	elseif ( ! empty( $_REQUEST['action2'] ) && '-1' != $_REQUEST['action2'] )
+	elseif ( ! empty( $_REQUEST['action2'] ) && '-1' !== $_REQUEST['action2'] )
 		$action = $_REQUEST['action2'];
 
 	// Bail if not activating
@@ -50,7 +50,7 @@ function dpa_is_activation( $basename = '' ) {
 		return false;
 
 	// The plugin(s) being activated
-	if ( $action == 'activate' )
+	if ( $action === 'activate' )
 		$plugins = isset( $_GET['plugin'] ) ? array( $_GET['plugin'] ) : array();
 	else
 		$plugins = isset( $_POST['checked'] ) ? (array) $_POST['checked'] : array();
@@ -77,9 +77,9 @@ function dpa_is_activation( $basename = '' ) {
 function dpa_is_deactivation( $basename = '' ) {
 	$action = false;
 
-	if ( ! empty( $_REQUEST['action'] ) && '-1' != $_REQUEST['action'] )
+	if ( ! empty( $_REQUEST['action'] ) && '-1' !== $_REQUEST['action'] )
 		$action = $_REQUEST['action'];
-	elseif ( ! empty( $_REQUEST['action2'] ) && '-1' != $_REQUEST['action2'] )
+	elseif ( ! empty( $_REQUEST['action2'] ) && '-1' !== $_REQUEST['action2'] )
 		$action = $_REQUEST['action2'];
 
 	// Bail if not deactivating
@@ -87,7 +87,7 @@ function dpa_is_deactivation( $basename = '' ) {
 		return false;
 
 	// The plugin(s) being deactivated
-	if ( $action == 'deactivate' )
+	if ( $action === 'deactivate' )
 		$plugins = isset( $_GET['plugin'] ) ? array( $_GET['plugin'] ) : array();
 	else
 		$plugins = isset( $_POST['checked'] ) ? (array) $_POST['checked'] : array();

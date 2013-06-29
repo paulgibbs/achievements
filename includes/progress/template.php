@@ -61,7 +61,7 @@ function dpa_has_progress( $args = array() ) {
 	achievements()->progress_query = new WP_Query( $args );
 
 	// If no limit to posts per page, set it to the current post_count
-	if ( -1 == $args['posts_per_page'] )
+	if ( -1 === $args['posts_per_page'] )
 		$args['posts_per_page'] = achievements()->progress_query->post_count;
 
 	// Add pagination values to query object
@@ -354,7 +354,7 @@ function dpa_progress_class( $progress_id = 0, $classes = array() ) {
 			$classes[] = 'dpa-single-progress';
 
 		// Does this progress belong to the logged in user?
-		if ( is_user_logged_in() && wp_get_current_user()->ID == dpa_get_progress_author_id( $progress_id ) )
+		if ( is_user_logged_in() && wp_get_current_user()->ID === dpa_get_progress_author_id( $progress_id ) )
 			$classes[] = 'logged-in-user';
 
 		$classes[] = 'user-id-' . dpa_get_progress_author_id( $progress_id );
@@ -362,7 +362,7 @@ function dpa_progress_class( $progress_id = 0, $classes = array() ) {
 
 		// Remove hentry as Achievements isn't hAtom compliant.
 		foreach ( $classes as &$class ) {
-			if ( 'hentry' == $class )
+			if ( 'hentry' === $class )
 				$class = '';
 		}
 		$classes = array_merge( $classes, array() );
@@ -388,7 +388,7 @@ function dpa_is_achievement_unlocked( $achievement_id = 0 ) {
 	$progress = wp_filter_object_list( achievements()->progress_query->posts, array( 'post_parent' => $achievement_id ) );
 	$progress = array_shift( $progress );
 
-	$retval = ( ! empty( $progress ) && dpa_get_unlocked_status_id() == $progress->post_status );
+	$retval = ( ! empty( $progress ) && dpa_get_unlocked_status_id() === $progress->post_status );
 	return apply_filters( 'dpa_is_achievement_unlocked', $retval, $achievement_id, $progress ); 
 }
 

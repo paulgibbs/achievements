@@ -409,7 +409,7 @@ final class DPA_Achievements_Loader {
 			return;
 
 		// If the plugin's been activated network-wide, only register the endpoint on the DPA_DATA_STORE site
-		if ( is_multisite() && dpa_is_running_networkwide() && get_current_blog_id() != DPA_DATA_STORE )
+		if ( is_multisite() && dpa_is_running_networkwide() && get_current_blog_id() !== DPA_DATA_STORE )
 			return;
 
 		add_rewrite_endpoint( dpa_get_authors_endpoint(), EP_AUTHORS );  // /authors/paul/[achievements]
@@ -434,7 +434,7 @@ final class DPA_Achievements_Loader {
 		 * The solution to this is $post_type_is_public. If it's false, the post type is registered, but it's hidden from the admin,
 		 * isn't publicly queryable, doesn't create rewrite rules, and so on. If it's set to true, the post type behaves as normal.
 		 */
-		$post_type_is_public = ( is_multisite() && dpa_is_running_networkwide() && get_current_blog_id() != DPA_DATA_STORE ) ? false : true;
+		$post_type_is_public = ( is_multisite() && dpa_is_running_networkwide() && get_current_blog_id() !== DPA_DATA_STORE ) ? false : true;
 
 		// CPT labels
 		$labels['achievement'] = array(

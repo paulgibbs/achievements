@@ -255,7 +255,7 @@ function dpa_form_redeem_achievement( $action = '' ) {
 			if ( $achievement_obj->ID === $progress->post_parent ) {
 
 				// If the user has already unlocked this achievement, don't give it to them again.
-				if ( dpa_get_unlocked_status_id() == $progress->post_status )
+				if ( dpa_get_unlocked_status_id() === $progress->post_status )
 					$progress_obj = false;
 				else
 					$progress_obj = $progress;

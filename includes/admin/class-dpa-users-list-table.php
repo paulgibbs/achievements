@@ -89,7 +89,7 @@ class DPA_Users_List_Table extends WP_Users_List_Table {
 			$class = '';
 
 			// Highlight the currently selected user role
-			if ( $this_role == $role ) {
+			if ( $this_role === $role ) {
 				$class        = ' class="current"';
 				$current_role = $role;
 			}
@@ -181,7 +181,7 @@ class DPA_Users_List_Table extends WP_Users_List_Table {
 	 */
 	function single_row( $user ) {
 		static $row_class = '';
-		$row_class = ( $row_class == '' ) ? ' class="alternate"' : '';
+		$row_class = empty( $row_class ) ? ' class="alternate"' : '';
 
 		echo '<tr' . $row_class . '>';
 		echo $this->single_row_columns( $user );
@@ -236,7 +236,7 @@ class DPA_Users_List_Table extends WP_Users_List_Table {
 		if ( $output )
 			$achievement = get_post( $achievement_id );
 
-		if ( $output && ( empty( $achievement ) || 'publish' != $achievement->post_status ) )
+		if ( $output && ( empty( $achievement ) || 'publish' !== $achievement->post_status ) )
 			$output = false;
 
 		if ( $output ) {

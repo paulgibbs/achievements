@@ -238,7 +238,7 @@ function dpa_is_theme_compat_original_template( $template = '' ) {
 	if ( empty( achievements()->theme_compat->original_template ) )
 		return false;
 
-	return achievements()->theme_compat->original_template == $template;
+	return achievements()->theme_compat->original_template === $template;
 }
 
 /**
@@ -518,14 +518,14 @@ function dpa_replace_the_content( $content = '' ) {
 	} elseif ( dpa_is_single_user_achievements() ) {
 
 		// Clear pending notifications when visiting your user achievement page
-		if ( dpa_is_user_active() && get_current_user_id() == dpa_get_displayed_user_id() )
+		if ( dpa_is_user_active() && get_current_user_id() === dpa_get_displayed_user_id() )
 			dpa_update_user_notifications();
 
 		$new_content = achievements()->shortcodes->display_user_achievements();
 	}
 
 	// Juggle the content around and try to prevent unsightly comments
-	if ( ! empty( $new_content ) && $new_content != $content ) {
+	if ( ! empty( $new_content ) && $new_content !== $content ) {
 
 		// Set the content to be the new content
 		$content = apply_filters( 'dpa_replace_the_content', $new_content, $content );

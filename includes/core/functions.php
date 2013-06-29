@@ -252,7 +252,7 @@ function dpa_handle_event() {
 			$progress = array_shift( $progress );
 
 			// If the achievement hasn't already been unlocked, maybe_unlock_achievement.
-			if ( empty( $progress ) || dpa_get_unlocked_status_id() != $progress->post_status )
+			if ( empty( $progress ) || dpa_get_unlocked_status_id() !== $progress->post_status )
 				dpa_maybe_unlock_achievement( $user_id, false, $progress );
 		}
 	}
@@ -300,7 +300,7 @@ function dpa_maybe_unlock_achievement( $user_id, $skip_validation = '', $progres
 	}
 
 	// Has the user already unlocked the achievement?
-	if ( ! empty( $progress_obj ) && dpa_get_unlocked_status_id() == $progress_obj->post_status )
+	if ( ! empty( $progress_obj ) && dpa_get_unlocked_status_id() === $progress_obj->post_status )
 		return;
 
 	// Prepare default values to create/update a progress post
@@ -343,7 +343,7 @@ function dpa_maybe_unlock_achievement( $user_id, $skip_validation = '', $progres
 	$progress_id = wp_insert_post( $progress_args );
 
 	// If the achievement was just unlocked, do stuff.
-	if ( dpa_get_unlocked_status_id() == $progress_args['post_status'] ) {
+	if ( dpa_get_unlocked_status_id() === $progress_args['post_status'] ) {
 
 		// Achievement was unlocked. Notifications and points updates are hooked to this function.
 		do_action( 'dpa_unlock_achievement', $achievement_obj, $user_id, $progress_id );

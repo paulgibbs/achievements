@@ -120,7 +120,7 @@ function dpa_time_since( $older_date, $newer_date = false ) {
 		}
 
 		// Append 'ago' to the end of time-since if not 'right now'
-		if ( $output != $right_now_text ) {
+		if ( $output !== $right_now_text ) {
 			$output = sprintf( $ago_text, $output );
 		}
 

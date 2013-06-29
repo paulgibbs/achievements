@@ -80,7 +80,7 @@ class DPA_Invite_Anyone_Extension extends DPA_Extension {
 	 * @since Achievements (3.0)
 	 */
 	public function event_user_id( $user_id, $action_name, $action_func_args ) {
-		if ( 'accepted_email_invite' != $action_name )
+		if ( 'accepted_email_invite' !== $action_name )
 			return $user_id;
 
 		return (int) $action_func_args[0];

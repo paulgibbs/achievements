@@ -71,7 +71,7 @@ function dpa_is_achievement( $post_id = 0 ) {
 	$retval = false;
 
 	// Supplied ID is an achievement
-	if ( ! empty( $post_id ) && ( dpa_get_achievement_post_type() == get_post_type( $post_id ) ))
+	if ( ! empty( $post_id ) && ( dpa_get_achievement_post_type() === get_post_type( $post_id ) ))
 		$retval = true;
 
 	return (bool) apply_filters( 'dpa_is_achievement', $retval, $post_id );
@@ -278,7 +278,7 @@ function dpa_sanitise_val( $request, $input_type = 'text' ) {
  * @since Achievements (3.0)
  */
 function dpa_is_query_name( $name )  {
-	return (bool) ( dpa_get_query_name() == $name );
+	return (bool) ( dpa_get_query_name() === $name );
 }
 
 /**
@@ -392,7 +392,7 @@ function dpa_breadcrumb( $args = array() ) {
 		 */
 
 		// Root slug is also the front page
-		if ( ! empty( $front_id ) && ( $front_id == $root_id ) )
+		if ( ! empty( $front_id ) && ( $front_id === $root_id ) )
 			$pre_include_root = false;
 
 		// Don't show root if viewing achievement archive
@@ -400,7 +400,7 @@ function dpa_breadcrumb( $args = array() ) {
 			$pre_include_root = false;
 
 		// Don't show root if viewing page in place of achievement archive
-		if ( ! empty( $root_id ) && ( ( is_single() || is_page() ) && ( $root_id == get_the_ID() ) ) )
+		if ( ! empty( $root_id ) && ( ( is_single() || is_page() ) && ( $root_id === get_the_ID() ) ) )
 			$pre_include_root = false;
 
 
@@ -583,7 +583,7 @@ function dpa_template_notices() {
 
 		// Loop through notices and separate errors from messages
 		foreach ( achievements()->errors->get_error_messages( $code ) as $error ) {
-			if ( 'message' == $severity )
+			if ( 'message' === $severity )
 				$messages[] = $error;
 			else
 				$errors[] = $error;
@@ -644,7 +644,7 @@ function dpa_title( $title = '', $sep = '&raquo;', $seplocation = '' ) {
 	$title = apply_filters( 'dpa_raw_title', $title, $sep, $seplocation );
 
 	// Compare new title with original title
-	if ( $title == $_title )
+	if ( $title === $_title )
 		return $title;
 
 	// Temporary separator, for accurate flipping, if necessary
@@ -655,7 +655,7 @@ function dpa_title( $title = '', $sep = '&raquo;', $seplocation = '' ) {
 		$prefix = " $sep ";
 
 	// Separate on right, so reverse the order
-	if ( 'right' == $seplocation ) {
+	if ( 'right' === $seplocation ) {
 		$title_array = explode( $t_sep, $title );
 		$title_array = array_reverse( $title_array );
 		$title       = implode( " $sep ", $title_array ) . $prefix;

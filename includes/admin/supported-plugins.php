@@ -120,13 +120,13 @@ function dpa_supported_plugins() {
 				<div id="post-body-content">
 					<?php dpa_supported_plugins_header(); ?>
 
-					<?php if ( 'detail' == $view ) : ?>
+					<?php if ( 'detail' === $view ) : ?>
 						<div class="detail"><?php dpa_supported_plugins_detail(); ?></div>
 
-					<?php elseif ( 'grid' == $view ) : ?>
+					<?php elseif ( 'grid' === $view ) : ?>
 						<div class="grid"><?php dpa_supported_plugins_grid(); ?></div>
 
-					<?php elseif ( 'list' == $view ) : ?>
+					<?php elseif ( 'list' === $view ) : ?>
 						<div class="list"><?php dpa_supported_plugins_list(); ?></div>
 
 					<?php endif; ?>
@@ -164,9 +164,9 @@ function dpa_supported_plugins_header() {
 			</select>
 
 			<ul id="dpa-toolbar-views">
-				<li class="grid <?php if ( 'grid' == $view ) echo 'current'; ?>"><a class="grid" title="<?php esc_attr_e( 'Grid view', 'dpa' ); ?>" href="<?php echo esc_url( add_query_arg( 'view', 'grid', $page_url ) ); ?>"></a></li>
-				<li class="list <?php if ( 'list' == $view ) echo 'current'; ?>"><a class="list" title="<?php esc_attr_e( 'List view', 'dpa' ); ?>" href="<?php echo esc_url( add_query_arg( 'view', 'list', $page_url ) ); ?>"></a></li>
-				<li class="detail <?php if ( 'detail' == $view ) echo 'current'; ?>"><a class="detail" title="<?php esc_attr_e( 'Detail view', 'dpa' ); ?>" href="<?php echo esc_url( add_query_arg( 'view', 'detail', $page_url ) ); ?>"></a></li>
+				<li class="grid <?php if ( 'grid' === $view ) echo 'current'; ?>"><a class="grid" title="<?php esc_attr_e( 'Grid view', 'dpa' ); ?>" href="<?php echo esc_url( add_query_arg( 'view', 'grid', $page_url ) ); ?>"></a></li>
+				<li class="list <?php if ( 'list' === $view ) echo 'current'; ?>"><a class="list" title="<?php esc_attr_e( 'List view', 'dpa' ); ?>" href="<?php echo esc_url( add_query_arg( 'view', 'list', $page_url ) ); ?>"></a></li>
+				<li class="detail <?php if ( 'detail' === $view ) echo 'current'; ?>"><a class="detail" title="<?php esc_attr_e( 'Detail view', 'dpa' ); ?>" href="<?php echo esc_url( add_query_arg( 'view', 'detail', $page_url ) ); ?>"></a></li>
 			</ul>
 		</div>
 
@@ -206,7 +206,7 @@ function dpa_supported_plugins_detail() {
 			continue;
 
 		// Only show details for the current $plugin
-		if ( $plugin != $extension->get_id() )
+		if ( $plugin !== $extension->get_id() )
 			continue;
 
 		// Record if the plugin is installed by setting the class
@@ -308,12 +308,12 @@ function dpa_supported_plugins_list() {
 	}
 
 	// Sort list of plugins by rating
-	//if ( ! empty( $_GET['order'] ) && 'rating' == $_GET['order'] )
+	//if ( ! empty( $_GET['order'] ) && 'rating' === $_GET['order'] )
 	//	uasort( $extensions, create_function( '$a, $b', 'return strnatcasecmp($a->rating, $b->rating);' ) );
 
 	// Sort by plugin status (installed, not installed)
 	// @todo Reimplement this for a future release
-	//elseif ( ! empty( $_GET['order'] ) && 'status' == $_GET['order'] )
+	//elseif ( ! empty( $_GET['order'] ) && 'status' === $_GET['order'] )
 	//	uasort( $extensions, create_function( '$a, $b', 'return strnatcasecmp($a->install_status["status"], $b->install_status["status"]);' ) );
 
 	// Sort alphabetically
@@ -555,7 +555,7 @@ function dpa_supported_features_mb_info() {
 			continue;
 
 		// Only show details for the current $plugin
-		if ( $plugin != $extension->get_id() )
+		if ( $plugin !== $extension->get_id() )
 			continue;
 ?>
 
@@ -590,7 +590,7 @@ function dpa_supported_plugins_mb_info() {
 			continue;
 
 		// Only show details for the current $plugin
-		if ( $plugin != $extension->get_id() )
+		if ( $plugin !== $extension->get_id() )
 			continue;
 
 		// Is this plugin installed?
@@ -679,7 +679,7 @@ function _dpa_supported_plugin_get_queryargs() {
  */
 function _dpa_is_plugin_installed( $plugin ) {
 	// Special case for the WordPress extension
-	if ( 'wordpress' == $plugin )
+	if ( 'wordpress' === $plugin )
 			return true;
 
 	// Can we find the plugin directory?
