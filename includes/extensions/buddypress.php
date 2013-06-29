@@ -39,34 +39,33 @@ class DPA_BuddyPress_Extension extends DPA_Extension {
 	 * @since Achievements (3.0)
 	 */
 	public function __construct() {
-		if ( is_plugin_active( 'buddypress/bp-loader.php' ) || ( is_admin() && isset( $_GET['page'] ) && ( 'achievements-plugins' == $_GET['page'] ) ) ) {
-			$this->actions = array(
-				'bp_activity_add_user_favorite'    => __( 'The user marks an item in an activity stream as a favourite.', 'dpa' ),
-				'bp_activity_comment_posted'       => __( 'The user replies to an item in an activity stream.', 'dpa' ),
-				'bp_activity_posted_update'        => __( 'The user writes an activity update message.', 'dpa' ),
-				'bp_activity_remove_user_favorite' => __( 'The user un-favourites an item in their activity stream.', 'dpa' ),
-				'bp_core_activated_user'           => __( 'A new user activates their account on your website.', 'dpa' ),
-				'bp_groups_posted_update'          => __( "The user writes a message in a group&#8217;s activity stream.", 'dpa' ),
-				'friends_friendship_accepted'      => __( 'The user accepts a friendship request from someone.', 'dpa' ),
-				'friends_friendship_deleted'       => __( 'The user cancels a friendship.', 'dpa' ),
-				'friends_friendship_rejected'      => __( 'The user rejects a friendship request from someone.', 'dpa' ),
-				'friends_friendship_requested'     => __( 'The user sends a friendship request to someone.', 'dpa' ),
-				'groups_banned_member'             => __( 'The user bans a member from a group.', 'dpa' ),
-				'groups_group_create_complete'     => __( 'The user creates a group.', 'dpa' ),
-				'groups_delete_group'              => __( 'The user deletes a group.', 'dpa' ),
-				'groups_demoted_member'            => __( 'The user demotes a group member from moderator or administrator status.', 'dpa' ),
-				'groups_invite_user'               => __( 'The user invites someone to join a group.', 'dpa' ),
-				'groups_join_group'                => __( 'The user joins a group.', 'dpa' ),
-				'groups_leave_group'               => __( 'The user leaves a group.', 'dpa' ),
-				'groups_promote_member'            => __( 'The user is promoted to a moderator or an administrator in a group.', 'dpa' ),
-				'groups_promoted_member'           => __( 'The user promotes a group member to moderator or administrator status.', 'dpa' ),
-				'groups_unbanned_member'           => __( 'The user unbans a member from a group.', 'dpa' ),
-				'messages_delete_thread'           => __( 'The user deletes a private message.', 'dpa' ),
-				'messages_message_sent'            => __( 'The user sends a new private message or replies to an existing one.', 'dpa' ),
-				'xprofile_avatar_uploaded'         => __( "The user changes their profile&#8217;s avatar.", 'dpa' ),
-				'xprofile_updated_profile'         => __( 'The user updates their profile information.', 'dpa' ),
-			);
-		}
+
+		$this->actions = array(
+			'bp_activity_add_user_favorite'    => __( 'The user marks an item in an activity stream as a favourite.', 'dpa' ),
+			'bp_activity_comment_posted'       => __( 'The user replies to an item in an activity stream.', 'dpa' ),
+			'bp_activity_posted_update'        => __( 'The user writes an activity update message.', 'dpa' ),
+			'bp_activity_remove_user_favorite' => __( 'The user un-favourites an item in their activity stream.', 'dpa' ),
+			'bp_core_activated_user'           => __( 'A new user activates their account on your website.', 'dpa' ),
+			'bp_groups_posted_update'          => __( "The user writes a message in a group&#8217;s activity stream.", 'dpa' ),
+			'friends_friendship_accepted'      => __( 'The user accepts a friendship request from someone.', 'dpa' ),
+			'friends_friendship_deleted'       => __( 'The user cancels a friendship.', 'dpa' ),
+			'friends_friendship_rejected'      => __( 'The user rejects a friendship request from someone.', 'dpa' ),
+			'friends_friendship_requested'     => __( 'The user sends a friendship request to someone.', 'dpa' ),
+			'groups_banned_member'             => __( 'The user bans a member from a group.', 'dpa' ),
+			'groups_group_create_complete'     => __( 'The user creates a group.', 'dpa' ),
+			'groups_delete_group'              => __( 'The user deletes a group.', 'dpa' ),
+			'groups_demoted_member'            => __( 'The user demotes a group member from moderator or administrator status.', 'dpa' ),
+			'groups_invite_user'               => __( 'The user invites someone to join a group.', 'dpa' ),
+			'groups_join_group'                => __( 'The user joins a group.', 'dpa' ),
+			'groups_leave_group'               => __( 'The user leaves a group.', 'dpa' ),
+			'groups_promote_member'            => __( 'The user is promoted to a moderator or an administrator in a group.', 'dpa' ),
+			'groups_promoted_member'           => __( 'The user promotes a group member to moderator or administrator status.', 'dpa' ),
+			'groups_unbanned_member'           => __( 'The user unbans a member from a group.', 'dpa' ),
+			'messages_delete_thread'           => __( 'The user deletes a private message.', 'dpa' ),
+			'messages_message_sent'            => __( 'The user sends a new private message or replies to an existing one.', 'dpa' ),
+			'xprofile_avatar_uploaded'         => __( "The user changes their profile&#8217;s avatar.", 'dpa' ),
+			'xprofile_updated_profile'         => __( 'The user updates their profile information.', 'dpa' ),
+		);
 
 		$this->contributors = array(
 			array(

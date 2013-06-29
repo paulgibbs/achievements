@@ -38,11 +38,10 @@ class DPA_WP_PostRatings_Extension extends DPA_Extension {
 	 * @since Achievements (3.4)
 	 */
 	public function __construct() {
-		if ( is_plugin_active( 'wp-postratings/wp-postratings.php' ) || ( is_admin() && isset( $_GET['page'] ) && ( 'achievements-plugins' == $_GET['page'] ) ) ) {
-			$this->actions = array(
-				'rate_post' => __( 'The user rates a post.', 'dpa' ),
-			);
-		}
+
+		$this->actions = array(
+			'rate_post' => __( 'The user rates a post.', 'dpa' ),
+		);
 
 		$this->contributors = array(
 			array(
