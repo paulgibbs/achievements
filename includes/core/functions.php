@@ -38,7 +38,14 @@
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 /**
- * Check if any of the plugin extensions need to be set up or updated
+ * Check if any of the plugin extensions need to be set up or updated.
+ *
+ * If a new extension is found (technically, an extension with an un-registered 'ID'), the
+ * actions that the extension supports will be automatically added to the dpa_get_event_tax_id() taxonomy.
+ * 
+ * If an extension is updated (by changing the 'version' property), its actions WILL NOT be automatically updated.
+ * You will need to implement custom upgrade handling in the do_update() method to add, remove, or update taxonomy
+ * data for the extension.
  *
  * @since Achievements (3.0)
  */

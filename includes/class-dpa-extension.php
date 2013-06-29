@@ -38,7 +38,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  */
 abstract class DPA_Extension {
 	/**
-	 * You should set this to an array with these key/value pairs:
+	 * Define the WordPress actions that Achievements needs to react to as an array with key/value pairs. For example:
 	 *
 	 * array(
 	 *   'action_name' => 'description',
@@ -48,13 +48,14 @@ abstract class DPA_Extension {
 	 *   'trashed_post' => __( 'The user trashes a post or page.',   'your_plugin' ),
 	 * )
 	 *
+	 * @link http://codex.wordpress.org/Plugin_API#Actions
 	 * @see DPA_Extension::get_actions();
 	 * @since Achievements (3.0)
 	 */
 	protected $actions         = array();
 
 	/**
-	 * You should set this to an array with these key/value pairs:
+	 * Details of the contributors of this plugin. You should set this to an array with these key/value pairs:
 	 *
 	 * array(
 	 *   array(
