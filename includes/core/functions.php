@@ -261,8 +261,8 @@ function dpa_handle_event() {
 	if ( is_multisite() && dpa_is_running_networkwide() )
 		restore_current_blog();
 
-	achievements()->achievement_query = new stdClass();
-	achievements()->progress_query    = new stdClass();
+	achievements()->achievement_query = new WP_Query();
+	achievements()->progress_query    = new WP_Query();
 
 	// Everything's done. Let other plugins do things.
 	do_action( 'dpa_after_handle_event', $event_name, $func_args, $user_id, $args );
