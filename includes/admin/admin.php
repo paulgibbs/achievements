@@ -452,7 +452,7 @@ class DPA_Admin {
 			</div>
 
 			<h2 class="nav-tab-wrapper">
-				<a class="nav-tab nav-tab-active" href="<?php echo esc_url( bp_get_admin_url( add_query_arg( array( 'page' => 'achievements-about' ), 'index.php' ) ) ); ?>">
+				<a class="nav-tab nav-tab-active" href="<?php echo esc_url( admin_url( add_query_arg( array( 'page' => 'achievements-about' ), 'index.php' ) ) ); ?>">
 					<?php _e( 'What&#8217;s New', 'dpa' ); ?>
 				</a>
 			</h2>
