@@ -223,9 +223,6 @@ final class DPA_Achievements_Loader {
 		// Deep integration with other plugins
 		$this->integrate_into_buddypress = false;  // Use BuddyPress profiles for screens like "my achievements"
 
-		// Add to global cache groups
-		wp_cache_add_global_groups( 'achievements' );
-
 		/**
 		 * If multisite and running network-wide, grab the options from the site options
 		 * table and store in achievements()->options. dpa_setup_option_filters() sets

@@ -126,7 +126,7 @@ function dpa_register_events() {
 
 	// If multisite and running network-wide, see if the terms have previously been cached.
 	if ( is_multisite() && dpa_is_running_networkwide() )
-		$events = wp_cache_get( 'dpa_registered_events', 'achievements' );
+		$events = wp_cache_get( 'dpa_registered_events', 'achievements_events' );
 
 	// No cache. Get events.
 	if ( empty( $events ) ) {
@@ -149,7 +149,7 @@ function dpa_register_events() {
 
 		// Items were found! If network-wide, cache the results and undo the switch_to_blog.
 		} elseif ( is_multisite() && dpa_is_running_networkwide() ) {
-			wp_cache_set( 'dpa_registered_events', $events, 'achievements' );
+			wp_cache_set( 'dpa_registered_events', $events, 'achievements_events' );
 			restore_current_blog();
 		}
 	}
