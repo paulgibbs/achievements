@@ -387,11 +387,15 @@ final class DPA_Achievements_Loader {
 	 * @since Achievements (3.0)
 	 */
 	public function load_textdomain() {
-		// Traditional WordPress plugin locale filter
-		$locale = apply_filters( 'plugin_locale',  get_locale(), $this->domain );
+
+		// Try to load via load_plugin_textdomain() first, for future wordpress.org translation downloads
+		if ( load_plugin_textdomain( $this->domain, false, 'achievements' ) )
+			return;
+
+		$locale = apply_filters( 'plugin_locale', get_locale(), $this->domain );
 		$mofile = sprintf( '%1$s-%2$s.mo', $this->domain, $locale );
 
-		// Look in global /wp-content/languages/plugins/ folder
+		// Nothing found  look in global /wp-content/languages/plugins/ folder
 		$mofile_global = WP_LANG_DIR . '/plugins/' . $mofile;
 
 		load_textdomain( $this->domain, $mofile_global );
