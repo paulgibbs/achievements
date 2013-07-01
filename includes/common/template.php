@@ -522,7 +522,7 @@ function dpa_breadcrumb( $args = array() ) {
 		 */
 
 		// Add current page to breadcrumb
-		if ( ! empty( $include_current ) || empty( $pre_current_text ) )
+		if ( ! empty( $include_current ) || empty( $current_text ) )
 			$crumbs[] = $current_before . $current_text . $current_after;
 
 
