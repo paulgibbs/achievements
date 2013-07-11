@@ -177,9 +177,12 @@ class DPA_Users_List_Table extends WP_Users_List_Table {
 	 * Generates content for a single row of the table
 	 *
 	 * @param WP_User $user The current item
+	 * @param string $style Optional. Unused.
+	 * @param string $role Optional. Unused.
+	 * @param string $numposts Optional. Unused.
 	 * @since Achievements (3.0)
 	 */
-	function single_row( $user ) {
+	function single_row( $user, $style = '', $role = '', $numposts = 0  ) {
 		static $row_class = '';
 		$row_class = empty( $row_class ) ? ' class="alternate"' : '';
 
