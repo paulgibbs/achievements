@@ -389,12 +389,25 @@ function dpa_get_redirect_to() {
 function dpa_verify_nonce_request( $action = '', $query_arg = '_wpnonce' ) {
 
 	// Parse home_url() into pieces to remove query strings, strange characters, and other funny things that plugins might to do to it.
-	$parsed_home   = parse_url( home_url( '/', ( is_ssl() ? 'https://' : 'http://' ) ) );
-	$home_url      = trim( strtolower( $parsed_home['scheme'] . '://' . $parsed_home['host'] . $parsed_home['path'] ), '/' );
+	$parsed_home = parse_url( home_url( '/', ( is_ssl() ? 'https://' : 'http://' ) ) ); 
+
+	if ( isset( $parsed_home['port'] ) )
+		$parsed_host = $parsed_home['host'] . ':' . $parsed_home['port'];
+	else
+		$parsed_host = $parsed_home['host'];
+
+	// Set the home URL for use in comparisons
+	$home_url = trim( strtolower( $parsed_home['scheme'] . '://' . $parsed_host . $parsed_home['path'] ), '/' );
+
+	// Maybe include the port, if it's included in home_url()
+	if ( isset( $parsed_home['port'] ) )
+		$request_host = $_SERVER['HTTP_HOST'] . ':' . $_SERVER['SERVER_PORT'];
+	else
+		$request_host = $_SERVER['HTTP_HOST'];
 
 	// Build the currently requested URL
 	$scheme        = is_ssl() ? 'https://' : 'http://';
-	$requested_url = apply_filters( 'dpa_verify_nonce_request_url', strtolower( $scheme . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] ) );
+	$requested_url = strtolower( $scheme . $request_host . $_SERVER['REQUEST_URI'] );
 
 	// Check the nonce
 	$result = isset( $_REQUEST[$query_arg] ) ? wp_verify_nonce( $_REQUEST[$query_arg], $action ) : false;
