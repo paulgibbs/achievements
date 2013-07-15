@@ -630,17 +630,25 @@ function dpa_template_notices() {
 function dpa_title( $title = '', $sep = '&raquo;', $seplocation = '' ) {
 	// Store original title to compare
 	$_title = $title;
+	$title  = array();
 
 	// Achievement archive
-	if ( dpa_is_achievement_archive() )
-		$title = dpa_get_achievement_archive_title();
+	if ( dpa_is_achievement_archive() ) {
+		$title['text]'] = dpa_get_achievement_archive_title();
 
 	// Single achievement page
-	elseif ( dpa_is_single_achievement() )
-		$title = apply_filters( 'dpa_title_single_achievement', sprintf( __( 'Achievement: %s', 'dpa' ), dpa_get_achievement_title() ) );
+	} elseif ( dpa_is_single_achievement() ) {
+		$title['text']   = dpa_get_achievement_title();
+		$title['format'] = esc_attr__( 'Achievement: %s', 'dpa' );
+	}
 
+	// Get the formatted raw title
+	$title = dpa_parse_args( array(
+		'format' => '%s',
+		'text'   => '',
+	), 'title' );
 
-	// Filter the raw title
+	$title = sprintf( $title['format'], $title['text'] );
 	$title = apply_filters( 'dpa_raw_title', $title, $sep, $seplocation );
 
 	// Compare new title with original title
