@@ -84,6 +84,9 @@ Note: in multisite, activating the plugin "network-wide" will give your entire n
 For information, support, and developer documentation, visit [achievementsapp.com](http://achievementsapp.com/).
 
 == Upgrade Notice ==
+= 3.3.1 =
+* Improves compatibility with [BuddyPress 1.8](http://buddypress.org/2013/07/buddypress-1-8-di-fara/).
+
 = 3.3 =
 * NEW FEATURE: "Featured Achievement" widget!
 * NEW FEATURE: "Photo Grid" widget!
