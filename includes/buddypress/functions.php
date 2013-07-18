@@ -43,6 +43,10 @@ function dpa_bp_members_my_achievements() {
 	if ( dpa_is_user_active() && bp_is_my_profile() )
 		dpa_update_user_notifications();
 
+	// Inelegant hack to disable our theme compat if we're using BP's "bp_template_content" filter.
+	remove_filter( 'dpa_template_include', 'dpa_template_include_theme_supports', 2, 1 );
+	remove_filter( 'dpa_template_include', 'dpa_template_include_theme_compat',   4, 2 );
+
 	add_action( 'bp_template_content', 'dpa_bp_members_my_achievements_content' );
 	bp_core_load_template( apply_filters( 'dpa_bp_members_my_achievements', 'members/single/plugins' ) );
 }
