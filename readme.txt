@@ -3,7 +3,7 @@ Contributors: DJPaul
 Tags: achievements, badges, challenges, gaming, points, rewards
 Requires at least: 3.5.1
 Tested up to: 3.6
-Stable tag: 3.3
+Stable tag: 3.3.1
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=P3K7Z7NHWZ5CL&lc=GB&item_name=B%2eY%2eO%2eT%2eO%2eS%20%2d%20BuddyPress%20plugins&currency_code=GBP&bn=PP%2dDon
@@ -23,6 +23,9 @@ For information, support, and developer documentation, visit [achievementsapp.co
 [vimeo http://vimeo.com/56058144]
 
 == Changelog ==
+= 3.3.1 =
+* Improves compatibility with [BuddyPress 1.8](http://buddypress.org/2013/07/buddypress-1-8-di-fara/).
+
 = 3.3 =
 * NEW FEATURE: "Featured Achievement" widget!
 * NEW FEATURE: "Photo Grid" widget!
