@@ -21,12 +21,12 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  * @return string
  * @since Achievements (3.0)
  */
-function dpa_get_template_part( $slug, $name = null ) {
+function dpa_get_template_part( $slug, $name = '' ) {
 	do_action( 'get_template_part_' . $slug, $slug, $name );
 
 	// Setup possible parts
 	$templates = array();
-	if ( isset( $name ) )
+	if ( ! empty( $name ) )
 		$templates[] = $slug . '-' . $name . '.php';
 
 	$templates[] = $slug . '.php';
