@@ -97,6 +97,26 @@ function dpa_locate_template( $template_names, $load = false, $require_once = tr
 }
 
 /**
+ * Load a template part into an output buffer, and return it.
+ *
+ * @param string $slug Template part to load.
+ * @param string $name Optional.
+ * @param bool $echo Optional. Echo (default) or return the output buffer contents.
+ * @return string|void If $echo is true, a value will not be returned.
+ * @since Achievements (3.4)
+ */
+function dpa_buffer_template_part( $slug, $name = '', $echo = true ) {
+	ob_start();
+	dpa_get_template_part( $slug, $name );
+	$output = ob_get_clean();
+
+	if ( $echo )
+		echo $output;
+	else
+		return $output;
+}
+
+/**
  * Retrieve path to a template
  *
  * Used to quickly retrieve the path of a template without including the file

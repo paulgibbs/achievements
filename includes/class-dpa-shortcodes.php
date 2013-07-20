@@ -105,9 +105,6 @@ class DPA_Shortcodes {
 	private function start( $query_name = '' ) {
 		dpa_set_query_name( $query_name );
 
-		// Remove 'dpa_replace_the_content' filter to prevent infinite loops
-		remove_filter( 'the_content', 'dpa_replace_the_content' );
-
 		// Start output buffer
 		ob_start();
 	}
@@ -119,20 +116,12 @@ class DPA_Shortcodes {
 	 * @since Achievements (3.0)
 	 */
 	private function end() {
-		// Get contents of the output buffer
-		$output = ob_get_contents();
-
 		$this->unset_globals();
-
-		// Flush the output buffer
-		ob_end_clean();
 
 		dpa_reset_query_name();
 
-		// Add 'dpa_replace_the_content' filter back (@see $this::start())
-		add_filter( 'the_content', 'dpa_replace_the_content' );
-
-		return $output;
+		// Return and flush the output buffer
+		return ob_get_clean();
 	}
 
 

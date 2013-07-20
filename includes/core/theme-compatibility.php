@@ -376,17 +376,35 @@ function dpa_theme_compat_reset_post( $args = array() ) {
  * @since Achievements (3.0)
  */
 function dpa_template_include_theme_compat( $template = '' ) {
+
+	// Bail if shortcodes are unset somehow
+	if ( ! is_a( achievements()->shortcodes, 'DPA_Shortcodes' ) )
+		return $template;
+
 	// Achievements archive
 	if ( dpa_is_achievement_archive() ) {
+
+		// Page exists where this archive should be
+		$page = dpa_get_page_by_path( dpa_get_root_slug() );
+		if ( ! empty( $page ) ) {
+			$new_content = apply_filters( 'the_content', $page->post_content );
+			$new_title   = apply_filters( 'the_title',   $page->post_title   );
+
+		// No page so show the archive
+		} else {
+			$new_content = achievements()->shortcodes->display_achievements_index();
+			$new_title   = dpa_get_achievement_archive_title();
+		}
+
 		dpa_theme_compat_reset_post( array(
 			'comment_status' => 'closed',
 			'ID'             => 0,
 			'is_archive'     => true,
 			'post_author'    => 0,
-			'post_content'   => '',
+			'post_content'   => $new_content,
 			'post_date'      => 0,
 			'post_status'    => 'publish',
-			'post_title'     => dpa_get_achievement_archive_title(),
+			'post_title'     => $new_title,
 			'post_type'      => dpa_get_achievement_post_type(),
 		) );
 
@@ -397,7 +415,7 @@ function dpa_template_include_theme_compat( $template = '' ) {
 			'ID'             => dpa_get_achievement_id(),
 			'is_single'      => true,
 			'post_author'    => dpa_get_achievement_author_id(),
-			'post_content'   => get_post_field( 'post_content', dpa_get_achievement_id() ),
+			'post_content'   => achievements()->shortcodes->display_achievement( array( 'id' => dpa_get_achievement_id() ) ),
 			'post_date'      => 0,
 			'post_status'    => 'publish',
 			'post_title'     => dpa_get_achievement_title(),
@@ -411,7 +429,7 @@ function dpa_template_include_theme_compat( $template = '' ) {
 			'ID'             => 0,
 			'is_archive'     => true,
 			'post_author'    => 0,
-			'post_content'   => '',
+			'post_content'   => achievements()->shortcodes->display_user_achievements(),
 			'post_date'      => 0,
 			'post_status'    => 'publish',
 			'post_title'     => sprintf( _x( "%s's achievements", 'possesive noun', 'dpa' ), get_the_author_meta( 'display_name', dpa_get_displayed_user_id() ) ),
@@ -445,150 +463,13 @@ function dpa_template_include_theme_compat( $template = '' ) {
 	 * possible templates, or 'dpa_achievements_template' to override the result.
 	 */
 	} elseif ( dpa_is_theme_compat_active() ) {
+		dpa_remove_all_filters( 'the_content' );
 
-		$template = dpa_get_theme_compat_templates(); 
-
-		// Hook to the beginning of the main post loop to remove all filters from the_content as late as possible. 
-		add_action( 'loop_start', 'dpa_theme_compat_main_loop_start',  9999 );
-		add_action( 'loop_end',   'dpa_theme_compat_main_loop_end',   -9999 );
+		$template = dpa_get_theme_compat_templates();
 	}
 
 	return apply_filters( 'dpa_template_include_theme_compat', $template );
 }
-
-/**
- * Replaces the_content() if the post_type being displayed is one that would
- * normally be handled by Achievements, but proper single page templates do not
- * exist in the currently active theme.
- *
- * Note that we do *not* currently use is_main_query() here. This is because so
- * many existing themes either use query_posts() or fail to use wp_reset_query()
- * when running queries before the main loop, causing theme compat to fail.
- * We do use in_the_loop() though, so we can narrow the scope down to the actual
- * main page content area.
- * 
- * @param string $content Optional
- * @return type
- * @since Achievements (3.0)
- */
-function dpa_replace_the_content( $content = '' ) {
-
-	// Bail if not the main loop where theme compat is happening 
-	if ( ! dpa_do_theme_compat() ) 
-			return $content;
-
-	// Bail if shortcodes are unset somehow
-	if ( ! is_a( achievements()->shortcodes, 'DPA_Shortcodes' ) )
-		return $content;
-
-	$new_content = '';
-
-	// Set theme compat to false early, to avoid recursion from nested calls to the_content() that execute before theme compat has unhooked itself.
-	dpa_set_theme_compat_active( false ); 
-
-
-	/**
-	 * Use shortcode API to display template parts because they are
-	 * already output buffered and ready to fit inside the_content.
-	 */
-
-	// Achievement archive
-	if ( dpa_is_achievement_archive() ) {
-
-		// Page exists where this archive should be
-		$page = dpa_get_page_by_path( dpa_get_root_slug() );
-		if ( ! empty( $page ) ) {
-
-			// Restore previously unset filters
-			dpa_restore_all_filters( 'the_content' );
-
-			// Remove 'dpa_replace_the_content' filter to prevent infinite loops
-			remove_filter( 'the_content', 'dpa_replace_the_content' );
-
-			// Start output buffer
-			ob_start();
-
-			// Grab the content of this page
-			$new_content = apply_filters( 'the_content', $page->post_content );
-
-			// Clean up the buffer
-			ob_end_clean();
-
-			// Add 'dpa_replace_the_content' filter back
-			add_filter( 'the_content', 'dpa_replace_the_content' );
-
-		// No page so show the archive
-		} else {
-			$new_content = achievements()->shortcodes->display_achievements_index();
-		}
-
-	// Single achievement post
-	} elseif ( dpa_is_single_achievement() ) {
-
-		// Check the post_type
-		switch ( get_post_type() ) {
-
-			// Single achievement
-			case dpa_get_achievement_post_type() :
-				$new_content = achievements()->shortcodes->display_achievement( array( 'id' => get_the_ID() ) );
-				break;
-		}
-
-	// Single user's achievements template
-	} elseif ( dpa_is_single_user_achievements() ) {
-
-		// Clear pending notifications when visiting your user achievement page
-		if ( dpa_is_user_active() && get_current_user_id() === dpa_get_displayed_user_id() )
-			dpa_update_user_notifications();
-
-		$new_content = achievements()->shortcodes->display_user_achievements();
-	}
-
-	// Juggle the content around and try to prevent unsightly comments
-	if ( ! empty( $new_content ) && $new_content !== $content ) {
-
-		// Set the content to be the new content
-		$content = apply_filters( 'dpa_replace_the_content', $new_content, $content );
-		unset( $new_content );
-
-		// Reset the $post global 
-		wp_reset_postdata(); 
-	}
-
-	// Return possibly hi-jacked content
-	return $content;
-}
-
-/**
- * Helper function to conditionally toggle the_content filters in the main query loop. Aids with theme compatibility.
- *
- * @since Achievements (3.4)
- */
-function dpa_theme_compat_main_loop_start() { 
-
-	// Bail if not the main loop where theme compat is happening 
-	if ( ! dpa_do_theme_compat() ) 
-		return; 
-
-	// Remove all of the filters from the_content, and replace the content
-	dpa_remove_all_filters( 'the_content' ); 
-	add_filter( 'the_content', 'dpa_replace_the_content' ); 
-} 
-
-/** 
- * Helper function to conditionally toggle the_content filters in the main query loop. Aids with theme compatibility. 
- * 
- * @since Achievements (3.4)
- */ 
-function dpa_theme_compat_main_loop_end() { 
-
-	// Bail if not the main loop where theme compat is happening 
-	if ( ! dpa_do_theme_compat() ) 
-	return; 
-
-	// Put all the filters back 
-	dpa_restore_all_filters( 'the_content' ); 
-} 
 
 
 /**
