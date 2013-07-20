@@ -446,8 +446,11 @@ function dpa_template_include_theme_compat( $template = '' ) {
 	 */
 	} elseif ( dpa_is_theme_compat_active() ) {
 
-		$template = dpa_get_theme_compat_templates();
-		add_filter( 'the_content', 'dpa_replace_the_content' );
+		$template = dpa_get_theme_compat_templates(); 
+
+		// Hook to the beginning of the main post loop to remove all filters from the_content as late as possible. 
+		add_action( 'loop_start', 'dpa_theme_compat_main_loop_start',  9999 );
+		add_action( 'loop_end',   'dpa_theme_compat_main_loop_end',   -9999 );
 	}
 
 	return apply_filters( 'dpa_template_include_theme_compat', $template );
@@ -495,7 +498,24 @@ function dpa_replace_the_content( $content = '' ) {
 		// Page exists where this archive should be
 		$page = dpa_get_page_by_path( dpa_get_root_slug() );
 		if ( ! empty( $page ) ) {
+
+			// Restore previously unset filters
+			dpa_restore_all_filters( 'the_content' );
+
+			// Remove 'dpa_replace_the_content' filter to prevent infinite loops
+			remove_filter( 'the_content', 'dpa_replace_the_content' );
+
+			// Start output buffer
+			ob_start();
+
+			// Grab the content of this page
 			$new_content = apply_filters( 'the_content', $page->post_content );
+
+			// Clean up the buffer
+			ob_end_clean();
+
+			// Add 'dpa_replace_the_content' filter back
+			add_filter( 'the_content', 'dpa_replace_the_content' );
 
 		// No page so show the archive
 		} else {
@@ -538,6 +558,37 @@ function dpa_replace_the_content( $content = '' ) {
 	// Return possibly hi-jacked content
 	return $content;
 }
+
+/**
+ * Helper function to conditionally toggle the_content filters in the main query loop. Aids with theme compatibility.
+ *
+ * @since Achievements (3.4)
+ */
+function dpa_theme_compat_main_loop_start() { 
+
+	// Bail if not the main loop where theme compat is happening 
+	if ( ! dpa_do_theme_compat() ) 
+		return; 
+
+	// Remove all of the filters from the_content, and replace the content
+	dpa_remove_all_filters( 'the_content' ); 
+	add_filter( 'the_content', 'dpa_replace_the_content' ); 
+} 
+
+/** 
+ * Helper function to conditionally toggle the_content filters in the main query loop. Aids with theme compatibility. 
+ * 
+ * @since Achievements (3.4)
+ */ 
+function dpa_theme_compat_main_loop_end() { 
+
+	// Bail if not the main loop where theme compat is happening 
+	if ( ! dpa_do_theme_compat() ) 
+	return; 
+
+	// Put all the filters back 
+	dpa_restore_all_filters( 'the_content' ); 
+} 
 
 
 /**
