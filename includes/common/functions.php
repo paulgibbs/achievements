@@ -22,20 +22,22 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  *
  * @param string $older_date Unix timestamp from which the difference begins.
  * @param bool|string $newer_date Optional. Unix timestamp from which the difference ends. False for current time.
+ * @param int $gmt Optional. Whether to use GMT timezone. Default is false. 
  * @since Achievements (3.0)
  */
-function dpa_time_since( $older_date, $newer_date = false ) {
-	echo dpa_get_time_since( $older_date, $newer_date );
+function dpa_time_since( $older_date, $newer_date = false, $gmt = false ) {
+	echo dpa_get_time_since( $older_date, $newer_date, $gmt );
 }
 	/**
 	 * Return formatted time to display human readable time difference.
 	 *
 	 * @param string $older_date Unix timestamp from which the difference begins.
 	 * @param bool|string $newer_date Optional. Unix timestamp from which the difference ends. False for current time.
+	 * @param int $gmt Optional. Whether to use GMT timezone. Default is false. 
 	 * @return string Formatted time
 	 * @since Achievements (3.0)
 	 */
-	function dpa_get_time_since( $older_date, $newer_date = false ) {		
+	function dpa_get_time_since( $older_date, $newer_date = false, $gmt = false ) {		
 		// Setup the strings
 		$unknown_text   = apply_filters( 'dpa_time_since_unknown_text',   _x( 'sometime',  'time', 'dpa' ) );
 		$right_now_text = apply_filters( 'dpa_time_since_right_now_text', _x( 'right now', 'time', 'dpa' ) );
@@ -63,7 +65,7 @@ function dpa_time_since( $older_date, $newer_date = false ) {
 		 * between a date and the current time. $newer_date will have a value if
 		 * we want to work out time elapsed between two known dates.
 		 */
-		$newer_date = ( ! $newer_date ) ? strtotime( current_time( 'mysql' ) ) : $newer_date;
+		$newer_date = ( ! $newer_date ) ? strtotime( current_time( 'mysql', $gmt ) ) : $newer_date;
 
 		// Difference in seconds
 		$since = $newer_date - $older_date;
