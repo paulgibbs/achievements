@@ -81,11 +81,6 @@ final class DPA_Achievements_Loader {
 	 */
 	public $user_options = array();
 
-	/**
-	 * @var Achievements The one true Achievements
-	 */
-	private static $instance;
-
 
 	/**
 	 * Main Achievements instance
@@ -96,16 +91,19 @@ final class DPA_Achievements_Loader {
 	 * @return DPA_Achievements_Loader The one true Achievements
 	 * @see achievements()
 	 * @since Achievements (3.0)
-	 * @staticvar Achievements $instance
 	 */
 	public static function instance() {
-		if ( ! isset( self::$instance ) ) {
-			self::$instance = new DPA_Achievements_Loader;
-			self::$instance->setup_globals();
-			self::$instance->includes();
-			self::$instance->setup_actions();
+		static $instance = null;
+
+		// Only run these methods if they haven't been ran previously
+		if ( null === $instance ) {
+			$instance = new DPA_Achievements_Loader;
+			$instance->setup_globals();
+			$instance->includes();
+			$instance->setup_actions(); 
 		}
-		return self::$instance;
+
+		return $instance;
 	}
 
 
