@@ -55,8 +55,8 @@ function dpa_maybe_update_extensions() {
 	if ( dpa_is_deactivation( achievements()->basename ) )
 		return;
 
-	// Only do things if the user is active (logged in and not a spammer) and in wp-admin
-	if ( ! dpa_is_user_active() || ! is_admin() )
+	// Only do things if the user is active (logged in and not a spammer), in wp-admin, and is not doing an import.
+	if ( ! dpa_is_user_active() || ! is_admin() || defined( 'WP_IMPORTING' ) && WP_IMPORTING )
 		return;
 
 	// Check user has the ability to edit and create terms
@@ -118,8 +118,8 @@ function dpa_register_events() {
 	if ( dpa_is_deactivation( achievements()->basename ) )
 		return;
 
-	// Only do things if the user is active (logged in and not a spammer)
-	if ( ! dpa_is_user_active() )
+	// Only do things if the user is active (logged in and not a spammer) and is not doing an import.
+	if ( ! dpa_is_user_active() || defined( 'WP_IMPORTING' ) && WP_IMPORTING )
 		return;
 
 	$events = array();
