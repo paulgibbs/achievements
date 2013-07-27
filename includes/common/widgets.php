@@ -2,8 +2,6 @@
 /**
  * Achievements widgets
  *
- * Contains the forum list, topic list, reply list and login form widgets.
- *
  * @package Achievements
  * @subpackage CommonWidgets
  */
