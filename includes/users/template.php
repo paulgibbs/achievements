@@ -1,6 +1,6 @@
 <?php
 /**
- * Achievements user template tags
+ * Achievements user and leaderboard template tags
  *
  * @package Achievements
  * @subpackage UserTemplate
