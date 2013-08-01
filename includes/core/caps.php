@@ -95,7 +95,7 @@ function dpa_map_meta_caps( $caps, $cap, $user_id, $args ) {
 
 				// User is author so allow read
 				elseif ( (int) $user_id === (int) $post->post_author )
-					$caps = 'read';
+					$caps[] = 'read';
 
 				else
 					$caps[] = $post_type->cap->read_private_posts;
