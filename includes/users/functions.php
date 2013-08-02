@@ -105,9 +105,9 @@ function dpa_get_leaderboard( array $args = array() ) {
 
 	// We use this later to help get/set the object cache
 	$last_changed = wp_cache_get( 'last_changed', 'achievements_leaderboard' );
-	if ( ! $last_changed ) {
+	if ( $last_changed === false ) {
 		$last_changed = microtime();
-		wp_cache_set( 'last_changed', $last_changed, 'achievements_leaderboard' );
+		wp_cache_add( 'last_changed', $last_changed, 'achievements_leaderboard' );
 	}
 
 
@@ -129,7 +129,7 @@ function dpa_get_leaderboard( array $args = array() ) {
 	$points_cache_key = 'get_leaderboard_points' . md5( serialize( $points_query ) ) . ":$last_changed";
 	$points           = wp_cache_get( $points_cache_key, 'achievements_leaderboard' );
 
-	if ( ! $points ) {
+	if ( $points === false ) {
 		$points = $wpdb->get_col( $points_query );
 		wp_cache_add( $points_cache_key, $points, 'achievements_leaderboard' );
 	}
@@ -181,7 +181,7 @@ function dpa_get_leaderboard( array $args = array() ) {
 			'total'   => (int) $results_found,
 		);
 
-		wp_cache_set( $cache_key, $results, 'achievements_leaderboard' );
+		wp_cache_add( $cache_key, $results, 'achievements_leaderboard' );
 	}
 
 	return apply_filters( 'dpa_get_leaderboard', $results, $defaults, $args, $points, $points_key, $cache_key );
