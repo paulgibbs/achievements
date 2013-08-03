@@ -198,7 +198,12 @@ function dpa_update_user_points( $new_value = 0, $user_id = 0 ) {
 	$store_global = is_multisite() && dpa_is_running_networkwide();
 
 	$new_value = apply_filters( 'dpa_update_user_points', $new_value, $user_id );
-	return update_user_option( $user_id, '_dpa_points', $new_value, $store_global );
+	$retval    = update_user_option( $user_id, '_dpa_points', $new_value, $store_global );
+
+	// Effectively clears the cache for leaderboard results
+	wp_cache_set( 'last_changed', microtime(), 'achievements_leaderboard' );
+
+	return $retval;
 }
 
 /**
