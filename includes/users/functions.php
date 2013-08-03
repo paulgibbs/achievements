@@ -83,7 +83,7 @@ function dpa_get_displayed_user_id() {
 /**
  * Get the current state of the leaderboard, sorted by users' karma points.
  *
- * @param array $args Optional. Associatve array of optional arguments.
+ * @param array $args Optional. Associative array of optional arguments.
  * @since Achievements (3.4)
  */
 function dpa_get_leaderboard( array $args = array() ) {
