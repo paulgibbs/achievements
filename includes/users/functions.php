@@ -169,10 +169,10 @@ function dpa_get_leaderboard( array $args = array() ) {
 	 * 3) Run the query and cache results
 	 */
 	$cache_key = 'get_leaderboard:' . md5( serialize( $query ) ) . ":$last_changed";
-	$cache     = wp_cache_get( $cache_key, 'achievements_leaderboard' );
+	$results   = wp_cache_get( $cache_key, 'achievements_leaderboard' );
 
 	// Only query if not in cache
-	if ( ! $cache ) {
+	if ( $results === false ) {
 		$results       = $wpdb->get_results( $query );
 		$results_found = $wpdb->get_var( 'SELECT FOUND_ROWS()' );
 
