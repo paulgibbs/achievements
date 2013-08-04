@@ -145,7 +145,7 @@ function dpa_get_leaderboard( array $args = array() ) {
 	 * 2a) Start building the SQL to get each user's rank, user ID, and points total.
 	 */
 	$query = $wpdb->prepare(
-		"SELECT SQL_CALC_FOUND_ROWS FIND_IN_SET( karma.meta_value, %s ) as rank, ID, karma.meta_value
+		"SELECT SQL_CALC_FOUND_ROWS FIND_IN_SET( karma.meta_value, %s ) as rank, ID as user_id, karma.meta_value as karma
 		FROM {$wpdb->users} AS person
 		INNER JOIN {$wpdb->usermeta} as karma ON person.id = karma.user_id AND karma.meta_key = %s",
 	$points,
