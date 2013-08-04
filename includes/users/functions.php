@@ -177,6 +177,12 @@ function dpa_get_leaderboard( array $args = array() ) {
 		$results       = $wpdb->get_results( $query );
 		$results_found = $wpdb->get_var( 'SELECT FOUND_ROWS()' );
 
+		// All the returned values should be ints, not strings, so cast them here.
+		foreach ( $results as $result ) {
+			foreach ( $result as &$value )
+				$value = (int) $value;
+		}
+
 		$results = array(
 			'results' => $results,
 			'total'   => (int) $results_found,
