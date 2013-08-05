@@ -135,10 +135,18 @@ function dpa_get_leaderboard( array $args = array() ) {
 		wp_cache_add( $points_cache_key, $points, 'achievements_leaderboard' );
 	}
 
+	if ( empty( $points ) ) {
+
+		// If points is empty, no-one has any karma, so bail out.
+		return array(
+			'results' => array(),
+			'total'   => 0,
+		);
+	}
+
 	$points = wp_parse_id_list( $points );  // Cast to ints and returns unique values
  	rsort( $points, SORT_NUMERIC );         // Sort descending for FIND_IN_SET
 	$points = implode( ',', $points );      // Format for FIND_IN_SET
-	// TODO: if $points is empty, then no-one has a score, so bail out.
 
 
 	/**
