@@ -83,6 +83,9 @@ function dpa_get_displayed_user_id() {
 /**
  * Get the current state of the leaderboard, sorted by users' karma points.
  *
+ * If you try to use this function, you will need to implement your own switch_to_blog and wp_reset_postdata() handling if running in a multisite
+ * and in a dpa_is_running_networkwide() configuration, otherwise the data won't be fetched from the appropriate site.
+ *
  * This function accept a 'user_id' parameter in the $argument, which accepts an array of user IDs.
  * It is only useful if you want to create a leaderboard that only contains the specified users; for example,
  * you and your friends could have your own mini-league, or in BuddyPress, each Group could have its own leaderboard.

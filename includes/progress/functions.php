@@ -12,6 +12,9 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 /**
  * Retrieves a list of progress posts matching criteria
  *
+ * If you try to use this function, you will need to implement your own switch_to_blog and wp_reset_postdata() handling if running in a multisite
+ * and in a dpa_is_running_networkwide() configuration, otherwise the data won't be fetched from the appropriate site.
+ *
  * @param array|string $args All the arguments supported by {@link WP_Query}, and some more.
  * @return array Posts
  * @since Achievements (3.0)
