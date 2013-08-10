@@ -128,11 +128,11 @@ function dpa_get_leaderboard( array $args = array() ) {
 
 	// Only query if not in cache
 	$points_cache_key = 'get_leaderboard_points' . md5( serialize( $points_query ) ) . ":$last_changed";
-	$points           = wp_cache_get( $points_cache_key, 'achievements_leaderboard' );
+	$points           = wp_cache_get( $points_cache_key, 'achievements_leaderboard_ids' );
 
 	if ( $points === false ) {
 		$points = $wpdb->get_col( $points_query );
-		wp_cache_add( $points_cache_key, $points, 'achievements_leaderboard' );
+		wp_cache_add( $points_cache_key, $points, 'achievements_leaderboard_ids' );
 	}
 
 	if ( empty( $points ) ) {
