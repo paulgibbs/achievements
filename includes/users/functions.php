@@ -83,6 +83,12 @@ function dpa_get_displayed_user_id() {
 /**
  * Get the current state of the leaderboard, sorted by users' karma points.
  *
+ * This function accept a 'user_id' parameter in the $argument, which accepts an array of user IDs.
+ * It is only useful if you want to create a leaderboard that only contains the specified users; for example,
+ * you and your friends could have your own mini-league, or in BuddyPress, each Group could have its own leaderboard.
+ *
+ * It is totally useless if you're trying to find the position for one or more specific users in the *overall* leaderboard.
+ *
  * @param array $args Optional. Associative array of optional arguments. See function for details.
  * @return array|bool If no results, false. Otherwise, an associative array: array('results' => array([0] => array('rank' => int, 'ID' => int, 'meta_value' => int), ...), 'total' => int).
  * @since Achievements (3.4)
@@ -98,7 +104,6 @@ function dpa_get_leaderboard( array $args = array() ) {
 
 	$args       = dpa_parse_args( $args, $defaults, 'get_leaderboard' );
 	$points_key = "{$wpdb->prefix}_dpa_points";
-	$num_users  = ( $args['user_id'] !== 0 ) ? count( (array) $args['user_id'] ) : 0;
 	$num_users  = empty( $args['user_id'] ) ? 0 : count( (array) $args['user_id'] );
 
 	// No, we're not allowing infinite results. This is always a bad idea.
