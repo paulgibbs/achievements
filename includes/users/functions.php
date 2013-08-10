@@ -155,7 +155,7 @@ function dpa_get_leaderboard( array $args = array() ) {
 	$query = $wpdb->prepare(
 		"SELECT SQL_CALC_FOUND_ROWS FIND_IN_SET( karma.meta_value, %s ) as rank, ID as user_id, karma.meta_value as karma
 		FROM {$wpdb->users} AS person
-		INNER JOIN {$wpdb->usermeta} as karma ON person.id = karma.user_id AND karma.meta_key = %s",
+		INNER JOIN {$wpdb->usermeta} as karma ON person.ID = karma.user_id AND karma.meta_key = %s",
 	$points,
 	$points_key );
 
