@@ -93,12 +93,13 @@ function dpa_get_leaderboard( array $args = array() ) {
 	$defaults = array(
 		'paged'          => dpa_get_paged(),                       // Page number
 		'posts_per_page' => dpa_get_leaderboard_items_per_page(),  // Users per page
-		'user_id'        => 0,                                     // Get details for a specific user if non-zero; pass an array of ints for >1 user.
+		'user_id'        => array(),                               // Get details for a specific user if non-zero; pass an array of ints for >1 user.
 	);
 
 	$args       = dpa_parse_args( $args, $defaults, 'get_leaderboard' );
 	$points_key = "{$wpdb->prefix}_dpa_points";
 	$num_users  = ( $args['user_id'] !== 0 ) ? count( (array) $args['user_id'] ) : 0;
+	$num_users  = empty( $args['user_id'] ) ? 0 : count( (array) $args['user_id'] );
 
 	// No, we're not allowing infinite results. This is always a bad idea.
 	if ( (int) $args['posts_per_page'] < 1 )
