@@ -162,10 +162,9 @@ function dpa_get_leaderboard( array $args = array() ) {
 	/**
 	 * 2b) Sort users correctly even if some of them don't have any karma points.
 	 *
-	 * `ORDER BY... rank` causes a filesort because usermeta has no index on meta_value, so only add this if we need it.
+	 * `ORDER BY... rank` causes a filesort because usermeta has no index on meta_value :(
 	 */
-	if ( $num_users !== 1 )
-		$query .= ' ORDER BY CASE WHEN rank IS NULL THEN 1 ELSE 0 END, rank';
+	$query .= ' ORDER BY CASE WHEN rank IS NULL THEN 1 ELSE 0 END, rank';
 
 	/**
 	 * 2c) Handle pagination
