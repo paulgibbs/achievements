@@ -190,6 +190,90 @@ function dpa_the_leaderboard_user() {
 	return achievements()->leaderboard_query['results'][ achievements()->leaderboard_query['current_item'] ];
 }
 
+/**
+ * Output the ID of the current user in the leaderboard
+ *
+ * @since Achievements (3.4)
+ */
+function dpa_leaderboard_user_id() {
+	echo dpa_get_leaderboard_user_id();
+}
+	/**
+	 * Return the ID of the current user in the leaderboard
+	 *
+	 * @return int User ID
+	 * @since Achievements (3.4)
+	 */
+	function dpa_get_leaderboard_user_id() {
+		$user_id = achievements()->leaderboard_query['results'][ achievements()->leaderboard_query['current_item'] ]->user_id;
+		return (int) apply_filters( 'dpa_get_leaderboard_user_id', (int) $user_id );
+	}
+
+/**
+ * Output the karma of the current user in the leaderboard
+ *
+ * @since Achievements (3.4)
+ */
+function dpa_leaderboard_user_karma() {
+	echo number_format_i18n( dpa_get_leaderboard_user_karma() );
+}
+	/**
+	 * Return the karma of the current user in the leaderboard
+	 *
+	 * @return int User's karma
+	 * @since Achievements (3.4)
+	 */
+	function dpa_get_leaderboard_user_karma() {
+		$karma = achievements()->leaderboard_query['results'][ achievements()->leaderboard_query['current_item'] ]->karma;
+		return (int) apply_filters( 'dpa_get_leaderboard_user_karma', (int) $karma );
+	}
+
+/**
+ * Output the rank position of the current user in the leaderboard
+ *
+ * It is possible that multiple users may share the same rank position (e.g. "tie for third place!").
+ *
+ * @since Achievements (3.4)
+ */
+function dpa_leaderboard_user_rank() {
+	echo number_format_i18n( dpa_get_leaderboard_user_rank() );
+}
+	/**
+	 * Return the rank position of the current user in the leaderboard
+	 *
+	 * It is possible that multiple users may share the same rank position (e.g. "tie for third place!").
+	 *
+	 * @return int User's rank
+	 * @since Achievements (3.4)
+	 */
+	function dpa_get_leaderboard_user_rank() {
+		$rank = achievements()->leaderboard_query['results'][ achievements()->leaderboard_query['current_item'] ]->rank;
+		return (int) apply_filters( 'dpa_get_leaderboard_user_rank', (int) $rank );
+	}
+
+/**
+ * Output the display nme of the current user in the leaderboard
+ *
+ * @since Achievements (3.4)
+ */
+function dpa_leaderboard_user_display_name() {
+	echo esc_html( dpa_get_leaderboard_user_display_name() );
+}
+	/**
+	 * Return the display nme of the current user in the leaderboard
+	 *
+	 * @return string User's display name
+	 * @since Achievements (3.4)
+	 */
+	function dpa_get_leaderboard_user_display_name() {
+		$display_name = achievements()->leaderboard_query['results'][ achievements()->leaderboard_query['current_item'] ]->display_name;
+
+		// Use wpcore's get_the_author()'s filter for any other plugins that may filter the name in some special way.
+		$display_name = apply_filters( 'the_author', $display_name );
+
+		return apply_filters( 'dpa_get_leaderboard_user_display_name', $display_name );
+	}
+
 
 /**
  * Leaderboard pagination
