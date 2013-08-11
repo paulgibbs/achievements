@@ -250,7 +250,6 @@ function dpa_is_developer_mode() {
 /**
  * Assist pagination by returning correct page number
  *
- * @global WP_Query $wp_query
  * @return int Current page number
  * @since Achievements (3.0)
  */
@@ -270,8 +269,18 @@ function dpa_get_paged() {
 	if ( ! empty( $paged ) )
 		return (int) $paged;
 
-	// Default to first page
 	return 1;
+}
+
+/**
+ * Assist pagination by returning correct page number for leaderboard pagination
+ *
+ * @return int Current page number
+ * @since Achievements (3.4)
+ * @todo If a top-level /leaderboard/ rewrite is ever added, we can make this properly use query vars.
+ */
+function dpa_get_leaderboard_paged() {
+	return ( ! empty( $_GET['leaderboard-page'] ) ) ? (int) $_GET['leaderboard-page'] : 1;
 }
 
 /**
