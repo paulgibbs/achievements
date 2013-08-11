@@ -424,7 +424,7 @@ function dpa_progress_pagination_count() {
 
 		// Several achievements within a single page
 		if ( empty( $to_num ) ) {
-			$retstr = sprintf( _n( 'Viewing %1$s achievement progress', "Viewing %1$s achievements&rsquo; progress", $total_int, 'dpa' ), $total );
+			$retstr = sprintf( _n( 'Viewing %1$s achievement progress', "Viewing %1\$s achievements&rsquo; progress", $total_int, 'dpa' ), $total );
 
 		// Several achievements with several pages
 		} else {
