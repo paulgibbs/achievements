@@ -78,6 +78,7 @@ class DPA_Shortcodes {
 	private function unset_globals() {
 		// Unset global queries
 		achievements()->achievement_query = new WP_Query();
+		achievements()->leaderboard_query = new ArrayObject();
 		achievements()->progress_query    = new WP_Query();
 
 		// Unset global IDs

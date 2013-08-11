@@ -206,8 +206,9 @@ final class DPA_Achievements_Loader {
 		// Queries
 		$this->current_achievement_id = 0;  // Current achievement ID
 
-		$this->achievement_query = new WP_Query();  // Main achievement post type query
-		$this->progress_query    = new WP_Query();  // Main dpa_progress post type query
+		$this->achievement_query = new WP_Query();     // Main achievement post type query
+		$this->leaderboard_query = new ArrayObject();  // Leaderboard template loop
+		$this->progress_query    = new WP_Query();     // Main dpa_progress post type query
 
 		// Theme compat
 		$this->theme_compat = new stdClass();  // Base theme compatibility class

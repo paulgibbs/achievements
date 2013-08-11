@@ -262,6 +262,7 @@ function dpa_handle_event() {
 		restore_current_blog();
 
 	achievements()->achievement_query = new WP_Query();
+	achievements()->leaderboard_query = new ArrayObject();
 	achievements()->progress_query    = new WP_Query();
 
 	// Everything's done. Let other plugins do things.
