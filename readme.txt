@@ -54,7 +54,7 @@ For information, support, and developer documentation, visit [achievementsapp.co
 
 = 3.2 =
 * NEW FEATURE: Full integration with BuddyPress User Profiles and the Activity stream!
-* Localisation improvements and fixes; mo files are now loaded from wp-content/languages/plugins/achievements/??-dpa.mo
+* Localisation improvements and fixes; mo files are now loaded from wp-content/languages/plugins/achievements/dpa-??_??.mo
 
 = 3.1 =
 * NEW FEATURE: Achievement Redemption -- let your users unlock achievements by entering a code!
