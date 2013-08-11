@@ -102,12 +102,12 @@ function dpa_get_leaderboard( array $args = array() ) {
 	$defaults = array(
 		'paged'          => dpa_get_paged(),                       // Page number
 		'posts_per_page' => dpa_get_leaderboard_items_per_page(),  // Users per page
-		'user_id'        => array(),                               // Get details for a specific user if non-zero; pass an array of ints for >1 user.
+		'user_ids'       => array(),                               // Get details for a specific user if non-zero; pass an array of ints for >1 user.
 	);
 
 	$args       = dpa_parse_args( $args, $defaults, 'get_leaderboard' );
 	$points_key = "{$wpdb->prefix}_dpa_points";
-	$num_users  = empty( $args['user_id'] ) ? 0 : count( (array) $args['user_id'] );
+	$num_users  = empty( $args['user_ids'] ) ? 0 : count( (array) $args['user_ids'] );
 
 	// No, we're not allowing infinite results. This is always a bad idea.
 	if ( (int) $args['posts_per_page'] < 1 )
@@ -133,7 +133,7 @@ function dpa_get_leaderboard( array $args = array() ) {
 	$points_key );
 
 	if ( $num_users > 0 )
-		$points_query .= $wpdb->prepare( ' AND user_id IN (' . implode( ',', wp_parse_id_list( (array) $args['user_id'] ) ) . ') LIMIT %d', $num_users );
+		$points_query .= $wpdb->prepare( ' AND user_id IN (' . implode( ',', wp_parse_id_list( (array) $args['user_ids'] ) ) . ') LIMIT %d', $num_users );
 
 	// Only query if not in cache
 	$points_cache_key = 'get_leaderboard_points' . md5( serialize( $points_query ) ) . ":$last_changed";
