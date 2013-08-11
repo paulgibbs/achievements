@@ -92,3 +92,57 @@ function dpa_user_avatar_link( $args = array() ) {
 
 		return apply_filters( 'dpa_get_user_avatar_link', $user_link, $args );
 	}
+
+/**
+ * The leaderboard template loop.
+ *
+ * Doesn't use WP_Query, but the template loop and its data are structured in a vaguely similar
+ * way to the dpa_has_achievements() and dpa_has_progress() loops (which do use WP_Query).
+ *
+ * @param array $args Optional. Associative array of optional arguments. See function for details.
+ * @return bool Returns true if the query had any results to loop over
+ * @since Achievements (3.4)
+ */
+function dpa_has_leaderboard( $args = array() ) {
+
+	// If multisite and running network-wide, switch_to_blog to the data store site
+	if ( is_multisite() && dpa_is_running_networkwide() )
+		switch_to_blog( DPA_DATA_STORE );
+
+	$defaults = array(
+		'paged'          => dpa_get_leaderboard_paged(),           // Page number
+		'posts_per_page' => dpa_get_leaderboard_items_per_page(),  // Users per page
+		'user_ids'       => array(),                               // Get details for specific users; pass an array of ints.
+	);
+
+	$args = dpa_parse_args( $args, $defaults, 'has_leaderboard' );
+
+	// Run the query
+	achievements()->leaderboard_query = dpa_get_leaderboard( $args );
+
+	// Only add pagination if query returned results
+	if ( ( count( achievements()->leaderboard_query['results'] ) || achievements()->leaderboard_query['total'] ) && $args['posts_per_page'] ) {
+
+		// If a top-level /leaderboard/ rewrite is ever added, we can make this use pretty pagination. Also see dpa_get_leaderboard_paged().
+		$base = add_query_arg( 'leaderboard-page', '%#%' );
+
+		// Pagination settings with filter
+		$leaderboard_pagination = apply_filters( 'dpa_leaderboard_pagination', array(
+			'base'      => $base,
+			'current'   => $args['paged'],
+			'format'    => '',
+			'mid_size'  => 1,
+			'next_text' => '&rarr;',
+			'prev_text' => '&larr;',
+			'total'     => ( (int) $args['posts_per_page'] === achievements()->leaderboard_query['total'] ) ? 1 : ceil( achievements()->leaderboard_query['total'] / (int) $args['posts_per_page'] ),
+		) );
+
+		achievements()->leaderboard_query['pagination_links'] = paginate_links( $leaderboard_pagination );
+	}
+
+	// If multisite and running network-wide, undo the switch_to_blog
+	if ( is_multisite() && dpa_is_running_networkwide() )
+		restore_current_blog();
+
+	return apply_filters( 'dpa_has_leaderboard', ! empty( achievements()->leaderboard_query['results'] ) );
+}
