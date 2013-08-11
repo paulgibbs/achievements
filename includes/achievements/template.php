@@ -780,7 +780,7 @@ function dpa_achievement_pagination_links() {
 	 */
 	function dpa_get_achievement_pagination_links() {
 		if ( ! is_a( achievements()->achievement_query, 'WP_Query' ) )
-			return;
+			return '';
 
 		return apply_filters( 'dpa_get_achievement_pagination_links', achievements()->achievement_query->pagination_links );
 	}
