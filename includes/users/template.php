@@ -150,3 +150,40 @@ function dpa_has_leaderboard( $args = array() ) {
 
 	return apply_filters( 'dpa_has_leaderboard', ! empty( achievements()->leaderboard_query['results'] ) );
 }
+
+/**
+ * Whether there are more items available in the leaderboard loop
+ *
+ * @return bool True if there are more items in the loop
+ * @since Achievements (3.4)
+ */
+function dpa_leaderboard_has_users() {
+	$item_count = count( achievements()->leaderboard_query['results'] );
+
+	// Messy, messy...
+	if ( ! isset( achievements()->leaderboard_query['current_item'] ) )
+		achievements()->leaderboard_query['current_item'] = -1;
+
+	if ( achievements()->leaderboard_query['current_item'] + 1 < $item_count )
+		return true;
+
+	// Do some cleaning up after the loop
+	elseif ( achievements()->leaderboard_query['current_item'] + 1 === $item_count && $item_count > 0 )
+		achievements()->leaderboard_query['current_item'] = -1;
+
+	achievements()->leaderboard_query['in_the_loop'] = false;
+	return false;
+}
+
+/**
+ * Iterate the leaderboard user index in the loop. Retrieves the next item and sets the 'in the loop' property to true.
+ *
+ * @return object The next item in the leaderboard
+ * @since Achievements (3.4)
+ */
+function dpa_the_leaderboard_user() {
+	achievements()->leaderboard_query['current_item']++;
+	achievements()->leaderboard_query['in_the_loop'] = true;
+
+	return achievements()->leaderboard_query['results'][ achievements()->leaderboard_query['current_item'] ];
+}
