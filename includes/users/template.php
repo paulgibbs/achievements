@@ -141,7 +141,9 @@ function dpa_has_leaderboard( $args = array() ) {
 			'total'     => ( (int) $args['posts_per_page'] === achievements()->leaderboard_query['total'] ) ? 1 : ceil( achievements()->leaderboard_query['total'] / (int) $args['posts_per_page'] ),
 		) );
 
+		achievements()->leaderboard_query['paged']            = (int) $args['paged'];
 		achievements()->leaderboard_query['pagination_links'] = paginate_links( $leaderboard_pagination );
+		achievements()->leaderboard_query['posts_per_page']   = (int) $args['posts_per_page'];
 	}
 
 	// If multisite and running network-wide, undo the switch_to_blog
@@ -187,3 +189,69 @@ function dpa_the_leaderboard_user() {
 
 	return achievements()->leaderboard_query['results'][ achievements()->leaderboard_query['current_item'] ];
 }
+
+
+/**
+ * Leaderboard pagination
+ */
+
+/**
+ * Output the leaderboard pagination count
+ *
+ * @since Achievements (3.4)
+ */
+function dpa_leaderboard_pagination_count() {
+	echo dpa_get_leaderboard_pagination_count();
+}
+	/**
+	 * Return the pagination count
+	 *
+	 * @return string Progress pagination count
+	 * @since Achievements (3.4)
+	 */
+	function dpa_get_leaderboard_pagination_count() {
+		if ( empty( achievements()->leaderboard_query ) )
+			return '';
+
+		$found_count = achievements()->leaderboard_query['total'];
+		$item_count  = count( achievements()->leaderboard_query['results'] );
+
+		// Set pagination values
+		$start_num = intval( ( achievements()->leaderboard_query['paged'] - 1 ) * achievements()->leaderboard_query['posts_per_page'] ) + 1;
+		$from_num  = number_format_i18n( $start_num );
+		$to_num    = number_format_i18n( ( $start_num + ( achievements()->leaderboard_query['posts_per_page'] - 1 ) > $found_count ) ? $found_count : $start_num + ( achievements()->leaderboard_query['posts_per_page'] - 1 ) );
+		$total_int = (int) ! empty( $found_count ) ? $found_count : $item_count;
+		$total     = number_format_i18n( $total_int );
+
+		// Several items within a single page
+		if ( empty( $to_num ) ) {
+			$retstr = sprintf( _n( 'Viewing %1$s user', 'Viewing %1$s users', $total_int, 'dpa' ), $total );
+
+		// Several items with several pages
+		} else {
+			$retstr = sprintf( _n( 'Viewing users %2$s (of %4$s total)', 'Viewing %1$s users - %2$s through %3$s (of %4$s total)', $total_int, 'dpa' ), $item_count, $from_num, $to_num, $total );
+		}
+
+		return apply_filters( 'dpa_get_leaderboard_pagination_count', $retstr );
+	}
+
+/**
+ * Output leaderboard pagination links
+ *
+ * @since Achievements (3.4)
+ */
+function dpa_leaderboard_pagination_links() {
+	echo dpa_get_leaderboard_pagination_links();
+}
+	/**
+	 * Return leaderboard pagination links
+	 *
+	 * @return string Pagination links
+	 * @since Achievements (3.4)
+	 */
+	function dpa_get_leaderboard_pagination_links() {
+		if ( empty( achievements()->leaderboard_query ) )
+			return '';
+
+		return apply_filters( 'dpa_get_leaderboard_pagination_links', achievements()->leaderboard_query['pagination_links'] );
+	}
