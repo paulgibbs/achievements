@@ -93,7 +93,7 @@ function dpa_get_displayed_user_id() {
  * It is totally useless if you're trying to find the position for one or more specific users in the *overall* leaderboard.
  *
  * @param array $args Optional. Associative array of optional arguments. See function for details.
- * @return array|bool If no results, false. Otherwise, an associative array: array('results' => array([0] => array('rank' => int, 'ID' => int, 'meta_value' => int), ...), 'total' => int).
+ * @return array|bool If no results, false. Otherwise, an associative array: array('results' => array([0] => array('rank' => int, 'user_id' => int, 'karma' => int, 'display_name' => string), ...), 'total' => int).
  * @since Achievements (3.4)
  */
 function dpa_get_leaderboard( array $args = array() ) {
