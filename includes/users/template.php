@@ -2,6 +2,10 @@
 /**
  * Achievements user and leaderboard template tags
  *
+ * The leaderboard template loop has been implemented in a psuedo-WP_Query style; under the hood, it just iterates through dpa_get_leaderboard().
+ * It's been done like this for consistency with the rest of Achievements' template loops, and will hopefully provide a more straightforward
+ * upgrade path in the future if the internal implementation ever changes.
+ *
  * @package Achievements
  * @subpackage UserTemplate
  */
