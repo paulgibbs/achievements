@@ -100,9 +100,10 @@ function dpa_get_leaderboard( array $args = array() ) {
 	global $wpdb;
 
 	$defaults = array(
-		'paged'          => dpa_get_leaderboard_paged(),           // Page number
-		'posts_per_page' => dpa_get_leaderboard_items_per_page(),  // Users per page
-		'user_ids'       => array(),                               // Get details for specific users; pass an array of ints.
+		'paged'           => dpa_get_leaderboard_paged(),           // Page number
+		'populate_extras' => true,                                  // Whether to fetch users' display names. If you just want user IDs, set this to false.
+		'posts_per_page'  => dpa_get_leaderboard_items_per_page(),  // Users per page
+		'user_ids'        => array(),                               // Get details for specific users; pass an array of ints.
 	);
 
 	$args       = dpa_parse_args( $args, $defaults, 'get_leaderboard' );
@@ -205,6 +206,23 @@ function dpa_get_leaderboard( array $args = array() ) {
 		);
 
 		wp_cache_add( $cache_key, $results, 'achievements_leaderboard' );
+	}
+
+	// Maybe get users' display names
+	if ( $args['populate_extras'] ) {
+		$users = get_users( array(
+			'fields'  => array( 'ID', 'display_name' ),
+			'include' => wp_list_pluck( $results['results'], 'user_id' ),
+		) );
+
+		foreach ( $users as $user ) {
+			foreach ( $results['results'] as &$leaderboard_user ) {
+				if ( (int) $user->ID === $leaderboard_user->user_id ) {
+					$leaderboard_user->display_name = $user->display_name;
+					break;
+				}
+			}
+		}
 	}
 
 	// Why an ArrayObject? See http://stackoverflow.com/questions/10454779/php-indirect-modification-of-overloaded-property
