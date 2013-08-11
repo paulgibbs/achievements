@@ -207,5 +207,6 @@ function dpa_get_leaderboard( array $args = array() ) {
 		wp_cache_add( $cache_key, $results, 'achievements_leaderboard' );
 	}
 
-	return apply_filters( 'dpa_get_leaderboard', $results, $defaults, $args, $points_cache_key, $cache_key );
+	// Why an ArrayObject? See http://stackoverflow.com/questions/10454779/php-indirect-modification-of-overloaded-property
+	return apply_filters( 'dpa_get_leaderboard', new ArrayObject( $results ), $defaults, $args, $points_cache_key, $cache_key );
 }
