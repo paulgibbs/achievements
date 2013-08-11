@@ -100,7 +100,7 @@ function dpa_get_leaderboard( array $args = array() ) {
 	global $wpdb;
 
 	$defaults = array(
-		'paged'          => dpa_get_paged(),                       // Page number
+		'paged'          => dpa_get_leaderboard_paged(),           // Page number
 		'posts_per_page' => dpa_get_leaderboard_items_per_page(),  // Users per page
 		'user_ids'       => array(),                               // Get details for specific users; pass an array of ints.
 	);
