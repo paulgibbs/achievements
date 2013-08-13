@@ -119,7 +119,7 @@ class DPA_Featured_Achievement_Widget extends WP_Widget {
 	 * @param array $instance Optional; the instance of the widget.
 	 * @since Achievements (3.3)
 	 */
-	public function parse_settings( $instance = array() ) {
+	public function parse_settings( array $instance = array() ) {
 		return dpa_parse_args( $instance, array(
 			'post_id' => 0,
 		), 'featured_achievement_widget_settings' );
