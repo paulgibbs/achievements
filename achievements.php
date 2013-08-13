@@ -293,7 +293,6 @@ final class DPA_Achievements_Loader {
 
 		require( $this->includes_dir . 'achievements/functions.php' );
 		require( $this->includes_dir . 'achievements/template.php'  );
-		require( $this->includes_dir . 'achievements/widgets.php'   );
 
 		require( $this->includes_dir . 'progress/functions.php' );
 		require( $this->includes_dir . 'progress/template.php'  );
@@ -310,6 +309,14 @@ final class DPA_Achievements_Loader {
 		 */
 		require( $this->includes_dir . 'core/actions.php' );
 		require( $this->includes_dir . 'core/filters.php' );
+
+
+		/**
+		 * Widgets
+		 */
+		require( $this->includes_dir . 'class-dpa-redeem-achievements-widget.php'    );
+		require( $this->includes_dir . 'class-dpa-featured-achievement-widget.php'   );
+		require( $this->includes_dir . 'class-dpa-available-achievements-widget.php' );
 
 
 		/**
