@@ -150,7 +150,7 @@ function dpa_achievement_metabox_save( $achievement_id ) {
 	}
 
 	// Redemption code
-	$redemption_code = isset( $_POST['dpa_code'] ) ? strip_tags( stripslashes( $_POST['dpa_code'] ) ) : '';
+	$redemption_code = isset( $_POST['dpa_code'] ) ? sanitize_text_field( stripslashes( $_POST['dpa_code'] ) ) : '';
 	update_post_meta( $achievement_id, '_dpa_redemption_code', $redemption_code );
 
 	// Event repeats count target
