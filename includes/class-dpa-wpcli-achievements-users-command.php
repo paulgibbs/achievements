@@ -52,8 +52,9 @@ class DPA_WPCLI_Achievements_Users_Command extends WP_CLI_Command {
 		if ( empty( $achievement_ids ) )
 			WP_CLI::error( sprintf( 'User ID %d has not unlocked any achievements.', $user->ID ) );
 
+		$achievement_ids   = wp_parse_id_list( $achievement_ids );
 		$achievement_count = count( $achievement_ids );
-		$achievement_ids   = implode( ',', array_unique( $achievement_ids ) );
+		$achievement_ids   = implode( ',', $achievement_ids );
 
 		// Get the achievements
 		$posts = $wpdb->get_results( $wpdb->prepare( "SELECT ID, post_title FROM {$wpdb->posts} WHERE ID in ({$achievement_ids}) AND post_type = %s AND post_status = %s ORDER BY post_title ASC", dpa_get_achievement_post_type(), 'publish' ) );
@@ -157,7 +158,7 @@ class DPA_WPCLI_Achievements_Users_Command extends WP_CLI_Command {
 
 		return $wpdb->get_var( $wpdb->prepare( "SELECT ID FROM {$wpdb->posts} WHERE post_type = %s AND post_name = %s LIMIT 1", dpa_get_achievement_post_type(), $post_name ) );
 
-		return $achievement_id;
+		return (int) $achievement_id;
 	}
 }
 
