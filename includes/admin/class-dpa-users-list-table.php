@@ -37,7 +37,7 @@ class DPA_Users_List_Table extends WP_Users_List_Table {
 	 * @return array
 	 * @since Achievements (3.0)
 	 */
-	function get_column_info() {
+	public function get_column_info() {
 		$this->_column_headers = array(
 			$this->get_columns(),
 			array(),
@@ -56,7 +56,7 @@ class DPA_Users_List_Table extends WP_Users_List_Table {
 	 * @global unknown $wp_roles
 	 * @since Achievements (3.0)
 	 */
-	function get_views() {
+	public function get_views() {
 		global $wp_roles, $role;
 
 		// Get the number of users
@@ -112,7 +112,7 @@ class DPA_Users_List_Table extends WP_Users_List_Table {
 	 * @return array Key/value pairs for the bulk actions dropdown
 	 * @since Achievements (3.0)
 	 */
-	function get_bulk_actions() {
+	public function get_bulk_actions() {
 		return array();
 	}
 
@@ -122,7 +122,7 @@ class DPA_Users_List_Table extends WP_Users_List_Table {
 	 * @param string $which 'top' or 'bottom'
 	 * @since Achievements (3.0)
 	 */
-	function extra_tablenav( $which ) {
+	public function extra_tablenav( $which ) {
 	}
 
 	/**
@@ -131,7 +131,7 @@ class DPA_Users_List_Table extends WP_Users_List_Table {
 	 * @return string|bool The action name or False if no action was selected
 	 * @since Achievements (3.0)
 	 */
-	function current_action() {
+	public function current_action() {
 		return false;
 	}
 
@@ -142,7 +142,7 @@ class DPA_Users_List_Table extends WP_Users_List_Table {
 	 * @return array
 	 * @since Achievements (3.0)
 	 */
-	function get_columns() {
+	public function get_columns() {
 		return array(
 			'username'         => __( 'Username', 'dpa' ),
 			'dpa_last_id'      => __( 'Last Achievement', 'dpa' ),
@@ -157,7 +157,7 @@ class DPA_Users_List_Table extends WP_Users_List_Table {
 	 * @return array
 	 * @since Achievements (3.0)
 	 */
-	function get_sortable_columns() {
+	public function get_sortable_columns() {
 		return array(
 			'username' => 'login',
 		);
@@ -168,7 +168,7 @@ class DPA_Users_List_Table extends WP_Users_List_Table {
 	 *
 	 * @since Achievements (3.0)
 	 */
-	function display_rows() {
+	public function display_rows() {
 		foreach ( $this->items as $user )
 			$this->single_row( $user );
 	}
@@ -182,7 +182,7 @@ class DPA_Users_List_Table extends WP_Users_List_Table {
 	 * @param string $numposts Optional. Unused.
 	 * @since Achievements (3.0)
 	 */
-	function single_row( $user, $style = '', $role = '', $numposts = 0  ) {
+	public function single_row( $user, $style = '', $role = '', $numposts = 0  ) {
 		static $row_class = '';
 		$row_class = empty( $row_class ) ? ' class="alternate"' : '';
 
@@ -198,7 +198,7 @@ class DPA_Users_List_Table extends WP_Users_List_Table {
 	 * @see WP_List_Table::single_row_columns()
 	 * @since Achievements (3.0)
 	 */
-	function column_username( $user ) {
+	public function column_username( $user ) {
 		$avatar = get_avatar( $user->ID, 32 );
 		$url    = dpa_get_user_avatar_link( array( 'type' => 'url', 'user_id' => $user->ID ) );
 
@@ -212,7 +212,7 @@ class DPA_Users_List_Table extends WP_Users_List_Table {
 	 * @see WP_List_Table::single_row_columns()
 	 * @since Achievements (3.0)
 	 */
-	function column_dpa_achievements( $user ) {
+	public function column_dpa_achievements( $user ) {
 		dpa_user_unlocked_count( $user->ID );
 	}
 
@@ -223,7 +223,7 @@ class DPA_Users_List_Table extends WP_Users_List_Table {
 	 * @see WP_List_Table::single_row_columns()
 	 * @since Achievements (3.0)
 	 */
-	function column_dpa_last_id( $user ) {
+	public function column_dpa_last_id( $user ) {
 		$output = true;
 
 		// Get this user's most recent unlocked achievement
@@ -261,7 +261,7 @@ class DPA_Users_List_Table extends WP_Users_List_Table {
 	 * @see WP_List_Table::single_row_columns()
 	 * @since Achievements (3.0)
 	 */
-	function column_dpa_actions( $user ) {
+	public function column_dpa_actions( $user ) {
 		$link = get_edit_user_link( $user->ID );
 		printf( '<a href="%1$s">%2$s</a>', esc_url( $link ), __( 'Edit', 'dpa' ) );
 	}
