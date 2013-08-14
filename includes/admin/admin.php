@@ -337,8 +337,11 @@ class DPA_Admin {
 	}
 
 	/**
-	 * Update the user's 'User Points' meta information when the Edit User page has been saved,
+	 * Update the user's "User Points" meta information when the Edit User page has been saved,
 	 * and modify the user's current achievements as appropriate.
+	 *
+	 * The action that this function is hooked to is only executed on a succesful update,
+	 * which is behind a nonce and capability check (see wp-admin/user-edit.php).
 	 *
 	 * @param int $user_id
 	 * @since Achievements (3.0)
