@@ -66,14 +66,13 @@ class DPA_Featured_Achievement_Widget extends WP_Widget {
 			return;
 
 		$achievement = array_shift( $achievement );
+		$title       = dpa_get_achievement_title( $achievement->ID );
 
 		echo $args['before_widget'];
-		echo $args['before_title'];
-		dpa_achievement_title( $achievement->ID );
-		echo $args['after_title'];
+		echo $args['before_title'] . $title . $args['after_title'];
 
 		if ( has_post_thumbnail( $achievement->ID ) ) : ?>
-			<a href="<?php dpa_achievement_permalink( $achievement->ID ); ?>"><?php echo get_the_post_thumbnail( $achievement->ID, 'thumbnail', array( 'alt' => dpa_get_achievement_title( $achievement->ID ) ) ); ?></a>
+			<a href="<?php dpa_achievement_permalink( $achievement->ID ); ?>"><?php echo get_the_post_thumbnail( $achievement->ID, 'thumbnail', array( 'alt' => $title ) ); ?></a>
 		<?php endif;
 
 		dpa_achievement_excerpt( $settings['post_id'] );
