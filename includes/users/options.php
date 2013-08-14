@@ -169,7 +169,7 @@ function dpa_user_unlocked_count( $user_id = 0 ) {
 			return false;
 
 		$value = get_user_option( '_dpa_unlocked_count', $user_id );
-		return apply_filters( 'dpa_get_user_unlocked_count', absint( $value ), $user_id );
+		return absint( apply_filters( 'dpa_get_user_unlocked_count', $value, $user_id ) );
 	}
 
 
@@ -233,7 +233,7 @@ function dpa_user_points( $user_id = 0 ) {
 			return false;
 
 		$value = get_user_option( '_dpa_points', $user_id );
-		return apply_filters( 'dpa_get_user_points', (int) $value, $user_id );
+		return (int) apply_filters( 'dpa_get_user_points', $value, $user_id );
 	}
 
 
@@ -333,7 +333,7 @@ function dpa_user_last_unlocked( $user_id = 0 ) {
 	 * Return the ID of the last achievement this user unlocked
 	 *
 	 * @param int $user_id Optional. User ID to retrieve value for
-	 * @return mixed False if no user, option value otherwise.
+	 * @return mixed False if no user, option value otherwise (int).
 	 * @since Achievements (3.0)
 	 */
 	function dpa_get_user_last_unlocked( $user_id = 0 ) {
@@ -346,5 +346,5 @@ function dpa_user_last_unlocked( $user_id = 0 ) {
 			return false;
 
 		$value = get_user_option( '_dpa_last_unlocked', $user_id );
-		return apply_filters( 'dpa_get_user_last_unlocked', (int) $value, $user_id );
+		return (int) apply_filters( 'dpa_get_user_last_unlocked', $value, $user_id );
 	}
