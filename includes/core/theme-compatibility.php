@@ -262,6 +262,7 @@ function dpa_register_theme_package( $theme = array(), $override = true ) {
 		achievements()->theme_compat->packages[$theme->id] = $theme;
 	}
 }
+
 /**
  * This fun little function fills up some WordPress globals with dummy data to
  * stop your average page template from complaining about it missing.
