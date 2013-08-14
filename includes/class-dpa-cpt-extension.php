@@ -93,7 +93,7 @@ abstract class DPA_CPT_Extension extends DPA_Extension {
 		$post = $func_args[0];
 
 		if ( ! empty( $post->post_author ) )
-			return (int) $post->post_author;
+			return absint( $post->post_author );
 		else
 			return $user_id;
 	}

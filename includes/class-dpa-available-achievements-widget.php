@@ -48,17 +48,19 @@ class DPA_Available_Achievements_Widget extends WP_Widget {
 	 * @since Achievements (2.0)
 	 */
 	public function widget( $args, $instance ) {
-		$settings          = $this->parse_settings( $instance );
-		$settings['title'] = apply_filters( 'widget_title', $settings['title'], $instance, $this->id_base );
+		$settings = $this->parse_settings( $instance );
 
 		// Use these filters
-		$settings['limit'] = (int) apply_filters( 'dpa_available_achievements_limit', $settings['limit'], $instance, $this->id_base );
-		$settings['title'] =       apply_filters( 'dpa_available_achievements_title', $settings['title'], $instance, $this->id_base );
+		$settings['limit'] = absint( apply_filters( 'dpa_available_achievements_limit', $settings['limit'], $instance, $this->id_base ) );
+		$settings['title'] = apply_filters( 'dpa_available_achievements_title', $settings['title'], $instance, $this->id_base );
+
+		// WordPress filters widget_title through esc_html.
+		$settings['title'] = apply_filters( 'widget_title', $settings['title'], $instance, $this->id_base );
 
 		echo $args['before_widget'];
 
 		if ( ! empty( $settings['title'] ) )
-			echo $args['before_title'] . esc_html( $settings['title'] ) . $args['after_title'];
+			echo $args['before_title'] . $settings['title'] . $args['after_title'];
 
 		// Get the posts
 		$achievements = get_posts( array(
@@ -102,8 +104,8 @@ class DPA_Available_Achievements_Widget extends WP_Widget {
 	 */
 	public function update( $new_instance, $old_instance ) {
 		$instance          = $old_instance;
-		$instance['limit'] = (int) $new_instance['limit'];
-		$instance['title'] = stripslashes( $new_instance['title'] );
+		$instance['limit'] = absint( $new_instance['limit'] );
+		$instance['title'] = sanitize_text_field( $new_instance['title'] );
 
 		return $instance;
 	}

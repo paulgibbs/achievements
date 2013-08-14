@@ -50,11 +50,11 @@ class DPA_Redeem_Achievements_Widget extends WP_Widget {
 	 * @since Achievements (3.1)
 	 */
 	public function widget( $args, $instance ) {
-		$title = apply_filters( 'widget_title', $instance['title'], $instance, $this->id_base );
-		if ( empty( $title ) )
-			$title = __( 'Redeem achievement', 'dpa' );
+		$title = ! empty( $title ) ? $instance['title'] : __( 'Redeem achievement', 'dpa' );
+		$title = apply_filters( 'dpa_redeem_achievements_widget_title', $title, $instance, $this->id_base );
 
-		$title = apply_filters( 'dpa_redeem_achievements_widget_title', $instance['title'], $instance, $this->id_base );
+		// WordPress filters widget_title through esc_html.
+		$title = apply_filters( 'widget_title', $title, $instance, $this->id_base );
 
 		echo $args['before_widget'];
 		echo $args['before_title'] . $title . $args['after_title'];
@@ -73,7 +73,7 @@ class DPA_Redeem_Achievements_Widget extends WP_Widget {
 	 */
 	public function update( $new_instance, $old_instance ) {
 		$instance          = $old_instance;
-		$instance['title'] = strip_tags( $new_instance['title'] );
+		$instance['title'] = sanitize_text_field( $new_instance['title'] );
 
 		return $instance;
 	}

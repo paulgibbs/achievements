@@ -48,17 +48,19 @@ class DPA_Leaderboard_Widget extends WP_Widget {
 	 * @since Achievements (3.4)
 	 */
 	public function widget( $args, $instance ) {
-		$settings          = $this->parse_settings( $instance );
-		$settings['title'] = apply_filters( 'widget_title', $settings['title'], $instance, $this->id_base );
+		$settings = $this->parse_settings( $instance );
 
 		// Use these filters
-		$settings['per_page'] = (int) apply_filters( 'dpa_available_achievements_per_page', $settings['per_page'], $instance, $this->id_base );
-		$settings['title']    =       apply_filters( 'dpa_available_achievements_title', $settings['title'], $instance, $this->id_base );
+		$settings['per_page'] = absint( apply_filters( 'dpa_available_achievements_per_page', $settings['per_page'], $instance, $this->id_base ) );
+		$settings['title']    = apply_filters( 'dpa_available_achievements_title', $settings['title'], $instance, $this->id_base );
+
+		// WordPress filters widget_title through esc_html.
+		$settings['title'] = apply_filters( 'widget_title', $settings['title'], $instance, $this->id_base );
 
 		echo $args['before_widget'];
 
 		if ( ! empty( $settings['title'] ) )
-			echo $args['before_title'] . esc_html( $settings['title'] ) . $args['after_title'];
+			echo $args['before_title'] . $settings['title'] . $args['after_title'];
 
 		// Get the posts
 /*
@@ -105,8 +107,8 @@ class DPA_Leaderboard_Widget extends WP_Widget {
 	 */
 	public function update( $new_instance, $old_instance ) {
 		$instance             = $old_instance;
-		$instance['per_page'] = max( 1, (int) $instance['per_page'] );
-		$instance['title']    = stripslashes( $new_instance['title'] );
+		$instance['per_page'] = max( 1, absint( $instance['per_page'] ) );
+		$instance['title']    = sanitize_text_field( $new_instance['title'] );
 
 		return $instance;
 	}
@@ -126,7 +128,7 @@ class DPA_Leaderboard_Widget extends WP_Widget {
 			<input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo esc_attr( $settings['title'] ); ?>" />
 		</p>
 		<p>
-			<label for="<?php echo $this->get_field_id( 'per_page' ); ?>"><?php _e( 'Show up to this many items:', 'dpa' ); ?></label><br />
+			<label for="<?php echo $this->get_field_id( 'per_page' ); ?>"><?php _e( 'Show this many users per page:', 'dpa' ); ?></label><br />
 			<input class="widefat" id="<?php echo $this->get_field_id( 'per_page' ); ?>" name="<?php echo $this->get_field_name( 'per_page' ); ?>" type="number" min="1" value="<?php echo esc_attr( $settings['per_page'] ); ?>" />
 		</p>
 

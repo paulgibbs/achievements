@@ -49,7 +49,7 @@ class DPA_Featured_Achievement_Widget extends WP_Widget {
 	 */
 	public function widget( $args, $instance ) {
 		$settings            = $this->parse_settings( $instance );
-		$settings['post_id'] = (int) apply_filters( 'dpa_featured_achievement_post_id', $settings['post_id'], $instance, $this->id_base );
+		$settings['post_id'] = absint( apply_filters( 'dpa_featured_achievement_post_id', $settings['post_id'], $instance, $this->id_base ) );
 
 		// Get the specified achievement
 		$achievement = get_posts( array(
@@ -89,7 +89,7 @@ class DPA_Featured_Achievement_Widget extends WP_Widget {
 	 */
 	public function update( $new_instance, $old_instance ) {
 		$instance            = $old_instance;
-		$instance['post_id'] = (int) $new_instance['post_id'];
+		$instance['post_id'] = absint( $new_instance['post_id'] );
 
 		return $instance;
 	}
