@@ -7,6 +7,15 @@
  * @package Achievements
  * @subpackage WPCLI
  */
+
+// Exit if accessed directly
+if ( ! defined( 'ABSPATH' ) ) exit;
+
+/**
+ * WP-CLI commands for Achievements and users (i.e. progress)
+ *
+ * @since Achievements (3.3)
+ */
 class DPA_WPCLI_Achievements_Users_Command extends WP_CLI_Command {
 
 	/**
