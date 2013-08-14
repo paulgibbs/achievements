@@ -89,6 +89,7 @@ function dpa_admin_screen_users() {
 
 		<form id="dpa-admin-users-form" action="" method="get">
 			<?php $dpa_users_list_table->search_box( __( 'Search all Users', 'dpa' ), 'dpa-admin-users' ); ?>
+			<input type="hidden" name="post_type" value="<?php echo esc_attr( dpa_get_achievement_post_type() ); ?>" />
 			<input type="hidden" name="page" value="<?php echo esc_attr( $plugin_page ); ?>" />
 			<?php $dpa_users_list_table->display(); ?>
 		</form>
