@@ -28,7 +28,7 @@ class DPA_Users_List_Table extends WP_Users_List_Table {
 		// Override the WP_Users_List_Table's opinion of whether to show network users or not.
 		$this->is_site_users = dpa_is_running_networkwide();
 		if ( $this->is_site_users )
-			$this->site_id = isset( $_REQUEST['id'] ) ? intval( $_REQUEST['id'] ) : 0;
+			$this->site_id = isset( $_REQUEST['id'] ) ? absint( $_REQUEST['id'] ) : 0;
 	}
 
 	/**
