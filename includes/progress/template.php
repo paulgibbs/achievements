@@ -48,7 +48,7 @@ function dpa_has_progress( $args = array() ) {
 
 		// If on a single achievement page, don't paginate progresses.
 		//'posts_per_page' => dpa_is_single_achievement() ? -1 : dpa_get_progresses_per_page(),
-		// Above commented out for 3.1; see https://github.com/paulgibbs/achievements/issues/70 for details
+		// @todo Above commented out for 3.1; see https://github.com/paulgibbs/achievements/issues/70 for details
 		'posts_per_page' => -1,
 
 		// If on a user's achievements page, fetch the achievements if we haven't got them already
