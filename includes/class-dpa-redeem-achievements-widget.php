@@ -50,7 +50,7 @@ class DPA_Redeem_Achievements_Widget extends WP_Widget {
 	 * @since Achievements (3.1)
 	 */
 	public function widget( $args, $instance ) {
-		$title = ! empty( $title ) ? $instance['title'] : __( 'Redeem achievement', 'dpa' );
+		$title = ! empty( $instance['title'] ) ? $instance['title'] : __( 'Redeem achievement', 'dpa' );
 		$title = apply_filters( 'dpa_redeem_achievements_widget_title', $title, $instance, $this->id_base );
 
 		// WordPress filters widget_title through esc_html.
