@@ -79,7 +79,7 @@ class DPA_Users_List_Table extends WP_Users_List_Table {
 		unset( $users_of_blog );
 
 		$role_links        = array();
-		$role_links['all'] = "<a href='$url'$class>" . sprintf( _nx( 'All <span class="count">(%s)</span>', 'All <span class="count">(%s)</span>', $total_users, 'admin screen, types of users', 'dpa' ), number_format_i18n( $total_users ) ) . '</a>';
+		$role_links['all'] = "<a href='" . esc_url( $url ) . "'$class>" . sprintf( _nx( 'All <span class="count">(%s)</span>', 'All <span class="count">(%s)</span>', $total_users, 'admin screen, types of users', 'dpa' ), number_format_i18n( $total_users ) ) . '</a>';
 
 		// Iterate through all WP user roles, and get count of users in each.
 		foreach ( $wp_roles->get_names() as $this_role => $name ) {
