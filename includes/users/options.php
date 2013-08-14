@@ -122,7 +122,7 @@ function dpa_filter_get_user_option( $value = false, $option = '', $user = null 
  * Update a user's unlocked achievement count
  *
  * @param int $user_id Optional. User ID to update. Optional, defaults to current logged in user.
- * @param int $new_value Optional.  The new value.
+ * @param int $new_value Optional. The new value.
  * @return bool False if no user or failure, true if successful
  * @since Achievements (3.0)
  */
@@ -139,7 +139,7 @@ function dpa_update_user_unlocked_count( $user_id = 0, $new_value = 0 ) {
 	$store_global = is_multisite() && dpa_is_running_networkwide();
 
 	$new_value = apply_filters( 'dpa_update_user_unlocked_count', $new_value, $user_id );
-	return update_user_option( $user_id, '_dpa_unlocked_count', $new_value, $store_global );
+	return update_user_option( $user_id, '_dpa_unlocked_count', absint( $new_value ), $store_global );
 }
 
 /**
@@ -169,7 +169,7 @@ function dpa_user_unlocked_count( $user_id = 0 ) {
 			return false;
 
 		$value = get_user_option( '_dpa_unlocked_count', $user_id );
-		return apply_filters( 'dpa_get_user_unlocked_count', $value, $user_id );
+		return apply_filters( 'dpa_get_user_unlocked_count', absint( $value ), $user_id );
 	}
 
 
@@ -198,7 +198,7 @@ function dpa_update_user_points( $new_value = 0, $user_id = 0 ) {
 	$store_global = is_multisite() && dpa_is_running_networkwide();
 
 	$new_value = apply_filters( 'dpa_update_user_points', $new_value, $user_id );
-	$retval    = update_user_option( $user_id, '_dpa_points', $new_value, $store_global );
+	$retval    = update_user_option( $user_id, '_dpa_points', (int) $new_value, $store_global );
 
 	// Effectively clears the cache for leaderboard results
 	wp_cache_set( 'last_changed', microtime(), 'achievements_leaderboard' );
@@ -220,7 +220,7 @@ function dpa_user_points( $user_id = 0 ) {
 	 * Return the user's points total
 	 *
 	 * @param int $user_id Optional. User ID to retrieve value for
-	 * @return mixed False if no user, option value otherwise.
+	 * @return mixed False if no user, option value otherwise (int).
 	 * @since Achievements (3.0)
 	 */
 	function dpa_get_user_points( $user_id = 0 ) {
@@ -233,7 +233,7 @@ function dpa_user_points( $user_id = 0 ) {
 			return false;
 
 		$value = get_user_option( '_dpa_points', $user_id );
-		return apply_filters( 'dpa_get_user_points', $value, $user_id );
+		return apply_filters( 'dpa_get_user_points', (int) $value, $user_id );
 	}
 
 
@@ -261,6 +261,7 @@ function dpa_update_user_notifications( $new_value = array(), $user_id = 0 ) {
 	// As Achievements can run independently (as well as sitewide) on a multisite, decide where to store the user option
 	$store_global = is_multisite() && dpa_is_running_networkwide();
 
+	// @todo Need to refresh my memory on how the user notifications array is built, but probably make sure the array keys here are integers.
 	$new_value = apply_filters( 'dpa_update_user_notifications', $new_value, $user_id );
 	return update_user_option( $user_id, '_dpa_notifications', $new_value, $store_global );
 }
@@ -315,7 +316,7 @@ function dpa_update_user_last_unlocked( $user_id = 0, $new_value = 0 ) {
 	$store_global = is_multisite() && dpa_is_running_networkwide();
 
 	$new_value = apply_filters( 'dpa_update_user_last_unlocked', $new_value, $user_id );
-	return update_user_option( $user_id, '_dpa_last_unlocked', $new_value, $store_global );
+	return update_user_option( $user_id, '_dpa_last_unlocked', (int) $new_value, $store_global );
 }
 
 /**
@@ -345,5 +346,5 @@ function dpa_user_last_unlocked( $user_id = 0 ) {
 			return false;
 
 		$value = get_user_option( '_dpa_last_unlocked', $user_id );
-		return apply_filters( 'dpa_get_user_last_unlocked', $value, $user_id );
+		return apply_filters( 'dpa_get_user_last_unlocked', (int) $value, $user_id );
 	}
