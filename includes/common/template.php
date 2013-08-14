@@ -208,65 +208,6 @@ function is_achievements() {
 
 
 /**
- * General template helpers
- */
-
-/**
- * Echo sanitised $_REQUEST value.
- *
- * Use the $input_type parameter to properly process the value. This
- * ensures correct sanitisation of the value for the receiving input.
- *
- * @param string $request Name of $_REQUEST to look for
- * @param string $input_type Type of input. Optional. Default: text. Accepts: textarea|password|select|radio|checkbox
- * @since Achievements (3.0)
- */
-function dpa_sanitise_val( $request, $input_type = 'text' ) {
-	echo dpa_get_sanitise_val( $request, $input_type );
-}
-	/**
-	 * Return sanitised $_REQUEST value.
-	 *
-	 * Use the $input_type parameter to properly process the value. This
-	 * ensures correct sanitisation of the value for the receiving input.
-	 *
-	 * @param string $request Name of $_REQUEST to look for
-	 * @param string $input_type Type of input. Optional. Default: text. Accepts: textarea|password|select|radio|checkbox
-	 * @return string Sanitised value ready for screen display
-	 * @since Achievements (3.0)
-	 */
-	function dpa_get_sanitise_val( $request, $input_type = 'text' ) {
-		// Check that requested variable exists
-		if ( empty( $_REQUEST[$request] ) )
-			return false;
-
-		// Set request varaible
-		$pre_ret_val = $_REQUEST[$request];
-
-		// Treat different kinds of fields in different ways
-		switch ( $input_type ) {
-			case 'text'     :
-				$retval = esc_attr( stripslashes( $pre_ret_val ) );
-				break;
-
-			case 'textarea' :
-				$retval = esc_html( stripslashes( $pre_ret_val ) );
-				break;
-
-			case 'checkbox' :
-			case 'password' :
-			case 'radio'    :
-			case 'select'   :
-			default :
-				$retval = esc_attr( $pre_ret_val );
-				break;
-		}
-
-		return apply_filters( 'dpa_get_sanitise_val', $retval, $request, $input_type );
-	}
-
-
-/**
  * Query functions
  */
 

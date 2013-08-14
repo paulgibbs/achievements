@@ -370,17 +370,6 @@ function dpa_get_page_by_path( $path = '' ) {
 	return apply_filters( 'dpa_get_page_by_path', $retval, $path );
 }
 
-/**
- * Return the unescaped redirect_to request value
- *
- * @return string The URL to redirect to, if set
- * @since Achievements (3.1)
- */
-function dpa_get_redirect_to() {
-	$retval = ! empty( $_REQUEST['redirect_to'] ) ? $_REQUEST['redirect_to'] : '';
-	return apply_filters( 'dpa_get_redirect_to', $retval );
-}
-
 
 /**
  * Nonces
