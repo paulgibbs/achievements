@@ -62,7 +62,7 @@ class DPA_WPCLI_Achievements_Users_Command extends WP_CLI_Command {
 			WP_CLI::error( sprintf( "No achievements unlocked by User ID %d have been found. This shouldn't happen.", $user->ID ) );
 
 		WP_CLI::success( sprintf( '%d achievements have been unlocked by User ID %d:', $achievement_count, $user->ID ) );
-		\WP_CLI\utils\format_items( $assoc_args['format'], $this->fields, $posts );
+		\WP_CLI\utils\format_items( $assoc_args['format'], $posts, $this->fields );
 	}
 
 	/**

@@ -50,7 +50,7 @@ class DPA_WPCLI_Achievements_Command extends WP_CLI_Command {
 		if ( empty( $posts ) )
 			WP_CLI::error( 'No published achievements found.' );
 
-		\WP_CLI\utils\format_items( $assoc_args['format'], $this->fields, $posts );
+		\WP_CLI\utils\format_items( $assoc_args['format'], $posts, $this->fields );
 	}
 }
 
