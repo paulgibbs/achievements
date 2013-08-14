@@ -22,7 +22,7 @@ class DPA_Featured_Achievement_Widget extends WP_Widget {
 	 *
 	 * @since Achievements (3.3)
 	 */
-	function __construct() {
+	public function __construct() {
 		$widget_ops = apply_filters( 'dpa_featured_achievement_widget_options', array(
 			'classname'   => 'widget_dpa_featured_achievement',
 			'description' => __( 'Display details of a single achievement.', 'dpa' ),

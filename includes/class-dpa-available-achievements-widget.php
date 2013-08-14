@@ -22,7 +22,7 @@ class DPA_Available_Achievements_Widget extends WP_Widget {
 	 *
 	 * @since Achievements (3.3)
 	 */
-	function __construct() {
+	public function __construct() {
 		$widget_ops = apply_filters( 'dpa_available_achievements_widget_options', array(
 			'classname'   => 'widget_dpa_available_achievements',
 			'description' => __( 'Displays a photo grid of the achievements.', 'dpa' ),
@@ -47,7 +47,7 @@ class DPA_Available_Achievements_Widget extends WP_Widget {
 	 * @param array $instance
 	 * @since Achievements (2.0)
 	 */
-	function widget( $args, $instance ) {
+	public function widget( $args, $instance ) {
 		$settings          = $this->parse_settings( $instance );
 		$settings['title'] = apply_filters( 'widget_title', $settings['title'], $instance, $this->id_base );
 
@@ -100,7 +100,7 @@ class DPA_Available_Achievements_Widget extends WP_Widget {
 	 * @return array The validated and (if necessary) amended settings
 	 * @since Achievements (2.0)
 	 */
-	function update( $new_instance, $old_instance ) {
+	public function update( $new_instance, $old_instance ) {
 		$instance          = $old_instance;
 		$instance['limit'] = (int) $new_instance['limit'];
 		$instance['title'] = stripslashes( $new_instance['title'] );
