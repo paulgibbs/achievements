@@ -309,7 +309,7 @@ class DPA_Admin {
 		<table class="form-table">
 			<tr>
 				<th><label for="dpa_achievements"><?php _ex( 'Total Points', "User&rsquo;s total points from unlocked Achievements", 'dpa' ); ?></label></th>
-				<td><input type="number" name="dpa_achievements" id="dpa_achievements" value="<?php echo esc_attr( dpa_get_user_points( $user->ID ) ); ?>" class="regular-text" />
+				<td><input type="number" name="dpa_achievements" id="dpa_achievements" value="<?php echo (int) dpa_get_user_points( $user->ID ); ?>" class="regular-text" />
 				</td>
 			</tr>
 
@@ -323,7 +323,7 @@ class DPA_Admin {
 							<?php while ( dpa_achievements() ) : ?>
 								<?php dpa_the_achievement(); ?>
 
-								<label><input type="checkbox" name="dpa_user_achievements[]" value="<?php echo esc_attr( dpa_get_the_achievement_ID() ); ?>" <?php checked( dpa_is_achievement_unlocked(), true ); ?>> <?php dpa_achievement_title(); ?></label><br>
+								<label><input type="checkbox" name="dpa_user_achievements[]" value="<?php echo absint( dpa_get_the_achievement_ID() ); ?>" <?php checked( dpa_is_achievement_unlocked(), true ); ?>> <?php dpa_achievement_title(); ?></label><br>
 							<?php endwhile; ?>
 
 						</fieldset>
