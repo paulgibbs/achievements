@@ -61,7 +61,7 @@ function dpa_has_progress( $args = array() ) {
 	achievements()->progress_query = new WP_Query( $args );
 
 	// If no limit to posts per page, set it to the current post_count
-	if ( -1 === $args['posts_per_page'] )
+	if ( -1 === (int) $args['posts_per_page'] )
 		$args['posts_per_page'] = achievements()->progress_query->post_count;
 
 	// Add pagination values to query object
