@@ -154,7 +154,7 @@ function dpa_achievement_metabox_save( $achievement_id ) {
 	update_post_meta( $achievement_id, '_dpa_redemption_code', $redemption_code );
 
 	// Event repeats count target
-	$frequency = ! empty( $_POST['dpa_target'] ) ? (int) $_POST['dpa_target'] : 1;
+	$frequency = ! empty( $_POST['dpa_target'] ) ? absint( $_POST['dpa_target'] ) : 1;
 	if ( $frequency < 1 )
 		$frequency = 1;
 
