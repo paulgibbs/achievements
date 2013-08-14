@@ -45,7 +45,7 @@ function dpa_has_achievements( $args = array() ) {
 		'post_type'             => dpa_get_achievement_post_type(),                      // Only retrieve achievement posts
 		'posts_per_page'        => dpa_get_achievements_per_page(),                      // Achievements per page
 		'ach_progress_status'   => $default_progress_status,                             // On single user achievement page, default to only showing unlocked achievements
-		's'                     => ! empty( $_REQUEST['dpa'] ) ? $_REQUEST['dpa'] : '',  // Achievements search @todo Is this implemented correctly?
+		's'                     => ! empty( $_GET['dpa'] ) ? $_GET['dpa'] : '',          // Achievements search @todo Is this implemented correctly?
 
 		// Achievements params
  		'ach_event'             => '',                                                   // Load achievements for a specific event

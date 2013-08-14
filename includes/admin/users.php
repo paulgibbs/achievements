@@ -76,14 +76,14 @@ function dpa_admin_screen_users() {
 		<h2>
 			<?php _ex( 'Users', 'admin menu title', 'dpa' ); ?>
 
-			<?php if ( ! empty( $_REQUEST['s'] ) ) : ?>
-				<span class="subtitle"><?php printf( _x( 'Search results for &#8220;%s&#8221;', 'admin screen search results heading', 'dpa' ), wp_html_excerpt( esc_html( stripslashes( $_REQUEST['s'] ) ), 50 ) ); ?></span>
+			<?php if ( ! empty( $_GET['s'] ) ) : ?>
+				<span class="subtitle"><?php printf( _x( 'Search results for &#8220;%s&#8221;', 'admin screen search results heading', 'dpa' ), wp_html_excerpt( esc_html( stripslashes( $_GET['s'] ) ), 50 ) ); ?></span>
 			<?php endif; ?>
 		</h2>
 
 		<?php // If the user has just made a change to an item, display the status messages ?>
 		<?php if ( ! empty( $messages ) ) : ?>
-			<div id="moderated" class="<?php echo ( ! empty( $_REQUEST['error'] ) ) ? 'error' : 'updated'; ?>"><p><?php echo implode( "<br/>\n", $messages ); ?></p></div>
+			<div id="moderated" class="<?php echo ( ! empty( $_GET['error'] ) ) ? 'error' : 'updated'; ?>"><p><?php echo implode( "<br/>\n", $messages ); ?></p></div>
 		<?php endif; ?>
 
 		<?php // Display each item on its own row ?>
