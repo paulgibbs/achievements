@@ -50,49 +50,16 @@ class DPA_Leaderboard_Widget extends WP_Widget {
 	public function widget( $args, $instance ) {
 		$settings = $this->parse_settings( $instance );
 
-		// Use these filters
-		$settings['per_page'] = absint( apply_filters( 'dpa_available_achievements_per_page', $settings['per_page'], $instance, $this->id_base ) );
+		// Use this filter
 		$settings['title']    = apply_filters( 'dpa_available_achievements_title', $settings['title'], $instance, $this->id_base );
 
 		// WordPress filters widget_title through esc_html.
 		$settings['title'] = apply_filters( 'widget_title', $settings['title'], $instance, $this->id_base );
 
 		echo $args['before_widget'];
+		echo $args['before_title'] . $settings['title'] . $args['after_title'];
 
-		if ( ! empty( $settings['title'] ) )
-			echo $args['before_title'] . $settings['title'] . $args['after_title'];
-
-		// Get the posts
-/*
-		$achievements = get_posts( array(
-			'ignore_sticky_posts' => true,
-			'no_found_rows'       => true,
-			'numberposts'         => $settings['per_page'],
-			'post_status'         => 'publish',
-			'post_type'           => dpa_get_achievement_post_type(),
-			'suppress_filters'    => false,
-		) );
-
-		// Bail if no posts
-		if ( empty( $achievements ) )
-			return;
-
-		echo '<ul>';
-
-		foreach ( $achievements as $post ) {
-			if ( has_post_thumbnail( $post->ID ) ) :
-			?>
-
-				<li>
-					<a href="<?php dpa_achievement_permalink( $post->ID ); ?>"><?php echo get_the_post_thumbnail( $post->ID, 'dpa-thumb', array( 'alt' => dpa_get_achievement_title( $post->ID ) ) ); ?></a>
-				</li>
-
-			<?php
-			endif;
-		}
-
-		echo '</ul>';
-		*/
+		dpa_get_template_part( 'content-leaderboard', 'widget' );
 
 		echo $args['after_widget'];
 	}
@@ -106,9 +73,8 @@ class DPA_Leaderboard_Widget extends WP_Widget {
 	 * @since Achievements (3.4)
 	 */
 	public function update( $new_instance, $old_instance ) {
-		$instance             = $old_instance;
-		$instance['per_page'] = max( 1, absint( $instance['per_page'] ) );
-		$instance['title']    = sanitize_text_field( $new_instance['title'] );
+		$instance          = $old_instance;
+		$instance['title'] = sanitize_text_field( $new_instance['title'] );
 
 		return $instance;
 	}
@@ -127,10 +93,6 @@ class DPA_Leaderboard_Widget extends WP_Widget {
 			<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:', 'dpa' ); ?></label><br />
 			<input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo esc_attr( $settings['title'] ); ?>" />
 		</p>
-		<p>
-			<label for="<?php echo $this->get_field_id( 'per_page' ); ?>"><?php _e( 'Show this many users per page:', 'dpa' ); ?></label><br />
-			<input class="widefat" id="<?php echo $this->get_field_id( 'per_page' ); ?>" name="<?php echo $this->get_field_name( 'per_page' ); ?>" type="number" min="1" value="<?php echo esc_attr( $settings['per_page'] ); ?>" />
-		</p>
 
 		<?php
 	}
@@ -143,7 +105,6 @@ class DPA_Leaderboard_Widget extends WP_Widget {
 	 */
 	public function parse_settings( array $instance = array() ) {
 		return dpa_parse_args( $instance, array(
-			'per_page' => dpa_get_leaderboard_items_per_page(),
 			'title'    => __( 'Leaderboard', 'dpa' ),
 		), 'leaderboard_widget_settings' );
 	}
