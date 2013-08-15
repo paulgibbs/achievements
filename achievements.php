@@ -317,6 +317,7 @@ final class DPA_Achievements_Loader {
 		require( $this->includes_dir . 'class-dpa-redeem-achievements-widget.php'    );
 		require( $this->includes_dir . 'class-dpa-featured-achievement-widget.php'   );
 		require( $this->includes_dir . 'class-dpa-available-achievements-widget.php' );
+		require( $this->includes_dir . 'class-dpa-leaderboard-widget.php'            );
 
 
 		/**
