@@ -25,7 +25,7 @@ class DPA_Leaderboard_Widget extends WP_Widget {
 	public function __construct() {
 		$widget_ops = apply_filters( 'dpa_leaderboard_widget_options', array(
 			'classname'   => 'widget_dpa_leaderboard',
-			'description' => __( 'A table of your users ranked by their karma points.', 'dpa' ),
+			'description' => __( 'Your users ranked by their karma points.', 'dpa' ),
 		) );
 
 		parent::__construct( false, __( '(Achievements) Leaderboard', 'dpa' ), $widget_ops );
