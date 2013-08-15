@@ -52,6 +52,7 @@ class DPA_Shortcodes {
 			'dpa-single-achievement'      => array( $this, 'display_achievement' ),
 
 			// Widgets
+			'dpa-leaderboard'             => array( $this, 'display_leaderboard' ),
 			'dpa-redeem-achievement-form' => array( $this, 'display_redeem_achievement_form' ),
 
 			// Misc
@@ -210,6 +211,24 @@ class DPA_Shortcodes {
 	 */
 
 	/**
+	 * Display the leaderboard widget in an output buffer and return to ensure that post/page
+	 * contents are displayed first.
+	 *
+	 * @return string Contents of output buffer
+	 * @since Achievements (3.4)
+	 */
+	public function display_leaderboard() {
+		$this->unset_globals();
+
+		// Start output buffer
+		$this->start();
+
+		dpa_get_template_part( 'content-leaderboard', 'widget' );
+
+		return $this->end();
+	}
+
+	/**
 	 * Display the redeem achievements widget in an output buffer and return to ensure that post/page
 	 * contents are displayed first.
 	 *
@@ -226,6 +245,7 @@ class DPA_Shortcodes {
 
 		return $this->end();
 	}
+
 
 	/**
 	 * Other templates
