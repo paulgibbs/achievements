@@ -229,14 +229,14 @@ function dpa_leaderboard_user_karma() {
 	}
 
 /**
- * Output the rank position of the current user in the leaderboard
+ * Output the position of the current user in the leaderboard
  *
  * It is possible that multiple users may share the same rank position (e.g. "tie for third place!").
  *
  * @since Achievements (3.4)
  */
-function dpa_leaderboard_user_rank() {
-	echo number_format_i18n( dpa_get_leaderboard_user_rank() );
+function dpa_leaderboard_user_position() {
+	echo number_format_i18n( dpa_get_leaderboard_user_position() );
 }
 	/**
 	 * Return the rank position of the current user in the leaderboard
@@ -246,9 +246,9 @@ function dpa_leaderboard_user_rank() {
 	 * @return int User's rank
 	 * @since Achievements (3.4)
 	 */
-	function dpa_get_leaderboard_user_rank() {
+	function dpa_get_leaderboard_user_position() {
 		$rank = achievements()->leaderboard_query['results'][ achievements()->leaderboard_query['current_item'] ]->rank;
-		return (int) apply_filters( 'dpa_get_leaderboard_user_rank', (int) $rank );
+		return (int) apply_filters( 'dpa_get_leaderboard_user_position', (int) $rank );
 	}
 
 /**
