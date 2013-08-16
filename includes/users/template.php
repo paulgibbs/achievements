@@ -274,6 +274,38 @@ function dpa_leaderboard_user_display_name() {
 		return apply_filters( 'dpa_get_leaderboard_user_display_name', $display_name );
 	}
 
+/**
+ * Output the row class of the current user in the leaderboard
+ *
+ * @since Achievements (3.4)
+ */
+function dpa_leaderboard_user_class() {
+	echo esc_attr( dpa_get_leaderboard_user_class() );
+}
+	/**
+	 * Return the row class of the current user in the leaderboard
+	 *
+	 * @return string Row class for the current user in the leaderboard
+	 * @since Achievements (3.4)
+	 */
+	function dpa_get_leaderboard_user_class() {
+		$classes = array();
+		$count   = isset( achievements()->leaderboard_query['current_item'] ) ? achievements()->leaderboard_query['current_item'] : 1;
+
+		$classes[] = ( (int) $count % 2 ) ? 'even' : 'odd';
+		$classes[] = 'user-id-' . dpa_get_leaderboard_user_id();
+
+		// Is the leaderboard user the current logged in user?WHERE
+		if ( is_user_logged_in() && wp_get_current_user()->ID === dpa_get_leaderboard_user_id() )
+			$classes[] = 'logged-in-user';
+
+		$classes = apply_filters( 'dpa_get_leaderboard_user_class', $classes );
+		$classes = array_merge( $classes, array() );
+		$classes = sanitize_html_class( join( ' ', $classes ) );
+
+		return 'class="' . esc_attr( $classes )  . '"';
+	}
+
 
 /**
  * Leaderboard pagination

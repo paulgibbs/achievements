@@ -218,6 +218,10 @@ function dpa_get_leaderboard( array $args = array() ) {
 			'include' => wp_list_pluck( $results['results'], 'user_id' ),
 		) );
 
+		// For now, handle any cached user IDs for spammers or deleted users by setting a blank display name.
+		foreach ( $results['results'] as &$leaderboard_user )
+			$leaderboard_user->display_name = '';
+
 		foreach ( $users as $user ) {
 			foreach ( $results['results'] as &$leaderboard_user ) {
 				if ( (int) $user->ID === $leaderboard_user->user_id ) {
