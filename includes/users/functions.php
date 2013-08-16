@@ -208,7 +208,10 @@ function dpa_get_leaderboard( array $args = array() ) {
 		wp_cache_add( $cache_key, $results, 'achievements_leaderboard' );
 	}
 
-	// Maybe get users' display names
+
+	/**
+	 * 4) Maybe get users' display names
+	 */
 	if ( $args['populate_extras'] ) {
 		$users = get_users( array(
 			'fields'  => array( 'ID', 'display_name' ),
