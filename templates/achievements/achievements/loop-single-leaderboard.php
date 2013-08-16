@@ -10,7 +10,7 @@
 if ( ! defined( 'ABSPATH' ) ) exit;
 ?>
 
-<tr id="dpa-leaderboard-user-<?php dpa_leaderboard_user_id(); ?>" <?php dpa_leaderboard_class(); ?>>
+<tr id="dpa-leaderboard-user-<?php dpa_leaderboard_user_id(); ?>" <?php dpa_leaderboard_user_class(); ?>>
 
 	<?php do_action( 'dpa_template_in_leaderboard_loop_early' ); ?>
 
