@@ -280,7 +280,7 @@ function dpa_leaderboard_user_display_name() {
  * @since Achievements (3.4)
  */
 function dpa_leaderboard_user_class() {
-	echo esc_attr( dpa_get_leaderboard_user_class() );
+	echo dpa_get_leaderboard_user_class();
 }
 	/**
 	 * Return the row class of the current user in the leaderboard
@@ -295,7 +295,7 @@ function dpa_leaderboard_user_class() {
 		$classes[] = ( (int) $count % 2 ) ? 'even' : 'odd';
 		$classes[] = 'user-id-' . dpa_get_leaderboard_user_id();
 
-		// Is the leaderboard user the current logged in user?WHERE
+		// Is the leaderboard user the current logged in user?
 		if ( is_user_logged_in() && wp_get_current_user()->ID === dpa_get_leaderboard_user_id() )
 			$classes[] = 'logged-in-user';
 
