@@ -366,8 +366,8 @@ function dpa_progress_class( $progress_id = 0, $classes = array() ) {
 				$class = '';
 		}
 
-		$classes = array_merge( $classes, array() );
-		$classes = sanitize_html_class( join( ' ', $classes ) );
+		$classes = array_map( 'sanitize_html_class', array_merge( $classes, array() ) );
+		$classes = join( ' ', $classes );
 
 		return 'class="' . esc_attr( $classes )  . '"';
 	}

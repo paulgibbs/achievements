@@ -665,8 +665,9 @@ function dpa_achievement_class( $achievement_id = 0, $classes = array() ) {
 			if ( 'hentry' === $class )
 				$class = '';
 		}
-		$classes = array_merge( $classes, array() );
-		$classes = sanitize_html_class( join( ' ', $classes ) );
+
+		$classes = array_map( 'sanitize_html_class', array_merge( $classes, array() ) );
+		$classes = join( ' ', $classes );
 
 		return 'class="' . esc_attr( $classes )  . '"';
 	}
