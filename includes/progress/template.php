@@ -365,10 +365,11 @@ function dpa_progress_class( $progress_id = 0, $classes = array() ) {
 			if ( 'hentry' === $class )
 				$class = '';
 		}
-		$classes = array_merge( $classes, array() );
 
-		$retval = 'class="' . join( ' ', $classes ) . '"';
-		return $retval;
+		$classes = array_merge( $classes, array() );
+		$classes = sanitize_html_class( join( ' ', $classes ) );
+
+		return 'class="' . esc_attr( $classes )  . '"';
 	}
 
 /**

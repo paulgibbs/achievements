@@ -666,9 +666,9 @@ function dpa_achievement_class( $achievement_id = 0, $classes = array() ) {
 				$class = '';
 		}
 		$classes = array_merge( $classes, array() );
+		$classes = sanitize_html_class( join( ' ', $classes ) );
 
-		$retval = 'class="' . join( ' ', $classes ) . '"';
-		return $retval;
+		return 'class="' . esc_attr( $classes )  . '"';
 	}
 
 /**
