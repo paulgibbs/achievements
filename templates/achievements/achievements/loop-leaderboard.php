@@ -18,17 +18,17 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 	<thead>
 		<tr>
 
-			<th id="dpa-leaderboard-position" scope="col"><?php _ex( 'Position', 'user position column header for leaderboard table', 'dpa' ); ?></th>
+			<th id="dpa-leaderboard-position" scope="col"><?php /* translations: indicates a numeric position" */ _ex( '#', 'user position column header for leaderboard table', 'dpa' ); ?></th>
 			<th id="dpa-leaderboard-name" scope="col"><?php _ex( 'Name', 'user name column header for leaderboard table', 'dpa' ); ?></th>
 			<th id="dpa-leaderboard-karma" scope="col"><?php _ex( 'Karma', 'column header for leaderboard table', 'dpa' ); ?></th>
 
 		</tr>
 	</thead>
 
-	<tfoot>
+	<tfoot class="screen-reader-text">
 		<tr>
 
-			<th scope="col"><?php _ex( 'Position', 'user position column header for leaderboard table', 'dpa' ); ?></th>
+			<th scope="col"><?php /* translations: indicates a numeric position */ _ex( '#', 'user position column header for leaderboard table', 'dpa' ); ?></th>
 			<th scope="col"><?php _ex( 'Name', 'user name column header for leaderboard table', 'dpa' ); ?></th>
 			<th scope="col"><?php _ex( 'Karma', 'column header for leaderboard table', 'dpa' ); ?></th>
 
