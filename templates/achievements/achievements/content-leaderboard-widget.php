@@ -15,8 +15,6 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 <?php if ( dpa_has_leaderboard() ) : ?>
 
-	<?php dpa_get_template_part( 'pagination-leaderboard' ); ?>
-
 	<?php dpa_get_template_part( 'loop-leaderboard'       ); ?>
 
 	<?php dpa_get_template_part( 'pagination-leaderboard' ); ?>
