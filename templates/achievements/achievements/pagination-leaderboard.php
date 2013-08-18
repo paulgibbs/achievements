@@ -13,12 +13,6 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 <?php do_action( 'dpa_template_before_leaderboard_pagination_loop' ); ?>
 
 <div class="dpa-pagination">
-	<div class="dpa-pagination-count">
-
-		<?php dpa_leaderboard_pagination_count(); ?>
-
-	</div>
-
 	<div class="dpa-pagination-links">
 
 		<?php dpa_leaderboard_pagination_links(); ?>
