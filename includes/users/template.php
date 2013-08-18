@@ -322,6 +322,15 @@ function dpa_leaderboard_pagination_count() {
 	/**
 	 * Return the pagination count
 	 *
+	 * As of 3.4, this function isn't used in Achievements core, and you should probably be careful about using it.
+	 * The problem is that though there may be (for example) 20 total users on the leaderboard, this function is
+	 * going to say "viewing 1-20 leaderboard positions", but if more than one of the users have the exact
+	 * same karma points, they'll both share a rank, so the rank number of the last user in the leaderboard won't
+	 * match the pagination count.
+	 * 
+	 * tl;dr This function creates pagination text for the users in the leaderboard text, not the distinct ranks.
+	 * Don't use it.
+	 *
 	 * @return string Progress pagination count
 	 * @since Achievements (3.4)
 	 */
