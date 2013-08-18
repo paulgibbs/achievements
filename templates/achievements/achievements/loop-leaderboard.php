@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 <?php do_action( 'dpa_template_before_leaderboard_loop_block' ); ?>
 
-<table class="dpa-archive-achievements">
+<table class="dpa-leaderboard-widget">
 	<caption class="screen-reader-text"><?php _e( 'All of the available achievements with the name, avatar, and karma points for each.', 'dpa' ); ?></caption>
 
 	<thead>
