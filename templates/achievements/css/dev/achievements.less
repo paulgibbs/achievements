@@ -197,3 +197,24 @@ div.dpa-template-notice {
 
 	li { display: inline-block; }
 }
+
+.widget_dpa_leaderboard {
+	tbody tr:first-child td { padding-top: @themeCompatMargin; }
+	th { font-weight: bold; }
+
+	.dpa-pagination-links {
+		display: inherit;
+		float: left;
+		list-style: inherit;
+	}
+
+	.dpa-leaderboard-widget {
+		margin-bottom: @themeCompatMargin;
+		width: 100%;
+	}
+
+	.logged-in-user td { font-weight: bold; }
+
+	#dpa-leaderboard-name { width: 65%; }
+	#dpa-leaderboard-karma { width: 25%; }
+}
