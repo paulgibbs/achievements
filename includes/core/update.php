@@ -38,6 +38,12 @@ function dpa_is_update() {
  * @since Achievements (3.0)
  */
 function dpa_is_activation( $basename = '' ) {
+	global $pagenow;
+
+	// Bail if not in admin/plugins
+	if ( ! is_admin() || 'plugins.php' !== $pagenow ) )
+		return false;
+
 	$action = false;
 
 	if ( ! empty( $_REQUEST['action'] ) && '-1' !== $_REQUEST['action'] )
@@ -75,6 +81,12 @@ function dpa_is_activation( $basename = '' ) {
  * @since Achievements (3.0)
  */
 function dpa_is_deactivation( $basename = '' ) {
+	global $pagenow;
+
+	// Bail if not in admin/plugins
+	if ( ! is_admin() || 'plugins.php' !== $pagenow ) )
+		return false;
+
 	$action = false;
 
 	if ( ! empty( $_REQUEST['action'] ) && '-1' !== $_REQUEST['action'] )
