@@ -41,7 +41,7 @@ function dpa_is_activation( $basename = '' ) {
 	global $pagenow;
 
 	// Bail if not in admin/plugins
-	if ( ! is_admin() || 'plugins.php' !== $pagenow ) )
+	if ( ! is_admin() || 'plugins.php' !== $pagenow )
 		return false;
 
 	$action = false;
@@ -84,7 +84,7 @@ function dpa_is_deactivation( $basename = '' ) {
 	global $pagenow;
 
 	// Bail if not in admin/plugins
-	if ( ! is_admin() || 'plugins.php' !== $pagenow ) )
+	if ( ! is_admin() || 'plugins.php' !== $pagenow )
 		return false;
 
 	$action = false;
