@@ -52,7 +52,7 @@ function dpa_has_progress( $args = array() ) {
 		'posts_per_page' => -1,
 
 		// If on a user's achievements page, fetch the achievements if we haven't got them already
-		'ach_populate_achievements' => dpa_is_single_user_achievements() && ! is_a( achievements()->achievement_query, 'WP_Query' ),
+		'ach_populate_achievements' => dpa_is_single_user_achievements() && is_a( achievements()->achievement_query, 'WP_Query' ) && empty( achievements()->achievement_query->request ),
 	);
 
 	$args = dpa_parse_args( $args, $defaults, 'has_progress' );
