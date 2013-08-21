@@ -387,19 +387,28 @@ function dpa_template_include_theme_compat( $template = '' ) {
 
 		// Page exists where this archive should be
 		$page = dpa_get_page_by_path( dpa_get_root_slug() );
-		if ( ! empty( $page ) ) {
-			$new_content = apply_filters( 'the_content', $page->post_content );
-			$new_title   = apply_filters( 'the_title',   $page->post_title   );
 
-		// No page so show the archive
+		// Should we replace the content...
+		if ( empty( $page->post_content ) ) {
+			$new_content = achievements()->shortcodes->display_achievements_index(); 
+
+		// ...or use the existing page content?
 		} else {
-			$new_content = achievements()->shortcodes->display_achievements_index();
-			$new_title   = dpa_get_achievement_archive_title();
+			$new_content = apply_filters( 'the_content', $page->post_content );
+		}
+
+		// Should we replace the title...
+		if ( empty( $page->post_title ) ) {
+			$new_title = dpa_get_achievement_archive_title();
+
+		// ...or use the existing page title?
+		} else {
+			$new_title = apply_filters( 'the_title', $page->post_title );
 		}
 
 		dpa_theme_compat_reset_post( array(
 			'comment_status' => 'closed',
-			'ID'             => 0,
+			'ID'             => ! empty( $page->ID ) ? $page->ID : 0,
 			'is_archive'     => true,
 			'post_author'    => 0,
 			'post_content'   => $new_content,
