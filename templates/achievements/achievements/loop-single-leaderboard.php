@@ -15,13 +15,13 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 	<?php do_action( 'dpa_template_in_leaderboard_loop_early' ); ?>
 
 
-	<td headers="dpa-leaderboard-position">
+	<th scope="row" headers="dpa-leaderboard-position">
 		<?php do_action( 'dpa_template_before_leaderboard_position' ); ?>
 
 		<?php dpa_leaderboard_user_position(); ?>
 
 		<?php do_action( 'dpa_template_after_leaderboard_position' ); ?>
-	</td>
+	</th>
 
 
 	<td headers="dpa-leaderboard-name">
