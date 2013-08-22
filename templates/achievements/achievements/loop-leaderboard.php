@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 <?php do_action( 'dpa_template_before_leaderboard_loop_block' ); ?>
 
 <table class="dpa-leaderboard-widget">
-	<caption class="screen-reader-text"><?php _e( 'All of the available achievements with the name, avatar, and karma points for each.', 'dpa' ); ?></caption>
+	<caption class="screen-reader-text"><?php _e( 'A leaderboard of all users on the site who have earnt karma points. The table is sorted descendingly by the amount of karma points that the users have, and also shows the user&#8217;s name and karma points total.', 'dpa' ); ?></caption>
 
 	<thead>
 		<tr>
