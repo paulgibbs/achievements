@@ -133,8 +133,8 @@ function dpa_has_achievements( $args = array() ) {
 			'current'   => (int) achievements()->achievement_query->paged,
 			'format'    => '',
 			'mid_size'  => 1,
-			'next_text' => '&rarr;',
-			'prev_text' => '&larr;',
+			'next_text' => is_rtl() ? '&larr;' : '&rarr;',
+			'prev_text' => is_rtl() ? '&rarr;' : '&larr;',
 			'total'     => ( $posts_per_page == achievements()->achievement_query->found_posts ) ? 1 : ceil( (int) achievements()->achievement_query->found_posts / (int) $posts_per_page ),
 		) );
 

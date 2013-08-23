@@ -136,8 +136,8 @@ function dpa_has_leaderboard( $args = array() ) {
 			'current'   => $args['paged'],
 			'format'    => '',
 			'mid_size'  => 1,
-			'next_text' => '&rarr;',
-			'prev_text' => '&larr;',
+			'next_text' => is_rtl() ? '&larr;' : '&rarr;',
+			'prev_text' => is_rtl() ? '&rarr;' : '&larr;',
 			'total'     => ( (int) $args['posts_per_page'] === achievements()->leaderboard_query['total'] ) ? 1 : ceil( achievements()->leaderboard_query['total'] / (int) $args['posts_per_page'] ),
 		) );
 

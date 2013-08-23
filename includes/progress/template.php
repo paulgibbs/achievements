@@ -104,8 +104,8 @@ function dpa_has_progress( $args = array() ) {
 			'current'   => (int) achievements()->progress_query->paged,
 			'format'    => '',
 			'mid_size'  => 1,
-			'next_text' => '&rarr;',
-			'prev_text' => '&larr;',
+			'next_text' => is_rtl() ? '&larr;' : '&rarr;',
+			'prev_text' => is_rtl() ? '&rarr;' : '&larr;',
 			'total'     => ( $args['posts_per_page'] == achievements()->progress_query->found_posts ) ? 1 : ceil( (int) achievements()->progress_query->found_posts / (int) $args['posts_per_page'] ),
 		) );
 
