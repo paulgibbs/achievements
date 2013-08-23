@@ -217,6 +217,17 @@ function dpa_get_root_slug( $default = 'achievements' ) {
 }
 
 /**
+ * Return the singular root slug
+ *
+ * @param string $default Optional; defaults to 'achievement'.
+ * @return string
+ * @since Achievements (3.4)
+ */
+function dpa_get_singular_root_slug( $default = 'achievement' ) {
+	return apply_filters( 'dpa_get_singular_root_slug', get_option( '_dpa_singular_root_slug', $default ) );
+}
+
+/**
  * Return the achievement post type slug
  *
  * This is just a wrapper function for dpa_get_root_slug() right now.

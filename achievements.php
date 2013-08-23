@@ -468,7 +468,7 @@ final class DPA_Achievements_Loader {
 			'feed'       => false,                       // Remove feed rewrite rules
 			'feeds'      => false,                       // Remove feed rewrite rules (this is what the parameter ought to be)
 			'pages'      => true,
-			'slug'       => dpa_get_root_slug(),
+			'slug'       => dpa_get_singular_root_slug(),
 			'with_front' => false,
 		);
 		// CPT supports
@@ -489,7 +489,7 @@ final class DPA_Achievements_Loader {
 			'capability_type'      => array( 'achievement', 'achievements' ),
 			'delete_with_user'     => false,
 			'description'          => _x( 'Achievements types (e.g. new post, new site, new user)', 'Achievement post type description', 'dpa' ),
-			'has_archive'          => $post_type_is_public,
+			'has_archive'          => $post_type_is_public ? dpa_get_root_slug() : false,
 			'labels'               => $labels['achievement'],
 			'public'               => $post_type_is_public,
 			'rewrite'              => $rewrite['achievement'],
@@ -707,6 +707,7 @@ function dpa_get_default_options() {
 		'_dpa_achievements_per_page'     => 15,                 // Achievements per page
 		'_dpa_achievements_per_rss_page' => 25,                 // Achievements per RSS page
 		'_dpa_root_slug'                 => 'achievements',     // Achievements archive slug
+		'_dpa_singular_root_slug'        => 'achievement',      // Achievements singular item slug
 
 		// Progress post type
 		'_dpa_progresses_per_page'     => 15,                   // Progresses per page
