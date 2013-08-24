@@ -122,7 +122,7 @@ function dpa_register_events() {
 	if ( ! dpa_is_user_active() || defined( 'WP_IMPORTING' ) && WP_IMPORTING )
 		return;
 
-	$events = array();
+	$events = false;
 
 	// If multisite and running network-wide, see if the terms have previously been cached.
 	if ( is_multisite() && dpa_is_running_networkwide() )
