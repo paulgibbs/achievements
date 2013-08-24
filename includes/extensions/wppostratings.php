@@ -51,7 +51,7 @@ class DPA_WP_PostRatings_Extension extends DPA_Extension {
 			)
 		);
 
-		$this->description     = __( "WP-PostRatings adds an AJAX rating system for your WordPress blogs' posts and pages.", 'dpa' );
+		$this->description     = __( "WP-PostRatings adds an AJAX rating system for your WordPress blogs&#8217 posts and pages.", 'dpa' );
 		$this->id              = 'wp-postratings';
 		$this->image_url       = trailingslashit( achievements()->includes_url ) . 'admin/images/wp-postratings.jpg';
 		$this->name            = __( 'WP-PostRatings', 'dpa' );
