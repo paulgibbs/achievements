@@ -43,6 +43,7 @@ class DPA_WordPress_Extension extends DPA_CPT_Extension {
 			'wordpress_draft_to_publish' => __( 'The user publishes a blog post.', 'dpa' ),
 			'signup_finished'            => __( 'A new site is created by the user (multi-site only).', 'dpa' ),
 			'trashed_post'               => __( 'The user trashes a blog post.', 'dpa' ),
+			'user_register'              => __( 'A new user creates an account on your website.', 'dpa' ),
 		);
 
 		$this->generic_cpt_actions = array(
@@ -67,7 +68,7 @@ class DPA_WordPress_Extension extends DPA_CPT_Extension {
 		$this->name            = __( 'WordPress', 'dpa' );
 		$this->rss_url         = 'http://wordpress.org/news/feed/';
 		$this->small_image_url = trailingslashit( achievements()->includes_url ) . 'admin/images/wordpress-small.jpg';
-		$this->version         = 1;
+		$this->version         = 2;
 		$this->wporg_url       = 'http://wordpress.org/about/';
 
 		add_filter( 'dpa_filter_events',        array( $this, 'get_generic_cpt_actions' ), 1,  1 );
@@ -110,7 +111,7 @@ class DPA_WordPress_Extension extends DPA_CPT_Extension {
 	 */
 	public function event_user_id( $user_id, $action_name, $action_func_args ) {
 		// Only deal with events added by this extension.
-		if ( ! in_array( $action_name, array( 'comment_post', 'wordpress_draft_to_publish', ) ) )
+		if ( ! in_array( $action_name, array( 'comment_post', 'user_register', 'wordpress_draft_to_publish', ) ) )
 			return $user_id;
 
 		// New comment, check that the author isn't anonymous
@@ -128,6 +129,25 @@ class DPA_WordPress_Extension extends DPA_CPT_Extension {
 		// New post, get the post author
 		} elseif ( 'wordpress_draft_to_publish' === $action_name && 'post' === $action_func_args[0]->post_type ) {
 			return $this->get_post_author( $user_id, $action_name, $action_func_args );
+
+		// New user registration
+		} elseif ( 'user_register' === $action_name ) {
+			return $action_func_args[0];
+		}
+	}
+
+	/**
+	 * Update routine for this extension.
+	 * 
+	 * A future version of Achievements will likely handle extension updates automagically.
+	 *
+	 * @param string $current_version
+	 * @since Achievements (3.4)
+	 */
+	public function do_update( $current_version ) {
+		// Upgrading to v2 -- "user_register" is new. Add the action to the dpa_event taxonomy.
+		if ( $current_version === 1 ) {
+			wp_insert_term( 'user_register', dpa_get_event_tax_id(), array( 'description' => $this->actions['user_register'] ) );
 		}
 	}
 }
