@@ -119,7 +119,7 @@ function dpa_register_events() {
 		return;
 
 	// Only do things if the user is active (logged in and not a spammer) and is not doing an import.
-	if ( ! dpa_is_user_active() || defined( 'WP_IMPORTING' ) && WP_IMPORTING )
+	if ( ( defined( 'WP_IMPORTING' ) && WP_IMPORTING ) || ! apply_filters( 'dpa_maybe_register_events', dpa_is_user_active() ) )
 		return;
 
 	$events = false;
