@@ -244,12 +244,13 @@ function dpa_user_points( $user_id = 0 ) {
 /**
  * Update a user's notifications
  *
- * @param array $new_value Optional. The new value
+ * @param array $notifications Optional. The new value
  * @param int $user_id User ID to update. Optional, defaults to current logged in user.
  * @return bool False if no user or failure, true if successful
  * @since Achievements (3.0)
  */
-function dpa_update_user_notifications( $new_value = array(), $user_id = 0 ) {
+function dpa_update_user_notifications( $notifications = array(), $user_id = 0 ) {
+
 	// Default to current user
 	if ( empty( $user_id ) && is_user_logged_in() )
 		$user_id = get_current_user_id();
@@ -261,9 +262,17 @@ function dpa_update_user_notifications( $new_value = array(), $user_id = 0 ) {
 	// As Achievements can run independently (as well as sitewide) on a multisite, decide where to store the user option
 	$store_global = is_multisite() && dpa_is_running_networkwide();
 
-	// @todo Need to refresh my memory on how the user notifications array is built, but probably make sure the array keys here are integers.
-	$new_value = apply_filters( 'dpa_update_user_notifications', $new_value, $user_id );
-	return update_user_option( $user_id, '_dpa_notifications', $new_value, $store_global );
+	$notifications = (array) apply_filters( 'dpa_update_user_notifications', $notifications, $user_id );
+	$new_values    = array();
+
+	// Prevent people filtering in array keys that aren't unsigned integers
+	foreach ( $notifications as $ID => $value )
+		$new_values[absint( $ID )] = $value;
+
+	if ( isset( $new_values[0] ) )
+		unset( $new_values[0] );
+
+	return update_user_option( $user_id, '_dpa_notifications', $new_values, $store_global );
 }
 
 /**
