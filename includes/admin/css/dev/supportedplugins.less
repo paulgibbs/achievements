@@ -81,14 +81,14 @@
 	box-shadow: 0 0 0 rgb(0,0,0), inset 0 0 0 rgb(0,0,0);
 	border: 0;
 	display: inline-block;
-	float: right;  // @todo RTL
+	float: right;
 	margin: 0 0;
 
 	li {
 		background-color: #FFF;
 		border: 1px solid @toolbarMainBorderColour;
 		border-bottom: 1px solid @toolbarRaisedBorderColour;
-		float: right;  // @todo RTL
+		float: right;
 		margin: @toolbarMargin+2 @toolbarMargin @toolbarMargin;
 		padding: 0;
 
@@ -161,8 +161,8 @@
 	color: @toolbarFontColour;
 	font-size: @toolbarFontSize;
 	height: @toolbarHeight - @toolbarMargin - @toolbarMargin - 1;
-	margin: @toolbarMargin+1 0 @toolbarMargin;  // @todo RTL
-	padding-left: @toolbarMargin;  // @todo RTL
+	margin: @toolbarMargin+1 0 @toolbarMargin;
+	padding-left: @toolbarMargin;
 	text-shadow: -1px -1px 0px #FFF;
 
 	&:hover { cursor: pointer; }
@@ -178,7 +178,7 @@
 		background-position: right center;
 		background-repeat: no-repeat;
 		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='@toolbarGradientTop', endColorstr='@toolbarGradientBottom',GradientType=0 ); /* IE6-9 */
-		padding-right: 20px;  // @todo RTL
+		padding-right: 20px;
 	}
 }
 
@@ -196,7 +196,7 @@ div.grid {
 
 			img {
 				width: 48%;
-				margin: 10px 10px 0 0;  // @todo RTL
+				margin: 10px 10px 0 0;
 			}
 		}
 	}
@@ -230,7 +230,7 @@ div.list {
 		img {
 			.box-shadow( 0 0 4px rgba( 0, 0, 0, 0.4 ) );
 			height: 48px;
-			margin: 0 10px 0 0;  // @todo RTL
+			margin: 0 10px 0 0;
 			padding: 2px;
 			width: 48px;
 		}
@@ -258,7 +258,7 @@ div.detail {
 		// Override wp-admin metabox styles
 		.postbox {
 			.reset_postbox();
-			.handlediv { .show_for_screen_readers(); } // @todo RTL
+			.handlediv { .show_for_screen_readers(); }
 			.hndle {
 				.reset_postbox();
 				border-bottom: 1px solid @toolbarMainBorderColour;
@@ -350,23 +350,23 @@ div.detail {
 	}
 
 	.plugin-title {
-		float: left;  // @todo RTL
+		float: left;
 		width: 100%;
 
-		h3 {  // @todo RTL
+		h3 {
 			float: left;
 			padding-right: 0.9em;
 		}
 		.socialised,
 		.socialite {
-			float: left;  // @todo RTL
+			float: left;
 			margin-top: 2px;
 		}
 	}
 
 	.plugin-rss {
 		.clearfix();
-		float: left;  /* RTL? */
+		float: left;
 
 		h3 { margin-top: 1em; }
 		h4 {
@@ -379,12 +379,12 @@ div.detail {
 			}
 		}
 		ul {
-			float: left;  /* RTL? */
+			float: left;
 			margin: 0;
 
 			li {
 				clear: left;
-				float: left;  /* RTL? */
+				float: left;
 				margin-bottom: @toolbarMargin;
 
 				&:last-child,
