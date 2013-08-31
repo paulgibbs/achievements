@@ -19,6 +19,9 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 function dpa_init_buddypress_extension() {
 	achievements()->extensions->buddypress = new DPA_BuddyPress_Extension;
 
+	// Helper for new user registration event type
+	add_action( 'dpa_maybe_register_events', array( 'DPA_BuddyPress_Extension', 'register_events_on_user_activation_screen' ) );
+
 	// Tell the world that the BuddyPress extension is ready
 	do_action( 'dpa_init_buddypress_extension' );
 }
@@ -45,7 +48,6 @@ class DPA_BuddyPress_Extension extends DPA_Extension {
 			'bp_activity_comment_posted'       => __( 'The user replies to an item in an activity stream.', 'dpa' ),
 			'bp_activity_posted_update'        => __( 'The user writes an activity update message.', 'dpa' ),
 			'bp_activity_remove_user_favorite' => __( 'The user un-favourites an item in their activity stream.', 'dpa' ),
-			'bp_core_activated_user'           => __( 'A new user activates their account on your website.', 'dpa' ),
 			'bp_groups_posted_update'          => __( "The user writes a message in a group&#8217;s activity stream.", 'dpa' ),
 			'friends_friendship_accepted'      => __( 'The user accepts a friendship request from someone.', 'dpa' ),
 			'friends_friendship_deleted'       => __( 'The user cancels a friendship.', 'dpa' ),
@@ -96,7 +98,7 @@ class DPA_BuddyPress_Extension extends DPA_Extension {
 		$this->name            = __( 'BuddyPress', 'dpa' );
 		$this->rss_url         = 'http://buddypress.org/blog/feed/';
 		$this->small_image_url = trailingslashit( achievements()->includes_url ) . 'admin/images/buddypress-small.png';
-		$this->version         = 1;
+		$this->version         = 2;
 		$this->wporg_url       = 'http://wordpress.org/plugins/buddypress/';
 
 		add_filter( 'dpa_handle_event_user_id', array( $this, 'event_user_id' ), 10, 3 );
@@ -113,15 +115,11 @@ class DPA_BuddyPress_Extension extends DPA_Extension {
 	 */
 	public function event_user_id( $user_id, $action_name, $action_func_args ) {
 		// Only deal with events added by this extension.
-		if ( ! in_array( $action_name, array( 'bp_core_activated_user', 'groups_demote_member', 'groups_promote_member', ) ) )
+		if ( ! in_array( $action_name, array( 'groups_demote_member', 'groups_promote_member', ) ) )
 			return $user_id;
 
-		// A new user activates their account on your website
-		if ( 'bp_core_activated_user' === $action_name ) {
-			$user_id = $action_func_args[0];
-
 		// The user is demoted from being a moderator or an administrator in a group
-		} elseif ( 'groups_demote_member' === $action_name ) {
+		if ( 'groups_demote_member' === $action_name ) {
 			$user_id = $action_func_args[1];
 
 		// The user is promoted to a moderator or an administrator in a group
@@ -153,5 +151,41 @@ class DPA_BuddyPress_Extension extends DPA_Extension {
 	public function is_bp_loaded() {
 		_deprecated_function( __FUNCTION__, 'Achievements (3.2)' );
 		return false;
+	}
+
+	/**
+	 * Update routine for this extension.
+	 * 
+	 * A future version of Achievements will likely handle extension updates automagically.
+	 *
+	 * @param string $current_version
+	 * @since Achievements (3.4)
+	 */
+	public function do_update( $current_version ) {
+
+		// Upgrading to v2 -- "bp_core_activated_user" was removed. Remove it from the taxonomy.
+		if ( $current_version === 1 ) {
+
+			// get_term_by() is uncached, but as we're only using it once (on upgrade), it's OK here.
+			$old_term = get_term_by( 'slug', 'bp_core_activated_user', dpa_get_event_tax_id() );
+
+			if ( $old_term )
+				wp_delete_term( $old_term->term_id, dpa_get_event_tax_id() );
+		}
+	}
+
+	/**
+	 * If on BuddyPress' user registration or activation pages, then make sure that we listen for any current achievements' events.
+	 * 
+	 * This is needed to support events that will create a new user account, or return a user ID in some other way; by default,
+	 * {@link dpa_register_events()} requires that the current visitor/user is logged in to the site.
+	 *
+	 * @param bool $retval Original value of whether to register the events or not.
+	 * @return bool Returns true if we want to register events on the BuddyPress user activation screens.
+	 * @since Achievements (3.4)
+	 */
+	public static function register_events_on_user_activation_screen( $retval ) {
+		$retval = ( bp_is_activation_page() || bp_is_register_page() ) ? true : $retval;
+		return (bool) apply_filters( 'dpa_bp_register_events_on_user_activation_screen', $retval );
 	}
 }
