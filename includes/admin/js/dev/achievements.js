@@ -3,7 +3,7 @@
 
 $(document).ready(function() {
 
-	// If editing an existing award, hide the event boxes. @todo Do this with CSS.
+	// If editing an existing award, hide the event boxes.
 	if ( 'award' === $( 'input[name="dpa_type"]:checked' ).prop('value') ) {
 		setTimeout( function() { $( '#dpa_event_chzn, .dpa-target' ).hide(); }, 10 );
 	}

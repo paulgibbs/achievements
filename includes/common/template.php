@@ -282,7 +282,6 @@ function dpa_breadcrumb( $args = array() ) {
 	 * @param array $args Optional.
 	 * @return string Breadcrumbs
 	 * @since Achievements (3.0)
-	 * @todo Achievements - phpDoc for $args. Contribute back to bbPress.
 	 */
 	function dpa_get_breadcrumb( $args = array() ) {
 		// Turn off breadcrumbs

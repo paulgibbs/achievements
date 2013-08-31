@@ -675,7 +675,6 @@ function _dpa_supported_plugin_get_queryargs() {
  * @param string $plugin Plugin directory slug
  * @return bool
  * @since Achievements (3.0)
- * @todo Use is_plugin_active() to add an "activate" status in a future release
  */
 function _dpa_is_plugin_installed( $plugin ) {
 	// Special case for the WordPress extension

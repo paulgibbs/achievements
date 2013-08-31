@@ -97,7 +97,6 @@ function dpa_make_spam_user( $user_id = 0 ) {
 	if ( is_super_admin( $user_id ) )
 		return false;
 
-	// @todo Do stuff here
 	return true;
 }
 
@@ -117,7 +116,6 @@ function dpa_make_ham_user( $user_id = 0 ) {
 	if ( is_super_admin( $user_id ) )
 		return false;
 
-	// Do stuff here
 	return true;
 }
 

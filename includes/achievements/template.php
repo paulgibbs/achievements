@@ -478,7 +478,6 @@ function dpa_achievement_excerpt( $achievement_id = 0, $length = 200 ) {
 	 * @param int $length Optional. Length of the excerpt. Defaults to 200 letters
 	 * @return string Achievement excerpt
 	 * @since Achievements (3.0)
-	 * @todo Handle multibyte characters when generating an excerpt
 	 * @todo Don't cut off part of a word; go to the nearest space
 	 */
 	function dpa_get_achievement_excerpt( $achievement_id = 0, $length = 200 ) {

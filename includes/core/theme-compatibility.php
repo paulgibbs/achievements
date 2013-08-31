@@ -519,7 +519,6 @@ function dpa_redirect_canonical( $redirect_url ) {
 				$redirect_url = false;
 
 			// ...and any single anything else...
-			// @todo - Find a more accurate way to disable paged canonicals for paged shortcode usage within other posts.
 			} elseif ( is_page() || is_singular() ) {
 				$redirect_url = false;
 			}

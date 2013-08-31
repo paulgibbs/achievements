@@ -72,7 +72,6 @@ class DPA_Default extends DPA_Theme_Compat {
 	 * Load the theme CSS
 	 *
 	 * @since Achievements (3.0)
-	 * @todo LTR CSS
 	 */
 	public function enqueue_styles() {
 		$rtl  = is_rtl() ? '-rtl' : '';
@@ -103,7 +102,6 @@ class DPA_Default extends DPA_Theme_Compat {
 	 *
 	 * @param bool $skip_notifications_check Optional (false). If true, always enqueue styles.
 	 * @since Achievements (3.0)
-	 * @todo LTR CSS
 	 */
 	public function enqueue_notifications_style( $skip_notifications_check = false ) {
 
