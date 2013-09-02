@@ -444,13 +444,19 @@ class DPA_Admin {
 		list( $display_version ) = explode( '-', dpa_get_version() );
 	?>
 
+		<style type="text/css">
+		.about-text {
+			margin-right: 0;
+		}
+		</style>
+
 		<div class="wrap about-wrap">
 			<h1><?php _e( 'Welcome to Achievements', 'dpa' ); ?></h1>
 			<div class="about-text">
 				<?php if ( $is_new_install ) : ?>
 					<?php printf( __( 'Achievements %s is our safest, fastest, and most feature-packed version ever!', 'dpa' ), $display_version ); ?>
 				<?php else : ?>
-					<?php printf( __( 'Thank you for updating! Achievements %s is our safest, fastest, and most feature-packed version ever!', 'dpa' ), $display_version ); ?>
+					<?php printf( __( 'Thanks for updating! Achievements %1$s adds a leaderboard widget, a new private achievements feature, and support for the <a href="%2$s">WP-PostRatings</a> plugin.', 'dpa' ), $display_version, esc_url( 'http://wordpress.org/plugins/wp-postratings/' ) ); ?>
 				<?php endif; ?>
 			</div>
 
@@ -474,11 +480,21 @@ class DPA_Admin {
 			<?php endif; ?>
 
 			<div class="changelog">
-				<h3><?php _e( 'Leaderboards', 'dpa' ); ?></h3>
+				<h3><?php _e( 'Leaderboard', 'dpa' ); ?></h3>
 
 				<div class="feature-section">
-					<h4><?php _e( 'Todo', 'dpa' ); ?></h4>
-					<p><?php //DJPAULTODO: leaderboard text ?></p>
+					<h4><?php _e( 'Hey, funny sub-title', 'dpa' ); ?></h4>
+					<p><?php _e( 'djpaultodo leaderboard', 'dpa' ); ?></p>
+				</div>
+			</div>
+
+			<div class="changelog">
+				<h3><?php _e( 'Private achievements', 'dpa' ); ?></h3>
+
+				<div class="feature-section">
+					<h4><?php _e( 'Private achievements are hidden from the main listings', 'dpa' ); ?></h4>
+					<p><?php _e( 'Making an achievement private is a great way to surprise even the most prolific achievement hunter in your community! Private achievements work in exactly the same way as a regular achievement, but are hidden from the main listings.', 'dpa' ); ?></p>
+					<p><?php _e( 'If you would like to make a specific achievement private, open the achievement for editing, press <strong>Edit</strong> in the publish module and select <strong>Private</strong>. Remember to save your changes!', 'dpa' ); ?></p>
 				</div>
 			</div>
 
@@ -486,33 +502,29 @@ class DPA_Admin {
 				<h3><?php _e( 'WP-PostRatings', 'dpa' ); ?></h3>
 
 				<div class="feature-section">
-					<h4><?php _e( "Adds an AJAX rating system for your posts and pages", 'dpa' ); ?>
-					<p><?php //DJPAULTODO: postratings text ?></p>
+					<h4><?php _e( 'New plugin support', 'dpa' ); ?></h4>
+					<p><?php printf( __( 'The <a href="%s">WP-PostRatings</a> plugin adds a star rating system to your site&rsquo;s posts and pages (and much more!). Typically, it&rsquo;s used as fun way to gather feedback about your content from your site&rsquo;s users.', 'dpa' ), esc_url( 'http://wordpress.org/plugins/wp-postratings/' ) ); ?></p>
+					<p><?php _e( 'Achievements 3.4 has built-in support for WP-PostRatings, allowing you to easily award points and achievements as people leave feedback.', 'dpa' ); ?></p>
 				</div>
 			</div>
 
 			<div class="changelog">
-				<h3><?php _e( 'Hidden Achievements', 'dpa' ); ?></h3>
+				<h3><?php _e( '...and a bunch of smaller changes, which are also really cool!', 'dpa' ); ?></h3>
 
-				<div class="feature-section">
-					<h4><?php _e( 'Todo', 'dpa' ); ?></h4>
-					<p><?php //DJPAULTODO: hidden achievement text ?></p>
-				</div>
-			</div>
-
-
-			<div class="changelog">
-				<h3><?php _e( 'Under the Bonnet', 'dpa' ); ?></h3>
-
-				<div class="feature-section three-col">
+				<div class="feature-section col three-col">
 					<div>
-						<h4><?php _e( 'WP-CLI', 'dpa' ); ?></h4>
-						<p><?php printf( __( 'Achievements supports <a href="%s">WP-CLI</a>, so you can easily manage the plugin from the command-line.', 'dpa' ), 'http://wp-cli.org/' ); ?></p>
+						<h4><?php _e( 'Bug fixes', 'dpa' ); ?></h4>
+						<p><?php _e( 'A bunch of small issues, including pagination and user capability bugs, amongst others, have been fixed.', 'dpa' ); ?></p>
 					</div>
 
 					<div>
-						<h4><?php _e( 'Theme Compatibility Improvements', 'dpa' ); ?></h4>
-						<p><?php _e( 'Achievements has the latest theme compatibility code, fresh from BuddyPress 1.7+.', 'dpa' ); ?></p>
+						<h4><?php _e( 'Better caching', 'dpa' ); ?></h4>
+						<p><?php _e( "Do you have a super big, super busy site? We&rsquo;ve got your back. 3.4 improves caching performance when running on WordPress multisite.", 'dpa' ); ?></p>
+					</div>
+
+					<div class="last-feature">
+						<h4><?php _e( 'Theme compatibility improvements', 'dpa' ); ?></h4>
+						<p><?php printf( __( 'Achievements has the latest theme compatibility code, fresh from the latest versions of <a href="%1$s">bbPress</a> and <a href="%2$s">BuddyPress</a>.', 'dpa' ), esc_url( 'http://bbpress.org/' ), esc_url( 'http://buddypress.org/' ) ); ?></p>
 					</div>
 			</div>
 
