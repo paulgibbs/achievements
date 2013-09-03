@@ -483,8 +483,8 @@ class DPA_Admin {
 				<h3><?php _e( 'Leaderboard', 'dpa' ); ?></h3>
 
 				<div class="feature-section">
-					<h4><?php _e( 'Hey, funny sub-title', 'dpa' ); ?></h4>
-					<p><?php _e( 'djpaultodo leaderboard', 'dpa' ); ?></p>
+					<h4><?php _e( 'Rank your users by their karma point totals', 'dpa' ); ?></h4>
+					<p><?php _e( 'A long-awaited feature, be sure to add the new leaderboard widget to your site! It allows members of your community to compare each other&rsquo;s karma point totals. This is the first step towards powerful user comparision and ranking features, and we&rsquo;re thrilled that this has finally arrived in Achievements 3.4!', 'dpa' ); ?></p>
 				</div>
 			</div>
 
@@ -502,14 +502,14 @@ class DPA_Admin {
 				<h3><?php _e( 'WP-PostRatings', 'dpa' ); ?></h3>
 
 				<div class="feature-section">
-					<h4><?php _e( 'New plugin support', 'dpa' ); ?></h4>
+					<h4><?php _e( 'New supported plugin', 'dpa' ); ?></h4>
 					<p><?php printf( __( 'The <a href="%s">WP-PostRatings</a> plugin adds a star rating system to your site&rsquo;s posts and pages (and much more!). Typically, it&rsquo;s used as fun way to gather feedback about your content from your site&rsquo;s users.', 'dpa' ), esc_url( 'http://wordpress.org/plugins/wp-postratings/' ) ); ?></p>
 					<p><?php _e( 'Achievements 3.4 has built-in support for WP-PostRatings, allowing you to easily award points and achievements as people leave feedback.', 'dpa' ); ?></p>
 				</div>
 			</div>
 
 			<div class="changelog">
-				<h3><?php _e( '...and a bunch of smaller changes, which are also really cool!', 'dpa' ); ?></h3>
+				<h3><?php _e( '&hellip;and a bunch of smaller changes, which are also really cool!', 'dpa' ); ?></h3>
 
 				<div class="feature-section col three-col">
 					<div>
