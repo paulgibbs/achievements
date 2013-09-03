@@ -568,54 +568,54 @@ function dpa_template_notices() {
  * @since Achievements (3.0)
  */
 function dpa_title( $title = '', $sep = '&raquo;', $seplocation = '' ) {
-	// Store original title to compare
-	$_title = $title;
-	$title  = array();
+	$new_title = array();
 
 	// Achievement archive
 	if ( dpa_is_achievement_archive() ) {
-		$title['text]'] = dpa_get_achievement_archive_title();
+		$new_title['text'] = dpa_get_achievement_archive_title();
 
 	// Single achievement page
 	} elseif ( dpa_is_single_achievement() ) {
-		$title['text']   = dpa_get_achievement_title();
-		$title['format'] = esc_attr__( 'Achievement: %s', 'dpa' );
+		$new_title['text']   = dpa_get_achievement_title();
+		$new_title['format'] = esc_attr__( 'Achievement: %s', 'dpa' );
 	}
 
-	// Get the formatted raw title
-	$title = dpa_parse_args( array(
+	$new_title = apply_filters( 'dpa_raw_title_array', $new_title ); 
+
+	$new_title = dpa_parse_args( $new_title, array(
 		'format' => '%s',
-		'text'   => '',
+		'text'   => $title,
 	), 'title' );
 
-	$title = sprintf( $title['format'], $title['text'] );
-	$title = apply_filters( 'dpa_raw_title', $title, $sep, $seplocation );
+	// Get the formatted raw title
+	$new_title = sprintf( $new_title['format'], $new_title['text'] );
+	$new_title = apply_filters( 'dpa_raw_title', $new_title, $sep, $seplocation );
 
 	// Compare new title with original title
-	if ( $title === $_title )
+	if ( $new_title === $title )
 		return $title;
 
-	// Temporary separator, for accurate flipping, if necessary
+	// Temporary separator for accurate flipping, if necessary
 	$t_sep  = '%WP_TITILE_SEP%';
 	$prefix = '';
 
-	if ( ! empty( $title ) )
+	if ( ! empty( $new_title ) )
 		$prefix = " $sep ";
 
 	// Separate on right, so reverse the order
 	if ( 'right' === $seplocation ) {
-		$title_array = explode( $t_sep, $title );
-		$title_array = array_reverse( $title_array );
-		$title       = implode( " $sep ", $title_array ) . $prefix;
+		$new_title_array = explode( $t_sep, $new_title );
+		$new_title_array = array_reverse( $new_title_array );
+		$new_title       = implode( " $sep ", $new_title_array ) . $prefix;
 
 	// Separate on left, do not reverse
 	} else {
-		$title_array = explode( $t_sep, $title );
-		$title       = $prefix . implode( " $sep ", $title_array );
+		$new_title_array = explode( $t_sep, $new_title );
+		$new_title       = $prefix . implode( " $sep ", $new_title_array );
 	}
 
 	// Filter and return
-	return apply_filters( 'dpa_title', $title, $sep, $seplocation );
+	return apply_filters( 'dpa_title', $new_title, $sep, $seplocation );
 }
 
 
