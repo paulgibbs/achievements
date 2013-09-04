@@ -470,11 +470,14 @@ class DPA_Admin {
 			<h3><?php _e( 'Getting Started', 'dpa' ); ?></h3>
 
 				<div class="feature-section">
-					<h4><?php _e( 'Your Default Setup', 'dpa' ); ?></h4>
-					<p><?php _e( 'TODO', 'dpa' ); ?><p>
+					<h4><?php _e( 'Create your first achievement', 'dpa' ); ?></h4>
+					<p><?php _e( 'Welcome to Achievements! Thanks for installing the plugin.', 'dpa' ); ?></p>
+					<p><?php _e( 'The first concept to understand is that there are two different types of achievements: <strong>awards</strong> and <strong>events</strong>. Award achievements have to be manually given out by a site admin, and event achievements are awarded automatically when its criteria has been met. <a href="http://achievementsapp.com/getting-started/types-of-achievements/">Learn more about achievement types</a>.', 'dpa' ); ?></p>
+					<p><?php _e( 'The best way to learn is by doing, so let&rsquo;s create an achievement and find out how everything works. Our <a href="%">Getting Started guide</a> will walk you through this easy process.', 'dpa' ); ?></p>
 
-					<h4><?php _e( 'Community and Support', 'dpa' ); ?></h4>
-					<p><?php _e( 'TODO', 'dpa' ) ?></p>
+					<h4><?php _e( 'Get help and support', 'dpa' ); ?></h4>
+					<p><?php printf( __( 'If you have questions about the plugin or need help, get in contact by leaving a message on the <a href="%s">WordPress.org support forum</a>. We&rsquo;d love to find out how you&rsquo;re using Achievements, so be sure to drop by and tell us!', 'dpa' ), esc_url( 'http://wordpress.org/support/plugin/achievements' ) ); ?></p>
+					<p><?php _e( 'Keep reading to learn about the new features in this release of Achievements.', 'dpa' ); ?></p>
 				</div>
 
 			<?php endif; ?>
@@ -492,7 +495,7 @@ class DPA_Admin {
 				<h3><?php _e( 'Private achievements', 'dpa' ); ?></h3>
 
 				<div class="feature-section">
-					<h4><?php _e( 'Private achievements are hidden from the main listings', 'dpa' ); ?></h4>
+					<h4><?php _e( 'Hide achievements from the main listings', 'dpa' ); ?></h4>
 					<p><?php _e( 'Making an achievement private is a great way to surprise even the most prolific achievement hunter in your community! Private achievements work in exactly the same way as a regular achievement, but are hidden from the main listings.', 'dpa' ); ?></p>
 					<p><?php _e( 'If you would like to make a specific achievement private, open the achievement for editing, press <strong>Edit</strong> in the publish module and select <strong>Private</strong>. Remember to save your changes!', 'dpa' ); ?></p>
 				</div>
@@ -502,7 +505,7 @@ class DPA_Admin {
 				<h3><?php _e( 'WP-PostRatings', 'dpa' ); ?></h3>
 
 				<div class="feature-section">
-					<h4><?php _e( 'New supported plugin', 'dpa' ); ?></h4>
+					<h4><?php _e( 'Users can now unlock achievements when rating your site content.', 'dpa' ); ?></h4>
 					<p><?php printf( __( 'The <a href="%s">WP-PostRatings</a> plugin adds a star rating system to your site&rsquo;s posts and pages (and much more!). Typically, it&rsquo;s used as fun way to gather feedback about your content from your site&rsquo;s users.', 'dpa' ), esc_url( 'http://wordpress.org/plugins/wp-postratings/' ) ); ?></p>
 					<p><?php _e( 'Achievements 3.4 has built-in support for WP-PostRatings, allowing you to easily award points and achievements as people leave feedback.', 'dpa' ); ?></p>
 				</div>
