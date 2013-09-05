@@ -1,0 +1,19 @@
+{
+  "author": "Paul Gibbs <paul@byotos.com>",
+  "bugs": {
+    "url": "https://github.com/paulgibbs/achievements/issues"
+  },
+  "description": "Achievements gamifies your WordPress site with challenges, badges, and points.",
+  "keywords": [ "achievements", "badges", "challenges", "gaming", "points", "rewards" ],
+  "homepage": "http://achievementsapp.com",
+  "licenses": {
+    "type": "GPLv3",
+    "url": "https://github.com/paulgibbs/achievements/blob/master/license.txt"
+  },
+  "name": "achievements-for-wordpress",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/paulgibbs/achievements.git"
+  },
+  "version": "3.5.0"
+}
