@@ -6,6 +6,9 @@
 	convertNoticesToExceptions="true"
 	convertWarningsToExceptions="true"
 	>
+	<logging>
+		<log type="junit" target="tests/phpunit/build/logs/junit.xml" logIncompleteSkipped="false"/>
+	</logging>
 	<testsuites>
 		<testsuite>
 			<directory suffix=".php">tests/phpunit/testcases/</directory>
