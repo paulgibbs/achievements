@@ -487,7 +487,7 @@ class DPA_Admin {
 
 				<div class="feature-section">
 					<h4><?php _e( 'Rank your users by their karma point totals', 'dpa' ); ?></h4>
-					<p><?php _e( 'A long-awaited feature, be sure to add the new leaderboard widget to your site! It allows members of your community to compare each other&rsquo;s karma point totals. This is the first step towards powerful user comparision and ranking features, and we&rsquo;re thrilled that this has finally arrived in Achievements 3.4!', 'dpa' ); ?></p>
+					<p><?php _e( 'A long-awaited feature, be sure to add the new leaderboard widget to your site! It allows members of your community to compare each other&rsquo;s karma point totals. This is the first step towards powerful user comparison and ranking features, and we&rsquo;re thrilled that this has finally arrived in Achievements 3.4!', 'dpa' ); ?></p>
 				</div>
 			</div>
 
