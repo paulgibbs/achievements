@@ -273,7 +273,7 @@ class DPA_Admin {
 		if ( 'achievements-plugins' === $_GET['page'] ) {
 			wp_enqueue_script( 'dpa_socialite',   trailingslashit( $this->javascript_url ) . 'socialite-min.js',          array(), '20120722', true );
 			wp_enqueue_script( 'tablesorter_js',  trailingslashit( $this->javascript_url ) . 'jquery-tablesorter-min.js', array( 'jquery' ), '20120722', true );
-			wp_enqueue_script( 'dpa_sp_admin_js', trailingslashit( $this->javascript_url ) . 'supportedplugins-min.js',   array( 'jquery', 'dpa_socialite', 'dashboard', 'postbox' ), '20120722', true );
+			wp_enqueue_script( 'dpa_sp_admin_js', trailingslashit( $this->javascript_url ) . 'supportedplugins.js',       array( 'jquery', 'dpa_socialite', 'dashboard', 'postbox' ), '20130908', true );
 
 			// Add thickbox for the 'not installed' links on the List view
 			add_thickbox();
