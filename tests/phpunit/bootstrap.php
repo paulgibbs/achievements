@@ -2,7 +2,7 @@
 require_once getenv( 'WP_TESTS_DIR' ) . '/includes/functions.php';
 
 function _load_achievements() {
-	require dirname( dirname( __FILE__ ) ) . '/achievements.php';
+	require dirname( dirname( dirname( __FILE__ ) ) ) . '/src/achievements.php';
 }
 tests_add_filter( 'muplugins_loaded', '_load_achievements' );
 
