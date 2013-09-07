@@ -1,1 +1,15 @@
-/*! http://wordpress.org/plugins/achievements/ */(function(e){e(document).ready(function(){e("body.achievement-notifications").click(function(){e("#dpa-notifications-wrapper").remove()});e("#dpa-notifications").click(function(e){e.stopPropagation()})})})(jQuery);
+/*! http://wordpress.org/plugins/achievements/ */
+(function($){
+$(document).ready(function() {
+
+	// If click is outside the notifications popup, close it.
+	$('body.achievement-notifications').click(function() {
+		$('#dpa-notifications-wrapper').remove();
+	});
+
+	$('#dpa-notifications').click(function(event){
+		event.stopPropagation();
+	});
+
+});
+})(jQuery);
