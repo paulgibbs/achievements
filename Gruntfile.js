@@ -4,13 +4,15 @@ module.exports = function(grunt) {
 	var SOURCE_DIR = 'src/';
 	var BUILD_DIR = 'build/';
 
-	// Load tasks. 
+	// Load tasks.
 	require('matchdep').filterDev('grunt-*').forEach( grunt.loadNpmTasks );
 
 	// Project configuration.
 	grunt.initConfig({
 		clean: {
 			all: [BUILD_DIR],
+			build: [BUILD_DIR + 'templates/achievements/css/dev/',
+							BUILD_DIR + 'includes/admin/css/dev/'],
 			dynamic: {
 				cwd: BUILD_DIR,
 				dot: true,
@@ -82,8 +84,8 @@ module.exports = function(grunt) {
 	});
 
 	// Register tasks.
-	grunt.registerTask('build-dev',  ['clean:all', 'copy:all', 'less:core']);
-	grunt.registerTask('build-prod', ['clean:all', 'copy:all', 'less:core', 'cssmin:core', 'uglify:core']);
+	grunt.registerTask('build-dev',  ['clean:all', 'copy:all', 'less:core', 'clean:build']);
+	grunt.registerTask('build-prod', ['clean:all', 'copy:all', 'less:core', 'cssmin:core', 'uglify:core', 'clean:build']);
 
 	// Default task.
 	grunt.registerTask('default', ['build-dev']);
