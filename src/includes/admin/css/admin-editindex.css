@@ -1,2 +1,12 @@
 /*! http://wordpress.org/plugins/achievements/
-*/.column-achievement_type,.column-karma{width:15%}.column-dpa_thumb{width:10%}
+*/
+/**
+ * The stylesheet for Achievements' "Edit Achievements" admin index screen
+ */
+.column-achievement_type,
+.column-karma {
+  width: 15%;
+}
+.column-dpa_thumb {
+  width: 10%;
+}
