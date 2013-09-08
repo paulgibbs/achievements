@@ -81,11 +81,16 @@ module.exports = function(grunt) {
 				],
 			}
 		},
+		phpunit: {
+			all: {
+				dir: 'tests/phpunit/'
+			}
+		}
 	});
 
 	// Register tasks.
 	grunt.registerTask('build-dev',  ['clean:all', 'copy:all', 'less:core', 'clean:build']);
-	grunt.registerTask('build-prod', ['clean:all', 'copy:all', 'less:core', 'cssmin:core', 'uglify:core', 'clean:build']);
+	grunt.registerTask('build-prod', ['clean:all', 'copy:all', 'less:core', 'cssmin:core', 'uglify:core', 'clean:build', 'phpunit:all']);
 
 	// Default task.
 	grunt.registerTask('default', ['build-dev']);
