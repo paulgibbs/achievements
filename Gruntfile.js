@@ -80,7 +80,7 @@ module.exports = function(grunt) {
 			}
 		},
 		cssjanus: {
-			dev: {
+			core: {
 				expand: true,
 				cwd: BUILD_DIR,
 				dest: BUILD_DIR,
