@@ -57,15 +57,22 @@ module.exports = function(grunt) {
 			}
 		},
 		cssmin: {
-			core: {
-				cwd: BUILD_DIR, // Overwrite the LESS-generated CSS files caused by the previous step
+			ltr: {
+				cwd: SOURCE_DIR,
 				dest: BUILD_DIR,
 				expand: true,
 				ext: '.css',
 				src: [
 					'templates/achievements/css/{achievements,notifications}.css',
-					'includes/admin/css/{achievements,admin-editindex,chosen,supportedplugins,users}.css',
-				],
+					'includes/admin/css/{achievements,admin-editindex,chosen,supportedplugins,users}.css'
+				]
+			rtl: {
+				cwd: BUILD_DIR,
+				ext: '.css',
+				src: [
+					'templates/achievements/css/{achievements,notifications}-rtl.css',
+					'includes/admin/css/{achievements,admin-editindex,chosen,supportedplugins,users}-rtl.css'
+				]
 			}
 		},
 		cssjanus: {
