@@ -100,9 +100,6 @@ module.exports = function(grunt) {
 		}
 	});
 
-	//Load other tasks
-	grunt.loadNpmTasks('grunt-cssjanus');
-
 	// Register tasks.
 	grunt.registerTask('build-dev',  ['clean:all', 'copy:all', 'less:core', 'cssjanus', 'clean:build']);
 	grunt.registerTask('build-prod', ['clean:all', 'copy:all', 'less:core', 'cssjanus', 'cssmin:core', 'uglify:core', 'clean:build', 'phpunit:all']);
