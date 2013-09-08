@@ -63,7 +63,7 @@ module.exports = function(grunt) {
 				expand: true,
 				ext: '.css',
 				src: [
-					'templates/achievements/css/{achievements|notifications}.css',
+					'templates/achievements/css/{achievements,notifications}.css',
 					'includes/admin/css/{achievements,admin-editindex,chosen,supportedplugins,users}.css',
 				],
 			}
