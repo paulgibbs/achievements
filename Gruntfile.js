@@ -101,8 +101,8 @@ module.exports = function(grunt) {
 	});
 
 	// Register tasks.
-	grunt.registerTask('build-dev',  ['clean:all', 'copy:all', 'less:core', 'cssjanus', 'clean:build']);
-	grunt.registerTask('build-prod', ['clean:all', 'copy:all', 'less:core', 'cssjanus', 'cssmin:core', 'uglify:core', 'clean:build', 'phpunit:all']);
+	grunt.registerTask('build-dev',  ['clean:all', 'less:core']);
+	grunt.registerTask('build-prod', ['clean:all', 'copy:all', 'less:core', 'cssjanus:core', 'cssmin:ltr', 'cssmin:rtl', 'uglify:core', 'clean:build', 'phpunit:all']);
 
 	// Default task.
 	grunt.registerTask('default', ['build-dev']);
