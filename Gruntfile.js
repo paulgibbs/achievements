@@ -82,7 +82,7 @@ module.exports = function(grunt) {
 		cssjanus: {
 			core: {
 				expand: true,
-				cwd: BUILD_DIR,
+				cwd: SOURCE_DIR,
 				dest: BUILD_DIR,
 				ext: '-rtl.css',
 				src: [
