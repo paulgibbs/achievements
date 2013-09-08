@@ -44,16 +44,16 @@ module.exports = function(grunt) {
 			core: {
 				files: {
 					// front-end
-					'build/templates/achievements/css/achievements.css':   'src/templates/achievements/css/dev/achievements.less',
-					'build/templates/achievements/css/notifications.css': 'src/templates/achievements/css/dev/notifications.less',
+					'src/templates/achievements/css/achievements.css':  'src/templates/achievements/css/dev/achievements.less',
+					'src/templates/achievements/css/notifications.css': 'src/templates/achievements/css/dev/notifications.less',
 
 					// admin
-					'build/includes/admin/css/achievements.css':     'src/includes/admin/css/dev/achievements.less',
-					'build/includes/admin/css/admin-editindex.css':  'src/includes/admin/css/dev/admin-editindex.less',
-					'build/includes/admin/css/chosen.css':           'src/includes/admin/css/dev/chosen.less',
-					'build/includes/admin/css/supportedplugins.css': 'src/includes/admin/css/dev/supportedplugins.less',
-					'build/includes/admin/css/users.css':            'src/includes/admin/css/dev/users.less',
-				},
+					'src/includes/admin/css/achievements.css':     'src/includes/admin/css/dev/achievements.less',
+					'src/includes/admin/css/admin-editindex.css':  'src/includes/admin/css/dev/admin-editindex.less',
+					'src/includes/admin/css/chosen.css':           'src/includes/admin/css/dev/chosen.less',
+					'src/includes/admin/css/supportedplugins.css': 'src/includes/admin/css/dev/supportedplugins.less',
+					'src/includes/admin/css/users.css':            'src/includes/admin/css/dev/users.less',
+				}
 			}
 		},
 		cssmin: {
@@ -102,7 +102,7 @@ module.exports = function(grunt) {
 
 	// Register tasks.
 	grunt.registerTask('build-dev',  ['clean:all', 'less:core']);
-	grunt.registerTask('build-prod', ['clean:all', 'copy:all', 'less:core', 'cssjanus:core', 'cssmin:ltr', 'cssmin:rtl', 'uglify:core', 'clean:build', 'phpunit:all']);
+	grunt.registerTask('build-prod', ['clean:all', 'less:core', 'copy:all', 'cssjanus:core', 'cssmin:ltr', 'cssmin:rtl', 'uglify:core', 'clean:build', 'phpunit:all']);
 
 	// Default task.
 	grunt.registerTask('default', ['build-dev']);
