@@ -71,7 +71,7 @@ module.exports = function(grunt) {
 		cssjanus: {
 			dev: {
 				expand: true,
-				cwd: SOURCE_DIR,
+				cwd: BUILD_DIR,
 				dest: BUILD_DIR,
 				ext: '-rtl.css',
 				src: [
