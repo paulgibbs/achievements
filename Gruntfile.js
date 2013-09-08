@@ -66,10 +66,14 @@ module.exports = function(grunt) {
 					'templates/achievements/css/{achievements,notifications}.css',
 					'includes/admin/css/{achievements,admin-editindex,chosen,supportedplugins,users}.css'
 				]
+			},
 			rtl: {
 				cwd: BUILD_DIR,
+				dest: BUILD_DIR,
+				expand: true,
 				ext: '.css',
 				src: [
+					// RTL from cssjanus
 					'templates/achievements/css/{achievements,notifications}-rtl.css',
 					'includes/admin/css/{achievements,admin-editindex,chosen,supportedplugins,users}-rtl.css'
 				]
