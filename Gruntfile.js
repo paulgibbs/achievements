@@ -68,6 +68,18 @@ module.exports = function(grunt) {
 				],
 			}
 		},
+		cssjanus: {
+			dev: {
+				expand: true,
+				cwd: SOURCE_DIR,
+				dest: BUILD_DIR,
+				ext: '-rtl.css',
+				src: [
+					'templates/achievements/css/{achievements,notifications}.css',
+					'includes/admin/css/{achievements,admin-editindex,chosen,supportedplugins,users}.css'
+				]
+			}
+		},
 		uglify: {
 			core: {
 				cwd: SOURCE_DIR,
@@ -88,9 +100,12 @@ module.exports = function(grunt) {
 		}
 	});
 
+	//Load other tasks
+	grunt.loadNpmTasks('grunt-cssjanus');
+
 	// Register tasks.
-	grunt.registerTask('build-dev',  ['clean:all', 'copy:all', 'less:core', 'clean:build']);
-	grunt.registerTask('build-prod', ['clean:all', 'copy:all', 'less:core', 'cssmin:core', 'uglify:core', 'clean:build', 'phpunit:all']);
+	grunt.registerTask('build-dev',  ['clean:all', 'copy:all', 'less:core', 'cssjanus', 'clean:build']);
+	grunt.registerTask('build-prod', ['clean:all', 'copy:all', 'less:core', 'cssjanus', 'cssmin:core', 'uglify:core', 'clean:build', 'phpunit:all']);
 
 	// Default task.
 	grunt.registerTask('default', ['build-dev']);
