@@ -82,8 +82,9 @@ module.exports = function(grunt) {
 	});
 
 	// Register tasks.
-	grunt.registerTask('build', ['clean:all', 'copy:all', 'less:core', 'cssmin:core', 'uglify:core']);
+	grunt.registerTask('build-dev',  ['clean:all', 'copy:all', 'less:core']);
+	grunt.registerTask('build-prod', ['clean:all', 'copy:all', 'less:core', 'cssmin:core', 'uglify:core']);
 
 	// Default task.
-	grunt.registerTask('default', ['build']);
+	grunt.registerTask('default', ['build-dev']);
 };
