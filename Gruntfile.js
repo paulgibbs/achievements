@@ -89,6 +89,9 @@ module.exports = function(grunt) {
 					'templates/achievements/css/{achievements,notifications}.css',
 					'includes/admin/css/{achievements,admin-editindex,chosen,supportedplugins,users}.css'
 				]
+			},
+			options: {
+				banner: '/*! http://wordpress.org/plugins/achievements/ */\n'
 			}
 		},
 		uglify: {
@@ -102,6 +105,9 @@ module.exports = function(grunt) {
 					'includes/admin/js/supportedplugins.js',
 					'templates/achievements/js/*.js'
 				],
+			},
+			options: {
+				banner: '/*! http://wordpress.org/plugins/achievements/ */\n'
 			}
 		},
 		phpunit: {
