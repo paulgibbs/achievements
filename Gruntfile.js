@@ -65,7 +65,10 @@ module.exports = function(grunt) {
 				src: [
 					'templates/achievements/css/{achievements,notifications}.css',
 					'includes/admin/css/{achievements,admin-editindex,chosen,supportedplugins,users}.css'
-				]
+				],
+				options: {
+					banner: '/*! http://wordpress.org/plugins/achievements/ */'
+				}
 			},
 			rtl: {
 				cwd: BUILD_DIR,
@@ -76,7 +79,10 @@ module.exports = function(grunt) {
 					// RTL from cssjanus
 					'templates/achievements/css/{achievements,notifications}-rtl.css',
 					'includes/admin/css/{achievements,admin-editindex,chosen,supportedplugins,users}-rtl.css'
-				]
+				],
+				options: {
+					banner: '/*! http://wordpress.org/plugins/achievements/ */'
+				}
 			}
 		},
 		cssjanus: {
