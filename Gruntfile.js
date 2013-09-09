@@ -94,7 +94,10 @@ module.exports = function(grunt) {
 				src: [
 					'templates/achievements/css/{achievements,notifications}.css',
 					'includes/admin/css/{achievements,admin-editindex,chosen,supportedplugins,users}.css'
-				]
+				],
+				options: {
+					generateExactDuplicates: true
+				}
 			}
 		},
 		uglify: {
