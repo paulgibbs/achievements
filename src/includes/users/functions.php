@@ -83,7 +83,7 @@ function dpa_get_displayed_user_id() {
 /**
  * Get the current state of the leaderboard, sorted by users' karma points.
  *
- * If you try to use this function, you will need to implement your own switch_to_blog and wp_reset_postdata() handling if running in a multisite
+ * If you try to use this function, you will need to implement your own switch_to_blog() and wp_reset_postdata() handling if running in a multisite
  * and in a dpa_is_running_networkwide() configuration, otherwise the data won't be fetched from the appropriate site.
  *
  * This function accept a 'user_ids' parameter in the $argument, which accepts an array of user IDs.
@@ -154,10 +154,14 @@ function dpa_get_leaderboard( array $args = array() ) {
 		);
 	}
 
-	$points = wp_parse_id_list( $points );  // Cast to ints and returns unique values
- 	rsort( $points, SORT_NUMERIC );         // Sort descending for FIND_IN_SET
-	$points = implode( ',', $points );      // Format for FIND_IN_SET
+	/**
+	 * Can't use wp_parse_id_list() here because that casts the values to unsigned ints.
+	 * The leaderboard might contain users with negative karma point totals.
+	 */
+	$points = array_unique( array_map( 'intval', $points ) );
 
+ 	rsort( $points, SORT_NUMERIC );     // Sort descending for FIND_IN_SET
+	$points = implode( ',', $points );  // Format for FIND_IN_SET
 
 	/**
 	 * 2a) Start building the SQL to get each user's rank, user ID, and points total.
