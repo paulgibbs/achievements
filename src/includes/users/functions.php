@@ -160,7 +160,7 @@ function dpa_get_leaderboard( array $args = array() ) {
 	 */
 	$points = array_unique( array_map( 'intval', $points ) );
 
- 	rsort( $points, SORT_NUMERIC );     // Sort descending for FIND_IN_SET
+	rsort( $points, SORT_NUMERIC );     // Sort descending for FIND_IN_SET
 	$points = implode( ',', $points );  // Format for FIND_IN_SET
 
 	/**
