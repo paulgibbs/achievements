@@ -173,8 +173,8 @@ class DPA_Default extends DPA_Theme_Compat {
 	 */
 	public function enqueue_scripts() {
 
-		// Only load on Achievements pages
-		if ( ! is_achievements() )
+		// Don't load in wp-admin
+		if ( ! is_admin() )
 			return;
 
 		$file = 'js/achievements.js';
