@@ -1,7 +1,7 @@
 === Achievements for WordPress ===
 Contributors: DJPaul
 Tags: achievements, badges, challenges, gaming, points, rewards
-Requires at least: 3.5.1
+Requires at least: 3.6.1
 Tested up to: 3.6.20
 Stable tag: 3.4
 License: GPLv3
