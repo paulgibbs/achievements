@@ -59,7 +59,7 @@ class DPA_Default extends DPA_Theme_Compat {
 	private function setup_actions() {
 		// Template pack
 		add_action( 'dpa_enqueue_scripts', array( $this, 'enqueue_styles'  ) );
-		//add_action( 'dpa_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
+		add_action( 'dpa_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
 
 		// Notifications
 		add_action( 'dpa_enqueue_scripts', array( $this, 'enqueue_notifications_style'  ) );
