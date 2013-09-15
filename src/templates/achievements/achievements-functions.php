@@ -18,7 +18,7 @@ if ( ! class_exists( 'DPA_Default' ) ) :
  * This is not a real theme by WordPress standards and is instead used as the
  * fallback for any WordPress theme that does not have Achievements templates in it.
  *
- * To make your custom theme Achievements compatible and customise the templates,
+ * To make your custom theme Achievements compatible and to customise the templates,
  * you can copy these files into your theme without needing to merge anything
  * together; we'll safely handle the rest.
  *
