@@ -36,6 +36,7 @@ class DPA_Default extends DPA_Theme_Compat {
 	public function __construct() {
 		$this->setup_globals();
 		$this->setup_actions();
+		$this->setup_filters();
 	}
 
 	/**
@@ -52,7 +53,7 @@ class DPA_Default extends DPA_Theme_Compat {
 	}
 
 	/**
-	 * Sets up the theme hooks
+	 * Hook this theme compatibility template pack into various actions
 	 *
 	 * @since Achievements (3.0)
 	 */
@@ -66,6 +67,17 @@ class DPA_Default extends DPA_Theme_Compat {
 		add_action( 'dpa_enqueue_scripts', array( $this, 'enqueue_notifications_script' ) );
 
 		do_action_ref_array( 'dpa_theme_compat_actions', array( &$this ) );
+	}
+
+	/**
+	 * Hook this theme compatibility template pack into various filters
+	 *
+	 * @since Achievements (3.0)
+	 */
+	private function setup_filters() {
+		add_filter( 'heartbeat_received',  array( $this, 'notifications_heartbeat_receieved' ), 10, 2 );
+
+		do_action_ref_array( 'dpa_theme_compat_filters', array( &$this ) );
 	}
 
 	/**
@@ -128,7 +140,6 @@ class DPA_Default extends DPA_Theme_Compat {
 			$handle   = 'dpa-default-notifications';
 		}
 
-		// Enqueue the stylesheet
 		wp_enqueue_style( $handle, $location . $file, array(), dpa_get_theme_compat_version(), 'screen' );
 	}
 
@@ -162,7 +173,6 @@ class DPA_Default extends DPA_Theme_Compat {
 			$handle   = 'dpa-default-notifications-javascript';
 		}
 
-		// Enqueue the stylesheet
 		wp_enqueue_script( $handle, $location . $file, array( 'jquery' ), dpa_get_theme_compat_version(), 'screen', true );
 	}
 
@@ -173,8 +183,8 @@ class DPA_Default extends DPA_Theme_Compat {
 	 */
 	public function enqueue_scripts() {
 
-		// Don't load in wp-admin
-		if ( ! is_admin() )
+		// If user's not active or is inside the WordPress Admin, bail out.
+		if ( ! dpa_is_user_active() || is_admin() || is_404() )
 			return;
 
 		$file = 'js/achievements.js';
@@ -195,8 +205,33 @@ class DPA_Default extends DPA_Theme_Compat {
 			$handle   = 'dpa-default-javascript';
 		}
 
-		// Enqueue the stylesheet
-		wp_enqueue_script( $handle, $location . $file, array( 'jquery' ), dpa_get_theme_compat_version(), 'screen', true );
+		wp_enqueue_script( $handle, $location . $file, array( 'heartbeat', 'underscore' ), dpa_get_theme_compat_version(), 'screen', true );
+	}
+
+	/**
+	 * The PHP side of Achievements' live notifications system using WordPress 3.6's heartbeat API.
+	 *
+	 * The heartbeat JS makes periodic AJAX connections back to WordPress. WordPress sees those requests, and fires the
+	 * heartbeat_recieved filter. This filter allows plugins to change the server's response before it's sent back to
+	 * the originating user's browser.
+	 *
+	 * @param array $response The data we want to send back to user whose heart beat.
+	 * @param array $data An array of $_POST data received from the originating AJAX request.
+	 * @return array The data we want to send back to user.
+	 * @since Achievements (3.5)
+	 */
+	public function notifications_heartbeat_receieved( $response, $data ) {
+		if ( isset( $data['achievements'] ) )
+			$response['server'] = 'polo';
+
+		return $response;
+
+/*
+	$notifications = dpa_get_user_notifications();
+
+	if ( empty( $notifications ) )
+		return;
+*/
 	}
 }  // class_exists
 endif;
