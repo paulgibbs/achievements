@@ -39,10 +39,6 @@ function dpa_bp_loaded() {
  */
 function dpa_bp_members_my_achievements() {
 
-	// Clear pending notifications when visiting your user achievement page
-	if ( dpa_is_user_active() && bp_is_my_profile() )
-		dpa_update_user_notifications();
-
 	// Inelegant hack to disable our theme compat if we're using BP's "bp_template_content" filter.
 	remove_filter( 'dpa_template_include', 'dpa_template_include_theme_supports', 2, 1 );
 	remove_filter( 'dpa_template_include', 'dpa_template_include_theme_compat',   4, 2 );
