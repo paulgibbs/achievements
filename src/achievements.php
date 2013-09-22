@@ -323,7 +323,7 @@ final class DPA_Achievements_Loader {
 		/**
 		 * Admin
 		 */
-		if ( is_admin() ) {
+		if ( is_admin() && ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) ) {
 			require( $this->includes_dir . 'admin/admin.php'   );
 			require( $this->includes_dir . 'admin/actions.php' );
 		}

@@ -18,7 +18,7 @@ if ( ! class_exists( 'DPA_Default' ) ) :
  * This is not a real theme by WordPress standards and is instead used as the
  * fallback for any WordPress theme that does not have Achievements templates in it.
  *
- * To make your custom theme Achievements compatible and customise the templates,
+ * To make your custom theme Achievements compatible and to customise the templates,
  * you can copy these files into your theme without needing to merge anything
  * together; we'll safely handle the rest.
  *
@@ -36,6 +36,7 @@ class DPA_Default extends DPA_Theme_Compat {
 	public function __construct() {
 		$this->setup_globals();
 		$this->setup_actions();
+		$this->setup_filters();
 	}
 
 	/**
@@ -52,20 +53,31 @@ class DPA_Default extends DPA_Theme_Compat {
 	}
 
 	/**
-	 * Sets up the theme hooks
+	 * Hook this theme compatibility template pack into various actions
 	 *
 	 * @since Achievements (3.0)
 	 */
 	private function setup_actions() {
 		// Template pack
 		add_action( 'dpa_enqueue_scripts', array( $this, 'enqueue_styles'  ) );
-		//add_action( 'dpa_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
+		add_action( 'dpa_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
 
 		// Notifications
 		add_action( 'dpa_enqueue_scripts', array( $this, 'enqueue_notifications_style'  ) );
 		add_action( 'dpa_enqueue_scripts', array( $this, 'enqueue_notifications_script' ) );
 
 		do_action_ref_array( 'dpa_theme_compat_actions', array( &$this ) );
+	}
+
+	/**
+	 * Hook this theme compatibility template pack into various filters
+	 *
+	 * @since Achievements (3.0)
+	 */
+	private function setup_filters() {
+		add_filter( 'heartbeat_received',  array( $this, 'notifications_heartbeat_response' ), 10, 2 );
+
+		do_action_ref_array( 'dpa_theme_compat_filters', array( &$this ) );
 	}
 
 	/**
@@ -128,7 +140,6 @@ class DPA_Default extends DPA_Theme_Compat {
 			$handle   = 'dpa-default-notifications';
 		}
 
-		// Enqueue the stylesheet
 		wp_enqueue_style( $handle, $location . $file, array(), dpa_get_theme_compat_version(), 'screen' );
 	}
 
@@ -162,7 +173,6 @@ class DPA_Default extends DPA_Theme_Compat {
 			$handle   = 'dpa-default-notifications-javascript';
 		}
 
-		// Enqueue the stylesheet
 		wp_enqueue_script( $handle, $location . $file, array( 'jquery' ), dpa_get_theme_compat_version(), 'screen', true );
 	}
 
@@ -173,8 +183,8 @@ class DPA_Default extends DPA_Theme_Compat {
 	 */
 	public function enqueue_scripts() {
 
-		// Only load on Achievements pages
-		if ( ! is_achievements() )
+		// If user's not active or is inside the WordPress Admin, bail out.
+		if ( ! dpa_is_user_active() || is_admin() || is_404() )
 			return;
 
 		$file = 'js/achievements.js';
@@ -195,8 +205,79 @@ class DPA_Default extends DPA_Theme_Compat {
 			$handle   = 'dpa-default-javascript';
 		}
 
-		// Enqueue the stylesheet
-		wp_enqueue_script( $handle, $location . $file, array( 'jquery' ), dpa_get_theme_compat_version(), 'screen', true );
+		wp_enqueue_script( $handle, $location . $file, array( 'heartbeat', 'underscore' ), dpa_get_theme_compat_version(), 'screen', true );
+	}
+
+	/**
+	 * The PHP side of Achievements' live notifications system using WordPress 3.6's heartbeat API; we grab the image,
+	 * post ID, permalink, and title of all achievements that have recently been unlocked, and send that back using
+	 * WordPress' heartbeat_recieved filter.
+	 *
+	 * The heartbeat JS makes periodic AJAX connections back to WordPress. WordPress sees those requests, and fires the
+	 * heartbeat_recieved filter. The filter allows plugins to change the server's response before it's sent back to
+	 * the originating user's browser.
+	 *
+	 * @param array $response The data we want to send back to user whose heart beat.
+	 * @param array $data An array of $_POST data received from the originating AJAX request.
+	 * @return array The data we want to send back to user.
+	 * @since Achievements (3.5)
+	 */
+	public function notifications_heartbeat_response( $response, $data ) {
+		// Bail if user is not active, or $data isn't in the expected format
+		if ( ! dpa_is_user_active() || ! isset( $data['achievements'] ) || ! is_array( $data['achievements'] ) )
+			return $response;
+
+		$ids = array_keys( dpa_get_user_notifications() );
+		if ( empty( $ids ) )
+			return $response;
+
+		// If multisite and running network-wide, switch_to_blog to the data store site
+		if ( is_multisite() && dpa_is_running_networkwide() )
+			switch_to_blog( DPA_DATA_STORE );
+
+		$achievements = dpa_get_achievements( array(
+			'no_found_rows' => true,
+			'nopaging'      => true,
+			'post__in'      => $ids,
+			'post_status'   => 'any',
+		) );
+
+		$new_response = array();
+		foreach ( $achievements as $achievement ) {
+			/**
+			 * Check that the post status is published or privately published. We need to check this here to work
+			 * around WP_Query not constructing the query correctly with private post statuses.
+			 */
+			if ( ! in_array( $achievement->post_status, array( 'publish', 'private' ) ) )
+				continue;
+
+			$item              = array();
+			$item['ID']        = $achievement->ID;
+			$item['title']     = apply_filters( 'dpa_get_achievement_title', $achievement->post_title, $achievement->ID );
+			$item['permalink'] = home_url( '/?p=' . $achievement->ID );
+
+			// Thumbnail is optional and may not be set
+			$thumbnail = get_post_thumbnail_id( $achievement->ID );
+			if ( ! empty( $thumbnail ) ) {
+		
+				$thumbnail = wp_get_attachment_image_src( $thumbnail, array( 'medium' ) );
+				if ( $thumbnail )
+					$item['image_url'] = $thumbnail[0];
+			}
+
+			// Achievements 3.5+ supports showing multiple unlock notifications at the same time
+			$new_response[] = $item;
+		}
+
+		// If multisite and running network-wide, undo the switch_to_blog
+		if ( is_multisite() && dpa_is_running_networkwide() )
+			restore_current_blog();
+
+		// Clear all pending notifications
+		dpa_update_user_notifications();
+
+		$new_response = array_merge( $response, array( 'achievements' => $new_response ) );
+		return apply_filters( 'dpa_theme_compat_notifications_heartbeat_response', $new_response, $ids, $response, $data );
 	}
 }  // class_exists
 endif;
