@@ -273,6 +273,9 @@ class DPA_Default extends DPA_Theme_Compat {
 		if ( is_multisite() && dpa_is_running_networkwide() )
 			restore_current_blog();
 
+		// Clear all pending notifications
+		dpa_update_user_notifications();
+
 		$new_response = array_merge( $response, array( 'achievements' => $new_response ) );
 		return apply_filters( 'dpa_theme_compat_notifications_heartbeat_response', $new_response, $ids, $response, $data );
 	}
