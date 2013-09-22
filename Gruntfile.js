@@ -120,6 +120,11 @@ module.exports = function(grunt) {
 			all: {
 				dir: 'tests/phpunit/'
 			}
+		},
+		watch: {
+			files: ["src/templates/achievements/css/dev/*",
+							"src/includes/admin/css/dev/*"],
+			tasks: ["less"]
 		}
 	});
 
