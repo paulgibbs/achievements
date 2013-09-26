@@ -205,7 +205,7 @@ class DPA_Default extends DPA_Theme_Compat {
 			$handle   = 'dpa-default-javascript';
 		}
 
-		wp_enqueue_script( $handle, $location . $file, array( 'heartbeat', 'underscore' ), dpa_get_theme_compat_version(), 'screen', true );
+		wp_enqueue_script( $handle, $location . $file, array( 'heartbeat', 'underscore', 'wp-util' ), dpa_get_theme_compat_version(), 'screen', true );
 	}
 
 	/**
