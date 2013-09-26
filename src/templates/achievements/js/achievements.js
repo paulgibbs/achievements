@@ -5,35 +5,32 @@
  */
 
 /* jshint undef: true, unused: true */
-/* global jQuery, _, wp */
+/* global jQuery, wp */
 
 
 /**
- * Achievements JS object
+ * Achievements' main JS object.
  *
  * @type {Object}
  */
 var achievements = {
-	heartbeat: null
+	/**
+	 * Achievements' heartbeat object.
+	 *
+	 * @type {Achievements_Heartbeat}
+	 */
+	heartbeat: null,
+
+	/**
+	 * Fetches a template by ID.
+	 *
+	 * This abstraction helps Achievements remain future-compatible with WordPress if their wp.template() method changes.
+	 * See wp.template() in WordPress' wp-includes/js/wp-util.js.
+	 *
+	 * @type {function}
+	 */
+	template: wp.template
 };
-
-/*
-	wp.template = _.memoize(function ( id ) {
-		var compiled,
-			options = {
-				evaluate:    /<#([\s\S]+?)#>/g,
-				interpolate: /\{\{\{([\s\S]+?)\}\}\}/g,
-				escape:      /\{\{([^\}]+?)\}\}(?!\})/g,
-				variable:    'data'
-			};
-
-		return function ( data ) {
-			compiled = compiled || _.template( $( '#tmpl-' + id ).html(), null, options );
-			return compiled( data );
-		};
-	});
-*/
-//wp-check-locked-posts
 
 
 (function ($) {
