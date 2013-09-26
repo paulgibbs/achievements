@@ -57,6 +57,8 @@ class DPA_Shortcodes {
 
 			// Misc
 			'dpa-breadcrumb'              => array( $this, 'display_breadcrumb' ),
+
+			// Deprecated shortcodes -- DO **NOT** USE
 			'dpa-unlock-notice'           => array( $this, 'display_feedback_achievement_unlocked' ),
 		) );
 	}
