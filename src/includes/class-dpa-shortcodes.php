@@ -274,5 +274,23 @@ class DPA_Shortcodes {
 
 		return $this->end();
 	}
+
+	/**
+	 * Display the "achievement unlocked" javascript template and return to ensure that post/page contents are displayed first.
+	 * 
+	 * Note: this is a JS template, not a HTML template. This template is wrapped inside <script> tags which will be used with
+	 * underscore.js' _.template() method. It compiles these JS templates into functions that can be evaluated for rendering.
+	 *
+	 * @return string Contents of output buffer
+	 * @since Achievements (3.5)
+	 */
+	public function display_notifications_template() {
+		$this->unset_globals();
+		$this->start();
+
+		dpa_get_template_part( 'feedback-notifications' );
+
+		return $this->end();
+	}
 }
 endif;  // class_exists

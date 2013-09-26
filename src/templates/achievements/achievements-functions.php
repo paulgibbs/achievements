@@ -59,11 +59,12 @@ class DPA_Default extends DPA_Theme_Compat {
 	 */
 	private function setup_actions() {
 		// Template pack
-		add_action( 'dpa_enqueue_scripts', array( $this, 'enqueue_styles'  ) );
+		add_action( 'dpa_enqueue_scripts', array( $this, 'enqueue_styles' ) );
 		add_action( 'dpa_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
+		add_action( 'dpa_footer',          array( $this, 'print_notification_templates' ) );
 
 		// Notifications
-		add_action( 'dpa_enqueue_scripts', array( $this, 'enqueue_notifications_style'  ) );
+		add_action( 'dpa_enqueue_scripts', array( $this, 'enqueue_notifications_style' ) );
 		add_action( 'dpa_enqueue_scripts', array( $this, 'enqueue_notifications_script' ) );
 
 		do_action_ref_array( 'dpa_theme_compat_actions', array( &$this ) );
@@ -278,6 +279,24 @@ class DPA_Default extends DPA_Theme_Compat {
 
 		$new_response = array_merge( $response, array( 'achievements' => $new_response ) );
 		return apply_filters( 'dpa_theme_compat_notifications_heartbeat_response', $new_response, $ids, $response, $data );
+	}
+
+	/**
+	 * Output the notification JS templates.
+	 * 
+	 * These will be used with underscore.js' _.template() method. It compiles these JS templates into functions
+	 * that can be evaluated for rendering. Useful for rendering complicated bits of HTML from JSON data sources,
+	 * which is exactly what we're going to do.
+	 *
+	 * @since Achievements (3.5)
+	 */
+	public static function print_notification_templates() {
+
+		// If user's not active or is inside the WordPress Admin, bail out.
+		if ( ! dpa_is_user_active() || is_admin() || is_404() )
+			return;
+
+		echo achievements()->shortcodes->display_notifications_template();
 	}
 }  // class_exists
 endif;
