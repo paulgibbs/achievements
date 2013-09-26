@@ -84,8 +84,6 @@ class DPA_Shortcodes {
 
 		// Unset global IDs
 		achievements()->current_achievement_id = 0;
-
-		// Reset the post data globals
 		wp_reset_postdata();
 	}
 
@@ -140,8 +138,6 @@ class DPA_Shortcodes {
 	 */
 	public function display_achievements_index() {
 		$this->unset_globals();
-
-		// Start output buffer
 		$this->start( 'dpa_achievement_archive' );
 
 		dpa_get_template_part( 'content-archive-achievement' );
@@ -179,7 +175,6 @@ class DPA_Shortcodes {
 			achievements()->achievement_query->post                    = get_post( $achievement_id );
 		}
 
-		// Start output buffer
 		$this->start( 'dpa_single_achievement' );
 
 		dpa_get_template_part( 'content-single-achievement' );
@@ -196,8 +191,6 @@ class DPA_Shortcodes {
 	 */
 	public function display_user_achievements() {
 		$this->unset_globals();
-
-		// Start output buffer
 		$this->start( 'dpa_single_user_achievements' );
 
 		dpa_get_template_part( 'content-author-achievement' );
@@ -211,16 +204,13 @@ class DPA_Shortcodes {
 	 */
 
 	/**
-	 * Display the leaderboard widget in an output buffer and return to ensure that post/page
-	 * contents are displayed first.
+	 * Display the leaderboard widget in an output buffer and return to ensure that post/page contents are displayed first.
 	 *
 	 * @return string Contents of output buffer
 	 * @since Achievements (3.4)
 	 */
 	public function display_leaderboard() {
 		$this->unset_globals();
-
-		// Start output buffer
 		$this->start();
 
 		dpa_get_template_part( 'content-leaderboard', 'widget' );
@@ -229,16 +219,13 @@ class DPA_Shortcodes {
 	}
 
 	/**
-	 * Display the redeem achievements widget in an output buffer and return to ensure that post/page
-	 * contents are displayed first.
+	 * Display the redeem achievements widget in an output buffer and return to ensure that post/page contents are displayed first.
 	 *
 	 * @return string Contents of output buffer
 	 * @since Achievements (3.1)
 	 */
 	public function display_redeem_achievement_form() {
 		$this->unset_globals();
-
-		// Start output buffer
 		$this->start();
 
 		dpa_get_template_part( 'form-redeem-code' );
@@ -259,8 +246,6 @@ class DPA_Shortcodes {
 	 */
 	public function display_breadcrumb() {
 		$this->unset_globals();
-
-		// Start output buffer
 		$this->start();
 
 		dpa_breadcrumb();
@@ -269,7 +254,7 @@ class DPA_Shortcodes {
 	}
 
 	/**
-	 * Display the "achievement unlocked" feedback template
+	 * Display the "achievement unlocked" feedback template and return to ensure that post/page contents are displayed first.
 	 *
 	 * @return string Contents of output buffer
 	 * @since Achievements (3.0)
@@ -281,8 +266,6 @@ class DPA_Shortcodes {
 		achievements()->theme_functions->enqueue_notifications_script( true );
 
 		$this->unset_globals();
-
-		// Start output buffer
 		$this->start();
 
 		dpa_get_template_part( 'feedback-achievement-unlocked' );
