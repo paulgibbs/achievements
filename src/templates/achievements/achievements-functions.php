@@ -75,7 +75,7 @@ class DPA_Default extends DPA_Theme_Compat {
 	 * @since Achievements (3.0)
 	 */
 	private function setup_filters() {
-		add_filter( 'heartbeat_received',  array( $this, 'notifications_heartbeat_response' ), 10, 2 );
+		add_filter( 'heartbeat_received',  array( __CLASS__, 'notifications_heartbeat_response' ), 10, 2 );
 
 		do_action_ref_array( 'dpa_theme_compat_filters', array( &$this ) );
 	}
@@ -222,7 +222,7 @@ class DPA_Default extends DPA_Theme_Compat {
 	 * @return array The data we want to send back to user.
 	 * @since Achievements (3.5)
 	 */
-	public function notifications_heartbeat_response( $response, $data ) {
+	public static function notifications_heartbeat_response( $response, $data ) {
 		// Bail if user is not active, or $data isn't in the expected format
 		if ( ! dpa_is_user_active() || ! isset( $data['achievements'] ) || ! is_array( $data['achievements'] ) )
 			return $response;
