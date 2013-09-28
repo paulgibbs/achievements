@@ -378,6 +378,10 @@ function dpa_theme_compat_reset_post( $args = array() ) {
  */
 function dpa_template_include_theme_compat( $template = '' ) {
 
+	// Bail if a root template was already found. This prevents unintended recursive filtering of 'the_content'.
+	if ( dpa_is_template_included() )
+		return $template;
+
 	// Bail if shortcodes are unset somehow
 	if ( ! is_a( achievements()->shortcodes, 'DPA_Shortcodes' ) )
 		return $template;
