@@ -261,7 +261,7 @@ class DPA_Default extends DPA_Theme_Compat {
 			$thumbnail = get_post_thumbnail_id( $achievement->ID );
 			if ( ! empty( $thumbnail ) ) {
 		
-				$thumbnail = wp_get_attachment_image_src( $thumbnail, array( 'medium' ) );
+				$thumbnail = wp_get_attachment_image_src( $thumbnail, 'medium' );
 				if ( $thumbnail )
 					$item['image_url'] = $thumbnail[0];
 			}
