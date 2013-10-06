@@ -5,7 +5,7 @@
  */
 
 /* jshint undef: true, unused: true */
-/* global jQuery, wp */
+/* global jQuery, wp, _ */
 
 
 /**
@@ -24,12 +24,28 @@ var achievements = {
 	/**
 	 * Fetches a template by ID.
 	 *
-	 * This abstraction helps Achievements remain future-compatible with WordPress if their wp.template() method changes.
-	 * See wp.template() in WordPress' wp-includes/js/wp-util.js.
+	 * Copied from WordPress' wp.template() method in wp-includes/js/wp-util.js.
 	 *
-	 * @type {function}
+	 * @param {String} ID Name of the template to render
+	 * @param {Object} data Data received from the server
+	 * @return {String} HTML
 	 */
-	template: wp.template
+	template: function (ID, data) {
+		return _.memoize(function () {
+			var compiled,
+			options = {
+				evaluate:    /<#([\s\S]+?)#>/g,
+				interpolate: /\{\{\{([\s\S]+?)\}\}\}/g,
+				escape:      /\{\{([^\}]+?)\}\}(?!\})/g,
+				variable:    'data'
+			};
+
+			return function () {
+				compiled = compiled || _.template( jQuery( '#tmpl-' + ID ).html(), null, options );
+				return compiled( data );
+			};
+		});
+	}
 };
 
 
@@ -96,6 +112,34 @@ var achievements = {
 			isWindowVisible = (document[visibilityChangeProperty] === false);
 		}
 
+		/**
+		 * Render new notifications to the screen
+		 *
+		 * @param {object} data Data received from the server
+		 */
+		function showNotifications(data) {
+
+			var notifications = $(document.createDocumentFragment()),
+			panel = $('#dpa-notifications');
+
+			// Grab the rendered markup for each achievement
+			_.each(data, function(achievement) {
+				notifications.append(achievements.template('achievements-item', achievement));
+			});
+
+			// If our wrapper doesn't exist yet, create it
+			if (panel.length < 1) {
+				var wrapper = $(document.createDocumentFragment());
+				wrapper.append(achievements.template('achievements-wrapper'));
+				$('body').append(wrapper);
+
+				panel = $('#dpa-notifications');
+			}
+
+			panel.append(notifications);
+			$('#dpa-notifications-wrapper').fadeIn('fast');
+		}
+
 
 		// WP Heartbeat API implementation
 
@@ -108,6 +152,13 @@ var achievements = {
 		function tick(e, data) {
 			// Record if the user is logged in or not
 			isUserLoggedIn = ('wp-auth-check' in data && data['wp-auth-check'] === true);
+
+			// If nothing in the response for Achievements, bail out
+			if ( ! ( 'achievements' in data ) ) {
+				return;
+			}
+
+			showNotifications(data.achievements);
 		}
 
 		/**
