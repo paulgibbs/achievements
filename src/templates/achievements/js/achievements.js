@@ -120,7 +120,8 @@ var achievements = {
 		function showNotifications(data) {
 
 			var notifications = $(document.createDocumentFragment()),
-			panel = $('#dpa-notifications');
+			panel = $('#dpa-notifications'),
+			wrapper;
 
 			// Grab the rendered markup for each achievement
 			_.each(data, function(achievement) {
@@ -129,15 +130,35 @@ var achievements = {
 
 			// If our wrapper doesn't exist yet, create it
 			if (panel.length < 1) {
-				var wrapper = $(document.createDocumentFragment());
+				wrapper = $(document.createDocumentFragment());
 				wrapper.append(achievements.template('achievements-wrapper'));
 				$('body').append(wrapper);
 
 				panel = $('#dpa-notifications');
 			}
 
+			// Add rendered notifications to the panel
 			panel.append(notifications);
-			$('#dpa-notifications-wrapper').fadeIn('fast');
+			wrapper = $('#dpa-notifications-wrapper');
+
+			// Set class for number of items so we can target specific CSS changes
+			if (! wrapper.hasClass('dpa-quad-view')) {
+
+				var count = panel.children().length,
+				viewClass = 'dpa-single-view';
+
+				if (count >= 4) {
+					viewClass = 'dpa-quad-view';
+				} else if (count == 3) {
+					viewClass = 'dpa-tri-view';
+				} else if (count == 2) {
+					viewClass = 'dpa-dual-view';
+				}
+
+				wrapper.removeClass('dpa-single-view dpa-dual-view dpa-tri-view dpa-quad-view').addClass(viewClass);
+			}
+
+			wrapper.fadeIn('fast');
 		}
 
 
