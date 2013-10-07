@@ -144,7 +144,7 @@ var achievements = {
 			// Set class for number of items so we can target specific CSS changes
 			if (! wrapper.hasClass('dpa-quad-view')) {
 
-				var count = panel.children().length,
+				var count = panel.children('li').length,
 				viewClass = 'dpa-single-view';
 
 				if (count >= 4) {
