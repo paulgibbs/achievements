@@ -200,9 +200,11 @@ var achievements = {
 			}
 
 			// djpaultodo: don't ping if the popup is still open
+			if (! $('#dpa-notifications-wrapper').is(':visible')) {
 
-			// We want to recieve any new notifications in the next heartbeat
-			data['achievements'] = { type: 'notifications' };
+				// We want to recieve any new notifications in the next heartbeat
+				data['achievements'] = { type: 'notifications' };
+			}
 		}
 
 		/**
