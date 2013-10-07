@@ -387,7 +387,16 @@ function dpa_achievement_content( $achievement_id = 0 ) {
 
 		$content = get_post_field( 'post_content', $achievement_id );
 
-		return apply_filters( 'dpa_get_achievement_content', $content, $achievement_id );
+		/**
+		 * Juggle the do_shortcode filter to prevent Achievements' shortcodes being run on the excerpt.
+		 * This is important because otherwise some shortcodes affect the achievements() global in bad
+		 * ways (i.e. the breadcrumb shortcode breaks pagination).
+		 */
+		remove_filter( 'dpa_get_achievement_content', 'do_shortcode', 26 );
+		$retval = apply_filters( 'dpa_get_achievement_content', $content, $achievement_id );
+		add_filter( 'dpa_get_achievement_content', 'do_shortcode', 26 );
+
+		return $retval;
 	}
 
 /**
