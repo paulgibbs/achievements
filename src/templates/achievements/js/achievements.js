@@ -118,10 +118,8 @@ var achievements = {
 		 * @param {object} data Data received from the server
 		 */
 		function showNotifications(data) {
-
 			var notifications = $(document.createDocumentFragment()),
-			panel = $('#dpa-notifications'),
-			wrapper;
+			panel = $('#dpa-toaster');
 
 			// Grab the rendered markup for each achievement
 			_.each(data, function(achievement) {
@@ -130,19 +128,18 @@ var achievements = {
 
 			// If our wrapper doesn't exist yet, create it
 			if (panel.length < 1) {
-				wrapper = $(document.createDocumentFragment());
+				var wrapper = $(document.createDocumentFragment());
 				wrapper.append(achievements.template('achievements-wrapper'));
 				$('body').append(wrapper);
 
-				panel = $('#dpa-notifications');
+				panel = $('#dpa-toaster');
 			}
 
 			// Add rendered notifications to the panel
-			panel.append(notifications);
-			wrapper = $('#dpa-notifications-wrapper');
+			notifications.insertAfter(panel.children(':first-child'));
 
 			// Set class for number of items so we can target specific CSS changes
-			if (! wrapper.hasClass('dpa-quad-view')) {
+			if (! panel.hasClass('dpa-quad-view')) {
 
 				var count = panel.children('li').length,
 				viewClass = 'dpa-single-view';
@@ -155,10 +152,10 @@ var achievements = {
 					viewClass = 'dpa-dual-view';
 				}
 
-				wrapper.removeClass('dpa-single-view dpa-dual-view dpa-tri-view dpa-quad-view').addClass(viewClass);
+				panel.removeClass('dpa-single-view dpa-dual-view dpa-tri-view dpa-quad-view').addClass(viewClass);
 			}
 
-			wrapper.fadeIn('fast');
+			panel.fadeIn(100);
 		}
 
 
@@ -199,12 +196,8 @@ var achievements = {
 				return;
 			}
 
-			// djpaultodo: don't ping if the popup is still open
-			if (! $('#dpa-notifications-wrapper').is(':visible')) {
-
-				// We want to recieve any new notifications in the next heartbeat
-				data['achievements'] = { type: 'notifications' };
-			}
+			// We want to recieve any new notifications in the next heartbeat
+			data['achievements'] = { type: 'notifications' };
 		}
 
 		/**
