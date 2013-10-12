@@ -155,7 +155,7 @@ var achievements = {
 				panel.removeClass('dpa-single-view dpa-dual-view dpa-tri-view dpa-quad-view').addClass(viewClass);
 			}
 
-			panel.fadeIn(100);
+			panel.fadeIn(50);
 		}
 
 
