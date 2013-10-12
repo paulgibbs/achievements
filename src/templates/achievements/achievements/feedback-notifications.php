@@ -12,13 +12,13 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 ?>
 
 <script type="text/html" id="tmpl-achievements-wrapper">
-	<ul id="dpa-toaster" style="display: none">
+	<ul aria-live="polite" id="dpa-toaster" role="status" style="display: none">
 		<h1><?php _e( 'Achievements Unlocked!', 'dpa' ); ?></h1>
 	</ul>
 </script>
 
 <script type="text/html" id="tmpl-achievements-item">
-	<li aria-live="polite" class="dpa-toast" id="dpa-toaster-id-{{ data.ID }}">
+	<li class="dpa-toast" id="dpa-toaster-id-{{ data.ID }}">
 		<# if (data.image_url) { #>
 			<a href="{{ data.permalink }}"><img class="attachment-medium dpa-achievement-unlocked-thumbnail" src="{{ data.image_url }}"  style="width: {{ data.image_width }}px" /></a>
 		<# } #>
