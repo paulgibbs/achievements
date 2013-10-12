@@ -262,8 +262,10 @@ class DPA_Default extends DPA_Theme_Compat {
 			if ( ! empty( $thumbnail ) ) {
 		
 				$thumbnail = wp_get_attachment_image_src( $thumbnail, 'medium' );
-				if ( $thumbnail )
-					$item['image_url'] = $thumbnail[0];
+				if ( $thumbnail ) {
+					$item['image_url']   = $thumbnail[0];
+					$item['image_width'] = $thumbnail[1];
+				}
 			}
 
 			// Achievements 3.5+ supports showing multiple unlock notifications at the same time
