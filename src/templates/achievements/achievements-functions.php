@@ -185,7 +185,7 @@ class DPA_Default extends DPA_Theme_Compat {
 	public function enqueue_scripts() {
 
 		// If user's not active or is inside the WordPress Admin, bail out.
-		if ( ! dpa_is_user_active() || is_admin() || is_404() )
+		if ( ! dpa_is_user_active() || is_admin() || is_404() || is_preview() )
 			return;
 
 		$file = 'js/achievements.js';
