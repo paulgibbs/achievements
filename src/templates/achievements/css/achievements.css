@@ -264,10 +264,16 @@ div.dpa-template-notice .avatar {
  * Notifications
  */
 #dpa-toaster {
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  -webkit-box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.6);
+  -moz-box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.6);
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.6);
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
-  background-color: white;
+  background: #ffffff;
   list-style: none;
   margin: 0;
   padding: 10px;
@@ -278,6 +284,12 @@ div.dpa-template-notice .avatar {
   z-index: 99999;
   /* Thank you, twentyten, for going for 9999 */
 
+}
+#dpa-toaster h1 {
+  display: inline-block;
+  font-size: 29px;
+  font-weight: 300;
+  margin-bottom: 20px;
 }
 .dpa-toast {
   *zoom: 1;
@@ -291,8 +303,10 @@ div.dpa-template-notice .avatar {
 .dpa-toast:after {
   clear: both;
 }
-.dpa-toast h1 {
+.dpa-toast h2 {
   display: inline-block;
+  font-size: 29px;
+  margin-bottom: 10px;
 }
 .dpa-toast img {
   float: left;
@@ -305,6 +319,10 @@ div.dpa-template-notice .avatar {
 .dpa-toast:nth-child(n+3) .dpa-toaster-bottom {
   display: none;
 }
+.dpa-toast:nth-child(n+3) h2 {
+  font-size: 12px;
+  margin-top: 10px;
+}
 .dpa-toaster-bottom {
   list-style: none;
   margin: 0;
@@ -312,3 +330,10 @@ div.dpa-template-notice .avatar {
 .dpa-toaster-bottom li {
   display: inline-block;
 }
+/**
+ #dpa-notifications .dpa-notification-cta {
+	.border-radius(@noticeBorderRadius);
+	background: @notificationsCTAColour;
+	color: @notificationsForegroundColour;
+}
+*/

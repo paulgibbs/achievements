@@ -13,20 +13,17 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 <script type="text/html" id="tmpl-achievements-wrapper">
 	<ul id="dpa-toaster" style="display: none">
-		<h1><?php _e( 'Achievement Unlocked', 'dpa' ); ?></h1>
+		<h1><?php _e( 'Achievements Unlocked!', 'dpa' ); ?></h1>
 	</ul>
 </script>
 
 <script type="text/html" id="tmpl-achievements-item">
 	<li aria-live="polite" class="dpa-toast" id="dpa-toaster-id-{{ data.ID }}">
 		<# if (data.image_url) { #>
-			<a href="{{ data.permalink }}"><img src="{{ data.image_url }}" class="attachment-medium dpa-achievement-unlocked-thumbnail" /></a>
-		<# } else { #>
-			<img src="http://placekitten.com/g/300/200" style="height: 200px" />
-			<!-- SET MIN WIDTH ON THIS IMAGE -->
+			<a href="{{ data.permalink }}"><img class="attachment-medium dpa-achievement-unlocked-thumbnail" src="{{ data.image_url }}"  style="width: {{ data.image_width }}px" /></a>
 		<# } #>
 
-		<h1>{{ data.title }}</h1>
+		<h2>{{ data.title }}</h2>
 		<p><?php _e( "Hey, you've unlocked the ??? achievement. Congratulations!", 'dpa' ); ?></p><?php /* DJPAULTODO: use WP localise string function */ ?>
 
 		<ul class="dpa-toaster-bottom">

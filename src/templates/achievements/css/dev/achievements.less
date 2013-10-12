@@ -224,8 +224,10 @@ div.dpa-template-notice {
  */
 
 #dpa-toaster {
+	.border-radius(@noticeBorderRadius);
+	.box-shadow(0px 0px @themeCompatMargin*2 rgba(0, 0, 0, 0.6));
 	.box-sizing(border-box);
-	background-color: white;
+	background: @notificationsForegroundColour;
 
 	list-style: none;
 	margin: 0;
@@ -236,6 +238,13 @@ div.dpa-template-notice {
 	top: 0;
 	width: 80%;
 	z-index: 99999; /* Thank you, twentyten, for going for 9999 */
+
+	h1 {
+		display: inline-block;
+		font-size: @notificationsLargeFontSizePx;
+		font-weight: 300;
+		margin-bottom: @themeCompatMargin*2;
+	}
 }
 
 
@@ -243,7 +252,12 @@ div.dpa-template-notice {
 	.clearfix();
 	overflow: hidden;
 
-	h1 { display: inline-block; }
+	h2 {
+		display: inline-block;
+		font-size: @notificationsLargeFontSizePx;
+		margin-bottom: @themeCompatMargin;
+	}
+
 	img {
 		float: left;
 		margin: 0 @themeCompatMargin @themeCompatMargin 0;
@@ -254,6 +268,11 @@ div.dpa-template-notice {
 	// Hide everything except the main title and the first LI
 	&:nth-child(n+3) img,
 	&:nth-child(n+3) .dpa-toaster-bottom { display: none; }
+
+	&:nth-child(n+3) h2 {
+		font-size: @smallFontSizePx;
+		margin-top: @themeCompatMargin;
+	}
 }
 
 .dpa-toaster-bottom {
@@ -262,3 +281,11 @@ div.dpa-template-notice {
 
 	li { display: inline-block; }
 }
+
+/**
+ #dpa-notifications .dpa-notification-cta {
+	.border-radius(@noticeBorderRadius);
+	background: @notificationsCTAColour;
+	color: @notificationsForegroundColour;
+}
+*/
