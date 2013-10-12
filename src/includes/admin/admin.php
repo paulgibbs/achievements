@@ -440,8 +440,10 @@ class DPA_Admin {
 	 * @since Achievements (3.4)
 	 */
 	public function about_screen() {
-		$is_new_install          = ! empty( $_GET['is_new_install'] );
 		list( $display_version ) = explode( '-', dpa_get_version() );
+
+		$is_new_install = ! empty( $_GET['is_new_install'] );
+		$name           = wp_get_current_user()->display_name;
 	?>
 
 		<style type="text/css">
@@ -454,9 +456,19 @@ class DPA_Admin {
 			<h1><?php _e( 'Welcome to Achievements', 'dpa' ); ?></h1>
 			<div class="about-text">
 				<?php if ( $is_new_install ) : ?>
-					<?php printf( __( 'Achievements %s is our safest, fastest, and most feature-packed version ever!', 'dpa' ), $display_version ); ?>
+					<p><?php printf( __( 'Hi, %s! Thanks very much for downloading Achievements %s. You really are rather nice. ', 'dpa' ), esc_html( $name ), $display_version ); ?></p>
+					<p>
+						<?php _e( 'This exciting update screen is to confirm a few things that you probably already know:', 'dpa' ); ?>
+						<ol>
+							<li><?php _e( 'You&#8217;re super talented at finding great WordPress plugins.', 'dpa' ); ?></li>
+							<li><?php _e( 'We think you&#8217;ve got a truly exceptional website.', 'dpa' ); ?></li>
+							<li><?php _e( 'See 1 &amp; 2.', 'dpa' ); ?></li>
+						</ol>
+					</p>
+					<p><?php _e( 'Achievements gamifies your WordPress site with challenges, badges, and points, which are the funnest ways to reward and encourage members of your community to participate. We hope you enjoy using this plugin!', 'dpa' ); ?></p>
 				<?php else : ?>
-					<?php printf( __( 'Thanks for updating! Achievements %1$s adds a leaderboard widget, a new private achievements feature, and support for the <a href="%2$s">WP-PostRatings</a> plugin.', 'dpa' ), $display_version, esc_url( 'http://wordpress.org/plugins/wp-postratings/' ) ); ?>
+					<p><?php printf( __( 'Thanks for updating to Achievements %1$s, %2$s! You really are rather nice. ', 'dpa' ), $display_version , esc_html( $name )); ?></p>
+					<p><?php printf( __( 'This release adds a leaderboard widget, a new private achievements feature, and support for the <a href="%s">WP-PostRatings</a> plugin.', 'dpa' ), esc_url( 'http://wordpress.org/plugins/wp-postratings/' ) ); ?></p>
 				<?php endif; ?>
 			</div>
 
@@ -471,8 +483,7 @@ class DPA_Admin {
 
 				<div class="feature-section">
 					<h4><?php _e( 'Create your first achievement', 'dpa' ); ?></h4>
-					<p><?php _e( 'Welcome to Achievements! Thanks for installing the plugin.', 'dpa' ); ?></p>
-					<p><?php _e( 'The first concept to understand is that there are two different types of achievements: <strong>awards</strong> and <strong>events</strong>. Award achievements have to be manually given out by a site admin, and event achievements are awarded automatically when its criteria has been met. <a href="http://achievementsapp.com/getting-started/types-of-achievements/">Learn more about achievement types</a>.', 'dpa' ); ?></p>
+					<p><?php _e( 'The first idea to grasp is that there are two different types of achievements: <strong>awards</strong> and <strong>events</strong>. Award achievements have to be manually given out by a site admin, and event achievements are awarded automatically when its criteria has been met. <a href="http://achievementsapp.com/getting-started/types-of-achievements/">Learn more about achievement types</a>.', 'dpa' ); ?></p>
 					<p><?php _e( 'The best way to learn is by doing, so let&rsquo;s create an achievement and find out how everything works. Our <a href="%">Getting Started guide</a> will walk you through this easy process.', 'dpa' ); ?></p>
 
 					<h4><?php _e( 'Get help and support', 'dpa' ); ?></h4>
