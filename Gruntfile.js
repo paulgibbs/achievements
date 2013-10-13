@@ -45,7 +45,6 @@ module.exports = function(grunt) {
 				files: {
 					// front-end
 					'src/templates/achievements/css/achievements.css':  'src/templates/achievements/css/dev/achievements.less',
-					'src/templates/achievements/css/notifications.css': 'src/templates/achievements/css/dev/notifications.less',
 
 					// admin
 					'src/includes/admin/css/achievements.css':     'src/includes/admin/css/dev/achievements.less',
@@ -63,7 +62,7 @@ module.exports = function(grunt) {
 				expand: true,
 				ext: '.css',
 				src: [
-					'templates/achievements/css/{achievements,notifications}.css',
+					'templates/achievements/css/achievements.css',
 					'includes/admin/css/{achievements,admin-editindex,chosen,supportedplugins,users}.css'
 				],
 				options: {
@@ -77,7 +76,7 @@ module.exports = function(grunt) {
 				ext: '.css',
 				src: [
 					// RTL from cssjanus
-					'templates/achievements/css/{achievements,notifications}-rtl.css',
+					'templates/achievements/css/achievements-rtl.css',
 					'includes/admin/css/{achievements,admin-editindex,chosen,supportedplugins,users}-rtl.css'
 				],
 				options: {
@@ -92,7 +91,7 @@ module.exports = function(grunt) {
 				dest: BUILD_DIR,
 				ext: '-rtl.css',
 				src: [
-					'templates/achievements/css/{achievements,notifications}.css',
+					'templates/achievements/css/achievements.css',
 					'includes/admin/css/{achievements,admin-editindex,chosen,supportedplugins,users}.css'
 				],
 				options: {
