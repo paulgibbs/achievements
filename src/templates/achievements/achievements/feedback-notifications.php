@@ -31,9 +31,14 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 			?>
 		</p>
 
-		<ul class="dpa-toaster-bottom">
-			<li>[Share on Twitter]</li>
-			<li>[Share on Facebook]</li>
-		</ul>
+		<p><?php
+			$facebook_url = '';
+			$twitter_url = '';
+			printf(
+				__( 'Celebrate and share with your friends on %1$s and %2$s.', 'dpa' ),
+				sprintf( '<a href="%1$s" target="_new">%2$s</a>', esc_url( $facebook_url ), __( 'Facebook', 'dpa' ) ),
+				sprintf( '<a href="%1$s" target="_new">%2$s</a>', esc_url( $twitter_url ),  __( 'Twitter',  'dpa' ) )
+			);
+		?></p>
 	</li>
 </script>
