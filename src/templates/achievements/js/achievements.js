@@ -137,24 +137,6 @@ var achievements = {
 
 			// Add rendered notifications to the panel
 			notifications.insertAfter(panel.children(':first-child'));
-
-			// Set class for number of items so we can target specific CSS changes
-			if (! panel.hasClass('dpa-quad-view')) {
-
-				var count = panel.children('li').length,
-				viewClass = 'dpa-single-view';
-
-				if (count >= 4) {
-					viewClass = 'dpa-quad-view';
-				} else if (count == 3) {
-					viewClass = 'dpa-tri-view';
-				} else if (count == 2) {
-					viewClass = 'dpa-dual-view';
-				}
-
-				panel.removeClass('dpa-single-view dpa-dual-view dpa-tri-view dpa-quad-view').addClass(viewClass);
-			}
-
 			panel.fadeIn(50);
 		}
 
