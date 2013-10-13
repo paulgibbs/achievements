@@ -282,10 +282,9 @@ div.dpa-template-notice .avatar {
   top: 0;
   width: 80%;
   z-index: 99999;
-  /* Thank you, twentyten, for going for 9999 */
-
 }
 #dpa-toaster h1 {
+  color: inherit;
   display: inline-block;
   font-size: 29px;
   font-weight: 300;
@@ -312,23 +311,17 @@ div.dpa-template-notice .avatar {
   float: left;
   margin: 0 10px 10px 0;
 }
-.dpa-toast:last-child p {
+.dpa-toast p {
+  line-height: 1.5;
   margin-bottom: 0;
 }
 .dpa-toast:nth-child(n+3) img,
-.dpa-toast:nth-child(n+3) .dpa-toaster-bottom {
+.dpa-toast:nth-child(n+3) p {
   display: none;
 }
 .dpa-toast:nth-child(n+3) h2 {
   font-size: 12px;
   margin-top: 10px;
-}
-.dpa-toaster-bottom {
-  list-style: none;
-  margin: 0;
-}
-.dpa-toaster-bottom li {
-  display: inline-block;
 }
 /**
  #dpa-notifications .dpa-notification-cta {

@@ -237,16 +237,16 @@ div.dpa-template-notice {
 	left: 10%;
 	top: 0;
 	width: 80%;
-	z-index: 99999; /* Thank you, twentyten, for going for 9999 */
+	z-index: 99999;  // Thank you, twentyten, for going for 9999
 
 	h1 {
+		color: inherit;  // theme compat 
 		display: inline-block;
 		font-size: @notificationsLargeFontSizePx;
 		font-weight: 300;
 		margin-bottom: @themeCompatMargin*2;
 	}
 }
-
 
 .dpa-toast {
 	.clearfix();
@@ -263,23 +263,21 @@ div.dpa-template-notice {
 		margin: 0 @themeCompatMargin @themeCompatMargin 0;
 	}
 
-	&:last-child p { margin-bottom: 0; }
+	p {
+		line-height: 1.5;
+		margin-bottom: 0;
+	}
 
 	// Hide everything except the main title and the first LI
-	&:nth-child(n+3) img,
-	&:nth-child(n+3) .dpa-toaster-bottom { display: none; }
+	&:nth-child(n+3) {
+		img,
+		p {	display: none; }
 
-	&:nth-child(n+3) h2 {
-		font-size: @smallFontSizePx;
-		margin-top: @themeCompatMargin;
+		h2 {
+			font-size: @smallFontSizePx;
+			margin-top: @themeCompatMargin;
+		}
 	}
-}
-
-.dpa-toaster-bottom {
-	list-style: none;
-	margin: 0;
-
-	li { display: inline-block; }
 }
 
 /**
