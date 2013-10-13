@@ -58,14 +58,9 @@ class DPA_Default extends DPA_Theme_Compat {
 	 * @since Achievements (3.0)
 	 */
 	private function setup_actions() {
-		// Template pack
 		add_action( 'dpa_enqueue_scripts', array( $this, 'enqueue_styles' ) );
 		add_action( 'dpa_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
 		add_action( 'dpa_footer',          array( $this, 'print_notification_templates' ) );
-
-		// Notifications
-		add_action( 'dpa_enqueue_scripts', array( $this, 'enqueue_notifications_style' ) );
-		add_action( 'dpa_enqueue_scripts', array( $this, 'enqueue_notifications_script' ) );
 
 		do_action_ref_array( 'dpa_theme_compat_actions', array( &$this ) );
 	}
@@ -108,73 +103,6 @@ class DPA_Default extends DPA_Theme_Compat {
 
 		// Enqueue the stylesheet
 		wp_enqueue_style( $handle, $location . $file, array(), dpa_get_theme_compat_version(), 'screen' );
-	}
-
-	/**
-	 * Load the CSS for notifications
-	 *
-	 * @param bool $skip_notifications_check Optional (false). If true, always enqueue styles.
-	 * @since Achievements (3.0)
-	 */
-	public function enqueue_notifications_style( $skip_notifications_check = false ) {
-
-		// If user's not active or is inside the WordPress Admin, bail out.
-		if ( ! dpa_is_user_active() || is_admin() || is_404() || ( ! $skip_notifications_check && ! dpa_user_has_notifications() ) )
-			return;
-
-		$rtl  = is_rtl() ? '-rtl' : '';
-		$file = "css/notifications{$rtl}.css";
-
-		// Check child theme
-		if ( file_exists( trailingslashit( get_stylesheet_directory() ) . $file ) ) {
-			$location = trailingslashit( get_stylesheet_directory_uri() );
-			$handle   = 'dpa-child-notifications';
-
-		// Check parent theme
-		} elseif ( file_exists( trailingslashit( get_template_directory() ) . $file ) ) {
-			$location = trailingslashit( get_template_directory_uri() );
-			$handle   = 'dpa-parent-notifications';
-
-		// Achievements theme compatibility
-		} else {
-			$location = trailingslashit( dpa_get_theme_compat_url() );
-			$handle   = 'dpa-default-notifications';
-		}
-
-		wp_enqueue_style( $handle, $location . $file, array(), dpa_get_theme_compat_version(), 'screen' );
-	}
-
-	/**
-	 * Load the JS for notifications
-	 *
-	 * @param bool $skip_notifications_check Optional (false). If true, always enqueue styles.
-	 * @since Achievements (3.1)
-	 */
-	public function enqueue_notifications_script( $skip_notifications_check = false ) {
-
-		// If user's not active or is inside the WordPress Admin, bail out.
-		if ( ! dpa_is_user_active() || is_admin() || is_404() || ( ! $skip_notifications_check && ! dpa_user_has_notifications() ) )
-			return;
-
-		$file = 'js/notifications.js';
-
-		// Check child theme
-		if ( file_exists( trailingslashit( get_stylesheet_directory() ) . $file ) ) {
-			$location = trailingslashit( get_stylesheet_directory_uri() );
-			$handle   = 'dpa-child-notifications-javascript';
-
-		// Check parent theme
-		} elseif ( file_exists( trailingslashit( get_template_directory() ) . $file ) ) {
-			$location = trailingslashit( get_template_directory_uri() );
-			$handle   = 'dpa-parent-notifications-javascript';
-
-		// Achievements theme compatibility
-		} else {
-			$location = trailingslashit( dpa_get_theme_compat_url() );
-			$handle   = 'dpa-default-notifications-javascript';
-		}
-
-		wp_enqueue_script( $handle, $location . $file, array( 'jquery' ), dpa_get_theme_compat_version(), 'screen', true );
 	}
 
 	/**
