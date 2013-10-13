@@ -13,14 +13,14 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 <script type="text/html" id="tmpl-achievements-wrapper">
 	<ul aria-live="polite" id="dpa-toaster" role="status" style="display: none">
-		<h1><?php _e( 'Achievements Unlocked!', 'dpa' ); ?></h1>
+		<h1><?php _e( 'Achievement unlocked!', 'dpa' ); ?></h1>
 	</ul>
 </script>
 
 <script type="text/html" id="tmpl-achievements-item">
-	<li class="dpa-toast" id="dpa-toaster-id-{{ data.ID }}">
+	<li class="dpa-toast" id="dpa-toast-id-{{ data.ID }}">
 		<# if (data.image_url) { #>
-			<a href="{{ data.permalink }}"><img class="attachment-medium dpa-achievement-unlocked-thumbnail" src="{{ data.image_url }}"  style="width: {{ data.image_width }}px" /></a>
+			<a href="{{ data.permalink }}"><img class="attachment-medium dpa-toast-image" src="{{ data.image_url }}"  style="width: {{ data.image_width }}px" /></a>
 		<# } #>
 
 		<h2>{{ data.title }}</h2>
@@ -31,14 +31,6 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 			?>
 		</p>
 
-		<p><?php
-			$facebook_url = '';
-			$twitter_url = '';
-			printf(
-				__( 'Celebrate and share with your friends on %1$s and %2$s.', 'dpa' ),
-				sprintf( '<a href="%1$s" target="_new">%2$s</a>', esc_url( $facebook_url ), __( 'Facebook', 'dpa' ) ),
-				sprintf( '<a href="%1$s" target="_new">%2$s</a>', esc_url( $twitter_url ),  __( 'Twitter',  'dpa' ) )
-			);
-		?></p>
+		<p><a class="dpa-toast-cta" href="<?php echo esc_url( dpa_get_user_avatar_link( 'type=url&user_id=' . get_current_user_id() ) ); ?>"><?php _e( 'See your other achievements', 'dpa' ); ?></a></p>
 	</li>
 </script>

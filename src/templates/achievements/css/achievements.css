@@ -276,7 +276,7 @@ div.dpa-template-notice .avatar {
   background: #ffffff;
   list-style: none;
   margin: 0;
-  padding: 10px;
+  padding: 10px 10px 0;
   position: fixed;
   left: 10%;
   top: 0;
@@ -290,9 +290,21 @@ div.dpa-template-notice .avatar {
   font-weight: 300;
   margin-bottom: 20px;
 }
+#dpa-toaster .dpa-toast-cta {
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  background: #3c8dc2;
+  color: #ffffff;
+  display: inline-block;
+  margin-top: 10px;
+  padding: 20px;
+  text-align: center;
+  text-decoration: none;
+}
 .dpa-toast {
   *zoom: 1;
-  overflow: hidden;
+  margin-bottom: 10px;
 }
 .dpa-toast:before,
 .dpa-toast:after {
@@ -308,25 +320,19 @@ div.dpa-template-notice .avatar {
   margin-bottom: 10px;
 }
 .dpa-toast img {
-  float: left;
-  margin: 0 10px 10px 0;
+  margin: 0 10px 0 0;
 }
 .dpa-toast p {
   line-height: 1.5;
   margin-bottom: 0;
 }
-.dpa-toast:nth-child(n+3) img,
-.dpa-toast:nth-child(n+3) p {
-  display: none;
+@media screen and (max-width: 600px) {
+  #dpa-toaster {
+    text-align: center;
+  }
 }
-.dpa-toast:nth-child(n+3) h2 {
-  font-size: 12px;
-  margin-top: 10px;
+@media screen and (min-width: 600px) {
+  #dpa-toaster .dpa-toast img {
+    float: left;
+  }
 }
-/**
- #dpa-notifications .dpa-notification-cta {
-	.border-radius(@noticeBorderRadius);
-	background: @notificationsCTAColour;
-	color: @notificationsForegroundColour;
-}
-*/

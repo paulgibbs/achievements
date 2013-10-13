@@ -231,13 +231,13 @@ div.dpa-template-notice {
 
 	list-style: none;
 	margin: 0;
-	padding: @themeCompatMargin;
+	padding: @themeCompatMargin @themeCompatMargin 0;
 
 	position: fixed;
 	left: 10%;
 	top: 0;
 	width: 80%;
-	z-index: 99999;  // Thank you, twentyten, for going for 9999
+	z-index: 99999;  // Thank you, twentyten, for going for 9,999
 
 	h1 {
 		color: inherit;  // theme compat 
@@ -246,11 +246,23 @@ div.dpa-template-notice {
 		font-weight: 300;
 		margin-bottom: @themeCompatMargin*2;
 	}
+
+	// Nested here because of theme compat issues with v3 of the plugin, but not re-confirmed since.
+	.dpa-toast-cta {
+		.border-radius(@noticeBorderRadius);
+		background: @notificationsCTAColour;
+		color: @notificationsForegroundColour;
+		display: inline-block;
+		margin-top: @themeCompatMargin;
+		padding: @themeCompatMargin*2;
+		text-align: center;
+		text-decoration: none;
+	}
 }
 
 .dpa-toast {
 	.clearfix();
-	overflow: hidden;
+	 margin-bottom: @themeCompatMargin;
 
 	h2 {
 		display: inline-block;
@@ -259,31 +271,21 @@ div.dpa-template-notice {
 	}
 
 	img {
-		float: left;
-		margin: 0 @themeCompatMargin @themeCompatMargin 0;
+		margin: 0 @themeCompatMargin 0 0;
 	}
 
 	p {
 		line-height: 1.5;
-		margin-bottom: 0;
-	}
-
-	// Hide everything except the main title and the first LI
-	&:nth-child(n+3) {
-		img,
-		p {	display: none; }
-
-		h2 {
-			font-size: @smallFontSizePx;
-			margin-top: @themeCompatMargin;
-		}
+		margin-bottom: 0;  // theme compat
 	}
 }
 
-/**
- #dpa-notifications .dpa-notification-cta {
-	.border-radius(@noticeBorderRadius);
-	background: @notificationsCTAColour;
-	color: @notificationsForegroundColour;
+// Very basic responsive styles to make things look better on mobile browsers
+@media screen and (max-width: 600px) {
+	#dpa-toaster { text-align: center; }
 }
-*/
+
+// A bit hacky; I couldn't find a way to remove `float: left` from the element via a responsive override.
+@media screen and (min-width: 600px) {
+	#dpa-toaster .dpa-toast img { float: left; }
+}
