@@ -24,7 +24,12 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 		<# } #>
 
 		<h2>{{ data.title }}</h2>
-		<p><?php _e( "Hey, you've unlocked the ??? achievement. Congratulations!", 'dpa' ); ?></p><?php /* DJPAULTODO: use WP localise string function */ ?>
+		<p>
+			<?php
+			// translators: "{{ data.title }}" will be replaced with the name of the achievement; leave this bit exactly as is.
+			_e( "Hey, you&#8217;ve unlocked the &#8220;{{ data.title }}&#8221; achievement. Congratulations!", 'dpa' );
+			?>
+		</p>
 
 		<ul class="dpa-toaster-bottom">
 			<li>[Share on Twitter]</li>
