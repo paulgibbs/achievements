@@ -137,7 +137,7 @@ var achievements = {
 
 			// Add rendered notifications to the panel
 			notifications.insertAfter(panel.children(':first-child'));
-			panel.fadeIn(50);
+			panel.fadeIn(200);
 		}
 
 
@@ -157,6 +157,15 @@ var achievements = {
 			if ( ! ( 'achievements' in data ) ) {
 				return;
 			}
+
+			// Fade the notifications window out after 6 seconds
+			window.setTimeout(function () {
+				var panel = $('#dpa-toaster');
+
+				panel.fadeOut(100, function () {
+					$(this).children('li').remove();
+				});
+			}, 6000);
 
 			showNotifications(data.achievements);
 		}
