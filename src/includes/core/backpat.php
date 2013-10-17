@@ -67,13 +67,7 @@ function dpa_deprecated_print_notifications() {
 	if ( empty( $notifications ) )
 		return;
 
-	// Display notifications
 	echo achievements()->shortcodes->display_feedback_achievement_unlocked();
-
-	// Clear the notifications
-	foreach ( $notifications as $id => $value ) {
-		dpa_clear_notification( $id );
-	}
 }
 
 if ( dpa_deprecated_notification_template_exists() )
