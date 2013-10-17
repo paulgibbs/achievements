@@ -258,6 +258,7 @@ final class DPA_Achievements_Loader {
 		require( $this->includes_dir . 'core/options.php'    );
 		require( $this->includes_dir . 'core/caps.php'       );
 		require( $this->includes_dir . 'core/update.php'     );
+		require( $this->includes_dir . 'core/backpat.php'    );
 
 
 		/**
