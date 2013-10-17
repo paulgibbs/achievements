@@ -52,6 +52,7 @@ function dpa_deprecated_notification_template_exists() {
  * Notifications were overhauled in version 3.5 and were replaced with the heartbeat-powered "live notifications" system.
  * This function used to be called "dpa_print_notifications".
  *
+ * @deprecated Achievements (3.5)
  * @since Achievements (3.0)
  */
 function dpa_deprecated_print_notifications() {
