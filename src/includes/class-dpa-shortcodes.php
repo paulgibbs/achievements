@@ -257,6 +257,7 @@ class DPA_Shortcodes {
 	 *
 	 * This function is redundant. The "feedback-achievement-unlocked" template has been removed from the plugin.
 	 * Notifications were overhauled in version 3.5 and were replaced with the heartbeat-powered "live notifications" system.
+	 *
 	 * @deprecated Achievements (3.5)
 	 * @return string Contents of output buffer
 	 * @since Achievements (3.0)
