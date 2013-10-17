@@ -45,3 +45,36 @@ function dpa_deprecated_notification_template_exists() {
 
 	return $retval;
 }
+
+/**
+ * Backwards compatibility with pre-3.5: print the old-style notifications for the current user to the page footer.
+ * 
+ * Notifications were overhauled in version 3.5 and were replaced with the heartbeat-powered "live notifications" system.
+ * This function used to be called "dpa_print_notifications".
+ *
+ * @since Achievements (3.0)
+ */
+function dpa_deprecated_print_notifications() {
+
+	// If user's not active or is inside the WordPress Admin, bail out.
+	if ( ! dpa_is_user_active() || is_admin() || is_404() || ! dpa_user_has_notifications() )
+		return;
+
+	// Get current notifications
+	$achievements  = array();
+	$notifications = dpa_get_user_notifications();
+
+	if ( empty( $notifications ) )
+		return;
+
+	// Display notifications
+	echo achievements()->shortcodes->display_feedback_achievement_unlocked();
+
+	// Clear the notifications
+	foreach ( $notifications as $id => $value ) {
+		dpa_clear_notification( $id );
+	}
+}
+
+if ( dpa_deprecated_notification_template_exists() )
+	add_action( 'dpa_footer', 'dpa_deprecated_print_notifications' );
