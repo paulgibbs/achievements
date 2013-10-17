@@ -255,15 +255,13 @@ class DPA_Shortcodes {
 	/**
 	 * Display the "achievement unlocked" feedback template and return to ensure that post/page contents are displayed first.
 	 *
+	 * This function is redundant. The "feedback-achievement-unlocked" template has been removed from the plugin.
+	 * Notifications were overhauled in version 3.5 and were replaced with the heartbeat-powered "live notifications" system.
+	 * @deprecated Achievements (3.5)
 	 * @return string Contents of output buffer
 	 * @since Achievements (3.0)
 	 */
 	public function display_feedback_achievement_unlocked() {
-
-		// Style and script
-		achievements()->theme_functions->enqueue_notifications_style( true );
-		achievements()->theme_functions->enqueue_notifications_script( true );
-
 		$this->unset_globals();
 		$this->start();
 
