@@ -354,7 +354,7 @@ final class DPA_Achievements_Loader {
 
 		// Add the core actions
 		$actions = array(
-			'setup_theme',               // Setup the default theme compat
+			'setup_theme',               // Set up the default theme compat
 			'register_post_types',       // Register post types (achievement, dpa_progress)
 			'register_post_statuses',    // Register post statuses (dpa_progress: locked, unlocked)
 			'register_taxonomies',       // Register taxonomies (dpa_event)
