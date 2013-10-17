@@ -1,0 +1,2 @@
+/*! http://wordpress.org/plugins/achievements/ */
+!function(a){a(document).ready(function(){a("body.achievement-notifications").click(function(){a("#dpa-notifications-wrapper").remove()}),a("#dpa-notifications").click(function(a){a.stopPropagation()})})}(jQuery);
