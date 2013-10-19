@@ -288,7 +288,7 @@ div.dpa-template-notice .avatar {
   display: inline-block;
   font-size: 29px;
   font-weight: 300;
-  margin-bottom: 20px;
+  margin: 0 0 20px;
 }
 #dpa-toaster .dpa-toast-cta {
   -webkit-border-radius: 3px;
