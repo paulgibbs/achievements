@@ -121,3 +121,10 @@ add_action( 'dpa_post_request', 'dpa_form_redeem_achievement', 10 );
 
 // Activation redirect
 add_action( 'dpa_activation', 'dpa_add_activation_redirect' );
+
+// Deprecated functionality
+// 3.5
+if ( dpa_deprecated_notification_template_exists() ) {
+	add_action( 'dpa_enqueue_scripts', 'dpa_deprecated_enqueue_notification_styles_and_scripts' );
+	add_action( 'dpa_footer',          'dpa_deprecated_print_notifications'                     );
+}

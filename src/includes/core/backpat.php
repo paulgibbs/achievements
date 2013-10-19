@@ -71,5 +71,24 @@ function dpa_deprecated_print_notifications() {
 	echo achievements()->shortcodes->display_feedback_achievement_unlocked();
 }
 
-if ( dpa_deprecated_notification_template_exists() )
-	add_action( 'dpa_footer', 'dpa_deprecated_print_notifications' );
+/**
+ * Backwards compatibility with pre-3.5; enqueue the old-style CSS/JS for notifications.
+ *
+ * These scripts were removed from the default theme compatiility pack in version 3.5 with
+ * the introduction of the heartbeat-powered "live notifications" system.
+ *
+ * @since Achievements (3.5)
+ */
+public function dpa_deprecated_enqueue_notification_styles_and_scripts() {
+
+	// If user's not active or is inside the WordPress Admin, bail out.
+	if ( ! dpa_is_user_active() || is_admin() || is_404() )
+		return;
+
+	$location = achievements()->includes_dir . 'backpat/3.5/';
+	$rtl      = is_rtl() ? '-rtl' : '';
+	$file     = "notifications{$rtl}.css";
+
+	wp_enqueue_style( 'dpa-default-notifications', $location . $file, array(), dpa_get_theme_compat_version(), 'screen' );
+	wp_enqueue_script( 'dpa-default-notifications-javascript', "{$location}notifications.js", array( 'jquery' ), dpa_get_theme_compat_version(), true );
+}
