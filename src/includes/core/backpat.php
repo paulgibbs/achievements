@@ -85,7 +85,7 @@ function dpa_deprecated_enqueue_notification_styles_and_scripts() {
 	if ( ! dpa_is_user_active() || is_admin() || is_404() )
 		return;
 
-	$location = achievements()->includes_dir . 'backpat/3.5/';
+	$location = achievements()->includes_url . 'backpat/3.5/';
 	$rtl      = is_rtl() ? '-rtl' : '';
 	$file     = "notifications{$rtl}.css";
 
