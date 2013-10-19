@@ -660,7 +660,7 @@ function dpa_achievement_class( $achievement_id = 0, $classes = array() ) {
 		$count          = isset( achievements()->achievement_query->current_post ) ? achievements()->achievement_query->current_post : 1;
 
 		// If we've only one post in the loop, don't both with odd and even.
-		if ( $count > 1 )
+		if ( count( achievements()->achievement_query->posts ) > 1 )
 			$classes[] = ( (int) $count % 2 ) ? 'even' : 'odd';
 		else
 			$classes[] = 'dpa-single-achievement';
