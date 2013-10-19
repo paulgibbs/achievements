@@ -30,18 +30,22 @@ function dpa_deprecated_notification_template_exists() {
 	if ( $retval !== null )
 		return $retval;
 
-	$template_name = '/feedback-achievement-unlocked.php';
+	$template_locations = dpa_add_template_locations( array( '/feedback-achievement-unlocked.php' ) );
+	$retval             = false;
 
-	// Try to find the deprecated template. Check child theme first.
-	if ( file_exists( get_stylesheet_directory() . $template_name ) )
-		$retval = true;
+	foreach ( $template_locations as $template_name ) {
 
-	// Check parent theme last.
-	elseif ( file_exists( get_template_directory() . $template_name ) )
-		$retval = true;
+		// Try to find the deprecated template. Check child theme first.
+		if ( file_exists( get_stylesheet_directory() . "/$template_name" ) ) {
+			$retval = true;
+			break;
 
-	else
-		$retval = false;
+		// Check parent theme last.
+		} elseif ( file_exists( get_template_directory() . "/$template_name" ) ) {
+			$retval = true;
+			break;
+		}
+	}
 
 	return $retval;
 }
