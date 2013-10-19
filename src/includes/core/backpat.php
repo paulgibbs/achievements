@@ -79,7 +79,7 @@ function dpa_deprecated_print_notifications() {
  *
  * @since Achievements (3.5)
  */
-public function dpa_deprecated_enqueue_notification_styles_and_scripts() {
+function dpa_deprecated_enqueue_notification_styles_and_scripts() {
 
 	// If user's not active or is inside the WordPress Admin, bail out.
 	if ( ! dpa_is_user_active() || is_admin() || is_404() )
