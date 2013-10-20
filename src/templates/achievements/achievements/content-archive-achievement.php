@@ -19,11 +19,11 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 		<?php dpa_achievements_index_description(); ?>
 
-		<?php dpa_get_template_part( 'pagination-achievements' ); ?>
+		<?php //dpa_get_template_part( 'pagination-achievements' ); ?>
 
 		<?php dpa_get_template_part( 'loop-achievements'       ); ?>
 
-		<?php dpa_get_template_part( 'pagination-achievements' ); ?>
+		<?php //dpa_get_template_part( 'pagination-achievements' ); ?>
 
 	<?php else : ?>
 

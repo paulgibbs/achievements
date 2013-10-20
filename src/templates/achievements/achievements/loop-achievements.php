@@ -12,43 +12,18 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 <?php do_action( 'dpa_template_before_achievements_loop_block' ); ?>
 
-<table class="dpa-archive-achievements">
-	<caption class="screen-reader-text"><?php _e( 'All of the available achievements with the name, avatar, and karma points for each.', 'dpa' ); ?></caption>
+<ul class="dpa-archive-achievements-grid">
 
-	<thead>
-		<tr>
+	<?php do_action( 'dpa_template_before_achievements_loop' ); ?>
 
-			<th id="dpa-archive-achievements-name" scope="col"><?php _ex( 'Achievement Name', 'column header for list of achievements', 'dpa' ); ?></th>
-			<th id="dpa-archive-achievements-karma" scope="col"><?php _ex( 'Karma', 'column header for list of achievements', 'dpa' ); ?></th>
-			<th id="dpa-archive-achievements-excerpt" scope="col"><?php _ex( 'Description', 'column header for list of achievements', 'dpa' ); ?></th>
+	<?php while ( dpa_achievements() ) : dpa_the_achievement(); ?>
 
-		</tr>
-	</thead>
+		<?php dpa_get_template_part( 'loop-single-achievement' ); ?>
 
-	<tfoot>
-		<tr>
+	<?php endwhile; ?>
 
-			<th scope="col"><?php _ex( 'Achievement Name', 'column header for list of achievements', 'dpa' ); ?></th>
-			<th scope="col"><?php _ex( 'Karma', 'column header for list of achievements', 'dpa' ); ?></th>
-			<th scope="col"><?php _ex( 'Description', 'column header for list of achievements', 'dpa' ); ?></th>
+	<?php do_action( 'dpa_template_after_achievements_loop' ); ?>
 
-		</tr>
-	</tfoot>
-
-	<tbody>
-
-		<?php do_action( 'dpa_template_before_achievements_loop' ); ?>
-
-		<?php while ( dpa_achievements() ) : dpa_the_achievement(); ?>
-
-			<?php dpa_get_template_part( 'loop-single-achievement' ); ?>
-
-		<?php endwhile; ?>
-
-		<?php do_action( 'dpa_template_after_achievements_loop' ); ?>
-
-	</tbody>
-
-</table>
+</ul>
 
 <?php do_action( 'dpa_template_after_achievements_loop_block' ); ?>

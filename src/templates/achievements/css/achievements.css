@@ -78,15 +78,25 @@
 /**
  * Achievement archive
  */
-#dpa-achievements .dpa-archive-achievements {
-  margin-bottom: 10px;
+#dpa-achievements .dpa-archive-achievements-grid {
+  diplay: block;
+  *zoom: 1;
   width: 100%;
 }
-#dpa-archive-achievements-karma {
-  width: 10%;
+#dpa-achievements .dpa-archive-achievements-grid:before,
+#dpa-achievements .dpa-archive-achievements-grid:after {
+  display: table;
+  content: "";
 }
-#dpa-archive-achievements-excerpt {
-  width: 50%;
+#dpa-achievements .dpa-archive-achievements-grid:after {
+  clear: both;
+}
+#dpa-achievements .dpa-archive-achievements-grid > li {
+  margin-bottom: 10px;
+}
+.dpa-archive-achievements-grid > li {
+  display: block;
+  border: 1px solid #dddddd;
 }
 /**
  * Single achievement
@@ -125,7 +135,7 @@
  */
 .dpa-breadcrumb {
   float: left;
-  font-size: 12px;
+  font-size: 13px;
 }
 .dpa-breadcrumb a {
   text-decoration: none;
@@ -167,7 +177,7 @@ div.dpa-breadcrumb p {
 }
 .dpa-pagination {
   float: right;
-  font-size: 12px;
+  font-size: 13px;
   margin-bottom: 10px;
   width: 100%;
 }
@@ -197,7 +207,7 @@ div.dpa-template-notice a:hover {
   color: #000000;
 }
 div.dpa-template-notice p {
-  font-size: 12px;
+  font-size: 13px;
   line-height: 200%;
   margin: 5px 0 5px 0 !important;
 }

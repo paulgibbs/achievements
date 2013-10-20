@@ -60,6 +60,7 @@ class DPA_Default extends DPA_Theme_Compat {
 	private function setup_actions() {
 		add_action( 'dpa_enqueue_scripts', array( $this, 'enqueue_styles' ) );
 		add_action( 'dpa_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
+		add_action( 'dpa_footer',          array( $this, 'inline_javascript' ) );
 		add_action( 'dpa_footer',          array( $this, 'print_notification_templates' ) );
 
 		do_action_ref_array( 'dpa_theme_compat_actions', array( &$this ) );
@@ -112,6 +113,10 @@ class DPA_Default extends DPA_Theme_Compat {
 	 */
 	public function enqueue_scripts() {
 
+		// Totally messy, but load Masonry JS if on the achievement archive screen
+		if ( dpa_is_achievement_archive() )
+			wp_enqueue_script( 'jquery-masonry' );
+
 		// If user's not active or is inside the WordPress Admin, bail out.
 		if ( ! dpa_is_user_active() || is_admin() || is_404() || is_preview() )
 			return;
@@ -138,7 +143,7 @@ class DPA_Default extends DPA_Theme_Compat {
 			$handle   = 'dpa-default-javascript';
 		}
 
-		wp_enqueue_script( $handle, $location . $file, array( 'heartbeat', 'underscore', 'wp-util' ), dpa_get_theme_compat_version(), 'screen', true );
+		wp_enqueue_script( $handle, $location . $file, array( 'jquery-masonry', 'heartbeat', 'underscore', 'wp-util' ), dpa_get_theme_compat_version(), 'screen', true );
 	}
 
 	/**
@@ -231,6 +236,36 @@ class DPA_Default extends DPA_Theme_Compat {
 			return;
 
 		echo achievements()->shortcodes->display_notifications_template();
+	}
+
+	/**
+	 * Print inline javascript to help make Achievements awesome.
+	 * 
+	 * In a future versions, this markup may get merged into the main achievements.js or into a new, separate JS file.
+	 *
+	 * @since Achievements (3.5)
+	 */
+	public static function inline_javascript() {
+
+		// Only add to the achievement archive screen
+		if ( ! dpa_is_achievement_archive() )
+			return;
+		?>
+
+		<script type="text/javascript">
+		(function ($) {
+			$(document).ready(function () {
+				//transitionDuration: 0
+				$( '.dpa-archive-achievements-grid' ).masonry( {
+					gutter: 40,
+					isRTL: $( 'body' ).is( '.rtl' ),
+					itemSelector: 'li'
+				} );
+			});
+		}(jQuery));
+		</script>
+
+		<?php
 	}
 }  // class_exists
 endif;

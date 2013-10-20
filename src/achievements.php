@@ -664,6 +664,7 @@ final class DPA_Achievements_Loader {
 	 */
 	public function register_image_sizes() {
 		add_image_size( 'dpa-thumb', 32, 32 );
+		add_image_size( 'dpa-grid', 170, 170 );
 	}
 }
 
