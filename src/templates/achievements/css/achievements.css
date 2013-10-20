@@ -125,7 +125,7 @@
  */
 .dpa-breadcrumb {
   float: left;
-  font-size: 12px;
+  font-size: 13px;
 }
 .dpa-breadcrumb a {
   text-decoration: none;
@@ -167,7 +167,7 @@ div.dpa-breadcrumb p {
 }
 .dpa-pagination {
   float: right;
-  font-size: 12px;
+  font-size: 13px;
   margin-bottom: 10px;
   width: 100%;
 }
@@ -197,7 +197,7 @@ div.dpa-template-notice a:hover {
   color: #000000;
 }
 div.dpa-template-notice p {
-  font-size: 12px;
+  font-size: 13px;
   line-height: 200%;
   margin: 5px 0 5px 0 !important;
 }
