@@ -13,9 +13,9 @@
 Plugin Name: Achievements
 Plugin URI: http://achievementsapp.com/
 Description: Achievements gamifies your WordPress site with challenges, badges, and points.
-Version: 3.4.1
+Version: 3.5
 Requires at least: 3.6.1
-Tested up to: 3.6.20
+Tested up to: 3.7.20
 License: GPLv3
 Author: Paul Gibbs
 Author URI: http://byotos.com/
