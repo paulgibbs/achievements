@@ -465,10 +465,10 @@ class DPA_Admin {
 							<li><?php _e( 'See 1 &amp; 2.', 'dpa' ); ?></li>
 						</ol>
 					</p>
-					<p><?php _e( 'Achievements gamifies your WordPress site with challenges, badges, and points, which are the funnest ways to reward and encourage members of your community to participate. We hope you enjoy using this plugin!', 'dpa' ); ?></p>
+					<p><?php _e( 'Achievements gamifies your WordPress site with challenges, badges, and points, which are the funnest ways to reward and encourage members of your community to participate. We hope you enjoy using the plugin!', 'dpa' ); ?></p>
 				<?php else : ?>
-					<p><?php printf( __( 'Thanks for updating to Achievements %1$s, %2$s! You really are rather nice. ', 'dpa' ), $display_version , esc_html( $name )); ?></p>
-					<p><?php printf( __( 'This release adds a leaderboard widget, a new private achievements feature, and support for the <a href="%s">WP-PostRatings</a> plugin.', 'dpa' ), esc_url( 'http://wordpress.org/plugins/wp-postratings/' ) ); ?></p>
+					<p><?php printf( __( 'Thanks for updating to Achievements %1$s, %2$s. This new version is almost as good-looking as you are!', 'dpa' ), $display_version , esc_html( $name )); ?></p>
+					<p><?php printf( __( 'All-new to this release is Live Notifications, a re-imaging of the &ldquo;achievement unlocked&rdquo; alerts.', 'dpa' ), esc_url( 'http://wordpress.org/plugins/wp-postratings/' ) ); ?></p>
 				<?php endif; ?>
 			</div>
 
@@ -488,58 +488,46 @@ class DPA_Admin {
 
 					<h4><?php _e( 'Get help and support', 'dpa' ); ?></h4>
 					<p><?php printf( __( 'If you have questions about the plugin or need help, get in contact by leaving a message on the <a href="%s">WordPress.org support forum</a>. We&rsquo;d love to find out how you&rsquo;re using Achievements, so be sure to drop by and tell us!', 'dpa' ), esc_url( 'http://wordpress.org/support/plugin/achievements' ) ); ?></p>
-					<p><?php _e( 'Keep reading to learn about the new features in this release of Achievements.', 'dpa' ); ?></p>
+					<p><strong><?php _e( 'Keep reading to learn about the new features in this release of Achievements.', 'dpa' ); ?></strong></p>
 				</div>
 
 			<?php endif; ?>
 
 			<div class="changelog">
-				<h3><?php _e( 'Leaderboard', 'dpa' ); ?></h3>
+				<h3><?php _e( 'Live Notifications', 'dpa' ); ?></h3>
 
 				<div class="feature-section">
-					<h4><?php _e( 'Rank your users by their karma point totals', 'dpa' ); ?></h4>
+					<h4><?php _e( 'Now just a heartbeat away', 'dpa' ); ?></h4>
 					<p><?php _e( 'A long-awaited feature, be sure to add the new leaderboard widget to your site! It allows members of your community to compare each other&rsquo;s karma point totals. This is the first step towards powerful user comparison and ranking features, and we&rsquo;re thrilled that this has finally arrived in Achievements 3.4!', 'dpa' ); ?></p>
+
+					<?php if ( dpa_deprecated_notification_template_exists() ) : ?>
+
+						<p><?php _e( '<strong>Don&rsquo;t worry!</strong> We saw that you&rsquo;d customised the old notification template, so we&rsquo;ll carry on using it because we don&rsquo;t want to undo all of your hard work.', 'dpa' ); ?><p>
+
+					<?php endif; ?>
+
 				</div>
 			</div>
 
 			<div class="changelog">
-				<h3><?php _e( 'Private achievements', 'dpa' ); ?></h3>
+				<h3><?php _e( 'Optimisations', 'dpa' ); ?></h3>
 
 				<div class="feature-section">
-					<h4><?php _e( 'Hide achievements from the main listings', 'dpa' ); ?></h4>
-					<p><?php _e( 'Making an achievement private is a great way to surprise even the most prolific achievement hunter in your community! Private achievements work in exactly the same way as a regular achievement, but are hidden from the main listings.', 'dpa' ); ?></p>
-					<p><?php _e( 'If you would like to make a specific achievement private, open the achievement for editing, press <strong>Edit</strong> in the publish module and select <strong>Private</strong>. Remember to save your changes!', 'dpa' ); ?></p>
-				</div>
-			</div>
-
-			<div class="changelog">
-				<h3><?php _e( 'WP-PostRatings', 'dpa' ); ?></h3>
-
-				<div class="feature-section">
-					<h4><?php _e( 'Users can now unlock achievements when rating your site content.', 'dpa' ); ?></h4>
+					<h4><?php _e( 'Doing less work than before (DOING_AJAX + latest theme compat engine updates from bbP and BP)', 'dpa' ); ?></h4>
 					<p><?php printf( __( 'The <a href="%s">WP-PostRatings</a> plugin adds a star rating system to your site&rsquo;s posts and pages (and much more!). Typically, it&rsquo;s used as fun way to gather feedback about your content from your site&rsquo;s users.', 'dpa' ), esc_url( 'http://wordpress.org/plugins/wp-postratings/' ) ); ?></p>
 					<p><?php _e( 'Achievements 3.4 has built-in support for WP-PostRatings, allowing you to easily award points and achievements as people leave feedback.', 'dpa' ); ?></p>
 				</div>
 			</div>
 
 			<div class="changelog">
-				<h3><?php _e( '&hellip;and a bunch of smaller changes, which are also really cool!', 'dpa' ); ?></h3>
+				<h3><?php _e( 'Easier For Developers', 'dpa' ); ?></h3>
 
-				<div class="feature-section col three-col">
-					<div>
-						<h4><?php _e( 'Bug fixes', 'dpa' ); ?></h4>
-						<p><?php _e( 'A bunch of small issues, including pagination and user capability bugs, amongst others, have been fixed.', 'dpa' ); ?></p>
-					</div>
-
-					<div>
-						<h4><?php _e( 'Better caching', 'dpa' ); ?></h4>
-						<p><?php _e( "Do you have a super big, super busy site? We&rsquo;ve got your back. 3.4 improves caching performance when running on WordPress multisite.", 'dpa' ); ?></p>
-					</div>
-
-					<div class="last-feature">
-						<h4><?php _e( 'Theme compatibility improvements', 'dpa' ); ?></h4>
-						<p><?php printf( __( 'Achievements has the latest theme compatibility code, fresh from the latest versions of <a href="%1$s">bbPress</a> and <a href="%2$s">BuddyPress</a>.', 'dpa' ), esc_url( 'http://bbpress.org/' ), esc_url( 'http://buddypress.org/' ) ); ?></p>
-					</div>
+				<div class="feature-section">
+					<h4><?php _e( 'Grunt', 'dpa' ); ?></h4>
+					<p><?php printf( __( '
+As new features are added to Achievements, it&rsquo;s become increasingly important for the plugin to have a build process which makes it easier to let developers work on and contribute to the plugin, and help make it possible to do smaller, more frequent releases. To do this, we&rsquo;ve chosen a tool called <a href="%s">Grunt</a>.', 'dpa' ), esc_url( 'http://gruntjs.com/' ) ); ?></p>
+					<p><?php _e( 'Grunt is a JavaScript task runner that has a robust ecosystem of add-ons focused around building modern web applications. We can include tools such as integrated testing, minification, linting (for PHP, JS, and CSS), image optimisation and more. If you&rsquo;re not a developer, this mightn&rsquo;t mean much, but be assured that this will make the future of Achievements development quicker and easier.', 'dpa' ); ?></p>
+				</div>
 			</div>
 
 		</div>
