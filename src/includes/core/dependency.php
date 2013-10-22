@@ -295,6 +295,11 @@ function dpa_post_request() {
  * @since Achievements (3.0)
  */
 function dpa_plugin_locale( $locale = '', $domain = '' ) {
+
+	// Only filter the dpa text domain
+	if ( achievements()->domain !== $domain )
+		return $locale;
+
 	return apply_filters( 'dpa_plugin_locale', $locale, $domain );
 }
 
