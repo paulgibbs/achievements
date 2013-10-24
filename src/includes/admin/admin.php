@@ -450,25 +450,27 @@ class DPA_Admin {
 		.about-text {
 			margin-right: 0;
 		}
+		.about-wrap h3 {
+			margin-bottom: 0;
+			padding-top: 0;
+		}
 		</style>
 
 		<div class="wrap about-wrap">
 			<h1><?php _e( 'Welcome to Achievements', 'dpa' ); ?></h1>
 			<div class="about-text">
 				<?php if ( $is_new_install ) : ?>
-					<p><?php printf( __( 'Hi, %s! Thanks very much for downloading Achievements %s. You really are rather nice. ', 'dpa' ), esc_html( $name ), $display_version ); ?></p>
-					<p>
-						<?php _e( 'This exciting update screen is to confirm a few things that you probably already know:', 'dpa' ); ?>
-						<ol>
-							<li><?php _e( 'You&#8217;re super talented at finding great WordPress plugins.', 'dpa' ); ?></li>
-							<li><?php _e( 'We think you&#8217;ve got a truly exceptional website.', 'dpa' ); ?></li>
-							<li><?php _e( 'See 1 &amp; 2.', 'dpa' ); ?></li>
-						</ol>
-					</p>
-					<p><?php _e( 'Achievements gamifies your WordPress site with challenges, badges, and points, which are the funnest ways to reward and encourage members of your community to participate. We hope you enjoy using the plugin!', 'dpa' ); ?></p>
+					<?php printf( __( 'Hi, %s! Thanks very much for downloading Achievements %s. You really are rather nice. This exciting update screen is to confirm a few things that you probably already know:', 'dpa' ), esc_html( $name ), $display_version ); ?>
+
+					<ol>
+						<li><?php _e( 'You&#8217;re super-talented at finding great WordPress plugins.', 'dpa' ); ?></li>
+						<li><?php _e( 'We think you&#8217;ve got a truly beautiful website.', 'dpa' ); ?></li>
+						<li><?php _e( 'See 1 &amp; 2.', 'dpa' ); ?></li>
+					</ol>
+
+					<?php _e( 'Achievements gamifies your WordPress site with challenges, badges, and points, which are the funnest ways to reward and encourage members of your community to participate. We hope you enjoy using the plugin!', 'dpa' ); ?>
 				<?php else : ?>
-					<p><?php printf( __( 'Thanks for updating to Achievements %1$s, %2$s. This new version is almost as good-looking as you are!', 'dpa' ), $display_version , esc_html( $name )); ?></p>
-					<p><?php printf( __( 'All-new to this release is Live Notifications, a re-imaging of the &ldquo;achievement unlocked&rdquo; alerts.', 'dpa' ), esc_url( 'http://wordpress.org/plugins/wp-postratings/' ) ); ?></p>
+					<?php printf( __( 'Thanks for updating to Achievements %1$s, %2$s. This new version is almost as good-looking as you are! All-new to this release is Live Notifications, a re-imaging of the &ldquo;achievement unlocked&rdquo; alerts.', 'dpa' ), $display_version , esc_html( $name ) ); ?>
 				<?php endif; ?>
 			</div>
 
@@ -483,8 +485,8 @@ class DPA_Admin {
 
 				<div class="feature-section">
 					<h4><?php _e( 'Create your first achievement', 'dpa' ); ?></h4>
-					<p><?php _e( 'The first idea to grasp is that there are two different types of achievements: <strong>awards</strong> and <strong>events</strong>. Award achievements have to be manually given out by a site admin, and event achievements are awarded automatically when its criteria has been met. <a href="http://achievementsapp.com/getting-started/types-of-achievements/">Learn more about achievement types</a>.', 'dpa' ); ?></p>
-					<p><?php _e( 'The best way to learn is by doing, so let&rsquo;s create an achievement and find out how everything works. Our <a href="%">Getting Started guide</a> will walk you through this easy process.', 'dpa' ); ?></p>
+					<p><?php printf( __( 'The first idea to grasp is that there are two different types of achievements: <strong>awards</strong> and <strong>events</strong>. Award achievements have to be manually given out by a site admin, and event achievements are awarded automatically when its criteria has been met. <a href="%s">Learn more about achievement types</a>.', 'dpa' ), esc_url( 'http://achievementsapp.com/getting-started/types-of-achievements/' ) ); ?></p>
+					<p><?php printf( __( 'The best way to learn is by doing, so let&rsquo;s create an achievement and find out how everything works. Our <a href="%s">Getting Started guide</a> will walk you through this easy process.', 'dpa' ), esc_url( 'http://achievementsapp.com/getting-started/' ) ); ?></p>
 
 					<h4><?php _e( 'Get help and support', 'dpa' ); ?></h4>
 					<p><?php printf( __( 'If you have questions about the plugin or need help, get in contact by leaving a message on the <a href="%s">WordPress.org support forum</a>. We&rsquo;d love to find out how you&rsquo;re using Achievements, so be sure to drop by and tell us!', 'dpa' ), esc_url( 'http://wordpress.org/support/plugin/achievements' ) ); ?></p>
