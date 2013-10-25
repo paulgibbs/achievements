@@ -515,9 +515,8 @@ class DPA_Admin {
 				<h3><?php _e( 'Optimisations', 'dpa' ); ?></h3>
 
 				<div class="feature-section">
-					<h4><?php _e( 'Doing less work than before (DOING_AJAX + latest theme compat engine updates from bbP and BP)', 'dpa' ); ?></h4>
-					<p><?php printf( __( 'The <a href="%s">WP-PostRatings</a> plugin adds a star rating system to your site&rsquo;s posts and pages (and much more!). Typically, it&rsquo;s used as fun way to gather feedback about your content from your site&rsquo;s users.', 'dpa' ), esc_url( 'http://wordpress.org/plugins/wp-postratings/' ) ); ?></p>
-					<p><?php _e( 'Achievements 3.4 has built-in support for WP-PostRatings, allowing you to easily award points and achievements as people leave feedback.', 'dpa' ); ?></p>
+					<h4><?php _e( 'Doing less work than before, more efficently', 'dpa' ); ?></h4>
+					<p><?php printf( __( 'Performance is important. Sometimes WordPress, or other plugins, run tasks in the background that you mightn&rsquo;t be aware of. When this happens, Achievements is now more careful about not responding to these background tasks. Plus, as usual, Achievements has the latest version of the theme compatibility engine from <a href="%s">bbPress</a> and <a href="%s">BuddyPress</a>.', 'dpa' ), esc_url( 'https://bbpress.org' ), esc_url( 'https://buddypress.org' ) ); ?></p>
 				</div>
 			</div>
 
