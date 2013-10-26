@@ -158,14 +158,14 @@ var achievements = {
 				return;
 			}
 
-			// Fade the notifications window out after 6 seconds
+			// Fade the notifications window out after 7 seconds
 			window.setTimeout(function () {
 				var panel = $('#dpa-toaster');
 
 				panel.fadeOut(100, function () {
 					$(this).children('li').remove();
 				});
-			}, 6000);
+			}, 7000);
 
 			showNotifications(data.achievements);
 		}
