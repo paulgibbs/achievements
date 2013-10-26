@@ -23,6 +23,11 @@ For information, support, and developer documentation, visit [achievementsapp.co
 [vimeo http://vimeo.com/56058144]
 
 == Changelog ==
+= 3.5 =
+* NEW FEATURE: Live Notifications!
+* Updates to the "achievement unlocked" notification template.
+* General performance improvements.
+
 = 3.4.1 =
 * Fix leaderboard behaviour with negative karma point totals
 
@@ -96,6 +101,11 @@ Note: in multisite, activating the plugin "network-wide" will give your entire n
 For information, support, and developer documentation, visit [achievementsapp.com](http://achievementsapp.com/).
 
 == Upgrade Notice ==
+= 3.5 =
+* NEW FEATURE: Live Notifications!
+* Updates to the "achievement unlocked" notification template.
+* General performance improvements.
+
 = 3.4.1 =
 * Fix leaderboard behaviour with negative karma point totals
 
