@@ -470,7 +470,7 @@ class DPA_Admin {
 
 					<?php _e( 'Achievements gamifies your WordPress site with challenges, badges, and points, which are the funnest ways to reward and encourage members of your community to participate. We hope you enjoy using the plugin!', 'dpa' ); ?>
 				<?php else : ?>
-					<?php printf( __( 'Thanks for updating to Achievements %1$s, %2$s. This new version is almost as good-looking as you are! All-new to this release is Live Notifications, a re-imaging of the &ldquo;achievement unlocked&rdquo; alerts.', 'dpa' ), $display_version , esc_html( $name ) ); ?>
+					<?php printf( __( 'Thanks for updating to Achievements %1$s, %2$s. This new version is almost as good-looking as you are! All-new to this release is Live Notifications, a re-imaging of the &ldquo;achievement unlocked&rdquo; notifications.', 'dpa' ), $display_version , esc_html( $name ) ); ?>
 				<?php endif; ?>
 			</div>
 
@@ -500,7 +500,8 @@ class DPA_Admin {
 
 				<div class="feature-section">
 					<h4><?php _e( 'Now just a heartbeat away', 'dpa' ); ?></h4>
-					<p><?php _e( 'A long-awaited feature, be sure to add the new leaderboard widget to your site! It allows members of your community to compare each other&rsquo;s karma point totals. This is the first step towards powerful user comparison and ranking features, and we&rsquo;re thrilled that this has finally arrived in Achievements 3.4!', 'dpa' ); ?></p>
+					<p><?php _e( 'The &ldquo;achievement unlocked&rdquo; notifications have had a major makeover! They&rsquo;re now better-looking and more functional than ever, and support displaying multiple notifications at the same time.', 'dpa' ); ?></p>
+					<p><?php _e( 'Using cutting-edge features from WordPress, your users will now see the notifications as soon as they unlock an achievement, even if it&rsquo;s from something like a scheduled post going live behind the scenes.', 'dpa' ); ?></p>
 
 					<?php if ( dpa_deprecated_notification_template_exists() ) : ?>
 
@@ -516,7 +517,8 @@ class DPA_Admin {
 
 				<div class="feature-section">
 					<h4><?php _e( 'Doing less work than before, more efficently', 'dpa' ); ?></h4>
-					<p><?php printf( __( 'Performance is important. Sometimes WordPress, or other plugins, run tasks in the background that you mightn&rsquo;t be aware of. When this happens, Achievements is now more careful about not responding to these background tasks. Plus, as usual, Achievements has the latest version of the theme compatibility engine from <a href="%s">bbPress</a> and <a href="%s">BuddyPress</a>.', 'dpa' ), esc_url( 'https://bbpress.org' ), esc_url( 'https://buddypress.org' ) ); ?></p>
+					<p><?php _e( 'Performance is important. Sometimes WordPress, or other plugins, run tasks in the background that you mightn&rsquo;t be aware of. When this happens, Achievements is now more careful about not responding to these background tasks.', 'dpa' ); ?></p>
+					<p><?php printf( __( 'Plus, as usual, Achievements has the latest version of the theme compatibility engine from <a href="%s">bbPress</a> and <a href="%s">BuddyPress</a>.', 'dpa' ), esc_url( 'https://bbpress.org' ), esc_url( 'https://buddypress.org' ) ); ?></p>
 				</div>
 			</div>
 
