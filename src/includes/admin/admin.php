@@ -19,27 +19,27 @@ class DPA_Admin {
 	// Paths
 
 	/**
-	 * Path to the Achievements admin directory
+	 * @var string Path to the Achievements admin directory
 	 */
 	public $admin_dir = '';
 
 	/**
-	 * URL to the Achievements admin directory
+	 * @var string URL to the Achievements admin directory
 	 */
 	public $admin_url = '';
 
 	/**
-	 * URL to the Achievements admin css directory
+	 * @var string URL to the Achievements admin css directory
 	 */
 	public $css_url = '';
 
 	/**
-	 * URL to the Achievements admin image directory
+	 * @var string URL to the Achievements admin image directory
 	 */
 	public $images_url = '';
 
 	/**
-	 * URL to the Achievements admin javascript directory
+	 * @var string URL to the Achievements admin javascript directory
 	 */
 	public $javascript_url = '';
 
