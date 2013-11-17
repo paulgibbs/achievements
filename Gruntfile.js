@@ -121,9 +121,32 @@ module.exports = function(grunt) {
 			}
 		},
 		watch: {
-			files: ["src/templates/achievements/css/dev/*",
-							"src/includes/admin/css/dev/*"],
-			tasks: ["less"]
+			css: {
+				files: ["src/templates/achievements/css/dev/*",
+								"src/includes/admin/css/dev/*"],
+				tasks: ["less", "rsync:everything"]
+			},
+			sync: {
+				files: ['src/**'],
+				tasks: ["rsync:everything"],
+				options: {
+					spawn: false
+				}
+			}
+		},
+		rsync: {
+			options: {
+				exclude: ['.git*', '.DS_Store*', '._*', '.Spotlight*', '.Trashes*', '*thumbs.db*'],
+				recursive: true,
+				spawn: false,
+				syncDestIgnoreExcl: true
+			},
+			everything: {
+				options: {
+					src: "src/",
+					dest: process.env.ACHIEVEMENTS_DIR
+				}
+			}
 		}
 	});
 

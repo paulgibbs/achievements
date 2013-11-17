@@ -25,6 +25,8 @@ Once you've installed Node.js and the Grunt CLI, you're ready to get started.
 1. Clone this repository in a directory of your choice by running `git clone https://github.com/paulgibbs/achievements.git`.
 2. Navigate to the directory in your shell.
 3. Run `npm install`.
+4. In your shell environment, set the `ACHIEVEMENTS_DIR` variable to the path to your WordPress dev install's plugin folder. Be sure to call the actual plugin directory `achievements`! For example: `export ACHIEVEMENTS_DIR="/Users/paul/Sites/example.com/wp-content/plugins/achievements"`
+5. Run `grunt rsync:everything` to copy the dev version of the plugin into your WordPress folder.
 
 
 Documentation
@@ -40,3 +42,12 @@ Generates the production-optimised source in the `build` directory.
 
 ### `grunt clean:all`
 Removes the `build` directory.
+
+### `grunt rsync:everything`
+Copies the `src` directory to the location specified by the `ACHIEVEMENTS_DIR` environment variable.
+
+### `grunt watch:css`
+Watches for changes to the LESS files; compiles into CSS, and copies into the `src` directory. Also does a `rsync:everything`.
+
+### `grunt watch:sync`
+Watches for changes to any files in the `src` directory, and rsyncs to the location specified by the `ACHIEVEMENTS_DIR` environment variable. USE THIS WHEN WORKING ON THE PLUGIN!
