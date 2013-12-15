@@ -23,6 +23,11 @@ For information, support, and developer documentation, visit [achievementsapp.co
 [vimeo http://vimeo.com/56058144]
 
 == Changelog ==
+= 3.5.1 =
+* Maintenance release. Plugin now requires WordPress 3.8+.
+* The unlocked achievement check (the heartbeat) now happens much more quickly.
+* Very small UI tweaks in the admin to reflect WordPress' new appearance.
+
 = 3.5 =
 * NEW FEATURE: Live Notifications!
 * Updates to the "achievement unlocked" notification template.
