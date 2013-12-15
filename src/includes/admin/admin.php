@@ -448,6 +448,8 @@ class DPA_Admin {
 
 		<style type="text/css">
 		.about-text {
+			min-height: 0;
+			margin-bottom: 0;
 			margin-right: 0;
 		}
 		.about-wrap h3 {
@@ -470,18 +472,12 @@ class DPA_Admin {
 
 					<?php _e( 'Achievements gamifies your WordPress site with challenges, badges, and points, which are the funnest ways to reward and encourage members of your community to participate. We hope you enjoy using the plugin!', 'dpa' ); ?>
 				<?php else : ?>
-					<?php printf( __( 'Thanks for updating to Achievements %1$s, %2$s. This new version is almost as good-looking as you are! All-new to this release is Live Notifications, a re-imaging of the &ldquo;achievement unlocked&rdquo; notifications.', 'dpa' ), $display_version , esc_html( $name ) ); ?>
+					<?php printf( __( 'Hello there! Version %s is a maintenance release.', 'dpa' ), $display_version ); ?>
 				<?php endif; ?>
 			</div>
 
-			<h2 class="nav-tab-wrapper">
-				<a class="nav-tab nav-tab-active" href="<?php echo esc_url( admin_url( add_query_arg( array( 'page' => 'achievements-about' ), 'index.php' ) ) ); ?>">
-					<?php _e( 'What&#8217;s New', 'dpa' ); ?>
-				</a>
-			</h2>
-
 			<?php if ( $is_new_install ) : ?>
-			<h3><?php _e( 'Getting Started', 'dpa' ); ?></h3>
+				<h3><?php _e( 'Getting Started', 'dpa' ); ?></h3>
 
 				<div class="feature-section">
 					<h4><?php _e( 'Create your first achievement', 'dpa' ); ?></h4>
@@ -490,51 +486,19 @@ class DPA_Admin {
 
 					<h4><?php _e( 'Get help and support', 'dpa' ); ?></h4>
 					<p><?php printf( __( 'If you have questions about the plugin or need help, get in contact by leaving a message on the <a href="%s">WordPress.org support forum</a>. We&rsquo;d love to find out how you&rsquo;re using Achievements, so be sure to drop by and tell us!', 'dpa' ), esc_url( 'http://wordpress.org/support/plugin/achievements' ) ); ?></p>
-					<p><strong><?php _e( 'Keep reading to learn about the new features in this release of Achievements.', 'dpa' ); ?></strong></p>
 				</div>
+
+			<?php else : ?>
+
+			<div class="changelog">
+				<div class="feature-section">
+					<p><?php _e( 'This release improves compatibility with WordPress 3.8. Some of the UI elements in the admin screens have had their styles tweaked for WordPress&#8217; new admin appearance, and the unlocked achievement check (the heartbeat) now happens much more quickly. Enjoy!', 'dpa' ); ?></p>
+				</div>
+			</div>
 
 			<?php endif; ?>
 
-			<div class="changelog">
-				<h3><?php _e( 'Live Notifications', 'dpa' ); ?></h3>
-
-				<div class="feature-section">
-					<h4><?php _e( 'Now just a heartbeat away', 'dpa' ); ?></h4>
-					<p><?php _e( 'The &ldquo;achievement unlocked&rdquo; notifications have had a major makeover! They&rsquo;re now better-looking and more functional than ever, and support displaying multiple notifications at the same time.', 'dpa' ); ?></p>
-					<p><?php _e( 'Using cutting-edge features from WordPress, your users will now see the notifications as soon as they unlock an achievement, even if it&rsquo;s from something like a scheduled post going live behind the scenes.', 'dpa' ); ?></p>
-
-					<?php if ( dpa_deprecated_notification_template_exists() ) : ?>
-
-						<p><?php _e( '<strong>Don&rsquo;t worry!</strong> We saw that you&rsquo;d customised the old notification template, so we&rsquo;ll carry on using it because we don&rsquo;t want to undo all of your hard work.', 'dpa' ); ?><p>
-
-					<?php endif; ?>
-
-				</div>
-			</div>
-
-			<div class="changelog">
-				<h3><?php _e( 'Optimisations', 'dpa' ); ?></h3>
-
-				<div class="feature-section">
-					<h4><?php _e( 'Doing less work than before, more efficently', 'dpa' ); ?></h4>
-					<p><?php _e( 'Performance is important. Sometimes WordPress, or other plugins, run tasks in the background that you mightn&rsquo;t be aware of. When this happens, Achievements is now more careful about not responding to these background tasks.', 'dpa' ); ?></p>
-					<p><?php printf( __( 'Plus, as usual, Achievements has the latest version of the theme compatibility engine from <a href="%s">bbPress</a> and <a href="%s">BuddyPress</a>.', 'dpa' ), esc_url( 'https://bbpress.org' ), esc_url( 'https://buddypress.org' ) ); ?></p>
-				</div>
-			</div>
-
-			<div class="changelog">
-				<h3><?php _e( 'Easier For Developers', 'dpa' ); ?></h3>
-
-				<div class="feature-section">
-					<h4><?php _e( 'Grunt', 'dpa' ); ?></h4>
-					<p><?php printf( __( '
-As new features are added to Achievements, it&rsquo;s become increasingly important for the plugin to have a build process which makes it easier to let developers work on and contribute to the plugin, and help make it possible to do smaller, more frequent releases. To do this, we&rsquo;ve chosen a tool called <a href="%s">Grunt</a>.', 'dpa' ), esc_url( 'http://gruntjs.com/' ) ); ?></p>
-					<p><?php _e( 'Grunt is a JavaScript task runner that has a robust ecosystem of add-ons focused around building modern web applications. We can include tools such as integrated testing, minification, linting (for PHP, JS, and CSS), image optimisation and more. If you&rsquo;re not a developer, this mightn&rsquo;t mean much, but be assured that this will make the future of Achievements development quicker and easier.', 'dpa' ); ?></p>
-				</div>
-			</div>
-
 		</div>
-
 		<?php
 	}
 }
