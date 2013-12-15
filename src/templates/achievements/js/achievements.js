@@ -200,6 +200,9 @@ var achievements = {
 			$(document).on('heartbeat-tick.achievements', tick)
 			.on('heartbeat-send.achievements', send)
 			.on(visibilityChangeEvent + '.achievements', visibilityChanged);
+
+			// Immediately check for achievements.
+			wp.heartbeat.connectNow();
 		});
 	};
 
