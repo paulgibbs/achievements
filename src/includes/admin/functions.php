@@ -25,13 +25,13 @@ function dpa_admin_setup_metaboxes() {
 	remove_meta_box( 'tagsdiv-dpa_event', dpa_get_achievement_post_type(), 'side' );
 
 	// Chosen is a JavaScript plugin that makes long, unwieldy select boxes much more user-friendly.
-	wp_enqueue_style( 'dpa_chosen_css', trailingslashit( achievements()->admin->css_url ) . 'chosen.css', array(), '20121006' );
-	wp_enqueue_script( 'dpa_chosen_js', trailingslashit( achievements()->admin->javascript_url ) . 'chosen-jquery-min.js', array( 'jquery' ), '20121006' );
+	wp_enqueue_style( 'dpa_chosen_css', trailingslashit( achievements()->admin->css_url ) . 'chosen.css', array(), dpa_get_version() );
+	wp_enqueue_script( 'dpa_chosen_js', trailingslashit( achievements()->admin->javascript_url ) . 'chosen-jquery-min.js', array( 'jquery' ), dpa_get_version() );
 
 	// General styles for the post type admin screen.
 	$rtl = is_rtl() ? '-rtl' : '';
-	wp_enqueue_script( 'dpa_admin_js', trailingslashit( achievements()->admin->javascript_url ) . 'achievements.js', array( 'jquery', 'dpa_chosen_js' ), '20130908' );
-	wp_enqueue_style( 'dpa_admin_css', trailingslashit( achievements()->admin->css_url ) . "achievements{$rtl}.css", array(), '20121006' );
+	wp_enqueue_script( 'dpa_admin_js', trailingslashit( achievements()->admin->javascript_url ) . 'achievements.js', array( 'jquery', 'dpa_chosen_js' ), dpa_get_version() );
+	wp_enqueue_style( 'dpa_admin_css', trailingslashit( achievements()->admin->css_url ) . "achievements{$rtl}.css", array(), dpa_get_version() );
 }
 
 /**
