@@ -47,7 +47,7 @@ Removes the `build` directory.
 Copies the `src` directory to the location specified by the `ACHIEVEMENTS_DIR` environment variable.
 
 ### `grunt watch:css`
-Watches for changes to the LESS files; compiles into CSS, and copies into the `src` directory. Also does a `rsync:everything`.
+Watches for changes to the LESS files; compiles into CSS, and copies into the `src` directory. Also does a `rsync:everything`. USE THIS WHEN WORKING ON THE PLUGIN!
 
 ### `grunt watch:sync`
 Watches for changes to any files in the `src` directory, and rsyncs to the location specified by the `ACHIEVEMENTS_DIR` environment variable. USE THIS WHEN WORKING ON THE PLUGIN!
