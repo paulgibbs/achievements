@@ -173,7 +173,7 @@ final class DPA_Achievements_Loader {
 	 */
 	private function setup_globals() {
 		// Versions
-		$this->version    = 3.5;
+		$this->version    = '3.5.1';
 		$this->db_version = 340;
 
 		// Paths - plugin
