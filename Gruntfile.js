@@ -124,7 +124,10 @@ module.exports = function(grunt) {
 			css: {
 				files: ["src/templates/achievements/css/dev/*",
 								"src/includes/admin/css/dev/*"],
-				tasks: ["less", "rsync:everything"]
+				tasks: ["less", "rsync:everything"],
+				options: {
+					spawn: false
+				}
 			},
 			sync: {
 				files: ['src/**'],
