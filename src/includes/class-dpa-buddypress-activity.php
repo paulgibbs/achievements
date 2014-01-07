@@ -155,7 +155,7 @@ class DPA_BuddyPress_Activity {
 	 * @param int $progress_id
 	 * @since Achievements (3.2)
 	 */
-	public function achievement_unlocked( $achievement, $user_id, $progress_id ) {
+	public function achievement_unlocked( WP_Post $achievement, $user_id, $progress_id ) {
 
 		// Bail if user is not active
 		if ( ! dpa_is_user_active( $user_id ) )

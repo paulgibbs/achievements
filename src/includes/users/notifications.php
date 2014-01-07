@@ -12,12 +12,12 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 /**
  * Sends a notification to a user when they unlock an achievement.
  *
- * @param object $achievement_obj The Achievement object to send a notification for.
+ * @param WP_Post $achievement_obj The Achievement object to send a notification for.
  * @param int $user_id ID of the user who unlocked the achievement.
  * @param int $progress_id The Progress object's ID.
  * @since Achievements (3.0)
  */
-function dpa_send_notification( $achievement_obj, $user_id, $progress_id ) {
+function dpa_send_notification( WP_Post $achievement_obj, $user_id, $progress_id ) {
 	// Let other plugins easily bypass sending notifications.
 	if ( ! apply_filters( 'dpa_maybe_send_notification', true, $achievement_obj, $user_id, $progress_id ) )
 		return;

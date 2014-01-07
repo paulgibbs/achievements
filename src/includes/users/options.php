@@ -105,7 +105,7 @@ function dpa_setup_user_option_filters() {
  * @param WP_User $user Optional. User to get option for
  * @return mixed false if not overloaded, mixed if set
  */
-function dpa_filter_get_user_option( $value = false, $option = '', $user = null ) {
+function dpa_filter_get_user_option( $value = false, $option = '', WP_User $user = null ) {
 	// Check the options global for preset value
 	if ( isset( $user->ID ) && isset( achievements()->user_options[$user->ID] ) && ! empty( achievements()->user_options[$user->ID][$option] ) )
 		$value = achievements()->user_options[$user->ID][$option];

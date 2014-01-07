@@ -191,7 +191,7 @@ function dpa_add_template_locations( $templates = array() ) {
  * @param WP_Query $posts_query
  * @since Achievements (3.0)
  */
-function dpa_parse_query( $posts_query ) {
+function dpa_parse_query( WP_Query $posts_query ) {
 
 	// Bail if not the main loop, if filters are suppressed, or if in WP admin.
 	if ( ! $posts_query->is_main_query() || true === $posts_query->get( 'suppress_filters' ) || is_admin() )

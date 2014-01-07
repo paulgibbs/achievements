@@ -198,7 +198,7 @@ class DPA_Users_List_Table extends WP_Users_List_Table {
 	 * @see WP_List_Table::single_row_columns()
 	 * @since Achievements (3.0)
 	 */
-	public function column_username( $user ) {
+	public function column_username( WP_User $user ) {
 		$avatar = get_avatar( $user->ID, 32 );
 		$url    = dpa_get_user_avatar_link( array( 'type' => 'url', 'user_id' => $user->ID ) );
 
@@ -212,7 +212,7 @@ class DPA_Users_List_Table extends WP_Users_List_Table {
 	 * @see WP_List_Table::single_row_columns()
 	 * @since Achievements (3.0)
 	 */
-	public function column_dpa_achievements( $user ) {
+	public function column_dpa_achievements( WP_User $user ) {
 		dpa_user_unlocked_count( $user->ID );
 	}
 
@@ -223,7 +223,7 @@ class DPA_Users_List_Table extends WP_Users_List_Table {
 	 * @see WP_List_Table::single_row_columns()
 	 * @since Achievements (3.0)
 	 */
-	public function column_dpa_last_id( $user ) {
+	public function column_dpa_last_id( WP_User $user ) {
 		$output = true;
 
 		// Get this user's most recent unlocked achievement
@@ -261,7 +261,7 @@ class DPA_Users_List_Table extends WP_Users_List_Table {
 	 * @see WP_List_Table::single_row_columns()
 	 * @since Achievements (3.0)
 	 */
-	public function column_dpa_actions( $user ) {
+	public function column_dpa_actions( WP_User $user ) {
 		$link = get_edit_user_link( $user->ID );
 		printf( '<a href="%1$s">%2$s</a>', esc_url( $link ), __( 'Edit', 'dpa' ) );
 	}

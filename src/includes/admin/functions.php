@@ -42,7 +42,7 @@ function dpa_admin_setup_metaboxes() {
  * @param WP_Post $post The post being added or edited
  * @since Achievements (3.0)
  */
-function dpa_achievement_metabox( $post ) {
+function dpa_achievement_metabox( WP_Post $post ) {
 	// Get all events grouped by the extension which provided them
 	$events = dpa_get_all_events_details();
 

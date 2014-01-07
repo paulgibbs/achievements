@@ -12,12 +12,12 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 /**
  * When an achievement is unlocked, give the points to the user.
  *
- * @param object $achievement_obj The Achievement object to send a notification for.
+ * @param WP_Post $achievement_obj The Achievement object to send a notification for.
  * @param int $user_id ID of the user who unlocked the achievement.
  * @param int $progress_id The Progress object's ID.
  * @since Achievements (3.0)
  */
-function dpa_send_points( $achievement_obj, $user_id, $progress_id ) {
+function dpa_send_points( WP_Post $achievement_obj, $user_id, $progress_id ) {
 	// Let other plugins easily bypass sending points.
 	if ( ! apply_filters( 'dpa_maybe_send_points', true, $achievement_obj, $user_id, $progress_id ) )
 		return;
@@ -36,12 +36,12 @@ function dpa_send_points( $achievement_obj, $user_id, $progress_id ) {
 /**
  * When an achievement is unlocked by a user, update various stats relating to the user.
  *
- * @param object $achievement_obj The Achievement object.
+ * @param WP_Post $achievement_obj The Achievement object.
  * @param int $user_id ID of the user who unlocked the achievement.
  * @param int $progress_id The Progress object's ID.
  * @since Achievements (3.0)
  */
-function dpa_update_user_stats( $achievement_obj, $user_id, $progress_id ) {
+function dpa_update_user_stats( WP_Post $achievement_obj, $user_id, $progress_id ) {
 	// Let other plugins easily bypass updating user's stats
 	if ( ! apply_filters( 'dpa_maybe_update_user_stats', true, $achievement_obj, $user_id, $progress_id ) )
 		return;

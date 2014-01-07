@@ -297,10 +297,10 @@ class DPA_Admin {
 	/**
 	 * Add the 'User Points' box to Edit User page, and a list of the user's current achievements.
 	 *
-	 * @param object $user
+	 * @param WP_User $user
 	 * @since Achievements (3.0)
 	 */
-	public function add_profile_fields( $user ) {
+	public function add_profile_fields( WP_User $user ) {
 		if ( ! is_super_admin() )
 			return;
 	?>
