@@ -74,7 +74,6 @@ class DPA_Users_List_Table extends WP_Users_List_Table {
 
 		$total_users  =  $users_of_blog['total_users'];
 		$avail_roles  =& $users_of_blog['avail_roles'];
-		$current_role =  false;
 		$class        =  empty( $role ) ? ' class="current"' : '';
 		unset( $users_of_blog );
 
@@ -89,10 +88,8 @@ class DPA_Users_List_Table extends WP_Users_List_Table {
 			$class = '';
 
 			// Highlight the currently selected user role
-			if ( $this_role === $role ) {
-				$class        = ' class="current"';
-				$current_role = $role;
-			}
+			if ( $this_role === $role )
+				$class = ' class="current"';
 
 			$name = translate_user_role( $name );
 
