@@ -75,7 +75,7 @@ class DPA_WPCLI_Achievements_Users_Command extends WP_CLI_Command {
 	 */
 	public function revoke( $args, $assoc_args ) {
 
-		if ( ! $assoc_args['user_id'] || ! $user = get_userdata( $assoc_args['user_id'] ) )
+		if ( ! $assoc_args['user_id'] || ! get_userdata( $assoc_args['user_id'] ) )
 			WP_CLI::error( 'Invalid User ID specified.' );
 
 		// Get the achievement ID
@@ -103,7 +103,7 @@ class DPA_WPCLI_Achievements_Users_Command extends WP_CLI_Command {
 	 */
 	public function award( $args, $assoc_args ) {
 
-		if ( ! $assoc_args['user_id'] || ! $user = get_userdata( $assoc_args['user_id'] ) )
+		if ( ! $assoc_args['user_id'] || ! get_userdata( $assoc_args['user_id'] ) )
 			WP_CLI::error( 'Invalid User ID specified.' );
 
 		// Get the achievement ID
