@@ -98,12 +98,8 @@ class DPA_BuddyPress_Component extends BP_Component {
 			'slug'                => $this->slug,
 		);
 
-		// Determine user to use for the link
-		if ( bp_displayed_user_id() )
-			$user_domain = bp_displayed_user_domain();
-		elseif ( bp_loggedin_user_domain() )
-			$user_domain = bp_loggedin_user_domain();
-		else
+		// Bail out if logged out and not on a user's page
+		if ( ! bp_displayed_user_id() && ! bp_loggedin_user_domain() )
 			return;
 
 		// Add to the user navigation -- "my achievements"
