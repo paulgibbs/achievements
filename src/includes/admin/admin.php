@@ -431,7 +431,7 @@ class DPA_Admin {
 		if ( ! empty( $_GET['post_type'] ) && 'achievement' === $_GET['post_type'] )
 			$result = true;
 
-		return true;
+		return $result;
 	}
 
 	/**
