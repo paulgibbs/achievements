@@ -290,7 +290,7 @@ function dpa_breadcrumb( $args = array() ) {
 
 		// Define variables
 		$front_id         = $root_id                                 = 0;
-		$ancestors        = $crumbs           = $tag_data            = array();
+		$ancestors        = $crumbs                                  = array();
 		$pre_root_text    = $pre_front_text   = $pre_current_text    = '';
 		$pre_include_root = $pre_include_home = $pre_include_current = true;
 

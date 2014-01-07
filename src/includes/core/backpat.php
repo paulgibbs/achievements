@@ -66,9 +66,7 @@ function dpa_deprecated_print_notifications() {
 		return;
 
 	// Get current notifications
-	$achievements  = array();
 	$notifications = dpa_get_user_notifications();
-
 	if ( empty( $notifications ) )
 		return;
 
