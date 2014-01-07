@@ -16,13 +16,12 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  * @todo Remove the $dpa_users_list_table and switch to a singleton
  */
 function dpa_admin_screen_users_on_load() {
-	global $dpa_users_list_table;
 
 	// Call an action for plugins to hook in early
 	do_action( 'dpa_admin_screen_users_on_load' );
 
 	// Create the Activity screen list table
-	$dpa_users_list_table = new DPA_Users_List_Table();
+	$GLOBALS['dpa_users_list_table'] = new DPA_Users_List_Table();
 
 	// Help panel - overview text
 	get_current_screen()->add_help_tab( array(
