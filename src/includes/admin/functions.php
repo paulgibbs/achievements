@@ -79,7 +79,7 @@ function dpa_achievement_metabox( WP_Post $post ) {
 			<?php foreach ( $events as $extension => $extension_events ) : ?>
 				<optgroup label="<?php echo esc_attr( $extension ); ?>">
 
-				<?php foreach ( $extension_events as $event ) : /*echo(var_dump( in_array( $event['id'], $existing_events ) ));*/ ?>
+				<?php foreach ( $extension_events as $event ) : ?>
 					<option value="<?php echo esc_attr( $event['id'] ); ?>" <?php selected( in_array( $event['id'], $existing_events ), true ); ?>><?php echo esc_html( $event['description'] ); ?></option>
 				<?php endforeach; ?>
 

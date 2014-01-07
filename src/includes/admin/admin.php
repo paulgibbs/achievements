@@ -84,9 +84,6 @@ class DPA_Admin {
 		// Add menu item to settings menu
 		add_action( 'dpa_admin_menu',                           array( $this, 'admin_menus'             ) );
 
-		// Add settings
-		add_action( 'dpa_register_admin_settings',              array( $this, 'register_admin_settings' ) );
-
 		// Column headers
 		add_filter( 'manage_achievement_posts_columns',         'dpa_achievement_posts_columns' );
 
@@ -278,20 +275,6 @@ class DPA_Admin {
 			// Add thickbox for the 'not installed' links on the List view
 			add_thickbox();
 		}
-	}
-
-	/**
-	 * Register the settings
-	 *
-	 * @since Achievements (3.0)
-	 */
-	public function register_admin_settings() {
-		// Only do stuff if we're on an Achievements admin screen
-		if ( ! DPA_Admin::is_admin_screen() )
-			return;
-
-		// Fire an action for Achievements plugins to register their custom settings
-		do_action( 'dpa_register_admin_settings' );
 	}
 
 	/**

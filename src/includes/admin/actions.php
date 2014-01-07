@@ -28,15 +28,11 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 add_action( 'admin_init',        'dpa_admin_init'                     );
 add_action( 'admin_menu',        'dpa_admin_menu'                     );
 add_action( 'admin_head',        'dpa_admin_head'                     );
-//add_action( 'admin_notices',     'dpa_admin_notices'                 );
-//add_action( 'custom_menu_order', 'dpa_admin_custom_menu_order'        );
-//add_action( 'menu_order',        'dpa_admin_menu_order'               );
 add_action( 'wpmu_new_blog',     'dpa_new_site',                10, 6 );
 
 // Hook on to admin_init
 add_action( 'dpa_admin_init', 'dpa_setup_updater',           999 );
 add_action( 'dpa_admin_init', 'dpa_do_activation_redirect',  1   );
-//add_action( 'dpa_admin_init', 'dpa_register_admin_settings'      );
 
 // Initialize the admin area
 add_action( 'dpa_init', 'dpa_admin_setup' );
