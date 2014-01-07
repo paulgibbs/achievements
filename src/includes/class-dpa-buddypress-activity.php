@@ -180,7 +180,8 @@ class DPA_BuddyPress_Activity {
 			'type'              => $this->achievement_unlocked,
 			'user_id'           => $user_id,
 		);
-		$activity_id = $this->record_activity( $activity );
+
+		$this->record_activity( $activity );
 	}
 
 	/**
