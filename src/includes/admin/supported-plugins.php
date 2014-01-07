@@ -292,7 +292,7 @@ function dpa_supported_plugins_detail() {
 function dpa_supported_plugins_list() {
 	// Get current filter and view of the Supported Plugins screen
 	$filter = dpa_supported_plugins_get_filter();
-	$view   = dpa_supported_plugins_get_view();
+	//$view   = dpa_supported_plugins_get_view();
 
 	// Build URL
 	$page_url = remove_query_arg( _dpa_supported_plugin_get_queryargs(), $_SERVER['REQUEST_URI'] );
