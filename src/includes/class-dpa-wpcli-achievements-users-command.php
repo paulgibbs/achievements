@@ -156,9 +156,7 @@ class DPA_WPCLI_Achievements_Users_Command extends WP_CLI_Command {
 	protected function _get_achievement_id_by_post_name( $post_name ) {
 		global $wpdb;
 
-		return $wpdb->get_var( $wpdb->prepare( "SELECT ID FROM {$wpdb->posts} WHERE post_type = %s AND post_name = %s LIMIT 1", dpa_get_achievement_post_type(), $post_name ) );
-
-		return absint( $achievement_id );
+		return absint( $wpdb->get_var( $wpdb->prepare( "SELECT ID FROM {$wpdb->posts} WHERE post_type = %s AND post_name = %s LIMIT 1", dpa_get_achievement_post_type(), $post_name ) ) );
 	}
 }
 
