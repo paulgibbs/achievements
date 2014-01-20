@@ -45,7 +45,7 @@ function dpa_has_achievements( $args = array() ) {
 		'post_type'             => dpa_get_achievement_post_type(),                            // Only retrieve achievement posts
 		'posts_per_page'        => dpa_get_achievements_per_page(),                            // Achievements per page
 		'ach_progress_status'   => $default_progress_status,                                   // On single user achievement page, default to only showing unlocked achievements
-		's'                     => ! empty( $_GET['dpa'] ) ? wp_unslash( $_GET['dpa'] ) : '',  // Achievements search
+		's'                     => ! empty( $_GET['achievements'] ) ? wp_unslash( $_GET['achievements'] ) : '',  // Achievements search
 
 		// Achievements params
  		'ach_event'             => '',                                                         // Load achievements for a specific event
@@ -513,9 +513,9 @@ function dpa_achievement_excerpt( $achievement_id = 0, $length = 200 ) {
 
 			// Build a "go here to read more" link
 			// translators: first param is post permalink, second param is the "more" text.
-			$more_link = sprintf( __( '&hellip; (<a href="%1$s">%2$s</a>)', 'dpa' ),
+			$more_link = sprintf( __( '&hellip; (<a href="%1$s">%2$s</a>)', 'achievements' ),
 				esc_attr( dpa_get_achievement_permalink( $achievement_id ) ),
-				_x( 'more', 'Excerpt - click here to see more of the post', 'dpa' )
+				_x( 'more', 'Excerpt - click here to see more of the post', 'achievements' )
 			);
 			$more_link = apply_filters( 'dpa_get_achievement_excerpt_more_link', $more_link, $achievement_id, $length );
 			$excerpt  .= $more_link;
@@ -558,7 +558,7 @@ function dpa_achievement_post_date( $achievement_id = 0, $humanise = false, $gmt
 		} else {
 			$date   = get_post_time( get_option( 'date_format' ), $gmt, $achievement_id, true );
 			$time   = get_post_time( get_option( 'time_format' ), $gmt, $achievement_id, true );
-			$result = sprintf( _x( '%1$s at %2$s', '[date] at [time]', 'dpa' ), $date, $time );
+			$result = sprintf( _x( '%1$s at %2$s', '[date] at [time]', 'achievements' ), $date, $time );
 		}
 
 		return apply_filters( 'dpa_get_achievement_post_date', $result, $achievement_id, $humanise, $gmt, $date, $time );
@@ -597,7 +597,7 @@ function dpa_achievements_index_description( $args = '' ) {
 
 		// Get count of total achievements
 		$achievement_count = dpa_get_total_achievement_count();
-		$achievement_text  = sprintf( _n( '%s achievement', '%s achievements', $achievement_count, 'dpa' ), number_format_i18n( $achievement_count ) );
+		$achievement_text  = sprintf( _n( '%s achievement', '%s achievements', $achievement_count, 'achievements' ), number_format_i18n( $achievement_count ) );
 
 		// Get data on the most recent unlocked achievement
 		$recent_achievement_id = dpa_stats_get_last_achievement_id();
@@ -615,7 +615,7 @@ function dpa_achievements_index_description( $args = '' ) {
 
 					// Combine all the things to build the output text
 					$retstr = sprintf(
-						__( 'This site has %1$s, and the last unlocked was <a href="%2$s">%3$s</a> by %4$s.', 'dpa' ),
+						__( 'This site has %1$s, and the last unlocked was <a href="%2$s">%3$s</a> by %4$s.', 'achievements' ),
 						$achievement_text,
 						get_permalink( $achievement->ID ),
 						apply_filters( 'dpa_get_achievement_title', $achievement->post_title, $achievement->ID ),
@@ -630,7 +630,7 @@ function dpa_achievements_index_description( $args = '' ) {
 
 		// If we haven't set a more specific description, fall back to the default.
 		if ( ! isset( $retstr ) )
-			$retstr = sprintf( __( 'This site has %1$s.', 'dpa' ), $achievement_text );
+			$retstr = sprintf( __( 'This site has %1$s.', 'achievements' ), $achievement_text );
 
 		$retstr = $before . $retstr . $after;
 		return apply_filters( 'dpa_get_achievements_index_description', $retstr, $args );
@@ -763,11 +763,11 @@ function dpa_achievement_pagination_count() {
 
 		// Several achievements within a single page
 		if ( empty( $to_num ) ) {
-			$retstr = sprintf( _n( 'Viewing %1$s achievement', 'Viewing %1$s achievements', $total_int, 'dpa' ), $total );
+			$retstr = sprintf( _n( 'Viewing %1$s achievement', 'Viewing %1$s achievements', $total_int, 'achievements' ), $total );
 
 		// Several achievements with several pages
 		} else {
-			$retstr = sprintf( _n( 'Viewing achievement %2$s (of %4$s total)', 'Viewing %1$s achievements - %2$s through %3$s (of %4$s total)', $total_int, 'dpa' ), achievements()->achievement_query->post_count, $from_num, $to_num, $total );
+			$retstr = sprintf( _n( 'Viewing achievement %2$s (of %4$s total)', 'Viewing %1$s achievements - %2$s through %3$s (of %4$s total)', $total_int, 'achievements' ), achievements()->achievement_query->post_count, $from_num, $to_num, $total );
 		}
 
 		return apply_filters( 'dpa_get_achievement_pagination_count', $retstr );

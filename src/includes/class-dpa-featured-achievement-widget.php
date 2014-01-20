@@ -25,10 +25,10 @@ class DPA_Featured_Achievement_Widget extends WP_Widget {
 	public function __construct() {
 		$widget_ops = apply_filters( 'dpa_featured_achievement_widget_options', array(
 			'classname'   => 'widget_dpa_featured_achievement',
-			'description' => __( 'Display details of a single achievement.', 'dpa' ),
+			'description' => __( 'Display details of a single achievement.', 'achievements' ),
 		) );
 
-		parent::__construct( false, __( '(Achievements) Featured Achievement', 'dpa' ), $widget_ops );
+		parent::__construct( false, __( '(Achievements) Featured Achievement', 'achievements' ), $widget_ops );
 	}
 
 	/**
@@ -104,7 +104,7 @@ class DPA_Featured_Achievement_Widget extends WP_Widget {
 		?>
 
 		<p>
-			<label for="<?php echo $this->get_field_id( 'post_id' ); ?>"><?php _e( 'Achievement ID:', 'dpa' ); ?>
+			<label for="<?php echo $this->get_field_id( 'post_id' ); ?>"><?php _e( 'Achievement ID:', 'achievements' ); ?>
 				<input class="widefat" id="<?php echo $this->get_field_id( 'post_id' ); ?>" name="<?php echo $this->get_field_name( 'post_id' ); ?>" type="text" value="<?php echo esc_attr( $settings['post_id'] ); ?>" />
 			</label>
 		</p>

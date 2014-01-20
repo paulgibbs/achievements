@@ -26,29 +26,29 @@ function dpa_admin_screen_users_on_load() {
 	// Help panel - overview text
 	get_current_screen()->add_help_tab( array(
 		'id'      => 'dpa-supported-plugins-overview',
-		'title'   => __( 'Overview', 'dpa' ),
+		'title'   => __( 'Overview', 'achievements' ),
 		'content' =>
-			'<p>' . __( 'This screen lists all the users on your site who are eligble to unlock achievements.', 'dpa' ) . '</p>' .
-			'<p>' . __( 'Each user has one of five defined roles as set by the site admin: Site Administrator, Editor, Author, Contributor, or Subscriber. Users with roles other than Administrator will see fewer options in the dashboard navigation when they are logged in, based on their role.', 'dpa' ) . '</p>'
+			'<p>' . __( 'This screen lists all the users on your site who are eligble to unlock achievements.', 'achievements' ) . '</p>' .
+			'<p>' . __( 'Each user has one of five defined roles as set by the site admin: Site Administrator, Editor, Author, Contributor, or Subscriber. Users with roles other than Administrator will see fewer options in the dashboard navigation when they are logged in, based on their role.', 'achievements' ) . '</p>'
 	) );
 
 	// Help panel - screen display text
 	get_current_screen()->add_help_tab( array(
 		'id'      => 'dpa-supported-plugins-views',
-		'title'   => __( 'Screen Content', 'dpa' ),
+		'title'   => __( 'Screen Content', 'achievements' ),
 		'content' =>
-			'<p>' . __( 'You can customize the display of this screen&#8217;s contents in a number of ways:', 'dpa' ) . '</p>' .
+			'<p>' . __( 'You can customize the display of this screen&#8217;s contents in a number of ways:', 'achievements' ) . '</p>' .
 			'<ul>' .
-				'<li>' . __( 'You can assign and remove achievements from a user by using the links in the Actions column.', 'dpa' ) . '</li>' .
-				'<li>' . __( 'You can filter the list of users by User Role using the text links in the upper left to show All, Administrator, Editor, Author, Contributor, or Subscriber. The default view is to show all users. Unused User Roles are not listed.', 'dpa' ) . '</li>' .
-				'<li>' . __( 'You can hide/display columns based on your needs using the Screen Options tab.', 'dpa' ) . '</li>' .
+				'<li>' . __( 'You can assign and remove achievements from a user by using the links in the Actions column.', 'achievements' ) . '</li>' .
+				'<li>' . __( 'You can filter the list of users by User Role using the text links in the upper left to show All, Administrator, Editor, Author, Contributor, or Subscriber. The default view is to show all users. Unused User Roles are not listed.', 'achievements' ) . '</li>' .
+				'<li>' . __( 'You can hide/display columns based on your needs using the Screen Options tab.', 'achievements' ) . '</li>' .
 			'</ul>'
 	) );
 
 	get_current_screen()->set_help_sidebar(
-		'<p><strong>' . __( 'For more information:', 'dpa' ) . '</strong></p>' .
-		'<p><a href="http://achievementsapp.com/" target="_blank">' . __( 'Achievements Website', 'dpa' ) . '</a></p>' .
-		'<p><a href="http://wordpress.org/support/plugin/achievements/" target="_blank">' . __( 'Support Forums', 'dpa' ) . '</a></p>'
+		'<p><strong>' . __( 'For more information:', 'achievements' ) . '</strong></p>' .
+		'<p><a href="http://achievementsapp.com/" target="_blank">' . __( 'Achievements Website', 'achievements' ) . '</a></p>' .
+		'<p><a href="http://wordpress.org/support/plugin/achievements/" target="_blank">' . __( 'Support Forums', 'achievements' ) . '</a></p>'
 	);
 }
 
@@ -71,10 +71,10 @@ function dpa_admin_screen_users() {
 	<div class="wrap">
 		<?php screen_icon( 'users' ); ?>
 		<h2>
-			<?php _ex( 'Users', 'admin menu title', 'dpa' ); ?>
+			<?php _ex( 'Users', 'admin menu title', 'achievements' ); ?>
 
 			<?php if ( ! empty( $usersearch ) ) : ?>
-				<span class="subtitle"><?php printf( _x( 'Search results for &#8220;%s&#8221;', 'admin screen search results heading', 'dpa' ), esc_html( wp_unslash( $usersearch ) ) ); ?></span>
+				<span class="subtitle"><?php printf( _x( 'Search results for &#8220;%s&#8221;', 'admin screen search results heading', 'achievements' ), esc_html( wp_unslash( $usersearch ) ) ); ?></span>
 			<?php endif; ?>
 		</h2>
 
@@ -87,7 +87,7 @@ function dpa_admin_screen_users() {
 		<?php $dpa_users_list_table->views(); ?>
 
 		<form id="dpa-admin-users-form" action="" method="get">
-			<?php $dpa_users_list_table->search_box( __( 'Search all Users', 'dpa' ), 'dpa-admin-users' ); ?>
+			<?php $dpa_users_list_table->search_box( __( 'Search all Users', 'achievements' ), 'dpa-admin-users' ); ?>
 			<input type="hidden" name="post_type" value="<?php echo esc_attr( dpa_get_achievement_post_type() ); ?>" />
 			<input type="hidden" name="page" value="<?php echo esc_attr( $plugin_page ); ?>" />
 			<?php $dpa_users_list_table->display(); ?>

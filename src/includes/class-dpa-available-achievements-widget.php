@@ -25,10 +25,10 @@ class DPA_Available_Achievements_Widget extends WP_Widget {
 	public function __construct() {
 		$widget_ops = apply_filters( 'dpa_available_achievements_widget_options', array(
 			'classname'   => 'widget_dpa_available_achievements',
-			'description' => __( 'Displays a photo grid of the achievements.', 'dpa' ),
+			'description' => __( 'Displays a photo grid of the achievements.', 'achievements' ),
 		) );
 
-		parent::__construct( false, __( '(Achievements) Photo Grid', 'dpa' ), $widget_ops );
+		parent::__construct( false, __( '(Achievements) Photo Grid', 'achievements' ), $widget_ops );
 	}
 
 	/**
@@ -121,11 +121,11 @@ class DPA_Available_Achievements_Widget extends WP_Widget {
 		?>
 
 		<p>
-			<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:', 'dpa' ); ?></label><br />
+			<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:', 'achievements' ); ?></label><br />
 			<input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo esc_attr( $settings['title'] ); ?>" />
 		</p>
 		<p>
-			<label for="<?php echo $this->get_field_id( 'limit' ); ?>"><?php _e( 'Show up to this many items:', 'dpa' ); ?></label><br />
+			<label for="<?php echo $this->get_field_id( 'limit' ); ?>"><?php _e( 'Show up to this many items:', 'achievements' ); ?></label><br />
 			<input class="widefat" id="<?php echo $this->get_field_id( 'limit' ); ?>" name="<?php echo $this->get_field_name( 'limit' ); ?>" type="number" min="1" value="<?php echo esc_attr( $settings['limit'] ); ?>" />
 		</p>
 
@@ -141,7 +141,7 @@ class DPA_Available_Achievements_Widget extends WP_Widget {
 	public function parse_settings( array $instance = array() ) {
 		return dpa_parse_args( $instance, array(
 			'limit' => 40,
-			'title' => __( 'Available achievements', 'dpa' ),
+			'title' => __( 'Available achievements', 'achievements' ),
 		), 'available_achievements_widget_settings' );
 	}
 }

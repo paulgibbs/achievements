@@ -27,10 +27,10 @@ class DPA_Redeem_Achievements_Widget extends WP_Widget {
 	public function __construct() {
 		$widget_ops = apply_filters( 'dpa_redeem_achievements_widget_options', array(
 			'classname'   => 'widget_dpa_redeem_achievements',
-			'description' => __( 'Users can redeem achievements entering a code.', 'dpa' )
+			'description' => __( 'Users can redeem achievements entering a code.', 'achievements' )
 		) );
 
-		parent::__construct( false, __( '(Achievements) Redemption', 'dpa' ), $widget_ops );
+		parent::__construct( false, __( '(Achievements) Redemption', 'achievements' ), $widget_ops );
 	}
 
 	/**
@@ -50,7 +50,7 @@ class DPA_Redeem_Achievements_Widget extends WP_Widget {
 	 * @since Achievements (3.1)
 	 */
 	public function widget( $args, $instance ) {
-		$title = ! empty( $instance['title'] ) ? $instance['title'] : __( 'Redeem achievement', 'dpa' );
+		$title = ! empty( $instance['title'] ) ? $instance['title'] : __( 'Redeem achievement', 'achievements' );
 		$title = apply_filters( 'dpa_redeem_achievements_widget_title', $title, $instance, $this->id_base );
 
 		// WordPress filters widget_title through esc_html.
@@ -85,11 +85,11 @@ class DPA_Redeem_Achievements_Widget extends WP_Widget {
 	 * @since Achievements (3.1)
 	 */
 	public function form( $instance ) {
-		$title = ! empty( $instance['title'] ) ? $instance['title'] : __( 'Redeem achievement', 'dpa' );
+		$title = ! empty( $instance['title'] ) ? $instance['title'] : __( 'Redeem achievement', 'achievements' );
 		?>
 
 		<p>
-			<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:', 'dpa' ); ?> 
+			<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:', 'achievements' ); ?> 
 				<input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>" />
 			</label>
 		</p>

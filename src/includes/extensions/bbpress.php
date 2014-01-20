@@ -41,31 +41,31 @@ class DPA_bbPress_Forum_Extension extends DPA_CPT_Extension {
 
 		$this->actions = array(
 			// Forum
-			'bbp_deleted_forum'   => __( 'A forum is permanently deleted by the user', 'dpa' ),
-			'bbp_edit_forum'      => __( "A forum&#8217;s settings are changed by the user", 'dpa' ),
-			'bbp_new_forum'       => __( 'The user creates a new forum', 'dpa' ),
-			'bbp_trashed_forum'   => __( 'The user puts a forum into the trash', 'dpa' ),
-			'bbp_untrashed_forum' => __( 'The user restores a forum from the trash', 'dpa' ),
+			'bbp_deleted_forum'   => __( 'A forum is permanently deleted by the user', 'achievements' ),
+			'bbp_edit_forum'      => __( "A forum&#8217;s settings are changed by the user", 'achievements' ),
+			'bbp_new_forum'       => __( 'The user creates a new forum', 'achievements' ),
+			'bbp_trashed_forum'   => __( 'The user puts a forum into the trash', 'achievements' ),
+			'bbp_untrashed_forum' => __( 'The user restores a forum from the trash', 'achievements' ),
 
 			// Topic management
-			'bbp_closed_topic'     => __( 'The user closes a topic.', 'dpa' ),
-			'bbp_merged_topic'     => __( 'Separate topics are merged together by a user', 'dpa' ),
-			'bbp_opened_topic'     => __( 'The user opens a topic for new replies', 'dpa' ),
-			'bbp_post_split_topic' => __( 'An existing topic is split into seperate threads by a user', 'dpa' ),
+			'bbp_closed_topic'     => __( 'The user closes a topic.', 'achievements' ),
+			'bbp_merged_topic'     => __( 'Separate topics are merged together by a user', 'achievements' ),
+			'bbp_opened_topic'     => __( 'The user opens a topic for new replies', 'achievements' ),
+			'bbp_post_split_topic' => __( 'An existing topic is split into seperate threads by a user', 'achievements' ),
 
 			// Topic
-			'bbp_deleted_topic'              => __( 'The user permanently deletes a topic', 'dpa' ),
-			'bbp_sticked_topic'              => __( 'The user marks a topic as a sticky', 'dpa' ),
-			'bbp_trashed_topic'              => __( 'The user trashes a topic', 'dpa' ),
-			'bbp_unsticked_topic'            => __( 'The user unstickies a topic', 'dpa' ),
-			'bbp_untrashed_topic'            => __( 'The user restores a topic from the trash', 'dpa' ),
-			'bbpress_topic_draft_to_publish' => __( 'The user creates a new topic.', 'dpa' ),
+			'bbp_deleted_topic'              => __( 'The user permanently deletes a topic', 'achievements' ),
+			'bbp_sticked_topic'              => __( 'The user marks a topic as a sticky', 'achievements' ),
+			'bbp_trashed_topic'              => __( 'The user trashes a topic', 'achievements' ),
+			'bbp_unsticked_topic'            => __( 'The user unstickies a topic', 'achievements' ),
+			'bbp_untrashed_topic'            => __( 'The user restores a topic from the trash', 'achievements' ),
+			'bbpress_topic_draft_to_publish' => __( 'The user creates a new topic.', 'achievements' ),
 
 			// Reply
-			'bbp_deleted_reply'              => __( 'The user permanently deletes a reply', 'dpa' ),
-			'bbp_trashed_reply'              => __( 'The user trashes a reply', 'dpa' ),
-			'bbp_untrashed_reply'            => __( 'The user restores a reply from the trash', 'dpa' ),
-			'bbpress_reply_draft_to_publish' => __( 'The user replies to a topic.', 'dpa' ),
+			'bbp_deleted_reply'              => __( 'The user permanently deletes a reply', 'achievements' ),
+			'bbp_trashed_reply'              => __( 'The user trashes a reply', 'achievements' ),
+			'bbp_untrashed_reply'            => __( 'The user restores a reply from the trash', 'achievements' ),
+			'bbpress_reply_draft_to_publish' => __( 'The user replies to a topic.', 'achievements' ),
 		);
 
 		$this->contributors = array(
@@ -94,10 +94,10 @@ class DPA_bbPress_Forum_Extension extends DPA_CPT_Extension {
 			'private_to_publish',
 		);
 
-		$this->description     = __( 'bbPress is forum software, made the WordPress way.', 'dpa' );
+		$this->description     = __( 'bbPress is forum software, made the WordPress way.', 'achievements' );
 		$this->id              = 'bbpress';
 		$this->image_url       = trailingslashit( achievements()->includes_url ) . 'admin/images/bbpress.png';
-		$this->name            = __( 'bbPress', 'dpa' );
+		$this->name            = __( 'bbPress', 'achievements' );
 		$this->rss_url         = 'http://bbpress.org/blog/feed/';
 		$this->small_image_url = trailingslashit( achievements()->includes_url ) . 'admin/images/bbpress-small.png';
 		$this->version         = 1;

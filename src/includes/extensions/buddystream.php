@@ -40,11 +40,11 @@ class DPA_Buddy_Stream_Extension extends DPA_Extension {
 	public function __construct() {
 
 		$this->actions = array(
-			'buddystream_facebook_activated' => __( 'The user connects their Facebook account to BuddyStream.', 'dpa' ),
-			'buddystream_flickr_activated'   => __( 'The user connects their Flickr account to BuddyStream.', 'dpa' ),
-			'buddystream_lastfm_activated'   => __( 'The user connects their Last.fm account to BuddyStream.', 'dpa' ),
-			'buddystream_twitter_activated'  => __( 'The user connects their Twitter account to BuddyStream.', 'dpa' ),
-			'buddystream_youtube_activated'  => __( 'The user connects their YouTube account to BuddyStream.', 'dpa' ),
+			'buddystream_facebook_activated' => __( 'The user connects their Facebook account to BuddyStream.', 'achievements' ),
+			'buddystream_flickr_activated'   => __( 'The user connects their Flickr account to BuddyStream.', 'achievements' ),
+			'buddystream_lastfm_activated'   => __( 'The user connects their Last.fm account to BuddyStream.', 'achievements' ),
+			'buddystream_twitter_activated'  => __( 'The user connects their Twitter account to BuddyStream.', 'achievements' ),
+			'buddystream_youtube_activated'  => __( 'The user connects their YouTube account to BuddyStream.', 'achievements' ),
 		);
 
 		$this->contributors = array(
@@ -55,10 +55,10 @@ class DPA_Buddy_Stream_Extension extends DPA_Extension {
 			)
 		);
 
-		$this->description     = __( 'BuddyStream is a BuddyPress plugin that will synchronize all of your favorite Social Networks to the BuddyPress activity stream.', 'dpa' );
+		$this->description     = __( 'BuddyStream is a BuddyPress plugin that will synchronize all of your favorite Social Networks to the BuddyPress activity stream.', 'achievements' );
 		$this->id              = 'buddystream';
 		$this->image_url       = trailingslashit( achievements()->includes_url ) . 'admin/images/buddystream.jpg';
-		$this->name            = __( 'BuddyStream', 'dpa' );
+		$this->name            = __( 'BuddyStream', 'achievements' );
 		$this->rss_url         = 'http://buddystream.net/feed/';
 		$this->small_image_url = trailingslashit( achievements()->includes_url ) . 'admin/images/buddystream-small.jpg';
 		$this->version         = 1;

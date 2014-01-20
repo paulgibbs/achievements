@@ -23,30 +23,30 @@ function dpa_supported_plugins_on_load() {
 	// Help panel - overview text
 	get_current_screen()->add_help_tab( array(
 		'id'      => 'dpa-supported-plugins-overview',
-		'title'   => __( 'Overview', 'dpa' ),
+		'title'   => __( 'Overview', 'achievements' ),
 		'content' =>
-			'<p>' . __( 'Learn about and discover the plugins which are supported by Achievements. This screen allows you to customize your view in three main ways; Detail view, List view, and Grid view. A powerful search box and filter gives you even more control to see exactly what you want.', 'dpa' ) . '</p>'
+			'<p>' . __( 'Learn about and discover the plugins which are supported by Achievements. This screen allows you to customize your view in three main ways; Detail view, List view, and Grid view. A powerful search box and filter gives you even more control to see exactly what you want.', 'achievements' ) . '</p>'
 	) );
 
 	// Help panel - views text
 	get_current_screen()->add_help_tab( array(
 		'id'      => 'dpa-supported-plugins-views',
-		'title'   => __( 'Views', 'dpa' ),
+		'title'   => __( 'Views', 'achievements' ),
 		'content' =>
-			'<p>' . __( "<strong>Grid view</strong> displays high-quality artwork of each plugin, showing you at a glance the plugins supported by Achievements.", 'dpa' ) . '</p>' .
-			'<p>' . __( "<strong>List view</strong> drills down into each plugin, showing you its authors and whether you already have the plugin installed.", 'dpa' ) . '</p>' .
-			'<p>' . __( "<strong>Detail view</strong> goes even further, showing you which features of the plugin are supported and the latest news about the plugin.", 'dpa' ) . '</p>'
+			'<p>' . __( "<strong>Grid view</strong> displays high-quality artwork of each plugin, showing you at a glance the plugins supported by Achievements.", 'achievements' ) . '</p>' .
+			'<p>' . __( "<strong>List view</strong> drills down into each plugin, showing you its authors and whether you already have the plugin installed.", 'achievements' ) . '</p>' .
+			'<p>' . __( "<strong>Detail view</strong> goes even further, showing you which features of the plugin are supported and the latest news about the plugin.", 'achievements' ) . '</p>'
 	) );
 
 	get_current_screen()->set_help_sidebar(
-		'<p><strong>' . __( 'For more information:', 'dpa' ) . '</strong></p>' .
-		'<p><a href="http://achievementsapp.com/" target="_blank">' . __( 'Achievements Website', 'dpa' ) . '</a></p>' .
-		'<p><a href="http://wordpress.org/support/plugin/achievements/" target="_blank">' . __( 'Support Forums', 'dpa' ) . '</a></p>'
+		'<p><strong>' . __( 'For more information:', 'achievements' ) . '</strong></p>' .
+		'<p><a href="http://achievementsapp.com/" target="_blank">' . __( 'Achievements Website', 'achievements' ) . '</a></p>' .
+		'<p><a href="http://wordpress.org/support/plugin/achievements/" target="_blank">' . __( 'Support Forums', 'achievements' ) . '</a></p>'
 	);
 
 	// Detail view - metaboxes
-	add_meta_box( 'dpa-supported-plugins-info', __( 'Plugin Information', 'dpa' ), 'dpa_supported_plugins_mb_info', 'dpa_achievement_page_achievements-plugins', 'side', 'core' );
-	add_meta_box( 'dpa-supported-plugins-features', __( 'Supported Features', 'dpa' ), 'dpa_supported_features_mb_info', 'dpa_achievement_page_achievements-plugins', 'side', 'core' );
+	add_meta_box( 'dpa-supported-plugins-info', __( 'Plugin Information', 'achievements' ), 'dpa_supported_plugins_mb_info', 'dpa_achievement_page_achievements-plugins', 'side', 'core' );
+	add_meta_box( 'dpa-supported-plugins-features', __( 'Supported Features', 'achievements' ), 'dpa_supported_features_mb_info', 'dpa_achievement_page_achievements-plugins', 'side', 'core' );
 }
 
 /**
@@ -113,7 +113,7 @@ function dpa_supported_plugins() {
 	<div class="wrap">
 
 		<?php screen_icon( 'options-general' ); ?>
-		<h2><?php _e( 'Supported Plugins', 'dpa' ); ?></h2>
+		<h2><?php _e( 'Supported Plugins', 'achievements' ); ?></h2>
 
 		<div id="poststuff">
 			<div id="post-body">
@@ -155,18 +155,18 @@ function dpa_supported_plugins_header() {
 	<form class="dpa-toolbar" enctype="multipart/form-data" id="dpa-toolbar" method="post"  name="dpa-toolbar">
 
 		<div id="dpa-toolbar-wrapper">
-			<input type="search" autocomplete="off" results="5" name="dpa-toolbar-search" id="dpa-toolbar-search" spellcheck="false" placeholder="<?php esc_attr_e( 'Search for a plugin...', 'dpa' ); ?>" />
+			<input type="search" autocomplete="off" results="5" name="dpa-toolbar-search" id="dpa-toolbar-search" spellcheck="false" placeholder="<?php esc_attr_e( 'Search for a plugin...', 'achievements' ); ?>" />
 
 			<select class="<?php if ( ! $GLOBALS['is_gecko'] ) echo 'dpa-ff-hack'; ?>" name="dpa-toolbar-filter" id="dpa-toolbar-filter">
-				<option value="all" <?php selected( $filter, 'all' ); ?>><?php esc_html_e( 'All Plugins', 'dpa' );       ?></option>
-				<option value="0"   <?php selected( $filter, '0'   ); ?>><?php esc_html_e( 'Available Plugins', 'dpa' ); ?></option>
-				<option value="1"   <?php selected( $filter, '1'   ); ?>><?php esc_html_e( 'Installed Plugins', 'dpa' ); ?></option>
+				<option value="all" <?php selected( $filter, 'all' ); ?>><?php esc_html_e( 'All Plugins', 'achievements' );       ?></option>
+				<option value="0"   <?php selected( $filter, '0'   ); ?>><?php esc_html_e( 'Available Plugins', 'achievements' ); ?></option>
+				<option value="1"   <?php selected( $filter, '1'   ); ?>><?php esc_html_e( 'Installed Plugins', 'achievements' ); ?></option>
 			</select>
 
 			<ul id="dpa-toolbar-views">
-				<li class="grid <?php if ( 'grid' === $view ) echo 'current'; ?>"><a class="grid" title="<?php esc_attr_e( 'Grid view', 'dpa' ); ?>" href="<?php echo esc_url( add_query_arg( 'view', 'grid', $page_url ) ); ?>"></a></li>
-				<li class="list <?php if ( 'list' === $view ) echo 'current'; ?>"><a class="list" title="<?php esc_attr_e( 'List view', 'dpa' ); ?>" href="<?php echo esc_url( add_query_arg( 'view', 'list', $page_url ) ); ?>"></a></li>
-				<li class="detail <?php if ( 'detail' === $view ) echo 'current'; ?>"><a class="detail" title="<?php esc_attr_e( 'Detail view', 'dpa' ); ?>" href="<?php echo esc_url( add_query_arg( 'view', 'detail', $page_url ) ); ?>"></a></li>
+				<li class="grid <?php if ( 'grid' === $view ) echo 'current'; ?>"><a class="grid" title="<?php esc_attr_e( 'Grid view', 'achievements' ); ?>" href="<?php echo esc_url( add_query_arg( 'view', 'grid', $page_url ) ); ?>"></a></li>
+				<li class="list <?php if ( 'list' === $view ) echo 'current'; ?>"><a class="list" title="<?php esc_attr_e( 'List view', 'achievements' ); ?>" href="<?php echo esc_url( add_query_arg( 'view', 'list', $page_url ) ); ?>"></a></li>
+				<li class="detail <?php if ( 'detail' === $view ) echo 'current'; ?>"><a class="detail" title="<?php esc_attr_e( 'Detail view', 'achievements' ); ?>" href="<?php echo esc_url( add_query_arg( 'view', 'detail', $page_url ) ); ?>"></a></li>
 			</ul>
 		</div>
 
@@ -216,12 +216,12 @@ function dpa_supported_plugins_detail() {
 			<div class="<?php echo esc_attr( $class ); ?>">
 				<div class="plugin-title">
 					<h3><?php echo convert_chars( wptexturize( $extension->get_name() ) ); ?></h3>
-					<a class="socialite twitter" href="http://twitter.com/share" data-text="<?php echo esc_attr( convert_chars( wptexturize( $extension->get_name() ) ) ); ?>" data-related="pgibbs" data-url="<?php echo esc_attr( $extension->get_wporg_url() ); ?>" target="_blank"><?php _e( 'Share on Twitter', 'dpa' ); ?></a>
-					<a class="socialite googleplus" href="<?php echo esc_attr( esc_url( 'https://plus.google.com/share?url=' . urlencode( $extension->get_wporg_url() ) ) ); ?>" data-size="medium" data-href="<?php echo esc_attr( $extension->get_wporg_url() ); ?>" target="_blank"><?php _e( 'Share on Google', 'dpa' ); ?></a>
+					<a class="socialite twitter" href="http://twitter.com/share" data-text="<?php echo esc_attr( convert_chars( wptexturize( $extension->get_name() ) ) ); ?>" data-related="pgibbs" data-url="<?php echo esc_attr( $extension->get_wporg_url() ); ?>" target="_blank"><?php _e( 'Share on Twitter', 'achievements' ); ?></a>
+					<a class="socialite googleplus" href="<?php echo esc_attr( esc_url( 'https://plus.google.com/share?url=' . urlencode( $extension->get_wporg_url() ) ) ); ?>" data-size="medium" data-href="<?php echo esc_attr( $extension->get_wporg_url() ); ?>" target="_blank"><?php _e( 'Share on Google', 'achievements' ); ?></a>
 				</div><!-- .plugin-title -->
 
 				<div class="plugin-rss">
-					<h3><?php _e( 'Latest News', 'dpa' ); ?></h3>
+					<h3><?php _e( 'Latest News', 'achievements' ); ?></h3>
 
 					<?php
 					// Fetch each plugin's RSS feed, and parse the updates.
@@ -233,7 +233,7 @@ function dpa_supported_plugins_detail() {
 						foreach ( $items as $item ) {
 							// Prepare excerpt.
 							$excerpt = strip_tags( html_entity_decode( $item->get_content(), ENT_QUOTES, get_option( 'blog_charset' ) ) );
-							$excerpt = wp_html_excerpt( $excerpt, 250 ) . _x( '&hellip;', 'ellipsis character at end of post excerpt to show text has been truncated', 'dpa' );
+							$excerpt = wp_html_excerpt( $excerpt, 250 ) . _x( '&hellip;', 'ellipsis character at end of post excerpt to show text has been truncated', 'achievements' );
 
 							// Skip posts with no words
 							if ( empty( $excerpt ) )
@@ -267,7 +267,7 @@ function dpa_supported_plugins_detail() {
 						echo $content . '</ul>';
 
 					} else {
-						echo '<p>' . __( 'No news found.', 'dpa' ) . '</p>';
+						echo '<p>' . __( 'No news found.', 'achievements' ) . '</p>';
 					}
 					?>
 				</div><!-- .plugin-rss -->
@@ -328,24 +328,24 @@ function dpa_supported_plugins_list() {
 ?>
 
 	<table class="widefat">
-		<caption class="screen-reader-text"><?php _e( 'This table lists all of the plugins that Achievements has support for. For each plugin it shows a banner, who contributed to its development, and whether your site has the plugin installed or not.', 'dpa' ); ?></caption>
+		<caption class="screen-reader-text"><?php _e( 'This table lists all of the plugins that Achievements has support for. For each plugin it shows a banner, who contributed to its development, and whether your site has the plugin installed or not.', 'achievements' ); ?></caption>
 		<thead>
 			<tr>
 				<th scope="col"></th>
-				<th scope="col"><?php _e( 'Plugin', 'dpa' ); ?></th>
-				<!-- <th scope="col"><a href="<?php echo esc_attr( add_query_arg( 'order', 'rating', $redirect_to ) ); ?>"><?php _e( 'Rating', 'dpa' ); ?></a></th> -->
-				<th scope="col"><a href="<?php echo esc_attr( add_query_arg( 'order', 'status', $redirect_to ) ); ?>"><?php _e( 'Status', 'dpa' ); ?></a></th>
-				<th scope="col"><?php _e( 'Authors', 'dpa' ); ?></th>
+				<th scope="col"><?php _e( 'Plugin', 'achievements' ); ?></th>
+				<!-- <th scope="col"><a href="<?php echo esc_attr( add_query_arg( 'order', 'rating', $redirect_to ) ); ?>"><?php _e( 'Rating', 'achievements' ); ?></a></th> -->
+				<th scope="col"><a href="<?php echo esc_attr( add_query_arg( 'order', 'status', $redirect_to ) ); ?>"><?php _e( 'Status', 'achievements' ); ?></a></th>
+				<th scope="col"><?php _e( 'Authors', 'achievements' ); ?></th>
 			</tr>
 		</thead>
 
 		<tfoot>
 			<tr>
 				<th></th>
-				<th><?php _e( 'Plugin', 'dpa' ); ?></th>
-				<!-- <th><a href="#a"><?php _e( 'Rating', 'dpa' ); ?></a></th> -->
-				<th><a href="#"><?php _e( 'Status', 'dpa' ); ?></a></th>
-				<th><?php _e( 'Authors', 'dpa' ); ?></th>
+				<th><?php _e( 'Plugin', 'achievements' ); ?></th>
+				<!-- <th><a href="#a"><?php _e( 'Rating', 'achievements' ); ?></a></th> -->
+				<th><a href="#"><?php _e( 'Status', 'achievements' ); ?></a></th>
+				<th><?php _e( 'Authors', 'achievements' ); ?></th>
 			</tr>
 		</tfoot>
 
@@ -378,20 +378,20 @@ function dpa_supported_plugins_list() {
 					</td>
 
 					<?php /* <!-- <td class="rating">
-						<div class="star-holder" title="<?php printf( __( 'Rated %1$s out of 100 by the WordPress.org community', 'dpa' ), number_format_i18n( $plugin->rating ) ); ?>">
+						<div class="star-holder" title="<?php printf( __( 'Rated %1$s out of 100 by the WordPress.org community', 'achievements' ), number_format_i18n( $plugin->rating ) ); ?>">
 							<div class="star star-rating" style="width: <?php echo esc_attr( $plugin->rating ); ?>px"></div>
-							<div class="star star5"><img src="<?php echo admin_url( 'images/star.png?v=20120409' ); ?>" alt="<?php esc_attr_e( '5 stars', 'dpa' ); ?>" /></div>
-							<div class="star star4"><img src="<?php echo admin_url( 'images/star.png?v=20120409' ); ?>" alt="<?php esc_attr_e( '4 stars', 'dpa' ); ?>" /></div>
-							<div class="star star3"><img src="<?php echo admin_url( 'images/star.png?v=20120409' ); ?>" alt="<?php esc_attr_e( '3 stars', 'dpa' ); ?>" /></div>
-							<div class="star star2"><img src="<?php echo admin_url( 'images/star.png?v=20120409' ); ?>" alt="<?php esc_attr_e( '2 stars', 'dpa' ); ?>" /></div>
-							<div class="star star1"><img src="<?php echo admin_url( 'images/star.png?v=20120409' ); ?>" alt="<?php esc_attr_e( '1 star',  'dpa' ); ?>" /></div>
+							<div class="star star5"><img src="<?php echo admin_url( 'images/star.png?v=20120409' ); ?>" alt="<?php esc_attr_e( '5 stars', 'achievements' ); ?>" /></div>
+							<div class="star star4"><img src="<?php echo admin_url( 'images/star.png?v=20120409' ); ?>" alt="<?php esc_attr_e( '4 stars', 'achievements' ); ?>" /></div>
+							<div class="star star3"><img src="<?php echo admin_url( 'images/star.png?v=20120409' ); ?>" alt="<?php esc_attr_e( '3 stars', 'achievements' ); ?>" /></div>
+							<div class="star star2"><img src="<?php echo admin_url( 'images/star.png?v=20120409' ); ?>" alt="<?php esc_attr_e( '2 stars', 'achievements' ); ?>" /></div>
+							<div class="star star1"><img src="<?php echo admin_url( 'images/star.png?v=20120409' ); ?>" alt="<?php esc_attr_e( '1 star',  'achievements' ); ?>" /></div>
 						</div>
 					</td> --> */ ?>
 
 					<?php
 					// Is the plugin installed? Yes.
 					if ( $is_plugin_installed ) {
-						printf( '<td class="status installed"><span class="installed">%1$s</span></td>', _x( 'Ready', 'A plugin is installed', 'dpa' ) );
+						printf( '<td class="status installed"><span class="installed">%1$s</span></td>', _x( 'Ready', 'A plugin is installed', 'achievements' ) );
 
 					// No, it isn't.
 					} else {
@@ -400,7 +400,7 @@ function dpa_supported_plugins_list() {
 						// If current user can install plugins, link directly to the plugn install screen
 						if ( current_user_can( 'install_plugins' ) || current_user_can( 'update_plugins' ) ) {
 							printf( '<a class="thickbox" href="%2$s">%1$s</a>',
-								_x( 'Not installed', 'A plugin is not installed', 'dpa' ),
+								_x( 'Not installed', 'A plugin is not installed', 'achievements' ),
 
 								// Build install plugin URL
 								admin_url( add_query_arg(
@@ -416,7 +416,7 @@ function dpa_supported_plugins_list() {
 							);
 						
 						} else {
-							_ex( 'Not installed', 'A plugin is not installed', 'dpa' );
+							_ex( 'Not installed', 'A plugin is not installed', 'achievements' );
 						}
 
 						echo '</td>';
@@ -603,7 +603,7 @@ function dpa_supported_plugins_mb_info() {
 			<?php
 			// Is plugin installed?
 			if ( $is_plugin_installed ) {
-				_ex( 'Status: Ready', 'A plugin is installed', 'dpa' );
+				_ex( 'Status: Ready', 'A plugin is installed', 'achievements' );
 
 			// It's not installed
 			} else {
@@ -611,7 +611,7 @@ function dpa_supported_plugins_mb_info() {
 				// If current user can install plugins, link directly to the install screen
 				if ( current_user_can( 'install_plugins' ) || current_user_can( 'update_plugins' ) ) {
 					printf( '<a class="thickbox" href="%2$s">%1$s</a>',
-						_x( 'Install Plugin', 'A plugin is not installed', 'dpa' ),
+						_x( 'Install Plugin', 'A plugin is not installed', 'achievements' ),
 
 						// Build install plugin URL
 						admin_url( add_query_arg(
@@ -627,13 +627,13 @@ function dpa_supported_plugins_mb_info() {
 					);
 
 				} else {
-					_ex( 'Status: Not installed', 'A plugin is not installed', 'dpa' );
+					_ex( 'Status: Not installed', 'A plugin is not installed', 'achievements' );
 				}
 			}
 			?>
 		</li>
 
-		<li class="links"><?php printf( '<a href="%1$s" target="_new">%2$s</a>', esc_url( $extension->get_wporg_url() ), __( 'More Info', 'dpa' ) ); ?></li>
+		<li class="links"><?php printf( '<a href="%1$s" target="_new">%2$s</a>', esc_url( $extension->get_wporg_url() ), __( 'More Info', 'achievements' ) ); ?></li>
 
 		<li class="authors">
 			<?php

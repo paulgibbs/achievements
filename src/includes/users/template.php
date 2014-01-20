@@ -350,11 +350,11 @@ function dpa_leaderboard_pagination_count() {
 
 		// Several items within a single page
 		if ( empty( $to_num ) ) {
-			$retstr = sprintf( _n( 'Viewing %1$s user', 'Viewing %1$s users', $total_int, 'dpa' ), $total );
+			$retstr = sprintf( _n( 'Viewing %1$s user', 'Viewing %1$s users', $total_int, 'achievements' ), $total );
 
 		// Several items with several pages
 		} else {
-			$retstr = sprintf( _n( 'Viewing users %2$s (of %4$s total)', 'Viewing %1$s users - %2$s through %3$s (of %4$s total)', $total_int, 'dpa' ), $item_count, $from_num, $to_num, $total );
+			$retstr = sprintf( _n( 'Viewing users %2$s (of %4$s total)', 'Viewing %1$s users - %2$s through %3$s (of %4$s total)', $total_int, 'achievements' ), $item_count, $from_num, $to_num, $total );
 		}
 
 		return apply_filters( 'dpa_get_leaderboard_pagination_count', $retstr );

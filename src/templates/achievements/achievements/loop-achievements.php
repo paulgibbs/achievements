@@ -13,14 +13,14 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 <?php do_action( 'dpa_template_before_achievements_loop_block' ); ?>
 
 <table class="dpa-archive-achievements">
-	<caption class="screen-reader-text"><?php _e( 'All of the available achievements with the name, avatar, and karma points for each.', 'dpa' ); ?></caption>
+	<caption class="screen-reader-text"><?php _e( 'All of the available achievements with the name, avatar, and karma points for each.', 'achievements' ); ?></caption>
 
 	<thead>
 		<tr>
 
-			<th id="dpa-archive-achievements-name" scope="col"><?php _ex( 'Achievement Name', 'column header for list of achievements', 'dpa' ); ?></th>
-			<th id="dpa-archive-achievements-karma" scope="col"><?php _ex( 'Karma', 'column header for list of achievements', 'dpa' ); ?></th>
-			<th id="dpa-archive-achievements-excerpt" scope="col"><?php _ex( 'Description', 'column header for list of achievements', 'dpa' ); ?></th>
+			<th id="dpa-archive-achievements-name" scope="col"><?php _ex( 'Achievement Name', 'column header for list of achievements', 'achievements' ); ?></th>
+			<th id="dpa-archive-achievements-karma" scope="col"><?php _ex( 'Karma', 'column header for list of achievements', 'achievements' ); ?></th>
+			<th id="dpa-archive-achievements-excerpt" scope="col"><?php _ex( 'Description', 'column header for list of achievements', 'achievements' ); ?></th>
 
 		</tr>
 	</thead>
@@ -28,9 +28,9 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 	<tfoot>
 		<tr>
 
-			<th scope="col"><?php _ex( 'Achievement Name', 'column header for list of achievements', 'dpa' ); ?></th>
-			<th scope="col"><?php _ex( 'Karma', 'column header for list of achievements', 'dpa' ); ?></th>
-			<th scope="col"><?php _ex( 'Description', 'column header for list of achievements', 'dpa' ); ?></th>
+			<th scope="col"><?php _ex( 'Achievement Name', 'column header for list of achievements', 'achievements' ); ?></th>
+			<th scope="col"><?php _ex( 'Karma', 'column header for list of achievements', 'achievements' ); ?></th>
+			<th scope="col"><?php _ex( 'Description', 'column header for list of achievements', 'achievements' ); ?></th>
 
 		</tr>
 	</tfoot>

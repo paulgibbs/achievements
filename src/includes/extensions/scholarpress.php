@@ -40,13 +40,13 @@ class DPA_BuddyPress_Courseware_Extension extends DPA_Extension {
 	public function __construct() {
 
 		$this->actions = array(
-			'courseware_new_teacher_added'   => __( 'The user is added as a teacher', 'dpa' ),
-			'courseware_grade_added'         => __( 'A grade is given to the user', 'dpa' ),
-			'courseware_grade_updated'       => __( "A user&rsquo;s grade is updated", 'dpa' ),
-			'courseware_assignment_added'    => __( 'The user creates a new assignment', 'dpa' ),
-			'courseware_lecture_added'       => __( 'The user creates a new lecture', 'dpa' ),
-			'courseware_response_added'      => __( 'The user adds a response to an assignment', 'dpa' ),
-			'courseware_schedule_activity'   => __( 'The user creates a new schedule', 'dpa' ),
+			'courseware_new_teacher_added'   => __( 'The user is added as a teacher', 'achievements' ),
+			'courseware_grade_added'         => __( 'A grade is given to the user', 'achievements' ),
+			'courseware_grade_updated'       => __( "A user&rsquo;s grade is updated", 'achievements' ),
+			'courseware_assignment_added'    => __( 'The user creates a new assignment', 'achievements' ),
+			'courseware_lecture_added'       => __( 'The user creates a new lecture', 'achievements' ),
+			'courseware_response_added'      => __( 'The user adds a response to an assignment', 'achievements' ),
+			'courseware_schedule_activity'   => __( 'The user creates a new schedule', 'achievements' ),
 		);
 
 		$this->contributors = array(
@@ -77,10 +77,10 @@ class DPA_BuddyPress_Courseware_Extension extends DPA_Extension {
 			),
 		);
 
-		$this->description     = __( 'A Learning Management System for BuddyPress.', 'dpa' );
+		$this->description     = __( 'A Learning Management System for BuddyPress.', 'achievements' );
 		$this->id              = 'buddypress-courseware';
 		$this->image_url       = trailingslashit( achievements()->includes_url ) . 'admin/images/buddypress-courseware.png';
-		$this->name            = __( 'BuddyPress Courseware', 'dpa' );
+		$this->name            = __( 'BuddyPress Courseware', 'achievements' );
 		$this->rss_url         = 'http://feeds.nerd.ro/stas/';
 		$this->small_image_url = trailingslashit( achievements()->includes_url ) . 'admin/images/buddypress-courseware-small.png';
 		$this->version         = 1;

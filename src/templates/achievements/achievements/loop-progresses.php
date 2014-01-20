@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 <?php do_action( 'dpa_template_before_progress_loop_block' ); ?>
 
-<h1 class="dpa-single-progress-loop-heading"><?php _e( 'Unlocked By', 'dpa' ); ?></h1>
+<h1 class="dpa-single-progress-loop-heading"><?php _e( 'Unlocked By', 'achievements' ); ?></h1>
 
 <?php do_action( 'dpa_template_before_progress_loop' ); ?>
 

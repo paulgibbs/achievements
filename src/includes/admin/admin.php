@@ -153,8 +153,8 @@ class DPA_Admin {
 
 		// About
 		add_dashboard_page(
-			__( 'Welcome to Achievements', 'dpa' ),
-			__( 'Welcome to Achievements', 'dpa' ),
+			__( 'Welcome to Achievements', 'achievements' ),
+			__( 'Welcome to Achievements', 'achievements' ),
 			$this->minimum_capability,
 			'achievements-about',
 			array( $this, 'about_screen' )
@@ -164,8 +164,8 @@ class DPA_Admin {
 		// "Users" menu
 		$hooks[] = add_submenu_page(
 			'edit.php?post_type=achievement',
-			__( 'Achievements &mdash; Users', 'dpa' ),
-			_x( 'Users', 'admin menu title', 'dpa' ),
+			__( 'Achievements &mdash; Users', 'achievements' ),
+			_x( 'Users', 'admin menu title', 'achievements' ),
 			$this->minimum_capability,
 			'achievements-users',
 			'dpa_admin_screen_users'
@@ -174,8 +174,8 @@ class DPA_Admin {
 		// "Supported Plugins" menu
 		$hooks[] = add_submenu_page(
 			'edit.php?post_type=achievement',
-			__( 'Achievements &mdash; Supported Plugins', 'dpa' ),
-			__( 'Supported Plugins', 'dpa' ),
+			__( 'Achievements &mdash; Supported Plugins', 'achievements' ),
+			__( 'Supported Plugins', 'achievements' ),
 			$this->minimum_capability,
 			'achievements-plugins',
 			'dpa_supported_plugins'
@@ -288,20 +288,20 @@ class DPA_Admin {
 			return;
 	?>
 
-		<h3><?php _e( 'Achievements Settings', 'dpa' ); ?></h3>
+		<h3><?php _e( 'Achievements Settings', 'achievements' ); ?></h3>
 		<table class="form-table">
 			<tr>
-				<th><label for="dpa_achievements"><?php _ex( 'Total Points', "User&rsquo;s total points from unlocked Achievements", 'dpa' ); ?></label></th>
+				<th><label for="dpa_achievements"><?php _ex( 'Total Points', "User&rsquo;s total points from unlocked Achievements", 'achievements' ); ?></label></th>
 				<td><input type="number" name="dpa_achievements" id="dpa_achievements" value="<?php echo (int) dpa_get_user_points( $user->ID ); ?>" class="regular-text" />
 				</td>
 			</tr>
 
 			<?php if ( dpa_has_achievements( array( 'ach_populate_progress' => $user->ID, 'ach_progress_status' => dpa_get_unlocked_status_id(), 'posts_per_page' => -1, ) ) ) : ?>
 				<tr>
-					<th scope="row"><?php _e( 'Unlocked Achievements', 'dpa' ); ?></th>
+					<th scope="row"><?php _e( 'Unlocked Achievements', 'achievements' ); ?></th>
 					<td>
 						<fieldset>
-							<legend class="screen-reader-text"><?php _e( 'Assign or remove achievements from this user', 'dpa' ); ?></legend>
+							<legend class="screen-reader-text"><?php _e( 'Assign or remove achievements from this user', 'achievements' ); ?></legend>
 
 							<?php while ( dpa_achievements() ) : ?>
 								<?php dpa_the_achievement(); ?>
@@ -442,40 +442,40 @@ class DPA_Admin {
 		</style>
 
 		<div class="wrap about-wrap">
-			<h1><?php _e( 'Welcome to Achievements', 'dpa' ); ?></h1>
+			<h1><?php _e( 'Welcome to Achievements', 'achievements' ); ?></h1>
 			<div class="about-text">
 				<?php if ( $is_new_install ) : ?>
-					<?php printf( __( 'Hi, %s! Thanks very much for downloading Achievements %s. You really are rather nice. This exciting update screen is to confirm a few things that you probably already know:', 'dpa' ), esc_html( $name ), $display_version ); ?>
+					<?php printf( __( 'Hi, %s! Thanks very much for downloading Achievements %s. You really are rather nice. This exciting update screen is to confirm a few things that you probably already know:', 'achievements' ), esc_html( $name ), $display_version ); ?>
 
 					<ol>
-						<li><?php _e( 'You&#8217;re super-talented at finding great WordPress plugins.', 'dpa' ); ?></li>
-						<li><?php _e( 'We think you&#8217;ve got a truly beautiful website.', 'dpa' ); ?></li>
-						<li><?php _e( 'See 1 &amp; 2.', 'dpa' ); ?></li>
+						<li><?php _e( 'You&#8217;re super-talented at finding great WordPress plugins.', 'achievements' ); ?></li>
+						<li><?php _e( 'We think you&#8217;ve got a truly beautiful website.', 'achievements' ); ?></li>
+						<li><?php _e( 'See 1 &amp; 2.', 'achievements' ); ?></li>
 					</ol>
 
-					<?php _e( 'Achievements gamifies your WordPress site with challenges, badges, and points, which are the funnest ways to reward and encourage members of your community to participate. We hope you enjoy using the plugin!', 'dpa' ); ?>
+					<?php _e( 'Achievements gamifies your WordPress site with challenges, badges, and points, which are the funnest ways to reward and encourage members of your community to participate. We hope you enjoy using the plugin!', 'achievements' ); ?>
 				<?php else : ?>
-					<?php printf( __( 'Hello there! Version %s is a maintenance release.', 'dpa' ), $display_version ); ?>
+					<?php printf( __( 'Hello there! Version %s is a maintenance release.', 'achievements' ), $display_version ); ?>
 				<?php endif; ?>
 			</div>
 
 			<?php if ( $is_new_install ) : ?>
-				<h3><?php _e( 'Getting Started', 'dpa' ); ?></h3>
+				<h3><?php _e( 'Getting Started', 'achievements' ); ?></h3>
 
 				<div class="feature-section">
-					<h4><?php _e( 'Create your first achievement', 'dpa' ); ?></h4>
-					<p><?php printf( __( 'The first idea to grasp is that there are two different types of achievements: <strong>awards</strong> and <strong>events</strong>. Award achievements have to be manually given out by a site admin, and event achievements are awarded automatically when its criteria has been met. <a href="%s">Learn more about achievement types</a>.', 'dpa' ), esc_url( 'http://achievementsapp.com/getting-started/types-of-achievements/' ) ); ?></p>
-					<p><?php printf( __( 'The best way to learn is by doing, so let&rsquo;s create an achievement and find out how everything works. Our <a href="%s">Getting Started guide</a> will walk you through this easy process.', 'dpa' ), esc_url( 'http://achievementsapp.com/getting-started/' ) ); ?></p>
+					<h4><?php _e( 'Create your first achievement', 'achievements' ); ?></h4>
+					<p><?php printf( __( 'The first idea to grasp is that there are two different types of achievements: <strong>awards</strong> and <strong>events</strong>. Award achievements have to be manually given out by a site admin, and event achievements are awarded automatically when its criteria has been met. <a href="%s">Learn more about achievement types</a>.', 'achievements' ), esc_url( 'http://achievementsapp.com/getting-started/types-of-achievements/' ) ); ?></p>
+					<p><?php printf( __( 'The best way to learn is by doing, so let&rsquo;s create an achievement and find out how everything works. Our <a href="%s">Getting Started guide</a> will walk you through this easy process.', 'achievements' ), esc_url( 'http://achievementsapp.com/getting-started/' ) ); ?></p>
 
-					<h4><?php _e( 'Get help and support', 'dpa' ); ?></h4>
-					<p><?php printf( __( 'If you have questions about the plugin or need help, get in contact by leaving a message on the <a href="%s">WordPress.org support forum</a>. We&rsquo;d love to find out how you&rsquo;re using Achievements, so be sure to drop by and tell us!', 'dpa' ), esc_url( 'http://wordpress.org/support/plugin/achievements' ) ); ?></p>
+					<h4><?php _e( 'Get help and support', 'achievements' ); ?></h4>
+					<p><?php printf( __( 'If you have questions about the plugin or need help, get in contact by leaving a message on the <a href="%s">WordPress.org support forum</a>. We&rsquo;d love to find out how you&rsquo;re using Achievements, so be sure to drop by and tell us!', 'achievements' ), esc_url( 'http://wordpress.org/support/plugin/achievements' ) ); ?></p>
 				</div>
 
 			<?php else : ?>
 
 			<div class="changelog">
 				<div class="feature-section">
-					<p><?php _e( 'This release improves compatibility with WordPress 3.8. Some of the UI elements in the admin screens have had their styles tweaked for WordPress&#8217; new admin appearance, and the unlocked achievement check (the heartbeat) now happens much more quickly. Enjoy!', 'dpa' ); ?></p>
+					<p><?php _e( 'This release improves compatibility with WordPress 3.8. Some of the UI elements in the admin screens have had their styles tweaked for WordPress&#8217; new admin appearance, and the unlocked achievement check (the heartbeat) now happens much more quickly. Enjoy!', 'achievements' ); ?></p>
 				</div>
 			</div>
 

@@ -39,11 +39,11 @@ class DPA_WordPress_Extension extends DPA_CPT_Extension {
 	 */
 	public function __construct() {
 		$this->actions = array(
-			'comment_post'               => __( 'A comment is written by the user.', 'dpa' ),
-			'wordpress_draft_to_publish' => __( 'The user publishes a blog post.', 'dpa' ),
-			'signup_finished'            => __( 'A new site is created by the user (multi-site only).', 'dpa' ),
-			'trashed_post'               => __( 'The user trashes a blog post.', 'dpa' ),
-			'user_register'              => __( 'A new user creates an account on your website.', 'dpa' ),
+			'comment_post'               => __( 'A comment is written by the user.', 'achievements' ),
+			'wordpress_draft_to_publish' => __( 'The user publishes a blog post.', 'achievements' ),
+			'signup_finished'            => __( 'A new site is created by the user (multi-site only).', 'achievements' ),
+			'trashed_post'               => __( 'The user trashes a blog post.', 'achievements' ),
+			'user_register'              => __( 'A new user creates an account on your website.', 'achievements' ),
 		);
 
 		$this->generic_cpt_actions = array(
@@ -62,10 +62,10 @@ class DPA_WordPress_Extension extends DPA_CPT_Extension {
 			),
 		);
 
-		$this->description     = __( 'WordPress started in 2003 with a single bit of code to enhance the typography of everyday writing and with fewer users than you can count on your fingers and toes. Since then it has grown to be the largest self-hosted blogging tool in the world, used on millions of sites and seen by tens of millions of people every day.', 'dpa' );
+		$this->description     = __( 'WordPress started in 2003 with a single bit of code to enhance the typography of everyday writing and with fewer users than you can count on your fingers and toes. Since then it has grown to be the largest self-hosted blogging tool in the world, used on millions of sites and seen by tens of millions of people every day.', 'achievements' );
 		$this->id              = 'wordpress';
 		$this->image_url       = trailingslashit( achievements()->includes_url ) . 'admin/images/wordpress.jpg';
-		$this->name            = __( 'WordPress', 'dpa' );
+		$this->name            = __( 'WordPress', 'achievements' );
 		$this->rss_url         = 'http://wordpress.org/news/feed/';
 		$this->small_image_url = trailingslashit( achievements()->includes_url ) . 'admin/images/wordpress-small.jpg';
 		$this->version         = 2;

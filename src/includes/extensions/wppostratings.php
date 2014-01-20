@@ -40,7 +40,7 @@ class DPA_WP_PostRatings_Extension extends DPA_Extension {
 	public function __construct() {
 
 		$this->actions = array(
-			'rate_post' => __( 'The user rates a post.', 'dpa' ),
+			'rate_post' => __( 'The user rates a post.', 'achievements' ),
 		);
 
 		$this->contributors = array(
@@ -51,10 +51,10 @@ class DPA_WP_PostRatings_Extension extends DPA_Extension {
 			)
 		);
 
-		$this->description     = __( "WP-PostRatings adds an AJAX rating system for your WordPress blogs&#8217 posts and pages.", 'dpa' );
+		$this->description     = __( "WP-PostRatings adds an AJAX rating system for your WordPress blogs&#8217 posts and pages.", 'achievements' );
 		$this->id              = 'wp-postratings';
 		$this->image_url       = trailingslashit( achievements()->includes_url ) . 'admin/images/wp-postratings.jpg';
-		$this->name            = __( 'WP-PostRatings', 'dpa' );
+		$this->name            = __( 'WP-PostRatings', 'achievements' );
 		$this->rss_url         = 'http://lesterchan.net/wordpress/feed/';
 		$this->small_image_url = trailingslashit( achievements()->includes_url ) . 'admin/images/wp-postratings-small.jpg';
 		$this->version         = 1;

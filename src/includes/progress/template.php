@@ -252,7 +252,7 @@ function dpa_progress_date( $progress_id = 0, $humanise = true, $gmt = false ) {
 		} else {
 			$date   = get_post_time( get_option( 'date_format' ), $gmt, $progress_id, true );
 			$time   = get_post_time( get_option( 'time_format' ), $gmt, $progress_id, true );
-			$result = sprintf( _x( '%1$s at %2$s', '[date] at [time]', 'dpa' ), $date, $time );
+			$result = sprintf( _x( '%1$s at %2$s', '[date] at [time]', 'achievements' ), $date, $time );
 		}
 
 		return apply_filters( 'dpa_get_progress_date', $result, $progress_id, $humanise, $gmt, $date, $time );
@@ -425,11 +425,11 @@ function dpa_progress_pagination_count() {
 
 		// Several achievements within a single page
 		if ( empty( $to_num ) ) {
-			$retstr = sprintf( _n( 'Viewing %1$s achievement progress', "Viewing %1\$s achievements&rsquo; progress", $total_int, 'dpa' ), $total );
+			$retstr = sprintf( _n( 'Viewing %1$s achievement progress', "Viewing %1\$s achievements&rsquo; progress", $total_int, 'achievements' ), $total );
 
 		// Several achievements with several pages
 		} else {
-			$retstr = sprintf( _n( 'Viewing achievement progress %2$s (of %4$s total)', 'Viewing %1$s achievements&rsquo; progress - %2$s through %3$s (of %4$s total)', $total_int, 'dpa' ), achievements()->progress_query->post_count, $from_num, $to_num, $total );
+			$retstr = sprintf( _n( 'Viewing achievement progress %2$s (of %4$s total)', 'Viewing %1$s achievements&rsquo; progress - %2$s through %3$s (of %4$s total)', $total_int, 'achievements' ), achievements()->progress_query->post_count, $from_num, $to_num, $total );
 		}
 
 		return apply_filters( 'dpa_get_progress_pagination_count', $retstr );

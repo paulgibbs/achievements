@@ -20,7 +20,7 @@ License: GPLv3
 Author: Paul Gibbs
 Author URI: http://byotos.com/
 Domain Path: ../../languages/plugins/
-Text Domain: dpa
+Text Domain: achievements
 
 "Achievements"
 Copyright (C) 2009-13 Paul Gibbs
@@ -121,14 +121,14 @@ final class DPA_Achievements_Loader {
 	 *
 	 * @since Achievements (3.0)
 	 */
-	public function __clone() { _doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'dpa' ), '3.0' ); }
+	public function __clone() { _doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'achievements' ), '3.0' ); }
 
 	/**
 	 * A dummy magic method to prevent Achievements from being unserialised
 	 *
 	 * @since Achievements (3.0)
 	 */
-	public function __wakeup() { _doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'dpa' ), '3.0' ); }
+	public function __wakeup() { _doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'achievements' ), '3.0' ); }
 
 	/**
 	 * Magic method for checking the existence of a certain custom field
@@ -215,7 +215,7 @@ final class DPA_Achievements_Loader {
 		$this->filters      = new stdClass();  // Used when adding/removing filters
 
 		// Other stuff
-		$this->domain     = 'dpa';            // Unique identifier for retrieving translated strings
+		$this->domain     = 'achievements';   // Unique identifier for retrieving translated strings
 		$this->errors     = new WP_Error();   // Errors
 		$this->extensions = new stdClass();   // Other plugins add data here
 
@@ -447,20 +447,20 @@ final class DPA_Achievements_Loader {
 
 		// CPT labels
 		$labels['achievement'] = array(
-			'add_new'            => _x( 'Add New', 'achievement',          'dpa' ),
-			'add_new_item'       => __( 'Add New Achievement',             'dpa' ),
-			'all_items'          => __( 'All Achievements',                'dpa' ),
-			'edit'               => _x( 'Edit',    'achievement',          'dpa' ),
-			'edit_item'          => __( 'Edit Achievement',                'dpa' ),
-			'menu_name'          => __( 'Achievements',                    'dpa' ),
-			'name'               => __( 'Achievements',                    'dpa' ),
-			'new_item'           => __( 'New Achievement',                 'dpa' ),
-			'not_found'          => __( 'No achievements found.',          'dpa' ),
-			'not_found_in_trash' => __( 'No achievements found in Trash.', 'dpa' ),
-			'search_items'       => __( 'Search Achievements',             'dpa' ),
-			'singular_name'      => __( 'Achievement',                     'dpa' ),
-			'view'               => __( 'View Achievement',                'dpa' ),
-			'view_item'          => __( 'View Achievement',                'dpa' ),
+			'add_new'            => _x( 'Add New', 'achievement',          'achievements' ),
+			'add_new_item'       => __( 'Add New Achievement',             'achievements' ),
+			'all_items'          => __( 'All Achievements',                'achievements' ),
+			'edit'               => _x( 'Edit',    'achievement',          'achievements' ),
+			'edit_item'          => __( 'Edit Achievement',                'achievements' ),
+			'menu_name'          => __( 'Achievements',                    'achievements' ),
+			'name'               => __( 'Achievements',                    'achievements' ),
+			'new_item'           => __( 'New Achievement',                 'achievements' ),
+			'not_found'          => __( 'No achievements found.',          'achievements' ),
+			'not_found_in_trash' => __( 'No achievements found in Trash.', 'achievements' ),
+			'search_items'       => __( 'Search Achievements',             'achievements' ),
+			'singular_name'      => __( 'Achievement',                     'achievements' ),
+			'view'               => __( 'View Achievement',                'achievements' ),
+			'view_item'          => __( 'View Achievement',                'achievements' ),
 		);
 
 		// CPT rewrite
@@ -489,7 +489,7 @@ final class DPA_Achievements_Loader {
 			'capabilities'         => dpa_get_achievement_caps(),
 			'capability_type'      => array( 'achievement', 'achievements' ),
 			'delete_with_user'     => false,
-			'description'          => _x( 'Achievements types (e.g. new post, new site, new user)', 'Achievement post type description', 'dpa' ),
+			'description'          => _x( 'Achievements types (e.g. new post, new site, new user)', 'Achievement post type description', 'achievements' ),
 			'has_archive'          => $post_type_is_public ? dpa_get_root_slug() : false,
 			'labels'               => $labels['achievement'],
 			'public'               => $post_type_is_public,
@@ -504,7 +504,7 @@ final class DPA_Achievements_Loader {
 			'capabilities'        => dpa_get_achievement_progress_caps(),
 			'capability_type'     => array( 'achievement_progress', 'achievement_progresses' ),
 			'delete_with_user'    => true,
-			'description'         => _x( 'Achievement Progress (e.g. unlocked achievements for a user, progress on an achievement for a user)', 'Achievement Progress post type description', 'dpa' ),
+			'description'         => _x( 'Achievement Progress (e.g. unlocked achievements for a user, progress on an achievement for a user)', 'Achievement Progress post type description', 'achievements' ),
 			'public'              => false,
 			'query_var'           => false,
 			'rewrite'             => false,
@@ -528,8 +528,8 @@ final class DPA_Achievements_Loader {
 		register_post_status(
 			dpa_get_locked_status_id(),
 			apply_filters( 'dpa_register_locked_post_status', array(
-				'label'                     => _x( 'Locked', 'achievement', 'dpa' ),
-				'label_count'               => _nx_noop( 'Locked <span class="count">(%s)</span>', 'Locked <span class="count">(%s)</span>', 'dpa' ),
+				'label'                     => _x( 'Locked', 'achievement', 'achievements' ),
+				'label_count'               => _nx_noop( 'Locked <span class="count">(%s)</span>', 'Locked <span class="count">(%s)</span>', 'achievements' ),
 				'public'                    => false,
 				'exclude_from_search'       => true,
 				'show_in_admin_status_list' => true,
@@ -541,8 +541,8 @@ final class DPA_Achievements_Loader {
 		register_post_status(
 			dpa_get_unlocked_status_id(),
 			apply_filters( 'dpa_register_unlocked_post_status', array(
-				'label'                     => _x( 'Unlocked', 'achievement', 'dpa' ),
-				'label_count'               => _nx_noop( 'Unlocked <span class="count">(%s)</span>', 'Unlocked <span class="count">(%s)</span>', 'dpa' ),
+				'label'                     => _x( 'Unlocked', 'achievement', 'achievements' ),
+				'label_count'               => _nx_noop( 'Unlocked <span class="count">(%s)</span>', 'Unlocked <span class="count">(%s)</span>', 'achievements' ),
 				'public'                    => false,
 				'exclude_from_search'       => true,
 				'show_in_admin_status_list' => true,
@@ -561,16 +561,16 @@ final class DPA_Achievements_Loader {
 
 		// Event tax labels
 		$labels['event'] = array(
-			'add_new_item'  => __( 'Add New Event',                         'dpa' ),
-			'all_items'     => __( 'All',                                   'dpa' ),
-			'edit_item'     => __( 'Edit Event',                            'dpa' ),
-			'name'          => _x( 'Events', 'event taxonomy general name', 'dpa' ),
-			'new_item_name' => __( 'New Event Name',                        'dpa' ),
-			'popular_items' => __( 'Popular Events',                        'dpa' ),
-			'search_items'  => __( 'Search Events',                         'dpa' ),
-			'singular_name' => _x( 'Event', 'event taxonomy singular name', 'dpa' ),
-			'update_item'   => __( 'Update Event',                          'dpa' ),
-			'view_item'     => __( 'View Event',                            'dpa' ),
+			'add_new_item'  => __( 'Add New Event',                         'achievements' ),
+			'all_items'     => __( 'All',                                   'achievements' ),
+			'edit_item'     => __( 'Edit Event',                            'achievements' ),
+			'name'          => _x( 'Events', 'event taxonomy general name', 'achievements' ),
+			'new_item_name' => __( 'New Event Name',                        'achievements' ),
+			'popular_items' => __( 'Popular Events',                        'achievements' ),
+			'search_items'  => __( 'Search Events',                         'achievements' ),
+			'singular_name' => _x( 'Event', 'event taxonomy singular name', 'achievements' ),
+			'update_item'   => __( 'Update Event',                          'achievements' ),
+			'view_item'     => __( 'View Event',                            'achievements' ),
 		);
 
 		// Action filter
@@ -607,7 +607,7 @@ final class DPA_Achievements_Loader {
 	public function register_theme_packages() {
 		dpa_register_theme_package( array(
 			'id'      => 'default',
-			'name'    => __( 'Achievements Default', 'dpa' ),
+			'name'    => __( 'Achievements Default', 'achievements' ),
 			'version' => dpa_get_version(),
 			'dir'     => trailingslashit( $this->themes_dir . 'achievements' ),
 			'url'     => trailingslashit( $this->themes_url . 'achievements' )
@@ -639,7 +639,7 @@ final class DPA_Achievements_Loader {
 			'href'   => dpa_get_user_avatar_link( 'type=url' ),
 			'id'     => 'dpa_my_achievements',
 			'parent' => 'user-actions',
-			'title'  => _x( 'My Achievements', 'Menu item in the toolbar', 'dpa' ),
+			'title'  => _x( 'My Achievements', 'Menu item in the toolbar', 'achievements' ),
 		) );
 	}
 

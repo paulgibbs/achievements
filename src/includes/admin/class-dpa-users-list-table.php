@@ -78,7 +78,7 @@ class DPA_Users_List_Table extends WP_Users_List_Table {
 		unset( $users_of_blog );
 
 		$role_links        = array();
-		$role_links['all'] = "<a href='" . esc_url( $url ) . "'$class>" . sprintf( _nx( 'All <span class="count">(%s)</span>', 'All <span class="count">(%s)</span>', $total_users, 'admin screen, types of users', 'dpa' ), number_format_i18n( $total_users ) ) . '</a>';
+		$role_links['all'] = "<a href='" . esc_url( $url ) . "'$class>" . sprintf( _nx( 'All <span class="count">(%s)</span>', 'All <span class="count">(%s)</span>', $total_users, 'admin screen, types of users', 'achievements' ), number_format_i18n( $total_users ) ) . '</a>';
 
 		// Iterate through all WP user roles, and get count of users in each.
 		foreach ( $wp_roles->get_names() as $this_role => $name ) {
@@ -94,7 +94,7 @@ class DPA_Users_List_Table extends WP_Users_List_Table {
 			$name = translate_user_role( $name );
 
 			// translators: User role name with count
-			$name = sprintf( __( '%1$s <span class="count">(%2$s)</span>', 'dpa' ), $name, number_format_i18n( $avail_roles[$this_role] ) );
+			$name = sprintf( __( '%1$s <span class="count">(%2$s)</span>', 'achievements' ), $name, number_format_i18n( $avail_roles[$this_role] ) );
 
 			// Build the links
 			$role_links[$this_role] = "<a href='" . esc_url( add_query_arg( 'role', $this_role, $url ) ) . "'$class>$name</a>";
@@ -141,10 +141,10 @@ class DPA_Users_List_Table extends WP_Users_List_Table {
 	 */
 	public function get_columns() {
 		return array(
-			'username'         => __( 'Username', 'dpa' ),
-			'dpa_last_id'      => __( 'Last Achievement', 'dpa' ),
-			'dpa_actions'      => __( 'Actions', 'dpa' ),
-			'dpa_achievements' => __( 'Achievements', 'dpa' ),
+			'username'         => __( 'Username', 'achievements' ),
+			'dpa_last_id'      => __( 'Last Achievement', 'achievements' ),
+			'dpa_actions'      => __( 'Actions', 'achievements' ),
+			'dpa_achievements' => __( 'Achievements', 'achievements' ),
 		);
 	}
 
@@ -260,6 +260,6 @@ class DPA_Users_List_Table extends WP_Users_List_Table {
 	 */
 	public function column_dpa_actions( WP_User $user ) {
 		$link = get_edit_user_link( $user->ID );
-		printf( '<a href="%1$s">%2$s</a>', esc_url( $link ), __( 'Edit', 'dpa' ) );
+		printf( '<a href="%1$s">%2$s</a>', esc_url( $link ), __( 'Edit', 'achievements' ) );
 	}
 }

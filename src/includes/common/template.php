@@ -309,7 +309,7 @@ function dpa_breadcrumb( $args = array() ) {
 
 			// Default to 'Home'
 			else
-				$pre_front_text = _x( 'Home', 'Home screen of the website', 'dpa' );
+				$pre_front_text = _x( 'Home', 'Home screen of the website', 'achievements' );
 		}
 
 
@@ -373,7 +373,7 @@ function dpa_breadcrumb( $args = array() ) {
 			'after'           => '</p></div>',
 
 			// Separator
-			'sep'             => is_rtl() ? _x( '&lsaquo;', 'HTML entity for left single angle quotes', 'dpa' ) : _x( '&rsaquo;', 'HTML entity for right single angle quotes', 'dpa' ),
+			'sep'             => is_rtl() ? _x( '&lsaquo;', 'HTML entity for left single angle quotes', 'achievements' ) : _x( '&rsaquo;', 'HTML entity for right single angle quotes', 'achievements' ),
 			'pad_sep'         => 1,
 			'sep_before'      => '<span class="dpa-breadcrumb-sep">',
 			'sep_after'       => '</span>',
@@ -577,7 +577,7 @@ function dpa_title( $title = '', $sep = '&raquo;', $seplocation = '' ) {
 	// Single achievement page
 	} elseif ( dpa_is_single_achievement() ) {
 		$new_title['text']   = dpa_get_achievement_title();
-		$new_title['format'] = esc_attr__( 'Achievement: %s', 'dpa' );
+		$new_title['format'] = esc_attr__( 'Achievement: %s', 'achievements' );
 	}
 
 	$new_title = apply_filters( 'dpa_raw_title_array', $new_title ); 

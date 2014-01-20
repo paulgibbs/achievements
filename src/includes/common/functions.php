@@ -39,19 +39,19 @@ function dpa_time_since( $older_date, $newer_date = false, $gmt = false ) {
 	 */
 	function dpa_get_time_since( $older_date, $newer_date = false, $gmt = false ) {		
 		// Setup the strings
-		$unknown_text   = apply_filters( 'dpa_time_since_unknown_text',   _x( 'sometime',  'time', 'dpa' ) );
-		$right_now_text = apply_filters( 'dpa_time_since_right_now_text', _x( 'right now', 'time', 'dpa' ) );
-		$ago_text       = apply_filters( 'dpa_time_since_ago_text',       _x( '%s ago',    'time', 'dpa' ) );
+		$unknown_text   = apply_filters( 'dpa_time_since_unknown_text',   _x( 'sometime',  'time', 'achievements' ) );
+		$right_now_text = apply_filters( 'dpa_time_since_right_now_text', _x( 'right now', 'time', 'achievements' ) );
+		$ago_text       = apply_filters( 'dpa_time_since_ago_text',       _x( '%s ago',    'time', 'achievements' ) );
 
 		// Array of time period chunks
 		$chunks = array(
-			array( 60 * 60 * 24 * 365 , __( 'year',   'dpa' ), __( 'years',   'dpa' ) ),
-			array( 60 * 60 * 24 * 30 ,  __( 'month',  'dpa' ), __( 'months',  'dpa' ) ),
-			array( 60 * 60 * 24 * 7,    __( 'week',   'dpa' ), __( 'weeks',   'dpa' ) ),
-			array( 60 * 60 * 24 ,       __( 'day',    'dpa' ), __( 'days',    'dpa' ) ),
-			array( 60 * 60 ,            __( 'hour',   'dpa' ), __( 'hours',   'dpa' ) ),
-			array( 60 ,                 __( 'minute', 'dpa' ), __( 'minutes', 'dpa' ) ),
-			array( 1,                   __( 'second', 'dpa' ), __( 'seconds', 'dpa' ) )
+			array( 60 * 60 * 24 * 365 , __( 'year',   'achievements' ), __( 'years',   'achievements' ) ),
+			array( 60 * 60 * 24 * 30 ,  __( 'month',  'achievements' ), __( 'months',  'achievements' ) ),
+			array( 60 * 60 * 24 * 7,    __( 'week',   'achievements' ), __( 'weeks',   'achievements' ) ),
+			array( 60 * 60 * 24 ,       __( 'day',    'achievements' ), __( 'days',    'achievements' ) ),
+			array( 60 * 60 ,            __( 'hour',   'achievements' ), __( 'hours',   'achievements' ) ),
+			array( 60 ,                 __( 'minute', 'achievements' ), __( 'minutes', 'achievements' ) ),
+			array( 1,                   __( 'second', 'achievements' ), __( 'seconds', 'achievements' ) )
 		);
 
 		if ( ! empty( $older_date ) && ! is_numeric( $older_date ) ) {
@@ -110,7 +110,7 @@ function dpa_time_since( $older_date, $newer_date = false, $gmt = false ) {
 
 					// Add to output var
 					if ( 0 != $count2 ) {
-						$output .= ( 1 == $count2 ) ? _x( ',', 'Separator in time since', 'dpa' ) . ' 1 '. $name2 : _x( ',', 'Separator in time since', 'dpa' ) . ' ' . $count2 . ' ' . $chunks[$i + 1][2];
+						$output .= ( 1 == $count2 ) ? _x( ',', 'Separator in time since', 'achievements' ) . ' 1 '. $name2 : _x( ',', 'Separator in time since', 'achievements' ) . ' ' . $count2 . ' ' . $chunks[$i + 1][2];
 					}
 				}
 

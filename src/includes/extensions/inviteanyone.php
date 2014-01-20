@@ -40,8 +40,8 @@ class DPA_Invite_Anyone_Extension extends DPA_Extension {
 	public function __construct() {
 
 		$this->actions = array(
-			'accepted_email_invite' => __( 'A new user activates their account.', 'dpa' ),
-			'sent_email_invite'     => __( 'The user invites someone else to join the site.', 'dpa' ),
+			'accepted_email_invite' => __( 'A new user activates their account.', 'achievements' ),
+			'sent_email_invite'     => __( 'The user invites someone else to join the site.', 'achievements' ),
 		);
 
 		$this->contributors = array(
@@ -57,10 +57,10 @@ class DPA_Invite_Anyone_Extension extends DPA_Extension {
 			),
 		);
 
-		$this->description     = __( "Makes BuddyPress&rsquo;s invitation features more powerful.", 'dpa' );
+		$this->description     = __( "Makes BuddyPress&rsquo;s invitation features more powerful.", 'achievements' );
 		$this->id              = 'invite-anyone';
 		$this->image_url       = trailingslashit( achievements()->includes_url ) . 'admin/images/invite-anyone.jpg';
-		$this->name            = __( 'Invite Anyone', 'dpa' );
+		$this->name            = __( 'Invite Anyone', 'achievements' );
 		$this->rss_url         = 'http://teleogistic.net/feed/';
 		$this->small_image_url = trailingslashit( achievements()->includes_url ) . 'admin/images/invite-anyone-small.jpg';
 		$this->version         = 1;

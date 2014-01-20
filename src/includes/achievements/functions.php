@@ -237,7 +237,7 @@ function dpa_form_redeem_achievement( $action = '' ) {
 
 	// Bail out early if no achievements found
 	if ( empty( $achievements ) ) {
-		dpa_add_error( 'dpa_redeem_achievement_nonce', __( 'That code was invalid. Try again!', 'dpa' ) );
+		dpa_add_error( 'dpa_redeem_achievement_nonce', __( 'That code was invalid. Try again!', 'achievements' ) );
 
 		// If multisite and running network-wide, undo the switch_to_blog
 		if ( is_multisite() && dpa_is_running_networkwide() )

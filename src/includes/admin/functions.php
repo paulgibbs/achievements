@@ -21,7 +21,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  */
 function dpa_admin_setup_metaboxes() {
 	// Load metaboxes and on-save handler
-	add_meta_box( 'dpa-mb', __( 'Achievements', 'dpa' ), 'dpa_achievement_metabox', dpa_get_achievement_post_type(), 'side', 'high' );
+	add_meta_box( 'dpa-mb', __( 'Achievements', 'achievements' ), 'dpa_achievement_metabox', dpa_get_achievement_post_type(), 'side', 'high' );
 	remove_meta_box( 'tagsdiv-dpa_event', dpa_get_achievement_post_type(), 'side' );
 
 	// Chosen is a JavaScript plugin that makes long, unwieldy select boxes much more user-friendly.
@@ -62,18 +62,18 @@ function dpa_achievement_metabox( WP_Post $post ) {
 ?>
 
 	<div class="misc-pub-section dpa-karma">
-		<label for="dpa-points"><?php _e( 'Karma points:', 'dpa' ); ?></label>
+		<label for="dpa-points"><?php _e( 'Karma points:', 'achievements' ); ?></label>
 		<input type="number" name="dpa_points" id="dpa-points" value="<?php echo esc_attr( $existing_points ); ?>" />
 	</div>
 
 	<div class="misc-pub-section dpa-type">
-		<label for="dpa_type"><?php _ex( 'Type:', 'type of achievement', 'dpa' ); ?></label>
-		<input type="radio" name="dpa_type" id="dpa-type-award" value="award" <?php checked( $existing_type, 'award' ); ?>><?php _ex( '&nbsp;Award', 'type of achievement', 'dpa' ); ?></input>
-		<input type="radio" name="dpa_type" id="dpa-type-event" value="event" <?php checked( $existing_type, 'event' ); ?>><?php _ex( '&nbsp;Event', 'type of achievement', 'dpa' ); ?></input>
+		<label for="dpa_type"><?php _ex( 'Type:', 'type of achievement', 'achievements' ); ?></label>
+		<input type="radio" name="dpa_type" id="dpa-type-award" value="award" <?php checked( $existing_type, 'award' ); ?>><?php _ex( '&nbsp;Award', 'type of achievement', 'achievements' ); ?></input>
+		<input type="radio" name="dpa_type" id="dpa-type-event" value="event" <?php checked( $existing_type, 'event' ); ?>><?php _ex( '&nbsp;Event', 'type of achievement', 'achievements' ); ?></input>
 
-		<p class="hint"><?php _e( "An <em>award</em> is given by a site admin, whereas an <em>event</em> is unlocked automatically when its criteria have been met.", 'dpa' ) ?></p>
+		<p class="hint"><?php _e( "An <em>award</em> is given by a site admin, whereas an <em>event</em> is unlocked automatically when its criteria have been met.", 'achievements' ) ?></p>
 
-		<select id="dpa-event" name="dpa_event[]" style="visibility: hidden" data-placeholder="<?php esc_attr_e( 'Press here to pick events', 'dpa' ); ?>" class="chzn-select <?php if ( is_rtl() ) echo 'chzn-rtl'; ?>" multiple="multiple">
+		<select id="dpa-event" name="dpa_event[]" style="visibility: hidden" data-placeholder="<?php esc_attr_e( 'Press here to pick events', 'achievements' ); ?>" class="chzn-select <?php if ( is_rtl() ) echo 'chzn-rtl'; ?>" multiple="multiple">
 			<option value=""></option>
 
 			<?php foreach ( $events as $extension => $extension_events ) : ?>
@@ -90,17 +90,17 @@ function dpa_achievement_metabox( WP_Post $post ) {
 	</div>
 
 	<div class="misc-pub-section dpa-target">
-		<label for="dpa_target"><?php _ex( 'Events repeat:', "Number of times an achievement&#8217;s events need to repeat before the achievement is awarded", 'dpa' ); ?></label>
+		<label for="dpa_target"><?php _ex( 'Events repeat:', "Number of times an achievement&#8217;s events need to repeat before the achievement is awarded", 'achievements' ); ?></label>
 		<input type="number" name="dpa_target" id="dpa-target" min="1" value="<?php echo esc_attr( $existing_target ); ?>" />
 
-		<p class="hint"><?php _e( "Number of times the events need to repeat before the achievement is awarded.", 'dpa' ); ?></p>
+		<p class="hint"><?php _e( "Number of times the events need to repeat before the achievement is awarded.", 'achievements' ); ?></p>
 	</div>
 
 	<div class="misc-pub-section dpa-redemption-code">
-		<label for="dpa-code"><?php _e( 'Redemption code:', 'dpa' ); ?></label>
+		<label for="dpa-code"><?php _e( 'Redemption code:', 'achievements' ); ?></label>
 		<input id="dpa-code" value="<?php echo esc_attr( $existing_code ); ?>" name="dpa_code" type="text" />
 
-		<p class="hint"><?php _e( "Users can enter this code into the Redemption widget to unlock the achievement.", 'dpa' ); ?></p>
+		<p class="hint"><?php _e( "Users can enter this code into the Redemption widget to unlock the achievement.", 'achievements' ); ?></p>
 	</div>
 
 	<?php
@@ -186,12 +186,12 @@ function dpa_achievement_metabox_save( $achievement_id ) {
 function dpa_achievement_posts_columns( $columns ) {
 	$columns = array(
 		'cb'               => '<input type="checkbox" />',
-		'dpa_thumb'        => _x( 'Image', 'Featured Image column title', 'dpa' ),
-		'title'            => __( 'Title', 'dpa' ),
-		'achievement_type' => _x( 'Type', 'Type of the achievement; award or badge', 'dpa' ),
-		'categories'       => __( 'Categories', 'dpa' ),
-		'karma'            => __( 'Karma Points', 'dpa' ),
-		'date'             => __( 'Date', 'dpa' ),
+		'dpa_thumb'        => _x( 'Image', 'Featured Image column title', 'achievements' ),
+		'title'            => __( 'Title', 'achievements' ),
+		'achievement_type' => _x( 'Type', 'Type of the achievement; award or badge', 'achievements' ),
+		'categories'       => __( 'Categories', 'achievements' ),
+		'karma'            => __( 'Karma Points', 'achievements' ),
+		'date'             => __( 'Date', 'achievements' ),
 	);
 
 	return apply_filters( 'dpa_achievements_posts_columns', $columns );
@@ -210,7 +210,7 @@ function dpa_achievement_custom_column( $column, $post_id ) {
 
 	} elseif ( 'achievement_type' === $column ) {
 		$existing_events = wp_get_post_terms( $post_id, dpa_get_event_tax_id(), array( 'fields' => 'ids', ) );
-		$existing_type   = empty( $existing_events ) ? __( 'Award', 'dpa' ) : __( 'Event', 'dpa' );
+		$existing_type   = empty( $existing_events ) ? __( 'Award', 'achievements' ) : __( 'Event', 'achievements' );
 		echo $existing_type;
 
 	} elseif ( 'dpa_thumb' === $column ) {
@@ -243,60 +243,60 @@ function dpa_achievement_new_contextual_help() {
 		return;
 
 	// Most of this was copied from wpcore
-	$customise_display = '<p>' . __( 'The title field and the big achievement Editing Area are fixed in place, but you can reposition all the other boxes using drag and drop, and can minimize or expand them by clicking the title bar of each box. Use the Screen Options tab to hide or reveal more boxes (Featured Image, Achievements, Slug) or to choose a 1- or 2-column layout for this screen.', 'dpa' ) . '</p>';
+	$customise_display = '<p>' . __( 'The title field and the big achievement Editing Area are fixed in place, but you can reposition all the other boxes using drag and drop, and can minimize or expand them by clicking the title bar of each box. Use the Screen Options tab to hide or reveal more boxes (Featured Image, Achievements, Slug) or to choose a 1- or 2-column layout for this screen.', 'achievements' ) . '</p>';
 
 	get_current_screen()->add_help_tab( array(
 		'id'      => 'customise-display',
-		'title'   => __( 'Customizing This Display', 'dpa' ),
+		'title'   => __( 'Customizing This Display', 'achievements' ),
 		'content' => $customise_display,
 	) );
 
-	$title_and_editor  = '<p>' . __( '<strong>Title</strong> - Enter a title for your achievement. After you enter a title, you&#8217;ll see the permalink below, which you can edit.', 'dpa' ) . '</p>';
-	$title_and_editor .= '<p>' . __( '<strong>Achievement editor</strong> - Enter the text for your achievement. There are two modes of editing: Visual and Text. Choose the mode by clicking on the appropriate tab. Visual mode gives you a WYSIWYG editor. Click the last icon in the row to get a second row of controls. The Text mode allows you to enter HTML along with your achievement text. Line breaks will be converted to paragraphs automatically. You can insert media files by clicking the icons above the achievement editor and following the directions. You can go to the distraction-free writing screen via the Fullscreen icon in Visual mode (second to last in the top row) or the Fullscreen button in Text mode (last in the row). Once there, you can make buttons visible by hovering over the top area. Exit Fullscreen back to the regular achievement editor.', 'dpa' ) . '</p>';
+	$title_and_editor  = '<p>' . __( '<strong>Title</strong> - Enter a title for your achievement. After you enter a title, you&#8217;ll see the permalink below, which you can edit.', 'achievements' ) . '</p>';
+	$title_and_editor .= '<p>' . __( '<strong>Achievement editor</strong> - Enter the text for your achievement. There are two modes of editing: Visual and Text. Choose the mode by clicking on the appropriate tab. Visual mode gives you a WYSIWYG editor. Click the last icon in the row to get a second row of controls. The Text mode allows you to enter HTML along with your achievement text. Line breaks will be converted to paragraphs automatically. You can insert media files by clicking the icons above the achievement editor and following the directions. You can go to the distraction-free writing screen via the Fullscreen icon in Visual mode (second to last in the top row) or the Fullscreen button in Text mode (last in the row). Once there, you can make buttons visible by hovering over the top area. Exit Fullscreen back to the regular achievement editor.', 'achievements' ) . '</p>';
 
 	get_current_screen()->add_help_tab( array(
 		'id'      => 'title-post-editor',
-		'title'   => __( 'Title and Achievement Editor', 'dpa' ),
+		'title'   => __( 'Title and Achievement Editor', 'achievements' ),
 		'content' => $title_and_editor,
 	) );
 
-	$inserting_media  = '<p>' . __( 'You can upload and insert media (images, audio, documents, etc.) by clicking the Add Media button. You can select from the images and files already uploaded to the Media Library, or upload new media to add to your achievement. To create an image gallery, select the images to add and click the “Create a new gallery” button.', 'dpa' ) . '</p>';
+	$inserting_media  = '<p>' . __( 'You can upload and insert media (images, audio, documents, etc.) by clicking the Add Media button. You can select from the images and files already uploaded to the Media Library, or upload new media to add to your achievement. To create an image gallery, select the images to add and click the “Create a new gallery” button.', 'achievements' ) . '</p>';
 
-	$inserting_media .= '<p>' . sprintf( __( 'You can also embed media from many popular websites including Twitter, YouTube, Flickr and others by pasting the media URL on its own line into the content of your post/page. Please refer to the WordPress Codex to <a href="%s">learn more about embeds</a>.', 'dpa' ), esc_url( 'http://codex.wordpress.org/Embeds' ) ) . '</p>';
+	$inserting_media .= '<p>' . sprintf( __( 'You can also embed media from many popular websites including Twitter, YouTube, Flickr and others by pasting the media URL on its own line into the content of your post/page. Please refer to the WordPress Codex to <a href="%s">learn more about embeds</a>.', 'achievements' ), esc_url( 'http://codex.wordpress.org/Embeds' ) ) . '</p>';
 
 	get_current_screen()->add_help_tab( array(
 		'id'      => 'inserting-media',
-		'title'   => __( 'Inserting Media', 'dpa' ),
+		'title'   => __( 'Inserting Media', 'achievements' ),
 		'content' => $inserting_media,
 	) );
 
-	$publish_box  = '<p>' . __( 'Several boxes on this screen contain settings for how your achievement will be published, including:', 'dpa' ) . '</p>';
-	$publish_box .= '<ul><li><p>' . __( "<strong>Publish</strong> - You can set the terms of publishing your achievement in the Publish box. For Status, Visibility, and Publish (immediately), click on the Edit link to reveal more options. Visibility includes options for password-protecting an achievement&#8217;s page or setting the achievement to not appear in lists on your site). Publish (immediately) allows you to set a future or past date and time, so you can schedule an achievement to be published in the future.", 'dpa' ) . '</p></li>';
+	$publish_box  = '<p>' . __( 'Several boxes on this screen contain settings for how your achievement will be published, including:', 'achievements' ) . '</p>';
+	$publish_box .= '<ul><li><p>' . __( "<strong>Publish</strong> - You can set the terms of publishing your achievement in the Publish box. For Status, Visibility, and Publish (immediately), click on the Edit link to reveal more options. Visibility includes options for password-protecting an achievement&#8217;s page or setting the achievement to not appear in lists on your site). Publish (immediately) allows you to set a future or past date and time, so you can schedule an achievement to be published in the future.", 'achievements' ) . '</p></li>';
 
-	$publish_box .= '<li><p>' . __( '<strong>Featured Image</strong> - This allows you to associate an image with your achievement without inserting it into the big achievement Editing Area.', 'dpa' ) . '</p></li></ul>';
+	$publish_box .= '<li><p>' . __( '<strong>Featured Image</strong> - This allows you to associate an image with your achievement without inserting it into the big achievement Editing Area.', 'achievements' ) . '</p></li></ul>';
 
 	get_current_screen()->add_help_tab( array(
 		'id'      => 'publish-box',
-		'title'   => __( 'Publish Settings', 'dpa' ),
+		'title'   => __( 'Publish Settings', 'achievements' ),
 		'content' => $publish_box,
 	) );
 
-	$achievements_box  = '<p>' . __( '<strong>Karma points</strong> - set the number of points (called karma) given to a user when they unlock an achievement.', 'dpa' ) . '</p>';
-	$achievements_box .= '<p>' . __( '<strong>Type</strong> - there are two types of achievement, Award and Event. An Award is given by a site admin, whereas an Event is unlocked automatically when its criteria have been met.', 'dpa' ) . '</p>';
-	$achievements_box .= '<p>' . __( '<strong>Event achievements</strong> - this field appears when you create an Event achievement. Use the dropdown box to choose the events that you want to trigger this achievement.', 'dpa' ) . '</p>';
-	$achievements_box .= '<p>' . __( '<strong>Events repeat</strong> - for Event achievements, set the number of times the events need to occur before the achievement is awarded.', 'dpa' ) . '</p>';
-	$achievements_box .= '<p>' . __( '<strong>Redemption code</strong> - users can enter this code into the Redemption widget to unlock the achievement.', 'dpa' ) . '</p>';
+	$achievements_box  = '<p>' . __( '<strong>Karma points</strong> - set the number of points (called karma) given to a user when they unlock an achievement.', 'achievements' ) . '</p>';
+	$achievements_box .= '<p>' . __( '<strong>Type</strong> - there are two types of achievement, Award and Event. An Award is given by a site admin, whereas an Event is unlocked automatically when its criteria have been met.', 'achievements' ) . '</p>';
+	$achievements_box .= '<p>' . __( '<strong>Event achievements</strong> - this field appears when you create an Event achievement. Use the dropdown box to choose the events that you want to trigger this achievement.', 'achievements' ) . '</p>';
+	$achievements_box .= '<p>' . __( '<strong>Events repeat</strong> - for Event achievements, set the number of times the events need to occur before the achievement is awarded.', 'achievements' ) . '</p>';
+	$achievements_box .= '<p>' . __( '<strong>Redemption code</strong> - users can enter this code into the Redemption widget to unlock the achievement.', 'achievements' ) . '</p>';
 
 	get_current_screen()->add_help_tab( array(
 		'id'      => 'achievement-box',
-		'title'   => __( 'Achievements Box', 'dpa' ),
+		'title'   => __( 'Achievements Box', 'achievements' ),
 		'content' => $achievements_box,
 	) );
 
 	get_current_screen()->set_help_sidebar(
-		'<p><strong>' . __( 'For more information:', 'dpa' ) . '</strong></p>' .
-		'<p><a href="http://achievementsapp.com/" target="_blank">' . __( 'Achievements Website', 'dpa' ) . '</a></p>' .
-		'<p><a href="http://wordpress.org/support/plugin/achievements/" target="_blank">' . __( 'Support Forums', 'dpa' ) . '</a></p>'
+		'<p><strong>' . __( 'For more information:', 'achievements' ) . '</strong></p>' .
+		'<p><a href="http://achievementsapp.com/" target="_blank">' . __( 'Achievements Website', 'achievements' ) . '</a></p>' .
+		'<p><a href="http://wordpress.org/support/plugin/achievements/" target="_blank">' . __( 'Support Forums', 'achievements' ) . '</a></p>'
 	);
 }
 
@@ -313,21 +313,21 @@ function dpa_achievement_index_contextual_help() {
 	// Most of this was copied from wpcore
 	get_current_screen()->add_help_tab( array(
 	'id'      => 'overview',
-	'title'   => __( 'Overview', 'dpa' ),
+	'title'   => __( 'Overview', 'achievements' ),
 	'content' =>
-		'<p>' . __( 'This screen provides access to all of your achievements. You can customize the display of this screen to suit your workflow.', 'dpa' ) . '</p>'
+		'<p>' . __( 'This screen provides access to all of your achievements. You can customize the display of this screen to suit your workflow.', 'achievements' ) . '</p>'
 	) );
 
 	get_current_screen()->add_help_tab( array(
 	'id'      => 'screen-content',
-	'title'   => __( 'Screen Content', 'dpa' ),
+	'title'   => __( 'Screen Content', 'achievements' ),
 	'content' =>
-		'<p>' . __( 'You can customize the display of this screen&#8217;s contents in a number of ways:', 'dpa' ) . '</p>' .
+		'<p>' . __( 'You can customize the display of this screen&#8217;s contents in a number of ways:', 'achievements' ) . '</p>' .
 		'<ul>' .
-			'<li>' . __( 'You can hide/display columns based on your needs and decide how many achievements to list per screen using the Screen Options tab.', 'dpa' ) . '</li>' .
-			'<li>' . __( 'You can filter the list of achievements by achievement status using the text links in the upper left to show All, Published, Draft, or Trashed achievements. The default view is to show all achievements.', 'dpa' ) . '</li>' .
-			'<li>' . __( 'You can view achievements in a simple title list or with an excerpt. Choose the view you prefer by clicking on the icons at the top of the list on the right.', 'dpa' ) . '</li>' .
-			'<li>' . __( 'You can refine the list to show only achievements from a specific month by using the dropdown menus above the posts list. Click the Filter button after making your selection.', 'dpa' ) . '</li>' .
+			'<li>' . __( 'You can hide/display columns based on your needs and decide how many achievements to list per screen using the Screen Options tab.', 'achievements' ) . '</li>' .
+			'<li>' . __( 'You can filter the list of achievements by achievement status using the text links in the upper left to show All, Published, Draft, or Trashed achievements. The default view is to show all achievements.', 'achievements' ) . '</li>' .
+			'<li>' . __( 'You can view achievements in a simple title list or with an excerpt. Choose the view you prefer by clicking on the icons at the top of the list on the right.', 'achievements' ) . '</li>' .
+			'<li>' . __( 'You can refine the list to show only achievements from a specific month by using the dropdown menus above the posts list. Click the Filter button after making your selection.', 'achievements' ) . '</li>' .
 		'</ul>'
 	) );
 
@@ -335,19 +335,19 @@ function dpa_achievement_index_contextual_help() {
 	'id'      => 'action-links',
 	'title'   => __( 'Available Actions' ),
 	'content' =>
-		'<p>' . __( 'Hovering over a row in the achievements list will display action links that allow you to manage your achievement. You can perform the following actions:', 'dpa' ) . '</p>' .
+		'<p>' . __( 'Hovering over a row in the achievements list will display action links that allow you to manage your achievement. You can perform the following actions:', 'achievements' ) . '</p>' .
 		'<ul>' .
-			'<li>' . __( '<strong>Edit</strong> takes you to the editing screen for that achievement. You can also reach that screen by clicking on the achievement title.', 'dpa' ) . '</li>' .
-			'<li>' . __( '<strong>Quick Edit</strong> provides inline access to the metadata of your achievement, allowing you to update achievement details without leaving this screen.', 'dpa' ) . '</li>' .
-			'<li>' . __( '<strong>Trash</strong> removes your achievement from this list and places it in the trash, from which you can permanently delete it.', 'dpa' ) . '</li>' .
-			'<li>' . __( '<strong>Preview</strong> will show you what your draft achievement will look like if you publish it. View will take you to your live site to view the achievement. Which link is available depends on your achievement&#8217;s status.', 'dpa' ) . '</li>' .
+			'<li>' . __( '<strong>Edit</strong> takes you to the editing screen for that achievement. You can also reach that screen by clicking on the achievement title.', 'achievements' ) . '</li>' .
+			'<li>' . __( '<strong>Quick Edit</strong> provides inline access to the metadata of your achievement, allowing you to update achievement details without leaving this screen.', 'achievements' ) . '</li>' .
+			'<li>' . __( '<strong>Trash</strong> removes your achievement from this list and places it in the trash, from which you can permanently delete it.', 'achievements' ) . '</li>' .
+			'<li>' . __( '<strong>Preview</strong> will show you what your draft achievement will look like if you publish it. View will take you to your live site to view the achievement. Which link is available depends on your achievement&#8217;s status.', 'achievements' ) . '</li>' .
 		'</ul>'
 	) );
 
 	get_current_screen()->set_help_sidebar(
-		'<p><strong>' . __( 'For more information:', 'dpa' ) . '</strong></p>' .
-		'<p><a href="http://achievementsapp.com/" target="_blank">' . __( 'Achievements Website', 'dpa' ) . '</a></p>' .
-		'<p><a href="http://wordpress.org/support/plugin/achievements/" target="_blank">' . __( 'Support Forums', 'dpa' ) . '</a></p>'
+		'<p><strong>' . __( 'For more information:', 'achievements' ) . '</strong></p>' .
+		'<p><a href="http://achievementsapp.com/" target="_blank">' . __( 'Achievements Website', 'achievements' ) . '</a></p>' .
+		'<p><a href="http://wordpress.org/support/plugin/achievements/" target="_blank">' . __( 'Support Forums', 'achievements' ) . '</a></p>'
 	);
 }
 
@@ -372,41 +372,41 @@ function dpa_achievement_feedback_messages( $messages ) {
 		0 =>  '', // Left empty on purpose
 
 		// Updated
-		1 =>  sprintf( __( 'Achievement updated. <a href="%s">View achievement</a>', 'dpa' ), $achievement_url ),
+		1 =>  sprintf( __( 'Achievement updated. <a href="%s">View achievement</a>', 'achievements' ), $achievement_url ),
 
 		// Custom field updated
-		2 => __( 'Custom field updated.', 'dpa' ),
+		2 => __( 'Custom field updated.', 'achievements' ),
 
 		// Custom field deleted
-		3 => __( 'Custom field deleted.', 'dpa' ),
+		3 => __( 'Custom field deleted.', 'achievements' ),
 
 		// Achievement updated
-		4 => __( 'Achievement updated.', 'dpa' ),
+		4 => __( 'Achievement updated.', 'achievements' ),
 
 		// Restored from revision
 		// translators: %s: date and time of the revision
 		5 => isset( $_GET['revision'] )
-				 ? sprintf( __( 'Achievement restored to revision from %s', 'dpa' ), wp_post_revision_title( (int) $_GET['revision'], false ) )
+				 ? sprintf( __( 'Achievement restored to revision from %s', 'achievements' ), wp_post_revision_title( (int) $_GET['revision'], false ) )
 				 : false,
 
 		// Achievement created
-		6 => sprintf( __( 'Achievement created. <a href="%s">View achievement</a>', 'dpa' ), $achievement_url ),
+		6 => sprintf( __( 'Achievement created. <a href="%s">View achievement</a>', 'achievements' ), $achievement_url ),
 
 		// Achievement saved
-		7 => __( 'Achievement saved.', 'dpa' ),
+		7 => __( 'Achievement saved.', 'achievements' ),
 
 		// Achievement submitted
-		8 => sprintf( __( 'Achievement submitted. <a target="_blank" href="%s">Preview achievement</a>', 'dpa' ), esc_url( add_query_arg( 'preview', 'true', $achievement_url ) ) ),
+		8 => sprintf( __( 'Achievement submitted. <a target="_blank" href="%s">Preview achievement</a>', 'achievements' ), esc_url( add_query_arg( 'preview', 'true', $achievement_url ) ) ),
 
 		// Achievement scheduled
-		9 => sprintf( __( 'Achievement scheduled for: <strong>%1$s</strong>. <a target="_blank" href="%2$s">Preview achievement</a>', 'dpa' ),
+		9 => sprintf( __( 'Achievement scheduled for: <strong>%1$s</strong>. <a target="_blank" href="%2$s">Preview achievement</a>', 'achievements' ),
 				// translators: Publish box date format, see http://php.net/date
-				date_i18n( __( 'M j, Y @ G:i', 'dpa' ),
+				date_i18n( __( 'M j, Y @ G:i', 'achievements' ),
 				strtotime( $post_date ) ),
 				$achievement_url ),
 
 		// Achievement draft updated
-		10 => sprintf( __( 'Achievement draft updated. <a target="_blank" href="%s">Preview topic</a>', 'dpa' ), esc_url( add_query_arg( 'preview', 'true', $achievement_url ) ) ),
+		10 => sprintf( __( 'Achievement draft updated. <a target="_blank" href="%s">Preview topic</a>', 'achievements' ), esc_url( add_query_arg( 'preview', 'true', $achievement_url ) ) ),
 	);
 
 	return $messages;

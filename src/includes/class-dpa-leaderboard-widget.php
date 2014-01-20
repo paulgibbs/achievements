@@ -25,10 +25,10 @@ class DPA_Leaderboard_Widget extends WP_Widget {
 	public function __construct() {
 		$widget_ops = apply_filters( 'dpa_leaderboard_widget_options', array(
 			'classname'   => 'widget_dpa_leaderboard',
-			'description' => __( 'Your users ranked by their karma points.', 'dpa' ),
+			'description' => __( 'Your users ranked by their karma points.', 'achievements' ),
 		) );
 
-		parent::__construct( false, __( '(Achievements) Leaderboard', 'dpa' ), $widget_ops );
+		parent::__construct( false, __( '(Achievements) Leaderboard', 'achievements' ), $widget_ops );
 	}
 
 	/**
@@ -90,7 +90,7 @@ class DPA_Leaderboard_Widget extends WP_Widget {
 		?>
 
 		<p>
-			<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:', 'dpa' ); ?></label><br />
+			<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:', 'achievements' ); ?></label><br />
 			<input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo esc_attr( $settings['title'] ); ?>" />
 		</p>
 
@@ -105,7 +105,7 @@ class DPA_Leaderboard_Widget extends WP_Widget {
 	 */
 	public function parse_settings( array $instance = array() ) {
 		return dpa_parse_args( $instance, array(
-			'title'    => __( 'Leaderboard', 'dpa' ),
+			'title'    => __( 'Leaderboard', 'achievements' ),
 		), 'leaderboard_widget_settings' );
 	}
 }

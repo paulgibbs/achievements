@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 <script type="text/html" id="tmpl-achievements-wrapper">
 	<ul aria-live="polite" id="dpa-toaster" role="status" style="display: none">
-		<h1><?php _e( 'Achievement unlocked!', 'dpa' ); ?></h1>
+		<h1><?php _e( 'Achievement unlocked!', 'achievements' ); ?></h1>
 	</ul>
 </script>
 
@@ -27,10 +27,10 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 		<p>
 			<?php
 			// translators: "{{ data.title }}" will be replaced with the name of the achievement; leave this bit exactly as is.
-			_e( "Hey, you&#8217;ve unlocked the &#8220;{{ data.title }}&#8221; achievement. Congratulations!", 'dpa' );
+			_e( "Hey, you&#8217;ve unlocked the &#8220;{{ data.title }}&#8221; achievement. Congratulations!", 'achievements' );
 			?>
 		</p>
 
-		<p><a class="dpa-toast-cta" href="<?php echo esc_url( dpa_get_user_avatar_link( 'type=url&user_id=' . get_current_user_id() ) ); ?>"><?php _e( 'See your other achievements', 'dpa' ); ?></a></p>
+		<p><a class="dpa-toast-cta" href="<?php echo esc_url( dpa_get_user_avatar_link( 'type=url&user_id=' . get_current_user_id() ) ); ?>"><?php _e( 'See your other achievements', 'achievements' ); ?></a></p>
 	</li>
 </script>

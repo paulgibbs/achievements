@@ -30,7 +30,7 @@ class DPA_BuddyPress_Component extends BP_Component {
 	public function __construct() {
 		parent::start(
 			'achievements',
-			__( 'Achievements', 'dpa' ),
+			__( 'Achievements', 'achievements' ),
 			BP_PLUGIN_DIR
 		);
 	}
@@ -92,7 +92,7 @@ class DPA_BuddyPress_Component extends BP_Component {
 		$main_nav = array(
 			'default_subnav_slug' => 'all',
 			'item_css_id'         => $this->id,
-			'name'                => __( 'Achievements', 'dpa' ),
+			'name'                => __( 'Achievements', 'achievements' ),
 			'position'            => 100,
 			'screen_function'     => 'dpa_bp_members_my_achievements',
 			'slug'                => $this->slug,
@@ -105,7 +105,7 @@ class DPA_BuddyPress_Component extends BP_Component {
 		// Add to the user navigation -- "my achievements"
 		$sub_nav = array(
 			'item_css_id'     => "{$this->id}-all",
-			'name'            => __( 'My Achievements', 'dpa' ),
+			'name'            => __( 'My Achievements', 'achievements' ),
 			'parent_slug'     => $this->slug,
 			'parent_url'      => dpa_get_user_avatar_link( array( 'type' => 'url' ) ),
 			'position'        => 20,
@@ -131,7 +131,7 @@ class DPA_BuddyPress_Component extends BP_Component {
 				'href'   => dpa_get_user_avatar_link( array( 'type' => 'url' ) ),
 				'id'     => 'my-account-' . $this->id . '-edit',
 				'parent' => 'my-account-xprofile',
-				'title'  => __( 'Achievements', 'dpa' ),
+				'title'  => __( 'Achievements', 'achievements' ),
 			);
 		}
 

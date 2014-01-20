@@ -446,7 +446,7 @@ function dpa_template_include_theme_compat( $template = '' ) {
 			'post_content'   => achievements()->shortcodes->display_user_achievements(),
 			'post_date'      => 0,
 			'post_status'    => 'publish',
-			'post_title'     => sprintf( _x( "%s's achievements", 'possesive noun', 'dpa' ), get_the_author_meta( 'display_name', dpa_get_displayed_user_id() ) ),
+			'post_title'     => sprintf( _x( "%s's achievements", 'possesive noun', 'achievements' ), get_the_author_meta( 'display_name', dpa_get_displayed_user_id() ) ),
 			'post_type'      => dpa_get_achievement_post_type(),
 		) );
 	}

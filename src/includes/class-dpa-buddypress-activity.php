@@ -86,7 +86,7 @@ class DPA_BuddyPress_Activity {
 	 * @since Achievements (3.2)
 	 */
 	public function register_activity_actions() {
-		bp_activity_set_action( $this->component, $this->achievement_unlocked, __( 'Unlocked achievements', 'dpa' ) );
+		bp_activity_set_action( $this->component, $this->achievement_unlocked, __( 'Unlocked achievements', 'achievements' ) );
 	}
 
 	/**
@@ -142,7 +142,7 @@ class DPA_BuddyPress_Activity {
 	function activity_filter_options() {
 	?>
 
-		<option value="<?php echo esc_attr( $this->achievement_unlocked ); ?>"><?php echo esc_html_x( 'Achievements', 'Unlocked achievements filter label', 'dpa' ); ?></option>
+		<option value="<?php echo esc_attr( $this->achievement_unlocked ); ?>"><?php echo esc_html_x( 'Achievements', 'Unlocked achievements filter label', 'achievements' ); ?></option>
 
 	<?php
 	}
@@ -167,7 +167,7 @@ class DPA_BuddyPress_Activity {
 		$achievement_link      = sprintf( '<a href="%1$s">%2$s</a>', esc_url( $achievement_permalink ), esc_html( $achievement_title ) );
 
 		// Activity action & text
-		$activity_text    = sprintf( __( '%1$s unlocked the achievement: %2$s', 'dpa' ), bp_core_get_userlink( $user_id ), $achievement_link );
+		$activity_text    = sprintf( __( '%1$s unlocked the achievement: %2$s', 'achievements' ), bp_core_get_userlink( $user_id ), $achievement_link );
 		$activity_action  = apply_filters( 'dpa_activity_achievement_unlocked', $activity_text, $achievement->ID, $user_id, $progress_id );
 
 		// Record the activity

@@ -41,30 +41,30 @@ class DPA_BuddyPress_Extension extends DPA_Extension {
 	public function __construct() {
 
 		$this->actions = array(
-			'bp_activity_add_user_favorite'    => __( 'The user marks an item in an activity stream as a favourite.', 'dpa' ),
-			'bp_activity_comment_posted'       => __( 'The user replies to an item in an activity stream.', 'dpa' ),
-			'bp_activity_posted_update'        => __( 'The user writes an activity update message.', 'dpa' ),
-			'bp_activity_remove_user_favorite' => __( 'The user un-favourites an item in their activity stream.', 'dpa' ),
-			'bp_core_activated_user'           => __( 'A new user activates their account on your website.', 'dpa' ),
-			'bp_groups_posted_update'          => __( "The user writes a message in a group&#8217;s activity stream.", 'dpa' ),
-			'friends_friendship_accepted'      => __( 'The user accepts a friendship request from someone.', 'dpa' ),
-			'friends_friendship_deleted'       => __( 'The user cancels a friendship.', 'dpa' ),
-			'friends_friendship_rejected'      => __( 'The user rejects a friendship request from someone.', 'dpa' ),
-			'friends_friendship_requested'     => __( 'The user sends a friendship request to someone.', 'dpa' ),
-			'groups_banned_member'             => __( 'The user bans a member from a group.', 'dpa' ),
-			'groups_group_create_complete'     => __( 'The user creates a group.', 'dpa' ),
-			'groups_delete_group'              => __( 'The user deletes a group.', 'dpa' ),
-			'groups_demoted_member'            => __( 'The user demotes a group member from moderator or administrator status.', 'dpa' ),
-			'groups_invite_user'               => __( 'The user invites someone to join a group.', 'dpa' ),
-			'groups_join_group'                => __( 'The user joins a group.', 'dpa' ),
-			'groups_leave_group'               => __( 'The user leaves a group.', 'dpa' ),
-			'groups_promote_member'            => __( 'The user is promoted to a moderator or an administrator in a group.', 'dpa' ),
-			'groups_promoted_member'           => __( 'The user promotes a group member to moderator or administrator status.', 'dpa' ),
-			'groups_unbanned_member'           => __( 'The user unbans a member from a group.', 'dpa' ),
-			'messages_delete_thread'           => __( 'The user deletes a private message.', 'dpa' ),
-			'messages_message_sent'            => __( 'The user sends a new private message or replies to an existing one.', 'dpa' ),
-			'xprofile_avatar_uploaded'         => __( "The user changes their profile&#8217;s avatar.", 'dpa' ),
-			'xprofile_updated_profile'         => __( 'The user updates their profile information.', 'dpa' ),
+			'bp_activity_add_user_favorite'    => __( 'The user marks an item in an activity stream as a favourite.', 'achievements' ),
+			'bp_activity_comment_posted'       => __( 'The user replies to an item in an activity stream.', 'achievements' ),
+			'bp_activity_posted_update'        => __( 'The user writes an activity update message.', 'achievements' ),
+			'bp_activity_remove_user_favorite' => __( 'The user un-favourites an item in their activity stream.', 'achievements' ),
+			'bp_core_activated_user'           => __( 'A new user activates their account on your website.', 'achievements' ),
+			'bp_groups_posted_update'          => __( "The user writes a message in a group&#8217;s activity stream.", 'achievements' ),
+			'friends_friendship_accepted'      => __( 'The user accepts a friendship request from someone.', 'achievements' ),
+			'friends_friendship_deleted'       => __( 'The user cancels a friendship.', 'achievements' ),
+			'friends_friendship_rejected'      => __( 'The user rejects a friendship request from someone.', 'achievements' ),
+			'friends_friendship_requested'     => __( 'The user sends a friendship request to someone.', 'achievements' ),
+			'groups_banned_member'             => __( 'The user bans a member from a group.', 'achievements' ),
+			'groups_group_create_complete'     => __( 'The user creates a group.', 'achievements' ),
+			'groups_delete_group'              => __( 'The user deletes a group.', 'achievements' ),
+			'groups_demoted_member'            => __( 'The user demotes a group member from moderator or administrator status.', 'achievements' ),
+			'groups_invite_user'               => __( 'The user invites someone to join a group.', 'achievements' ),
+			'groups_join_group'                => __( 'The user joins a group.', 'achievements' ),
+			'groups_leave_group'               => __( 'The user leaves a group.', 'achievements' ),
+			'groups_promote_member'            => __( 'The user is promoted to a moderator or an administrator in a group.', 'achievements' ),
+			'groups_promoted_member'           => __( 'The user promotes a group member to moderator or administrator status.', 'achievements' ),
+			'groups_unbanned_member'           => __( 'The user unbans a member from a group.', 'achievements' ),
+			'messages_delete_thread'           => __( 'The user deletes a private message.', 'achievements' ),
+			'messages_message_sent'            => __( 'The user sends a new private message or replies to an existing one.', 'achievements' ),
+			'xprofile_avatar_uploaded'         => __( "The user changes their profile&#8217;s avatar.", 'achievements' ),
+			'xprofile_updated_profile'         => __( 'The user updates their profile information.', 'achievements' ),
 		);
 
 		$this->contributors = array(
@@ -90,10 +90,10 @@ class DPA_BuddyPress_Extension extends DPA_Extension {
 			),
 		);
 
-		$this->description     = __( 'Social networking in a box. Build a social network for your company, school, sports team or niche community.', 'dpa' );
+		$this->description     = __( 'Social networking in a box. Build a social network for your company, school, sports team or niche community.', 'achievements' );
 		$this->id              = 'buddypress';
 		$this->image_url       = trailingslashit( achievements()->includes_url ) . 'admin/images/buddypress.png';
-		$this->name            = __( 'BuddyPress', 'dpa' );
+		$this->name            = __( 'BuddyPress', 'achievements' );
 		$this->rss_url         = 'http://buddypress.org/blog/feed/';
 		$this->small_image_url = trailingslashit( achievements()->includes_url ) . 'admin/images/buddypress-small.png';
 		$this->version         = 1;
