@@ -15,8 +15,7 @@
     "grunt-contrib-concat": "~0.3.0",
     "grunt-cssjanus": "~0.1.1",
     "grunt-phpunit": "~0.3.0",
-    "matchdep": "~0.1.2",
-    "grunt-rsync": "~0.2.1"
+    "matchdep": "~0.1.2"
   },
   "keywords": [
     "achievements",
