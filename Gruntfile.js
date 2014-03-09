@@ -23,7 +23,9 @@ module.exports = function( grunt ) {
 	],
 
 	DPA_JS = [
-		'templates/achievements/js/*.js'
+		'templates/achievements/js/*.js',
+		'includes/admin/js/*.js',
+		'!includes/admin/js/*-min.js'  // Exclude 3rd party minified libraries
 	];
 
 	// Load tasks.
@@ -201,8 +203,8 @@ module.exports = function( grunt ) {
 	});
 
 	// Register tasks.
-	grunt.registerTask( 'build',      ['clean:all', 'less:core'] );
-	grunt.registerTask( 'build-prod', ['clean:all', 'less:core', 'copy:files', 'cssjanus:core', 'cssmin:ltr', 'cssmin:rtl', 'uglify:core', 'clean:build', 'phpunit:all'] );
+	grunt.registerTask( 'build',      ['clean:all', 'less:core', 'jshint:core'] );
+	grunt.registerTask( 'build-prod', ['clean:all', 'less:core', 'jshint:core', 'copy:files', 'cssjanus:core', 'cssmin:ltr', 'cssmin:rtl', 'uglify:core', 'clean:build', 'phpunit:all'] );
 
 	// Testing tasks.
 	grunt.registerMultiTask( 'phpunit', 'Runs PHPUnit tests, including the ajax and multisite tests.', function() {
