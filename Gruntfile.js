@@ -74,7 +74,7 @@ module.exports = function( grunt ) {
 				expand: true,
 				ext: '.css',
 				src: DPA_CSS,
-				options: { banner: '/*! https://wordpress.org/plugins/achievements/ */' }
+				options: { banner: '/*! https://wordpress.org/plugins/achievements/ */\n' }
 			},
 			rtl: {
 				cwd: BUILD_DIR,
@@ -84,7 +84,7 @@ module.exports = function( grunt ) {
 				src: DPA_CSS.map( function( filename ) {
 					return filename.replace( '.css', '-rtl.css' );
 				}),
-				options: { banner: '/*! https://wordpress.org/plugins/achievements/ */' }
+				options: { banner: '/*! https://wordpress.org/plugins/achievements/ */\n' }
 			}
 		},
 		cssjanus: {
@@ -204,7 +204,7 @@ module.exports = function( grunt ) {
 
 	// Register tasks.
 	grunt.registerTask( 'build',      ['clean:all', 'less:core', 'jshint:core'] );
-	grunt.registerTask( 'build-prod', ['clean:all', 'less:core', 'jshint:core', 'copy:files', 'cssjanus:core', 'cssmin:ltr', 'cssmin:rtl', 'uglify:core'] );
+	grunt.registerTask( 'build-prod', ['clean:all', 'less:core', 'jshint:core', 'copy:files', 'uglify:core', 'cssjanus:core', 'cssmin:ltr', 'cssmin:rtl'] );
 
 	// Testing tasks.
 	grunt.registerMultiTask( 'phpunit', 'Runs PHPUnit tests, including the ajax and multisite tests.', function() {
