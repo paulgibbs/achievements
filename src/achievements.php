@@ -178,7 +178,7 @@ final class DPA_Achievements_Loader {
 
 		// Paths - plugin
 		$this->file       = __FILE__;
-		$this->basename   = apply_filters( 'dpa_basenname',       plugin_basename( $this->file ) );
+		$this->basename   = apply_filters( 'dpa_basename',        str_replace( array( 'build/', 'src/' ), '', plugin_basename( $this->file ) ) );
 		$this->plugin_dir = apply_filters( 'dpa_plugin_dir_path', plugin_dir_path( $this->file ) );
 		$this->plugin_url = apply_filters( 'dpa_plugin_dir_url',  plugin_dir_url ( $this->file ) );
 
