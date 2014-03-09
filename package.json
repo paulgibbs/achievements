@@ -15,7 +15,6 @@
     "grunt-cssjanus": "~0.2.2",
     "grunt-contrib-less": "~0.10.0",
     "grunt-phpunit": "~0.3.0",
-    "grunt-jsvalidate": "~0.2.2",
     "grunt-wp-i18n": "~0.4.0",
     "grunt-checktextdomain": "~0.1.1",
     "matchdep": "~0.3.0"
