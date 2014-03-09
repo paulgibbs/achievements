@@ -204,7 +204,7 @@ module.exports = function( grunt ) {
 
 	// Register tasks.
 	grunt.registerTask( 'build',      ['clean:all', 'less:core', 'jshint:core'] );
-	grunt.registerTask( 'build-prod', ['clean:all', 'less:core', 'jshint:core', 'copy:files', 'cssjanus:core', 'cssmin:ltr', 'cssmin:rtl', 'uglify:core', 'clean:build', 'phpunit:all'] );
+	grunt.registerTask( 'build-prod', ['clean:all', 'less:core', 'jshint:core', 'copy:files', 'cssjanus:core', 'cssmin:ltr', 'cssmin:rtl', 'uglify:core'] );
 
 	// Testing tasks.
 	grunt.registerMultiTask( 'phpunit', 'Runs PHPUnit tests, including the ajax and multisite tests.', function() {
