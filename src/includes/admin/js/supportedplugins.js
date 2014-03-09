@@ -42,7 +42,7 @@ function dpa_update_filters(event) {
 		item = $(this);
 
 		// Show installed plugins
-		if ("1" === current_filter) {
+		if ('1' === current_filter) {
 			if (item.hasClass('installed')) {
 				item.addClass('showme');
 			} else {
@@ -50,7 +50,7 @@ function dpa_update_filters(event) {
 			}
 
 		// Show available plugins
-		} else if ("0" === current_filter) {
+		} else if ('0' === current_filter) {
 			if (item.hasClass('notinstalled')) {
 				item.addClass('showme');
 			} else {
@@ -124,7 +124,7 @@ $(document).ready(function() {
 	$('#dpa-toolbar-search').on('keyup.achievements',  dpa_update_filters);
 
 	// Tablesorter
-	$("#post-body-content .list table").tablesorter({
+	$('#post-body-content .list table').tablesorter({
 		headers: {
 			0: { sorter: false },
 			1: { sorter: false },
@@ -134,7 +134,7 @@ $(document).ready(function() {
 			return node.innerHTML;
 		}
 	});
-	$("#post-body-content .list table th").on('click.achievements', 'a', function(event) {
+	$('#post-body-content .list table th').on('click.achievements', 'a', function(event) {
 		event.preventDefault();
 	});
 
