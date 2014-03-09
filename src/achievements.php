@@ -1,6 +1,6 @@
 <?php
 /**
- * Batman begins
+ * Welcome to Achievements for WordPress.
  *
  * Plugin structure is based on bbPress and BuddyPress, because they're awesome. Borrowed with love.
  *
@@ -23,7 +23,7 @@ Domain Path: ../../languages/plugins/
 Text Domain: achievements
 
 "Achievements"
-Copyright (C) 2009-13 Paul Gibbs
+Copyright (C) 2009-14 Paul Gibbs
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License version 3 as published by
