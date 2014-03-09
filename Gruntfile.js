@@ -67,6 +67,14 @@ module.exports = function( grunt ) {
 				src: []
 			}
 		},
+		imagemin: {
+			core: {
+				expand: true,
+				cwd: SOURCE_DIR,
+				src: [ '**/*.{png,jpg,gif,jpeg}' ],
+				dest: SOURCE_DIR
+			}
+		},
 		cssjanus: {
 			core: {
 				expand: true,
@@ -203,8 +211,8 @@ module.exports = function( grunt ) {
 	});
 
 	// Register tasks.
-	grunt.registerTask( 'build',      ['clean:all', 'less:core', 'jshint:core', 'checktextdomain', 'makepot'] );
-	grunt.registerTask( 'build-prod', ['clean:all', 'less:core', 'jshint:core', 'checktextdomain', 'makepot', 'copy:files', 'uglify:core', 'cssjanus:core', 'cssmin:ltr', 'cssmin:rtl'] );
+	grunt.registerTask( 'build',      ['clean:all', 'less:core', 'jshint:core', 'checktextdomain', 'makepot', 'imagemin'] );
+	grunt.registerTask( 'build-prod', ['clean:all', 'less:core', 'jshint:core', 'checktextdomain', 'makepot', 'imagemin', 'copy:files', 'uglify:core', 'cssjanus:core', 'cssmin:ltr', 'cssmin:rtl'] );
 
 	// Testing tasks.
 	grunt.registerMultiTask( 'phpunit', 'Runs PHPUnit tests, including the ajax and multisite tests.', function() {
