@@ -529,7 +529,7 @@ final class DPA_Achievements_Loader {
 			dpa_get_locked_status_id(),
 			apply_filters( 'dpa_register_locked_post_status', array(
 				'label'                     => _x( 'Locked', 'achievement', 'achievements' ),
-				'label_count'               => _nx_noop( 'Locked <span class="count">(%s)</span>', 'Locked <span class="count">(%s)</span>', 'achievements' ),
+				'label_count'               => _nx_noop( 'Locked <span class="count">(%s)</span>', 'Locked <span class="count">(%s)</span>', 'achievement', 'achievements' ),
 				'public'                    => false,
 				'exclude_from_search'       => true,
 				'show_in_admin_status_list' => true,
@@ -542,7 +542,7 @@ final class DPA_Achievements_Loader {
 			dpa_get_unlocked_status_id(),
 			apply_filters( 'dpa_register_unlocked_post_status', array(
 				'label'                     => _x( 'Unlocked', 'achievement', 'achievements' ),
-				'label_count'               => _nx_noop( 'Unlocked <span class="count">(%s)</span>', 'Unlocked <span class="count">(%s)</span>', 'achievements' ),
+				'label_count'               => _nx_noop( 'Unlocked <span class="count">(%s)</span>', 'Unlocked <span class="count">(%s)</span>', 'achievement', 'achievements' ),
 				'public'                    => false,
 				'exclude_from_search'       => true,
 				'show_in_admin_status_list' => true,

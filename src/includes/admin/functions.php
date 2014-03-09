@@ -333,7 +333,7 @@ function dpa_achievement_index_contextual_help() {
 
 	get_current_screen()->add_help_tab( array(
 	'id'      => 'action-links',
-	'title'   => __( 'Available Actions' ),
+	'title'   => __( 'Available Actions', 'achievements' ),
 	'content' =>
 		'<p>' . __( 'Hovering over a row in the achievements list will display action links that allow you to manage your achievement. You can perform the following actions:', 'achievements' ) . '</p>' .
 		'<ul>' .

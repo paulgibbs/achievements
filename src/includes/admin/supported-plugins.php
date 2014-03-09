@@ -258,7 +258,7 @@ function dpa_supported_plugins_detail() {
 
 							if ( ! empty( $author ) ) {
 								// translators: "By AUTHOR, DATE".
-								$content .= sprintf( __( '<p>By %1$s, %2$s</p>' ), $author, $date );
+								$content .= sprintf( __( '<p>By %1$s, %2$s</p>', 'achievements' ), $author, $date );
 							}
 
 							$content .= sprintf( '<p>%1$s</p>', $excerpt );
