@@ -134,26 +134,6 @@ module.exports = function( grunt ) {
 				}
 			}
 		},
-		uglify: {
-			core: {
-				cwd: BUILD_DIR,
-				dest: BUILD_DIR,
-				expand: true,
-				ext: '.js',
-				src: DPA_JS
-			},
-			options: { banner: '/*! https://wordpress.org/plugins/achievements/ */' }
-		},
-		phpunit: {
-			'default': {
-				cmd: 'phpunit',
-				args: ['-c', 'phpunit.xml']
-			},
-			multisite: {
-				cmd: 'phpunit',
-				args: ['-c', 'tests/phpunit/multisite.xml']
-			}
-		},
 		checktextdomain: {
 			options: {
 				correct_domain: false,
@@ -183,12 +163,32 @@ module.exports = function( grunt ) {
 		makepot: {
 			target: {
 				options: {
-					cwd: BUILD_DIR,
+					cwd: SOURCE_DIR,
 					domainPath: '.',
 					mainFile: 'achievements.php',
 					potFilename: 'achievements.pot',
 					type: 'wp-plugin'
 				}
+			}
+		},
+		uglify: {
+			core: {
+				cwd: BUILD_DIR,
+				dest: BUILD_DIR,
+				expand: true,
+				ext: '.js',
+				src: DPA_JS
+			},
+			options: { banner: '/*! https://wordpress.org/plugins/achievements/ */' }
+		},
+		phpunit: {
+			'default': {
+				cmd: 'phpunit',
+				args: ['-c', 'phpunit.xml']
+			},
+			multisite: {
+				cmd: 'phpunit',
+				args: ['-c', 'tests/phpunit/multisite.xml']
 			}
 		},
 		watch: {
@@ -203,8 +203,8 @@ module.exports = function( grunt ) {
 	});
 
 	// Register tasks.
-	grunt.registerTask( 'build',      ['clean:all', 'less:core', 'jshint:core', 'checktextdomain'] );
-	grunt.registerTask( 'build-prod', ['clean:all', 'less:core', 'jshint:core', 'checktextdomain', 'copy:files', 'uglify:core', 'cssjanus:core', 'cssmin:ltr', 'cssmin:rtl'] );
+	grunt.registerTask( 'build',      ['clean:all', 'less:core', 'jshint:core', 'checktextdomain', 'makepot'] );
+	grunt.registerTask( 'build-prod', ['clean:all', 'less:core', 'jshint:core', 'checktextdomain', 'makepot', 'copy:files', 'uglify:core', 'cssjanus:core', 'cssmin:ltr', 'cssmin:rtl'] );
 
 	// Testing tasks.
 	grunt.registerMultiTask( 'phpunit', 'Runs PHPUnit tests, including the ajax and multisite tests.', function() {
