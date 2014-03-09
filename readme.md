@@ -32,7 +32,7 @@ Documentation
 
 The `src` directory contains the Achievements' plugin core files. You can develop against the `src` directory like you normally would develop against any other WordPress plugins' SVN trunk.
 
-### `grunt` or `grunt build-dev`
+### `grunt` or `grunt build`
 Generates the development-optimised source in the `src` directory.
 
 ### `grunt build-prod`
