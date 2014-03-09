@@ -67,6 +67,16 @@ module.exports = function( grunt ) {
 				src: []
 			}
 		},
+		cssjanus: {
+			core: {
+				expand: true,
+				cwd: SOURCE_DIR,
+				dest: BUILD_DIR,
+				ext: '-rtl.css',
+				src: DPA_CSS,
+				options: { generateExactDuplicates: true }
+			}
+		},
 		cssmin: {
 			ltr: {
 				cwd: BUILD_DIR,
@@ -74,7 +84,7 @@ module.exports = function( grunt ) {
 				expand: true,
 				ext: '.css',
 				src: DPA_CSS,
-				options: { banner: '/*! https://wordpress.org/plugins/achievements/ */\n' }
+				options: { banner: '/*! https://wordpress.org/plugins/achievements/ */' }
 			},
 			rtl: {
 				cwd: BUILD_DIR,
@@ -84,17 +94,7 @@ module.exports = function( grunt ) {
 				src: DPA_CSS.map( function( filename ) {
 					return filename.replace( '.css', '-rtl.css' );
 				}),
-				options: { banner: '/*! https://wordpress.org/plugins/achievements/ */\n' }
-			}
-		},
-		cssjanus: {
-			core: {
-				expand: true,
-				cwd: SOURCE_DIR,
-				dest: BUILD_DIR,
-				ext: '-rtl.css',
-				src: DPA_CSS,
-				options: { generateExactDuplicates: true }
+				options: { banner: '\n' }
 			}
 		},
 		jshint: {
@@ -142,7 +142,7 @@ module.exports = function( grunt ) {
 				ext: '.js',
 				src: DPA_JS
 			},
-			options: { banner: '/*! https://wordpress.org/plugins/achievements/ */\n' }
+			options: { banner: '/*! https://wordpress.org/plugins/achievements/ */' }
 		},
 		phpunit: {
 			'default': {
@@ -203,8 +203,8 @@ module.exports = function( grunt ) {
 	});
 
 	// Register tasks.
-	grunt.registerTask( 'build',      ['clean:all', 'less:core', 'jshint:core'] );
-	grunt.registerTask( 'build-prod', ['clean:all', 'less:core', 'jshint:core', 'copy:files', 'uglify:core', 'cssjanus:core', 'cssmin:ltr', 'cssmin:rtl'] );
+	grunt.registerTask( 'build',      ['clean:all', 'less:core', 'jshint:core', 'checktextdomain'] );
+	grunt.registerTask( 'build-prod', ['clean:all', 'less:core', 'jshint:core', 'checktextdomain', 'copy:files', 'uglify:core', 'cssjanus:core', 'cssmin:ltr', 'cssmin:rtl'] );
 
 	// Testing tasks.
 	grunt.registerMultiTask( 'phpunit', 'Runs PHPUnit tests, including the ajax and multisite tests.', function() {
