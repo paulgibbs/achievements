@@ -119,7 +119,8 @@ var achievements = {
 		 */
 		function showNotifications(data) {
 			var notifications = $(document.createDocumentFragment()),
-			panel = $('#dpa-toaster');
+				wrapper = $(document.createDocumentFragment()),
+				panel   = $('#dpa-toaster');
 
 			// Grab the rendered markup for each achievement
 			_.each(data, function(achievement) {
@@ -128,7 +129,6 @@ var achievements = {
 
 			// If our wrapper doesn't exist yet, create it
 			if (panel.length < 1) {
-				var wrapper = $(document.createDocumentFragment());
 				wrapper.append(achievements.template('achievements-wrapper'));
 				$('body').append(wrapper);
 
@@ -188,7 +188,7 @@ var achievements = {
 			}
 
 			// We want to recieve any new notifications in the next heartbeat
-			data['achievements'] = { type: 'notifications' };
+			data.achievements = { type: 'notifications' };
 		}
 
 		/**
