@@ -752,7 +752,7 @@ function dpa_achievement_pagination_count() {
 	 */
 	function dpa_get_achievement_pagination_count() {
 		if ( ! is_a( achievements()->achievement_query, 'WP_Query' ) )
-			return;
+			return '';
 
 		// Set pagination values
 		$start_num = intval( ( achievements()->achievement_query->paged - 1 ) * achievements()->achievement_query->posts_per_page ) + 1;
