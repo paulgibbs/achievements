@@ -242,8 +242,8 @@ class DPA_Users_List_Table extends WP_Users_List_Table {
 		if ( $output ) {
 			printf(
 				'<a href="%1$s">%2$s</a>',
-				get_permalink( $achievement->ID ),
-				apply_filters( 'dpa_get_achievement_title', $achievement->post_title, $achievement->ID )
+				esc_url( get_permalink( $achievement->ID ) ),
+				esc_html( apply_filters( 'dpa_get_achievement_title', $achievement->post_title, $achievement->ID ) )
 			);
 
 		} else {

@@ -212,7 +212,7 @@ function dpa_get_the_achievement_ID() {
  * @since Achievements (3.0)
  */
 function dpa_achievement_archive_title( $title = '' ) {
-	echo dpa_get_achievement_archive_title( $title );
+	echo esc_html( dpa_get_achievement_archive_title( $title ) );
 }
 	/**
 	 * Return the achievement archive title
@@ -248,7 +248,7 @@ function dpa_achievement_archive_title( $title = '' ) {
  * @since Achievements (3.0)
  */
 function dpa_achievement_title( $achievement_id = 0 ) {
-	echo dpa_get_achievement_title( $achievement_id );
+	echo esc_html( dpa_get_achievement_title( $achievement_id ) );
 }
 	/**
 	 * Return the title of the achievement
@@ -272,7 +272,7 @@ function dpa_achievement_title( $achievement_id = 0 ) {
  * @since Achievements (3.0)
  */
 function dpa_achievement_permalink( $achievement_id = 0, $redirect_to = '' ) {
-	echo dpa_get_achievement_permalink( $achievement_id, $redirect_to );
+	echo esc_url( dpa_get_achievement_permalink( $achievement_id, $redirect_to ) );
 }
 	/**
 	 * Return the permanent link to the topic
@@ -454,7 +454,7 @@ function dpa_achievement_target( $achievement_id = 0 ) {
  * @since Achievements (3.1)
  */
 function dpa_achievement_redemption_code( $achievement_id = 0 ) {
-	echo dpa_get_achievement_redemption_code( $achievement_id );
+	echo esc_html( dpa_get_achievement_redemption_code( $achievement_id ) );
 }
 	/**
 	 * Return the redemption code for this achievement.
@@ -533,7 +533,7 @@ function dpa_achievement_excerpt( $achievement_id = 0, $length = 200 ) {
  * @since Achievements (3.0)
  */
 function dpa_achievement_post_date( $achievement_id = 0, $humanise = false, $gmt = false ) {
-	echo dpa_get_achievement_post_date( $achievement_id, $humanise, $gmt );
+	echo esc_html( dpa_get_achievement_post_date( $achievement_id, $humanise, $gmt ) );
 }
 	/**
 	 * Return the post date and time of an achievement
@@ -617,8 +617,8 @@ function dpa_achievements_index_description( $args = '' ) {
 					$retstr = sprintf(
 						__( 'This site has %1$s, and the last unlocked was <a href="%2$s">%3$s</a> by %4$s.', 'achievements' ),
 						$achievement_text,
-						get_permalink( $achievement->ID ),
-						apply_filters( 'dpa_get_achievement_title', $achievement->post_title, $achievement->ID ),
+						esc_url( get_permalink( $achievement->ID ) ),
+						esc_html( apply_filters( 'dpa_get_achievement_title', $achievement->post_title, $achievement->ID ) ),
 						dpa_get_user_avatar_link( array(
 							'size'    => $size,
 							'user_id' => $user->ID,
@@ -721,10 +721,8 @@ function dpa_achievement_notices() {
 	if ( ! dpa_is_single_achievement() )
 		return;
 
-	$notice_text = '';
-
 	// Filter notice text and bail if empty
-	$notice_text = apply_filters( 'dpa_achievement_notices', $notice_text, dpa_get_achievement_id() );
+	$notice_text = apply_filters( 'dpa_achievement_notices', '', dpa_get_achievement_id() );
 	if ( empty( $notice_text ) )
 		return;
 

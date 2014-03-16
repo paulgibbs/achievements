@@ -227,7 +227,7 @@ function dpa_progress_author_id( $progress_id = 0 ) {
  * @since Achievements (3.0)
  */
 function dpa_progress_date( $progress_id = 0, $humanise = true, $gmt = false ) {
-	echo dpa_get_progress_date( $progress_id, $humanise, $gmt );
+	echo esc_html( dpa_get_progress_date( $progress_id, $humanise, $gmt ) );
 }
 	/**
 	 * Return the post date and time that a user made progress on an achievement

@@ -20,7 +20,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  * @since Achievements (3.0)
  */
 function dpa_achievements_url( $path = '/' ) {
-	echo dpa_get_achievements_url( $path );
+	echo esc_url( dpa_get_achievements_url( $path ) );
 }
 	/**
 	 * Return the achievements post type URL
@@ -29,7 +29,7 @@ function dpa_achievements_url( $path = '/' ) {
 	 * @since Achievements (3.0)
 	 */
 	function dpa_get_achievements_url( $path = '/' ) {
-		return home_url( dpa_get_root_slug() . $path );
+		return apply_filters( 'dpa_get_achievements_url', home_url( dpa_get_root_slug() . $path ) );
 	}
 
 
@@ -410,7 +410,7 @@ function dpa_breadcrumb( $args = array() ) {
 
 		// Do we want to include a link to home?
 		if ( ! empty( $include_home ) || empty( $home_text ) )
-			$crumbs[] = '<a href="' . trailingslashit( home_url() ) . '" class="dpa-breadcrumb-home">' . $home_text . '</a>';
+			$crumbs[] = '<a href="' . esc_url( trailingslashit( home_url() ) ). '" class="dpa-breadcrumb-home">' . esc_html( $home_text ) . '</a>';
 
 		// Do we want to include a link to the achievement root?
 		if ( ! empty( $include_root ) || empty( $root_text ) ) {
@@ -425,7 +425,7 @@ function dpa_breadcrumb( $args = array() ) {
 				$root_url = get_post_type_archive_link( dpa_get_achievement_post_type() );
 
 			// Add the breadcrumb
-			$crumbs[] = '<a href="' . $root_url . '" class="dpa-breadcrumb-root">' . $root_text . '</a>';
+			$crumbs[] = '<a href="' . esc_url( $root_url ) . '" class="dpa-breadcrumb-root">' . esc_html( $root_text ) . '</a>';
 		}
 
 		// Ancestors exist
@@ -445,12 +445,12 @@ function dpa_breadcrumb( $args = array() ) {
 				switch ( $parent->post_type ) {
 					// Achievement
 					case dpa_get_achievement_post_type() :
-						$crumbs[] = '<a href="' . dpa_get_achievement_permalink( $parent->ID ) . '" class="dpa-breadcrumb-achievement">' . dpa_get_achievement_title( $parent->ID ) . '</a>';
+						$crumbs[] = '<a href="' . esc_url( dpa_get_achievement_permalink( $parent->ID ) ). '" class="dpa-breadcrumb-achievement">' . esc_html( dpa_get_achievement_title( $parent->ID ) ) . '</a>';
 						break;
 
 					// WordPress Post/Page/Other
 					default :
-						$crumbs[] = '<a href="' . get_permalink( $parent->ID ) . '" class="dpa-breadcrumb-item">' . get_the_title( $parent->ID ) . '</a>';
+						$crumbs[] = '<a href="' . esc_url( get_permalink( $parent->ID ) ) . '" class="dpa-breadcrumb-item">' . esc_html( get_the_title( $parent->ID ) ) . '</a>';
 						break;
 				}
 			}
@@ -535,7 +535,7 @@ function dpa_template_notices() {
 
 		<div class="dpa-template-notice error">
 			<p>
-				<?php echo implode( "</p>\n<p>", $errors ); ?>
+				<?php echo implode( "</p>\n<p>", array_map( 'esc_html', $errors ) ); ?>
 			</p>
 		</div>
 
@@ -546,7 +546,7 @@ function dpa_template_notices() {
 
 		<div class="dpa-template-notice">
 			<p>
-				<?php echo implode( "</p>\n<p>", $messages ); ?>
+				<?php echo implode( "</p>\n<p>", array_map( 'esc_html', $messages ) ); ?>
 			</p>
 		</div>
 

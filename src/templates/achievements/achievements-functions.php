@@ -186,8 +186,8 @@ class DPA_Default extends DPA_Theme_Compat {
 
 			$item              = array();
 			$item['ID']        = $achievement->ID;
-			$item['title']     = apply_filters( 'dpa_get_achievement_title', $achievement->post_title, $achievement->ID );
-			$item['permalink'] = home_url( '/?p=' . $achievement->ID );
+			$item['title']     = esc_html( apply_filters( 'dpa_get_achievement_title', $achievement->post_title, $achievement->ID ) );
+			$item['permalink'] = esc_url_raw( home_url( '/?p=' . $achievement->ID ) );
 
 			// Thumbnail is optional and may not be set
 			$thumbnail = get_post_thumbnail_id( $achievement->ID );
@@ -195,8 +195,8 @@ class DPA_Default extends DPA_Theme_Compat {
 		
 				$thumbnail = wp_get_attachment_image_src( $thumbnail, 'medium' );
 				if ( $thumbnail ) {
-					$item['image_url']   = $thumbnail[0];
-					$item['image_width'] = $thumbnail[1];
+					$item['image_url']   = esc_url_raw( $thumbnail[0] );
+					$item['image_width'] = (int) $thumbnail[1];
 				}
 			}
 
