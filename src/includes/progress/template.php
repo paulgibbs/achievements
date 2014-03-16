@@ -279,16 +279,10 @@ function dpa_progress_user_avatar( $args = array() ) {
 			'type'    => 'avatar',
 			'user_id' => dpa_get_progress_author_id(),
 		);
-		$r = dpa_parse_args( $args, $defaults, 'get_progress_user_avatar' );
-		extract( $r );
+		$args = dpa_parse_args( $args, $defaults, 'get_progress_user_avatar' );
 
-		// Get the user's avatar link
-		$avatar = dpa_user_avatar_link( array(
-			'type'    => $type,
-			'user_id' => $user_id,
-		) );
-
-		return apply_filters( 'dpa_get_progress_user_avatar', $avatar, $args );
+		// Return the user's avatar link
+		return apply_filters( 'dpa_get_progress_user_avatar', dpa_user_avatar_link( $args ), $args );
 	}
 
 /**
@@ -312,16 +306,10 @@ function dpa_progress_user_link( $args = array() ) {
 			'type'    => 'name',
 			'user_id' => dpa_get_progress_author_id(),
 		);
-		$r = dpa_parse_args( $args, $defaults, 'get_progress_user_link' );
-		extract( $r );
+		$args = dpa_parse_args( $args, $defaults, 'get_progress_user_link' );
 
-		// Get the user's avatar link
-		$link = dpa_user_avatar_link( array(
-			'type'    => $type,
-			'user_id' => $user_id,
-		) );
-
-		return apply_filters( 'dpa_get_progress_user_link', $link, $args );
+		// Return the user's avatar link
+		return apply_filters( 'dpa_get_progress_user_link', dpa_user_avatar_link( $args ), $args );
 	}
 
 /**
