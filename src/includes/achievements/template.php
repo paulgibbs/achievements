@@ -278,7 +278,7 @@ function dpa_achievement_permalink( $achievement_id = 0, $redirect_to = '' ) {
 	 * Return the permanent link to the topic
 	 *
 	 * @param int $achievement_id Optional. Achievement ID
-	 * @param string $redirect_to Optional
+	 * @param string $redirect_to Optional. If this is set, we use it instead
 	 * @return string
 	 * @since Achievements (3.0)
 	 */
