@@ -402,7 +402,7 @@ function dpa_progress_pagination_count() {
 	 */
 	function dpa_get_progress_pagination_count() {
 		if ( ! is_a( achievements()->progress_query, 'WP_Query' ) )
-			return;
+			return '';
 
 		// Set pagination values
 		$start_num = intval( ( achievements()->progress_query->paged - 1 ) * achievements()->progress_query->posts_per_page ) + 1;

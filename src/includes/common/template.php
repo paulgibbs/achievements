@@ -286,7 +286,7 @@ function dpa_breadcrumb( $args = array() ) {
 	function dpa_get_breadcrumb( $args = array() ) {
 		// Turn off breadcrumbs
 		if ( apply_filters( 'dpa_no_breadcrumb', is_front_page() ) )
-			return;
+			return '';
 
 		// Define variables
 		$front_id         = $root_id                                 = 0;
