@@ -7,7 +7,7 @@ module.exports = function( grunt ) {
 
 	DPA_LESS = {
 		// front-end
-		'src/templates/achievements/css/achievements.css':  'src/templates/achievements/css/dev/achievements.less',
+		'src/templates/achievements/css/achievements.css': 'src/templates/achievements/css/dev/achievements.less',
 
 		// admin
 		'src/includes/admin/css/achievements.css':     'src/includes/admin/css/dev/achievements.less',
@@ -43,9 +43,7 @@ module.exports = function( grunt ) {
 			}
 		},
 		less: {
-			core: {
-				files: DPA_LESS
-			}
+			core: { files: DPA_LESS }
 		},
 		copy: {
 			files: {
@@ -55,7 +53,7 @@ module.exports = function( grunt ) {
 						dest: BUILD_DIR,
 						dot: true,
 						expand: true,
-						src: [ '!**/.{svn,git}/**','**' ]  // Ignore version control directories.
+						src: ['**','!**/.{svn,git}/**', '!**/dev/**']  // Ignore version control directories and CSS LESS folders.
 					}
 				]
 			},
@@ -71,7 +69,7 @@ module.exports = function( grunt ) {
 			core: {
 				expand: true,
 				cwd: SOURCE_DIR,
-				src: [ '**/*.{png,jpg,gif,jpeg}' ],
+				src: ['**/*.{png,jpg,gif,jpeg}'],
 				dest: SOURCE_DIR
 			}
 		},
@@ -222,7 +220,7 @@ module.exports = function( grunt ) {
 			opts: { stdio: 'inherit' }
 		}, this.async() );
 	});
-	grunt.registerTask( 'test', 'Runs all unit tasks.', [ 'phpunit' ] );
+	grunt.registerTask( 'test', 'Runs all unit tasks.', ['phpunit'] );
 
 	// Default task.
 	grunt.registerTask( 'default', ['build'] );
@@ -242,8 +240,8 @@ module.exports = function( grunt ) {
 		cleanSrc = ( action === 'deleted' ) ? [ relativePath ] : [],
 		copySrc  = ( action === 'deleted' ) ? [] : [ relativePath ];
 
-		grunt.config( [ 'clean', 'dynamic', 'src' ], cleanSrc );
-		grunt.config( [ 'copy', 'dynamic', 'src' ], copySrc );
-		grunt.config( [ 'cssjanus', 'dynamic', 'src' ], copySrc );
+		grunt.config( ['clean', 'dynamic', 'src'], cleanSrc );
+		grunt.config( ['copy', 'dynamic', 'src'], copySrc );
+		grunt.config( ['cssjanus', 'dynamic', 'src'], copySrc );
 	});
 };
