@@ -454,7 +454,7 @@ function dpa_achievement_target( $achievement_id = 0 ) {
  * @since Achievements (3.1)
  */
 function dpa_achievement_redemption_code( $achievement_id = 0 ) {
-	echo number_format_i18n( dpa_get_achievement_redemption_code( $achievement_id ) );
+	echo dpa_get_achievement_redemption_code( $achievement_id );
 }
 	/**
 	 * Return the redemption code for this achievement.
