@@ -129,11 +129,7 @@ function dpa_admin_get_settings_fields() {
  * @return array
  * @since Achievements (3.6)
  */
-function dpa_admin_get_settings_fields_for_section( $section_id = '' ) {
-	if ( ! $section_id ) {
-		return array();
-	}
-
+function dpa_admin_get_settings_fields_for_section( $section_id  ) {
 	$fields = dpa_admin_get_settings_fields();
 	$retval = isset( $fields[$section_id] ) ? $fields[$section_id] : array();
 
@@ -146,7 +142,7 @@ function dpa_admin_get_settings_fields_for_section( $section_id = '' ) {
  * @param string $option_key
  * @since Achievements (3.6)
  */
-function dpa_maybe_admin_setting_disabled( $option_key = '' ) {
+function dpa_maybe_admin_setting_disabled( $option_key ) {
 	disabled( isset( achievements()->options[$option_key] ) );
 }
 
