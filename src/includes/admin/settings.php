@@ -74,8 +74,8 @@ function dpa_admin_get_settings_fields() {
 			// Theme package setting
 			'_dpa_theme_package_id' => array(
 				'args'              => array(),
-				'sanitize_callback' => 'sanitize_text_field',  // djpaultodo make this a custom whitelist filter
 				'callback'          => 'dpa_admin_setting_callback_theme_package_id',
+				'sanitize_callback' => 'dpa_admin_setting_validate_theme_package_id',
 				'title'             => _x( 'Template Version', 'admin settings option name', 'achievements' ),
 			)
 		),
@@ -178,6 +178,21 @@ function dpa_admin_setting_callback_theme_package_id() {
 	if ( $theme_options ) : ?>
 		<select name="_dpa_theme_package_id" id="_dpa_theme_package_id" <?php dpa_maybe_admin_setting_disabled( '_dpa_theme_package_id' ); ?>><?php echo $theme_options ?></select>
 	<?php endif;
+}
+
+/**
+ * Settings API validation callback function for the _dpa_theme_package_id setting.
+ *
+ * @param string $new_package User-supplied value to check
+ * @return string
+ * @see dpa_admin_get_settings_fields()
+ * @since Achievements (3.6)
+ */
+function dpa_admin_setting_validate_theme_package_id( $new_package ) {
+	$valid_package_ids = array_keys( achievements()->theme_compat->packages );
+	$new_package       = in_array( $new_package, $valid_package_ids ) ? $new_package : 'default';
+
+	return apply_filters( 'dpa_admin_setting_validate_theme_package_id', $new_package );
 }
 
 
