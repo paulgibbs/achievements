@@ -78,31 +78,20 @@ class DPA_Admin {
 		if ( is_multisite() && dpa_is_running_networkwide() && get_current_blog_id() !== DPA_DATA_STORE )
 			return;
 
-
 		// General Actions
-
-		// Add menu item to settings menu
-		add_action( 'dpa_admin_menu',                           array( $this, 'admin_menus'             ) );
-
-		// Column headers
+		add_action( 'dpa_admin_menu',                           array( $this, 'admin_menus' ) );
 		add_filter( 'manage_achievement_posts_columns',         'dpa_achievement_posts_columns' );
-
-		// Columns (in page row)
 		add_action( 'manage_posts_custom_column',               'dpa_achievement_custom_column', 10, 2 );
-
-		// Sortable columns
 		add_filter( 'manage_edit-achievement_sortable_columns', 'dpa_achievement_sortable_columns' );
-
-		// Metabox actions
 		add_action( 'save_post',                                'dpa_achievement_metabox_save' );
 
-		// Contextual Help
 		add_action( 'load-edit.php',                            'dpa_achievement_index_contextual_help' );
 		add_action( 'load-post-new.php',                        'dpa_achievement_new_contextual_help' );
 		add_action( 'load-post.php',                            'dpa_achievement_new_contextual_help' );
 
-		// Messages
 		add_filter( 'post_updated_messages',                    'dpa_achievement_feedback_messages' );
+		add_action( 'dpa_register_admin_settings',              array( __CLASS__, 'register_admin_settings' ) );
+		add_filter( 'dpa_map_meta_caps',                        array( __CLASS__, 'map_settings_meta_caps' ), 10, 4 );
 
 
 		// Allow plugins to modify these actions
@@ -120,6 +109,9 @@ class DPA_Admin {
 
 		if ( ! class_exists( 'WP_Users_List_Table' ) )
 			require( ABSPATH . 'wp-admin/includes/class-wp-users-list-table.php' );
+
+		// Settings screen
+		require( $this->admin_dir . 'settings.php' );
 
 		// Supported plugins screen
 		require( $this->admin_dir . 'functions.php'         );
@@ -150,6 +142,15 @@ class DPA_Admin {
 	 */
 	public function admin_menus() {
 		$hooks = array();
+
+		// Settings
+		add_options_page(
+			_x( 'Achievements', 'admin settings page title', 'achievements' ),
+			_x( 'Achievements', 'admin menu item title', 'achievements' ),
+			$this->minimum_capability,
+			'achievements',
+			'dpa_admin_settings' // bbp_admin_settings
+		);
 
 		// About
 		add_dashboard_page(
@@ -483,6 +484,71 @@ class DPA_Admin {
 
 		</div>
 		<?php
+	}
+
+	/**
+	 * Maps settings screens to particular capabilities.
+	 * 
+	 * In the future, different WordPress roles may be able to change different settings, but for now, this is mostly a convenience for plugin authors.
+	 *
+	 * @param array $caps Capabilities for meta capability. Optional.
+	 * @param string $cap Capability name. Optional.
+	 * @param int $user_id User ID. Optional.
+	 * @param mixed $args Extra arguments. Optional.
+	 * @since Achievements (3.6)
+	 * @return array
+	 */
+	public static function map_settings_meta_caps( $caps = array(), $cap = '', $user_id = 0, $args = array() ) {
+
+		switch ( $cap ) {
+			case 'dpa_settings_templates'  : // Settings - theme compatibility template packs
+			case 'dpa_settings_pagination' : // Settings - pagination
+			case 'dpa_settings_slugs'      : // Settings - slugs (URLs)
+				$caps = array( achievements()->admin->minimum_capability );
+				break;
+		}
+
+		return apply_filters( 'dpa_map_settings_meta_caps', $caps, $cap, $user_id, $args );
+	}
+
+	/**
+	 * Register Achievmeents' admin settings
+	 *
+	 * @since Achievements (3.0)
+	 */
+	public static function register_admin_settings() {
+		$sections = dpa_admin_get_settings_sections();
+		if ( ! $sections ) {
+			return;
+		}
+
+		// Add each section and its fields, one at a time.
+		foreach ( (array) $sections as $section_id => $section ) {
+			if ( ! current_user_can( $section_id ) ) {
+				continue;
+			}
+
+			$fields = dpa_admin_get_settings_fields_for_section( $section_id );
+			if ( ! $fields ) {
+				continue;
+			}
+
+			// Add the section
+			$page = 'achievements';
+			add_settings_section( $section_id, $section['title'], $section['callback'], $page );
+
+			// Loop through fields for this section
+			foreach ( (array) $fields as $field_id => $field ) {
+
+				// Add the field
+				if ( ! empty( $field['callback'] ) && ! empty( $field['title'] ) ) {
+					add_settings_field( $field_id, $field['title'], $field['callback'], $page, $section_id, $field['args'] );
+				}
+
+				// Register the setting
+				register_setting( $page, $field_id, $field['sanitize_callback'] );
+			}
+		}
 	}
 }
 endif; // class_exists check
