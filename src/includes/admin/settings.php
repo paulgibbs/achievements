@@ -18,7 +18,7 @@ function dpa_admin_settings() {
 ?>
 
 	<div class="wrap">
-		<h2><?php esc_html_e( 'Achievements Settings', 'achievements' ) ?></h2>
+		<h2><?php esc_html_e( 'Achievements&#8217; Settings', 'achievements' ) ?></h2>
 
 		<form action="options.php" method="post">
 			<?php settings_fields( 'achievements' ); ?>
@@ -49,7 +49,7 @@ function dpa_admin_get_settings_sections() {
 		'dpa_settings_slugs' => array(
 			'callback' => 'dpa_admin_setting_callback_slugs_section',
 			'page'     => 'permalink',
-			'title'    => _x( 'URLs', 'admin settings section name', 'achievements' ),
+			'title'    => _x( 'Permalinks', 'admin settings section name', 'achievements' ),
 		),
 		'dpa_settings_templates' => array(
 			'callback' => 'dpa_admin_setting_callback_templates_section',
@@ -76,7 +76,7 @@ function dpa_admin_get_settings_fields() {
 				'args'              => array(),
 				'callback'          => 'dpa_admin_setting_callback_theme_package_id',
 				'sanitize_callback' => 'dpa_admin_setting_validate_theme_package_id',
-				'title'             => _x( 'Template Version', 'admin settings option name', 'achievements' ),
+				'title'             => _x( 'Template version', 'admin settings option name', 'achievements' ),
 			)
 		),
 
@@ -88,7 +88,7 @@ function dpa_admin_get_settings_fields() {
 				'args'              => array(),
 				'callback'          => 'dpa_admin_setting_callback_achievements_per_page',
 				'sanitize_callback' => 'absint',
-				'title'             => _x( 'Achievements Per Page', 'admin settings option name', 'achievements' ),
+				'title'             => _x( 'Achievements per page', 'admin settings option name', 'achievements' ),
 			),
 
 			// Achievements per RSS page setting
@@ -96,7 +96,7 @@ function dpa_admin_get_settings_fields() {
 				'args'              => array(),
 				'callback'          => 'dpa_admin_setting_callback_achievements_per_rss_page',
 				'sanitize_callback' => 'absint',
-				'title'             => _x( 'Achievements Per RSS Page', 'admin settings option name', 'achievements' ),
+				'title'             => _x( 'Achievements per RSS page', 'admin settings option name', 'achievements' ),
 			),
 		),
 
@@ -116,7 +116,7 @@ function dpa_admin_get_settings_fields() {
 				'args'              => array(),
 				'callback'          => 'dpa_admin_setting_callback_achievement_slug',
 				'sanitize_callback' => 'sanitize_title',
-				'title'             => _x( 'Single Item', 'admin settings opton name', 'achievements' ),
+				'title'             => _x( 'Single item', 'admin settings opton name', 'achievements' ),
 			),
 		)
 	) );
@@ -155,7 +155,7 @@ function dpa_maybe_admin_setting_disabled( $option_key ) {
 function dpa_admin_setting_callback_templates_section() {
 ?>
 
-	<p><?php _e( 'How Achievements&#8217; content is displayed within your theme.', 'achievements' ); ?></p>
+	<p><?php _e( 'Each release, the templates that come with Achievements are improved. If you&#8217;ve updated the plugin and prefer the templates from an older version, use this setting to tell Achievements to load those older templates.', 'achievements' ); ?></p>
 
 <?php
 }
@@ -218,7 +218,6 @@ function dpa_admin_setting_callback_achievements_per_page() {
 ?>
 
 	<input name="_dpa_achievements_per_page" id="_dpa_achievements_per_page" type="number" min="1" step="1" value="<?php echo (int) dpa_get_achievements_per_page(); ?>" class="small-text" required <?php dpa_maybe_admin_setting_disabled( '_dpa_achievements_per_page' ); ?> />
-	<label for="_dpa_achievements_per_page"><?php _ex( 'per page', 'achievements pagination', 'achievements' ); ?></label>
 
 <?php
 }
@@ -232,7 +231,6 @@ function dpa_admin_setting_callback_achievements_per_rss_page() {
 ?>
 
 	<input name="_dpa_achievements_per_rss_page" id="_dpa_achievements_per_rss_page" type="number" min="1" step="1" value="<?php echo (int) dpa_get_achievements_per_rss_page(); ?>" class="small-text" required <?php dpa_maybe_admin_setting_disabled( '_dpa_achievements_per_rss_page' ); ?> />
-	<label for="_dpa_achievements_per_rss_page"><?php _ex( 'per page', 'achievements pagination', 'achievements' ); ?></label>
 
 <?php
 }
