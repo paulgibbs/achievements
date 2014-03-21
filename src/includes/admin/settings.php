@@ -66,7 +66,7 @@ function dpa_admin_get_settings_sections() {
  * @since Achievements (3.6)
  */
 function dpa_admin_get_settings_fields() {
-	return (array) apply_filters( 'bbp_admin_get_settings_fields', array(
+	return (array) apply_filters( 'dpa_admin_get_settings_fields', array(
 
 		// Templates section
 		'dpa_settings_templates' => array(
