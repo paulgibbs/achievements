@@ -607,7 +607,7 @@ final class DPA_Achievements_Loader {
 	public function register_theme_packages() {
 		dpa_register_theme_package( array(
 			'id'      => 'default',
-			'name'    => __( 'Achievements Default', 'achievements' ),
+			'name'    => _x( 'v3.0 - 3.5.1', 'Version number ranges for this plugin', 'achievements' ),
 			'version' => dpa_get_version(),
 			'dir'     => trailingslashit( $this->themes_dir . 'achievements' ),
 			'url'     => trailingslashit( $this->themes_url . 'achievements' )

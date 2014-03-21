@@ -46,7 +46,7 @@ class DPA_Default extends DPA_Theme_Compat {
 	 */
 	private function setup_globals() {
 		$this->id      = 'default';
-		$this->name    = __( 'Achievements Default', 'achievements' );
+		$this->name    = _x( 'v3.0 - 3.5.1', 'Version number ranges for this plugin', 'achievements' );
 		$this->version = dpa_get_version();
 		$this->dir     = trailingslashit( achievements()->plugin_dir . 'templates' );
 		$this->url     = trailingslashit( achievements()->plugin_url . 'templates' );
