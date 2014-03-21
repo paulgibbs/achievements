@@ -165,7 +165,7 @@ function dpa_admin_setting_callback_templates_section() {
  *
  * This is used as a mechanisim for facilitating significant/breaking changes to existing templates where we want to try to maintain backwards compatibility.
  *
- * @since Achievements (3.0)
+ * @since Achievements (3.6)
  */
 function dpa_admin_setting_callback_theme_package_id() {
 	$theme_options   = '';
