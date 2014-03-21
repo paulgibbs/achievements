@@ -74,8 +74,8 @@ function dpa_admin_get_settings_fields() {
 			// Theme package setting
 			'_dpa_theme_package_id' => array(
 				'args'              => array(),
-				'callback'          => 'dpa_admin_setting_callback_theme_version_id',
 				'sanitize_callback' => 'sanitize_text_field',  // djpaultodo make this a custom whitelist filter
+				'callback'          => 'dpa_admin_setting_callback_theme_package_id',
 				'title'             => _x( 'Template Version', 'admin settings option name', 'achievements' ),
 			)
 		),
@@ -171,7 +171,7 @@ function dpa_admin_setting_callback_templates_section() {
  *
  * @since Achievements (3.0)
  */
-function dpa_admin_setting_callback_theme_version_id() {
+function dpa_admin_setting_callback_theme_package_id() {
 	$theme_options   = '';
 	$current_package = dpa_get_theme_package_id( 'default' );
 
