@@ -392,18 +392,25 @@ final class DPA_Achievements_Loader {
 	 * @since Achievements (3.0)
 	 */
 	public function load_textdomain() {
+		$textdomains = array( $this->domain, 'dpa' );
 
-		// Try to load via load_plugin_textdomain() first, for future wordpress.org translation downloads
-		if ( load_plugin_textdomain( $this->domain, false, 'achievements' ) )
-			return;
+		// We provide backpat for the old 'dpa' textdomain from pre-3.6 versions of the plugin.
+		foreach ( $textdomains as $textdomain ) {
 
-		$locale = apply_filters( 'plugin_locale', get_locale(), $this->domain );
-		$mofile = sprintf( '%1$s-%2$s.mo', $this->domain, $locale );
+			// Try to load via load_plugin_textdomain() first, for future wordpress.org translation downloads
+			if ( load_plugin_textdomain( $textdomain, false, 'achievements' ) ) {
+				return;
+			}
 
-		// Nothing found look in global /wp-content/languages/plugins/ folder
-		$mofile_global = WP_LANG_DIR . '/plugins/' . $mofile;
+			$locale = apply_filters( 'plugin_locale', get_locale(), $textdomain );
+			$mofile = sprintf( '%1$s-%2$s.mo', $textdomain, $locale );
 
-		load_textdomain( $this->domain, $mofile_global );
+			$mofile_global = WP_LANG_DIR . '/plugins/' . $mofile;
+			if ( file_exists( $mofile_global ) ) {
+				load_textdomain( $textdomain, $mofile_global );
+				return;
+			}
+		}
 	}
 
 	/**
