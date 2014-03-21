@@ -33,6 +33,7 @@ add_action( 'wpmu_new_blog',     'dpa_new_site',                10, 6 );
 // Hook on to admin_init
 add_action( 'dpa_admin_init', 'dpa_setup_updater',           999 );
 add_action( 'dpa_admin_init', 'dpa_do_activation_redirect',  1   );
+add_action( 'dpa_admin_init', 'dpa_register_admin_settings'      );
 
 // Initialize the admin area
 add_action( 'dpa_init', 'dpa_admin_setup' );
@@ -104,4 +105,13 @@ function dpa_admin_menu() {
  */
 function dpa_admin_head() {
 	do_action( 'dpa_admin_head' );
+}
+
+/**
+ * Dedicated action to register admin settings
+ *
+ * @since Achievements (3.6)
+ */
+function dpa_register_admin_settings() {
+	do_action( 'dpa_register_admin_settings' );
 }
