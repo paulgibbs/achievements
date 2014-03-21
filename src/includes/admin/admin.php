@@ -512,9 +512,9 @@ class DPA_Admin {
 	}
 
 	/**
-	 * Register Achievmeents' admin settings
+	 * Register Achievements' admin settings
 	 *
-	 * @since Achievements (3.0)
+	 * @since Achievements (3.6)
 	 */
 	public static function register_admin_settings() {
 		$sections = dpa_admin_get_settings_sections();
