@@ -96,7 +96,7 @@ function dpa_admin_get_settings_fields() {
 				'args'              => array(),
 				'callback'          => 'dpa_admin_setting_callback_achievements_per_rss_page',
 				'sanitize_callback' => 'absint',
-				'title'             => _x( 'Achievements per RSS page', 'admin settings option name', 'achievements' ),
+				'title'             => _x( 'RSS feed', 'admin settings name for pagination', 'achievements' ),
 			),
 		),
 
@@ -218,6 +218,7 @@ function dpa_admin_setting_callback_achievements_per_page() {
 ?>
 
 	<input name="_dpa_achievements_per_page" id="_dpa_achievements_per_page" type="number" min="1" step="1" value="<?php echo (int) dpa_get_achievements_per_page(); ?>" class="small-text" required <?php dpa_maybe_admin_setting_disabled( '_dpa_achievements_per_page' ); ?> />
+	<label for="_dpa_achievements_per_page"><?php _ex( 'per page', 'achievements pagination', 'achievements' ); ?></label>
 
 <?php
 }
@@ -231,6 +232,7 @@ function dpa_admin_setting_callback_achievements_per_rss_page() {
 ?>
 
 	<input name="_dpa_achievements_per_rss_page" id="_dpa_achievements_per_rss_page" type="number" min="1" step="1" value="<?php echo (int) dpa_get_achievements_per_rss_page(); ?>" class="small-text" required <?php dpa_maybe_admin_setting_disabled( '_dpa_achievements_per_rss_page' ); ?> />
+	<label for="_dpa_achievements_per_rss_page"><?php _ex( 'per page', 'achievements pagination', 'achievements' ); ?></label>
 
 <?php
 }
@@ -248,7 +250,7 @@ function dpa_admin_setting_callback_slugs_section() {
 	}
 ?>
 
-	<p><?php _e( 'Customise the URLs that you access Achievements content on.', 'achievements' ); ?></p>
+	<p><?php _e( 'Customise the URLs that you access Achievements&#8217; content on.', 'achievements' ); ?></p>
 
 <?php
 }
