@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Achievements 3.5.1\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/support/plugin/achievements\n"
-"POT-Creation-Date: 2014-03-16 19:56:19+00:00\n"
+"POT-Creation-Date: 2014-03-22 06:04:19+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -16,15 +16,15 @@ msgstr ""
 msgid "Cheatin&#8217; huh?"
 msgstr ""
 
-#: achievements.php:451
+#: achievements.php:458
 msgid "Add New Achievement"
 msgstr ""
 
-#: achievements.php:452
+#: achievements.php:459
 msgid "All Achievements"
 msgstr ""
 
-#: achievements.php:454
+#: achievements.php:461
 msgid "Edit Achievement"
 msgstr ""
 
@@ -32,64 +32,60 @@ msgstr ""
 msgid "Achievements"
 msgstr ""
 
-#: achievements.php:457
+#: achievements.php:464
 msgid "New Achievement"
 msgstr ""
 
-#: achievements.php:458
+#: achievements.php:465
 msgid "No achievements found."
 msgstr ""
 
-#: achievements.php:459
+#: achievements.php:466
 msgid "No achievements found in Trash."
 msgstr ""
 
-#: achievements.php:460
+#: achievements.php:467
 msgid "Search Achievements"
 msgstr ""
 
-#: achievements.php:461
+#: achievements.php:468
 msgid "Achievement"
 msgstr ""
 
-#: achievements.php:462 achievements.php:463
+#: achievements.php:469 achievements.php:470
 msgid "View Achievement"
 msgstr ""
 
-#: achievements.php:564
+#: achievements.php:571
 msgid "Add New Event"
 msgstr ""
 
-#: achievements.php:565
+#: achievements.php:572
 msgid "All"
 msgstr ""
 
-#: achievements.php:566
+#: achievements.php:573
 msgid "Edit Event"
 msgstr ""
 
-#: achievements.php:568
+#: achievements.php:575
 msgid "New Event Name"
 msgstr ""
 
-#: achievements.php:569
+#: achievements.php:576
 msgid "Popular Events"
 msgstr ""
 
-#: achievements.php:570
+#: achievements.php:577
 msgid "Search Events"
 msgstr ""
 
-#: achievements.php:572
+#: achievements.php:579
 msgid "Update Event"
 msgstr ""
 
-#: achievements.php:573
+#: achievements.php:580
 msgid "View Event"
-msgstr ""
-
-#: achievements.php:610 templates/achievements/achievements-functions.php:49
-msgid "Achievements Default"
 msgstr ""
 
 #: includes/achievements/functions.php:240
@@ -117,86 +113,86 @@ msgstr ""
 msgid "This site has %1$s."
 msgstr ""
 
-#: includes/achievements/template.php:766
+#: includes/achievements/template.php:764
 msgid "Viewing %1$s achievement"
 msgid_plural "Viewing %1$s achievements"
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/achievements/template.php:770
+#: includes/achievements/template.php:768
 msgid "Viewing achievement %2$s (of %4$s total)"
 msgid_plural "Viewing %1$s achievements - %2$s through %3$s (of %4$s total)"
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/admin/admin.php:156 includes/admin/admin.php:157
-#: includes/admin/admin.php:445
+#: includes/admin/admin.php:157 includes/admin/admin.php:158
+#: includes/admin/admin.php:446
 msgid "Welcome to Achievements"
 msgstr ""
 
-#: includes/admin/admin.php:167
+#: includes/admin/admin.php:168
 msgid "Achievements &mdash; Users"
 msgstr ""
 
-#: includes/admin/admin.php:177
+#: includes/admin/admin.php:178
 msgid "Achievements &mdash; Supported Plugins"
 msgstr ""
 
-#: includes/admin/admin.php:178 includes/admin/supported-plugins.php:116
+#: includes/admin/admin.php:179 includes/admin/supported-plugins.php:116
 msgid "Supported Plugins"
 msgstr ""
 
-#: includes/admin/admin.php:291
+#: includes/admin/admin.php:292
 msgid "Achievements Settings"
 msgstr ""
 
-#: includes/admin/admin.php:301
+#: includes/admin/admin.php:302
 msgid "Unlocked Achievements"
 msgstr ""
 
-#: includes/admin/admin.php:304
+#: includes/admin/admin.php:305
 msgid "Assign or remove achievements from this user"
 msgstr ""
 
-#: includes/admin/admin.php:448
+#: includes/admin/admin.php:449
 msgid ""
 "Hi, %s! Thanks very much for downloading Achievements %s. You really are "
 "rather nice. This exciting update screen is to confirm a few things that "
 "you probably already know:"
 msgstr ""
 
-#: includes/admin/admin.php:451
+#: includes/admin/admin.php:452
 msgid "You&#8217;re super-talented at finding great WordPress plugins."
 msgstr ""
 
-#: includes/admin/admin.php:452
+#: includes/admin/admin.php:453
 msgid "We think you&#8217;ve got a truly beautiful website."
 msgstr ""
 
-#: includes/admin/admin.php:453
+#: includes/admin/admin.php:454
 msgid "See 1 &amp; 2."
 msgstr ""
 
-#: includes/admin/admin.php:456
+#: includes/admin/admin.php:457
 msgid ""
 "Achievements gamifies your WordPress site with challenges, badges, and "
 "points, which are the funnest ways to reward and encourage members of your "
 "community to participate. We hope you enjoy using the plugin!"
 msgstr ""
 
-#: includes/admin/admin.php:458
+#: includes/admin/admin.php:459
 msgid "Hello there! Version %s is a maintenance release."
 msgstr ""
 
-#: includes/admin/admin.php:463
+#: includes/admin/admin.php:464
 msgid "Getting Started"
 msgstr ""
 
-#: includes/admin/admin.php:466
+#: includes/admin/admin.php:467
 msgid "Create your first achievement"
 msgstr ""
 
-#: includes/admin/admin.php:467
+#: includes/admin/admin.php:468
 msgid ""
 "The first idea to grasp is that there are two different types of "
 "achievements: <strong>awards</strong> and <strong>events</strong>. Award "
@@ -205,18 +201,18 @@ msgid ""
 "href=\"%s\">Learn more about achievement types</a>."
 msgstr ""
 
-#: includes/admin/admin.php:468
+#: includes/admin/admin.php:469
 msgid ""
 "The best way to learn is by doing, so let&rsquo;s create an achievement and "
 "find out how everything works. Our <a href=\"%s\">Getting Started guide</a> "
 "will walk you through this easy process."
 msgstr ""
 
-#: includes/admin/admin.php:470
+#: includes/admin/admin.php:471
 msgid "Get help and support"
 msgstr ""
 
-#: includes/admin/admin.php:471
+#: includes/admin/admin.php:472
 msgid ""
 "If you have questions about the plugin or need help, get in contact by "
 "leaving a message on the <a href=\"%s\">WordPress.org support forum</a>. "
@@ -224,7 +220,7 @@ msgid ""
 "to drop by and tell us!"
 msgstr ""
 
-#: includes/admin/admin.php:478
+#: includes/admin/admin.php:479
 msgid ""
 "This release improves compatibility with WordPress 3.8. Some of the UI "
 "elements in the admin screens have had their styles tweaked for "
@@ -579,6 +575,30 @@ msgstr ""
 msgid ""
 "Achievement draft updated. <a target=\"_blank\" href=\"%s\">Preview "
 "topic</a>"
+msgstr ""
+
+#: includes/admin/settings.php:21
+msgid "Achievements&#8217; Settings"
+msgstr ""
+
+#: includes/admin/settings.php:28
+msgid "Save Changes"
+msgstr ""
+
+#: includes/admin/settings.php:158
+msgid ""
+"Each release, the templates that come with Achievements are improved. If "
+"you&#8217;ve updated the plugin and prefer the templates from an older "
+"version, use this setting to tell Achievements to load those older "
+"templates."
+msgstr ""
+
+#: includes/admin/settings.php:207
+msgid "How many achievements do you want to show per page?"
+msgstr ""
+
+#: includes/admin/settings.php:253
+msgid "Customise the URLs that you access Achievements&#8217; content on."
 msgstr ""
 
 #: includes/admin/supported-plugins.php:28
@@ -1205,13 +1225,13 @@ msgstr ""
 msgid "WP-PostRatings"
 msgstr ""
 
-#: includes/progress/template.php:428
+#: includes/progress/template.php:416
 msgid "Viewing %1$s achievement progress"
 msgid_plural "Viewing %1$s achievements&rsquo; progress"
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/progress/template.php:432
+#: includes/progress/template.php:420
 msgid "Viewing achievement progress %2$s (of %4$s total)"
 msgid_plural ""
 "Viewing %1$s achievements&rsquo; progress - %2$s through %3$s (of %4$s "
@@ -1298,63 +1318,68 @@ msgstr ""
 msgid "http://byotos.com/"
 msgstr ""
 
-#: achievements.php:450
+#: achievements.php:457
 msgctxt "achievement"
 msgid "Add New"
 msgstr ""
 
-#: achievements.php:453
+#: achievements.php:460
 msgctxt "achievement"
 msgid "Edit"
 msgstr ""
 
-#: achievements.php:531
+#: achievements.php:538
 msgctxt "achievement"
 msgid "Locked"
 msgstr ""
 
-#: achievements.php:532
+#: achievements.php:539
 msgctxt "achievement"
 msgid "Locked <span class=\"count\">(%s)</span>"
 msgid_plural "Locked <span class=\"count\">(%s)</span>"
 msgstr[0] ""
 msgstr[1] ""
 
-#: achievements.php:544
+#: achievements.php:551
 msgctxt "achievement"
 msgid "Unlocked"
 msgstr ""
 
-#: achievements.php:545
+#: achievements.php:552
 msgctxt "achievement"
 msgid "Unlocked <span class=\"count\">(%s)</span>"
 msgid_plural "Unlocked <span class=\"count\">(%s)</span>"
 msgstr[0] ""
 msgstr[1] ""
 
-#: achievements.php:492
+#: achievements.php:499
 msgctxt "Achievement post type description"
 msgid "Achievements types (e.g. new post, new site, new user)"
 msgstr ""
 
-#: achievements.php:507
+#: achievements.php:514
 msgctxt "Achievement Progress post type description"
 msgid ""
 "Achievement Progress (e.g. unlocked achievements for a user, progress on an "
 "achievement for a user)"
 msgstr ""
 
-#: achievements.php:567
+#: achievements.php:574
 msgctxt "event taxonomy general name"
 msgid "Events"
 msgstr ""
 
-#: achievements.php:571
+#: achievements.php:578
 msgctxt "event taxonomy singular name"
 msgid "Event"
 msgstr ""
 
-#: achievements.php:642
+#: achievements.php:617 templates/achievements/achievements-functions.php:49
+msgctxt "Version number ranges for this plugin"
+msgid "v3.0 - 3.5.1"
+msgstr ""
+
+#: achievements.php:649
 msgctxt "Menu item in the toolbar"
 msgid "My Achievements"
 msgstr ""
@@ -1369,12 +1394,22 @@ msgctxt "[date] at [time]"
 msgid "%1$s at %2$s"
 msgstr ""
 
-#: includes/admin/admin.php:168 includes/admin/users.php:74
+#: includes/admin/admin.php:148
+msgctxt "admin settings page title"
+msgid "Achievements"
+msgstr ""
+
+#: includes/admin/admin.php:149
+msgctxt "admin menu item title"
+msgid "Achievements"
+msgstr ""
+
+#: includes/admin/admin.php:169 includes/admin/users.php:74
 msgctxt "admin menu title"
 msgid "Users"
 msgstr ""
 
-#: includes/admin/admin.php:294
+#: includes/admin/admin.php:295
 msgctxt "User&rsquo;s total points from unlocked Achievements"
 msgid "Total Points"
 msgstr ""
@@ -1416,6 +1451,51 @@ msgstr ""
 #: includes/admin/functions.php:191
 msgctxt "Type of the achievement; award or badge"
 msgid "Type"
+msgstr ""
+
+#: includes/admin/settings.php:47
+msgctxt "admin settings section name"
+msgid "Pagination"
+msgstr ""
+
+#: includes/admin/settings.php:52
+msgctxt "admin settings section name"
+msgid "Permalinks"
+msgstr ""
+
+#: includes/admin/settings.php:57
+msgctxt "admin settings section name"
+msgid "Templates"
+msgstr ""
+
+#: includes/admin/settings.php:79
+msgctxt "admin settings name"
+msgid "Template version"
+msgstr ""
+
+#: includes/admin/settings.php:111
+msgctxt "admin settings name"
+msgid "Archive"
+msgstr ""
+
+#: includes/admin/settings.php:91
+msgctxt "admin settings name for pagination"
+msgid "Achievements"
+msgstr ""
+
+#: includes/admin/settings.php:99
+msgctxt "admin settings name for pagination"
+msgid "RSS feed"
+msgstr ""
+
+#: includes/admin/settings.php:119
+msgctxt "admin settings opton name"
+msgid "Single item"
+msgstr ""
+
+#: includes/admin/settings.php:221 includes/admin/settings.php:235
+msgctxt "achievements pagination"
+msgid "per page"
 msgstr ""
 
 #: includes/admin/supported-plugins.php:236
