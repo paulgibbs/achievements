@@ -4,10 +4,6 @@
  * @author Paul Gibbs <paul@byotos.com>
  */
 
-/* jshint undef: true, unused: true */
-/* global jQuery, wp, _ */
-
-
 /**
  * Achievements' main JS object.
  *
@@ -109,7 +105,7 @@ var achievements = {
 		 * Page Visibility API - http://goo.gl/vIqmlf
 		 */
 		function visibilityChanged() {
-			isWindowVisible = (document[visibilityChangeProperty] === false);
+			isWindowVisible = ( document[visibilityChangeProperty] === false );
 		}
 
 		/**
@@ -118,26 +114,26 @@ var achievements = {
 		 * @param {object} data Data received from the server
 		 */
 		function showNotifications(data) {
-			var notifications = $(document.createDocumentFragment()),
-				wrapper = $(document.createDocumentFragment()),
-				panel   = $('#dpa-toaster');
+			var notifications = $( document.createDocumentFragment() ),
+				wrapper = $( document.createDocumentFragment() ),
+				panel   = $( '#dpa-toaster' );
 
 			// Grab the rendered markup for each achievement
-			_.each(data, function(achievement) {
-				notifications.append(achievements.template('achievements-item', achievement));
+			_.each( data, function( achievement ) {
+				notifications.append( achievements.template( 'achievements-item', achievement ) );
 			});
 
 			// If our wrapper doesn't exist yet, create it
-			if (panel.length < 1) {
-				wrapper.append(achievements.template('achievements-wrapper'));
-				$('body').append(wrapper);
+			if ( panel.length < 1 ) {
+				wrapper.append( achievements.template( 'achievements-wrapper' ) );
+				$( 'body' ).append( wrapper );
 
-				panel = $('#dpa-toaster');
+				panel = $( '#dpa-toaster' );
 			}
 
 			// Add rendered notifications to the panel
-			notifications.insertAfter(panel.children(':first-child'));
-			panel.fadeIn(200);
+			notifications.insertAfter( panel.children( ':first-child' ) );
+			panel.fadeIn( 200 );
 		}
 
 
@@ -149,9 +145,9 @@ var achievements = {
 		 * @param {Event} e Event object
 		 * @param {Object} data Data received from the server
 		 */
-		function tick(e, data) {
+		function tick( e, data ) {
 			// Record if the user is logged in or not
-			isUserLoggedIn = ('wp-auth-check' in data && data['wp-auth-check'] === true);
+			isUserLoggedIn = ( 'wp-auth-check' in data && data['wp-auth-check'] === true );
 
 			// If nothing in the response for Achievements, bail out
 			if ( ! ( 'achievements' in data ) ) {
@@ -159,15 +155,15 @@ var achievements = {
 			}
 
 			// Fade the notifications window out after 7 seconds
-			window.setTimeout(function () {
-				var panel = $('#dpa-toaster');
+			window.setTimeout( function() {
+				var panel = $( '#dpa-toaster' );
 
-				panel.fadeOut(100, function () {
-					$(this).children('li').remove();
+				panel.fadeOut(100, function() {
+					$( this ).children( 'li' ).remove();
 				});
 			}, 7000);
 
-			showNotifications(data.achievements);
+			showNotifications( data.achievements );
 		}
 
 		/**
@@ -178,12 +174,12 @@ var achievements = {
 		 */
 		function send(e, data) {
 			// User must be logged in and the current window must be visible
-			if (!isUserLoggedIn || !isWindowVisible) {
+			if ( ! isUserLoggedIn || ! isWindowVisible ) {
 				return;
 			}
 
 			// If something has already queued up data to send back to WordPress, bail out
-			if (wp.heartbeat.isQueued('achievements')) {
+			if ( wp.heartbeat.isQueued( 'achievements' ) ) {
 				return;
 			}
 
@@ -196,10 +192,10 @@ var achievements = {
 		 *
 		 * Hook into events from WordPress' heartbeat API.
 		 */
-		$(document).ready(function () {
-			$(document).on('heartbeat-tick.achievements', tick)
-			.on('heartbeat-send.achievements', send)
-			.on(visibilityChangeEvent + '.achievements', visibilityChanged);
+		$( document ).ready( function() {
+			$( document ).on( 'heartbeat-tick.achievements', tick )
+			.on( 'heartbeat-send.achievements', send )
+			.on( visibilityChangeEvent + '.achievements', visibilityChanged );
 
 			// Immediately check for achievements.
 			wp.heartbeat.connectNow();
@@ -207,4 +203,4 @@ var achievements = {
 	};
 
 	achievements.heartbeat = new Achievements_Heartbeat();
-}(jQuery));
+}( jQuery ));
