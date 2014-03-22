@@ -26,8 +26,8 @@ var achievements = {
 	 * @param {Object} data Data received from the server
 	 * @return {String} HTML
 	 */
-	template: function (ID, data) {
-		return _.memoize(function () {
+	template: function( ID, data ) {
+		return _.memoize( function() {
 			var compiled,
 			options = {
 				evaluate:    /<#([\s\S]+?)#>/g,
@@ -36,7 +36,7 @@ var achievements = {
 				variable:    'data'
 			};
 
-			return function () {
+			return function() {
 				compiled = compiled || _.template( jQuery( '#tmpl-' + ID ).html(), null, options );
 				return compiled( data );
 			};
@@ -55,7 +55,7 @@ var achievements = {
 	 * @property {string} visibilityChangeEvent Helper for the name of the browser's "visibilitychange" event, due to browser prefixing.
 	 * @property {string} visibilityChangeProperty Helper for the name of the browser's "document.hidden" property, due to browser prefixing.
 	 */
-	var Achievements_Heartbeat = function () {
+	var Achievements_Heartbeat = function() {
 		var isUserLoggedIn = true,
 		isWindowVisible = true,
 		visibilityChangeEvent = '',
@@ -84,7 +84,7 @@ var achievements = {
 		 *
 		 * @returns {boolean}
 		 */
-		this.isUserLoggedIn = function () {
+		this.isUserLoggedIn = function() {
 			return isUserLoggedIn;
 		};
 
@@ -95,7 +95,7 @@ var achievements = {
 		 *
 		 * @returns {boolean}
 		 */
-		this.isWindowVisible = function () {
+		this.isWindowVisible = function() {
 			return isWindowVisible;
 		};
 
@@ -113,7 +113,7 @@ var achievements = {
 		 *
 		 * @param {object} data Data received from the server
 		 */
-		function showNotifications(data) {
+		function showNotifications( data ) {
 			var notifications = $( document.createDocumentFragment() ),
 				wrapper = $( document.createDocumentFragment() ),
 				panel   = $( '#dpa-toaster' );
@@ -158,7 +158,7 @@ var achievements = {
 			window.setTimeout( function() {
 				var panel = $( '#dpa-toaster' );
 
-				panel.fadeOut(100, function() {
+				panel.fadeOut( 100, function() {
 					$( this ).children( 'li' ).remove();
 				});
 			}, 7000);
@@ -172,7 +172,7 @@ var achievements = {
 		 * @param {Event} e Event object
 		 * @param {Object} data Data received from the server
 		 */
-		function send(e, data) {
+		function send( e, data ) {
 			// User must be logged in and the current window must be visible
 			if ( ! isUserLoggedIn || ! isWindowVisible ) {
 				return;
