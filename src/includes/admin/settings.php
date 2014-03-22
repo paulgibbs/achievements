@@ -76,7 +76,7 @@ function dpa_admin_get_settings_fields() {
 				'args'              => array(),
 				'callback'          => 'dpa_admin_setting_callback_theme_package_id',
 				'sanitize_callback' => 'dpa_admin_setting_validate_theme_package_id',
-				'title'             => _x( 'Template version', 'admin settings option name', 'achievements' ),
+				'title'             => _x( 'Template version', 'admin settings name', 'achievements' ),
 			)
 		),
 
@@ -88,7 +88,7 @@ function dpa_admin_get_settings_fields() {
 				'args'              => array(),
 				'callback'          => 'dpa_admin_setting_callback_achievements_per_page',
 				'sanitize_callback' => 'absint',
-				'title'             => _x( 'Achievements per page', 'admin settings option name', 'achievements' ),
+				'title'             => _x( 'Achievements', 'admin settings name for pagination', 'achievements' ),
 			),
 
 			// Achievements per RSS page setting
@@ -108,7 +108,7 @@ function dpa_admin_get_settings_fields() {
 				'args'              => array(),
 				'callback'          => 'dpa_admin_setting_callback_root_slug',
 				'sanitize_callback' => 'sanitize_title',
-				'title'             => _x( 'Archive', 'admin settings option name', 'achievements' ),
+				'title'             => _x( 'Archive', 'admin settings name', 'achievements' ),
 			),
 
 			// Single achievement slug setting
