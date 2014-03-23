@@ -79,22 +79,24 @@ class DPA_Admin {
 			return;
 
 		// General Actions
-		add_action( 'dpa_admin_menu',                           array( $this, 'admin_menus' ) );
+		add_action( 'dpa_admin_menu', array( $this, 'admin_menus' ) );
+		add_action( 'admin_bar_menu', array( __CLASS__, 'admin_bar_about_link' ), 15 );
+
 		add_filter( 'manage_achievement_posts_columns',         'dpa_achievement_posts_columns' );
 		add_action( 'manage_posts_custom_column',               'dpa_achievement_custom_column', 10, 2 );
 		add_filter( 'manage_edit-achievement_sortable_columns', 'dpa_achievement_sortable_columns' );
 		add_action( 'save_post',                                'dpa_achievement_metabox_save' );
 
-		add_action( 'load-edit.php',                            'dpa_achievement_index_contextual_help' );
-		add_action( 'load-post-new.php',                        'dpa_achievement_new_contextual_help' );
-		add_action( 'load-post.php',                            'dpa_achievement_new_contextual_help' );
+		add_action( 'load-edit.php',     'dpa_achievement_index_contextual_help' );
+		add_action( 'load-post-new.php', 'dpa_achievement_new_contextual_help' );
+		add_action( 'load-post.php',     'dpa_achievement_new_contextual_help' );
 
-		add_filter( 'post_updated_messages',                    'dpa_achievement_feedback_messages' );
-		add_action( 'dpa_register_admin_settings',              array( __CLASS__, 'register_admin_settings' ) );
-		add_filter( 'dpa_map_meta_caps',                        array( __CLASS__, 'map_settings_meta_caps' ), 10, 4 );
+		add_filter( 'post_updated_messages',       'dpa_achievement_feedback_messages' );
+		add_action( 'dpa_register_admin_settings', array( __CLASS__, 'register_admin_settings' ) );
+		add_filter( 'dpa_map_meta_caps',           array( __CLASS__, 'map_settings_meta_caps' ), 10, 4 );
 
-		add_filter( 'plugin_action_links',                      array( __CLASS__, 'modify_plugin_action_links' ), 10, 2 );
-		add_filter( 'network_admin_plugin_action_links',        array( __CLASS__, 'modify_plugin_action_links' ), 10, 2 );
+		add_filter( 'plugin_action_links',               array( __CLASS__, 'modify_plugin_action_links' ), 10, 2 );
+		add_filter( 'network_admin_plugin_action_links', array( __CLASS__, 'modify_plugin_action_links' ), 10, 2 );
 
 
 		// Allow plugins to modify these actions
@@ -563,7 +565,6 @@ class DPA_Admin {
 	 * @since Achievements (3.6)
 	 */
 	static public function modify_plugin_action_links( $links, $file ) {
-
 		// Return normal links if not Achievements
 		if ( plugin_basename( achievements()->basename ) != $file ) {
 			return $links;
@@ -572,6 +573,25 @@ class DPA_Admin {
 		return array_merge( $links, array(
 			'settings' => '<a href="' . esc_url( add_query_arg( array( 'page' => 'achievements' ), admin_url( 'options-general.php' ) ) ) . '">' . esc_html_x( 'Settings', 'plugin settings', 'achievements' ) . '</a>',
 			'about'    => '<a href="' . esc_url( add_query_arg( array( 'page' => 'achievements-about' ), admin_url( 'index.php' ) ) ) . '">' . esc_html_x( 'About', 'plugin about page', 'achievements' ) . '</a>'
+		) );
+	}
+
+	/**
+	 * Add a link to the about page into WordPress' toolbar.
+	 *
+	 * @param WP_Admin_Bar $wp_admin_bar
+	 * @since Achievements (3.6)
+	 */
+	static public function admin_bar_about_link( $wp_admin_bar ) {
+		if ( ! is_user_logged_in() ) {
+			return;
+		}
+
+		$wp_admin_bar->add_menu( array(
+			'parent' => 'wp-logo',
+			'id'     => 'achievements-about',
+			'title'  => esc_html__( 'About Achievements', 'achievements' ),
+			'href'   => add_query_arg( array( 'page' => 'achievements-about' ), admin_url( 'index.php' ) )
 		) );
 	}
 }
