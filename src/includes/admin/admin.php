@@ -159,8 +159,8 @@ class DPA_Admin {
 
 		// About
 		add_dashboard_page(
-			_x( 'Welcome to Achievements', 'admin about page title', 'achievements' ),
-			_x( 'Welcome to Achievements', 'admin about page title', 'achievements' ),
+			_x( 'Welcome to Achievements', 'admin page title', 'achievements' ),
+			_x( 'Welcome to Achievements', 'admin page title', 'achievements' ),
 			$this->minimum_capability,
 			'achievements-about',
 			array( $this, 'about_screen' )
@@ -169,8 +169,8 @@ class DPA_Admin {
 
 		// About - Get Help
 		add_dashboard_page(
-			_x( 'Welcome to Achievements', 'admin about page title', 'achievements' ),
-			_x( 'Welcome to Achievements', 'admin about page title', 'achievements' ),
+			_x( 'Welcome to Achievements', 'admin page title', 'achievements' ),
+			_x( 'Welcome to Achievements', 'admin page title', 'achievements' ),
 			$this->minimum_capability,
 			'achievements-help',
 			array( $this, 'gethelp_screen' )
