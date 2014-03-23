@@ -159,8 +159,8 @@ class DPA_Admin {
 
 		// About
 		add_dashboard_page(
-			__( 'Welcome to Achievements', 'achievements' ),
-			__( 'Welcome to Achievements', 'achievements' ),
+			_x( 'Welcome to Achievements', 'admin about page title', 'achievements' ),
+			_x( 'Welcome to Achievements', 'admin about page title', 'achievements' ),
 			$this->minimum_capability,
 			'achievements-about',
 			array( $this, 'about_screen' )
