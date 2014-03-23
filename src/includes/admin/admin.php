@@ -167,6 +167,16 @@ class DPA_Admin {
 		);
 		remove_submenu_page( 'index.php', 'achievements-about' );
 
+		// About - Get Help
+		add_dashboard_page(
+			_x( 'Welcome to Achievements', 'admin about page title', 'achievements' ),
+			_x( 'Welcome to Achievements', 'admin about page title', 'achievements' ),
+			$this->minimum_capability,
+			'achievements-help',
+			array( $this, 'gethelp_screen' )
+		);
+		remove_submenu_page( 'index.php', 'achievements-help' );
+
 		// "Users" menu
 		$hooks[] = add_submenu_page(
 			'edit.php?post_type=achievement',
@@ -424,21 +434,18 @@ class DPA_Admin {
 	}
 
 	/**
-	 * Output the about screen
+	 * Shared content between the About and Get Help screens, this method outputs the screen title and navigation menu.
 	 *
-	 * @since Achievements (3.4)
+	 * @since Achievements (3.6)
 	 */
-	public function about_screen() {
+	protected function about_screen_header() {
 		list( $display_version ) = explode( '-', dpa_get_version() );
-
 		$is_new_install = ! empty( $_GET['is_new_install'] );
-		$name           = wp_get_current_user()->display_name;
 	?>
 
 		<style type="text/css">
 		.about-text {
 			min-height: 0;
-			margin-bottom: 0;
 			margin-right: 0;
 		}
 		.about-wrap h3 {
@@ -449,10 +456,12 @@ class DPA_Admin {
 
 		<div class="wrap about-wrap">
 			<h1><?php _e( 'Welcome to Achievements', 'achievements' ); ?></h1>
-			<div class="about-text">
-				<?php if ( $is_new_install ) : ?>
-					<?php printf( __( 'Hi, %s! Thanks very much for downloading Achievements %s. You really are rather nice. This exciting update screen is to confirm a few things that you probably already know:', 'achievements' ), esc_html( $name ), $display_version ); ?>
 
+			<div class="about-text">
+				<?php if ( $is_new_install ) :
+					/* translators: 1) username, 2) plugin version number */
+					printf( __( 'Hi, %s! Thanks very much for downloading Achievements %s. You really are rather nice. This exciting update screen is to confirm a few things that you probably already know:', 'achievements' ), esc_html( wp_get_current_user()->display_name ), $display_version );
+				?>
 					<ol>
 						<li><?php _e( 'You&#8217;re super-talented at finding great WordPress plugins.', 'achievements' ); ?></li>
 						<li><?php _e( 'We think you&#8217;ve got a truly beautiful website.', 'achievements' ); ?></li>
@@ -460,37 +469,156 @@ class DPA_Admin {
 					</ol>
 
 					<?php _e( 'Achievements gamifies your WordPress site with challenges, badges, and points, which are the funnest ways to reward and encourage members of your community to participate. We hope you enjoy using the plugin!', 'achievements' ); ?>
+
 				<?php else : ?>
-					<?php printf( __( 'Hello there! Version %s is a maintenance release.', 'achievements' ), $display_version ); ?>
+					<?php
+					/* translators: 1) plugin version number. */
+					printf( __( 'Hello there! Version %s is a maintenance release.', 'achievements' ), $display_version );
+					?>
 				<?php endif; ?>
+			</div><!-- .about-text -->
+
+			<h2 class="nav-tab-wrapper">
+				<a class="nav-tab <?php if ( get_current_screen()->id === 'dashboard_page_achievements-about' ) { echo esc_attr( 'nav-tab-active' ); } ?>" href="<?php echo esc_url( admin_url( add_query_arg( array( 'page' => 'achievements-about' ), 'index.php' ) ) ); ?>">
+					<?php echo esc_html( _x( 'What&#8217;s New', 'admin about page section title', 'achievements' ) ); ?>
+				</a>
+				<a class="nav-tab <?php if ( get_current_screen()->id === 'dashboard_page_achievements-help' ) { echo esc_attr( 'nav-tab-active' ); } ?>" href="<?php echo esc_url( admin_url( add_query_arg( array( 'page' => 'achievements-help' ), 'index.php' ) ) ); ?>">
+					<?php echo esc_html( _x( 'Get Help', 'admin about page section title', 'achievements' ) ); ?>
+				</a>
+			</h2><!-- .nav-tab-wrapper -->
+
+		<?php
+		// Note: this method intentionally omits a closing </div> tag for .about-wrap
+	}
+
+	/**
+	 * The About screen -- the first thing a user sees when activating or updating the plugin.
+	 *
+	 * @since Achievements (3.4)
+	 */
+	public function about_screen() {
+		$this->about_screen_header();
+
+		if ( ! empty( $_GET['is_new_install'] ) ) : ?>
+			<h3><?php _e( 'Getting Started', 'achievements' ); ?></h3>
+
+			<div class="feature-section">
+				<h4><?php _e( 'Create your first achievement', 'achievements' ); ?></h4>
+				<p><?php printf( __( 'The first idea to grasp is that there are two different types of achievements: <strong>awards</strong> and <strong>events</strong>. Award achievements have to be manually given out by a site admin, and event achievements are awarded automatically when its criteria has been met. <a href="%s">Learn more about achievement types</a>.', 'achievements' ), esc_url( 'http://achievementsapp.com/getting-started/types-of-achievements/' ) ); ?></p>
+				<p><?php printf( __( 'The best way to learn is by doing, so let&rsquo;s create an achievement and find out how everything works. Our <a href="%s">Getting Started guide</a> will walk you through this easy process.', 'achievements' ), esc_url( 'http://achievementsapp.com/getting-started/' ) ); ?></p>
+
+				<h4><?php _e( 'Get help and support', 'achievements' ); ?></h4>
+				<p><?php printf( __( 'If you have questions about the plugin or need help, get in contact by leaving a message on the <a href="%s">WordPress.org support forum</a>. We&rsquo;d love to find out how you&rsquo;re using Achievements, so be sure to drop by and tell us!', 'achievements' ), esc_url( 'http://wordpress.org/support/plugin/achievements' ) ); ?></p>
 			</div>
 
-			<?php if ( $is_new_install ) : ?>
-				<h3><?php _e( 'Getting Started', 'achievements' ); ?></h3>
-
-				<div class="feature-section">
-					<h4><?php _e( 'Create your first achievement', 'achievements' ); ?></h4>
-					<p><?php printf( __( 'The first idea to grasp is that there are two different types of achievements: <strong>awards</strong> and <strong>events</strong>. Award achievements have to be manually given out by a site admin, and event achievements are awarded automatically when its criteria has been met. <a href="%s">Learn more about achievement types</a>.', 'achievements' ), esc_url( 'http://achievementsapp.com/getting-started/types-of-achievements/' ) ); ?></p>
-					<p><?php printf( __( 'The best way to learn is by doing, so let&rsquo;s create an achievement and find out how everything works. Our <a href="%s">Getting Started guide</a> will walk you through this easy process.', 'achievements' ), esc_url( 'http://achievementsapp.com/getting-started/' ) ); ?></p>
-
-					<h4><?php _e( 'Get help and support', 'achievements' ); ?></h4>
-					<p><?php printf( __( 'If you have questions about the plugin or need help, get in contact by leaving a message on the <a href="%s">WordPress.org support forum</a>. We&rsquo;d love to find out how you&rsquo;re using Achievements, so be sure to drop by and tell us!', 'achievements' ), esc_url( 'http://wordpress.org/support/plugin/achievements' ) ); ?></p>
-				</div>
-
-			<?php else : ?>
-
-			<div class="changelog">
-				<div class="feature-section">
-					<p><?php _e( 'This release improves compatibility with WordPress 3.8. Some of the UI elements in the admin screens have had their styles tweaked for WordPress&#8217; new admin appearance, and the unlocked achievement check (the heartbeat) now happens much more quickly. Enjoy!', 'achievements' ); ?></p>
-				</div>
+		<?php else : ?>
+			<div class="feature-section">
+				<p><?php _e( 'This release improves compatibility with WordPress 3.8. Some of the UI elements in the admin screens have had their styles tweaked for WordPress&#8217; new admin appearance, and the unlocked achievement check (the heartbeat) now happens much more quickly. Enjoy!', 'achievements' ); ?></p>
 			</div>
+		<?php endif; ?>
 
-			<?php endif; ?>
-
-		</div>
+		</div><!-- .about-wrap -->
 		<?php
 	}
 
+	/**
+	 * The Get Help screen.
+	 *
+	 * Linked to from the admin About screen, this screen tells users where to go if they need help using the plugin.
+	 *
+	 * @since Achievements (3.6)
+	 */
+	public function gethelp_screen() {
+		global $wp_version;
+
+		$active_plugins = array();
+		$all_plugins    = apply_filters( 'all_plugins', get_plugins() );
+
+
+		// Grab a ton of information about the current site - active plugins, current theme, version numbers, etc.
+
+		// Get a list of active plugins
+		foreach ( $all_plugins as $filename => $plugin ) {
+			if ( $plugin['Name'] != 'Achievements' && is_plugin_active( $filename ) )
+				$active_plugins[] = $plugin['Name'] . ': ' . $plugin['Version'];
+		}
+		natcasesort( $active_plugins );
+
+		if ( ! $active_plugins ) {
+			$active_plugins = array( __( 'No other plugins are active', 'achievements' ) );
+		}
+
+		// Is multisite active?
+		if ( is_multisite() ) {
+			if ( is_subdomain_install() ) {
+				$is_multisite = _x( 'subdomain', 'type of WordPress install', 'achievements' );
+			} else {
+				$is_multisite = _x( 'subdirectory', 'type of WordPress install', 'achievements' );
+			}
+
+		} else {
+			$is_multisite = __( 'no', 'achievements' );
+		}
+
+		// Is the site NOT using pretty permalinks?
+	  if ( empty( $GLOBALS['wp_rewrite']->permalink_structure ) ) {
+			$custom_permalinks = _x( 'default', 'type of permalinks', 'achievements' );
+
+		// Is the site using (almost) pretty permalinks?
+		} elseif ( strpos( $GLOBALS['wp_rewrite']->permalink_structure, 'index.php' ) ) {
+			$custom_permalinks = _x( 'almost pretty', 'type of permalinks', 'achievements' );
+		} else {
+			$custom_permalinks = _x( 'custom', 'type of permalinks', 'achievements' );
+		}
+
+		$this->about_screen_header();
+		?>
+
+		<style type="text/css">
+		.helpushelpyou ul {
+			list-style: disc;
+			padding-left: 2em;
+		}
+		</style>
+
+		<!--
+		Hi. This admin screen is still under construction and will be finished for the 3.6 release.
+		-->
+
+		<div class="feature-section helpushelpyou">
+			<h4><?php _e( 'Versions', 'achievements' ); ?></h4>
+			<ul>
+				<li><?php echo esc_html( sprintf( __( 'Achievements: %s', 'achievements' ), achievements()->version ) ); ?></li>
+				<li><?php echo esc_html( sprintf( 'DPA_DATA_STORE: %s', constant( 'DPA_DATA_STORE' ) ) ); ?></li>
+				<li><?php echo esc_html( sprintf( __( 'MySQL: %s', 'achievements' ), $GLOBALS['wpdb']->db_version() ) ); ?></li>
+				<li><?php echo esc_html( sprintf( __( 'Permalinks: %s', 'achievements' ), $custom_permalinks ) ); ?></li>
+				<li><?php echo esc_html( sprintf( __( 'PHP: %s', 'achievements' ), phpversion() ) ); ?></li>
+				<li><?php echo esc_html( sprintf( __( 'Templates: %s', 'achievements' ), dpa_get_theme_package_id() ) ); ?> </li>
+				<li><?php echo esc_html( sprintf( __( 'WordPress: %s', 'achievements' ), $wp_version ) ); ?></li>
+				<li><?php echo esc_html( sprintf( __( 'WordPress multisite: %s', 'achievements' ), $is_multisite ) ); ?></li>
+			</ul>
+
+			<h4><?php _e( 'Theme', 'achievements' ); ?></h4>
+			<ul>
+				<li><?php echo esc_html( sprintf( __( 'Theme name: %s', 'achievements' ), get_stylesheet() ) ); ?></li>
+
+				<?php if ( is_child_theme() ) : ?>
+					<li><?php echo esc_html( sprintf( __( 'Parent theme name: %s', 'achievements' ), get_template() ) ); ?></li>
+				<?php endif; ?>
+			</ul>
+
+			<h4><?php _e( 'Active Plugins', 'achievements' ); ?></h4>
+			<ul>
+				<?php foreach ( $active_plugins as $plugin ) : ?>
+					<li><?php echo esc_html( $plugin ); ?></li>
+				<?php endforeach; ?>
+			</ul>
+		</div><!-- .feature-section -->
+
+		</div><!-- .about-wrap -->
+		<?php
+	}
+	
 	/**
 	 * Maps settings screens to particular capabilities.
 	 * 
