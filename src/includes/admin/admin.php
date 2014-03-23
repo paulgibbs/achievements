@@ -93,6 +93,9 @@ class DPA_Admin {
 		add_action( 'dpa_register_admin_settings',              array( __CLASS__, 'register_admin_settings' ) );
 		add_filter( 'dpa_map_meta_caps',                        array( __CLASS__, 'map_settings_meta_caps' ), 10, 4 );
 
+		add_filter( 'plugin_action_links',                      array( $this, 'modify_plugin_action_links' ), 10, 2 );
+		add_filter( 'network_admin_plugin_action_links',        array( $this, 'modify_plugin_action_links' ), 10, 2 );
+
 
 		// Allow plugins to modify these actions
 		do_action_ref_array( 'dpa_admin_loaded', array( &$this ) );
@@ -549,6 +552,27 @@ class DPA_Admin {
 				register_setting( $page, $field_id, $field['sanitize_callback'] );
 			}
 		}
+	}
+
+	/**
+	 * Add Settings link to plugins area.
+	 *
+	 * @param array $links Links array in which we would prepend our link.
+	 * @param string $file Current plugin basename.
+	 * @return array
+	 * @since Achievements (3.6)
+	 */
+	public function modify_plugin_action_links( $links, $file ) {
+
+		// Return normal links if not Achievements
+		if ( plugin_basename( achievements()->basename ) != $file ) {
+			return $links;
+		}
+
+		return array_merge( $links, array(
+			'settings' => '<a href="' . esc_url( add_query_arg( array( 'page' => 'achievements' ), admin_url( 'options-general.php' ) ) ) . '">' . esc_html_x( 'Settings', 'plugin settings', 'achievements' ) . '</a>',
+			'about'    => '<a href="' . esc_url( add_query_arg( array( 'page' => 'achievements-about' ), admin_url( 'index.php' ) ) ) . '">' . esc_html_x( 'About', 'plugin about page', 'achievements' ) . '</a>'
+		) );
 	}
 }
 endif; // class_exists check
