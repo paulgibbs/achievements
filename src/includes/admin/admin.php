@@ -154,7 +154,7 @@ class DPA_Admin {
 			_x( 'Achievements', 'admin menu item title', 'achievements' ),
 			$this->minimum_capability,
 			'achievements',
-			'dpa_admin_settings' // bbp_admin_settings
+			'dpa_admin_settings'
 		);
 
 		// About
