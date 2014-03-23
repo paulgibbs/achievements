@@ -536,8 +536,9 @@ class DPA_Admin {
 
 		// Get a list of active plugins
 		foreach ( $all_plugins as $filename => $plugin ) {
-			if ( $plugin['Name'] != 'Achievements' && is_plugin_active( $filename ) )
+			if ( $plugin['Name'] != 'Achievements' && is_plugin_active( $filename ) ) {
 				$active_plugins[] = $plugin['Name'] . ': ' . $plugin['Version'];
+			}
 		}
 		natcasesort( $active_plugins );
 
@@ -558,7 +559,7 @@ class DPA_Admin {
 		}
 
 		// Is the site NOT using pretty permalinks?
-	  if ( empty( $GLOBALS['wp_rewrite']->permalink_structure ) ) {
+		if ( empty( $GLOBALS['wp_rewrite']->permalink_structure ) ) {
 			$custom_permalinks = _x( 'default', 'type of permalinks', 'achievements' );
 
 		// Is the site using (almost) pretty permalinks?
