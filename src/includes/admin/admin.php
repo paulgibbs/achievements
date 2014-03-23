@@ -471,10 +471,7 @@ class DPA_Admin {
 					<?php _e( 'Achievements gamifies your WordPress site with challenges, badges, and points, which are the funnest ways to reward and encourage members of your community to participate. We hope you enjoy using the plugin!', 'achievements' ); ?>
 
 				<?php else : ?>
-					<?php
-					/* translators: 1) plugin version number. */
-					printf( __( 'Hello there! Version %s is a maintenance release.', 'achievements' ), $display_version );
-					?>
+					<?php printf( __( 'Hello there! Version %s is a maintenance release.', 'achievements' ), $display_version ); ?>
 				<?php endif; ?>
 			</div><!-- .about-text -->
 
