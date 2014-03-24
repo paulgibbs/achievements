@@ -3,8 +3,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Achievements 3.5.1\n"
-"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/achievements\n"
-"POT-Creation-Date: 2014-03-24 19:26:39+00:00\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/support/plugin/achievements\n"
+"POT-Creation-Date: 2014-03-24 19:47:26+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1034,11 +1034,11 @@ msgstr ""
 msgid "The user replies to a topic."
 msgstr ""
 
-#: includes/extensions/bbpress.php:97
+#: includes/extensions/bbpress.php:102
 msgid "bbPress is forum software, made the WordPress way."
 msgstr ""
 
-#: includes/extensions/bbpress.php:100
+#: includes/extensions/bbpress.php:105
 msgid "bbPress"
 msgstr ""
 
@@ -1271,13 +1271,13 @@ msgstr ""
 msgid "The user completes checkout"
 msgstr ""
 
-#: includes/extensions/wpecommerce.php:70
+#: includes/extensions/wpecommerce.php:65
 msgid ""
 "WP e-Commerce is a free WordPress Shopping Cart Plugin that lets customers "
 "buy your products, services and digital downloads online."
 msgstr ""
 
-#: includes/extensions/wpecommerce.php:73
+#: includes/extensions/wpecommerce.php:68
 msgid "WP e-Commerce"
 msgstr ""
 
