@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Achievements 3.5.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/achievements\n"
-"POT-Creation-Date: 2014-03-22 06:04:19+00:00\n"
+"POT-Creation-Date: 2014-03-24 19:26:39+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -125,74 +125,74 @@ msgid_plural "Viewing %1$s achievements - %2$s through %3$s (of %4$s total)"
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/admin/admin.php:157 includes/admin/admin.php:158
-#: includes/admin/admin.php:446
-msgid "Welcome to Achievements"
-msgstr ""
-
-#: includes/admin/admin.php:168
+#: includes/admin/admin.php:184
 msgid "Achievements &mdash; Users"
 msgstr ""
 
-#: includes/admin/admin.php:178
+#: includes/admin/admin.php:194
 msgid "Achievements &mdash; Supported Plugins"
 msgstr ""
 
-#: includes/admin/admin.php:179 includes/admin/supported-plugins.php:116
+#: includes/admin/admin.php:195 includes/admin/supported-plugins.php:116
 msgid "Supported Plugins"
 msgstr ""
 
-#: includes/admin/admin.php:292
+#: includes/admin/admin.php:308
 msgid "Achievements Settings"
 msgstr ""
 
-#: includes/admin/admin.php:302
+#: includes/admin/admin.php:318
 msgid "Unlocked Achievements"
 msgstr ""
 
-#: includes/admin/admin.php:305
+#: includes/admin/admin.php:321
 msgid "Assign or remove achievements from this user"
 msgstr ""
 
-#: includes/admin/admin.php:449
+#: includes/admin/admin.php:459
+msgid "Welcome to Achievements"
+msgstr ""
+
+#: includes/admin/admin.php:464
+#. translators: 1) username, 2) plugin version number
 msgid ""
 "Hi, %s! Thanks very much for downloading Achievements %s. You really are "
 "rather nice. This exciting update screen is to confirm a few things that "
 "you probably already know:"
 msgstr ""
 
-#: includes/admin/admin.php:452
+#: includes/admin/admin.php:467
 msgid "You&#8217;re super-talented at finding great WordPress plugins."
 msgstr ""
 
-#: includes/admin/admin.php:453
+#: includes/admin/admin.php:468
 msgid "We think you&#8217;ve got a truly beautiful website."
 msgstr ""
 
-#: includes/admin/admin.php:454
+#: includes/admin/admin.php:469
 msgid "See 1 &amp; 2."
 msgstr ""
 
-#: includes/admin/admin.php:457
+#: includes/admin/admin.php:472
 msgid ""
 "Achievements gamifies your WordPress site with challenges, badges, and "
 "points, which are the funnest ways to reward and encourage members of your "
 "community to participate. We hope you enjoy using the plugin!"
 msgstr ""
 
-#: includes/admin/admin.php:459
+#: includes/admin/admin.php:475
 msgid "Hello there! Version %s is a maintenance release."
 msgstr ""
 
-#: includes/admin/admin.php:464
+#: includes/admin/admin.php:501
 msgid "Getting Started"
 msgstr ""
 
-#: includes/admin/admin.php:467
+#: includes/admin/admin.php:504
 msgid "Create your first achievement"
 msgstr ""
 
-#: includes/admin/admin.php:468
+#: includes/admin/admin.php:505
 msgid ""
 "The first idea to grasp is that there are two different types of "
 "achievements: <strong>awards</strong> and <strong>events</strong>. Award "
@@ -201,18 +201,18 @@ msgid ""
 "href=\"%s\">Learn more about achievement types</a>."
 msgstr ""
 
-#: includes/admin/admin.php:469
+#: includes/admin/admin.php:506
 msgid ""
 "The best way to learn is by doing, so let&rsquo;s create an achievement and "
 "find out how everything works. Our <a href=\"%s\">Getting Started guide</a> "
 "will walk you through this easy process."
 msgstr ""
 
-#: includes/admin/admin.php:471
+#: includes/admin/admin.php:508
 msgid "Get help and support"
 msgstr ""
 
-#: includes/admin/admin.php:472
+#: includes/admin/admin.php:509
 msgid ""
 "If you have questions about the plugin or need help, get in contact by "
 "leaving a message on the <a href=\"%s\">WordPress.org support forum</a>. "
@@ -220,12 +220,72 @@ msgid ""
 "to drop by and tell us!"
 msgstr ""
 
-#: includes/admin/admin.php:479
+#: includes/admin/admin.php:514
 msgid ""
 "This release improves compatibility with WordPress 3.8. Some of the UI "
 "elements in the admin screens have had their styles tweaked for "
 "WordPress&#8217; new admin appearance, and the unlocked achievement check "
 "(the heartbeat) now happens much more quickly. Enjoy!"
+msgstr ""
+
+#: includes/admin/admin.php:547
+msgid "No other plugins are active"
+msgstr ""
+
+#: includes/admin/admin.php:559
+msgid "no"
+msgstr ""
+
+#: includes/admin/admin.php:588
+msgid "Versions"
+msgstr ""
+
+#: includes/admin/admin.php:590
+msgid "Achievements: %s"
+msgstr ""
+
+#: includes/admin/admin.php:592
+msgid "MySQL: %s"
+msgstr ""
+
+#: includes/admin/admin.php:593
+msgid "Permalinks: %s"
+msgstr ""
+
+#: includes/admin/admin.php:594
+msgid "PHP: %s"
+msgstr ""
+
+#: includes/admin/admin.php:595
+msgid "Templates: %s"
+msgstr ""
+
+#: includes/admin/admin.php:596
+msgid "WordPress: %s"
+msgstr ""
+
+#: includes/admin/admin.php:597
+msgid "WordPress multisite: %s"
+msgstr ""
+
+#: includes/admin/admin.php:600
+msgid "Theme"
+msgstr ""
+
+#: includes/admin/admin.php:602
+msgid "Theme name: %s"
+msgstr ""
+
+#: includes/admin/admin.php:605
+msgid "Parent theme name: %s"
+msgstr ""
+
+#: includes/admin/admin.php:609
+msgid "Active Plugins"
+msgstr ""
+
+#: includes/admin/admin.php:720
+msgid "About Achievements"
 msgstr ""
 
 #: includes/admin/class-dpa-users-list-table.php:97
@@ -426,17 +486,20 @@ msgid "Achievements Box"
 msgstr ""
 
 #: includes/admin/functions.php:297 includes/admin/functions.php:348
-#: includes/admin/supported-plugins.php:42 includes/admin/users.php:49
+#: includes/admin/settings.php:141 includes/admin/supported-plugins.php:42
+#: includes/admin/users.php:49
 msgid "For more information:"
 msgstr ""
 
 #: includes/admin/functions.php:298 includes/admin/functions.php:349
-#: includes/admin/supported-plugins.php:43 includes/admin/users.php:50
+#: includes/admin/settings.php:142 includes/admin/supported-plugins.php:43
+#: includes/admin/users.php:50
 msgid "Achievements Website"
 msgstr ""
 
 #: includes/admin/functions.php:299 includes/admin/functions.php:350
-#: includes/admin/supported-plugins.php:44 includes/admin/users.php:51
+#: includes/admin/settings.php:143 includes/admin/supported-plugins.php:44
+#: includes/admin/users.php:51
 msgid "Support Forums"
 msgstr ""
 
@@ -585,19 +648,26 @@ msgstr ""
 msgid "Save Changes"
 msgstr ""
 
-#: includes/admin/settings.php:158
+#: includes/admin/settings.php:137
 msgid ""
-"Each release, the templates that come with Achievements are improved. If "
-"you&#8217;ve updated the plugin and prefer the templates from an older "
-"version, use this setting to tell Achievements to load those older "
-"templates."
+"Adjust how Achievements works by configuring its settings on this screen. "
+"You&#8217;re able to adjust pagination and permalink settings, as well as "
+"picking the active template version."
 msgstr ""
 
-#: includes/admin/settings.php:207
+#: includes/admin/settings.php:180
+msgid ""
+"Each release, the templates that come with Achievements are improved. Your "
+"site is automatically switched to the latest version when you update the "
+"plugin. If you prefer the templates from an older version, use this setting "
+"to tell Achievements to load those older templates."
+msgstr ""
+
+#: includes/admin/settings.php:229
 msgid "How many achievements do you want to show per page?"
 msgstr ""
 
-#: includes/admin/settings.php:253
+#: includes/admin/settings.php:275
 msgid "Customise the URLs that you access Achievements&#8217; content on."
 msgstr ""
 
@@ -1394,24 +1464,75 @@ msgctxt "[date] at [time]"
 msgid "%1$s at %2$s"
 msgstr ""
 
-#: includes/admin/admin.php:148
+#: includes/admin/admin.php:154
 msgctxt "admin settings page title"
 msgid "Achievements"
 msgstr ""
 
-#: includes/admin/admin.php:149
+#: includes/admin/admin.php:155
 msgctxt "admin menu item title"
 msgid "Achievements"
 msgstr ""
 
-#: includes/admin/admin.php:169 includes/admin/users.php:74
+#: includes/admin/admin.php:163 includes/admin/admin.php:164
+#: includes/admin/admin.php:173 includes/admin/admin.php:174
+msgctxt "admin page title"
+msgid "Welcome to Achievements"
+msgstr ""
+
+#: includes/admin/admin.php:185 includes/admin/users.php:74
 msgctxt "admin menu title"
 msgid "Users"
 msgstr ""
 
-#: includes/admin/admin.php:295
+#: includes/admin/admin.php:311
 msgctxt "User&rsquo;s total points from unlocked Achievements"
 msgid "Total Points"
+msgstr ""
+
+#: includes/admin/admin.php:481
+msgctxt "admin about page section title"
+msgid "What&#8217;s New"
+msgstr ""
+
+#: includes/admin/admin.php:484
+msgctxt "admin about page section title"
+msgid "Get Help"
+msgstr ""
+
+#: includes/admin/admin.php:553
+msgctxt "type of WordPress install"
+msgid "subdomain"
+msgstr ""
+
+#: includes/admin/admin.php:555
+msgctxt "type of WordPress install"
+msgid "subdirectory"
+msgstr ""
+
+#: includes/admin/admin.php:564
+msgctxt "type of permalinks"
+msgid "default"
+msgstr ""
+
+#: includes/admin/admin.php:568
+msgctxt "type of permalinks"
+msgid "almost pretty"
+msgstr ""
+
+#: includes/admin/admin.php:570
+msgctxt "type of permalinks"
+msgid "custom"
+msgstr ""
+
+#: includes/admin/admin.php:701
+msgctxt "plugin settings"
+msgid "Settings"
+msgstr ""
+
+#: includes/admin/admin.php:702
+msgctxt "plugin about page"
+msgid "About"
 msgstr ""
 
 #: includes/admin/class-dpa-users-list-table.php:81
@@ -1489,11 +1610,16 @@ msgid "RSS feed"
 msgstr ""
 
 #: includes/admin/settings.php:119
-msgctxt "admin settings opton name"
+msgctxt "admin settings option name"
 msgid "Single item"
 msgstr ""
 
-#: includes/admin/settings.php:221 includes/admin/settings.php:235
+#: includes/admin/settings.php:135
+msgctxt "admin settings help tab title"
+msgid "Overview"
+msgstr ""
+
+#: includes/admin/settings.php:243 includes/admin/settings.php:257
 msgctxt "achievements pagination"
 msgid "per page"
 msgstr ""

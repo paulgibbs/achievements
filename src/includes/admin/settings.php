@@ -123,6 +123,28 @@ function dpa_admin_get_settings_fields() {
 }
 
 /**
+ * Contextual help for the admin settings screen.
+ *
+ * @since Achievements (3.6)
+ */
+function dpa_admin_settings_contextual_help() {
+
+	// Overview
+	get_current_screen()->add_help_tab( array(
+		'id'      => 'dpa-admin-settings-overview',
+		'title'   => _x( 'Overview', 'admin settings help tab title', 'achievements' ),
+		'content' =>
+			'<p>' . __( 'Adjust how Achievements works by configuring its settings on this screen. You&#8217;re able to adjust pagination and permalink settings, as well as picking the active template version.', 'achievements' ) . '</p>'
+	) );
+
+	get_current_screen()->set_help_sidebar(
+		'<p><strong>' . __( 'For more information:', 'achievements' ) . '</strong></p>' .
+		'<p><a href="http://achievementsapp.com/" target="_blank">' . __( 'Achievements Website', 'achievements' ) . '</a></p>' .
+		'<p><a href="https://wordpress.org/support/plugin/achievements/" target="_blank">' . __( 'Support Forums', 'achievements' ) . '</a></p>'
+	);
+}
+
+/**
  * Get settings fields by section.
  *
  * @param string $section_id
@@ -155,7 +177,7 @@ function dpa_maybe_admin_setting_disabled( $option_key ) {
 function dpa_admin_setting_callback_templates_section() {
 ?>
 
-	<p><?php _e( 'Each release, the templates that come with Achievements are improved. If you&#8217;ve updated the plugin and prefer the templates from an older version, use this setting to tell Achievements to load those older templates.', 'achievements' ); ?></p>
+	<p><?php _e( 'Each release, the templates that come with Achievements are improved. Your site is automatically switched to the latest version when you update the plugin. If you prefer the templates from an older version, use this setting to tell Achievements to load those older templates.', 'achievements' ); ?></p>
 
 <?php
 }

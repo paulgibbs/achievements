@@ -87,9 +87,10 @@ class DPA_Admin {
 		add_filter( 'manage_edit-achievement_sortable_columns', 'dpa_achievement_sortable_columns' );
 		add_action( 'save_post',                                'dpa_achievement_metabox_save' );
 
-		add_action( 'load-edit.php',     'dpa_achievement_index_contextual_help' );
-		add_action( 'load-post-new.php', 'dpa_achievement_new_contextual_help' );
-		add_action( 'load-post.php',     'dpa_achievement_new_contextual_help' );
+		add_action( 'load-edit.php',                   'dpa_achievement_index_contextual_help' );
+		add_action( 'load-post-new.php',               'dpa_achievement_new_contextual_help' );
+		add_action( 'load-post.php',                   'dpa_achievement_new_contextual_help' );
+		add_action( 'load-settings_page_achievements', 'dpa_admin_settings_contextual_help' );
 
 		add_filter( 'post_updated_messages',       'dpa_achievement_feedback_messages' );
 		add_action( 'dpa_register_admin_settings', array( __CLASS__, 'register_admin_settings' ) );
