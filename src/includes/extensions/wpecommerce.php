@@ -51,11 +51,6 @@ class DPA_WP_e_Commerce_Extension extends DPA_Extension {
 				'profile_url'  => 'http://profiles.wordpress.org/mufasa/',
 			),
 			array(
-				'name'         => 'mychelle',
-				'gravatar_url' => 'http://www.gravatar.com/avatar/da623a80bd7d7ded418c528a689520a3',
-				'profile_url'  => 'http://profiles.wordpress.org/mychelle/',
-			),
-			array(
 				'name'         => 'Gary Cao',
 				'gravatar_url' => 'http://www.gravatar.com/avatar/aea5ee57d1e882ad17e95c99265784d1',
 				'profile_url'  => 'http://profiles.wordpress.org/garyc40/',
