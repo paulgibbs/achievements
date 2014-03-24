@@ -116,7 +116,7 @@ function dpa_admin_get_settings_fields() {
 				'args'              => array(),
 				'callback'          => 'dpa_admin_setting_callback_achievement_slug',
 				'sanitize_callback' => 'sanitize_title',
-				'title'             => _x( 'Single item', 'admin settings opton name', 'achievements' ),
+				'title'             => _x( 'Single item', 'admin settings option name', 'achievements' ),
 			),
 		)
 	) );
