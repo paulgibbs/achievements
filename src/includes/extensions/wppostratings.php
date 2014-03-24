@@ -58,6 +58,6 @@ class DPA_WP_PostRatings_Extension extends DPA_Extension {
 		$this->rss_url         = 'http://lesterchan.net/wordpress/feed/';
 		$this->small_image_url = trailingslashit( achievements()->includes_url ) . 'admin/images/wp-postratings-small.jpg';
 		$this->version         = 1;
-		$this->wporg_url       = 'http://wordpress.org/plugins/wp-postratings/';
+		$this->wporg_url       = 'https://wordpress.org/plugins/wp-postratings/';
 	}
 }

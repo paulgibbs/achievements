@@ -16,7 +16,7 @@ Achievements gamifies your WordPress site with challenges, badges, and points. B
 
 Simply by activating Achievements, any standard WordPress theme is suddenly capable of having achievements and tracking user progress; everything works out of the box. Achievements integrates seamlessly with your existing WordPress theme.
 
-This plugin supports many of your favourite WordPress plugins, including [bbPress](http://wordpress.org/plugins/bbpress/), [BuddyPress](http://wordpress.org/plugins/buddypress/), [BuddyStream](http://wordpress.org/plugins/buddystream/), [coursewa.re](http://wordpress.org/plugins/buddypress-courseware/), [Invite Anyone](http://wordpress.org/plugins/invite-anyone/), [WP e-Commerce](http://wordpress.org/plugins/wp-e-commerce/), and [WP-PostRatings](http://wordpress.org/plugins/wp-postratings/). For example, have you ever wanted to give your community members points when they contribute to a discussion, or buy items from your store? Now you can.
+This plugin supports many of your favourite WordPress plugins, including [bbPress](https://wordpress.org/plugins/bbpress/), [BuddyPress](https://wordpress.org/plugins/buddypress/), [BuddyStream](https://wordpress.org/plugins/buddystream/), [coursewa.re](https://wordpress.org/plugins/buddypress-courseware/), [Invite Anyone](https://wordpress.org/plugins/invite-anyone/), [WP e-Commerce](https://wordpress.org/plugins/wp-e-commerce/), and [WP-PostRatings](https://wordpress.org/plugins/wp-postratings/). For example, have you ever wanted to give your community members points when they contribute to a discussion, or buy items from your store? Now you can.
 
 For information, support, and developer documentation, visit [achievementsapp.com](http://achievementsapp.com/).
 
@@ -39,14 +39,14 @@ For information, support, and developer documentation, visit [achievementsapp.co
 = 3.4 =
 * NEW FEATURE: Leaderboards!
 * NEW FEATURE: Private achievements!
-* NEW FEATURE: Support for the [WP-PostRatings](http://wordpress.org/plugins/wp-postratings/) plugin!
+* NEW FEATURE: Support for the [WP-PostRatings](https://wordpress.org/plugins/wp-postratings/) plugin!
 * Improve performance on WordPress multisite.
 * Improve compatibility with BuddyPress 1.8.1, includes pagination fixes.
 * Improve behaviour of the unlocked achievement pop-up; now less annoying.
 * Fix problems with the WP-CLI commands.
 
 = 3.3.1 =
-* Improves compatibility with [BuddyPress 1.8](http://buddypress.org/2013/07/buddypress-1-8-di-fara/).
+* Improves compatibility with [BuddyPress 1.8](https://buddypress.org/2013/07/buddypress-1-8-di-fara/).
 
 = 3.3 =
 * NEW FEATURE: "Featured Achievement" widget!
@@ -117,14 +117,14 @@ For information, support, and developer documentation, visit [achievementsapp.co
 = 3.4 =
 * NEW FEATURE: Leaderboards!
 * NEW FEATURE: Private achievements!
-* NEW FEATURE: Support for the [WP-PostRatings](http://wordpress.org/plugins/wp-postratings/) plugin!
+* NEW FEATURE: Support for the [WP-PostRatings](https://wordpress.org/plugins/wp-postratings/) plugin!
 * Improve performance on WordPress multisite.
 * Improve compatibility with BuddyPress 1.8.1, includes pagination fixes.
 * Improve behaviour of the unlocked achievement pop-up; now less annoying.
 * Fix problems with the WP-CLI commands.
 
 = 3.3.1 =
-* Improves compatibility with [BuddyPress 1.8](http://buddypress.org/2013/07/buddypress-1-8-di-fara/).
+* Improves compatibility with [BuddyPress 1.8](https://buddypress.org/2013/07/buddypress-1-8-di-fara/).
 
 = 3.3 =
 * NEW FEATURE: "Featured Achievement" widget!

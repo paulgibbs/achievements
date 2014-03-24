@@ -98,10 +98,10 @@ class DPA_bbPress_Forum_Extension extends DPA_CPT_Extension {
 		$this->id              = 'bbpress';
 		$this->image_url       = trailingslashit( achievements()->includes_url ) . 'admin/images/bbpress.png';
 		$this->name            = __( 'bbPress', 'achievements' );
-		$this->rss_url         = 'http://bbpress.org/blog/feed/';
+		$this->rss_url         = 'https://bbpress.org/blog/feed/';
 		$this->small_image_url = trailingslashit( achievements()->includes_url ) . 'admin/images/bbpress-small.png';
 		$this->version         = 1;
-		$this->wporg_url       = 'http://wordpress.org/plugins/bbpress/';
+		$this->wporg_url       = 'https://wordpress.org/plugins/bbpress/';
 
 		add_filter( 'dpa_filter_events',        array( $this, 'get_generic_cpt_actions' ), 1,  1 );
 		add_filter( 'dpa_handle_event_name',    array( $this, 'event_name'              ), 10, 2 );

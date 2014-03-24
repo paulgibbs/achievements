@@ -74,6 +74,6 @@ class DPA_WP_e_Commerce_Extension extends DPA_Extension {
 		$this->rss_url         = 'http://getshopped.org/blog/feed/';
 		$this->small_image_url = trailingslashit( achievements()->includes_url ) . 'admin/images/wp-e-commerce.jpg';
 		$this->version         = 1;
-		$this->wporg_url       = 'http://wordpress.org/plugins/wp-e-commerce/';
+		$this->wporg_url       = 'https://wordpress.org/plugins/wp-e-commerce/';
 	}
 }

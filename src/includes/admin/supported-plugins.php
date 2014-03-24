@@ -41,7 +41,7 @@ function dpa_supported_plugins_on_load() {
 	get_current_screen()->set_help_sidebar(
 		'<p><strong>' . __( 'For more information:', 'achievements' ) . '</strong></p>' .
 		'<p><a href="http://achievementsapp.com/" target="_blank">' . __( 'Achievements Website', 'achievements' ) . '</a></p>' .
-		'<p><a href="http://wordpress.org/support/plugin/achievements/" target="_blank">' . __( 'Support Forums', 'achievements' ) . '</a></p>'
+		'<p><a href="https://wordpress.org/support/plugin/achievements/" target="_blank">' . __( 'Support Forums', 'achievements' ) . '</a></p>'
 	);
 
 	// Detail view - metaboxes

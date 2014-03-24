@@ -66,10 +66,10 @@ class DPA_WordPress_Extension extends DPA_CPT_Extension {
 		$this->id              = 'wordpress';
 		$this->image_url       = trailingslashit( achievements()->includes_url ) . 'admin/images/wordpress.jpg';
 		$this->name            = __( 'WordPress', 'achievements' );
-		$this->rss_url         = 'http://wordpress.org/news/feed/';
+		$this->rss_url         = 'https://wordpress.org/news/feed/';
 		$this->small_image_url = trailingslashit( achievements()->includes_url ) . 'admin/images/wordpress-small.jpg';
 		$this->version         = 2;
-		$this->wporg_url       = 'http://wordpress.org/about/';
+		$this->wporg_url       = 'https://wordpress.org/about/';
 
 		add_filter( 'dpa_filter_events',        array( $this, 'get_generic_cpt_actions' ), 1,  1 );
 		add_filter( 'dpa_handle_event_name',    array( $this, 'event_name'              ), 10, 2 );
