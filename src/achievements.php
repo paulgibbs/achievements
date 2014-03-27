@@ -612,12 +612,22 @@ final class DPA_Achievements_Loader {
 	 * @since Achievements (3.0)
 	 */
 	public function register_theme_packages() {
+		// Original theme pack up to 3.6
 		dpa_register_theme_package( array(
-			'id'      => 'default',
+			'id'      => '3.0-3.5.1',
 			'name'    => _x( 'v3.0 - 3.5.1', 'Version number ranges for this plugin', 'achievements' ),
 			'version' => dpa_get_version(),
-			'dir'     => trailingslashit( $this->themes_dir . 'achievements' ),
-			'url'     => trailingslashit( $this->themes_url . 'achievements' )
+			'dir'     => trailingslashit( $this->themes_dir . '3.0-3.5.1' ),
+			'url'     => trailingslashit( $this->themes_url . '3.0-3.5.1' )
+		) );
+
+		// 3.6's theme pack -- gallery layout on directory pages
+		dpa_register_theme_package( array(
+			'id'      => 'default',
+			'name'    => _x( 'v3.6+', 'Version number ranges for this plugin', 'achievements' ),
+			'version' => dpa_get_version(),
+			'dir'     => trailingslashit( $this->themes_dir . 'default' ),
+			'url'     => trailingslashit( $this->themes_url . 'default' )
 		) );
 	}
 

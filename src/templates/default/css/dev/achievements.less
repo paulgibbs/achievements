@@ -1,0 +1,291 @@
+/**
+ * Achievements theme compatibility CSS
+ */
+
+// Mixins
+@import "../../../../includes/admin/css/dev/utility.less";
+@import "variables.less";
+
+.screen-reader-text {
+	height: 1px;
+	left: -1000em;
+	overflow: hidden;
+	position: absolute;
+	width: 1px;
+}
+
+
+/**
+ * This is the main wrapper ID for all Achievements.
+ */
+
+#dpa-achievements {
+	background: transparent;
+	.clearfix();
+
+	li {
+		list-style: none;
+		margin: 0;
+	}
+
+	ul {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+	}
+}
+
+
+/**
+ * Achievement archive
+ */
+
+#dpa-achievements .dpa-archive-achievements {
+	margin-bottom: @themeCompatMargin;
+	width: 100%;
+}
+
+#dpa-archive-achievements-karma { width: 10%; }
+#dpa-archive-achievements-excerpt { width: 50%; }
+
+
+/**
+ * Single achievement
+ */
+
+.dpa-single-achievement { clear: both; }
+.dpa-single-progress-loop-heading { clear: left; }
+
+.dpa-single-progress-unlockedby {
+	.box-sizing(border-box);
+	.clearfix();
+	width: 100%;
+
+	li {
+		float: left;
+		width: 50%;
+
+		.avatar {
+			float: left;
+			margin: 0 @themeCompatMargin @themeCompatMargin 0;
+		}
+	}
+}
+
+
+/**
+ * Breadcrumb
+ */
+
+.dpa-breadcrumb {
+	float: left;
+	font-size: @smallFontSizePx;
+
+	a { text-decoration: none; }
+	span { font-weight: normal; }
+}
+
+div.dpa-breadcrumb p { margin-bottom: @themeCompatMargin; } // Specifity required
+
+
+/**
+ * Pagination
+ */
+
+.dpa-pagination-count { float: left; }
+
+.dpa-pagination-links {
+	display: inline;
+	float: right;
+	list-style: none;
+
+	a,
+	span.current {
+		border: 1px solid @themeCompatSubtleBorder;
+		display: block;
+		float: left;
+		margin-left: @themeCompatMargin/2;
+		padding: 0 @themeCompatMargin/2;
+	}
+
+	span.dots {
+		display: block;
+		float: left;
+		margin-left: @themeCompatMargin/2;
+	}
+
+	a:focus,
+	a:hover {
+		background: @themeCompatSubtleBorder;
+		opacity: 0.8;
+	}
+
+}
+
+.dpa-pagination {
+	float: right;
+	font-size: @smallFontSizePx;
+	margin-bottom: @themeCompatMargin;
+	width: 100%;
+
+	a { text-decoration: none; }
+}
+
+
+/**
+ * Notices
+ */
+
+div.dpa-template-notice {
+	.border-radius( @noticeBorderRadius );
+	background-color: @noticeBackgroundColour;
+	border-color: @noticeBorderColour;
+	border-style: solid;
+	border-width: 1px;
+	color: @noticeTextColour;
+	clear: both;
+	margin: @themeCompatMargin*0.5 0 1rem;
+	padding: 0 @themeCompatMargin;
+
+	a {
+		color: @noticeLinkColour;
+		&:hover { color: @noticeLinkHoverColour; }
+	}
+
+	p {
+		font-size: @smallFontSizePx;
+		line-height: 200%;
+		margin: @themeCompatMargin/2 0 @themeCompatMargin/2 0 !important;
+	}
+
+	&.info {
+		background-color: @noticeInfoBackgroundColour;
+		border: @noticeInfoBorderColour 1px solid;
+	}
+
+	&.important {
+		background-color: @noticeImportantBackgroundColour;
+		border: @noticeImportantBorderColour 1px solid;
+	}
+
+	&.error,
+	&.warning {
+		background-color: @noticeErrorBackgroundColour;
+		border-color: @noticeErrorBorderColour;
+
+		a { color: @noticeErrorBorderColour; }
+	}
+
+	.avatar {
+		border: 3px double @themeCompatSubtleBorder;
+		float: inherit;
+		margin-bottom: -6px;
+	}
+}
+
+
+/**
+ * Widgets
+ */
+
+.widget_dpa_available_achievements ul {
+	margin-left: 0 !important;
+	margin-right: 0 !important;
+
+	li { display: inline-block; }
+}
+
+.widget_dpa_leaderboard {
+	tbody tr:first-child td { padding-top: @themeCompatMargin; }
+	th { font-weight: bold; }
+
+	.dpa-pagination-links {
+		display: inherit;
+		float: left;
+		list-style: inherit;
+
+		:first-child { margin-left: 0; }
+	}
+
+	.dpa-leaderboard-widget {
+		margin-bottom: @themeCompatMargin;
+		width: 100%;
+	}
+
+	.logged-in-user td { font-weight: bold; }
+
+	#dpa-leaderboard-name { width: 65%; }
+	#dpa-leaderboard-karma { width: 25%; }
+}
+
+
+/**
+ * Notifications
+ */
+
+#dpa-toaster {
+	.border-radius(@noticeBorderRadius);
+	.box-shadow(0px 0px @themeCompatMargin*2 rgba(0, 0, 0, 0.6));
+	.box-sizing(border-box);
+	background: @notificationsForegroundColour;
+
+	list-style: none;
+	margin: 0;
+	padding: @themeCompatMargin @themeCompatMargin 0;
+
+	position: fixed;
+	left: 10%;
+	top: 0;
+	width: 80%;
+	z-index: 99999;  // Thank you, twentyten, for going for 9,999
+
+	h1 {
+		color: inherit;  // theme compat 
+		display: inline-block;
+		font-size: @notificationsLargeFontSizePx;
+		font-weight: 300;
+		margin: 0 0 @themeCompatMargin*2; // theme compat
+	}
+
+	// Nested here because of theme compat issues with v3 of the plugin, but not re-confirmed since.
+	.dpa-toast-cta {
+		.border-radius(@noticeBorderRadius);
+		background: @notificationsCTAColour;
+		color: @notificationsForegroundColour;
+		display: inline-block;
+		margin-top: @themeCompatMargin;
+		padding: @themeCompatMargin*2;
+		text-align: center;
+		text-decoration: none;
+	}
+}
+
+.dpa-toast {
+	.clearfix();
+	 margin-bottom: @themeCompatMargin;
+
+	h2 {
+		display: inline-block;
+		font-size: @notificationsLargeFontSizePx;
+		margin: 0 0 @themeCompatMargin;  // theme compat
+	}
+
+	img {
+		margin: 0 @themeCompatMargin 0 0;
+	}
+
+	p {
+		line-height: 1.5;
+		margin-bottom: 0;  // theme compat
+	}
+}
+
+// Very basic responsive styles to make things look better on mobile browsers
+@media screen and (max-width: 600px) {
+	#dpa-toaster { text-align: center; }
+}
+
+// A bit hacky; I couldn't find a way to remove `float: left` from the element via a responsive override.
+@media screen and (min-width: 600px) {
+	#dpa-toaster .dpa-toast img { float: left; }
+}
