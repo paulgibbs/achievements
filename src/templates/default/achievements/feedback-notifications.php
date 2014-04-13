@@ -3,7 +3,6 @@
  * Notifications template part; usually used for the "you've unlocked an achievement!" pop-ups.
  *
  * @package Achievements
- * @since Achievements (3.5)
  * @subpackage ThemeCompatibility
  */
 
