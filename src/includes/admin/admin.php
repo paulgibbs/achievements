@@ -477,10 +477,10 @@ class DPA_Admin {
 			</div><!-- .about-text -->
 
 			<h2 class="nav-tab-wrapper">
-				<a class="nav-tab <?php if ( get_current_screen()->id === 'dashboard_page_achievements-about' ) { echo esc_attr( 'nav-tab-active' ); } ?>" href="<?php echo esc_url( admin_url( add_query_arg( array( 'page' => 'achievements-about' ), 'index.php' ) ) ); ?>">
+				<a class="nav-tab <?php if ( get_current_screen()->id === 'dashboard_page_achievements-about' ) { echo esc_attr( 'nav-tab-active' ); } ?>" href="<?php echo esc_url( admin_url( add_query_arg( array( 'page' => 'achievements-about', 'is_new_install' => (int) $is_new_install ), 'index.php' ) ) ); ?>">
 					<?php echo esc_html( _x( 'What&#8217;s New', 'admin about page section title', 'achievements' ) ); ?>
 				</a>
-				<a class="nav-tab <?php if ( get_current_screen()->id === 'dashboard_page_achievements-help' ) { echo esc_attr( 'nav-tab-active' ); } ?>" href="<?php echo esc_url( admin_url( add_query_arg( array( 'page' => 'achievements-help' ), 'index.php' ) ) ); ?>">
+				<a class="nav-tab <?php if ( get_current_screen()->id === 'dashboard_page_achievements-help' ) { echo esc_attr( 'nav-tab-active' ); } ?>" href="<?php echo esc_url( admin_url( add_query_arg( array( 'page' => 'achievements-help', 'is_new_install' => (int) $is_new_install ), 'index.php' ) ) ); ?>">
 					<?php echo esc_html( _x( 'Get Help', 'admin about page section title', 'achievements' ) ); ?>
 				</a>
 			</h2><!-- .nav-tab-wrapper -->
