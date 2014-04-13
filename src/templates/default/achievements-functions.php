@@ -116,10 +116,6 @@ class DPA_Default extends DPA_Theme_Compat {
 		if ( ! dpa_is_user_active() || is_admin() || is_404() || is_preview() )
 			return;
 
-		// Only load heartbeat JS if not using the 3.5-deprecated notifications
-		if ( dpa_deprecated_notification_template_exists() )
-			return;
-
 		$file = 'js/achievements.js';
 
 		// Check child theme
