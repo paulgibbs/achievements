@@ -7,7 +7,7 @@ module.exports = function( grunt ) {
 
 	DPA_LESS = {
 		// front-end
-		'src/templates/achievements/css/achievements.css': 'src/templates/achievements/css/dev/achievements.less',
+		'src/templates/default/css/achievements.css':   'src/templates/default/css/dev/achievements.less',
 
 		// admin
 		'src/includes/admin/css/achievements.css':     'src/includes/admin/css/dev/achievements.less',
@@ -18,12 +18,12 @@ module.exports = function( grunt ) {
 	},
 
 	DPA_CSS = [
-		'templates/achievements/css/*.css',
+		'templates/default/css/*.css',
 		'includes/admin/css/*.css'
 	],
 
 	DPA_JS = [
-		'templates/achievements/js/*.js',
+		'templates/default/js/*.js',
 		'includes/admin/js/*.js',
 		'!includes/admin/js/*-min.js'  // Exclude 3rd party minified libraries
 	];
