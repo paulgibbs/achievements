@@ -78,15 +78,16 @@
 /**
  * Achievement archive
  */
-#dpa-achievements .dpa-archive-achievements {
-  margin-bottom: 10px;
+#dpa-achievements .dpa-archive-achievements-grid {
+  margin: 0 0 10px 0;
   width: 100%;
 }
-#dpa-archive-achievements-karma {
-  width: 10%;
-}
-#dpa-archive-achievements-excerpt {
-  width: 50%;
+.dpa-archive-achievements-grid li {
+  border: 1px solid #dddddd;
+  width: 25%;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
 }
 /**
  * Single achievement

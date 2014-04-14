@@ -40,13 +40,16 @@
  * Achievement archive
  */
 
-#dpa-achievements .dpa-archive-achievements {
-	margin-bottom: @themeCompatMargin;
+#dpa-achievements .dpa-archive-achievements-grid {
+	margin: 0 0 @themeCompatMargin 0;  // theme compat
 	width: 100%;
 }
 
-#dpa-archive-achievements-karma { width: 10%; }
-#dpa-archive-achievements-excerpt { width: 50%; }
+.dpa-archive-achievements-grid li {
+	border: 1px solid @themeCompatSubtleBorder;
+	width: 25%;
+	.box-sizing(border-box);
+}
 
 
 /**

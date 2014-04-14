@@ -116,6 +116,11 @@ class DPA_Default extends DPA_Theme_Compat {
 		if ( ! dpa_is_user_active() || is_admin() || is_404() || is_preview() )
 			return;
 
+
+		/**
+		 * Core JS
+		 */
+
 		$file = 'js/achievements.js';
 
 		// Check child theme
@@ -135,6 +140,15 @@ class DPA_Default extends DPA_Theme_Compat {
 		}
 
 		wp_enqueue_script( $handle, $location . $file, array( 'heartbeat', 'underscore', 'wp-util' ), dpa_get_theme_compat_version(), 'screen', true );
+
+
+		/**
+		 * Third-party JS
+		 */
+
+		if ( dpa_is_achievement_archive() ) {
+			wp_enqueue_script( 'masonry' );
+		}
 	}
 
 	/**
