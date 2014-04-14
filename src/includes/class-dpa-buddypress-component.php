@@ -92,7 +92,7 @@ class DPA_BuddyPress_Component extends BP_Component {
 		$main_nav = array(
 			'default_subnav_slug' => 'all',
 			'item_css_id'         => $this->id,
-			'name'                => __( 'Achievements', 'achievements' ),
+			'name'                => _x( 'Achievements', 'Menu item in the toolbar', 'achievements' ),
 			'position'            => 100,
 			'screen_function'     => 'dpa_bp_members_my_achievements',
 			'slug'                => $this->slug,
@@ -105,7 +105,7 @@ class DPA_BuddyPress_Component extends BP_Component {
 		// Add to the user navigation -- "my achievements"
 		$sub_nav = array(
 			'item_css_id'     => "{$this->id}-all",
-			'name'            => __( 'My Achievements', 'achievements' ),
+			'name'            => _x( 'My Achievements', 'Menu item in the toolbar', 'achievements' ),
 			'parent_slug'     => $this->slug,
 			'parent_url'      => dpa_get_user_avatar_link( array( 'type' => 'url' ) ),
 			'position'        => 20,
