@@ -209,8 +209,9 @@ module.exports = function( grunt ) {
 	});
 
 	// Register tasks.
-	grunt.registerTask( 'build',      ['clean:all', 'less:core', 'jshint:core', 'checktextdomain', 'makepot', 'imagemin'] );
-	grunt.registerTask( 'build-prod', ['clean:all', 'less:core', 'jshint:core', 'checktextdomain', 'makepot', 'imagemin', 'copy:files', 'uglify:core', 'cssjanus:core', 'cssmin:ltr', 'cssmin:rtl'] );
+	grunt.registerTask( 'build-dev',    ['clean:all', 'less:core'] );
+	grunt.registerTask( 'build-commit', ['clean:all', 'less:core', 'jshint:core', 'checktextdomain', 'makepot', 'imagemin'] );
+	grunt.registerTask( 'build-prod',   ['clean:all', 'less:core', 'jshint:core', 'checktextdomain', 'makepot', 'imagemin', 'copy:files', 'uglify:core', 'cssjanus:core', 'cssmin:ltr', 'cssmin:rtl'] );
 
 	// Testing tasks.
 	grunt.registerMultiTask( 'phpunit', 'Runs PHPUnit tests, including the ajax and multisite tests.', function() {
@@ -223,7 +224,7 @@ module.exports = function( grunt ) {
 	grunt.registerTask( 'test', 'Runs all unit tasks.', ['phpunit'] );
 
 	// Default task.
-	grunt.registerTask( 'default', ['build'] );
+	grunt.registerTask( 'default', ['build-dev'] );
 
 	/**
 	 * Add a listener to the watch task.
