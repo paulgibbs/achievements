@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Achievements 3.5.1\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/support/plugin/achievements\n"
-"POT-Creation-Date: 2014-04-13 16:20:24+00:00\n"
+"POT-Creation-Date: 2014-04-14 19:24:43+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -857,10 +857,6 @@ msgstr ""
 msgid "%1$s unlocked the achievement: %2$s"
 msgstr ""
 
-#: includes/class-dpa-buddypress-component.php:108
-msgid "My Achievements"
-msgstr ""
-
 #: includes/class-dpa-featured-achievement-widget.php:28
 msgid "Display details of a single achievement."
 msgstr ""
@@ -1464,9 +1460,14 @@ msgctxt "Version number ranges for this plugin"
 msgid "v3.6+"
 msgstr ""
 
-#: achievements.php:658
+#: achievements.php:658 includes/class-dpa-buddypress-component.php:108
 msgctxt "Menu item in the toolbar"
 msgid "My Achievements"
+msgstr ""
+
+#: includes/class-dpa-buddypress-component.php:95
+msgctxt "Menu item in the toolbar"
+msgid "Achievements"
 msgstr ""
 
 #: includes/achievements/template.php:518
