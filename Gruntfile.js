@@ -173,6 +173,10 @@ module.exports = function( grunt ) {
 					domainPath: '.',
 					mainFile: 'achievements.php',
 					potFilename: 'achievements.pot',
+					processPot: function( pot ) {
+						pot.headers['report-msgid-bugs-to'] = 'https://wordpress.org/support/plugin/achievements';
+						return pot;
+					},
 					type: 'wp-plugin'
 				}
 			}
