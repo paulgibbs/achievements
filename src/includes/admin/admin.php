@@ -578,7 +578,7 @@ class DPA_Admin {
 		</style>
 
 		<div class="feature-section helpushelpyou">
-			<h3><?php _e( 'Get Help and Support', 'achievements' ); ?></h3>
+			<h3><?php _e( 'Help and Support', 'achievements' ); ?></h3>
 			<p><?php printf( __( 'If you have questions about the plugin or need help, get in contact by leaving a message on the <a href="%s">WordPress.org support forum</a>. We&rsquo;d love to find out how you&rsquo;re using Achievements, so be sure to drop by and tell us!', 'achievements' ), esc_url( 'https://wordpress.org/support/plugin/achievements' ) ); ?></p>
 			<p><?php _e( "When asking for support, please include the following information in your message; it will help us help you. Thanks!", 'achievements' ); ?></p>
 
