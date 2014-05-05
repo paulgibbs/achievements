@@ -504,9 +504,6 @@ class DPA_Admin {
 				<h4><?php _e( 'Create your first achievement', 'achievements' ); ?></h4>
 				<p><?php printf( __( 'The first idea to grasp is that there are two different types of achievements: <strong>awards</strong> and <strong>events</strong>. Award achievements have to be manually given out by a site admin, and event achievements are awarded automatically when its criteria has been met. <a href="%s">Learn more about achievement types</a>.', 'achievements' ), esc_url( 'http://achievementsapp.com/getting-started/types-of-achievements/' ) ); ?></p>
 				<p><?php printf( __( 'The best way to learn is by doing, so let&rsquo;s create an achievement and find out how everything works. Our <a href="%s">Getting Started guide</a> will walk you through this easy process.', 'achievements' ), esc_url( 'http://achievementsapp.com/getting-started/' ) ); ?></p>
-
-				<h4><?php _e( 'Get help and support', 'achievements' ); ?></h4>
-				<p><?php printf( __( 'If you have questions about the plugin or need help, get in contact by leaving a message on the <a href="%s">WordPress.org support forum</a>. We&rsquo;d love to find out how you&rsquo;re using Achievements, so be sure to drop by and tell us!', 'achievements' ), esc_url( 'https://wordpress.org/support/plugin/achievements' ) ); ?></p>
 			</div>
 
 		<?php else : ?>
@@ -580,11 +577,11 @@ class DPA_Admin {
 		}
 		</style>
 
-		<!--
-		Hi. This admin screen is still under construction and will be finished for the 3.6 release.
-		-->
-
 		<div class="feature-section helpushelpyou">
+			<h3><?php _e( 'Get Help and Support', 'achievements' ); ?></h3>
+			<p><?php printf( __( 'If you have questions about the plugin or need help, get in contact by leaving a message on the <a href="%s">WordPress.org support forum</a>. We&rsquo;d love to find out how you&rsquo;re using Achievements, so be sure to drop by and tell us!', 'achievements' ), esc_url( 'https://wordpress.org/support/plugin/achievements' ) ); ?></p>
+			<p><?php _e( "When asking for support, please include the following information in your message; it will help us help you. Thanks!", 'achievements' ); ?></p>
+
 			<h4><?php _e( 'Versions', 'achievements' ); ?></h4>
 			<ul>
 				<li><?php echo esc_html( sprintf( __( 'Achievements: %s', 'achievements' ), achievements()->version ) ); ?></li>
