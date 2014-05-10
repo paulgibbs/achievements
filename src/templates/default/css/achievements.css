@@ -82,12 +82,15 @@
   margin: 0 0 10px 0;
   width: 100%;
 }
-.dpa-archive-achievements-grid li {
+#dpa-achievements .dpa-archive-achievements-grid li {
   border: 1px solid #dddddd;
-  width: 25%;
+  width: 23%;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
+}
+#dpa-achievements .dpa-archive-achievements-grid li img {
+  max-width: 100%;
 }
 /**
  * Single achievement
@@ -140,12 +143,8 @@ div.dpa-breadcrumb p {
 /**
  * Pagination
  */
-.dpa-pagination-count {
-  float: left;
-}
 .dpa-pagination-links {
-  display: inline;
-  float: right;
+  text-align: right;
   list-style: none;
 }
 .dpa-pagination-links a,
@@ -167,7 +166,6 @@ div.dpa-breadcrumb p {
   opacity: 0.8;
 }
 .dpa-pagination {
-  float: right;
   font-size: 13px;
   margin-bottom: 10px;
   width: 100%;
@@ -241,9 +239,8 @@ div.dpa-template-notice .avatar {
   font-weight: bold;
 }
 .widget_dpa_leaderboard .dpa-pagination-links {
-  display: inherit;
-  float: left;
   list-style: inherit;
+  text-align: left;
 }
 .widget_dpa_leaderboard .dpa-pagination-links :first-child {
   margin-left: 0;
@@ -327,12 +324,12 @@ div.dpa-template-notice .avatar {
   line-height: 1.5;
   margin-bottom: 0;
 }
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 40em) {
   #dpa-toaster {
     text-align: center;
   }
 }
-@media screen and (min-width: 600px) {
+@media screen and (min-width: 40em) {
   #dpa-toaster .dpa-toast img {
     float: left;
   }

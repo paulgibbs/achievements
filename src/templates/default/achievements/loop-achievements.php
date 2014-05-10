@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 <?php do_action( 'dpa_template_before_achievements_loop_block' ); ?>
 
-<ul class="dpa-archive-achievements-grid js-masonry" data-masonry-options='{ "columnWidth": "li", "itemSelector": "li", "isOriginLeft": <?php echo is_rtl() ? 'false' : 'true'; ?> }'>
+<ul class="dpa-archive-achievements-grid js-masonry" data-masonry-options='{ "columnWidth": "li", "gutter": 10, "itemSelector": "li", "isOriginLeft": <?php echo is_rtl() ? 'false' : 'true'; ?> }'>
 
 	<?php do_action( 'dpa_template_before_achievements_loop' ); ?>
 
