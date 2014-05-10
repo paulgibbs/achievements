@@ -95,11 +95,8 @@ div.dpa-breadcrumb p { margin-bottom: @themeCompatMargin; } // Specifity require
  * Pagination
  */
 
-.dpa-pagination-count { float: left; }
-
 .dpa-pagination-links {
-	display: inline;
-	float: right;
+	text-align: right;
 	list-style: none;
 
 	a,
@@ -126,7 +123,6 @@ div.dpa-breadcrumb p { margin-bottom: @themeCompatMargin; } // Specifity require
 }
 
 .dpa-pagination {
-	float: right;
 	font-size: @smallFontSizePx;
 	margin-bottom: @themeCompatMargin;
 	width: 100%;
@@ -198,14 +194,14 @@ div.dpa-template-notice {
 	li { display: inline-block; }
 }
 
+// DJPAULTODO: check widget for pagination CSS changes
 .widget_dpa_leaderboard {
 	tbody tr:first-child td { padding-top: @themeCompatMargin; }
 	th { font-weight: bold; }
 
 	.dpa-pagination-links {
-		display: inherit;
-		float: left;
 		list-style: inherit;
+		text-align: left;
 
 		:first-child { margin-left: 0; }
 	}

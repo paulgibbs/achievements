@@ -17,11 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 		<?php dpa_achievement_pagination_count(); ?>
 
-	</div>
-
-	<div class="dpa-pagination-links">
-
-		<?php dpa_achievement_pagination_links(); ?>
+		<span class="dpa-pagination-links"><?php dpa_achievement_pagination_links(); ?></span>
 
 	</div>
 </div>
